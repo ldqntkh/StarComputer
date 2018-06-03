@@ -134,7 +134,7 @@ export default class PriceExchangeComponent extends Component {
                                             <Text style={priceExchangeStyle.itemText}>{item.symbol}</Text>
                                         </View>
                                         <View style={priceExchangeStyle.col3}>
-                                            <Text style={priceExchangeStyle.itemText}>${ item.price }</Text>
+                                            <Text style={priceExchangeStyle.itemText}>${ item.price.toFixed(2) }</Text>
                                             <Text style={item.status? priceExchangeStyle.percentUp : priceExchangeStyle.percentDown}>
                                             <Icon style={[priceExchangeStyle.icon, item.status ? priceExchangeStyle.percentUp : priceExchangeStyle.percentDown ]} name={item.status ? 'arrow-round-up' : 'arrow-round-down'} />
                                                 {item.percent}
