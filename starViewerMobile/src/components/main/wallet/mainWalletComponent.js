@@ -6,30 +6,28 @@ import {
     AsyncStorage
 } from 'react-native';
 
+// import component
 import WalletItemComponent from './walletItemComponent';
 import MainHeaderComponent from '../header/mainHeaderComponent';
 import WalletModalComponent from '../modal/walletModalComponent';
+
+// import container
 import CoinPriesContainer from '../../../containers/main/coinsprices/coinsPriceContainer';
 import ProductSlideShowContainer from '../../../containers/main/shop/productSlideShowContainer';
 
+// import style
 import {mainWalletStyle} from '../../../styleSheets/wallet/mainWalletStyle';
-import {loginStyle} from '../../../styleSheets/account/loginStyle';
 
+// import variable
 import {
     API_URL,
     KEY_USER_LOGIN
 } from '../../../const/variable';
-
 import {
     LOG_IN_SCREEN
-} from '../../../const/variableScreen'
+} from '../../../const/variableScreen';
 
 class MainWalletComponent extends PureComponent {
-    static navigationOptions = {
-        headerStyle: {
-            //display: 'none' 
-        }
-    };
 
     constructor(props) {
         super(props);
@@ -119,7 +117,7 @@ class MainWalletComponent extends PureComponent {
                                                                                     walletItem={item} />}
                                 keyExtractor={(item, index) => index.toString()}
                             />
-                            <View style={ loginStyle.coinprices }>
+                            <View style={ mainWalletStyle.coinprices }>
                                 <CoinPriesContainer dataCoinsPrice={this.props.dataCoinsPrice}/>
                             </View>
                             <ProductSlideShowContainer dataProducts={this.props.dataProducts} />

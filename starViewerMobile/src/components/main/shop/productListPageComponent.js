@@ -1,22 +1,24 @@
-import React, { Component } from 'react'
-
+import React, { Component } from 'react';
 import {
     View, Image
 } from 'react-native'
 import {
     Container, Content, Icon
-} from 'native-base'
+} from 'native-base';
+
+// import component
 import HeaderDetailsComponent from '../header/headerDetailsComponent';
 import ProductItemComponent from './productItemComponent';
+
+// import style
 import {productListPageStyle} from '../../../styleSheets/shop/productListPageStyle';
-import {
-    MAIN_WALLET_SCREEN
-} from '../../../const/variableScreen';
-import {
-    SHOP
-} from '../../../const/variableLabel'
-import { API_URL } from '../../../const/variable'
-const Url = API_URL + 'products'
+
+// import const
+import { MAIN_WALLET_SCREEN } from '../../../const/variableScreen';
+import { SHOP } from '../../../const/variableLabel';
+import { API_URL } from '../../../const/variable';
+const Url = API_URL + 'products';
+
 export default class ProductListPageComponent extends Component {
     static navigationOptions = {
         tabBarIcon : () => {

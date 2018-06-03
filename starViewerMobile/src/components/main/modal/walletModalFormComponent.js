@@ -1,29 +1,34 @@
 import React, { Component } from 'react'
 import {
-    View,
-    Text
+    View
 } from 'react-native';
 import {
     Picker
 } from 'native-base';
-import { walletModalStyle } from '../../../styleSheets/modal/walletModalStyle';
 import Button from 'react-native-button';
 import { Field, reduxForm, submit, SubmissionError } from 'redux-form';
+
+// import style
+import { walletModalStyle } from '../../../styleSheets/modal/walletModalStyle';
+
+// import const
 import { submitRegisterWalletItem } from '../../../const/submitForm';
 import { renderPicker, renderInputField } from '../../../const/inputFields';
+
+// import validator
 import { maxLength, minLength, required, requiredForCombobox } from '../../../validator/validationFields';
+
+// import variable
 import { KEY_USER_LOGIN } from '../../../const/variable';
-
-const minLength100 = minLength(100);
-const maxLength250 = maxLength(250);
-
 import {
     SAVE, CANCEL
 } from '../../../const/variableLabel';
-
 import {
     API_URL
 } from '../../../const/variable';
+
+const minLength100 = minLength(100);
+const maxLength250 = maxLength(250);
 
 class WalletModalFormComponent extends Component {
 

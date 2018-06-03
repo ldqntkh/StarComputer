@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {
     View,
     Text,
-    Image,
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
     Keyboard,
@@ -11,44 +10,43 @@ import {
     Alert,
     ActivityIndicator
 } from 'react-native';
-
 import {
     Container, Content, Icon, Picker
 } from 'native-base'
-
 import Button from 'react-native-button';
-
 import {Field, reduxForm, submit, SubmissionError} from 'redux-form';
+
+// import component
+import HeaderDetailsComponent from '../main/header/headerDetailsComponent';
+
+// import const
 import {renderInputField, renderPicker} from '../../const/inputFields'
-
-import {registerStyle} from '../../styleSheets/account/registerStyle';
-
-import { 
-    email, maxLength, minLength, number, required, match, requiredForCombobox
-} from '../../validator/validationFields';
-
 import {
     submitUpdateAccount
 } from '../../const/submitForm';
 
-import {
-    MAIN_WALLET_SCREEN, LOG_IN_SCREEN
-} from '../../const/variableScreen'
-
-import {
-    CANCEL, SAVE, MY_ACCOUNT, RANKING, TOTAL_POINT, USED_POINT, OK, UPDATE_ACCOUNT_TITLE, UPDATE_ACCOUNT_SUBTITLE
-} from '../../const/variableLabel'
-
-import {
-    KEY_USER_LOGIN,
-    API_URL
-} from '../../const/variable';
-
+// import style
+import {registerStyle} from '../../styleSheets/account/registerStyle';
 import {
     MAIN_TEXT_COLOR
 } from '../../styleSheets/const/variable';
 
-import HeaderDetailsComponent from '../main/header/headerDetailsComponent';
+// import validator
+import { 
+    email, maxLength, minLength, number, required, match, requiredForCombobox
+} from '../../validator/validationFields';
+
+// import variable
+import {
+    MAIN_WALLET_SCREEN, LOG_IN_SCREEN
+} from '../../const/variableScreen'
+import {
+    CANCEL, SAVE, MY_ACCOUNT, RANKING, TOTAL_POINT, USED_POINT, OK, UPDATE_ACCOUNT_TITLE, UPDATE_ACCOUNT_SUBTITLE
+} from '../../const/variableLabel'
+import {
+    KEY_USER_LOGIN,
+    API_URL
+} from '../../const/variable';
 
 const maxLength50 = maxLength(50);
 const minLength6 = minLength(6);

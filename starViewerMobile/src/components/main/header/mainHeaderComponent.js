@@ -9,6 +9,7 @@ import {
     Icon
 } from 'native-base'
 
+// import style
 import {headerStyle} from '../../../styleSheets/header/headerStyle';
 
 import {

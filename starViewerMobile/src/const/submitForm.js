@@ -3,6 +3,8 @@ import {
     AsyncStorage
 } from 'react-native';
 import { SubmissionError } from 'redux-form';
+
+// import validator
 import {
     required,
     email,
@@ -11,13 +13,15 @@ import {
     minLength
 } from '../validator/validationFields'
 
+// import variable
 import {
     API_URL,
     KEY_USER_LOGIN,
     ACCOUNT_LOGIN
 } from '../const/variable';
 
-import { encrypt } from './handleString'
+// import lib
+import { encrypt } from './handleString';
 
 const submitRegisterAccount = async (value) => {
     // set default value because we do not display these items on view

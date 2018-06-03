@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    Container, Content, Header, Left, Body, Right, Button, Icon, Title
+    Header, Body, Button, Icon, Title
 } from 'native-base';
 import {
     StyleSheet

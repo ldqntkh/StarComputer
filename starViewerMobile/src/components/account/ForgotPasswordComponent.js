@@ -2,35 +2,37 @@ import React, { Component } from 'react'
 import {
     View,
     Text,
-    Image,
-    TouchableOpacity,
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
     Keyboard,
     BackHandler,
     ActivityIndicator
 } from 'react-native';
-
 import {
-    Container, Content, H1
+    Container, Content
 } from 'native-base'
 import Button from 'react-native-button';
 import {Field, reduxForm, submit, SubmissionError} from 'redux-form';
-import {forgotPasswordStyle} from '../../styleSheets/account/forgotPasswordStyle';
 
-import { 
-    email, maxLength, minLength, required, match
-} from '../../validator/validationFields';
-
+// import const
 import {
     submitForgotPasswordForm
 } from '../../const/submitForm';
 import {renderInputField} from '../../const/inputFields'
 
+// import style
+import {forgotPasswordStyle} from '../../styleSheets/account/forgotPasswordStyle';
+import { MAIN_TEXT_COLOR } from '../../styleSheets/const/variable';
+
+// import validator
+import { 
+    email, maxLength, minLength, required, match
+} from '../../validator/validationFields';
+
+// import variable
 import {
     FORGOT_PASSWORD, SEND, CANCEL, VALID_TOKEN_EMAIL
 } from '../../const/variableLabel'
-import { MAIN_TEXT_COLOR } from '../../styleSheets/const/variable';
 import {
     LOG_IN_SCREEN
 } from '../../const/variableScreen'

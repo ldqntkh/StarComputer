@@ -8,17 +8,24 @@ import {
 } from 'react-native';
 import {
     Container, Content
-} from 'native-base'
+} from 'native-base';
+import Button from 'react-native-button';
+
+// import component
 import WorkerItemComponent from './workerItemComponent';
-import HeaderDetailsComponent from '../header/headerDetailsComponent'
+import HeaderDetailsComponent from '../header/headerDetailsComponent';
+
+// import style
 import { listWorkerStyle } from '../../../styleSheets/worker/listWorkerStyle';
+
+// import const
 import {
     API_URL,
     KEY_USER_LOGIN
 } from '../../../const/variable';
-import Button from 'react-native-button';
 import {encrypt} from '../../../const/handleString';
 
+// import variable
 import {
     RELOAD, DELETE_ALL
 } from '../../../const/variableLabel';

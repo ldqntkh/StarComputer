@@ -22,6 +22,15 @@ const mainWalletStyle = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: MAIN_BACKGROUND
     },
+    coinprices : {
+        width: Dimensions.get('window').width,
+        height: 50,
+        borderColor: MAIN_TEXT_COLOR,
+        borderWidth: 1,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
+        position: 'relative'
+    },
 });
 
 export {mainWalletStyle};

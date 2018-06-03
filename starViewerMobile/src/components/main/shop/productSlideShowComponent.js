@@ -1,15 +1,20 @@
 import React,{PureComponent} from 'react';
-
 import {
     View,
     Dimensions,
     Image
-} from 'react-native'
+} from 'react-native';
 import Swiper from 'react-native-swiper';
+
+// import component
 import ProductItemComponent from './productItemComponent';
+
+// import style
 import {productListPageStyle} from '../../../styleSheets/shop/productListPageStyle';
-import { API_URL } from '../../../const/variable'
-const Url = API_URL + 'products'
+
+// import variable
+import { API_URL } from '../../../const/variable';
+const Url = API_URL + 'products';
 
 export default class ProductSlideShowComponent extends PureComponent {
 

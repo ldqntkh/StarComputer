@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
-
 import {
-    View,
-    TextInput,
-    Text,
-    Picker,
-    TouchableOpacity
+    Text
 } from 'react-native';
-
 import Modal from 'react-native-modalbox';
 import Button from 'react-native-button';
 
-import { walletModalStyle } from '../../../styleSheets/modal/walletModalStyle';
+// import component
 import WalletModalFormComponent from './walletModalFormComponent';
 
+// import style
+import { walletModalStyle } from '../../../styleSheets/modal/walletModalStyle';
+
+// import variable
 import {
     ADD_NEW_WALLET, EDIT_WALLET
 } from '../../../const/variableLabel';
