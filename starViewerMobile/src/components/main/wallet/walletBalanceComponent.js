@@ -2,29 +2,33 @@ import React, { PureComponent } from 'react';
 import {
     Text,
     View,
-    TextInput,
     Image
 } from 'react-native';
 import QRCode from 'react-native-qrcode';
 import {
     Container, Content
-} from 'native-base'
-import { walletBalanceStyle } from '../../../styleSheets/wallet/walletBalanceStyle'
+} from 'native-base';
 
+// import component
+import HeaderDetailsComponent from '../header/headerDetailsComponent';
+import EarningDetailsComponent from '../earning/earningDetailsComponent';
+
+// import container
+import ProductSlideShowContainer from '../../../containers/main/shop/productSlideShowContainer';
+
+// import style
+import { walletBalanceStyle } from '../../../styleSheets/wallet/walletBalanceStyle';
+
+// import const
 import {
     ACTIVE_WORKERS, UNPAID_BALANCE, WALLET_BALANCE, TOTAL_HASHRATE
-} from '../../../const/variableLabel'
+} from '../../../const/variableLabel';
 import {
     API_URL
 } from '../../../const/variable';
 import {
     MAIN_WALLET_SCREEN
 } from '../../../const/variableScreen';
-
-
-import HeaderDetailsComponent from '../header/headerDetailsComponent'
-import EarningDetailsComponent from '../earning/earningDetailsComponent';
-import ProductSlideShowContainer from '../../../containers/main/shop/productSlideShowContainer'
 
 const urlApi = API_URL + 'walletbalance/{walletid}/{pool}/mywallet';
 

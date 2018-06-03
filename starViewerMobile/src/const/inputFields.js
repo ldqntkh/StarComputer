@@ -2,17 +2,17 @@ import React from 'react'
 import {
     View,
     TextInput,
-    Text,
-    Platform
+    Text
 } from 'react-native';
 import {
     Picker
-} from 'native-base'
+} from 'native-base';
 
 import {
     Item, Input, Icon, Label
 } from 'native-base';
 
+// import style
 import { MAIN_TEXT_COLOR } from '../styleSheets/const/variable';
 
 const renderInputField = ({label, keyboardType, secureTextEntry, style, styleItem, meta: {touched, error, warn}, input:{onChange, ...restInput} }) => {

@@ -6,11 +6,11 @@ import {
     Animated,
     Easing
 } from 'react-native';
-
 import {
     Icon
 } from 'native-base';
 
+// import style
 import { coinsPriceStyle } from '../../../styleSheets/coinsprices/coinspriceStyle'
 
 var urlCoinMarket = 'https://api.coinmarketcap.com/v2/ticker/?limit=20';

@@ -5,23 +5,24 @@ import {
     Text,
     TouchableOpacity,
     Alert,
-    AsyncStorage,
-    Keyboard
+    AsyncStorage
 } from 'react-native';
-
 import Swipeout from 'react-native-swipeout';
 
+// import style
 import {walletItemStyle} from '../../../styleSheets/wallet/walletItemStyle';
+
+// import const
 import {
     API_URL,
     KEY_USER_LOGIN
 } from '../../../const/variable';
 import {encrypt} from '../../../const/handleString';
 
+// import variable
 import {
     WALLET_ID, WALLET_NAME
-} from '../../../const/variableLabel'
-
+} from '../../../const/variableLabel';
 import {
     WALLET_ITEM_DETAILS_SCREEN
 } from '../../../const/variableScreen';

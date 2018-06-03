@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-
+import React, { Component } from 'react';
 import {
     View,
     Text,
@@ -7,6 +6,8 @@ import {
     TouchableOpacity,
     Linking
 } from 'react-native';
+
+// import style
 import {productItemStyle} from '../../../styleSheets/shop/productItemStyle';
 
 export default class ProductItemComponent extends Component {

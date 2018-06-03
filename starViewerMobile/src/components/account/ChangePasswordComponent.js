@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
     View,
-    Text,
     TouchableWithoutFeedback,
     KeyboardAvoidingView,
     Keyboard,
@@ -9,32 +8,34 @@ import {
     AsyncStorage,
     ActivityIndicator
 } from 'react-native';
-
 import {
     Container, Content
 } from 'native-base'
-
 import Button from 'react-native-button';
-
 import {Field, reduxForm, SubmissionError} from 'redux-form';
-import {renderInputField} from '../../const/inputFields'
 
+// import component
 import HeaderDetailsComponent from '../main/header/headerDetailsComponent';
-import {registerStyle} from '../../styleSheets/account/registerStyle';
 
-import {
-    maxLength, minLength, number, required, match
-} from '../../validator/validationFields';
-
-import { MAIN_TEXT_COLOR } from '../../styleSheets/const/variable'
+// import const
+import {renderInputField} from '../../const/inputFields'
 import {
     submitChangePassword
 } from '../../const/submitForm';
 
+// import validator
+import {
+    maxLength, minLength, number, required, match
+} from '../../validator/validationFields';
+
+// import style
+import {registerStyle} from '../../styleSheets/account/registerStyle';
+import { MAIN_TEXT_COLOR } from '../../styleSheets/const/variable'
+
+// import variable
 import {
     MAIN_WALLET_SCREEN
 } from '../../const/variableScreen'
-
 import {
     CANCEL, SAVE, CHANGE_PASSWORD
 } from '../../const/variableLabel'

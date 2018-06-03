@@ -2,19 +2,23 @@ import React, { Component } from 'react';
 import {
     Text,
     Image,
-    ScrollView,
     View
 } from 'react-native';
+
+// import component
+import HeaderDetailsComponent from '../header/headerDetailsComponent';
+
+// import style
 import { earningStyle } from '../../../styleSheets/earning/earningStyle';
 
+// import const
 import {
     PERIOUS, HOUR, DAY, WEEK, MONTH, YEAR, ETH, BTC, USD
 } from '../../../const/variableLabel';
-
 import {
     API_URL
 } from '../../../const/variable';
-import HeaderDetailsComponent from '../header/headerDetailsComponent'
+
 const urlApi = API_URL + 'walletbalance/{walletid}/{pool}/myearning';
 
 class EarningDetailsComponent extends Component {

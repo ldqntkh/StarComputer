@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {
-    Text,
     Image
 } from 'react-native';
-
 import { createStackNavigator } from 'react-navigation';
 
+// import component
 import ListWorkersComponent from './listWorkerComponent';
+
+// import container
 import WorkerItemDetailsContainer from '../../../containers/main/worker/workerItemDetailsContainer';
 
 const StackNavigator = createStackNavigator(

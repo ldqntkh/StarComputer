@@ -12,28 +12,31 @@ import {
     AsyncStorage,
     ActivityIndicator
 } from 'react-native';
-
 import {
     Container, Content, Icon
 } from 'native-base'
-
 import Button from 'react-native-button';
+import {Field, reduxForm, SubmissionError} from 'redux-form';
 
+// import container
 import CoinPriesContainer from '../../containers/main/coinsprices/coinsPriceContainer';
 
-import {Field, reduxForm, SubmissionError} from 'redux-form';
+// import const
 import {renderInputLoginField} from '../../const/inputFields'
-
-import {loginStyle} from '../../styleSheets/account/loginStyle';
-
-import { 
-    email, maxLength, minLength, number, required
-} from '../../validator/validationFields';
-
 import {
     submitLoginForm
 } from '../../const/submitForm';
 
+// import style
+import {loginStyle} from '../../styleSheets/account/loginStyle';
+import { MAIN_TEXT_COLOR } from '../../styleSheets/const/variable';
+
+// import validator
+import { 
+    email, maxLength, minLength, number, required
+} from '../../validator/validationFields';
+
+// import variable
 import {
     ACCOUNT_LOGIN,
     URL_MAIN_PAGE,
@@ -41,15 +44,14 @@ import {
     FB_USER_FIELDS,
     FB_API_URL
 } from '../../const/variable';
-import { MAIN_TEXT_COLOR } from '../../styleSheets/const/variable';
 import {
     FORGOT_PASSWORD, LOG_IN, REGISTER, SOCIAL_LOGIN_WITH_BTN, SOCIAL_FB_LOGIN
 } from '../../const/variableLabel';
-
 import {
     MAIN_WALLET_SCREEN, REGISTER_SCREEN, FORGOT_PASSWORD_SCREEN
 } from '../../const/variableScreen'
 
+// import lib
 import crypto from '../../package/crypto';
 
 const maxLength50 = maxLength(50);

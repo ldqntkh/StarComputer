@@ -5,11 +5,12 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
-
 import MarqueeText from 'react-native-marquee';
 
+// import style
 import { workerItemStyle } from '../../../styleSheets/worker/workerItemStyle';
 
+// import variable
 import {
     DISCONNECT
 } from '../../../const/variableLabel';

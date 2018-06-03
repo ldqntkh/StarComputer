@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {
-    Text
-} from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 
-import WalletBalanceContainer from '../../../containers/main/wallet/walletBalanceContainer';
+// import component
 import MainWorkersComponent from '../worker/mainWorkerComponent';
+
+// import container
+import WalletBalanceContainer from '../../../containers/main/wallet/walletBalanceContainer';
 import ProductListPageContainer from '../../../containers/main/shop/productListPageContainer';
 
 const BottomTabNavigator = createBottomTabNavigator({

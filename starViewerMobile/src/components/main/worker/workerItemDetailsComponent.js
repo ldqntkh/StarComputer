@@ -2,24 +2,29 @@ import React, { Component } from 'react';
 import {
     Text,
     Image,
-    View,
-    TouchableOpacity
+    View
 } from 'react-native';
-import ProductSlideShowContainer from '../../../containers/main/shop/productSlideShowContainer'
+import Button from 'react-native-button';
+import {
+    Container, Content
+} from 'native-base';
+
+// import component
+import HeaderDetailsComponent from '../header/headerDetailsComponent';
+
+// import container
+import ProductSlideShowContainer from '../../../containers/main/shop/productSlideShowContainer';
+
+// import style
 import { workerItemDetailsStyle } from '../../../styleSheets/worker/workerItemDetailsStyle';
+
+// import variable
 import {
     API_URL
 } from '../../../const/variable';
-import Button from 'react-native-button';
-
 import {
     TEMP, FAN_SPEED, HASH_RATE, GPU, TOTAL_HASH_RATE
 } from '../../../const/variableLabel';
-
-import {
-    Container, Content
-} from 'native-base'
-import HeaderDetailsComponent from '../header/headerDetailsComponent'
 
 class WorkerItemDetailsComponent extends Component {
 

@@ -4,14 +4,17 @@ import {
     Linking,
     TouchableOpacity,
     AsyncStorage
-} from 'react-native'
+} from 'react-native';
 import {
     Container, Content, Header, Footer, Text, H3, List, ListItem, Icon
-} from 'native-base'
+} from 'native-base';
+
+// import style
 import {
     drawerSlideStyle
-} from '../../../styleSheets/drawer/mainSlideStyle'
+} from '../../../styleSheets/drawer/mainSlideStyle';
 
+// import variable
 import {
     URL_MAIN_PAGE, KEY_USER_LOGIN
 } from '../../../const/variable'
@@ -19,11 +22,9 @@ import {
     LOG_IN_SCREEN, REGISTER_SCREEN, FORGOT_PASSWORD_SCREEN, MY_ACCOUNT_SCREEN, CHANGE_PASSWORD_SCREEN, MAIN_WALLET_SCREEN, SHOP_SCREEN,
     COINS_MARKET
 } from '../../../const/variableScreen';
-
 import {
     MY_WALLET, MY_ACCOUNT, CHANGE_PASSWORD, LOG_OUT, LOG_IN, FORGOT_PASSWORD, SHOP, COINSPRICE
 } from '../../../const/variableLabel';
-
 import {
     ICON_WALLET, ICON_ACCOUNT, ICON_CHANGE_PASSWORD, ICON_LOG_IN, ICON_LOG_OUT, ICON_SHOP,PRICE
 } from '../../../const/variableIconName';
