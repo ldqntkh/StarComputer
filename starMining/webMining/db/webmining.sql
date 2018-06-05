@@ -2,10 +2,10 @@
 -- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 05, 2018 at 01:35 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jun 05, 2018 at 04:46 PM
+-- Server version: 5.7.21
+-- PHP Version: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,11 +28,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `tb_commentmeta`
 --
 
-CREATE TABLE `tb_commentmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_commentmeta`;
+CREATE TABLE IF NOT EXISTS `tb_commentmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `comment_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `comment_id` (`comment_id`),
+  KEY `meta_key` (`meta_key`(191))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -41,8 +45,9 @@ CREATE TABLE `tb_commentmeta` (
 -- Table structure for table `tb_comments`
 --
 
-CREATE TABLE `tb_comments` (
-  `comment_ID` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_comments`;
+CREATE TABLE IF NOT EXISTS `tb_comments` (
+  `comment_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `comment_post_ID` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `comment_author` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
   `comment_author_email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -56,8 +61,15 @@ CREATE TABLE `tb_comments` (
   `comment_agent` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `comment_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `comment_parent` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`comment_ID`),
+  KEY `comment_post_ID` (`comment_post_ID`),
+  KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
+  KEY `comment_date_gmt` (`comment_date_gmt`),
+  KEY `comment_parent` (`comment_parent`),
+  KEY `comment_author_email` (`comment_author_email`(10)),
+  KEY `woo_idx_comment_type` (`comment_type`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tb_comments`
@@ -72,8 +84,9 @@ INSERT INTO `tb_comments` (`comment_ID`, `comment_post_ID`, `comment_author`, `c
 -- Table structure for table `tb_links`
 --
 
-CREATE TABLE `tb_links` (
-  `link_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_links`;
+CREATE TABLE IF NOT EXISTS `tb_links` (
+  `link_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `link_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `link_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `link_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -85,7 +98,9 @@ CREATE TABLE `tb_links` (
   `link_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `link_rel` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `link_notes` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link_rss` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `link_rss` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`link_id`),
+  KEY `link_visible` (`link_visible`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -94,12 +109,15 @@ CREATE TABLE `tb_links` (
 -- Table structure for table `tb_options`
 --
 
-CREATE TABLE `tb_options` (
-  `option_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_options`;
+CREATE TABLE IF NOT EXISTS `tb_options` (
+  `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `option_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `option_value` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `autoload` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'yes'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `autoload` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'yes',
+  PRIMARY KEY (`option_id`),
+  UNIQUE KEY `option_name` (`option_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=455 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tb_options`
@@ -134,7 +152,7 @@ INSERT INTO `tb_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (26, 'comment_moderation', '0', 'yes'),
 (27, 'moderation_notify', '1', 'yes'),
 (28, 'permalink_structure', '/%year%/%monthnum%/%day%/%postname%/', 'yes'),
-(29, 'rewrite_rules', 'a:156:{s:24:\"^wc-auth/v([1]{1})/(.*)?\";s:63:\"index.php?wc-auth-version=$matches[1]&wc-auth-route=$matches[2]\";s:22:\"^wc-api/v([1-3]{1})/?$\";s:51:\"index.php?wc-api-version=$matches[1]&wc-api-route=/\";s:24:\"^wc-api/v([1-3]{1})(.*)?\";s:61:\"index.php?wc-api-version=$matches[1]&wc-api-route=$matches[2]\";s:7:\"shop/?$\";s:27:\"index.php?post_type=product\";s:37:\"shop/feed/(feed|rdf|rss|rss2|atom)/?$\";s:44:\"index.php?post_type=product&feed=$matches[1]\";s:32:\"shop/(feed|rdf|rss|rss2|atom)/?$\";s:44:\"index.php?post_type=product&feed=$matches[1]\";s:24:\"shop/page/([0-9]{1,})/?$\";s:45:\"index.php?post_type=product&paged=$matches[1]\";s:11:\"^wp-json/?$\";s:22:\"index.php?rest_route=/\";s:14:\"^wp-json/(.*)?\";s:33:\"index.php?rest_route=/$matches[1]\";s:21:\"^index.php/wp-json/?$\";s:22:\"index.php?rest_route=/\";s:24:\"^index.php/wp-json/(.*)?\";s:33:\"index.php?rest_route=/$matches[1]\";s:47:\"category/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:52:\"index.php?category_name=$matches[1]&feed=$matches[2]\";s:42:\"category/(.+?)/(feed|rdf|rss|rss2|atom)/?$\";s:52:\"index.php?category_name=$matches[1]&feed=$matches[2]\";s:23:\"category/(.+?)/embed/?$\";s:46:\"index.php?category_name=$matches[1]&embed=true\";s:35:\"category/(.+?)/page/?([0-9]{1,})/?$\";s:53:\"index.php?category_name=$matches[1]&paged=$matches[2]\";s:32:\"category/(.+?)/wc-api(/(.*))?/?$\";s:54:\"index.php?category_name=$matches[1]&wc-api=$matches[3]\";s:17:\"category/(.+?)/?$\";s:35:\"index.php?category_name=$matches[1]\";s:44:\"tag/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:42:\"index.php?tag=$matches[1]&feed=$matches[2]\";s:39:\"tag/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:42:\"index.php?tag=$matches[1]&feed=$matches[2]\";s:20:\"tag/([^/]+)/embed/?$\";s:36:\"index.php?tag=$matches[1]&embed=true\";s:32:\"tag/([^/]+)/page/?([0-9]{1,})/?$\";s:43:\"index.php?tag=$matches[1]&paged=$matches[2]\";s:29:\"tag/([^/]+)/wc-api(/(.*))?/?$\";s:44:\"index.php?tag=$matches[1]&wc-api=$matches[3]\";s:14:\"tag/([^/]+)/?$\";s:25:\"index.php?tag=$matches[1]\";s:45:\"type/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?post_format=$matches[1]&feed=$matches[2]\";s:40:\"type/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?post_format=$matches[1]&feed=$matches[2]\";s:21:\"type/([^/]+)/embed/?$\";s:44:\"index.php?post_format=$matches[1]&embed=true\";s:33:\"type/([^/]+)/page/?([0-9]{1,})/?$\";s:51:\"index.php?post_format=$matches[1]&paged=$matches[2]\";s:15:\"type/([^/]+)/?$\";s:33:\"index.php?post_format=$matches[1]\";s:55:\"product-category/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?product_cat=$matches[1]&feed=$matches[2]\";s:50:\"product-category/(.+?)/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?product_cat=$matches[1]&feed=$matches[2]\";s:31:\"product-category/(.+?)/embed/?$\";s:44:\"index.php?product_cat=$matches[1]&embed=true\";s:43:\"product-category/(.+?)/page/?([0-9]{1,})/?$\";s:51:\"index.php?product_cat=$matches[1]&paged=$matches[2]\";s:25:\"product-category/(.+?)/?$\";s:33:\"index.php?product_cat=$matches[1]\";s:52:\"product-tag/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?product_tag=$matches[1]&feed=$matches[2]\";s:47:\"product-tag/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?product_tag=$matches[1]&feed=$matches[2]\";s:28:\"product-tag/([^/]+)/embed/?$\";s:44:\"index.php?product_tag=$matches[1]&embed=true\";s:40:\"product-tag/([^/]+)/page/?([0-9]{1,})/?$\";s:51:\"index.php?product_tag=$matches[1]&paged=$matches[2]\";s:22:\"product-tag/([^/]+)/?$\";s:33:\"index.php?product_tag=$matches[1]\";s:35:\"product/[^/]+/attachment/([^/]+)/?$\";s:32:\"index.php?attachment=$matches[1]\";s:45:\"product/[^/]+/attachment/([^/]+)/trackback/?$\";s:37:\"index.php?attachment=$matches[1]&tb=1\";s:65:\"product/[^/]+/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:60:\"product/[^/]+/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:60:\"product/[^/]+/attachment/([^/]+)/comment-page-([0-9]{1,})/?$\";s:50:\"index.php?attachment=$matches[1]&cpage=$matches[2]\";s:41:\"product/[^/]+/attachment/([^/]+)/embed/?$\";s:43:\"index.php?attachment=$matches[1]&embed=true\";s:24:\"product/([^/]+)/embed/?$\";s:40:\"index.php?product=$matches[1]&embed=true\";s:28:\"product/([^/]+)/trackback/?$\";s:34:\"index.php?product=$matches[1]&tb=1\";s:48:\"product/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:46:\"index.php?product=$matches[1]&feed=$matches[2]\";s:43:\"product/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:46:\"index.php?product=$matches[1]&feed=$matches[2]\";s:36:\"product/([^/]+)/page/?([0-9]{1,})/?$\";s:47:\"index.php?product=$matches[1]&paged=$matches[2]\";s:43:\"product/([^/]+)/comment-page-([0-9]{1,})/?$\";s:47:\"index.php?product=$matches[1]&cpage=$matches[2]\";s:33:\"product/([^/]+)/wc-api(/(.*))?/?$\";s:48:\"index.php?product=$matches[1]&wc-api=$matches[3]\";s:39:\"product/[^/]+/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:50:\"product/[^/]+/attachment/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:32:\"product/([^/]+)(?:/([0-9]+))?/?$\";s:46:\"index.php?product=$matches[1]&page=$matches[2]\";s:24:\"product/[^/]+/([^/]+)/?$\";s:32:\"index.php?attachment=$matches[1]\";s:34:\"product/[^/]+/([^/]+)/trackback/?$\";s:37:\"index.php?attachment=$matches[1]&tb=1\";s:54:\"product/[^/]+/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:49:\"product/[^/]+/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:49:\"product/[^/]+/([^/]+)/comment-page-([0-9]{1,})/?$\";s:50:\"index.php?attachment=$matches[1]&cpage=$matches[2]\";s:30:\"product/[^/]+/([^/]+)/embed/?$\";s:43:\"index.php?attachment=$matches[1]&embed=true\";s:48:\".*wp-(atom|rdf|rss|rss2|feed|commentsrss2)\\.php$\";s:18:\"index.php?feed=old\";s:20:\".*wp-app\\.php(/.*)?$\";s:19:\"index.php?error=403\";s:18:\".*wp-register.php$\";s:23:\"index.php?register=true\";s:32:\"feed/(feed|rdf|rss|rss2|atom)/?$\";s:27:\"index.php?&feed=$matches[1]\";s:27:\"(feed|rdf|rss|rss2|atom)/?$\";s:27:\"index.php?&feed=$matches[1]\";s:8:\"embed/?$\";s:21:\"index.php?&embed=true\";s:20:\"page/?([0-9]{1,})/?$\";s:28:\"index.php?&paged=$matches[1]\";s:17:\"wc-api(/(.*))?/?$\";s:29:\"index.php?&wc-api=$matches[2]\";s:41:\"comments/feed/(feed|rdf|rss|rss2|atom)/?$\";s:42:\"index.php?&feed=$matches[1]&withcomments=1\";s:36:\"comments/(feed|rdf|rss|rss2|atom)/?$\";s:42:\"index.php?&feed=$matches[1]&withcomments=1\";s:17:\"comments/embed/?$\";s:21:\"index.php?&embed=true\";s:26:\"comments/wc-api(/(.*))?/?$\";s:29:\"index.php?&wc-api=$matches[2]\";s:44:\"search/(.+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:40:\"index.php?s=$matches[1]&feed=$matches[2]\";s:39:\"search/(.+)/(feed|rdf|rss|rss2|atom)/?$\";s:40:\"index.php?s=$matches[1]&feed=$matches[2]\";s:20:\"search/(.+)/embed/?$\";s:34:\"index.php?s=$matches[1]&embed=true\";s:32:\"search/(.+)/page/?([0-9]{1,})/?$\";s:41:\"index.php?s=$matches[1]&paged=$matches[2]\";s:29:\"search/(.+)/wc-api(/(.*))?/?$\";s:42:\"index.php?s=$matches[1]&wc-api=$matches[3]\";s:14:\"search/(.+)/?$\";s:23:\"index.php?s=$matches[1]\";s:47:\"author/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?author_name=$matches[1]&feed=$matches[2]\";s:42:\"author/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?author_name=$matches[1]&feed=$matches[2]\";s:23:\"author/([^/]+)/embed/?$\";s:44:\"index.php?author_name=$matches[1]&embed=true\";s:35:\"author/([^/]+)/page/?([0-9]{1,})/?$\";s:51:\"index.php?author_name=$matches[1]&paged=$matches[2]\";s:32:\"author/([^/]+)/wc-api(/(.*))?/?$\";s:52:\"index.php?author_name=$matches[1]&wc-api=$matches[3]\";s:17:\"author/([^/]+)/?$\";s:33:\"index.php?author_name=$matches[1]\";s:69:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/feed/(feed|rdf|rss|rss2|atom)/?$\";s:80:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&feed=$matches[4]\";s:64:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/(feed|rdf|rss|rss2|atom)/?$\";s:80:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&feed=$matches[4]\";s:45:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/embed/?$\";s:74:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&embed=true\";s:57:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/page/?([0-9]{1,})/?$\";s:81:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&paged=$matches[4]\";s:54:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/wc-api(/(.*))?/?$\";s:82:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&wc-api=$matches[5]\";s:39:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/?$\";s:63:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]\";s:56:\"([0-9]{4})/([0-9]{1,2})/feed/(feed|rdf|rss|rss2|atom)/?$\";s:64:\"index.php?year=$matches[1]&monthnum=$matches[2]&feed=$matches[3]\";s:51:\"([0-9]{4})/([0-9]{1,2})/(feed|rdf|rss|rss2|atom)/?$\";s:64:\"index.php?year=$matches[1]&monthnum=$matches[2]&feed=$matches[3]\";s:32:\"([0-9]{4})/([0-9]{1,2})/embed/?$\";s:58:\"index.php?year=$matches[1]&monthnum=$matches[2]&embed=true\";s:44:\"([0-9]{4})/([0-9]{1,2})/page/?([0-9]{1,})/?$\";s:65:\"index.php?year=$matches[1]&monthnum=$matches[2]&paged=$matches[3]\";s:41:\"([0-9]{4})/([0-9]{1,2})/wc-api(/(.*))?/?$\";s:66:\"index.php?year=$matches[1]&monthnum=$matches[2]&wc-api=$matches[4]\";s:26:\"([0-9]{4})/([0-9]{1,2})/?$\";s:47:\"index.php?year=$matches[1]&monthnum=$matches[2]\";s:43:\"([0-9]{4})/feed/(feed|rdf|rss|rss2|atom)/?$\";s:43:\"index.php?year=$matches[1]&feed=$matches[2]\";s:38:\"([0-9]{4})/(feed|rdf|rss|rss2|atom)/?$\";s:43:\"index.php?year=$matches[1]&feed=$matches[2]\";s:19:\"([0-9]{4})/embed/?$\";s:37:\"index.php?year=$matches[1]&embed=true\";s:31:\"([0-9]{4})/page/?([0-9]{1,})/?$\";s:44:\"index.php?year=$matches[1]&paged=$matches[2]\";s:28:\"([0-9]{4})/wc-api(/(.*))?/?$\";s:45:\"index.php?year=$matches[1]&wc-api=$matches[3]\";s:13:\"([0-9]{4})/?$\";s:26:\"index.php?year=$matches[1]\";s:58:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/?$\";s:32:\"index.php?attachment=$matches[1]\";s:68:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/trackback/?$\";s:37:\"index.php?attachment=$matches[1]&tb=1\";s:88:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:83:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:83:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/comment-page-([0-9]{1,})/?$\";s:50:\"index.php?attachment=$matches[1]&cpage=$matches[2]\";s:64:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/embed/?$\";s:43:\"index.php?attachment=$matches[1]&embed=true\";s:53:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/embed/?$\";s:91:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&embed=true\";s:57:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/trackback/?$\";s:85:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&tb=1\";s:77:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:97:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&feed=$matches[5]\";s:72:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:97:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&feed=$matches[5]\";s:65:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/page/?([0-9]{1,})/?$\";s:98:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&paged=$matches[5]\";s:72:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/comment-page-([0-9]{1,})/?$\";s:98:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&cpage=$matches[5]\";s:62:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/wc-api(/(.*))?/?$\";s:99:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&wc-api=$matches[6]\";s:62:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:73:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:61:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)(?:/([0-9]+))?/?$\";s:97:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&page=$matches[5]\";s:47:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/?$\";s:32:\"index.php?attachment=$matches[1]\";s:57:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/trackback/?$\";s:37:\"index.php?attachment=$matches[1]&tb=1\";s:77:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:72:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:72:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/comment-page-([0-9]{1,})/?$\";s:50:\"index.php?attachment=$matches[1]&cpage=$matches[2]\";s:53:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/embed/?$\";s:43:\"index.php?attachment=$matches[1]&embed=true\";s:64:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/comment-page-([0-9]{1,})/?$\";s:81:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&cpage=$matches[4]\";s:51:\"([0-9]{4})/([0-9]{1,2})/comment-page-([0-9]{1,})/?$\";s:65:\"index.php?year=$matches[1]&monthnum=$matches[2]&cpage=$matches[3]\";s:38:\"([0-9]{4})/comment-page-([0-9]{1,})/?$\";s:44:\"index.php?year=$matches[1]&cpage=$matches[2]\";s:27:\".?.+?/attachment/([^/]+)/?$\";s:32:\"index.php?attachment=$matches[1]\";s:37:\".?.+?/attachment/([^/]+)/trackback/?$\";s:37:\"index.php?attachment=$matches[1]&tb=1\";s:57:\".?.+?/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:52:\".?.+?/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:52:\".?.+?/attachment/([^/]+)/comment-page-([0-9]{1,})/?$\";s:50:\"index.php?attachment=$matches[1]&cpage=$matches[2]\";s:33:\".?.+?/attachment/([^/]+)/embed/?$\";s:43:\"index.php?attachment=$matches[1]&embed=true\";s:16:\"(.?.+?)/embed/?$\";s:41:\"index.php?pagename=$matches[1]&embed=true\";s:20:\"(.?.+?)/trackback/?$\";s:35:\"index.php?pagename=$matches[1]&tb=1\";s:40:\"(.?.+?)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:47:\"index.php?pagename=$matches[1]&feed=$matches[2]\";s:35:\"(.?.+?)/(feed|rdf|rss|rss2|atom)/?$\";s:47:\"index.php?pagename=$matches[1]&feed=$matches[2]\";s:28:\"(.?.+?)/page/?([0-9]{1,})/?$\";s:48:\"index.php?pagename=$matches[1]&paged=$matches[2]\";s:35:\"(.?.+?)/comment-page-([0-9]{1,})/?$\";s:48:\"index.php?pagename=$matches[1]&cpage=$matches[2]\";s:25:\"(.?.+?)/wc-api(/(.*))?/?$\";s:49:\"index.php?pagename=$matches[1]&wc-api=$matches[3]\";s:28:\"(.?.+?)/order-pay(/(.*))?/?$\";s:52:\"index.php?pagename=$matches[1]&order-pay=$matches[3]\";s:33:\"(.?.+?)/order-received(/(.*))?/?$\";s:57:\"index.php?pagename=$matches[1]&order-received=$matches[3]\";s:25:\"(.?.+?)/orders(/(.*))?/?$\";s:49:\"index.php?pagename=$matches[1]&orders=$matches[3]\";s:29:\"(.?.+?)/view-order(/(.*))?/?$\";s:53:\"index.php?pagename=$matches[1]&view-order=$matches[3]\";s:28:\"(.?.+?)/downloads(/(.*))?/?$\";s:52:\"index.php?pagename=$matches[1]&downloads=$matches[3]\";s:31:\"(.?.+?)/edit-account(/(.*))?/?$\";s:55:\"index.php?pagename=$matches[1]&edit-account=$matches[3]\";s:31:\"(.?.+?)/edit-address(/(.*))?/?$\";s:55:\"index.php?pagename=$matches[1]&edit-address=$matches[3]\";s:34:\"(.?.+?)/payment-methods(/(.*))?/?$\";s:58:\"index.php?pagename=$matches[1]&payment-methods=$matches[3]\";s:32:\"(.?.+?)/lost-password(/(.*))?/?$\";s:56:\"index.php?pagename=$matches[1]&lost-password=$matches[3]\";s:34:\"(.?.+?)/customer-logout(/(.*))?/?$\";s:58:\"index.php?pagename=$matches[1]&customer-logout=$matches[3]\";s:37:\"(.?.+?)/add-payment-method(/(.*))?/?$\";s:61:\"index.php?pagename=$matches[1]&add-payment-method=$matches[3]\";s:40:\"(.?.+?)/delete-payment-method(/(.*))?/?$\";s:64:\"index.php?pagename=$matches[1]&delete-payment-method=$matches[3]\";s:45:\"(.?.+?)/set-default-payment-method(/(.*))?/?$\";s:69:\"index.php?pagename=$matches[1]&set-default-payment-method=$matches[3]\";s:31:\".?.+?/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:42:\".?.+?/attachment/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:24:\"(.?.+?)(?:/([0-9]+))?/?$\";s:47:\"index.php?pagename=$matches[1]&page=$matches[2]\";}', 'yes'),
+(29, 'rewrite_rules', 'a:157:{s:24:\"^wc-auth/v([1]{1})/(.*)?\";s:63:\"index.php?wc-auth-version=$matches[1]&wc-auth-route=$matches[2]\";s:22:\"^wc-api/v([1-3]{1})/?$\";s:51:\"index.php?wc-api-version=$matches[1]&wc-api-route=/\";s:24:\"^wc-api/v([1-3]{1})(.*)?\";s:61:\"index.php?wc-api-version=$matches[1]&wc-api-route=$matches[2]\";s:7:\"shop/?$\";s:27:\"index.php?post_type=product\";s:37:\"shop/feed/(feed|rdf|rss|rss2|atom)/?$\";s:44:\"index.php?post_type=product&feed=$matches[1]\";s:32:\"shop/(feed|rdf|rss|rss2|atom)/?$\";s:44:\"index.php?post_type=product&feed=$matches[1]\";s:24:\"shop/page/([0-9]{1,})/?$\";s:45:\"index.php?post_type=product&paged=$matches[1]\";s:11:\"^wp-json/?$\";s:22:\"index.php?rest_route=/\";s:14:\"^wp-json/(.*)?\";s:33:\"index.php?rest_route=/$matches[1]\";s:21:\"^index.php/wp-json/?$\";s:22:\"index.php?rest_route=/\";s:24:\"^index.php/wp-json/(.*)?\";s:33:\"index.php?rest_route=/$matches[1]\";s:47:\"category/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:52:\"index.php?category_name=$matches[1]&feed=$matches[2]\";s:42:\"category/(.+?)/(feed|rdf|rss|rss2|atom)/?$\";s:52:\"index.php?category_name=$matches[1]&feed=$matches[2]\";s:23:\"category/(.+?)/embed/?$\";s:46:\"index.php?category_name=$matches[1]&embed=true\";s:35:\"category/(.+?)/page/?([0-9]{1,})/?$\";s:53:\"index.php?category_name=$matches[1]&paged=$matches[2]\";s:32:\"category/(.+?)/wc-api(/(.*))?/?$\";s:54:\"index.php?category_name=$matches[1]&wc-api=$matches[3]\";s:17:\"category/(.+?)/?$\";s:35:\"index.php?category_name=$matches[1]\";s:44:\"tag/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:42:\"index.php?tag=$matches[1]&feed=$matches[2]\";s:39:\"tag/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:42:\"index.php?tag=$matches[1]&feed=$matches[2]\";s:20:\"tag/([^/]+)/embed/?$\";s:36:\"index.php?tag=$matches[1]&embed=true\";s:32:\"tag/([^/]+)/page/?([0-9]{1,})/?$\";s:43:\"index.php?tag=$matches[1]&paged=$matches[2]\";s:29:\"tag/([^/]+)/wc-api(/(.*))?/?$\";s:44:\"index.php?tag=$matches[1]&wc-api=$matches[3]\";s:14:\"tag/([^/]+)/?$\";s:25:\"index.php?tag=$matches[1]\";s:45:\"type/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?post_format=$matches[1]&feed=$matches[2]\";s:40:\"type/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?post_format=$matches[1]&feed=$matches[2]\";s:21:\"type/([^/]+)/embed/?$\";s:44:\"index.php?post_format=$matches[1]&embed=true\";s:33:\"type/([^/]+)/page/?([0-9]{1,})/?$\";s:51:\"index.php?post_format=$matches[1]&paged=$matches[2]\";s:15:\"type/([^/]+)/?$\";s:33:\"index.php?post_format=$matches[1]\";s:55:\"product-category/(.+?)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?product_cat=$matches[1]&feed=$matches[2]\";s:50:\"product-category/(.+?)/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?product_cat=$matches[1]&feed=$matches[2]\";s:31:\"product-category/(.+?)/embed/?$\";s:44:\"index.php?product_cat=$matches[1]&embed=true\";s:43:\"product-category/(.+?)/page/?([0-9]{1,})/?$\";s:51:\"index.php?product_cat=$matches[1]&paged=$matches[2]\";s:25:\"product-category/(.+?)/?$\";s:33:\"index.php?product_cat=$matches[1]\";s:52:\"product-tag/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?product_tag=$matches[1]&feed=$matches[2]\";s:47:\"product-tag/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?product_tag=$matches[1]&feed=$matches[2]\";s:28:\"product-tag/([^/]+)/embed/?$\";s:44:\"index.php?product_tag=$matches[1]&embed=true\";s:40:\"product-tag/([^/]+)/page/?([0-9]{1,})/?$\";s:51:\"index.php?product_tag=$matches[1]&paged=$matches[2]\";s:22:\"product-tag/([^/]+)/?$\";s:33:\"index.php?product_tag=$matches[1]\";s:35:\"product/[^/]+/attachment/([^/]+)/?$\";s:32:\"index.php?attachment=$matches[1]\";s:45:\"product/[^/]+/attachment/([^/]+)/trackback/?$\";s:37:\"index.php?attachment=$matches[1]&tb=1\";s:65:\"product/[^/]+/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:60:\"product/[^/]+/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:60:\"product/[^/]+/attachment/([^/]+)/comment-page-([0-9]{1,})/?$\";s:50:\"index.php?attachment=$matches[1]&cpage=$matches[2]\";s:41:\"product/[^/]+/attachment/([^/]+)/embed/?$\";s:43:\"index.php?attachment=$matches[1]&embed=true\";s:24:\"product/([^/]+)/embed/?$\";s:40:\"index.php?product=$matches[1]&embed=true\";s:28:\"product/([^/]+)/trackback/?$\";s:34:\"index.php?product=$matches[1]&tb=1\";s:48:\"product/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:46:\"index.php?product=$matches[1]&feed=$matches[2]\";s:43:\"product/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:46:\"index.php?product=$matches[1]&feed=$matches[2]\";s:36:\"product/([^/]+)/page/?([0-9]{1,})/?$\";s:47:\"index.php?product=$matches[1]&paged=$matches[2]\";s:43:\"product/([^/]+)/comment-page-([0-9]{1,})/?$\";s:47:\"index.php?product=$matches[1]&cpage=$matches[2]\";s:33:\"product/([^/]+)/wc-api(/(.*))?/?$\";s:48:\"index.php?product=$matches[1]&wc-api=$matches[3]\";s:39:\"product/[^/]+/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:50:\"product/[^/]+/attachment/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:32:\"product/([^/]+)(?:/([0-9]+))?/?$\";s:46:\"index.php?product=$matches[1]&page=$matches[2]\";s:24:\"product/[^/]+/([^/]+)/?$\";s:32:\"index.php?attachment=$matches[1]\";s:34:\"product/[^/]+/([^/]+)/trackback/?$\";s:37:\"index.php?attachment=$matches[1]&tb=1\";s:54:\"product/[^/]+/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:49:\"product/[^/]+/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:49:\"product/[^/]+/([^/]+)/comment-page-([0-9]{1,})/?$\";s:50:\"index.php?attachment=$matches[1]&cpage=$matches[2]\";s:30:\"product/[^/]+/([^/]+)/embed/?$\";s:43:\"index.php?attachment=$matches[1]&embed=true\";s:48:\".*wp-(atom|rdf|rss|rss2|feed|commentsrss2)\\.php$\";s:18:\"index.php?feed=old\";s:20:\".*wp-app\\.php(/.*)?$\";s:19:\"index.php?error=403\";s:18:\".*wp-register.php$\";s:23:\"index.php?register=true\";s:32:\"feed/(feed|rdf|rss|rss2|atom)/?$\";s:27:\"index.php?&feed=$matches[1]\";s:27:\"(feed|rdf|rss|rss2|atom)/?$\";s:27:\"index.php?&feed=$matches[1]\";s:8:\"embed/?$\";s:21:\"index.php?&embed=true\";s:20:\"page/?([0-9]{1,})/?$\";s:28:\"index.php?&paged=$matches[1]\";s:27:\"comment-page-([0-9]{1,})/?$\";s:39:\"index.php?&page_id=32&cpage=$matches[1]\";s:17:\"wc-api(/(.*))?/?$\";s:29:\"index.php?&wc-api=$matches[2]\";s:41:\"comments/feed/(feed|rdf|rss|rss2|atom)/?$\";s:42:\"index.php?&feed=$matches[1]&withcomments=1\";s:36:\"comments/(feed|rdf|rss|rss2|atom)/?$\";s:42:\"index.php?&feed=$matches[1]&withcomments=1\";s:17:\"comments/embed/?$\";s:21:\"index.php?&embed=true\";s:26:\"comments/wc-api(/(.*))?/?$\";s:29:\"index.php?&wc-api=$matches[2]\";s:44:\"search/(.+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:40:\"index.php?s=$matches[1]&feed=$matches[2]\";s:39:\"search/(.+)/(feed|rdf|rss|rss2|atom)/?$\";s:40:\"index.php?s=$matches[1]&feed=$matches[2]\";s:20:\"search/(.+)/embed/?$\";s:34:\"index.php?s=$matches[1]&embed=true\";s:32:\"search/(.+)/page/?([0-9]{1,})/?$\";s:41:\"index.php?s=$matches[1]&paged=$matches[2]\";s:29:\"search/(.+)/wc-api(/(.*))?/?$\";s:42:\"index.php?s=$matches[1]&wc-api=$matches[3]\";s:14:\"search/(.+)/?$\";s:23:\"index.php?s=$matches[1]\";s:47:\"author/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?author_name=$matches[1]&feed=$matches[2]\";s:42:\"author/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:50:\"index.php?author_name=$matches[1]&feed=$matches[2]\";s:23:\"author/([^/]+)/embed/?$\";s:44:\"index.php?author_name=$matches[1]&embed=true\";s:35:\"author/([^/]+)/page/?([0-9]{1,})/?$\";s:51:\"index.php?author_name=$matches[1]&paged=$matches[2]\";s:32:\"author/([^/]+)/wc-api(/(.*))?/?$\";s:52:\"index.php?author_name=$matches[1]&wc-api=$matches[3]\";s:17:\"author/([^/]+)/?$\";s:33:\"index.php?author_name=$matches[1]\";s:69:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/feed/(feed|rdf|rss|rss2|atom)/?$\";s:80:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&feed=$matches[4]\";s:64:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/(feed|rdf|rss|rss2|atom)/?$\";s:80:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&feed=$matches[4]\";s:45:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/embed/?$\";s:74:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&embed=true\";s:57:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/page/?([0-9]{1,})/?$\";s:81:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&paged=$matches[4]\";s:54:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/wc-api(/(.*))?/?$\";s:82:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&wc-api=$matches[5]\";s:39:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/?$\";s:63:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]\";s:56:\"([0-9]{4})/([0-9]{1,2})/feed/(feed|rdf|rss|rss2|atom)/?$\";s:64:\"index.php?year=$matches[1]&monthnum=$matches[2]&feed=$matches[3]\";s:51:\"([0-9]{4})/([0-9]{1,2})/(feed|rdf|rss|rss2|atom)/?$\";s:64:\"index.php?year=$matches[1]&monthnum=$matches[2]&feed=$matches[3]\";s:32:\"([0-9]{4})/([0-9]{1,2})/embed/?$\";s:58:\"index.php?year=$matches[1]&monthnum=$matches[2]&embed=true\";s:44:\"([0-9]{4})/([0-9]{1,2})/page/?([0-9]{1,})/?$\";s:65:\"index.php?year=$matches[1]&monthnum=$matches[2]&paged=$matches[3]\";s:41:\"([0-9]{4})/([0-9]{1,2})/wc-api(/(.*))?/?$\";s:66:\"index.php?year=$matches[1]&monthnum=$matches[2]&wc-api=$matches[4]\";s:26:\"([0-9]{4})/([0-9]{1,2})/?$\";s:47:\"index.php?year=$matches[1]&monthnum=$matches[2]\";s:43:\"([0-9]{4})/feed/(feed|rdf|rss|rss2|atom)/?$\";s:43:\"index.php?year=$matches[1]&feed=$matches[2]\";s:38:\"([0-9]{4})/(feed|rdf|rss|rss2|atom)/?$\";s:43:\"index.php?year=$matches[1]&feed=$matches[2]\";s:19:\"([0-9]{4})/embed/?$\";s:37:\"index.php?year=$matches[1]&embed=true\";s:31:\"([0-9]{4})/page/?([0-9]{1,})/?$\";s:44:\"index.php?year=$matches[1]&paged=$matches[2]\";s:28:\"([0-9]{4})/wc-api(/(.*))?/?$\";s:45:\"index.php?year=$matches[1]&wc-api=$matches[3]\";s:13:\"([0-9]{4})/?$\";s:26:\"index.php?year=$matches[1]\";s:58:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/?$\";s:32:\"index.php?attachment=$matches[1]\";s:68:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/trackback/?$\";s:37:\"index.php?attachment=$matches[1]&tb=1\";s:88:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:83:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:83:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/comment-page-([0-9]{1,})/?$\";s:50:\"index.php?attachment=$matches[1]&cpage=$matches[2]\";s:64:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/embed/?$\";s:43:\"index.php?attachment=$matches[1]&embed=true\";s:53:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/embed/?$\";s:91:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&embed=true\";s:57:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/trackback/?$\";s:85:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&tb=1\";s:77:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:97:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&feed=$matches[5]\";s:72:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:97:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&feed=$matches[5]\";s:65:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/page/?([0-9]{1,})/?$\";s:98:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&paged=$matches[5]\";s:72:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/comment-page-([0-9]{1,})/?$\";s:98:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&cpage=$matches[5]\";s:62:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)/wc-api(/(.*))?/?$\";s:99:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&wc-api=$matches[6]\";s:62:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:73:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/attachment/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:61:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/([^/]+)(?:/([0-9]+))?/?$\";s:97:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&name=$matches[4]&page=$matches[5]\";s:47:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/?$\";s:32:\"index.php?attachment=$matches[1]\";s:57:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/trackback/?$\";s:37:\"index.php?attachment=$matches[1]&tb=1\";s:77:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:72:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:72:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/comment-page-([0-9]{1,})/?$\";s:50:\"index.php?attachment=$matches[1]&cpage=$matches[2]\";s:53:\"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}/[^/]+/([^/]+)/embed/?$\";s:43:\"index.php?attachment=$matches[1]&embed=true\";s:64:\"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/comment-page-([0-9]{1,})/?$\";s:81:\"index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&cpage=$matches[4]\";s:51:\"([0-9]{4})/([0-9]{1,2})/comment-page-([0-9]{1,})/?$\";s:65:\"index.php?year=$matches[1]&monthnum=$matches[2]&cpage=$matches[3]\";s:38:\"([0-9]{4})/comment-page-([0-9]{1,})/?$\";s:44:\"index.php?year=$matches[1]&cpage=$matches[2]\";s:27:\".?.+?/attachment/([^/]+)/?$\";s:32:\"index.php?attachment=$matches[1]\";s:37:\".?.+?/attachment/([^/]+)/trackback/?$\";s:37:\"index.php?attachment=$matches[1]&tb=1\";s:57:\".?.+?/attachment/([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:52:\".?.+?/attachment/([^/]+)/(feed|rdf|rss|rss2|atom)/?$\";s:49:\"index.php?attachment=$matches[1]&feed=$matches[2]\";s:52:\".?.+?/attachment/([^/]+)/comment-page-([0-9]{1,})/?$\";s:50:\"index.php?attachment=$matches[1]&cpage=$matches[2]\";s:33:\".?.+?/attachment/([^/]+)/embed/?$\";s:43:\"index.php?attachment=$matches[1]&embed=true\";s:16:\"(.?.+?)/embed/?$\";s:41:\"index.php?pagename=$matches[1]&embed=true\";s:20:\"(.?.+?)/trackback/?$\";s:35:\"index.php?pagename=$matches[1]&tb=1\";s:40:\"(.?.+?)/feed/(feed|rdf|rss|rss2|atom)/?$\";s:47:\"index.php?pagename=$matches[1]&feed=$matches[2]\";s:35:\"(.?.+?)/(feed|rdf|rss|rss2|atom)/?$\";s:47:\"index.php?pagename=$matches[1]&feed=$matches[2]\";s:28:\"(.?.+?)/page/?([0-9]{1,})/?$\";s:48:\"index.php?pagename=$matches[1]&paged=$matches[2]\";s:35:\"(.?.+?)/comment-page-([0-9]{1,})/?$\";s:48:\"index.php?pagename=$matches[1]&cpage=$matches[2]\";s:25:\"(.?.+?)/wc-api(/(.*))?/?$\";s:49:\"index.php?pagename=$matches[1]&wc-api=$matches[3]\";s:28:\"(.?.+?)/order-pay(/(.*))?/?$\";s:52:\"index.php?pagename=$matches[1]&order-pay=$matches[3]\";s:33:\"(.?.+?)/order-received(/(.*))?/?$\";s:57:\"index.php?pagename=$matches[1]&order-received=$matches[3]\";s:25:\"(.?.+?)/orders(/(.*))?/?$\";s:49:\"index.php?pagename=$matches[1]&orders=$matches[3]\";s:29:\"(.?.+?)/view-order(/(.*))?/?$\";s:53:\"index.php?pagename=$matches[1]&view-order=$matches[3]\";s:28:\"(.?.+?)/downloads(/(.*))?/?$\";s:52:\"index.php?pagename=$matches[1]&downloads=$matches[3]\";s:31:\"(.?.+?)/edit-account(/(.*))?/?$\";s:55:\"index.php?pagename=$matches[1]&edit-account=$matches[3]\";s:31:\"(.?.+?)/edit-address(/(.*))?/?$\";s:55:\"index.php?pagename=$matches[1]&edit-address=$matches[3]\";s:34:\"(.?.+?)/payment-methods(/(.*))?/?$\";s:58:\"index.php?pagename=$matches[1]&payment-methods=$matches[3]\";s:32:\"(.?.+?)/lost-password(/(.*))?/?$\";s:56:\"index.php?pagename=$matches[1]&lost-password=$matches[3]\";s:34:\"(.?.+?)/customer-logout(/(.*))?/?$\";s:58:\"index.php?pagename=$matches[1]&customer-logout=$matches[3]\";s:37:\"(.?.+?)/add-payment-method(/(.*))?/?$\";s:61:\"index.php?pagename=$matches[1]&add-payment-method=$matches[3]\";s:40:\"(.?.+?)/delete-payment-method(/(.*))?/?$\";s:64:\"index.php?pagename=$matches[1]&delete-payment-method=$matches[3]\";s:45:\"(.?.+?)/set-default-payment-method(/(.*))?/?$\";s:69:\"index.php?pagename=$matches[1]&set-default-payment-method=$matches[3]\";s:31:\".?.+?/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:42:\".?.+?/attachment/([^/]+)/wc-api(/(.*))?/?$\";s:51:\"index.php?attachment=$matches[1]&wc-api=$matches[3]\";s:24:\"(.?.+?)(?:/([0-9]+))?/?$\";s:47:\"index.php?pagename=$matches[1]&page=$matches[2]\";}', 'yes'),
 (30, 'hack_file', '0', 'yes'),
 (31, 'blog_charset', 'UTF-8', 'yes'),
 (32, 'moderation_keys', '', 'no'),
@@ -142,7 +160,7 @@ INSERT INTO `tb_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (34, 'category_base', '', 'yes'),
 (35, 'ping_sites', 'http://rpc.pingomatic.com/', 'yes'),
 (36, 'comment_max_links', '2', 'yes'),
-(37, 'gmt_offset', '0', 'yes'),
+(37, 'gmt_offset', '7', 'yes'),
 (38, 'default_email_category', '1', 'yes'),
 (39, 'recently_edited', '', 'no'),
 (40, 'template', 'metrostore', 'yes'),
@@ -158,7 +176,7 @@ INSERT INTO `tb_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (50, 'upload_path', '', 'yes'),
 (51, 'blog_public', '1', 'yes'),
 (52, 'default_link_category', '2', 'yes'),
-(53, 'show_on_front', 'posts', 'yes'),
+(53, 'show_on_front', 'page', 'yes'),
 (54, 'tag_base', '', 'yes'),
 (55, 'show_avatars', '1', 'yes'),
 (56, 'avatar_rating', 'G', 'yes'),
@@ -183,13 +201,13 @@ INSERT INTO `tb_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (75, 'default_comments_page', 'newest', 'yes'),
 (76, 'comment_order', 'asc', 'yes'),
 (77, 'sticky_posts', 'a:0:{}', 'yes'),
-(78, 'widget_categories', 'a:2:{i:2;a:4:{s:5:\"title\";s:0:\"\";s:5:\"count\";i:0;s:12:\"hierarchical\";i:0;s:8:\"dropdown\";i:0;}s:12:\"_multiwidget\";i:1;}', 'yes'),
-(79, 'widget_text', 'a:2:{i:1;a:0:{}s:12:\"_multiwidget\";i:1;}', 'yes'),
+(78, 'widget_categories', 'a:3:{i:2;a:4:{s:5:\"title\";s:0:\"\";s:5:\"count\";i:0;s:12:\"hierarchical\";i:0;s:8:\"dropdown\";i:0;}i:3;a:4:{s:5:\"title\";s:10:\"Categories\";s:5:\"count\";i:0;s:12:\"hierarchical\";i:1;s:8:\"dropdown\";i:0;}s:12:\"_multiwidget\";i:1;}', 'yes'),
+(79, 'widget_text', 'a:3:{i:1;a:0:{}i:2;a:4:{s:5:\"title\";s:17:\"About Information\";s:4:\"text\";s:528:\"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.\";s:6:\"filter\";b:1;s:6:\"visual\";b:1;}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (80, 'widget_rss', 'a:2:{i:1;a:0:{}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (81, 'uninstall_plugins', 'a:0:{}', 'no'),
 (82, 'timezone_string', '', 'yes'),
 (83, 'page_for_posts', '0', 'yes'),
-(84, 'page_on_front', '0', 'yes'),
+(84, 'page_on_front', '32', 'yes'),
 (85, 'default_post_format', '0', 'yes'),
 (86, 'link_manager_enabled', '0', 'yes'),
 (87, 'finished_splitting_shared_terms', '1', 'yes'),
@@ -205,7 +223,7 @@ INSERT INTO `tb_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (97, 'widget_recent-comments', 'a:2:{i:2;a:2:{s:5:\"title\";s:0:\"\";s:6:\"number\";i:5;}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (98, 'widget_archives', 'a:2:{i:2;a:3:{s:5:\"title\";s:0:\"\";s:5:\"count\";i:0;s:8:\"dropdown\";i:0;}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (99, 'widget_meta', 'a:2:{i:2;a:1:{s:5:\"title\";s:0:\"\";}s:12:\"_multiwidget\";i:1;}', 'yes'),
-(100, 'sidebars_widgets', 'a:10:{s:19:\"wp_inactive_widgets\";a:0:{}s:9:\"sidebar-1\";a:6:{i:0;s:8:\"search-2\";i:1;s:14:\"recent-posts-2\";i:2;s:17:\"recent-comments-2\";i:3;s:10:\"archives-2\";i:4;s:12:\"categories-2\";i:5;s:6:\"meta-2\";}s:9:\"sidebar-2\";a:0:{}s:19:\"metrostore_homepage\";a:0:{}s:10:\"footer_one\";a:0:{}s:10:\"footer_two\";a:0:{}s:12:\"footer_three\";a:0:{}s:11:\"footer_four\";a:0:{}s:11:\"footer_five\";a:0:{}s:13:\"array_version\";i:3;}', 'yes'),
+(100, 'sidebars_widgets', 'a:10:{s:19:\"wp_inactive_widgets\";a:0:{}s:9:\"sidebar-1\";a:6:{i:0;s:8:\"search-2\";i:1;s:14:\"recent-posts-2\";i:2;s:17:\"recent-comments-2\";i:3;s:10:\"archives-2\";i:4;s:12:\"categories-2\";i:5;s:6:\"meta-2\";}s:9:\"sidebar-2\";a:0:{}s:19:\"metrostore_homepage\";a:7:{i:0;s:44:\"metrostore_category_collection_widget_area-2\";i:1;s:38:\"metrostore_tabs_category_widget_area-2\";i:2;s:36:\"metrostore_promo_video_widget_area-2\";i:3;s:32:\"metrostore_product_widget_area-3\";i:4;s:39:\"metrostore_skills_section_widget_area-2\";i:5;s:43:\"metrostore_quick_contact_info_widget_area-2\";i:6;s:30:\"metrostore_blogs_widget_area-2\";}s:10:\"footer_one\";a:1:{i:0;s:6:\"text-2\";}s:10:\"footer_two\";a:1:{i:0;s:10:\"nav_menu-2\";}s:12:\"footer_three\";a:1:{i:0;s:10:\"nav_menu-3\";}s:11:\"footer_four\";a:1:{i:0;s:10:\"nav_menu-4\";}s:11:\"footer_five\";a:1:{i:0;s:12:\"categories-3\";}s:13:\"array_version\";i:3;}', 'yes'),
 (101, 'widget_pages', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (102, 'widget_calendar', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (103, 'widget_media_audio', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
@@ -213,9 +231,9 @@ INSERT INTO `tb_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (105, 'widget_media_gallery', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (106, 'widget_media_video', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (107, 'widget_tag_cloud', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
-(108, 'widget_nav_menu', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
+(108, 'widget_nav_menu', 'a:4:{i:2;a:2:{s:5:\"title\";s:11:\"Information\";s:8:\"nav_menu\";i:30;}i:3;a:2:{s:5:\"title\";s:10:\"My Account\";s:8:\"nav_menu\";i:31;}i:4;a:2:{s:5:\"title\";s:12:\"Our Services\";s:8:\"nav_menu\";i:32;}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (109, 'widget_custom_html', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
-(110, 'cron', 'a:11:{i:1528199262;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1528199747;a:1:{s:24:\"woocommerce_cleanup_logs\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1528201036;a:1:{s:32:\"woocommerce_cancel_unpaid_orders\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:2:{s:8:\"schedule\";b:0;s:4:\"args\";a:0:{}}}}i:1528210547;a:1:{s:28:\"woocommerce_cleanup_sessions\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1528231662;a:3:{s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1528243200;a:1:{s:27:\"woocommerce_scheduled_sales\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1528274882;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1528275346;a:1:{s:33:\"woocommerce_cleanup_personal_data\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1528275357;a:1:{s:30:\"woocommerce_tracker_send_event\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1530576000;a:1:{s:25:\"woocommerce_geoip_updater\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:7:\"monthly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:2635200;}}}s:7:\"version\";i:2;}', 'yes'),
+(110, 'cron', 'a:13:{i:1528199262;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1528199747;a:1:{s:24:\"woocommerce_cleanup_logs\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1528201036;a:1:{s:32:\"woocommerce_cancel_unpaid_orders\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:2:{s:8:\"schedule\";b:0;s:4:\"args\";a:0:{}}}}i:1528207911;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1528208094;a:1:{s:8:\"do_pings\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:2:{s:8:\"schedule\";b:0;s:4:\"args\";a:0:{}}}}i:1528210547;a:1:{s:28:\"woocommerce_cleanup_sessions\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1528231662;a:3:{s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1528243200;a:1:{s:27:\"woocommerce_scheduled_sales\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1528274882;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1528275346;a:1:{s:33:\"woocommerce_cleanup_personal_data\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1528275357;a:1:{s:30:\"woocommerce_tracker_send_event\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1530576000;a:1:{s:25:\"woocommerce_geoip_updater\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:7:\"monthly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:2635200;}}}s:7:\"version\";i:2;}', 'yes'),
 (111, 'theme_mods_twentyseventeen', 'a:2:{s:18:\"custom_css_post_id\";i:-1;s:16:\"sidebars_widgets\";a:2:{s:4:\"time\";i:1528189073;s:4:\"data\";a:4:{s:19:\"wp_inactive_widgets\";a:0:{}s:9:\"sidebar-1\";a:6:{i:0;s:8:\"search-2\";i:1;s:14:\"recent-posts-2\";i:2;s:17:\"recent-comments-2\";i:3;s:10:\"archives-2\";i:4;s:12:\"categories-2\";i:5;s:6:\"meta-2\";}s:9:\"sidebar-2\";a:0:{}s:9:\"sidebar-3\";a:0:{}}}}', 'yes'),
 (115, '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:1:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:6:\"latest\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-4.9.6.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-4.9.6.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-4.9.6-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-4.9.6-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"4.9.6\";s:7:\"version\";s:5:\"4.9.6\";s:11:\"php_version\";s:5:\"5.2.4\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"4.7\";s:15:\"partial_version\";s:0:\"\";}}s:12:\"last_checked\";i:1528189058;s:15:\"version_checked\";s:5:\"4.9.6\";s:12:\"translations\";a:0:{}}', 'no'),
 (122, '_site_transient_timeout_browser_4470d745e21652d72c62db23ac5b53e2', '1528793277', 'no'),
@@ -365,41 +383,63 @@ INSERT INTO `tb_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (283, 'widget_woocommerce_top_rated_products', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (284, 'widget_woocommerce_recent_reviews', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (285, 'widget_woocommerce_rating_filter', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
-(288, '_transient_wc_count_comments', 'O:8:\"stdClass\":7:{s:14:\"total_comments\";i:1;s:3:\"all\";i:1;s:8:\"approved\";s:1:\"1\";s:9:\"moderated\";i:0;s:4:\"spam\";i:0;s:5:\"trash\";i:0;s:12:\"post-trashed\";i:0;}', 'yes'),
 (289, 'woocommerce_meta_box_errors', 'a:0:{}', 'yes'),
 (290, '_transient_timeout_external_ip_address_::1', '1528793751', 'no'),
 (291, '_transient_external_ip_address_::1', '115.78.164.9', 'no'),
 (297, '_transient_timeout__woocommerce_helper_updates', '1528232258', 'no'),
 (298, '_transient__woocommerce_helper_updates', 'a:4:{s:4:\"hash\";s:32:\"d751713988987e9331980363e24189ce\";s:7:\"updated\";i:1528189058;s:8:\"products\";a:0:{}s:6:\"errors\";a:1:{i:0;s:10:\"http-error\";}}', 'no'),
-(300, '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1528193824;s:7:\"checked\";a:1:{s:10:\"metrostore\";s:5:\"1.2.2\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}}', 'no'),
+(300, '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1528209417;s:7:\"checked\";a:1:{s:10:\"metrostore\";s:5:\"1.2.2\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}}', 'no'),
 (301, 'current_theme', 'MetroStore', 'yes'),
-(302, 'theme_mods_metrostore', 'a:7:{i:0;b:0;s:18:\"nav_menu_locations\";a:1:{s:7:\"primary\";i:16;}s:18:\"custom_css_post_id\";i:-1;s:32:\"metrostore_first_icon_title_area\";s:7:\"SUPPORT\";s:37:\"metrostore_first_icon_title_desc_area\";s:21:\"24/7 Support provided\";s:33:\"metrostore_second_icon_title_area\";s:15:\"MONEY BACK 100%\";s:38:\"metrostore_second_icon_title_desc_area\";s:29:\"Within 30 Days after delivery\";}', 'yes'),
+(302, 'theme_mods_metrostore', 'a:25:{i:0;b:0;s:18:\"nav_menu_locations\";a:1:{s:7:\"primary\";i:16;}s:18:\"custom_css_post_id\";i:-1;s:32:\"metrostore_first_icon_title_area\";s:7:\"SUPPORT\";s:37:\"metrostore_first_icon_title_desc_area\";s:21:\"24/7 Support provided\";s:33:\"metrostore_second_icon_title_area\";s:15:\"MONEY BACK 100%\";s:38:\"metrostore_second_icon_title_desc_area\";s:29:\"Within 30 Days after delivery\";s:32:\"metrostore_first_icon_block_area\";s:8:\"fa-truck\";s:33:\"metrostore_second_icon_block_area\";s:12:\"fa-thumbs-up\";s:25:\"metrostore_slider_team_id\";i:22;s:30:\"metrostore_home_slider_options\";s:6:\"enable\";s:35:\"metrostore_footer_copyright_setting\";s:0:\"\";s:26:\"metrostore_social_facebook\";s:20:\"https://facebook.com\";s:25:\"metrostore_social_twitter\";s:1:\"#\";s:28:\"metrostore_social_googleplus\";s:1:\"#\";s:27:\"metrostore_social_instagram\";s:1:\"#\";s:26:\"metrostore_social_linkedin\";s:1:\"#\";s:35:\"metrostore_social_facebook_checkbox\";i:0;s:34:\"metrostore_social_twitter_checkbox\";i:0;s:37:\"metrostore_social_googleplus_checkbox\";i:0;s:36:\"metrostore_social_instagram_checkbox\";i:0;s:35:\"metrostore_social_linkedin_checkbox\";i:0;s:22:\"metrostore_email_title\";s:18:\"support@mining.com\";s:23:\"metrostore_phone_number\";s:15:\"+1 877 904-1234\";s:22:\"metrostore_map_address\";s:42:\"668 A Hayes Street San Francisco, CA 94102\";}', 'yes'),
 (303, 'theme_switched', '', 'yes'),
-(304, 'widget_metrostore_category_collection_widget_area', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
-(305, 'widget_metrostore_tabs_category_widget_area', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
+(304, 'widget_metrostore_category_collection_widget_area', 'a:2:{i:2;a:3:{s:31:\"metrostore_cat_collection_title\";s:18:\"Popular Categories\";s:36:\"metrostore_cat_collection_short_desc\";s:176:\"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.\";s:34:\"metrostore_woo_category_collection\";a:4:{i:17;s:1:\"1\";i:18;s:1:\"1\";i:24;s:1:\"1\";i:23;s:1:\"1\";}}s:12:\"_multiwidget\";i:1;}', 'yes'),
+(305, 'widget_metrostore_tabs_category_widget_area', 'a:2:{i:2;a:2:{s:28:\"metrostore_woo_tabs_category\";a:4:{i:26;s:1:\"1\";i:25;s:1:\"1\";i:27;s:1:\"1\";i:28;s:1:\"1\";}s:38:\"metrostore_cat_product_category_number\";i:4;}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (306, 'widget_metrostore_tabs_default_widget_area', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
-(307, 'widget_metrostore_product_widget_area', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
-(308, 'widget_metrostore_blogs_widget_area', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
-(309, 'widget_metrostore_promo_video_widget_area', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
-(310, 'widget_metrostore_quick_contact_info_widget_area', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
+(307, 'widget_metrostore_product_widget_area', 'a:2:{i:3;a:5:{s:24:\"metrostore_product_title\";s:15:\"Recent Products\";s:29:\"metrostore_product_short_desc\";s:176:\"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.\";s:23:\"metrostore_product_type\";s:14:\"latest_product\";s:23:\"metrostore_woo_category\";s:2:\"25\";s:25:\"metrostore_product_number\";i:5;}s:12:\"_multiwidget\";i:1;}', 'yes'),
+(308, 'widget_metrostore_blogs_widget_area', 'a:2:{i:2;a:3:{s:21:\"metrostore_blog_title\";s:11:\"Latest News\";s:33:\"metrostore_default_posts_category\";a:1:{i:29;s:1:\"1\";}s:23:\"metrostore_posts_number\";i:3;}s:12:\"_multiwidget\";i:1;}', 'yes'),
+(309, 'widget_metrostore_promo_video_widget_area', 'a:2:{i:2;a:3:{s:28:\"metrostore_promo_video_title\";s:16:\"Video Background\";s:33:\"metrostore_promo_video_short_desc\";s:176:\"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.\";s:26:\"metrostore_promo_video_url\";s:43:\"https://www.youtube.com/watch?v=eH2WNtL5ong\";}s:12:\"_multiwidget\";i:1;}', 'yes'),
+(310, 'widget_metrostore_quick_contact_info_widget_area', 'a:2:{i:2;a:7:{s:35:\"metrostore_quick_contact_info_title\";s:10:\"Contact Us\";s:40:\"metrostore_quick_contact_info_short_desc\";s:176:\"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.\";s:33:\"metrostore_start_group_quick_info\";s:0:\"\";s:37:\"metrostore_quick_contact_info_address\";s:42:\"668 A Hayes Street San Francisco, CA 94102\";s:35:\"metrostore_quick_contact_info_email\";s:18:\"support@mining.com\";s:35:\"metrostore_quick_contact_info_phone\";s:15:\"+1 877 904-1234\";s:31:\"metrostore_end_group_quick_info\";s:0:\"\";}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (311, 'widget_metrostore_contact_info_form_widget_area', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (312, 'widget_metrostore_about_section_widget_area', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
-(313, 'widget_metrostore_skills_section_widget_area', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
+(313, 'widget_metrostore_skills_section_widget_area', 'a:2:{i:2;a:12:{s:31:\"metrostore_skills_section_title\";s:13:\"Why Choose Us\";s:36:\"metrostore_skills_section_short_desc\";s:65:\"Morbi sodales ultrices convallis. Quisque varius felis et ligula.\";s:37:\"metrostore_start_group_skills_section\";s:0:\"\";s:32:\"metrostore_skills_area_one_title\";s:21:\"Customer Satisfaction\";s:31:\"metrostore_skills_area_one_icon\";i:90;s:32:\"metrostore_skills_area_two_title\";s:16:\"On-time Delivery\";s:31:\"metrostore_skills_area_two_icon\";i:90;s:34:\"metrostore_skills_area_three_title\";s:15:\"Return Products\";s:33:\"metrostore_skills_area_three_icon\";i:10;s:33:\"metrostore_skills_area_four_title\";s:11:\"Trustworthy\";s:32:\"metrostore_skills_area_four_icon\";i:99;s:35:\"metrostore_end_group_skills_section\";s:0:\"\";}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (314, 'woocommerce_maybe_regenerate_images_hash', '991b1ca641921cf0f5baf7a2fe85861b', 'yes'),
 (316, 'metrostore_admin_notice_welcome', '1', 'yes'),
 (325, 'nav_menu_options', 'a:2:{i:0;b:0;s:8:\"auto_add\";a:0:{}}', 'yes'),
-(326, '_transient_is_multi_author', '0', 'yes'),
-(328, 'product_cat_children', 'a:0:{}', 'yes'),
-(329, '_transient_timeout_wc_report_sales_by_date', '1528282608', 'no'),
-(330, '_transient_wc_report_sales_by_date', 'a:8:{s:32:\"9e46d3489b6b17bdf3e1bc45b81cee1f\";a:0:{}s:32:\"891d9062aa2fbcc9b7dc489a83be5825\";a:0:{}s:32:\"01afb9c7782aefc6e0a7130642064222\";a:0:{}s:32:\"abe129ddd942182e8719030f92ff5a69\";N;s:32:\"9cd9c2fe5dca342698e999f11e8ab4a1\";a:0:{}s:32:\"025699d395ef47edbabc1dc8e48bd47b\";a:0:{}s:32:\"a380bce78a9ad092753abbcffea68ced\";a:0:{}s:32:\"ce6628a3daa225df3af1d6fe6257f391\";a:0:{}}', 'no'),
+(329, '_transient_timeout_wc_report_sales_by_date', '1528300637', 'no'),
+(330, '_transient_wc_report_sales_by_date', 'a:32:{s:32:\"9e46d3489b6b17bdf3e1bc45b81cee1f\";a:0:{}s:32:\"891d9062aa2fbcc9b7dc489a83be5825\";a:0:{}s:32:\"01afb9c7782aefc6e0a7130642064222\";a:0:{}s:32:\"abe129ddd942182e8719030f92ff5a69\";N;s:32:\"9cd9c2fe5dca342698e999f11e8ab4a1\";a:0:{}s:32:\"025699d395ef47edbabc1dc8e48bd47b\";a:0:{}s:32:\"a380bce78a9ad092753abbcffea68ced\";a:0:{}s:32:\"ce6628a3daa225df3af1d6fe6257f391\";a:0:{}s:32:\"3589baff19f885101e5ac4dff575fd36\";a:0:{}s:32:\"75ca08dcfffd716003eaadf6d36ba501\";a:0:{}s:32:\"e6b0a0bf36193697407adf5126054c2e\";a:0:{}s:32:\"d54558dcf9cf563e46ea5a3d1e458ca2\";N;s:32:\"ed5ebbc76aef808a40c9a3cfb39ecf53\";a:0:{}s:32:\"56c1c20899679eea93818a9f360f8ab5\";a:0:{}s:32:\"1d662c6405205ac554498d970aaf67c1\";a:0:{}s:32:\"2062b8784a308dc8f04b270caedef83a\";a:0:{}s:32:\"045f904150e99a9ac62f806ee452a14b\";a:0:{}s:32:\"15d4c7c0816d7fa4304e1f16080fab81\";a:0:{}s:32:\"7ff4d31d3d4aaec1e7a6ae1e897bcca5\";a:0:{}s:32:\"6bb7c2bd036e9ceee129157d81383655\";N;s:32:\"73db79acc2dcef51e81001957562be6b\";a:0:{}s:32:\"416c564763b68a2e9f9b74f6989898f1\";a:0:{}s:32:\"7fee365532d5f8095a669e237be7a2a0\";a:0:{}s:32:\"3af7030f605f971cce00b61538b7f44f\";a:0:{}s:32:\"e7d566888ddc6ec02dc04bb4a3ff530e\";a:0:{}s:32:\"a102957346b3919d88a0459468f97677\";a:0:{}s:32:\"41e1dff333f6406bdc6b2424bdbece33\";a:0:{}s:32:\"985a9a00d3c001a75d80d4ee438e8e85\";N;s:32:\"3afd45d10754e9dfae1fba15a0dc197f\";a:0:{}s:32:\"f985b2d9f059a09d60b40e3f746d2934\";a:0:{}s:32:\"046e0ac0a8e30d41795e8307ec142bd0\";a:0:{}s:32:\"bc696a3f71246ee835e3df19dd42ede5\";a:0:{}}', 'no'),
 (331, '_transient_timeout_wc_admin_report', '1528282608', 'no'),
 (332, '_transient_wc_admin_report', 'a:1:{s:32:\"bca61906d6584f5a20c3fe8b3866c30a\";a:0:{}}', 'no'),
-(333, '_transient_timeout_wc_low_stock_count', '1530788209', 'no'),
-(335, '_transient_wc_low_stock_count', '0', 'no'),
-(337, '_transient_timeout_wc_outofstock_count', '1530788209', 'no'),
-(338, '_transient_wc_outofstock_count', '0', 'no'),
-(339, '_site_transient_timeout_theme_roots', '1528198027', 'no'),
-(340, '_site_transient_theme_roots', 'a:1:{s:10:\"metrostore\";s:7:\"/themes\";}', 'no');
+(342, '_transient_doing_cron', '1528217059.5718960762023925781250', 'yes'),
+(343, '_transient_timeout_external_ip_address_127.0.0.1', '1528812048', 'no'),
+(344, '_transient_external_ip_address_127.0.0.1', '113.173.143.219', 'no'),
+(345, '_site_transient_timeout_browser_a83f0395992b1c134b40a171734e504a', '1528812069', 'no'),
+(346, '_site_transient_browser_a83f0395992b1c134b40a171734e504a', 'a:10:{s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:13:\"66.0.3359.181\";s:8:\"platform\";s:7:\"Windows\";s:10:\"update_url\";s:29:\"https://www.google.com/chrome\";s:7:\"img_src\";s:43:\"http://s.w.org/images/browsers/chrome.png?1\";s:11:\"img_src_ssl\";s:44:\"https://s.w.org/images/browsers/chrome.png?1\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;s:6:\"mobile\";b:0;}', 'no'),
+(347, '_site_transient_timeout_community-events-1aecf33ab8525ff212ebdffbb438372e', '1528250472', 'no'),
+(348, '_site_transient_community-events-1aecf33ab8525ff212ebdffbb438372e', 'a:2:{s:8:\"location\";a:1:{s:2:\"ip\";s:9:\"127.0.0.0\";}s:6:\"events\";a:2:{i:0;a:7:{s:4:\"type\";s:8:\"wordcamp\";s:5:\"title\";s:15:\"WordCamp Europe\";s:3:\"url\";s:33:\"https://2018.europe.wordcamp.org/\";s:6:\"meetup\";s:0:\"\";s:10:\"meetup_url\";s:0:\"\";s:4:\"date\";s:19:\"2018-06-14 00:00:00\";s:8:\"location\";a:4:{s:8:\"location\";s:16:\"Belgrade, Serbia\";s:7:\"country\";s:2:\"RS\";s:8:\"latitude\";d:44.808497000000003;s:9:\"longitude\";d:20.432285;}}i:1;a:7:{s:4:\"type\";s:6:\"meetup\";s:5:\"title\";s:31:\"Sài Gòn WordPress Meetup #25 \";s:3:\"url\";s:57:\"https://www.meetup.com/Saigon-WordPress/events/251120800/\";s:6:\"meetup\";s:16:\"Saigon WordPress\";s:10:\"meetup_url\";s:40:\"https://www.meetup.com/Saigon-WordPress/\";s:4:\"date\";s:19:\"2018-06-11 18:30:00\";s:8:\"location\";a:4:{s:8:\"location\";s:30:\"Thanh Pho Ho Chi Minh, Vietnam\";s:7:\"country\";s:2:\"vn\";s:8:\"latitude\";d:10.775688000000001;s:9:\"longitude\";d:106.670654;}}}}', 'no'),
+(350, '_transient_shipping-transient-version', '1528207330', 'yes'),
+(351, '_transient_timeout_wc_shipping_method_count_1_1528207330', '1530799330', 'no'),
+(352, '_transient_wc_shipping_method_count_1_1528207330', '0', 'no'),
+(372, '_site_transient_timeout_available_translations', '1528219639', 'no');
+INSERT INTO `tb_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
+(373, '_site_transient_available_translations', 'a:113:{s:2:\"af\";a:8:{s:8:\"language\";s:2:\"af\";s:7:\"version\";s:5:\"4.9.4\";s:7:\"updated\";s:19:\"2018-02-06 13:56:09\";s:12:\"english_name\";s:9:\"Afrikaans\";s:11:\"native_name\";s:9:\"Afrikaans\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.4/af.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"af\";i:2;s:3:\"afr\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:10:\"Gaan voort\";}}s:2:\"ar\";a:8:{s:8:\"language\";s:2:\"ar\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-24 07:02:30\";s:12:\"english_name\";s:6:\"Arabic\";s:11:\"native_name\";s:14:\"العربية\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.6/ar.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ar\";i:2;s:3:\"ara\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:16:\"المتابعة\";}}s:3:\"ary\";a:8:{s:8:\"language\";s:3:\"ary\";s:7:\"version\";s:5:\"4.7.7\";s:7:\"updated\";s:19:\"2017-01-26 15:42:35\";s:12:\"english_name\";s:15:\"Moroccan Arabic\";s:11:\"native_name\";s:31:\"العربية المغربية\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.7.7/ary.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ar\";i:3;s:3:\"ary\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:16:\"المتابعة\";}}s:2:\"as\";a:8:{s:8:\"language\";s:2:\"as\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-11-22 18:59:07\";s:12:\"english_name\";s:8:\"Assamese\";s:11:\"native_name\";s:21:\"অসমীয়া\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.7.2/as.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"as\";i:2;s:3:\"asm\";i:3;s:3:\"asm\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:0:\"\";}}s:2:\"az\";a:8:{s:8:\"language\";s:2:\"az\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-11-06 00:09:27\";s:12:\"english_name\";s:11:\"Azerbaijani\";s:11:\"native_name\";s:16:\"Azərbaycan dili\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.7.2/az.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"az\";i:2;s:3:\"aze\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:5:\"Davam\";}}s:3:\"azb\";a:8:{s:8:\"language\";s:3:\"azb\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-09-12 20:34:31\";s:12:\"english_name\";s:17:\"South Azerbaijani\";s:11:\"native_name\";s:29:\"گؤنئی آذربایجان\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.7.2/azb.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"az\";i:3;s:3:\"azb\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Continue\";}}s:3:\"bel\";a:8:{s:8:\"language\";s:3:\"bel\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-04-04 08:43:29\";s:12:\"english_name\";s:10:\"Belarusian\";s:11:\"native_name\";s:29:\"Беларуская мова\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.9.5/bel.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"be\";i:2;s:3:\"bel\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:20:\"Працягнуць\";}}s:5:\"bg_BG\";a:8:{s:8:\"language\";s:5:\"bg_BG\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-04-25 15:24:22\";s:12:\"english_name\";s:9:\"Bulgarian\";s:11:\"native_name\";s:18:\"Български\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/bg_BG.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"bg\";i:2;s:3:\"bul\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:12:\"Напред\";}}s:5:\"bn_BD\";a:8:{s:8:\"language\";s:5:\"bn_BD\";s:7:\"version\";s:5:\"4.8.6\";s:7:\"updated\";s:19:\"2017-10-01 12:57:10\";s:12:\"english_name\";s:7:\"Bengali\";s:11:\"native_name\";s:15:\"বাংলা\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.8.6/bn_BD.zip\";s:3:\"iso\";a:1:{i:1;s:2:\"bn\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:23:\"এগিয়ে চল.\";}}s:2:\"bo\";a:8:{s:8:\"language\";s:2:\"bo\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-22 03:44:52\";s:12:\"english_name\";s:7:\"Tibetan\";s:11:\"native_name\";s:21:\"བོད་ཡིག\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.5/bo.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"bo\";i:2;s:3:\"tib\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:24:\"མུ་མཐུད།\";}}s:5:\"bs_BA\";a:8:{s:8:\"language\";s:5:\"bs_BA\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-09-04 20:20:28\";s:12:\"english_name\";s:7:\"Bosnian\";s:11:\"native_name\";s:8:\"Bosanski\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.7.2/bs_BA.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"bs\";i:2;s:3:\"bos\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:7:\"Nastavi\";}}s:2:\"ca\";a:8:{s:8:\"language\";s:2:\"ca\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-06-03 11:08:37\";s:12:\"english_name\";s:7:\"Catalan\";s:11:\"native_name\";s:7:\"Català\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.6/ca.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ca\";i:2;s:3:\"cat\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Continua\";}}s:3:\"ceb\";a:8:{s:8:\"language\";s:3:\"ceb\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-03-02 17:25:51\";s:12:\"english_name\";s:7:\"Cebuano\";s:11:\"native_name\";s:7:\"Cebuano\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.7.2/ceb.zip\";s:3:\"iso\";a:2:{i:2;s:3:\"ceb\";i:3;s:3:\"ceb\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:7:\"Padayun\";}}s:5:\"cs_CZ\";a:8:{s:8:\"language\";s:5:\"cs_CZ\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-23 13:12:01\";s:12:\"english_name\";s:5:\"Czech\";s:11:\"native_name\";s:9:\"Čeština\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/cs_CZ.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"cs\";i:2;s:3:\"ces\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:11:\"Pokračovat\";}}s:2:\"cy\";a:8:{s:8:\"language\";s:2:\"cy\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-24 10:52:38\";s:12:\"english_name\";s:5:\"Welsh\";s:11:\"native_name\";s:7:\"Cymraeg\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.6/cy.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"cy\";i:2;s:3:\"cym\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"Parhau\";}}s:5:\"da_DK\";a:8:{s:8:\"language\";s:5:\"da_DK\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-25 09:11:29\";s:12:\"english_name\";s:6:\"Danish\";s:11:\"native_name\";s:5:\"Dansk\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/da_DK.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"da\";i:2;s:3:\"dan\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Fortsæt\";}}s:5:\"de_CH\";a:8:{s:8:\"language\";s:5:\"de_CH\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-06-04 19:00:41\";s:12:\"english_name\";s:20:\"German (Switzerland)\";s:11:\"native_name\";s:17:\"Deutsch (Schweiz)\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/de_CH.zip\";s:3:\"iso\";a:1:{i:1;s:2:\"de\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"Weiter\";}}s:5:\"de_DE\";a:8:{s:8:\"language\";s:5:\"de_DE\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-31 19:43:07\";s:12:\"english_name\";s:6:\"German\";s:11:\"native_name\";s:7:\"Deutsch\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/de_DE.zip\";s:3:\"iso\";a:1:{i:1;s:2:\"de\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"Weiter\";}}s:14:\"de_CH_informal\";a:8:{s:8:\"language\";s:14:\"de_CH_informal\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-21 18:15:25\";s:12:\"english_name\";s:30:\"German (Switzerland, Informal)\";s:11:\"native_name\";s:21:\"Deutsch (Schweiz, Du)\";s:7:\"package\";s:73:\"https://downloads.wordpress.org/translation/core/4.9.6/de_CH_informal.zip\";s:3:\"iso\";a:1:{i:1;s:2:\"de\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"Weiter\";}}s:12:\"de_DE_formal\";a:8:{s:8:\"language\";s:12:\"de_DE_formal\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-21 17:56:21\";s:12:\"english_name\";s:15:\"German (Formal)\";s:11:\"native_name\";s:13:\"Deutsch (Sie)\";s:7:\"package\";s:71:\"https://downloads.wordpress.org/translation/core/4.9.6/de_DE_formal.zip\";s:3:\"iso\";a:1:{i:1;s:2:\"de\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"Weiter\";}}s:3:\"dzo\";a:8:{s:8:\"language\";s:3:\"dzo\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-06-29 08:59:03\";s:12:\"english_name\";s:8:\"Dzongkha\";s:11:\"native_name\";s:18:\"རྫོང་ཁ\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.7.2/dzo.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"dz\";i:2;s:3:\"dzo\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:0:\"\";}}s:2:\"el\";a:8:{s:8:\"language\";s:2:\"el\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-04-05 12:41:56\";s:12:\"english_name\";s:5:\"Greek\";s:11:\"native_name\";s:16:\"Ελληνικά\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.5/el.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"el\";i:2;s:3:\"ell\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:16:\"Συνέχεια\";}}s:5:\"en_ZA\";a:8:{s:8:\"language\";s:5:\"en_ZA\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-23 08:45:22\";s:12:\"english_name\";s:22:\"English (South Africa)\";s:11:\"native_name\";s:22:\"English (South Africa)\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/en_ZA.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"en\";i:2;s:3:\"eng\";i:3;s:3:\"eng\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Continue\";}}s:5:\"en_CA\";a:8:{s:8:\"language\";s:5:\"en_CA\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-22 19:01:38\";s:12:\"english_name\";s:16:\"English (Canada)\";s:11:\"native_name\";s:16:\"English (Canada)\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/en_CA.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"en\";i:2;s:3:\"eng\";i:3;s:3:\"eng\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Continue\";}}s:5:\"en_NZ\";a:8:{s:8:\"language\";s:5:\"en_NZ\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-22 00:27:45\";s:12:\"english_name\";s:21:\"English (New Zealand)\";s:11:\"native_name\";s:21:\"English (New Zealand)\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/en_NZ.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"en\";i:2;s:3:\"eng\";i:3;s:3:\"eng\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Continue\";}}s:5:\"en_AU\";a:8:{s:8:\"language\";s:5:\"en_AU\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-21 23:18:17\";s:12:\"english_name\";s:19:\"English (Australia)\";s:11:\"native_name\";s:19:\"English (Australia)\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/en_AU.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"en\";i:2;s:3:\"eng\";i:3;s:3:\"eng\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Continue\";}}s:5:\"en_GB\";a:8:{s:8:\"language\";s:5:\"en_GB\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-21 15:47:52\";s:12:\"english_name\";s:12:\"English (UK)\";s:11:\"native_name\";s:12:\"English (UK)\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/en_GB.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"en\";i:2;s:3:\"eng\";i:3;s:3:\"eng\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Continue\";}}s:2:\"eo\";a:8:{s:8:\"language\";s:2:\"eo\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-27 18:50:21\";s:12:\"english_name\";s:9:\"Esperanto\";s:11:\"native_name\";s:9:\"Esperanto\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.6/eo.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"eo\";i:2;s:3:\"epo\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Daŭrigi\";}}s:5:\"es_VE\";a:8:{s:8:\"language\";s:5:\"es_VE\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-18 03:09:27\";s:12:\"english_name\";s:19:\"Spanish (Venezuela)\";s:11:\"native_name\";s:21:\"Español de Venezuela\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/es_VE.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"es\";i:2;s:3:\"spa\";i:3;s:3:\"spa\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:5:\"es_ES\";a:8:{s:8:\"language\";s:5:\"es_ES\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-31 11:12:52\";s:12:\"english_name\";s:15:\"Spanish (Spain)\";s:11:\"native_name\";s:8:\"Español\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/es_ES.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"es\";i:2;s:3:\"spa\";i:3;s:3:\"spa\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:5:\"es_AR\";a:8:{s:8:\"language\";s:5:\"es_AR\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-02-27 05:22:44\";s:12:\"english_name\";s:19:\"Spanish (Argentina)\";s:11:\"native_name\";s:21:\"Español de Argentina\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/es_AR.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"es\";i:2;s:3:\"spa\";i:3;s:3:\"spa\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:5:\"es_CO\";a:8:{s:8:\"language\";s:5:\"es_CO\";s:7:\"version\";s:5:\"4.9.2\";s:7:\"updated\";s:19:\"2017-11-15 23:17:08\";s:12:\"english_name\";s:18:\"Spanish (Colombia)\";s:11:\"native_name\";s:20:\"Español de Colombia\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.2/es_CO.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"es\";i:2;s:3:\"spa\";i:3;s:3:\"spa\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:5:\"es_GT\";a:8:{s:8:\"language\";s:5:\"es_GT\";s:7:\"version\";s:5:\"4.9.2\";s:7:\"updated\";s:19:\"2017-11-15 15:03:42\";s:12:\"english_name\";s:19:\"Spanish (Guatemala)\";s:11:\"native_name\";s:21:\"Español de Guatemala\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.2/es_GT.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"es\";i:2;s:3:\"spa\";i:3;s:3:\"spa\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:5:\"es_MX\";a:8:{s:8:\"language\";s:5:\"es_MX\";s:7:\"version\";s:5:\"4.8.6\";s:7:\"updated\";s:19:\"2017-07-31 15:12:02\";s:12:\"english_name\";s:16:\"Spanish (Mexico)\";s:11:\"native_name\";s:19:\"Español de México\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.8.6/es_MX.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"es\";i:2;s:3:\"spa\";i:3;s:3:\"spa\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:5:\"es_CR\";a:8:{s:8:\"language\";s:5:\"es_CR\";s:7:\"version\";s:5:\"4.8.3\";s:7:\"updated\";s:19:\"2017-10-01 17:54:52\";s:12:\"english_name\";s:20:\"Spanish (Costa Rica)\";s:11:\"native_name\";s:22:\"Español de Costa Rica\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.8.3/es_CR.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"es\";i:2;s:3:\"spa\";i:3;s:3:\"spa\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:5:\"es_CL\";a:8:{s:8:\"language\";s:5:\"es_CL\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-11-28 20:09:49\";s:12:\"english_name\";s:15:\"Spanish (Chile)\";s:11:\"native_name\";s:17:\"Español de Chile\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.7.2/es_CL.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"es\";i:2;s:3:\"spa\";i:3;s:3:\"spa\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:5:\"es_PE\";a:8:{s:8:\"language\";s:5:\"es_PE\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-09-09 09:36:22\";s:12:\"english_name\";s:14:\"Spanish (Peru)\";s:11:\"native_name\";s:17:\"Español de Perú\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.7.2/es_PE.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"es\";i:2;s:3:\"spa\";i:3;s:3:\"spa\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:2:\"et\";a:8:{s:8:\"language\";s:2:\"et\";s:7:\"version\";s:5:\"4.9.2\";s:7:\"updated\";s:19:\"2017-11-19 14:11:29\";s:12:\"english_name\";s:8:\"Estonian\";s:11:\"native_name\";s:5:\"Eesti\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.2/et.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"et\";i:2;s:3:\"est\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"Jätka\";}}s:2:\"eu\";a:8:{s:8:\"language\";s:2:\"eu\";s:7:\"version\";s:5:\"4.9.2\";s:7:\"updated\";s:19:\"2017-12-09 21:12:23\";s:12:\"english_name\";s:6:\"Basque\";s:11:\"native_name\";s:7:\"Euskara\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.2/eu.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"eu\";i:2;s:3:\"eus\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Jarraitu\";}}s:5:\"fa_IR\";a:8:{s:8:\"language\";s:5:\"fa_IR\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-30 07:44:25\";s:12:\"english_name\";s:7:\"Persian\";s:11:\"native_name\";s:10:\"فارسی\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/fa_IR.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"fa\";i:2;s:3:\"fas\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:10:\"ادامه\";}}s:2:\"fi\";a:8:{s:8:\"language\";s:2:\"fi\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-16 10:29:40\";s:12:\"english_name\";s:7:\"Finnish\";s:11:\"native_name\";s:5:\"Suomi\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.6/fi.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"fi\";i:2;s:3:\"fin\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:5:\"Jatka\";}}s:5:\"fr_CA\";a:8:{s:8:\"language\";s:5:\"fr_CA\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-23 21:23:19\";s:12:\"english_name\";s:15:\"French (Canada)\";s:11:\"native_name\";s:19:\"Français du Canada\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/fr_CA.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"fr\";i:2;s:3:\"fra\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuer\";}}s:5:\"fr_FR\";a:8:{s:8:\"language\";s:5:\"fr_FR\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-25 14:56:25\";s:12:\"english_name\";s:15:\"French (France)\";s:11:\"native_name\";s:9:\"Français\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/fr_FR.zip\";s:3:\"iso\";a:1:{i:1;s:2:\"fr\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuer\";}}s:5:\"fr_BE\";a:8:{s:8:\"language\";s:5:\"fr_BE\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-01-31 11:16:06\";s:12:\"english_name\";s:16:\"French (Belgium)\";s:11:\"native_name\";s:21:\"Français de Belgique\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/fr_BE.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"fr\";i:2;s:3:\"fra\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuer\";}}s:3:\"fur\";a:8:{s:8:\"language\";s:3:\"fur\";s:7:\"version\";s:5:\"4.8.6\";s:7:\"updated\";s:19:\"2018-01-29 17:32:35\";s:12:\"english_name\";s:8:\"Friulian\";s:11:\"native_name\";s:8:\"Friulian\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.8.6/fur.zip\";s:3:\"iso\";a:2:{i:2;s:3:\"fur\";i:3;s:3:\"fur\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Continue\";}}s:2:\"gd\";a:8:{s:8:\"language\";s:2:\"gd\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-08-23 17:41:37\";s:12:\"english_name\";s:15:\"Scottish Gaelic\";s:11:\"native_name\";s:9:\"Gàidhlig\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.7.2/gd.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"gd\";i:2;s:3:\"gla\";i:3;s:3:\"gla\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:15:\"Lean air adhart\";}}s:5:\"gl_ES\";a:8:{s:8:\"language\";s:5:\"gl_ES\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-17 12:42:52\";s:12:\"english_name\";s:8:\"Galician\";s:11:\"native_name\";s:6:\"Galego\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/gl_ES.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"gl\";i:2;s:3:\"glg\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:2:\"gu\";a:8:{s:8:\"language\";s:2:\"gu\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-02-14 06:16:04\";s:12:\"english_name\";s:8:\"Gujarati\";s:11:\"native_name\";s:21:\"ગુજરાતી\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.6/gu.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"gu\";i:2;s:3:\"guj\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:31:\"ચાલુ રાખવું\";}}s:3:\"haz\";a:8:{s:8:\"language\";s:3:\"haz\";s:7:\"version\";s:5:\"4.4.2\";s:7:\"updated\";s:19:\"2015-12-05 00:59:09\";s:12:\"english_name\";s:8:\"Hazaragi\";s:11:\"native_name\";s:15:\"هزاره گی\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.4.2/haz.zip\";s:3:\"iso\";a:1:{i:3;s:3:\"haz\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:10:\"ادامه\";}}s:5:\"he_IL\";a:8:{s:8:\"language\";s:5:\"he_IL\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-04-15 08:49:46\";s:12:\"english_name\";s:6:\"Hebrew\";s:11:\"native_name\";s:16:\"עִבְרִית\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/he_IL.zip\";s:3:\"iso\";a:1:{i:1;s:2:\"he\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"המשך\";}}s:5:\"hi_IN\";a:8:{s:8:\"language\";s:5:\"hi_IN\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-23 03:43:25\";s:12:\"english_name\";s:5:\"Hindi\";s:11:\"native_name\";s:18:\"हिन्दी\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/hi_IN.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"hi\";i:2;s:3:\"hin\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:12:\"जारी\";}}s:2:\"hr\";a:8:{s:8:\"language\";s:2:\"hr\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-21 15:45:31\";s:12:\"english_name\";s:8:\"Croatian\";s:11:\"native_name\";s:8:\"Hrvatski\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.6/hr.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"hr\";i:2;s:3:\"hrv\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:7:\"Nastavi\";}}s:5:\"hu_HU\";a:8:{s:8:\"language\";s:5:\"hu_HU\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-23 22:45:22\";s:12:\"english_name\";s:9:\"Hungarian\";s:11:\"native_name\";s:6:\"Magyar\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/hu_HU.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"hu\";i:2;s:3:\"hun\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:10:\"Folytatás\";}}s:2:\"hy\";a:8:{s:8:\"language\";s:2:\"hy\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-12-03 16:21:10\";s:12:\"english_name\";s:8:\"Armenian\";s:11:\"native_name\";s:14:\"Հայերեն\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.7.2/hy.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"hy\";i:2;s:3:\"hye\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:20:\"Շարունակել\";}}s:5:\"id_ID\";a:8:{s:8:\"language\";s:5:\"id_ID\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-30 09:55:05\";s:12:\"english_name\";s:10:\"Indonesian\";s:11:\"native_name\";s:16:\"Bahasa Indonesia\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/id_ID.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"id\";i:2;s:3:\"ind\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Lanjutkan\";}}s:5:\"is_IS\";a:8:{s:8:\"language\";s:5:\"is_IS\";s:7:\"version\";s:5:\"4.7.7\";s:7:\"updated\";s:19:\"2017-04-13 13:55:54\";s:12:\"english_name\";s:9:\"Icelandic\";s:11:\"native_name\";s:9:\"Íslenska\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.7.7/is_IS.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"is\";i:2;s:3:\"isl\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"Áfram\";}}s:5:\"it_IT\";a:8:{s:8:\"language\";s:5:\"it_IT\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-28 07:55:20\";s:12:\"english_name\";s:7:\"Italian\";s:11:\"native_name\";s:8:\"Italiano\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/it_IT.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"it\";i:2;s:3:\"ita\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Continua\";}}s:2:\"ja\";a:8:{s:8:\"language\";s:2:\"ja\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-23 11:38:59\";s:12:\"english_name\";s:8:\"Japanese\";s:11:\"native_name\";s:9:\"日本語\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.6/ja.zip\";s:3:\"iso\";a:1:{i:1;s:2:\"ja\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"続ける\";}}s:5:\"jv_ID\";a:8:{s:8:\"language\";s:5:\"jv_ID\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-24 13:53:29\";s:12:\"english_name\";s:8:\"Javanese\";s:11:\"native_name\";s:9:\"Basa Jawa\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/jv_ID.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"jv\";i:2;s:3:\"jav\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Nerusaké\";}}s:5:\"ka_GE\";a:8:{s:8:\"language\";s:5:\"ka_GE\";s:7:\"version\";s:5:\"4.9.4\";s:7:\"updated\";s:19:\"2018-02-08 06:01:48\";s:12:\"english_name\";s:8:\"Georgian\";s:11:\"native_name\";s:21:\"ქართული\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.4/ka_GE.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ka\";i:2;s:3:\"kat\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:30:\"გაგრძელება\";}}s:3:\"kab\";a:8:{s:8:\"language\";s:3:\"kab\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-22 22:24:38\";s:12:\"english_name\";s:6:\"Kabyle\";s:11:\"native_name\";s:9:\"Taqbaylit\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.9.5/kab.zip\";s:3:\"iso\";a:2:{i:2;s:3:\"kab\";i:3;s:3:\"kab\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"Kemmel\";}}s:2:\"kk\";a:8:{s:8:\"language\";s:2:\"kk\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-12 08:08:32\";s:12:\"english_name\";s:6:\"Kazakh\";s:11:\"native_name\";s:19:\"Қазақ тілі\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.5/kk.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"kk\";i:2;s:3:\"kaz\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:20:\"Жалғастыру\";}}s:2:\"km\";a:8:{s:8:\"language\";s:2:\"km\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-12-07 02:07:59\";s:12:\"english_name\";s:5:\"Khmer\";s:11:\"native_name\";s:27:\"ភាសាខ្មែរ\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.7.2/km.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"km\";i:2;s:3:\"khm\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:12:\"បន្ត\";}}s:5:\"ko_KR\";a:8:{s:8:\"language\";s:5:\"ko_KR\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-26 15:32:13\";s:12:\"english_name\";s:6:\"Korean\";s:11:\"native_name\";s:9:\"한국어\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/ko_KR.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ko\";i:2;s:3:\"kor\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"계속\";}}s:3:\"ckb\";a:8:{s:8:\"language\";s:3:\"ckb\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2017-01-26 15:48:25\";s:12:\"english_name\";s:16:\"Kurdish (Sorani)\";s:11:\"native_name\";s:13:\"كوردی‎\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.7.2/ckb.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ku\";i:3;s:3:\"ckb\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:30:\"به‌رده‌وام به‌\";}}s:2:\"lo\";a:8:{s:8:\"language\";s:2:\"lo\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-11-12 09:59:23\";s:12:\"english_name\";s:3:\"Lao\";s:11:\"native_name\";s:21:\"ພາສາລາວ\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.7.2/lo.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"lo\";i:2;s:3:\"lao\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:18:\"ຕໍ່​ໄປ\";}}s:5:\"lt_LT\";a:8:{s:8:\"language\";s:5:\"lt_LT\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-24 09:42:27\";s:12:\"english_name\";s:10:\"Lithuanian\";s:11:\"native_name\";s:15:\"Lietuvių kalba\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/lt_LT.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"lt\";i:2;s:3:\"lit\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"Tęsti\";}}s:2:\"lv\";a:8:{s:8:\"language\";s:2:\"lv\";s:7:\"version\";s:5:\"4.7.7\";s:7:\"updated\";s:19:\"2017-03-17 20:40:40\";s:12:\"english_name\";s:7:\"Latvian\";s:11:\"native_name\";s:16:\"Latviešu valoda\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.7.7/lv.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"lv\";i:2;s:3:\"lav\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Turpināt\";}}s:5:\"mk_MK\";a:8:{s:8:\"language\";s:5:\"mk_MK\";s:7:\"version\";s:5:\"4.7.7\";s:7:\"updated\";s:19:\"2017-01-26 15:54:41\";s:12:\"english_name\";s:10:\"Macedonian\";s:11:\"native_name\";s:31:\"Македонски јазик\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.7.7/mk_MK.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"mk\";i:2;s:3:\"mkd\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:16:\"Продолжи\";}}s:5:\"ml_IN\";a:8:{s:8:\"language\";s:5:\"ml_IN\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2017-01-27 03:43:32\";s:12:\"english_name\";s:9:\"Malayalam\";s:11:\"native_name\";s:18:\"മലയാളം\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.7.2/ml_IN.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ml\";i:2;s:3:\"mal\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:18:\"തുടരുക\";}}s:2:\"mn\";a:8:{s:8:\"language\";s:2:\"mn\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2017-01-12 07:29:35\";s:12:\"english_name\";s:9:\"Mongolian\";s:11:\"native_name\";s:12:\"Монгол\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.7.2/mn.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"mn\";i:2;s:3:\"mon\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:24:\"Үргэлжлүүлэх\";}}s:2:\"mr\";a:8:{s:8:\"language\";s:2:\"mr\";s:7:\"version\";s:5:\"4.8.6\";s:7:\"updated\";s:19:\"2018-02-13 07:38:55\";s:12:\"english_name\";s:7:\"Marathi\";s:11:\"native_name\";s:15:\"मराठी\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.8.6/mr.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"mr\";i:2;s:3:\"mar\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:25:\"सुरु ठेवा\";}}s:5:\"ms_MY\";a:8:{s:8:\"language\";s:5:\"ms_MY\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-23 08:05:19\";s:12:\"english_name\";s:5:\"Malay\";s:11:\"native_name\";s:13:\"Bahasa Melayu\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/ms_MY.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ms\";i:2;s:3:\"msa\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Teruskan\";}}s:5:\"my_MM\";a:8:{s:8:\"language\";s:5:\"my_MM\";s:7:\"version\";s:6:\"4.1.20\";s:7:\"updated\";s:19:\"2015-03-26 15:57:42\";s:12:\"english_name\";s:17:\"Myanmar (Burmese)\";s:11:\"native_name\";s:15:\"ဗမာစာ\";s:7:\"package\";s:65:\"https://downloads.wordpress.org/translation/core/4.1.20/my_MM.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"my\";i:2;s:3:\"mya\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:54:\"ဆက်လက်လုပ်ဆောင်ပါ။\";}}s:5:\"nb_NO\";a:8:{s:8:\"language\";s:5:\"nb_NO\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-22 19:04:05\";s:12:\"english_name\";s:19:\"Norwegian (Bokmål)\";s:11:\"native_name\";s:13:\"Norsk bokmål\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/nb_NO.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"nb\";i:2;s:3:\"nob\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Fortsett\";}}s:5:\"ne_NP\";a:8:{s:8:\"language\";s:5:\"ne_NP\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-27 10:30:26\";s:12:\"english_name\";s:6:\"Nepali\";s:11:\"native_name\";s:18:\"नेपाली\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/ne_NP.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ne\";i:2;s:3:\"nep\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:43:\"जारी राख्नुहोस्\";}}s:12:\"nl_NL_formal\";a:8:{s:8:\"language\";s:12:\"nl_NL_formal\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-21 14:40:52\";s:12:\"english_name\";s:14:\"Dutch (Formal)\";s:11:\"native_name\";s:20:\"Nederlands (Formeel)\";s:7:\"package\";s:71:\"https://downloads.wordpress.org/translation/core/4.9.6/nl_NL_formal.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"nl\";i:2;s:3:\"nld\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Doorgaan\";}}s:5:\"nl_BE\";a:8:{s:8:\"language\";s:5:\"nl_BE\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-18 13:37:44\";s:12:\"english_name\";s:15:\"Dutch (Belgium)\";s:11:\"native_name\";s:20:\"Nederlands (België)\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/nl_BE.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"nl\";i:2;s:3:\"nld\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Doorgaan\";}}s:5:\"nl_NL\";a:8:{s:8:\"language\";s:5:\"nl_NL\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-30 12:22:32\";s:12:\"english_name\";s:5:\"Dutch\";s:11:\"native_name\";s:10:\"Nederlands\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/nl_NL.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"nl\";i:2;s:3:\"nld\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Doorgaan\";}}s:5:\"nn_NO\";a:8:{s:8:\"language\";s:5:\"nn_NO\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-22 09:27:50\";s:12:\"english_name\";s:19:\"Norwegian (Nynorsk)\";s:11:\"native_name\";s:13:\"Norsk nynorsk\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/nn_NO.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"nn\";i:2;s:3:\"nno\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Hald fram\";}}s:3:\"oci\";a:8:{s:8:\"language\";s:3:\"oci\";s:7:\"version\";s:5:\"4.8.3\";s:7:\"updated\";s:19:\"2017-08-25 10:03:08\";s:12:\"english_name\";s:7:\"Occitan\";s:11:\"native_name\";s:7:\"Occitan\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.8.3/oci.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"oc\";i:2;s:3:\"oci\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Contunhar\";}}s:5:\"pa_IN\";a:8:{s:8:\"language\";s:5:\"pa_IN\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2017-01-16 05:19:43\";s:12:\"english_name\";s:7:\"Punjabi\";s:11:\"native_name\";s:18:\"ਪੰਜਾਬੀ\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.7.2/pa_IN.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"pa\";i:2;s:3:\"pan\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:25:\"ਜਾਰੀ ਰੱਖੋ\";}}s:5:\"pl_PL\";a:8:{s:8:\"language\";s:5:\"pl_PL\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-28 15:53:31\";s:12:\"english_name\";s:6:\"Polish\";s:11:\"native_name\";s:6:\"Polski\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/pl_PL.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"pl\";i:2;s:3:\"pol\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Kontynuuj\";}}s:2:\"ps\";a:8:{s:8:\"language\";s:2:\"ps\";s:7:\"version\";s:6:\"4.1.20\";s:7:\"updated\";s:19:\"2015-03-29 22:19:48\";s:12:\"english_name\";s:6:\"Pashto\";s:11:\"native_name\";s:8:\"پښتو\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.1.20/ps.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ps\";i:2;s:3:\"pus\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:19:\"دوام ورکړه\";}}s:5:\"pt_BR\";a:8:{s:8:\"language\";s:5:\"pt_BR\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-24 11:43:38\";s:12:\"english_name\";s:19:\"Portuguese (Brazil)\";s:11:\"native_name\";s:20:\"Português do Brasil\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/pt_BR.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"pt\";i:2;s:3:\"por\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:10:\"pt_PT_ao90\";a:8:{s:8:\"language\";s:10:\"pt_PT_ao90\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-09 09:30:48\";s:12:\"english_name\";s:27:\"Portuguese (Portugal, AO90)\";s:11:\"native_name\";s:17:\"Português (AO90)\";s:7:\"package\";s:69:\"https://downloads.wordpress.org/translation/core/4.9.5/pt_PT_ao90.zip\";s:3:\"iso\";a:1:{i:1;s:2:\"pt\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:5:\"pt_PT\";a:8:{s:8:\"language\";s:5:\"pt_PT\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-21 19:42:47\";s:12:\"english_name\";s:21:\"Portuguese (Portugal)\";s:11:\"native_name\";s:10:\"Português\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/pt_PT.zip\";s:3:\"iso\";a:1:{i:1;s:2:\"pt\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuar\";}}s:3:\"rhg\";a:8:{s:8:\"language\";s:3:\"rhg\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-03-16 13:03:18\";s:12:\"english_name\";s:8:\"Rohingya\";s:11:\"native_name\";s:8:\"Ruáinga\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.7.2/rhg.zip\";s:3:\"iso\";a:1:{i:3;s:3:\"rhg\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:0:\"\";}}s:5:\"ro_RO\";a:8:{s:8:\"language\";s:5:\"ro_RO\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-06-04 17:38:57\";s:12:\"english_name\";s:8:\"Romanian\";s:11:\"native_name\";s:8:\"Română\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/ro_RO.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ro\";i:2;s:3:\"ron\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Continuă\";}}s:5:\"ru_RU\";a:8:{s:8:\"language\";s:5:\"ru_RU\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-29 17:37:01\";s:12:\"english_name\";s:7:\"Russian\";s:11:\"native_name\";s:14:\"Русский\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/ru_RU.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ru\";i:2;s:3:\"rus\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:20:\"Продолжить\";}}s:3:\"sah\";a:8:{s:8:\"language\";s:3:\"sah\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2017-01-21 02:06:41\";s:12:\"english_name\";s:5:\"Sakha\";s:11:\"native_name\";s:14:\"Сахалыы\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.7.2/sah.zip\";s:3:\"iso\";a:2:{i:2;s:3:\"sah\";i:3;s:3:\"sah\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:12:\"Салҕаа\";}}s:5:\"si_LK\";a:8:{s:8:\"language\";s:5:\"si_LK\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-11-12 06:00:52\";s:12:\"english_name\";s:7:\"Sinhala\";s:11:\"native_name\";s:15:\"සිංහල\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.7.2/si_LK.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"si\";i:2;s:3:\"sin\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:44:\"දිගටම කරගෙන යන්න\";}}s:5:\"sk_SK\";a:8:{s:8:\"language\";s:5:\"sk_SK\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-22 17:23:37\";s:12:\"english_name\";s:6:\"Slovak\";s:11:\"native_name\";s:11:\"Slovenčina\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/sk_SK.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"sk\";i:2;s:3:\"slk\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:12:\"Pokračovať\";}}s:5:\"sl_SI\";a:8:{s:8:\"language\";s:5:\"sl_SI\";s:7:\"version\";s:5:\"4.9.2\";s:7:\"updated\";s:19:\"2018-01-04 13:33:13\";s:12:\"english_name\";s:9:\"Slovenian\";s:11:\"native_name\";s:13:\"Slovenščina\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.2/sl_SI.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"sl\";i:2;s:3:\"slv\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:8:\"Nadaljuj\";}}s:2:\"sq\";a:8:{s:8:\"language\";s:2:\"sq\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-25 10:30:04\";s:12:\"english_name\";s:8:\"Albanian\";s:11:\"native_name\";s:5:\"Shqip\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.5/sq.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"sq\";i:2;s:3:\"sqi\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"Vazhdo\";}}s:5:\"sr_RS\";a:8:{s:8:\"language\";s:5:\"sr_RS\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-17 22:21:34\";s:12:\"english_name\";s:7:\"Serbian\";s:11:\"native_name\";s:23:\"Српски језик\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/sr_RS.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"sr\";i:2;s:3:\"srp\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:14:\"Настави\";}}s:5:\"sv_SE\";a:8:{s:8:\"language\";s:5:\"sv_SE\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-05-29 07:47:42\";s:12:\"english_name\";s:7:\"Swedish\";s:11:\"native_name\";s:7:\"Svenska\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.6/sv_SE.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"sv\";i:2;s:3:\"swe\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:9:\"Fortsätt\";}}s:3:\"szl\";a:8:{s:8:\"language\";s:3:\"szl\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-09-24 19:58:14\";s:12:\"english_name\";s:8:\"Silesian\";s:11:\"native_name\";s:17:\"Ślōnskŏ gŏdka\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.7.2/szl.zip\";s:3:\"iso\";a:1:{i:3;s:3:\"szl\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:13:\"Kōntynuować\";}}s:5:\"ta_IN\";a:8:{s:8:\"language\";s:5:\"ta_IN\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2017-01-27 03:22:47\";s:12:\"english_name\";s:5:\"Tamil\";s:11:\"native_name\";s:15:\"தமிழ்\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.7.2/ta_IN.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ta\";i:2;s:3:\"tam\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:24:\"தொடரவும்\";}}s:2:\"te\";a:8:{s:8:\"language\";s:2:\"te\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2017-01-26 15:47:39\";s:12:\"english_name\";s:6:\"Telugu\";s:11:\"native_name\";s:18:\"తెలుగు\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.7.2/te.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"te\";i:2;s:3:\"tel\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:30:\"కొనసాగించు\";}}s:2:\"th\";a:8:{s:8:\"language\";s:2:\"th\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-02 17:08:41\";s:12:\"english_name\";s:4:\"Thai\";s:11:\"native_name\";s:9:\"ไทย\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.5/th.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"th\";i:2;s:3:\"tha\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:15:\"ต่อไป\";}}s:2:\"tl\";a:8:{s:8:\"language\";s:2:\"tl\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-12-30 02:38:08\";s:12:\"english_name\";s:7:\"Tagalog\";s:11:\"native_name\";s:7:\"Tagalog\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.7.2/tl.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"tl\";i:2;s:3:\"tgl\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:10:\"Magpatuloy\";}}s:5:\"tr_TR\";a:8:{s:8:\"language\";s:5:\"tr_TR\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-04-04 21:51:10\";s:12:\"english_name\";s:7:\"Turkish\";s:11:\"native_name\";s:8:\"Türkçe\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/tr_TR.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"tr\";i:2;s:3:\"tur\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:5:\"Devam\";}}s:5:\"tt_RU\";a:8:{s:8:\"language\";s:5:\"tt_RU\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-11-20 20:20:50\";s:12:\"english_name\";s:5:\"Tatar\";s:11:\"native_name\";s:19:\"Татар теле\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.7.2/tt_RU.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"tt\";i:2;s:3:\"tat\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:17:\"дәвам итү\";}}s:3:\"tah\";a:8:{s:8:\"language\";s:3:\"tah\";s:7:\"version\";s:5:\"4.7.2\";s:7:\"updated\";s:19:\"2016-03-06 18:39:39\";s:12:\"english_name\";s:8:\"Tahitian\";s:11:\"native_name\";s:10:\"Reo Tahiti\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/translation/core/4.7.2/tah.zip\";s:3:\"iso\";a:3:{i:1;s:2:\"ty\";i:2;s:3:\"tah\";i:3;s:3:\"tah\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:0:\"\";}}s:5:\"ug_CN\";a:8:{s:8:\"language\";s:5:\"ug_CN\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-04-12 12:31:53\";s:12:\"english_name\";s:6:\"Uighur\";s:11:\"native_name\";s:16:\"ئۇيغۇرچە\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/ug_CN.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ug\";i:2;s:3:\"uig\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:26:\"داۋاملاشتۇرۇش\";}}s:2:\"uk\";a:8:{s:8:\"language\";s:2:\"uk\";s:7:\"version\";s:5:\"4.9.6\";s:7:\"updated\";s:19:\"2018-06-04 13:23:01\";s:12:\"english_name\";s:9:\"Ukrainian\";s:11:\"native_name\";s:20:\"Українська\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.6/uk.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"uk\";i:2;s:3:\"ukr\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:20:\"Продовжити\";}}s:2:\"ur\";a:8:{s:8:\"language\";s:2:\"ur\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-13 08:24:25\";s:12:\"english_name\";s:4:\"Urdu\";s:11:\"native_name\";s:8:\"اردو\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.5/ur.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"ur\";i:2;s:3:\"urd\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:19:\"جاری رکھیں\";}}s:5:\"uz_UZ\";a:8:{s:8:\"language\";s:5:\"uz_UZ\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-03-09 10:37:43\";s:12:\"english_name\";s:5:\"Uzbek\";s:11:\"native_name\";s:11:\"O‘zbekcha\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/uz_UZ.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"uz\";i:2;s:3:\"uzb\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:11:\"Davom etish\";}}s:2:\"vi\";a:8:{s:8:\"language\";s:2:\"vi\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-04-11 05:09:29\";s:12:\"english_name\";s:10:\"Vietnamese\";s:11:\"native_name\";s:14:\"Tiếng Việt\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/translation/core/4.9.5/vi.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"vi\";i:2;s:3:\"vie\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:12:\"Tiếp tục\";}}s:5:\"zh_HK\";a:8:{s:8:\"language\";s:5:\"zh_HK\";s:7:\"version\";s:5:\"4.9.5\";s:7:\"updated\";s:19:\"2018-04-09 00:56:52\";s:12:\"english_name\";s:19:\"Chinese (Hong Kong)\";s:11:\"native_name\";s:16:\"香港中文版	\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.5/zh_HK.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"zh\";i:2;s:3:\"zho\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"繼續\";}}s:5:\"zh_TW\";a:8:{s:8:\"language\";s:5:\"zh_TW\";s:7:\"version\";s:5:\"4.9.4\";s:7:\"updated\";s:19:\"2018-02-13 02:41:15\";s:12:\"english_name\";s:16:\"Chinese (Taiwan)\";s:11:\"native_name\";s:12:\"繁體中文\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.4/zh_TW.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"zh\";i:2;s:3:\"zho\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"繼續\";}}s:5:\"zh_CN\";a:8:{s:8:\"language\";s:5:\"zh_CN\";s:7:\"version\";s:5:\"4.9.2\";s:7:\"updated\";s:19:\"2017-11-17 22:20:52\";s:12:\"english_name\";s:15:\"Chinese (China)\";s:11:\"native_name\";s:12:\"简体中文\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/4.9.2/zh_CN.zip\";s:3:\"iso\";a:2:{i:1;s:2:\"zh\";i:2;s:3:\"zho\";}s:7:\"strings\";a:1:{s:8:\"continue\";s:6:\"继续\";}}}', 'no'),
+(374, 'WPLANG', '', 'yes'),
+(375, 'new_admin_email', 'ltphatdev@gmail.com', 'yes'),
+(384, '_site_transient_timeout_theme_roots', '1528211216', 'no'),
+(385, '_site_transient_theme_roots', 'a:1:{s:10:\"metrostore\";s:7:\"/themes\";}', 'no'),
+(400, 'product_cat_children', 'a:0:{}', 'yes'),
+(401, '_transient_product_query-transient-version', '1528213109', 'yes'),
+(402, '_transient_product-transient-version', '1528213109', 'yes'),
+(412, '_transient_timeout_wc_related_45', '1528298717', 'no'),
+(413, '_transient_wc_related_45', 'a:1:{s:50:\"limit=4&exclude_ids%5B0%5D=0&exclude_ids%5B1%5D=45\";a:2:{i:0;s:2:\"43\";i:1;s:2:\"46\";}}', 'no'),
+(423, '_transient_wc_count_comments', 'O:8:\"stdClass\":7:{s:14:\"total_comments\";i:1;s:3:\"all\";i:1;s:8:\"approved\";s:1:\"1\";s:9:\"moderated\";i:0;s:4:\"spam\";i:0;s:5:\"trash\";i:0;s:12:\"post-trashed\";i:0;}', 'yes'),
+(425, 'category_children', 'a:0:{}', 'yes'),
+(427, '_transient_timeout_wc_low_stock_count', '1530806237', 'no'),
+(428, '_transient_wc_low_stock_count', '0', 'no'),
+(429, '_transient_timeout_wc_outofstock_count', '1530806237', 'no'),
+(430, '_transient_wc_outofstock_count', '0', 'no'),
+(431, '_transient_timeout_wc_term_counts', '1530806511', 'no'),
+(432, '_transient_wc_term_counts', 'a:4:{i:26;s:1:\"4\";i:25;s:1:\"5\";i:27;s:1:\"4\";i:28;s:1:\"4\";}', 'no'),
+(454, '_transient_is_multi_author', '0', 'yes');
 
 -- --------------------------------------------------------
 
@@ -407,12 +447,16 @@ INSERT INTO `tb_options` (`option_id`, `option_name`, `option_value`, `autoload`
 -- Table structure for table `tb_postmeta`
 --
 
-CREATE TABLE `tb_postmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_postmeta`;
+CREATE TABLE IF NOT EXISTS `tb_postmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `post_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `post_id` (`post_id`),
+  KEY `meta_key` (`meta_key`(191))
+) ENGINE=InnoDB AUTO_INCREMENT=704 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tb_postmeta`
@@ -441,14 +485,623 @@ INSERT INTO `tb_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (20, 7, '_menu_item_xfn', ''),
 (21, 7, '_menu_item_url', ''),
 (22, 7, '_menu_item_orphaned', '1528194954'),
-(23, 8, '_menu_item_type', 'custom'),
-(24, 8, '_menu_item_menu_item_parent', '0'),
-(25, 8, '_menu_item_object_id', '8'),
-(26, 8, '_menu_item_object', 'custom'),
-(27, 8, '_menu_item_target', ''),
-(28, 8, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
-(29, 8, '_menu_item_xfn', ''),
-(30, 8, '_menu_item_url', 'http://localhost:9999/webMining/');
+(31, 9, '_wp_trash_meta_status', 'publish'),
+(32, 9, '_wp_trash_meta_time', '1528207293'),
+(33, 10, '_edit_lock', '1528207303:1'),
+(34, 10, '_wp_trash_meta_status', 'publish'),
+(35, 10, '_wp_trash_meta_time', '1528207311'),
+(36, 11, '_wp_trash_meta_status', 'publish'),
+(37, 11, '_wp_trash_meta_time', '1528207357'),
+(38, 2, '_edit_lock', '1528207374:1'),
+(39, 1, '_edit_lock', '1528207379:1'),
+(56, 15, '_menu_item_type', 'taxonomy'),
+(57, 15, '_menu_item_menu_item_parent', '82'),
+(58, 15, '_menu_item_object_id', '19'),
+(59, 15, '_menu_item_object', 'category'),
+(60, 15, '_menu_item_target', ''),
+(61, 15, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(62, 15, '_menu_item_xfn', ''),
+(63, 15, '_menu_item_url', ''),
+(64, 16, '_menu_item_type', 'taxonomy'),
+(65, 16, '_menu_item_menu_item_parent', '82'),
+(66, 16, '_menu_item_object_id', '20'),
+(67, 16, '_menu_item_object', 'category'),
+(68, 16, '_menu_item_target', ''),
+(69, 16, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(70, 16, '_menu_item_xfn', ''),
+(71, 16, '_menu_item_url', ''),
+(72, 17, '_menu_item_type', 'taxonomy'),
+(73, 17, '_menu_item_menu_item_parent', '82'),
+(74, 17, '_menu_item_object_id', '21'),
+(75, 17, '_menu_item_object', 'category'),
+(76, 17, '_menu_item_target', ''),
+(77, 17, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(78, 17, '_menu_item_xfn', ''),
+(79, 17, '_menu_item_url', ''),
+(80, 12, '_wp_trash_meta_status', 'publish'),
+(81, 12, '_wp_trash_meta_time', '1528207672'),
+(82, 19, '_edit_last', '1'),
+(83, 19, '_edit_lock', '1528208559:1'),
+(84, 20, '_wp_attached_file', '2018/06/banner01.jpg'),
+(85, 20, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:1920;s:6:\"height\";i:1232;s:4:\"file\";s:20:\"2018/06/banner01.jpg\";s:5:\"sizes\";a:13:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:20:\"banner01-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:20:\"banner01-300x193.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:193;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"medium_large\";a:4:{s:4:\"file\";s:20:\"banner01-768x493.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:493;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:5:\"large\";a:4:{s:4:\"file\";s:21:\"banner01-1024x657.jpg\";s:5:\"width\";i:1024;s:6:\"height\";i:657;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:20:\"metrostore-cat-image\";a:4:{s:4:\"file\";s:20:\"banner01-270x355.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:355;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"metrostore-blog-image\";a:4:{s:4:\"file\";s:20:\"banner01-375x265.jpg\";s:5:\"width\";i:375;s:6:\"height\";i:265;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:23:\"metrostore-banner-image\";a:4:{s:4:\"file\";s:21:\"banner01-1350x520.jpg\";s:5:\"width\";i:1350;s:6:\"height\";i:520;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"woocommerce_thumbnail\";a:5:{s:4:\"file\";s:20:\"banner01-300x300.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:9:\"uncropped\";b:1;}s:18:\"woocommerce_single\";a:4:{s:4:\"file\";s:20:\"banner01-600x385.jpg\";s:5:\"width\";i:600;s:6:\"height\";i:385;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:29:\"woocommerce_gallery_thumbnail\";a:4:{s:4:\"file\";s:20:\"banner01-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"shop_catalog\";a:4:{s:4:\"file\";s:20:\"banner01-300x300.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:11:\"shop_single\";a:4:{s:4:\"file\";s:20:\"banner01-600x385.jpg\";s:5:\"width\";i:600;s:6:\"height\";i:385;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"shop_thumbnail\";a:4:{s:4:\"file\";s:20:\"banner01-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"1\";s:8:\"keywords\";a:0:{}}}'),
+(86, 19, '_thumbnail_id', '20'),
+(87, 19, 'metrostore_page_layouts', 'nosidebar'),
+(88, 19, '_pingme', '1'),
+(89, 19, '_encloseme', '1'),
+(90, 19, '_pingme', '1'),
+(91, 19, '_encloseme', '1'),
+(92, 22, '_wp_trash_meta_status', 'publish'),
+(93, 22, '_wp_trash_meta_time', '1528208183'),
+(94, 23, '_edit_last', '1'),
+(95, 23, '_edit_lock', '1528209273:1'),
+(99, 23, '_pingme', '1'),
+(100, 23, '_encloseme', '1'),
+(101, 23, 'metrostore_page_layouts', 'nosidebar'),
+(102, 23, '_pingme', '1'),
+(103, 23, '_encloseme', '1'),
+(104, 23, '_pingme', '1'),
+(105, 23, '_encloseme', '1'),
+(106, 26, '_wp_attached_file', '2018/06/slider2.jpg'),
+(107, 26, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:1350;s:6:\"height\";i:520;s:4:\"file\";s:19:\"2018/06/slider2.jpg\";s:5:\"sizes\";a:12:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:19:\"slider2-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:19:\"slider2-300x116.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:116;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"medium_large\";a:4:{s:4:\"file\";s:19:\"slider2-768x296.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:296;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:5:\"large\";a:4:{s:4:\"file\";s:20:\"slider2-1024x394.jpg\";s:5:\"width\";i:1024;s:6:\"height\";i:394;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:20:\"metrostore-cat-image\";a:4:{s:4:\"file\";s:19:\"slider2-270x355.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:355;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"metrostore-blog-image\";a:4:{s:4:\"file\";s:19:\"slider2-375x265.jpg\";s:5:\"width\";i:375;s:6:\"height\";i:265;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"woocommerce_thumbnail\";a:5:{s:4:\"file\";s:19:\"slider2-300x300.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:9:\"uncropped\";b:1;}s:18:\"woocommerce_single\";a:4:{s:4:\"file\";s:19:\"slider2-600x231.jpg\";s:5:\"width\";i:600;s:6:\"height\";i:231;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:29:\"woocommerce_gallery_thumbnail\";a:4:{s:4:\"file\";s:19:\"slider2-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"shop_catalog\";a:4:{s:4:\"file\";s:19:\"slider2-300x300.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:11:\"shop_single\";a:4:{s:4:\"file\";s:19:\"slider2-600x231.jpg\";s:5:\"width\";i:600;s:6:\"height\";i:231;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"shop_thumbnail\";a:4:{s:4:\"file\";s:19:\"slider2-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"5\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:20:\"Canon EOS 5D Mark II\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:3:\"140\";s:3:\"iso\";s:3:\"500\";s:13:\"shutter_speed\";s:5:\"0.005\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
+(109, 23, '_pingme', '1'),
+(110, 23, '_encloseme', '1'),
+(111, 23, '_pingme', '1'),
+(112, 23, '_encloseme', '1'),
+(113, 23, '_pingme', '1'),
+(114, 23, '_encloseme', '1'),
+(115, 19, '_pingme', '1'),
+(116, 19, '_encloseme', '1'),
+(117, 23, '_pingme', '1'),
+(118, 23, '_encloseme', '1'),
+(119, 32, '_edit_last', '1'),
+(120, 32, '_edit_lock', '1528208953:1'),
+(121, 32, '_wp_page_template', 'metrostore-home.php'),
+(122, 32, 'metrostore_page_layouts', 'rightsidebar'),
+(123, 34, '_menu_item_type', 'post_type'),
+(124, 34, '_menu_item_menu_item_parent', '0'),
+(125, 34, '_menu_item_object_id', '32'),
+(126, 34, '_menu_item_object', 'page'),
+(127, 34, '_menu_item_target', ''),
+(128, 34, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(129, 34, '_menu_item_xfn', ''),
+(130, 34, '_menu_item_url', ''),
+(132, 35, '_wp_trash_meta_status', 'publish'),
+(133, 35, '_wp_trash_meta_time', '1528209186'),
+(134, 23, '_pingme', '1'),
+(135, 23, '_encloseme', '1'),
+(136, 23, '_thumbnail_id', '26'),
+(137, 23, '_pingme', '1'),
+(138, 23, '_encloseme', '1'),
+(139, 36, '_edit_lock', '1528209735:1'),
+(140, 36, '_wp_trash_meta_status', 'publish'),
+(141, 36, '_wp_trash_meta_time', '1528209738'),
+(142, 37, '_edit_last', '1'),
+(143, 37, '_edit_lock', '1528209726:1'),
+(144, 37, '_wp_page_template', 'default'),
+(145, 37, 'metrostore_page_layouts', 'rightsidebar'),
+(146, 39, '_wp_attached_file', '2018/06/cat_analog.jpg'),
+(147, 39, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:270;s:6:\"height\";i:355;s:4:\"file\";s:22:\"2018/06/cat_analog.jpg\";s:5:\"sizes\";a:7:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:22:\"cat_analog-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:22:\"cat_analog-228x300.jpg\";s:5:\"width\";i:228;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"metrostore-blog-image\";a:4:{s:4:\"file\";s:22:\"cat_analog-270x265.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:265;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"woocommerce_thumbnail\";a:5:{s:4:\"file\";s:22:\"cat_analog-270x300.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:9:\"uncropped\";b:1;}s:29:\"woocommerce_gallery_thumbnail\";a:4:{s:4:\"file\";s:22:\"cat_analog-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"shop_catalog\";a:4:{s:4:\"file\";s:22:\"cat_analog-270x300.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"shop_thumbnail\";a:4:{s:4:\"file\";s:22:\"cat_analog-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
+(148, 40, '_wp_attached_file', '2018/06/cat_apple_watch.jpg'),
+(149, 40, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:270;s:6:\"height\";i:355;s:4:\"file\";s:27:\"2018/06/cat_apple_watch.jpg\";s:5:\"sizes\";a:7:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:27:\"cat_apple_watch-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:27:\"cat_apple_watch-228x300.jpg\";s:5:\"width\";i:228;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"metrostore-blog-image\";a:4:{s:4:\"file\";s:27:\"cat_apple_watch-270x265.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:265;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"woocommerce_thumbnail\";a:5:{s:4:\"file\";s:27:\"cat_apple_watch-270x300.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:9:\"uncropped\";b:1;}s:29:\"woocommerce_gallery_thumbnail\";a:4:{s:4:\"file\";s:27:\"cat_apple_watch-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"shop_catalog\";a:4:{s:4:\"file\";s:27:\"cat_apple_watch-270x300.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"shop_thumbnail\";a:4:{s:4:\"file\";s:27:\"cat_apple_watch-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
+(150, 41, '_wp_attached_file', '2018/06/cat_clock_watch.jpg'),
+(151, 41, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:270;s:6:\"height\";i:355;s:4:\"file\";s:27:\"2018/06/cat_clock_watch.jpg\";s:5:\"sizes\";a:7:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:27:\"cat_clock_watch-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:27:\"cat_clock_watch-228x300.jpg\";s:5:\"width\";i:228;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"metrostore-blog-image\";a:4:{s:4:\"file\";s:27:\"cat_clock_watch-270x265.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:265;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"woocommerce_thumbnail\";a:5:{s:4:\"file\";s:27:\"cat_clock_watch-270x300.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:9:\"uncropped\";b:1;}s:29:\"woocommerce_gallery_thumbnail\";a:4:{s:4:\"file\";s:27:\"cat_clock_watch-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"shop_catalog\";a:4:{s:4:\"file\";s:27:\"cat_clock_watch-270x300.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"shop_thumbnail\";a:4:{s:4:\"file\";s:27:\"cat_clock_watch-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
+(152, 42, '_wp_attached_file', '2018/06/cat_men_watch.jpg'),
+(153, 42, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:270;s:6:\"height\";i:355;s:4:\"file\";s:25:\"2018/06/cat_men_watch.jpg\";s:5:\"sizes\";a:7:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:25:\"cat_men_watch-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:25:\"cat_men_watch-228x300.jpg\";s:5:\"width\";i:228;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"metrostore-blog-image\";a:4:{s:4:\"file\";s:25:\"cat_men_watch-270x265.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:265;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"woocommerce_thumbnail\";a:5:{s:4:\"file\";s:25:\"cat_men_watch-270x300.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:9:\"uncropped\";b:1;}s:29:\"woocommerce_gallery_thumbnail\";a:4:{s:4:\"file\";s:25:\"cat_men_watch-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"shop_catalog\";a:4:{s:4:\"file\";s:25:\"cat_men_watch-270x300.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"shop_thumbnail\";a:4:{s:4:\"file\";s:25:\"cat_men_watch-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
+(154, 43, '_wc_review_count', '0'),
+(155, 43, '_wc_rating_count', 'a:0:{}'),
+(156, 43, '_wc_average_rating', '0'),
+(157, 43, '_edit_last', '1'),
+(158, 43, '_edit_lock', '1528211499:1'),
+(159, 44, '_wp_attached_file', '2018/06/analog_watch_rider.jpg'),
+(160, 44, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:150;s:6:\"height\";i:150;s:4:\"file\";s:30:\"2018/06/analog_watch_rider.jpg\";s:5:\"sizes\";a:2:{s:29:\"woocommerce_gallery_thumbnail\";a:4:{s:4:\"file\";s:30:\"analog_watch_rider-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"shop_thumbnail\";a:4:{s:4:\"file\";s:30:\"analog_watch_rider-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:3:\"2.8\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:19:\"Canon EOS REBEL T4i\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:2:\"40\";s:3:\"iso\";s:3:\"100\";s:13:\"shutter_speed\";s:4:\"0.02\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
+(161, 43, '_thumbnail_id', '44'),
+(162, 43, '_sku', ''),
+(163, 43, '_regular_price', '250'),
+(164, 43, '_sale_price', '166.67'),
+(165, 43, '_sale_price_dates_from', ''),
+(166, 43, '_sale_price_dates_to', ''),
+(167, 43, 'total_sales', '0'),
+(168, 43, '_tax_status', 'taxable'),
+(169, 43, '_tax_class', ''),
+(170, 43, '_manage_stock', 'no'),
+(171, 43, '_backorders', 'no'),
+(172, 43, '_sold_individually', 'no'),
+(173, 43, '_weight', ''),
+(174, 43, '_length', ''),
+(175, 43, '_width', ''),
+(176, 43, '_height', ''),
+(177, 43, '_upsell_ids', 'a:0:{}'),
+(178, 43, '_crosssell_ids', 'a:0:{}'),
+(179, 43, '_purchase_note', ''),
+(180, 43, '_default_attributes', 'a:0:{}'),
+(181, 43, '_virtual', 'no'),
+(182, 43, '_downloadable', 'no'),
+(183, 43, '_product_image_gallery', ''),
+(184, 43, '_download_limit', '-1'),
+(185, 43, '_download_expiry', '-1'),
+(186, 43, '_stock', NULL),
+(187, 43, '_stock_status', 'instock'),
+(188, 43, '_product_version', '3.4.1'),
+(189, 43, '_price', '166.67'),
+(190, 45, '_wc_review_count', '0'),
+(191, 45, '_wc_rating_count', 'a:0:{}'),
+(192, 45, '_wc_average_rating', '0'),
+(193, 45, '_edit_last', '1'),
+(194, 45, '_edit_lock', '1528211531:1'),
+(195, 45, '_thumbnail_id', '44'),
+(196, 45, '_sku', ''),
+(197, 45, '_regular_price', '250'),
+(198, 45, '_sale_price', ''),
+(199, 45, '_sale_price_dates_from', ''),
+(200, 45, '_sale_price_dates_to', ''),
+(201, 45, 'total_sales', '0'),
+(202, 45, '_tax_status', 'taxable'),
+(203, 45, '_tax_class', ''),
+(204, 45, '_manage_stock', 'no'),
+(205, 45, '_backorders', 'no'),
+(206, 45, '_sold_individually', 'no'),
+(207, 45, '_weight', ''),
+(208, 45, '_length', ''),
+(209, 45, '_width', ''),
+(210, 45, '_height', ''),
+(211, 45, '_upsell_ids', 'a:0:{}'),
+(212, 45, '_crosssell_ids', 'a:0:{}'),
+(213, 45, '_purchase_note', ''),
+(214, 45, '_default_attributes', 'a:0:{}'),
+(215, 45, '_virtual', 'no'),
+(216, 45, '_downloadable', 'no'),
+(217, 45, '_product_image_gallery', ''),
+(218, 45, '_download_limit', '-1'),
+(219, 45, '_download_expiry', '-1'),
+(220, 45, '_stock', NULL),
+(221, 45, '_stock_status', 'instock'),
+(222, 45, '_product_version', '3.4.1'),
+(223, 45, '_price', '250'),
+(224, 46, '_wc_review_count', '0'),
+(225, 46, '_wc_rating_count', 'a:0:{}'),
+(226, 46, '_wc_average_rating', '0'),
+(227, 46, '_edit_last', '1'),
+(228, 46, '_edit_lock', '1528212210:1'),
+(229, 46, '_thumbnail_id', '44'),
+(230, 46, '_sku', ''),
+(231, 46, '_regular_price', '250'),
+(232, 46, '_sale_price', ''),
+(233, 46, '_sale_price_dates_from', ''),
+(234, 46, '_sale_price_dates_to', ''),
+(235, 46, 'total_sales', '0'),
+(236, 46, '_tax_status', 'taxable'),
+(237, 46, '_tax_class', ''),
+(238, 46, '_manage_stock', 'no'),
+(239, 46, '_backorders', 'no'),
+(240, 46, '_sold_individually', 'no'),
+(241, 46, '_weight', ''),
+(242, 46, '_length', ''),
+(243, 46, '_width', ''),
+(244, 46, '_height', ''),
+(245, 46, '_upsell_ids', 'a:0:{}'),
+(246, 46, '_crosssell_ids', 'a:0:{}'),
+(247, 46, '_purchase_note', ''),
+(248, 46, '_default_attributes', 'a:0:{}'),
+(249, 46, '_virtual', 'no'),
+(250, 46, '_downloadable', 'no'),
+(251, 46, '_product_image_gallery', ''),
+(252, 46, '_download_limit', '-1'),
+(253, 46, '_download_expiry', '-1'),
+(254, 46, '_stock', NULL),
+(255, 46, '_stock_status', 'instock'),
+(256, 46, '_product_version', '3.4.1'),
+(257, 46, '_price', '250'),
+(258, 47, '_wc_review_count', '0'),
+(259, 47, '_wc_rating_count', 'a:0:{}'),
+(260, 47, '_wc_average_rating', '0'),
+(261, 48, '_wc_review_count', '0'),
+(262, 48, '_wc_rating_count', 'a:0:{}'),
+(263, 48, '_wc_average_rating', '0'),
+(264, 49, '_wc_review_count', '0'),
+(265, 49, '_wc_rating_count', 'a:0:{}'),
+(266, 49, '_wc_average_rating', '0'),
+(267, 49, '_edit_last', '1'),
+(268, 49, '_edit_lock', '1528212377:1'),
+(269, 49, '_sku', ''),
+(270, 49, '_regular_price', '165'),
+(271, 49, '_sale_price', ''),
+(272, 49, '_sale_price_dates_from', ''),
+(273, 49, '_sale_price_dates_to', ''),
+(274, 49, 'total_sales', '0'),
+(275, 49, '_tax_status', 'taxable'),
+(276, 49, '_tax_class', ''),
+(277, 49, '_manage_stock', 'no'),
+(278, 49, '_backorders', 'no'),
+(279, 49, '_sold_individually', 'no'),
+(280, 49, '_weight', ''),
+(281, 49, '_length', ''),
+(282, 49, '_width', ''),
+(283, 49, '_height', ''),
+(284, 49, '_upsell_ids', 'a:0:{}'),
+(285, 49, '_crosssell_ids', 'a:0:{}'),
+(286, 49, '_purchase_note', ''),
+(287, 49, '_default_attributes', 'a:0:{}'),
+(288, 49, '_virtual', 'no'),
+(289, 49, '_downloadable', 'no'),
+(290, 49, '_product_image_gallery', ''),
+(291, 49, '_download_limit', '-1'),
+(292, 49, '_download_expiry', '-1'),
+(293, 49, '_stock', NULL),
+(294, 49, '_stock_status', 'instock'),
+(295, 49, '_product_version', '3.4.1'),
+(296, 49, '_price', '165'),
+(297, 49, '_thumbnail_id', '44'),
+(298, 50, '_wc_review_count', '0'),
+(299, 50, '_wc_rating_count', 'a:0:{}'),
+(300, 50, '_wc_average_rating', '0'),
+(301, 50, '_edit_last', '1'),
+(302, 50, '_edit_lock', '1528213008:1'),
+(303, 50, '_thumbnail_id', '44'),
+(304, 50, '_sku', ''),
+(305, 50, '_regular_price', '200'),
+(306, 50, '_sale_price', ''),
+(307, 50, '_sale_price_dates_from', ''),
+(308, 50, '_sale_price_dates_to', ''),
+(309, 50, 'total_sales', '0'),
+(310, 50, '_tax_status', 'taxable'),
+(311, 50, '_tax_class', ''),
+(312, 50, '_manage_stock', 'no'),
+(313, 50, '_backorders', 'no'),
+(314, 50, '_sold_individually', 'no'),
+(315, 50, '_weight', ''),
+(316, 50, '_length', ''),
+(317, 50, '_width', ''),
+(318, 50, '_height', ''),
+(319, 50, '_upsell_ids', 'a:0:{}'),
+(320, 50, '_crosssell_ids', 'a:0:{}'),
+(321, 50, '_purchase_note', ''),
+(322, 50, '_default_attributes', 'a:0:{}'),
+(323, 50, '_virtual', 'no'),
+(324, 50, '_downloadable', 'no'),
+(325, 50, '_product_image_gallery', ''),
+(326, 50, '_download_limit', '-1'),
+(327, 50, '_download_expiry', '-1'),
+(328, 50, '_stock', NULL),
+(329, 50, '_stock_status', 'instock'),
+(330, 50, '_product_version', '3.4.1'),
+(331, 50, '_price', '200'),
+(332, 51, '_edit_last', '1'),
+(333, 51, '_edit_lock', '1528213934:1'),
+(334, 52, '_wp_attached_file', '2018/06/blog_1.jpg'),
+(335, 52, '_wp_attachment_metadata', 'a:5:{s:5:\"width\";i:375;s:6:\"height\";i:265;s:4:\"file\";s:18:\"2018/06/blog_1.jpg\";s:5:\"sizes\";a:7:{s:9:\"thumbnail\";a:4:{s:4:\"file\";s:18:\"blog_1-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:6:\"medium\";a:4:{s:4:\"file\";s:18:\"blog_1-300x212.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:212;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:20:\"metrostore-cat-image\";a:4:{s:4:\"file\";s:18:\"blog_1-270x265.jpg\";s:5:\"width\";i:270;s:6:\"height\";i:265;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:21:\"woocommerce_thumbnail\";a:5:{s:4:\"file\";s:18:\"blog_1-300x265.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:265;s:9:\"mime-type\";s:10:\"image/jpeg\";s:9:\"uncropped\";b:1;}s:29:\"woocommerce_gallery_thumbnail\";a:4:{s:4:\"file\";s:18:\"blog_1-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:12:\"shop_catalog\";a:4:{s:4:\"file\";s:18:\"blog_1-300x265.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:265;s:9:\"mime-type\";s:10:\"image/jpeg\";}s:14:\"shop_thumbnail\";a:4:{s:4:\"file\";s:18:\"blog_1-100x100.jpg\";s:5:\"width\";i:100;s:6:\"height\";i:100;s:9:\"mime-type\";s:10:\"image/jpeg\";}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
+(336, 51, '_thumbnail_id', '52'),
+(337, 51, '_pingme', '1'),
+(338, 51, '_encloseme', '1'),
+(339, 51, 'metrostore_page_layouts', 'rightsidebar'),
+(340, 54, '_edit_last', '1'),
+(341, 54, '_thumbnail_id', '26'),
+(342, 54, '_pingme', '1'),
+(343, 54, '_encloseme', '1'),
+(344, 54, 'metrostore_page_layouts', 'rightsidebar'),
+(345, 54, '_edit_lock', '1528213929:1'),
+(346, 56, '_edit_last', '1'),
+(347, 56, '_edit_lock', '1528214015:1'),
+(348, 56, '_thumbnail_id', '20'),
+(349, 56, '_pingme', '1'),
+(350, 56, '_encloseme', '1'),
+(351, 56, 'metrostore_page_layouts', 'rightsidebar'),
+(352, 56, '_pingme', '1'),
+(353, 56, '_encloseme', '1'),
+(354, 54, '_pingme', '1'),
+(355, 54, '_encloseme', '1'),
+(356, 51, '_pingme', '1'),
+(357, 51, '_encloseme', '1'),
+(358, 58, '_edit_lock', '1528214631:1'),
+(359, 58, '_wp_trash_meta_status', 'publish'),
+(360, 58, '_wp_trash_meta_time', '1528214630'),
+(361, 59, '_wp_trash_meta_status', 'publish'),
+(362, 59, '_wp_trash_meta_time', '1528214679'),
+(363, 60, '_wp_trash_meta_status', 'publish'),
+(364, 60, '_wp_trash_meta_time', '1528214739'),
+(365, 61, '_edit_lock', '1528214931:1'),
+(366, 61, '_wp_trash_meta_status', 'publish'),
+(367, 61, '_wp_trash_meta_time', '1528214932'),
+(368, 62, '_edit_lock', '1528215139:1'),
+(369, 62, '_wp_trash_meta_status', 'publish'),
+(370, 62, '_wp_trash_meta_time', '1528215138'),
+(371, 63, '_menu_item_type', 'custom'),
+(372, 63, '_menu_item_menu_item_parent', '0'),
+(373, 63, '_menu_item_object_id', '63'),
+(374, 63, '_menu_item_object', 'custom'),
+(375, 63, '_menu_item_target', ''),
+(376, 63, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(377, 63, '_menu_item_xfn', ''),
+(378, 63, '_menu_item_url', '#'),
+(380, 64, '_menu_item_type', 'custom'),
+(381, 64, '_menu_item_menu_item_parent', '0'),
+(382, 64, '_menu_item_object_id', '64'),
+(383, 64, '_menu_item_object', 'custom'),
+(384, 64, '_menu_item_target', ''),
+(385, 64, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(386, 64, '_menu_item_xfn', ''),
+(387, 64, '_menu_item_url', '#'),
+(389, 65, '_menu_item_type', 'custom'),
+(390, 65, '_menu_item_menu_item_parent', '0'),
+(391, 65, '_menu_item_object_id', '65'),
+(392, 65, '_menu_item_object', 'custom'),
+(393, 65, '_menu_item_target', ''),
+(394, 65, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(395, 65, '_menu_item_xfn', ''),
+(396, 65, '_menu_item_url', '#'),
+(398, 66, '_menu_item_type', 'custom'),
+(399, 66, '_menu_item_menu_item_parent', '0'),
+(400, 66, '_menu_item_object_id', '66'),
+(401, 66, '_menu_item_object', 'custom'),
+(402, 66, '_menu_item_target', ''),
+(403, 66, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(404, 66, '_menu_item_xfn', ''),
+(405, 66, '_menu_item_url', '#'),
+(407, 67, '_menu_item_type', 'custom'),
+(408, 67, '_menu_item_menu_item_parent', '0'),
+(409, 67, '_menu_item_object_id', '67'),
+(410, 67, '_menu_item_object', 'custom'),
+(411, 67, '_menu_item_target', ''),
+(412, 67, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(413, 67, '_menu_item_xfn', ''),
+(414, 67, '_menu_item_url', '#'),
+(416, 68, '_menu_item_type', 'custom'),
+(417, 68, '_menu_item_menu_item_parent', '0'),
+(418, 68, '_menu_item_object_id', '68'),
+(419, 68, '_menu_item_object', 'custom'),
+(420, 68, '_menu_item_target', ''),
+(421, 68, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(422, 68, '_menu_item_xfn', ''),
+(423, 68, '_menu_item_url', '#'),
+(425, 69, '_menu_item_type', 'custom'),
+(426, 69, '_menu_item_menu_item_parent', '0'),
+(427, 69, '_menu_item_object_id', '69'),
+(428, 69, '_menu_item_object', 'custom'),
+(429, 69, '_menu_item_target', ''),
+(430, 69, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(431, 69, '_menu_item_xfn', ''),
+(432, 69, '_menu_item_url', '#'),
+(434, 70, '_menu_item_type', 'custom'),
+(435, 70, '_menu_item_menu_item_parent', '0'),
+(436, 70, '_menu_item_object_id', '70'),
+(437, 70, '_menu_item_object', 'custom'),
+(438, 70, '_menu_item_target', ''),
+(439, 70, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(440, 70, '_menu_item_xfn', ''),
+(441, 70, '_menu_item_url', '#'),
+(443, 71, '_menu_item_type', 'custom'),
+(444, 71, '_menu_item_menu_item_parent', '0'),
+(445, 71, '_menu_item_object_id', '71'),
+(446, 71, '_menu_item_object', 'custom'),
+(447, 71, '_menu_item_target', ''),
+(448, 71, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(449, 71, '_menu_item_xfn', ''),
+(450, 71, '_menu_item_url', '#'),
+(452, 72, '_menu_item_type', 'custom'),
+(453, 72, '_menu_item_menu_item_parent', '0'),
+(454, 72, '_menu_item_object_id', '72'),
+(455, 72, '_menu_item_object', 'custom'),
+(456, 72, '_menu_item_target', ''),
+(457, 72, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(458, 72, '_menu_item_xfn', ''),
+(459, 72, '_menu_item_url', '#'),
+(461, 73, '_menu_item_type', 'custom'),
+(462, 73, '_menu_item_menu_item_parent', '0'),
+(463, 73, '_menu_item_object_id', '73'),
+(464, 73, '_menu_item_object', 'custom'),
+(465, 73, '_menu_item_target', ''),
+(466, 73, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(467, 73, '_menu_item_xfn', ''),
+(468, 73, '_menu_item_url', '#'),
+(470, 74, '_menu_item_type', 'custom'),
+(471, 74, '_menu_item_menu_item_parent', '0'),
+(472, 74, '_menu_item_object_id', '74'),
+(473, 74, '_menu_item_object', 'custom'),
+(474, 74, '_menu_item_target', ''),
+(475, 74, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(476, 74, '_menu_item_xfn', ''),
+(477, 74, '_menu_item_url', '#'),
+(479, 75, '_menu_item_type', 'custom'),
+(480, 75, '_menu_item_menu_item_parent', '0'),
+(481, 75, '_menu_item_object_id', '75'),
+(482, 75, '_menu_item_object', 'custom'),
+(483, 75, '_menu_item_target', ''),
+(484, 75, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(485, 75, '_menu_item_xfn', ''),
+(486, 75, '_menu_item_url', '#'),
+(488, 76, '_menu_item_type', 'custom'),
+(489, 76, '_menu_item_menu_item_parent', '0'),
+(490, 76, '_menu_item_object_id', '76'),
+(491, 76, '_menu_item_object', 'custom'),
+(492, 76, '_menu_item_target', ''),
+(493, 76, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(494, 76, '_menu_item_xfn', ''),
+(495, 76, '_menu_item_url', '#'),
+(497, 77, '_menu_item_type', 'custom'),
+(498, 77, '_menu_item_menu_item_parent', '0'),
+(499, 77, '_menu_item_object_id', '77'),
+(500, 77, '_menu_item_object', 'custom'),
+(501, 77, '_menu_item_target', ''),
+(502, 77, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(503, 77, '_menu_item_xfn', ''),
+(504, 77, '_menu_item_url', '#'),
+(506, 78, '_menu_item_type', 'custom'),
+(507, 78, '_menu_item_menu_item_parent', '0'),
+(508, 78, '_menu_item_object_id', '78'),
+(509, 78, '_menu_item_object', 'custom'),
+(510, 78, '_menu_item_target', ''),
+(511, 78, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(512, 78, '_menu_item_xfn', ''),
+(513, 78, '_menu_item_url', '#'),
+(515, 79, '_menu_item_type', 'custom'),
+(516, 79, '_menu_item_menu_item_parent', '0'),
+(517, 79, '_menu_item_object_id', '79'),
+(518, 79, '_menu_item_object', 'custom'),
+(519, 79, '_menu_item_target', ''),
+(520, 79, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(521, 79, '_menu_item_xfn', ''),
+(522, 79, '_menu_item_url', '#'),
+(524, 80, '_edit_last', '1'),
+(525, 80, '_edit_lock', '1528216022:1'),
+(526, 80, '_wp_page_template', 'default'),
+(527, 80, 'metrostore_page_layouts', 'nosidebar'),
+(528, 82, '_menu_item_type', 'post_type'),
+(529, 82, '_menu_item_menu_item_parent', '0'),
+(530, 82, '_menu_item_object_id', '80'),
+(531, 82, '_menu_item_object', 'page'),
+(532, 82, '_menu_item_target', ''),
+(533, 82, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(534, 82, '_menu_item_xfn', ''),
+(535, 82, '_menu_item_url', ''),
+(537, 83, '_menu_item_type', 'custom'),
+(538, 83, '_menu_item_menu_item_parent', '0'),
+(539, 83, '_menu_item_object_id', '83'),
+(540, 83, '_menu_item_object', 'custom'),
+(541, 83, '_menu_item_target', ''),
+(542, 83, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(543, 83, '_menu_item_xfn', ''),
+(544, 83, '_menu_item_url', '#'),
+(546, 84, '_menu_item_type', 'custom'),
+(547, 84, '_menu_item_menu_item_parent', '0'),
+(548, 84, '_menu_item_object_id', '84'),
+(549, 84, '_menu_item_object', 'custom'),
+(550, 84, '_menu_item_target', ''),
+(551, 84, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(552, 84, '_menu_item_xfn', ''),
+(553, 84, '_menu_item_url', '#'),
+(555, 85, '_menu_item_type', 'custom'),
+(556, 85, '_menu_item_menu_item_parent', '0'),
+(557, 85, '_menu_item_object_id', '85'),
+(558, 85, '_menu_item_object', 'custom'),
+(559, 85, '_menu_item_target', ''),
+(560, 85, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(561, 85, '_menu_item_xfn', ''),
+(562, 85, '_menu_item_url', '#'),
+(563, 85, '_menu_item_orphaned', '1528216243'),
+(564, 86, '_menu_item_type', 'custom'),
+(565, 86, '_menu_item_menu_item_parent', '83'),
+(566, 86, '_menu_item_object_id', '86'),
+(567, 86, '_menu_item_object', 'custom'),
+(568, 86, '_menu_item_target', ''),
+(569, 86, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(570, 86, '_menu_item_xfn', ''),
+(571, 86, '_menu_item_url', '#'),
+(573, 87, '_menu_item_type', 'custom'),
+(574, 87, '_menu_item_menu_item_parent', '83'),
+(575, 87, '_menu_item_object_id', '87'),
+(576, 87, '_menu_item_object', 'custom'),
+(577, 87, '_menu_item_target', ''),
+(578, 87, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(579, 87, '_menu_item_xfn', ''),
+(580, 87, '_menu_item_url', '#'),
+(582, 88, '_menu_item_type', 'custom'),
+(583, 88, '_menu_item_menu_item_parent', '83'),
+(584, 88, '_menu_item_object_id', '88'),
+(585, 88, '_menu_item_object', 'custom'),
+(586, 88, '_menu_item_target', ''),
+(587, 88, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(588, 88, '_menu_item_xfn', ''),
+(589, 88, '_menu_item_url', '#'),
+(591, 89, '_menu_item_type', 'custom'),
+(592, 89, '_menu_item_menu_item_parent', '0'),
+(593, 89, '_menu_item_object_id', '89'),
+(594, 89, '_menu_item_object', 'custom'),
+(595, 89, '_menu_item_target', ''),
+(596, 89, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(597, 89, '_menu_item_xfn', ''),
+(598, 89, '_menu_item_url', '#'),
+(600, 90, '_menu_item_type', 'custom'),
+(601, 90, '_menu_item_menu_item_parent', '89'),
+(602, 90, '_menu_item_object_id', '90'),
+(603, 90, '_menu_item_object', 'custom'),
+(604, 90, '_menu_item_target', ''),
+(605, 90, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(606, 90, '_menu_item_xfn', ''),
+(607, 90, '_menu_item_url', '#'),
+(609, 91, '_menu_item_type', 'custom'),
+(610, 91, '_menu_item_menu_item_parent', '89'),
+(611, 91, '_menu_item_object_id', '91'),
+(612, 91, '_menu_item_object', 'custom'),
+(613, 91, '_menu_item_target', ''),
+(614, 91, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(615, 91, '_menu_item_xfn', ''),
+(616, 91, '_menu_item_url', '#'),
+(618, 92, '_menu_item_type', 'custom'),
+(619, 92, '_menu_item_menu_item_parent', '89'),
+(620, 92, '_menu_item_object_id', '92'),
+(621, 92, '_menu_item_object', 'custom'),
+(622, 92, '_menu_item_target', ''),
+(623, 92, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(624, 92, '_menu_item_xfn', ''),
+(625, 92, '_menu_item_url', '#'),
+(627, 93, '_menu_item_type', 'custom'),
+(628, 93, '_menu_item_menu_item_parent', '0'),
+(629, 93, '_menu_item_object_id', '93'),
+(630, 93, '_menu_item_object', 'custom'),
+(631, 93, '_menu_item_target', ''),
+(632, 93, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(633, 93, '_menu_item_xfn', ''),
+(634, 93, '_menu_item_url', '#'),
+(636, 94, '_menu_item_type', 'custom'),
+(637, 94, '_menu_item_menu_item_parent', '93'),
+(638, 94, '_menu_item_object_id', '94'),
+(639, 94, '_menu_item_object', 'custom'),
+(640, 94, '_menu_item_target', ''),
+(641, 94, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(642, 94, '_menu_item_xfn', ''),
+(643, 94, '_menu_item_url', '#'),
+(645, 95, '_menu_item_type', 'custom'),
+(646, 95, '_menu_item_menu_item_parent', '93'),
+(647, 95, '_menu_item_object_id', '95'),
+(648, 95, '_menu_item_object', 'custom'),
+(649, 95, '_menu_item_target', ''),
+(650, 95, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(651, 95, '_menu_item_xfn', ''),
+(652, 95, '_menu_item_url', '#'),
+(654, 96, '_menu_item_type', 'custom'),
+(655, 96, '_menu_item_menu_item_parent', '93'),
+(656, 96, '_menu_item_object_id', '96'),
+(657, 96, '_menu_item_object', 'custom'),
+(658, 96, '_menu_item_target', ''),
+(659, 96, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(660, 96, '_menu_item_xfn', ''),
+(661, 96, '_menu_item_url', '#'),
+(663, 97, '_menu_item_type', 'custom'),
+(664, 97, '_menu_item_menu_item_parent', '93'),
+(665, 97, '_menu_item_object_id', '97'),
+(666, 97, '_menu_item_object', 'custom'),
+(667, 97, '_menu_item_target', ''),
+(668, 97, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(669, 97, '_menu_item_xfn', ''),
+(670, 97, '_menu_item_url', '#'),
+(672, 98, '_menu_item_type', 'custom'),
+(673, 98, '_menu_item_menu_item_parent', '0'),
+(674, 98, '_menu_item_object_id', '98'),
+(675, 98, '_menu_item_object', 'custom'),
+(676, 98, '_menu_item_target', ''),
+(677, 98, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(678, 98, '_menu_item_xfn', ''),
+(679, 98, '_menu_item_url', '#'),
+(681, 99, '_menu_item_type', 'custom'),
+(682, 99, '_menu_item_menu_item_parent', '0'),
+(683, 99, '_menu_item_object_id', '99'),
+(684, 99, '_menu_item_object', 'custom'),
+(685, 99, '_menu_item_target', ''),
+(686, 99, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(687, 99, '_menu_item_xfn', ''),
+(688, 99, '_menu_item_url', '#'),
+(690, 100, '_menu_item_type', 'custom'),
+(691, 100, '_menu_item_menu_item_parent', '0'),
+(692, 100, '_menu_item_object_id', '100'),
+(693, 100, '_menu_item_object', 'custom'),
+(694, 100, '_menu_item_target', ''),
+(695, 100, '_menu_item_classes', 'a:1:{i:0;s:0:\"\";}'),
+(696, 100, '_menu_item_xfn', ''),
+(697, 100, '_menu_item_url', '#'),
+(699, 101, '_wp_trash_meta_status', 'publish'),
+(700, 101, '_wp_trash_meta_time', '1528216618'),
+(701, 102, '_edit_lock', '1528217076:1'),
+(702, 102, '_wp_trash_meta_status', 'publish'),
+(703, 102, '_wp_trash_meta_time', '1528217077');
 
 -- --------------------------------------------------------
 
@@ -456,8 +1109,9 @@ INSERT INTO `tb_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 -- Table structure for table `tb_posts`
 --
 
-CREATE TABLE `tb_posts` (
-  `ID` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_posts`;
+CREATE TABLE IF NOT EXISTS `tb_posts` (
+  `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `post_author` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `post_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `post_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -479,8 +1133,13 @@ CREATE TABLE `tb_posts` (
   `menu_order` int(11) NOT NULL DEFAULT '0',
   `post_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'post',
   `post_mime_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `comment_count` bigint(20) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `comment_count` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `post_name` (`post_name`(191)),
+  KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
+  KEY `post_parent` (`post_parent`),
+  KEY `post_author` (`post_author`)
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tb_posts`
@@ -494,7 +1153,96 @@ INSERT INTO `tb_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (5, 1, '2018-06-05 10:16:58', '2018-06-05 10:16:58', '{\n    \"metrostore::metrostore_first_icon_title_area\": {\n        \"value\": \"SUPPORT\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 10:16:58\"\n    },\n    \"metrostore::metrostore_first_icon_title_desc_area\": {\n        \"value\": \"24/7 Support provided\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 10:16:58\"\n    },\n    \"metrostore::metrostore_second_icon_title_area\": {\n        \"value\": \"MONEY BACK 100%\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 10:16:58\"\n    },\n    \"metrostore::metrostore_second_icon_title_desc_area\": {\n        \"value\": \"Within 30 Days after delivery\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 10:16:58\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'fdee7715-8296-4451-83e5-6a95a6aff575', '', '', '2018-06-05 10:16:58', '2018-06-05 10:16:58', '', 0, 'http://localhost:9999/webMining/2018/06/05/fdee7715-8296-4451-83e5-6a95a6aff575/', 0, 'customize_changeset', '', 0),
 (6, 1, '2018-06-05 10:35:51', '0000-00-00 00:00:00', '', 'Home', '', 'draft', 'closed', 'closed', '', '', '', '', '2018-06-05 10:35:51', '0000-00-00 00:00:00', '', 0, 'http://localhost:9999/webMining/?p=6', 1, 'nav_menu_item', '', 0),
 (7, 1, '2018-06-05 10:35:52', '0000-00-00 00:00:00', ' ', '', '', 'draft', 'closed', 'closed', '', '', '', '', '2018-06-05 10:35:52', '0000-00-00 00:00:00', '', 0, 'http://localhost:9999/webMining/?p=7', 1, 'nav_menu_item', '', 0),
-(8, 1, '2018-06-05 10:42:56', '2018-06-05 10:42:56', '', 'Home', '', 'publish', 'closed', 'closed', '', 'home', '', '', '2018-06-05 10:45:08', '2018-06-05 10:45:08', '', 0, 'http://localhost:9999/webMining/?p=8', 1, 'nav_menu_item', '', 0);
+(9, 1, '2018-06-05 14:01:33', '2018-06-05 14:01:33', '{\n    \"metrostore::metrostore_first_icon_block_area\": {\n        \"value\": \"fa-truck\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:01:33\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'e3cf0120-8c66-44ea-885d-ef5511d5ae0e', '', '', '2018-06-05 14:01:33', '2018-06-05 14:01:33', '', 0, 'http://localhost:9999/webMining/2018/06/05/e3cf0120-8c66-44ea-885d-ef5511d5ae0e/', 0, 'customize_changeset', '', 0),
+(10, 1, '2018-06-05 14:01:51', '2018-06-05 14:01:51', '{\n    \"metrostore::metrostore_second_icon_block_area\": {\n        \"value\": \"fa-thumbs-up\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:01:43\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'ff8ca768-dadb-46b9-8a0d-6120447a4a75', '', '', '2018-06-05 14:01:51', '2018-06-05 14:01:51', '', 0, 'http://localhost:9999/webMining/?p=10', 0, 'customize_changeset', '', 0),
+(11, 1, '2018-06-05 14:02:37', '2018-06-05 14:02:37', '{\n    \"nav_menu_item[-93530642]\": {\n        \"value\": false,\n        \"type\": \"nav_menu_item\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:02:37\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'a346a28a-127e-407a-ad1e-1e323eb1f74f', '', '', '2018-06-05 14:02:37', '2018-06-05 14:02:37', '', 0, 'http://localhost:9999/webMining/2018/06/05/a346a28a-127e-407a-ad1e-1e323eb1f74f/', 0, 'customize_changeset', '', 0),
+(12, 1, '2018-06-05 14:07:50', '2018-06-05 14:07:50', '{\n    \"nav_menu_item[-2068987029]\": {\n        \"value\": {\n            \"object_id\": 17,\n            \"object\": \"product_cat\",\n            \"menu_item_parent\": 0,\n            \"position\": 2,\n            \"type\": \"taxonomy\",\n            \"title\": \"Shop\",\n            \"url\": \"http://localhost:9999/webMining/product-category/shop/\",\n            \"target\": \"\",\n            \"attr_title\": \"\",\n            \"description\": \"\",\n            \"classes\": \"\",\n            \"xfn\": \"\",\n            \"status\": \"publish\",\n            \"original_title\": \"Shop\",\n            \"nav_menu_term_id\": 16,\n            \"_invalid\": false,\n            \"type_label\": \"Category\"\n        },\n        \"type\": \"nav_menu_item\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:07:50\"\n    },\n    \"nav_menu_item[-982555054]\": {\n        \"value\": {\n            \"object_id\": 18,\n            \"object\": \"product_cat\",\n            \"menu_item_parent\": 0,\n            \"position\": 6,\n            \"type\": \"taxonomy\",\n            \"title\": \"Smart watch\",\n            \"url\": \"http://localhost:9999/webMining/product-category/smart-watch/\",\n            \"target\": \"\",\n            \"attr_title\": \"\",\n            \"description\": \"\",\n            \"classes\": \"\",\n            \"xfn\": \"\",\n            \"status\": \"publish\",\n            \"original_title\": \"Smart watch\",\n            \"nav_menu_term_id\": 16,\n            \"_invalid\": false,\n            \"type_label\": \"Category\"\n        },\n        \"type\": \"nav_menu_item\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:07:50\"\n    },\n    \"nav_menu_item[-1565397193]\": {\n        \"value\": {\n            \"object_id\": 19,\n            \"object\": \"category\",\n            \"menu_item_parent\": -2068987029,\n            \"position\": 3,\n            \"type\": \"taxonomy\",\n            \"title\": \"My account\",\n            \"url\": \"http://localhost:9999/webMining/category/my-account/\",\n            \"target\": \"\",\n            \"attr_title\": \"\",\n            \"description\": \"\",\n            \"classes\": \"\",\n            \"xfn\": \"\",\n            \"status\": \"publish\",\n            \"original_title\": \"My account\",\n            \"nav_menu_term_id\": 16,\n            \"_invalid\": false,\n            \"type_label\": \"Category\"\n        },\n        \"type\": \"nav_menu_item\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:07:50\"\n    },\n    \"nav_menu_item[-332119072]\": {\n        \"value\": {\n            \"object_id\": 20,\n            \"object\": \"category\",\n            \"menu_item_parent\": -2068987029,\n            \"position\": 4,\n            \"type\": \"taxonomy\",\n            \"title\": \"Cart\",\n            \"url\": \"http://localhost:9999/webMining/category/cart/\",\n            \"target\": \"\",\n            \"attr_title\": \"\",\n            \"description\": \"\",\n            \"classes\": \"\",\n            \"xfn\": \"\",\n            \"status\": \"publish\",\n            \"original_title\": \"Cart\",\n            \"nav_menu_term_id\": 16,\n            \"_invalid\": false,\n            \"type_label\": \"Category\"\n        },\n        \"type\": \"nav_menu_item\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:07:50\"\n    },\n    \"nav_menu_item[-977778691]\": {\n        \"value\": {\n            \"object_id\": 21,\n            \"object\": \"category\",\n            \"menu_item_parent\": -2068987029,\n            \"position\": 5,\n            \"type\": \"taxonomy\",\n            \"title\": \"Checkout\",\n            \"url\": \"http://localhost:9999/webMining/category/checkout/\",\n            \"target\": \"\",\n            \"attr_title\": \"\",\n            \"description\": \"\",\n            \"classes\": \"\",\n            \"xfn\": \"\",\n            \"status\": \"publish\",\n            \"original_title\": \"Checkout\",\n            \"nav_menu_term_id\": 16,\n            \"_invalid\": false,\n            \"type_label\": \"Category\"\n        },\n        \"type\": \"nav_menu_item\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:07:50\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', '798a1ed1-d3d4-4250-89fd-b8cdea6e70e7', '', '', '2018-06-05 14:07:50', '2018-06-05 14:07:50', '', 0, 'http://localhost:9999/webMining/2018/06/05/798a1ed1-d3d4-4250-89fd-b8cdea6e70e7/', 0, 'customize_changeset', '', 0),
+(15, 1, '2018-06-05 14:07:51', '2018-06-05 14:07:51', ' ', '', '', 'publish', 'closed', 'closed', '', '15', '', '', '2018-06-05 23:35:26', '2018-06-05 16:35:26', '', 0, 'http://localhost:9999/webMining/2018/06/05/15/', 4, 'nav_menu_item', '', 0),
+(16, 1, '2018-06-05 14:07:51', '2018-06-05 14:07:51', ' ', '', '', 'publish', 'closed', 'closed', '', '16', '', '', '2018-06-05 23:35:26', '2018-06-05 16:35:26', '', 0, 'http://localhost:9999/webMining/2018/06/05/16/', 5, 'nav_menu_item', '', 0),
+(17, 1, '2018-06-05 14:07:51', '2018-06-05 14:07:51', ' ', '', '', 'publish', 'closed', 'closed', '', '17', '', '', '2018-06-05 23:35:26', '2018-06-05 16:35:26', '', 0, 'http://localhost:9999/webMining/2018/06/05/17/', 6, 'nav_menu_item', '', 0),
+(18, 1, '2018-06-05 14:11:51', '0000-00-00 00:00:00', '', 'Auto Draft', '', 'auto-draft', 'open', 'open', '', '', '', '', '2018-06-05 14:11:51', '0000-00-00 00:00:00', '', 0, 'http://localhost:9999/webMining/?p=18', 0, 'post', '', 0),
+(19, 1, '2018-06-05 14:14:54', '2018-06-05 14:14:54', '<p></p><p>What Separates The Best Designers From The Rest? What Are Their Secrets? Sure, Some Were Born With It Or Just Got Lucky.</p>\r\n<div class=\"ms-btn\">\r\n     <a href=\"#\">More Watchs</a>\r\n</div>', 'Choose us', '', 'publish', 'open', 'open', '', 'test-slider', '', '', '2018-06-05 14:24:54', '2018-06-05 14:24:54', '', 0, 'http://localhost:9999/webMining/?p=19', 0, 'post', '', 0),
+(20, 1, '2018-06-05 14:13:30', '2018-06-05 14:13:30', '', 'banner01', '', 'inherit', 'open', 'closed', '', 'banner01', '', '', '2018-06-05 14:13:30', '2018-06-05 14:13:30', '', 19, 'http://localhost:9999/webMining/wp-content/uploads/2018/06/banner01.jpg', 0, 'attachment', 'image/jpeg', 0),
+(21, 1, '2018-06-05 14:14:29', '2018-06-05 14:14:29', '', 'Test Slider', '', 'inherit', 'closed', 'closed', '', '19-revision-v1', '', '', '2018-06-05 14:14:29', '2018-06-05 14:14:29', '', 19, 'http://localhost:9999/webMining/2018/06/05/19-revision-v1/', 0, 'revision', '', 0),
+(22, 1, '2018-06-05 14:16:22', '2018-06-05 14:16:22', '{\n    \"metrostore::metrostore_slider_team_id\": {\n        \"value\": \"22\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:16:22\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'd976ccaf-c1ab-4e04-b00b-98552179286f', '', '', '2018-06-05 14:16:22', '2018-06-05 14:16:22', '', 0, 'http://localhost:9999/webMining/2018/06/05/d976ccaf-c1ab-4e04-b00b-98552179286f/', 0, 'customize_changeset', '', 0),
+(23, 1, '2018-06-05 14:18:13', '2018-06-05 14:18:13', '<p></p><p>Morbi sodales ultrices convallis. Quisque varius felis et ligula.</p>\r\n<div class=\"ms-btn\">\r\n<a href=\"#\">Buy Now</a>\r\n</div>', 'Watchmaking', '', 'publish', 'open', 'open', '', 'test-slider-2', '', '', '2018-06-05 21:36:40', '2018-06-05 14:36:40', '', 0, 'http://localhost:9999/webMining/?p=23', 0, 'post', '', 0),
+(25, 1, '2018-06-05 14:18:13', '2018-06-05 14:18:13', '', 'Test slider 2', '', 'inherit', 'closed', 'closed', '', '23-revision-v1', '', '', '2018-06-05 14:18:13', '2018-06-05 14:18:13', '', 23, 'http://localhost:9999/webMining/2018/06/05/23-revision-v1/', 0, 'revision', '', 0),
+(26, 1, '2018-06-05 14:20:15', '2018-06-05 14:20:15', '', 'slider2', '', 'inherit', 'open', 'closed', '', 'slider2', '', '', '2018-06-05 14:20:15', '2018-06-05 14:20:15', '', 23, 'http://localhost:9999/webMining/wp-content/uploads/2018/06/slider2.jpg', 0, 'attachment', 'image/jpeg', 0),
+(28, 1, '2018-06-05 14:22:58', '2018-06-05 14:22:58', '&lt;p&gt;&lt;/p&gt;&lt;p&gt;Morbi sodales ultrices convallis. Quisque varius felis et ligula.&lt;/p&gt;\r\n&lt;div class=\"ms-btn\"&gt;\r\n&lt;a href=\"#\"&gt;Buy Now&lt;/a&gt;\r\n&lt;/div&gt;', 'Test slider 2', '', 'inherit', 'closed', 'closed', '', '23-revision-v1', '', '', '2018-06-05 14:22:58', '2018-06-05 14:22:58', '', 23, 'http://localhost:9999/webMining/2018/06/05/23-revision-v1/', 0, 'revision', '', 0),
+(29, 1, '2018-06-05 14:23:54', '2018-06-05 14:23:54', '<p></p><p>Morbi sodales ultrices convallis. Quisque varius felis et ligula.</p>\r\n<div class=\"ms-btn\">\r\n<a href=\"#\">Buy Now</a>\r\n</div>', 'Test slider 2', '', 'inherit', 'closed', 'closed', '', '23-revision-v1', '', '', '2018-06-05 14:23:54', '2018-06-05 14:23:54', '', 23, 'http://localhost:9999/webMining/2018/06/05/23-revision-v1/', 0, 'revision', '', 0),
+(30, 1, '2018-06-05 14:24:54', '2018-06-05 14:24:54', '<p></p><p>What Separates The Best Designers From The Rest? What Are Their Secrets? Sure, Some Were Born With It Or Just Got Lucky.</p>\r\n<div class=\"ms-btn\">\r\n     <a href=\"#\">More Watchs</a>\r\n</div>', 'Choose us', '', 'inherit', 'closed', 'closed', '', '19-revision-v1', '', '', '2018-06-05 14:24:54', '2018-06-05 14:24:54', '', 19, 'http://localhost:9999/webMining/2018/06/05/19-revision-v1/', 0, 'revision', '', 0),
+(31, 1, '2018-06-05 14:25:11', '2018-06-05 14:25:11', '<p></p><p>Morbi sodales ultrices convallis. Quisque varius felis et ligula.</p>\r\n<div class=\"ms-btn\">\r\n<a href=\"#\">Buy Now</a>\r\n</div>', 'Watchmaking', '', 'inherit', 'closed', 'closed', '', '23-revision-v1', '', '', '2018-06-05 14:25:11', '2018-06-05 14:25:11', '', 23, 'http://localhost:9999/webMining/2018/06/05/23-revision-v1/', 0, 'revision', '', 0),
+(32, 1, '2018-06-05 21:29:08', '2018-06-05 14:29:08', '', 'Home', '', 'publish', 'closed', 'closed', '', 'home', '', '', '2018-06-05 21:31:10', '2018-06-05 14:31:10', '', 0, 'http://localhost:9999/webMining/?page_id=32', 0, 'page', '', 0),
+(33, 1, '2018-06-05 21:29:08', '2018-06-05 14:29:08', '', 'Home', '', 'inherit', 'closed', 'closed', '', '32-revision-v1', '', '', '2018-06-05 21:29:08', '2018-06-05 14:29:08', '', 32, 'http://localhost:9999/webMining/2018/06/05/32-revision-v1/', 0, 'revision', '', 0),
+(34, 1, '2018-06-05 21:32:06', '2018-06-05 14:32:06', ' ', '', '', 'publish', 'closed', 'closed', '', '34', '', '', '2018-06-05 23:35:26', '2018-06-05 16:35:26', '', 0, 'http://localhost:9999/webMining/?p=34', 1, 'nav_menu_item', '', 0),
+(35, 1, '2018-06-05 21:33:06', '2018-06-05 14:33:06', '{\n    \"show_on_front\": {\n        \"value\": \"page\",\n        \"type\": \"option\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:33:06\"\n    },\n    \"page_on_front\": {\n        \"value\": \"32\",\n        \"type\": \"option\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:33:06\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'c8e040c7-9df1-4c6e-b8bf-819a438a3941', '', '', '2018-06-05 21:33:06', '2018-06-05 14:33:06', '', 0, 'http://localhost:9999/webMining/2018/06/05/c8e040c7-9df1-4c6e-b8bf-819a438a3941/', 0, 'customize_changeset', '', 0),
+(36, 1, '2018-06-05 21:42:18', '2018-06-05 14:42:18', '{\n    \"metrostore::metrostore_home_slider_options\": {\n        \"value\": \"enable\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 14:42:15\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', '76974abe-b3c7-4ce2-8ad0-1f382ae94737', '', '', '2018-06-05 21:42:18', '2018-06-05 14:42:18', '', 0, 'http://localhost:9999/webMining/?p=36', 0, 'customize_changeset', '', 0),
+(37, 1, '2018-06-05 21:44:03', '2018-06-05 14:44:03', '', 'About us', '', 'publish', 'closed', 'closed', '', 'about-us', '', '', '2018-06-05 21:44:03', '2018-06-05 14:44:03', '', 0, 'http://localhost:9999/webMining/?page_id=37', 0, 'page', '', 0),
+(38, 1, '2018-06-05 21:44:03', '2018-06-05 14:44:03', '', 'About us', '', 'inherit', 'closed', 'closed', '', '37-revision-v1', '', '', '2018-06-05 21:44:03', '2018-06-05 14:44:03', '', 37, 'http://localhost:9999/webMining/2018/06/05/37-revision-v1/', 0, 'revision', '', 0),
+(39, 1, '2018-06-05 21:55:15', '2018-06-05 14:55:15', '', 'cat_analog', '', 'inherit', 'open', 'closed', '', 'cat_analog', '', '', '2018-06-05 21:55:15', '2018-06-05 14:55:15', '', 0, 'http://localhost:9999/webMining/wp-content/uploads/2018/06/cat_analog.jpg', 0, 'attachment', 'image/jpeg', 0),
+(40, 1, '2018-06-05 21:55:16', '2018-06-05 14:55:16', '', 'cat_apple_watch', '', 'inherit', 'open', 'closed', '', 'cat_apple_watch', '', '', '2018-06-05 21:55:16', '2018-06-05 14:55:16', '', 0, 'http://localhost:9999/webMining/wp-content/uploads/2018/06/cat_apple_watch.jpg', 0, 'attachment', 'image/jpeg', 0),
+(41, 1, '2018-06-05 21:55:17', '2018-06-05 14:55:17', '', 'cat_clock_watch', '', 'inherit', 'open', 'closed', '', 'cat_clock_watch', '', '', '2018-06-05 21:55:17', '2018-06-05 14:55:17', '', 0, 'http://localhost:9999/webMining/wp-content/uploads/2018/06/cat_clock_watch.jpg', 0, 'attachment', 'image/jpeg', 0),
+(42, 1, '2018-06-05 21:55:18', '2018-06-05 14:55:18', '', 'cat_men_watch', '', 'inherit', 'open', 'closed', '', 'cat_men_watch', '', '', '2018-06-05 21:55:18', '2018-06-05 14:55:18', '', 0, 'http://localhost:9999/webMining/wp-content/uploads/2018/06/cat_men_watch.jpg', 0, 'attachment', 'image/jpeg', 0),
+(43, 1, '2018-06-05 22:13:28', '2018-06-05 15:13:28', '', 'Analog Watch Rider', '', 'publish', 'open', 'closed', '', 'analog-watch-rider', '', '', '2018-06-05 22:13:30', '2018-06-05 15:13:30', '', 0, 'http://localhost:9999/webMining/?post_type=product&#038;p=43', 0, 'product', '', 0),
+(44, 1, '2018-06-05 22:12:35', '2018-06-05 15:12:35', '', 'analog_watch_rider', '', 'inherit', 'open', 'closed', '', 'analog_watch_rider', '', '', '2018-06-05 22:12:35', '2018-06-05 15:12:35', '', 43, 'http://localhost:9999/webMining/wp-content/uploads/2018/06/analog_watch_rider.jpg', 0, 'attachment', 'image/jpeg', 0),
+(45, 1, '2018-06-05 22:14:30', '2018-06-05 15:14:30', '', 'Analog Watch Rider 02', '', 'publish', 'open', 'closed', '', 'analog-watch-rider-02', '', '', '2018-06-05 22:14:32', '2018-06-05 15:14:32', '', 0, 'http://localhost:9999/webMining/?post_type=product&#038;p=45', 0, 'product', '', 0),
+(46, 1, '2018-06-05 22:23:27', '2018-06-05 15:23:27', '', 'Analog Watch Rider 03', '', 'publish', 'open', 'closed', '', 'analog-watch-rider-03', '', '', '2018-06-05 22:23:28', '2018-06-05 15:23:28', '', 0, 'http://localhost:9999/webMining/?post_type=product&#038;p=46', 0, 'product', '', 0),
+(47, 1, '2018-06-05 22:25:09', '0000-00-00 00:00:00', '', 'AUTO-DRAFT', '', 'auto-draft', 'open', 'closed', '', '', '', '', '2018-06-05 22:25:09', '0000-00-00 00:00:00', '', 0, 'http://localhost:9999/webMining/?post_type=product&p=47', 0, 'product', '', 0),
+(48, 1, '2018-06-05 22:25:53', '0000-00-00 00:00:00', '', 'AUTO-DRAFT', '', 'auto-draft', 'open', 'closed', '', '', '', '', '2018-06-05 22:25:53', '0000-00-00 00:00:00', '', 0, 'http://localhost:9999/webMining/?post_type=product&p=48', 0, 'product', '', 0),
+(49, 1, '2018-06-05 22:26:04', '2018-06-05 15:26:04', '', 'Analog Watch Rider 04', '', 'publish', 'open', 'closed', '', 'analog-watch-rider-04', '', '', '2018-06-05 22:26:56', '2018-06-05 15:26:56', '', 0, 'http://localhost:9999/webMining/?post_type=product&#038;p=49', 0, 'product', '', 0),
+(50, 1, '2018-06-05 22:34:32', '2018-06-05 15:34:32', '', 'Analog Watch Rider 05', '', 'publish', 'open', 'closed', '', 'analog-watch-rider-05', '', '', '2018-06-05 22:38:29', '2018-06-05 15:38:29', '', 0, 'http://localhost:9999/webMining/?post_type=product&#038;p=50', 0, 'product', '', 0),
+(51, 1, '2018-06-05 22:50:35', '2018-06-05 15:50:35', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage,', 'Looked up one of the Latin words', '', 'publish', 'open', 'open', '', 'looked-up-one-of-the-latin-words', '', '', '2018-06-05 22:54:31', '2018-06-05 15:54:31', '', 0, 'http://localhost:9999/webMining/?p=51', 0, 'post', '', 0),
+(52, 1, '2018-06-05 22:50:29', '2018-06-05 15:50:29', '', 'blog_1', '', 'inherit', 'open', 'closed', '', 'blog_1', '', '', '2018-06-05 22:50:29', '2018-06-05 15:50:29', '', 51, 'http://localhost:9999/webMining/wp-content/uploads/2018/06/blog_1.jpg', 0, 'attachment', 'image/jpeg', 0),
+(53, 1, '2018-06-05 22:50:35', '2018-06-05 15:50:35', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage,', 'Looked up one of the Latin words', '', 'inherit', 'closed', 'closed', '', '51-revision-v1', '', '', '2018-06-05 22:50:35', '2018-06-05 15:50:35', '', 51, 'http://localhost:9999/webMining/2018/06/05/51-revision-v1/', 0, 'revision', '', 0),
+(54, 1, '2018-06-05 22:51:48', '2018-06-05 15:51:48', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage,', 'Chamomile Oil Which Chamomile', '', 'publish', 'open', 'open', '', 'chamomile-oil-which-chamomile', '', '', '2018-06-05 22:54:28', '2018-06-05 15:54:28', '', 0, 'http://localhost:9999/webMining/?p=54', 0, 'post', '', 0),
+(55, 1, '2018-06-05 22:51:48', '2018-06-05 15:51:48', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage,', 'Chamomile Oil Which Chamomile', '', 'inherit', 'closed', 'closed', '', '54-revision-v1', '', '', '2018-06-05 22:51:48', '2018-06-05 15:51:48', '', 54, 'http://localhost:9999/webMining/2018/06/05/54-revision-v1/', 0, 'revision', '', 0),
+(56, 1, '2018-06-05 22:52:14', '2018-06-05 15:52:14', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage,', 'What Is Classical Homeopathy', '', 'publish', 'open', 'open', '', 'what-is-classical-homeopathy', '', '', '2018-06-05 22:53:52', '2018-06-05 15:53:52', '', 0, 'http://localhost:9999/webMining/?p=56', 0, 'post', '', 0),
+(57, 1, '2018-06-05 22:52:14', '2018-06-05 15:52:14', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage,', 'What Is Classical Homeopathy', '', 'inherit', 'closed', 'closed', '', '56-revision-v1', '', '', '2018-06-05 22:52:14', '2018-06-05 15:52:14', '', 56, 'http://localhost:9999/webMining/2018/06/05/56-revision-v1/', 0, 'revision', '', 0),
+(58, 1, '2018-06-05 23:03:50', '2018-06-05 16:03:50', '{\n    \"metrostore::metrostore_footer_copyright_setting\": {\n        \"value\": \"Copyright @quangle 2018\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:03:50\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', '8486083d-e29f-4c59-9da3-a5e896e42528', '', '', '2018-06-05 23:03:50', '2018-06-05 16:03:50', '', 0, 'http://localhost:9999/webMining/?p=58', 0, 'customize_changeset', '', 0),
+(59, 1, '2018-06-05 23:04:39', '2018-06-05 16:04:39', '{\n    \"metrostore::metrostore_footer_copyright_setting\": {\n        \"value\": \"\\u00a9 2018 - Watches\\tBy Quang Le\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:04:39\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'ec899f32-fe2b-4d74-8080-5d0d27790924', '', '', '2018-06-05 23:04:39', '2018-06-05 16:04:39', '', 0, 'http://localhost:9999/webMining/2018/06/05/ec899f32-fe2b-4d74-8080-5d0d27790924/', 0, 'customize_changeset', '', 0),
+(60, 1, '2018-06-05 23:05:39', '2018-06-05 16:05:39', '{\n    \"metrostore::metrostore_footer_copyright_setting\": {\n        \"value\": \"\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:05:39\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', '445ac07a-8207-492a-a196-e81f2321adcd', '', '', '2018-06-05 23:05:39', '2018-06-05 16:05:39', '', 0, 'http://localhost:9999/webMining/2018/06/05/445ac07a-8207-492a-a196-e81f2321adcd/', 0, 'customize_changeset', '', 0),
+(61, 1, '2018-06-05 23:08:51', '2018-06-05 16:08:51', '{\n    \"metrostore::metrostore_social_facebook\": {\n        \"value\": \"fa fa-facebook\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:06:28\"\n    },\n    \"metrostore::metrostore_social_twitter\": {\n        \"value\": \"fa fa-twitter\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:07:24\"\n    },\n    \"metrostore::metrostore_social_googleplus\": {\n        \"value\": \"fa fa-google-plus\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:07:41\"\n    },\n    \"metrostore::metrostore_social_instagram\": {\n        \"value\": \"fa fa-instagram\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:08:14\"\n    },\n    \"metrostore::metrostore_social_linkedin\": {\n        \"value\": \"fa fa-linkedin\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:08:21\"\n    },\n    \"metrostore::metrostore_social_facebook_checkbox\": {\n        \"value\": true,\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:08:51\"\n    },\n    \"metrostore::metrostore_social_twitter_checkbox\": {\n        \"value\": true,\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:08:51\"\n    },\n    \"metrostore::metrostore_social_googleplus_checkbox\": {\n        \"value\": true,\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:08:51\"\n    },\n    \"metrostore::metrostore_social_instagram_checkbox\": {\n        \"value\": true,\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:08:51\"\n    },\n    \"metrostore::metrostore_social_linkedin_checkbox\": {\n        \"value\": true,\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:08:51\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', '43cbf406-b0e0-4f12-81f8-72914914d647', '', '', '2018-06-05 23:08:51', '2018-06-05 16:08:51', '', 0, 'http://localhost:9999/webMining/?p=61', 0, 'customize_changeset', '', 0),
+(62, 1, '2018-06-05 23:12:17', '2018-06-05 16:12:17', '{\n    \"metrostore::metrostore_social_facebook\": {\n        \"value\": \"https://facebook.com\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:10:41\"\n    },\n    \"metrostore::metrostore_social_facebook_checkbox\": {\n        \"value\": false,\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:10:41\"\n    },\n    \"metrostore::metrostore_social_twitter_checkbox\": {\n        \"value\": false,\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:10:41\"\n    },\n    \"metrostore::metrostore_social_googleplus_checkbox\": {\n        \"value\": false,\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:10:41\"\n    },\n    \"metrostore::metrostore_social_instagram_checkbox\": {\n        \"value\": false,\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:10:41\"\n    },\n    \"metrostore::metrostore_social_linkedin_checkbox\": {\n        \"value\": false,\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:10:41\"\n    },\n    \"metrostore::metrostore_social_twitter\": {\n        \"value\": \"#\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:11:00\"\n    },\n    \"metrostore::metrostore_social_googleplus\": {\n        \"value\": \"#\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:11:00\"\n    },\n    \"metrostore::metrostore_social_instagram\": {\n        \"value\": \"#\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:11:00\"\n    },\n    \"metrostore::metrostore_social_linkedin\": {\n        \"value\": \"#\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:11:00\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'c7b17978-d611-4e7b-8ab8-4ec38d00aef2', '', '', '2018-06-05 23:12:17', '2018-06-05 16:12:17', '', 0, 'http://localhost:9999/webMining/?p=62', 0, 'customize_changeset', '', 0),
+(63, 1, '2018-06-05 23:19:37', '2018-06-05 16:19:37', '', 'Join Our Team', '', 'publish', 'closed', 'closed', '', 'join-our-team', '', '', '2018-06-05 23:19:37', '2018-06-05 16:19:37', '', 0, 'http://localhost:9999/webMining/?p=63', 1, 'nav_menu_item', '', 0),
+(64, 1, '2018-06-05 23:19:37', '2018-06-05 16:19:37', '', 'Discount', '', 'publish', 'closed', 'closed', '', 'discount', '', '', '2018-06-05 23:19:37', '2018-06-05 16:19:37', '', 0, 'http://localhost:9999/webMining/?p=64', 2, 'nav_menu_item', '', 0),
+(65, 1, '2018-06-05 23:19:37', '2018-06-05 16:19:37', '', 'Delivery Information', '', 'publish', 'closed', 'closed', '', 'delivery-information', '', '', '2018-06-05 23:19:37', '2018-06-05 16:19:37', '', 0, 'http://localhost:9999/webMining/?p=65', 3, 'nav_menu_item', '', 0),
+(66, 1, '2018-06-05 23:19:37', '2018-06-05 16:19:37', '', 'Delivery Information', '', 'publish', 'closed', 'closed', '', 'delivery-information-2', '', '', '2018-06-05 23:19:37', '2018-06-05 16:19:37', '', 0, 'http://localhost:9999/webMining/?p=66', 4, 'nav_menu_item', '', 0),
+(67, 1, '2018-06-05 23:19:38', '2018-06-05 16:19:38', '', 'Privacy Policy', '', 'publish', 'closed', 'closed', '', 'privacy-policy', '', '', '2018-06-05 23:19:38', '2018-06-05 16:19:38', '', 0, 'http://localhost:9999/webMining/?p=67', 5, 'nav_menu_item', '', 0),
+(68, 1, '2018-06-05 23:19:38', '2018-06-05 16:19:38', '', 'Terms & Condition', '', 'publish', 'closed', 'closed', '', 'terms-condition', '', '', '2018-06-05 23:19:38', '2018-06-05 16:19:38', '', 0, 'http://localhost:9999/webMining/?p=68', 6, 'nav_menu_item', '', 0),
+(69, 1, '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 'My Account', '', 'publish', 'closed', 'closed', '', 'my-account', '', '', '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 0, 'http://localhost:9999/webMining/?p=69', 1, 'nav_menu_item', '', 0),
+(70, 1, '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 'Checkout', '', 'publish', 'closed', 'closed', '', 'checkout', '', '', '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 0, 'http://localhost:9999/webMining/?p=70', 2, 'nav_menu_item', '', 0),
+(71, 1, '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 'Cart', '', 'publish', 'closed', 'closed', '', 'cart', '', '', '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 0, 'http://localhost:9999/webMining/?p=71', 3, 'nav_menu_item', '', 0),
+(72, 1, '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 'Orders History', '', 'publish', 'closed', 'closed', '', 'orders-history', '', '', '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 0, 'http://localhost:9999/webMining/?p=72', 4, 'nav_menu_item', '', 0),
+(73, 1, '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 'Discount', '', 'publish', 'closed', 'closed', '', 'discount-2', '', '', '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 0, 'http://localhost:9999/webMining/?p=73', 5, 'nav_menu_item', '', 0),
+(74, 1, '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 'Return Policy', '', 'publish', 'closed', 'closed', '', 'return-policy', '', '', '2018-06-05 23:21:50', '2018-06-05 16:21:50', '', 0, 'http://localhost:9999/webMining/?p=74', 6, 'nav_menu_item', '', 0),
+(75, 1, '2018-06-05 23:23:06', '2018-06-05 16:23:06', '', 'Support Forum', '', 'publish', 'closed', 'closed', '', 'support-forum', '', '', '2018-06-05 23:23:06', '2018-06-05 16:23:06', '', 0, 'http://localhost:9999/webMining/?p=75', 1, 'nav_menu_item', '', 0),
+(76, 1, '2018-06-05 23:23:06', '2018-06-05 16:23:06', '', 'Customization', '', 'publish', 'closed', 'closed', '', 'customization', '', '', '2018-06-05 23:23:06', '2018-06-05 16:23:06', '', 0, 'http://localhost:9999/webMining/?p=76', 2, 'nav_menu_item', '', 0),
+(77, 1, '2018-06-05 23:23:07', '2018-06-05 16:23:07', '', 'Popular Services', '', 'publish', 'closed', 'closed', '', 'popular-services', '', '', '2018-06-05 23:23:07', '2018-06-05 16:23:07', '', 0, 'http://localhost:9999/webMining/?p=77', 3, 'nav_menu_item', '', 0),
+(78, 1, '2018-06-05 23:23:07', '2018-06-05 16:23:07', '', 'Premium Themes', '', 'publish', 'closed', 'closed', '', 'premium-themes', '', '', '2018-06-05 23:23:07', '2018-06-05 16:23:07', '', 0, 'http://localhost:9999/webMining/?p=78', 4, 'nav_menu_item', '', 0),
+(79, 1, '2018-06-05 23:23:07', '2018-06-05 16:23:07', '', 'Shopping Cart', '', 'publish', 'closed', 'closed', '', 'shopping-cart', '', '', '2018-06-05 23:23:07', '2018-06-05 16:23:07', '', 0, 'http://localhost:9999/webMining/?p=79', 5, 'nav_menu_item', '', 0),
+(80, 1, '2018-06-05 23:28:04', '2018-06-05 16:28:04', '', 'Shop', '', 'publish', 'closed', 'closed', '', 'shop', '', '', '2018-06-05 23:28:04', '2018-06-05 16:28:04', '', 0, 'http://localhost:9999/webMining/?page_id=80', 0, 'page', '', 0),
+(81, 1, '2018-06-05 23:28:04', '2018-06-05 16:28:04', '', 'Shop', '', 'inherit', 'closed', 'closed', '', '80-revision-v1', '', '', '2018-06-05 23:28:04', '2018-06-05 16:28:04', '', 80, 'http://localhost:9999/webMining/2018/06/05/80-revision-v1/', 0, 'revision', '', 0),
+(82, 1, '2018-06-05 23:29:22', '2018-06-05 16:29:22', ' ', '', '', 'publish', 'closed', 'closed', '', '82', '', '', '2018-06-05 23:35:26', '2018-06-05 16:35:26', '', 0, 'http://localhost:9999/webMining/?p=82', 3, 'nav_menu_item', '', 0),
+(83, 1, '2018-06-05 23:32:35', '2018-06-05 16:32:35', '', 'Page Layout', '', 'publish', 'closed', 'closed', '', 'page-layout', '', '', '2018-06-05 23:35:26', '2018-06-05 16:35:26', '', 0, 'http://localhost:9999/webMining/?p=83', 7, 'nav_menu_item', '', 0),
+(84, 1, '2018-06-05 23:32:34', '2018-06-05 16:32:34', '', 'Smart Watch', '', 'publish', 'closed', 'closed', '', 'smart-watch', '', '', '2018-06-05 23:35:26', '2018-06-05 16:35:26', '', 0, 'http://localhost:9999/webMining/?p=84', 2, 'nav_menu_item', '', 0),
+(85, 1, '2018-06-05 23:30:43', '0000-00-00 00:00:00', '', 'Page Layout', '', 'draft', 'closed', 'closed', '', '', '', '', '2018-06-05 23:30:43', '0000-00-00 00:00:00', '', 0, 'http://localhost:9999/webMining/?p=85', 1, 'nav_menu_item', '', 0),
+(86, 1, '2018-06-05 23:32:35', '2018-06-05 16:32:35', '', 'Page – Right Sidebar', '', 'publish', 'closed', 'closed', '', 'page-right-sidebar', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=86', 9, 'nav_menu_item', '', 0),
+(87, 1, '2018-06-05 23:32:35', '2018-06-05 16:32:35', '', 'Page – Left Sidebar', '', 'publish', 'closed', 'closed', '', 'page-left-sidebar', '', '', '2018-06-05 23:35:26', '2018-06-05 16:35:26', '', 0, 'http://localhost:9999/webMining/?p=87', 8, 'nav_menu_item', '', 0),
+(88, 1, '2018-06-05 23:32:35', '2018-06-05 16:32:35', '', 'Page – FullWidth Sidebar', '', 'publish', 'closed', 'closed', '', 'page-fullwidth-sidebar', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=88', 10, 'nav_menu_item', '', 0),
+(89, 1, '2018-06-05 23:32:35', '2018-06-05 16:32:35', '', 'Shop Layout', '', 'publish', 'closed', 'closed', '', 'shop-layout', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=89', 11, 'nav_menu_item', '', 0),
+(90, 1, '2018-06-05 23:32:35', '2018-06-05 16:32:35', '', '2 Column Right Sidebar', '', 'publish', 'closed', 'closed', '', '2-column-right-sidebar', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=90', 12, 'nav_menu_item', '', 0),
+(91, 1, '2018-06-05 23:33:44', '2018-06-05 16:33:44', '', '3 Column Left Sidebar', '', 'publish', 'closed', 'closed', '', '3-column-left-sidebar', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=91', 13, 'nav_menu_item', '', 0),
+(92, 1, '2018-06-05 23:33:44', '2018-06-05 16:33:44', '', '4 Column FullWidth', '', 'publish', 'closed', 'closed', '', '4-column-fullwidth', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=92', 14, 'nav_menu_item', '', 0),
+(93, 1, '2018-06-05 23:34:49', '2018-06-05 16:34:49', '', 'Product Type', '', 'publish', 'closed', 'closed', '', 'product-type', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=93', 15, 'nav_menu_item', '', 0),
+(94, 1, '2018-06-05 23:34:49', '2018-06-05 16:34:49', '', 'Simple product', '', 'publish', 'closed', 'closed', '', 'simple-product', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=94', 16, 'nav_menu_item', '', 0),
+(95, 1, '2018-06-05 23:34:49', '2018-06-05 16:34:49', '', 'Affiliate product', '', 'publish', 'closed', 'closed', '', 'affiliate-product', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=95', 17, 'nav_menu_item', '', 0),
+(96, 1, '2018-06-05 23:34:49', '2018-06-05 16:34:49', '', 'Grouped product', '', 'publish', 'closed', 'closed', '', 'grouped-product', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=96', 18, 'nav_menu_item', '', 0),
+(97, 1, '2018-06-05 23:34:49', '2018-06-05 16:34:49', '', 'Variable product', '', 'publish', 'closed', 'closed', '', 'variable-product', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=97', 19, 'nav_menu_item', '', 0),
+(98, 1, '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 'Blogs', '', 'publish', 'closed', 'closed', '', 'blogs', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=98', 20, 'nav_menu_item', '', 0),
+(99, 1, '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 'Wishlist', '', 'publish', 'closed', 'closed', '', 'wishlist', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=99', 21, 'nav_menu_item', '', 0),
+(100, 1, '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 'Contact Us', '', 'publish', 'closed', 'closed', '', 'contact-us', '', '', '2018-06-05 23:35:27', '2018-06-05 16:35:27', '', 0, 'http://localhost:9999/webMining/?p=100', 22, 'nav_menu_item', '', 0),
+(101, 1, '2018-06-05 23:36:58', '2018-06-05 16:36:58', '{\n    \"metrostore::metrostore_email_title\": {\n        \"value\": \"support@mining.com\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:36:58\"\n    },\n    \"metrostore::metrostore_phone_number\": {\n        \"value\": \"+1 877 904-1234\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:36:58\"\n    },\n    \"metrostore::metrostore_map_address\": {\n        \"value\": \"668 A Hayes Street San Francisco, CA 94102\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:36:58\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', '48daacae-9e79-4eec-b0d1-bb986cc6c09e', '', '', '2018-06-05 23:36:58', '2018-06-05 16:36:58', '', 0, 'http://localhost:9999/webMining/2018/06/05/48daacae-9e79-4eec-b0d1-bb986cc6c09e/', 0, 'customize_changeset', '', 0),
+(102, 1, '2018-06-05 23:44:36', '2018-06-05 16:44:36', '{\n    \"metrostore::metrostore_footer_copyright_setting\": {\n        \"value\": \"\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-06-05 16:44:20\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'd7133bce-5370-4f0c-a501-aee7a84a6214', '', '', '2018-06-05 23:44:36', '2018-06-05 16:44:36', '', 0, 'http://localhost:9999/webMining/?p=102', 0, 'customize_changeset', '', 0);
 
 -- --------------------------------------------------------
 
@@ -502,21 +1250,52 @@ INSERT INTO `tb_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 -- Table structure for table `tb_termmeta`
 --
 
-CREATE TABLE `tb_termmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_termmeta`;
+CREATE TABLE IF NOT EXISTS `tb_termmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `term_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `term_id` (`term_id`),
+  KEY `meta_key` (`meta_key`(191))
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tb_termmeta`
 --
 
 INSERT INTO `tb_termmeta` (`meta_id`, `term_id`, `meta_key`, `meta_value`) VALUES
-(1, 17, 'order', '0'),
+(1, 17, 'order', '3'),
 (2, 17, 'display_type', ''),
-(3, 17, 'thumbnail_id', '0');
+(3, 17, 'thumbnail_id', '41'),
+(4, 18, 'order', '2'),
+(5, 18, 'display_type', ''),
+(6, 18, 'thumbnail_id', '39'),
+(7, 23, 'order', '5'),
+(8, 23, 'display_type', ''),
+(9, 23, 'thumbnail_id', '42'),
+(10, 24, 'order', '4'),
+(11, 24, 'display_type', ''),
+(12, 24, 'thumbnail_id', '40'),
+(13, 15, 'order', '1'),
+(14, 25, 'order', '0'),
+(15, 25, 'display_type', ''),
+(16, 25, 'thumbnail_id', '0'),
+(17, 26, 'order', '0'),
+(18, 26, 'display_type', ''),
+(19, 26, 'thumbnail_id', '0'),
+(20, 27, 'order', '0'),
+(21, 27, 'display_type', ''),
+(22, 27, 'thumbnail_id', '0'),
+(23, 28, 'order', '0'),
+(24, 28, 'display_type', ''),
+(25, 28, 'thumbnail_id', '0'),
+(26, 26, 'product_count_product_cat', '4'),
+(27, 25, 'product_count_product_cat', '5'),
+(28, 27, 'product_count_product_cat', '4'),
+(29, 28, 'product_count_product_cat', '4'),
+(30, 15, 'product_count_product_cat', '0');
 
 -- --------------------------------------------------------
 
@@ -524,12 +1303,16 @@ INSERT INTO `tb_termmeta` (`meta_id`, `term_id`, `meta_key`, `meta_value`) VALUE
 -- Table structure for table `tb_terms`
 --
 
-CREATE TABLE `tb_terms` (
-  `term_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_terms`;
+CREATE TABLE IF NOT EXISTS `tb_terms` (
+  `term_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `slug` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `term_group` bigint(10) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `term_group` bigint(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`term_id`),
+  KEY `slug` (`slug`(191)),
+  KEY `name` (`name`(191))
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tb_terms`
@@ -552,7 +1335,22 @@ INSERT INTO `tb_terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
 (14, 'rated-5', 'rated-5', 0),
 (15, 'Uncategorized', 'uncategorized', 0),
 (16, 'Main Menu', 'main-menu', 0),
-(17, 'Shop', 'shop', 0);
+(17, 'Alarm Clock', 'alarm-clock', 0),
+(18, 'Analog', 'analog', 0),
+(19, 'My account', 'my-account', 0),
+(20, 'Cart', 'cart', 0),
+(21, 'Checkout', 'checkout', 0),
+(22, 'Slider', 'slider', 0),
+(23, 'Men\'s Watch', 'men-watch', 0),
+(24, 'Apple Design Watch', 'apple-design-watch', 0),
+(25, 'Latest Products', 'latest-products', 0),
+(26, 'Feature Products', 'feature-products', 0),
+(27, 'On Sale Watches', 'on-sale-watches', 0),
+(28, 'UpSale Watches', 'upsale-watches', 0),
+(29, 'Latest News', 'latest-news', 0),
+(30, 'Information', 'information', 0),
+(31, 'My Account', 'my-account', 0),
+(32, 'Our Services', 'our-services', 0);
 
 -- --------------------------------------------------------
 
@@ -560,10 +1358,13 @@ INSERT INTO `tb_terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
 -- Table structure for table `tb_term_relationships`
 --
 
-CREATE TABLE `tb_term_relationships` (
+DROP TABLE IF EXISTS `tb_term_relationships`;
+CREATE TABLE IF NOT EXISTS `tb_term_relationships` (
   `object_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `term_order` int(11) NOT NULL DEFAULT '0'
+  `term_order` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`object_id`,`term_taxonomy_id`),
+  KEY `term_taxonomy_id` (`term_taxonomy_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -572,7 +1373,72 @@ CREATE TABLE `tb_term_relationships` (
 
 INSERT INTO `tb_term_relationships` (`object_id`, `term_taxonomy_id`, `term_order`) VALUES
 (1, 1, 0),
-(8, 16, 0);
+(15, 16, 0),
+(16, 16, 0),
+(17, 16, 0),
+(19, 22, 0),
+(23, 22, 0),
+(34, 16, 0),
+(43, 2, 0),
+(43, 25, 0),
+(43, 26, 0),
+(43, 27, 0),
+(43, 28, 0),
+(45, 2, 0),
+(45, 25, 0),
+(45, 26, 0),
+(45, 27, 0),
+(45, 28, 0),
+(46, 2, 0),
+(46, 25, 0),
+(46, 26, 0),
+(46, 27, 0),
+(46, 28, 0),
+(49, 2, 0),
+(49, 25, 0),
+(49, 26, 0),
+(49, 27, 0),
+(49, 28, 0),
+(50, 2, 0),
+(50, 25, 0),
+(51, 29, 0),
+(54, 29, 0),
+(56, 29, 0),
+(63, 30, 0),
+(64, 30, 0),
+(65, 30, 0),
+(66, 30, 0),
+(67, 30, 0),
+(68, 30, 0),
+(69, 31, 0),
+(70, 31, 0),
+(71, 31, 0),
+(72, 31, 0),
+(73, 31, 0),
+(74, 31, 0),
+(75, 32, 0),
+(76, 32, 0),
+(77, 32, 0),
+(78, 32, 0),
+(79, 32, 0),
+(82, 16, 0),
+(83, 16, 0),
+(84, 16, 0),
+(86, 16, 0),
+(87, 16, 0),
+(88, 16, 0),
+(89, 16, 0),
+(90, 16, 0),
+(91, 16, 0),
+(92, 16, 0),
+(93, 16, 0),
+(94, 16, 0),
+(95, 16, 0),
+(96, 16, 0),
+(97, 16, 0),
+(98, 16, 0),
+(99, 16, 0),
+(100, 16, 0);
 
 -- --------------------------------------------------------
 
@@ -580,14 +1446,18 @@ INSERT INTO `tb_term_relationships` (`object_id`, `term_taxonomy_id`, `term_orde
 -- Table structure for table `tb_term_taxonomy`
 --
 
-CREATE TABLE `tb_term_taxonomy` (
-  `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_term_taxonomy`;
+CREATE TABLE IF NOT EXISTS `tb_term_taxonomy` (
+  `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `term_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `taxonomy` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `parent` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `count` bigint(20) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `count` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`term_taxonomy_id`),
+  UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
+  KEY `taxonomy` (`taxonomy`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tb_term_taxonomy`
@@ -595,7 +1465,7 @@ CREATE TABLE `tb_term_taxonomy` (
 
 INSERT INTO `tb_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `description`, `parent`, `count`) VALUES
 (1, 1, 'category', '', 0, 1),
-(2, 2, 'product_type', '', 0, 0),
+(2, 2, 'product_type', '', 0, 5),
 (3, 3, 'product_type', '', 0, 0),
 (4, 4, 'product_type', '', 0, 0),
 (5, 5, 'product_type', '', 0, 0),
@@ -609,8 +1479,23 @@ INSERT INTO `tb_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `desc
 (13, 13, 'product_visibility', '', 0, 0),
 (14, 14, 'product_visibility', '', 0, 0),
 (15, 15, 'product_cat', '', 0, 0),
-(16, 16, 'nav_menu', '', 0, 1),
-(17, 17, 'product_cat', '', 0, 0);
+(16, 16, 'nav_menu', '', 0, 22),
+(17, 17, 'product_cat', '', 0, 0),
+(18, 18, 'product_cat', '', 0, 0),
+(19, 19, 'category', '', 0, 0),
+(20, 20, 'category', '', 0, 0),
+(21, 21, 'category', '', 0, 0),
+(22, 22, 'category', '', 0, 2),
+(23, 23, 'product_cat', '', 0, 0),
+(24, 24, 'product_cat', '', 0, 0),
+(25, 25, 'product_cat', '', 0, 5),
+(26, 26, 'product_cat', '', 0, 4),
+(27, 27, 'product_cat', '', 0, 4),
+(28, 28, 'product_cat', '', 0, 4),
+(29, 29, 'category', '', 0, 3),
+(30, 30, 'nav_menu', '', 0, 6),
+(31, 31, 'nav_menu', '', 0, 6),
+(32, 32, 'nav_menu', '', 0, 5);
 
 -- --------------------------------------------------------
 
@@ -618,12 +1503,16 @@ INSERT INTO `tb_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `desc
 -- Table structure for table `tb_usermeta`
 --
 
-CREATE TABLE `tb_usermeta` (
-  `umeta_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_usermeta`;
+CREATE TABLE IF NOT EXISTS `tb_usermeta` (
+  `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`umeta_id`),
+  KEY `user_id` (`user_id`),
+  KEY `meta_key` (`meta_key`(191))
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tb_usermeta`
@@ -645,14 +1534,17 @@ INSERT INTO `tb_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (13, 1, 'tb_user_level', '10'),
 (14, 1, 'dismissed_wp_pointers', 'wp496_privacy'),
 (15, 1, 'show_welcome_panel', '1'),
-(16, 1, 'session_tokens', 'a:1:{s:64:\"db3e7d3ff0123758e8e0b75fca91538c48da9b059e044fa10971e69f2b5bc255\";a:4:{s:10:\"expiration\";i:1528361276;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36\";s:5:\"login\";i:1528188476;}}'),
+(16, 1, 'session_tokens', 'a:2:{s:64:\"db3e7d3ff0123758e8e0b75fca91538c48da9b059e044fa10971e69f2b5bc255\";a:4:{s:10:\"expiration\";i:1528361276;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36\";s:5:\"login\";i:1528188476;}s:64:\"d9637c3c54d3f695134cb17fbe2dfcfdc28992182456c0127d610834dffb354a\";a:4:{s:10:\"expiration\";i:1528380066;s:2:\"ip\";s:9:\"127.0.0.1\";s:2:\"ua\";s:114:\"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36\";s:5:\"login\";i:1528207266;}}'),
 (17, 1, 'tb_dashboard_quick_press_last_post_id', '4'),
 (18, 1, '_woocommerce_persistent_cart_1', 'a:1:{s:4:\"cart\";a:0:{}}'),
 (19, 1, 'wc_last_active', '1528156800'),
 (20, 1, 'managenav-menuscolumnshidden', 'a:5:{i:0;s:11:\"link-target\";i:1;s:11:\"css-classes\";i:2;s:3:\"xfn\";i:3;s:11:\"description\";i:4;s:15:\"title-attribute\";}'),
 (21, 1, 'managenav-menuscolumnshidden', 'a:5:{i:0;s:11:\"link-target\";i:1;s:11:\"css-classes\";i:2;s:3:\"xfn\";i:3;s:11:\"description\";i:4;s:15:\"title-attribute\";}'),
 (22, 1, 'metaboxhidden_nav-menus', 'a:4:{i:0;s:21:\"add-post-type-product\";i:1;s:12:\"add-post_tag\";i:2;s:15:\"add-product_cat\";i:3;s:15:\"add-product_tag\";}'),
-(23, 1, 'nav_menu_recently_edited', '16');
+(23, 1, 'nav_menu_recently_edited', '16'),
+(24, 1, 'community-events-location', 'a:1:{s:2:\"ip\";s:9:\"127.0.0.0\";}'),
+(25, 1, 'tb_user-settings', 'libraryContent=browse&editor=tinymce'),
+(26, 1, 'tb_user-settings-time', '1528212412');
 
 -- --------------------------------------------------------
 
@@ -660,8 +1552,9 @@ INSERT INTO `tb_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 -- Table structure for table `tb_users`
 --
 
-CREATE TABLE `tb_users` (
-  `ID` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_users`;
+CREATE TABLE IF NOT EXISTS `tb_users` (
+  `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_login` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_pass` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_nicename` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -670,8 +1563,12 @@ CREATE TABLE `tb_users` (
   `user_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_activation_key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_status` int(11) NOT NULL DEFAULT '0',
-  `display_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `display_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`ID`),
+  KEY `user_login_key` (`user_login`),
+  KEY `user_nicename` (`user_nicename`),
+  KEY `user_email` (`user_email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tb_users`
@@ -686,12 +1583,16 @@ INSERT INTO `tb_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_
 -- Table structure for table `tb_wc_download_log`
 --
 
-CREATE TABLE `tb_wc_download_log` (
-  `download_log_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_wc_download_log`;
+CREATE TABLE IF NOT EXISTS `tb_wc_download_log` (
+  `download_log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `timestamp` datetime NOT NULL,
   `permission_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `user_ip_address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT ''
+  `user_ip_address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  PRIMARY KEY (`download_log_id`),
+  KEY `permission_id` (`permission_id`),
+  KEY `timestamp` (`timestamp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -700,8 +1601,9 @@ CREATE TABLE `tb_wc_download_log` (
 -- Table structure for table `tb_wc_webhooks`
 --
 
-CREATE TABLE `tb_wc_webhooks` (
-  `webhook_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_wc_webhooks`;
+CREATE TABLE IF NOT EXISTS `tb_wc_webhooks` (
+  `webhook_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `status` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
@@ -714,7 +1616,9 @@ CREATE TABLE `tb_wc_webhooks` (
   `date_modified_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `api_version` smallint(4) NOT NULL,
   `failure_count` smallint(10) NOT NULL DEFAULT '0',
-  `pending_delivery` tinyint(1) NOT NULL DEFAULT '0'
+  `pending_delivery` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`webhook_id`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -723,8 +1627,9 @@ CREATE TABLE `tb_wc_webhooks` (
 -- Table structure for table `tb_woocommerce_api_keys`
 --
 
-CREATE TABLE `tb_woocommerce_api_keys` (
-  `key_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_api_keys`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_api_keys` (
+  `key_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `description` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `permissions` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -732,7 +1637,10 @@ CREATE TABLE `tb_woocommerce_api_keys` (
   `consumer_secret` char(43) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nonces` longtext COLLATE utf8mb4_unicode_ci,
   `truncated_key` char(7) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_access` datetime DEFAULT NULL
+  `last_access` datetime DEFAULT NULL,
+  PRIMARY KEY (`key_id`),
+  KEY `consumer_key` (`consumer_key`),
+  KEY `consumer_secret` (`consumer_secret`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -741,13 +1649,16 @@ CREATE TABLE `tb_woocommerce_api_keys` (
 -- Table structure for table `tb_woocommerce_attribute_taxonomies`
 --
 
-CREATE TABLE `tb_woocommerce_attribute_taxonomies` (
-  `attribute_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_attribute_taxonomies`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_attribute_taxonomies` (
+  `attribute_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `attribute_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `attribute_label` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `attribute_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `attribute_orderby` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `attribute_public` int(1) NOT NULL DEFAULT '1'
+  `attribute_public` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`attribute_id`),
+  KEY `attribute_name` (`attribute_name`(20))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -756,8 +1667,9 @@ CREATE TABLE `tb_woocommerce_attribute_taxonomies` (
 -- Table structure for table `tb_woocommerce_downloadable_product_permissions`
 --
 
-CREATE TABLE `tb_woocommerce_downloadable_product_permissions` (
-  `permission_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_downloadable_product_permissions`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_downloadable_product_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `download_id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL,
   `order_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
@@ -767,7 +1679,11 @@ CREATE TABLE `tb_woocommerce_downloadable_product_permissions` (
   `downloads_remaining` varchar(9) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `access_granted` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `access_expires` datetime DEFAULT NULL,
-  `download_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0'
+  `download_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`permission_id`),
+  KEY `download_order_key_product` (`product_id`,`order_id`,`order_key`(16),`download_id`),
+  KEY `download_order_product` (`download_id`,`order_id`,`product_id`),
+  KEY `order_id` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -776,13 +1692,16 @@ CREATE TABLE `tb_woocommerce_downloadable_product_permissions` (
 -- Table structure for table `tb_woocommerce_log`
 --
 
-CREATE TABLE `tb_woocommerce_log` (
-  `log_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_log`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_log` (
+  `log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `timestamp` datetime NOT NULL,
   `level` smallint(4) NOT NULL,
   `source` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `message` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `context` longtext COLLATE utf8mb4_unicode_ci
+  `context` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`log_id`),
+  KEY `level` (`level`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -791,11 +1710,15 @@ CREATE TABLE `tb_woocommerce_log` (
 -- Table structure for table `tb_woocommerce_order_itemmeta`
 --
 
-CREATE TABLE `tb_woocommerce_order_itemmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_order_itemmeta`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_order_itemmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_item_id` bigint(20) UNSIGNED NOT NULL,
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `order_item_id` (`order_item_id`),
+  KEY `meta_key` (`meta_key`(32))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -804,11 +1727,14 @@ CREATE TABLE `tb_woocommerce_order_itemmeta` (
 -- Table structure for table `tb_woocommerce_order_items`
 --
 
-CREATE TABLE `tb_woocommerce_order_items` (
-  `order_item_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_order_items`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_order_items` (
+  `order_item_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_item_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `order_item_type` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `order_id` bigint(20) UNSIGNED NOT NULL
+  `order_id` bigint(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`order_item_id`),
+  KEY `order_id` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -817,11 +1743,15 @@ CREATE TABLE `tb_woocommerce_order_items` (
 -- Table structure for table `tb_woocommerce_payment_tokenmeta`
 --
 
-CREATE TABLE `tb_woocommerce_payment_tokenmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_payment_tokenmeta`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_payment_tokenmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `payment_token_id` bigint(20) UNSIGNED NOT NULL,
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `payment_token_id` (`payment_token_id`),
+  KEY `meta_key` (`meta_key`(32))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -830,13 +1760,16 @@ CREATE TABLE `tb_woocommerce_payment_tokenmeta` (
 -- Table structure for table `tb_woocommerce_payment_tokens`
 --
 
-CREATE TABLE `tb_woocommerce_payment_tokens` (
-  `token_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_payment_tokens`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_payment_tokens` (
+  `token_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `gateway_id` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `type` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_default` tinyint(1) NOT NULL DEFAULT '0'
+  `is_default` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`token_id`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -845,12 +1778,15 @@ CREATE TABLE `tb_woocommerce_payment_tokens` (
 -- Table structure for table `tb_woocommerce_sessions`
 --
 
-CREATE TABLE `tb_woocommerce_sessions` (
-  `session_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_sessions`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_sessions` (
+  `session_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `session_key` char(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `session_value` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `session_expiry` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `session_expiry` bigint(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`session_key`),
+  UNIQUE KEY `session_id` (`session_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tb_woocommerce_sessions`
@@ -865,10 +1801,12 @@ INSERT INTO `tb_woocommerce_sessions` (`session_id`, `session_key`, `session_val
 -- Table structure for table `tb_woocommerce_shipping_zones`
 --
 
-CREATE TABLE `tb_woocommerce_shipping_zones` (
-  `zone_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_shipping_zones`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_shipping_zones` (
+  `zone_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `zone_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `zone_order` bigint(20) UNSIGNED NOT NULL
+  `zone_order` bigint(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`zone_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -877,11 +1815,15 @@ CREATE TABLE `tb_woocommerce_shipping_zones` (
 -- Table structure for table `tb_woocommerce_shipping_zone_locations`
 --
 
-CREATE TABLE `tb_woocommerce_shipping_zone_locations` (
-  `location_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_shipping_zone_locations`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_shipping_zone_locations` (
+  `location_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `zone_id` bigint(20) UNSIGNED NOT NULL,
   `location_code` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `location_type` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL
+  `location_type` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`location_id`),
+  KEY `location_id` (`location_id`),
+  KEY `location_type_code` (`location_type`(10),`location_code`(20))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -890,12 +1832,14 @@ CREATE TABLE `tb_woocommerce_shipping_zone_locations` (
 -- Table structure for table `tb_woocommerce_shipping_zone_methods`
 --
 
-CREATE TABLE `tb_woocommerce_shipping_zone_methods` (
+DROP TABLE IF EXISTS `tb_woocommerce_shipping_zone_methods`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_shipping_zone_methods` (
   `zone_id` bigint(20) UNSIGNED NOT NULL,
-  `instance_id` bigint(20) UNSIGNED NOT NULL,
+  `instance_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `method_id` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `method_order` bigint(20) UNSIGNED NOT NULL,
-  `is_enabled` tinyint(1) NOT NULL DEFAULT '1'
+  `is_enabled` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`instance_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -904,8 +1848,9 @@ CREATE TABLE `tb_woocommerce_shipping_zone_methods` (
 -- Table structure for table `tb_woocommerce_tax_rates`
 --
 
-CREATE TABLE `tb_woocommerce_tax_rates` (
-  `tax_rate_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_tax_rates`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_tax_rates` (
+  `tax_rate_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tax_rate_country` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `tax_rate_state` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `tax_rate` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -914,7 +1859,12 @@ CREATE TABLE `tb_woocommerce_tax_rates` (
   `tax_rate_compound` int(1) NOT NULL DEFAULT '0',
   `tax_rate_shipping` int(1) NOT NULL DEFAULT '1',
   `tax_rate_order` bigint(20) UNSIGNED NOT NULL,
-  `tax_rate_class` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `tax_rate_class` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`tax_rate_id`),
+  KEY `tax_rate_country` (`tax_rate_country`),
+  KEY `tax_rate_state` (`tax_rate_state`(2)),
+  KEY `tax_rate_class` (`tax_rate_class`(10)),
+  KEY `tax_rate_priority` (`tax_rate_priority`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -923,403 +1873,16 @@ CREATE TABLE `tb_woocommerce_tax_rates` (
 -- Table structure for table `tb_woocommerce_tax_rate_locations`
 --
 
-CREATE TABLE `tb_woocommerce_tax_rate_locations` (
-  `location_id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tb_woocommerce_tax_rate_locations`;
+CREATE TABLE IF NOT EXISTS `tb_woocommerce_tax_rate_locations` (
+  `location_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `location_code` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tax_rate_id` bigint(20) UNSIGNED NOT NULL,
-  `location_type` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL
+  `location_type` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`location_id`),
+  KEY `tax_rate_id` (`tax_rate_id`),
+  KEY `location_type_code` (`location_type`(10),`location_code`(20))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `tb_commentmeta`
---
-ALTER TABLE `tb_commentmeta`
-  ADD PRIMARY KEY (`meta_id`),
-  ADD KEY `comment_id` (`comment_id`),
-  ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `tb_comments`
---
-ALTER TABLE `tb_comments`
-  ADD PRIMARY KEY (`comment_ID`),
-  ADD KEY `comment_post_ID` (`comment_post_ID`),
-  ADD KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
-  ADD KEY `comment_date_gmt` (`comment_date_gmt`),
-  ADD KEY `comment_parent` (`comment_parent`),
-  ADD KEY `comment_author_email` (`comment_author_email`(10)),
-  ADD KEY `woo_idx_comment_type` (`comment_type`);
-
---
--- Indexes for table `tb_links`
---
-ALTER TABLE `tb_links`
-  ADD PRIMARY KEY (`link_id`),
-  ADD KEY `link_visible` (`link_visible`);
-
---
--- Indexes for table `tb_options`
---
-ALTER TABLE `tb_options`
-  ADD PRIMARY KEY (`option_id`),
-  ADD UNIQUE KEY `option_name` (`option_name`);
-
---
--- Indexes for table `tb_postmeta`
---
-ALTER TABLE `tb_postmeta`
-  ADD PRIMARY KEY (`meta_id`),
-  ADD KEY `post_id` (`post_id`),
-  ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `tb_posts`
---
-ALTER TABLE `tb_posts`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `post_name` (`post_name`(191)),
-  ADD KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
-  ADD KEY `post_parent` (`post_parent`),
-  ADD KEY `post_author` (`post_author`);
-
---
--- Indexes for table `tb_termmeta`
---
-ALTER TABLE `tb_termmeta`
-  ADD PRIMARY KEY (`meta_id`),
-  ADD KEY `term_id` (`term_id`),
-  ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `tb_terms`
---
-ALTER TABLE `tb_terms`
-  ADD PRIMARY KEY (`term_id`),
-  ADD KEY `slug` (`slug`(191)),
-  ADD KEY `name` (`name`(191));
-
---
--- Indexes for table `tb_term_relationships`
---
-ALTER TABLE `tb_term_relationships`
-  ADD PRIMARY KEY (`object_id`,`term_taxonomy_id`),
-  ADD KEY `term_taxonomy_id` (`term_taxonomy_id`);
-
---
--- Indexes for table `tb_term_taxonomy`
---
-ALTER TABLE `tb_term_taxonomy`
-  ADD PRIMARY KEY (`term_taxonomy_id`),
-  ADD UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
-  ADD KEY `taxonomy` (`taxonomy`);
-
---
--- Indexes for table `tb_usermeta`
---
-ALTER TABLE `tb_usermeta`
-  ADD PRIMARY KEY (`umeta_id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `tb_users`
---
-ALTER TABLE `tb_users`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `user_login_key` (`user_login`),
-  ADD KEY `user_nicename` (`user_nicename`),
-  ADD KEY `user_email` (`user_email`);
-
---
--- Indexes for table `tb_wc_download_log`
---
-ALTER TABLE `tb_wc_download_log`
-  ADD PRIMARY KEY (`download_log_id`),
-  ADD KEY `permission_id` (`permission_id`),
-  ADD KEY `timestamp` (`timestamp`);
-
---
--- Indexes for table `tb_wc_webhooks`
---
-ALTER TABLE `tb_wc_webhooks`
-  ADD PRIMARY KEY (`webhook_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `tb_woocommerce_api_keys`
---
-ALTER TABLE `tb_woocommerce_api_keys`
-  ADD PRIMARY KEY (`key_id`),
-  ADD KEY `consumer_key` (`consumer_key`),
-  ADD KEY `consumer_secret` (`consumer_secret`);
-
---
--- Indexes for table `tb_woocommerce_attribute_taxonomies`
---
-ALTER TABLE `tb_woocommerce_attribute_taxonomies`
-  ADD PRIMARY KEY (`attribute_id`),
-  ADD KEY `attribute_name` (`attribute_name`(20));
-
---
--- Indexes for table `tb_woocommerce_downloadable_product_permissions`
---
-ALTER TABLE `tb_woocommerce_downloadable_product_permissions`
-  ADD PRIMARY KEY (`permission_id`),
-  ADD KEY `download_order_key_product` (`product_id`,`order_id`,`order_key`(16),`download_id`),
-  ADD KEY `download_order_product` (`download_id`,`order_id`,`product_id`),
-  ADD KEY `order_id` (`order_id`);
-
---
--- Indexes for table `tb_woocommerce_log`
---
-ALTER TABLE `tb_woocommerce_log`
-  ADD PRIMARY KEY (`log_id`),
-  ADD KEY `level` (`level`);
-
---
--- Indexes for table `tb_woocommerce_order_itemmeta`
---
-ALTER TABLE `tb_woocommerce_order_itemmeta`
-  ADD PRIMARY KEY (`meta_id`),
-  ADD KEY `order_item_id` (`order_item_id`),
-  ADD KEY `meta_key` (`meta_key`(32));
-
---
--- Indexes for table `tb_woocommerce_order_items`
---
-ALTER TABLE `tb_woocommerce_order_items`
-  ADD PRIMARY KEY (`order_item_id`),
-  ADD KEY `order_id` (`order_id`);
-
---
--- Indexes for table `tb_woocommerce_payment_tokenmeta`
---
-ALTER TABLE `tb_woocommerce_payment_tokenmeta`
-  ADD PRIMARY KEY (`meta_id`),
-  ADD KEY `payment_token_id` (`payment_token_id`),
-  ADD KEY `meta_key` (`meta_key`(32));
-
---
--- Indexes for table `tb_woocommerce_payment_tokens`
---
-ALTER TABLE `tb_woocommerce_payment_tokens`
-  ADD PRIMARY KEY (`token_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `tb_woocommerce_sessions`
---
-ALTER TABLE `tb_woocommerce_sessions`
-  ADD PRIMARY KEY (`session_key`),
-  ADD UNIQUE KEY `session_id` (`session_id`);
-
---
--- Indexes for table `tb_woocommerce_shipping_zones`
---
-ALTER TABLE `tb_woocommerce_shipping_zones`
-  ADD PRIMARY KEY (`zone_id`);
-
---
--- Indexes for table `tb_woocommerce_shipping_zone_locations`
---
-ALTER TABLE `tb_woocommerce_shipping_zone_locations`
-  ADD PRIMARY KEY (`location_id`),
-  ADD KEY `location_id` (`location_id`),
-  ADD KEY `location_type_code` (`location_type`(10),`location_code`(20));
-
---
--- Indexes for table `tb_woocommerce_shipping_zone_methods`
---
-ALTER TABLE `tb_woocommerce_shipping_zone_methods`
-  ADD PRIMARY KEY (`instance_id`);
-
---
--- Indexes for table `tb_woocommerce_tax_rates`
---
-ALTER TABLE `tb_woocommerce_tax_rates`
-  ADD PRIMARY KEY (`tax_rate_id`),
-  ADD KEY `tax_rate_country` (`tax_rate_country`),
-  ADD KEY `tax_rate_state` (`tax_rate_state`(2)),
-  ADD KEY `tax_rate_class` (`tax_rate_class`(10)),
-  ADD KEY `tax_rate_priority` (`tax_rate_priority`);
-
---
--- Indexes for table `tb_woocommerce_tax_rate_locations`
---
-ALTER TABLE `tb_woocommerce_tax_rate_locations`
-  ADD PRIMARY KEY (`location_id`),
-  ADD KEY `tax_rate_id` (`tax_rate_id`),
-  ADD KEY `location_type_code` (`location_type`(10),`location_code`(20));
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `tb_commentmeta`
---
-ALTER TABLE `tb_commentmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_comments`
---
-ALTER TABLE `tb_comments`
-  MODIFY `comment_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tb_links`
---
-ALTER TABLE `tb_links`
-  MODIFY `link_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_options`
---
-ALTER TABLE `tb_options`
-  MODIFY `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=342;
-
---
--- AUTO_INCREMENT for table `tb_postmeta`
---
-ALTER TABLE `tb_postmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
---
--- AUTO_INCREMENT for table `tb_posts`
---
-ALTER TABLE `tb_posts`
-  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `tb_termmeta`
---
-ALTER TABLE `tb_termmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tb_terms`
---
-ALTER TABLE `tb_terms`
-  MODIFY `term_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `tb_term_taxonomy`
---
-ALTER TABLE `tb_term_taxonomy`
-  MODIFY `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `tb_usermeta`
---
-ALTER TABLE `tb_usermeta`
-  MODIFY `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT for table `tb_users`
---
-ALTER TABLE `tb_users`
-  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tb_wc_download_log`
---
-ALTER TABLE `tb_wc_download_log`
-  MODIFY `download_log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_wc_webhooks`
---
-ALTER TABLE `tb_wc_webhooks`
-  MODIFY `webhook_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_api_keys`
---
-ALTER TABLE `tb_woocommerce_api_keys`
-  MODIFY `key_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_attribute_taxonomies`
---
-ALTER TABLE `tb_woocommerce_attribute_taxonomies`
-  MODIFY `attribute_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_downloadable_product_permissions`
---
-ALTER TABLE `tb_woocommerce_downloadable_product_permissions`
-  MODIFY `permission_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_log`
---
-ALTER TABLE `tb_woocommerce_log`
-  MODIFY `log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_order_itemmeta`
---
-ALTER TABLE `tb_woocommerce_order_itemmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_order_items`
---
-ALTER TABLE `tb_woocommerce_order_items`
-  MODIFY `order_item_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_payment_tokenmeta`
---
-ALTER TABLE `tb_woocommerce_payment_tokenmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_payment_tokens`
---
-ALTER TABLE `tb_woocommerce_payment_tokens`
-  MODIFY `token_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_sessions`
---
-ALTER TABLE `tb_woocommerce_sessions`
-  MODIFY `session_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_shipping_zones`
---
-ALTER TABLE `tb_woocommerce_shipping_zones`
-  MODIFY `zone_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_shipping_zone_locations`
---
-ALTER TABLE `tb_woocommerce_shipping_zone_locations`
-  MODIFY `location_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_shipping_zone_methods`
---
-ALTER TABLE `tb_woocommerce_shipping_zone_methods`
-  MODIFY `instance_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_tax_rates`
---
-ALTER TABLE `tb_woocommerce_tax_rates`
-  MODIFY `tax_rate_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_woocommerce_tax_rate_locations`
---
-ALTER TABLE `tb_woocommerce_tax_rate_locations`
-  MODIFY `location_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

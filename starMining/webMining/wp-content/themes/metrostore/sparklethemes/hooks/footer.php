@@ -79,14 +79,13 @@ add_action( 'metrostore_sub_footer_before', 'metrostore_sub_footer_before', 5 );
 if ( ! function_exists( 'metrostore_footer_credit' ) ) {
 	function metrostore_footer_credit() { ?>
 		<div class="col-sm-6 col-xs-12 coppyright">
-			<?php $copyright = get_theme_mod( 'metrostore_footer_copyright_setting' ); if( !empty( $copyright ) ) { ?>
-						<?php echo apply_filters( 'metrostore_copyright_text', $copyright . ' - ' . get_bloginfo( 'name' ) ); ?>	
-			<?php } else { ?>
-				<?php echo esc_html( apply_filters( 'metrostore_copyright_text', $content = '&copy; ' . date( 'Y' ) . ' - ' . get_bloginfo( 'name' ) ) ); ?>
-			<?php } ?>
-			<?php if ( apply_filters( 'metrostore_credit_link', true ) ) { 
-				printf( __( '%1$s By %2$s', 'metrostore' ), ' ', '<a href=" ' . esc_url('https://sparklewpthemes.com/') . ' " alt="Premium WordPress Themes & Plugins by Sparkle Themes" title="Premium WordPress Themes & Plugins by Sparkle Themes" rel="designer" target="_blank">Sparkle Themes</a>' ); ?>
-			<?php } ?> 
+			<?php 
+				$copyright = get_theme_mod( 'metrostore_footer_copyright_setting' );
+				if( !empty( $copyright ) ) { ?>
+					<?php echo apply_filters( 'metrostore_copyright_text', $copyright . ' - ' . get_bloginfo( 'name' ) ); ?>	
+				<?php } else { ?>
+					<?php echo esc_html( apply_filters( 'metrostore_copyright_text', $content = '&copy; ' . date( 'Y' ) . ' - ' . get_bloginfo( 'name' ) ) ); ?>
+				<?php } ?>
 		</div>
 		<?php
 	}
