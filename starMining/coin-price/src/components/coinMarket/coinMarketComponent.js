@@ -70,7 +70,7 @@ export default class CoinMarketCompnent extends Component {
         if (this.state.loaded) {
             screen = this.state.dataCoin.map((item, index) => {
                 return (
-                    <div className="rowItem" key={index}>
+                    <div className={index % 2 == 1 ? "rowItem rowItembackground" : "rowItem"} key={index}>
                         <div className="itemCol1">
                             {index + 1}
                         </div>
@@ -82,10 +82,10 @@ export default class CoinMarketCompnent extends Component {
                             </div>
                         </div>
                         <div className="itemCol3">
-                            {item.price}
+                            ${item.price}
                         </div>
                         <div className={item.status? "itemCol4 percentup" : "itemCol4 percentdown"}>
-                            {item.percent}
+                            {item.percent}%
                         </div>
                     </div>
                 );
@@ -96,8 +96,18 @@ export default class CoinMarketCompnent extends Component {
 
         return(
             <div className="parent">
+                <div className="rowItemHeader">
+                    <div className="itemCol1"></div>
+                    <div className="itemCol2">Tiền điện tử</div>
+                    <div className="itemCol3">Giá</div>
+                    <div className="itemCol4">% giao động</div>
+                </div>
+                <div className="parent-coinmarket">
+                
                 {screen}
             </div>
+            </div>
+            
         );
     }
 }
