@@ -14,25 +14,34 @@ export default class CoinCalculator extends Component {
             hashing: 0,
             power: 0,
             costPerKWh: 0,
-            poolFee: 0
+            poolFee: 0,
+            price: 0,
+            blockNumber: 0,
+            netHashesPerSecond: 0,
+            blockReward: 0
         }
     }
 
-    setCoinType = (coin_type)=> {
-        this.setState({
-            coin_type : coin_type
-        })
+    setCoinTypeInfo = (coin_type_info)=> {
+        this.setState(coin_type_info);
+    }
+
+    setCoinInfo = (coin_info)=> {
+        this.setState(coin_info);
     }
 
     render() {
         return(
-            <div className="parent">
+            <div className="">
                 <div className="parent-coincalcule">
                     <div className="div-choose-coin-info">
-                        <CoinTypeInformation setCoinType={this.setCoinType} coin_type={this.state.coin_type}/>
-                        <MinerInfo />
+                        <CoinTypeInformation setCoinTypeInfo={this.setCoinTypeInfo} coin_type={this.state.coin_type}/>
+                        <MinerInfo setCoinInfo={this.setCoinInfo}/>
+                        <button onClick={()=> {
+                            this.refs.CoinEstimation.calCulation(this.state);
+                        }}>Tính</button>
                     </div>
-                    <CoinEstimation />
+                    <CoinEstimation ref="CoinEstimation"/>
                 </div>
             </div>
         );
