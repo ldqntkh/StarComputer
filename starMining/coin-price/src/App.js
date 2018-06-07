@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 
 // import component 
-import CoinMarketCompnent from './components/coinMarket/coinMarketComponent';
+//import CoinMarketCompnent from './components/coinMarket/coinMarketComponent';
+import CoinCalculator from './components/coinCalculator/coinCalculator';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <React.Fragment>
-                <CoinMarketCompnent />
+                <CoinCalculator />
             </React.Fragment>
         );
     }
