@@ -5401,3 +5401,7 @@ div.wpcf7 {
 .home.blog .blog_post {
     padding: 30px 0;
 }
+
+.element_hidden {
+    display: none !important;
+}

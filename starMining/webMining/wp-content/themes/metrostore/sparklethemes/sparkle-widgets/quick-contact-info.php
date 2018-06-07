@@ -101,15 +101,15 @@ class metrostore_quick_contact_info_widget_area extends WP_Widget {
       </div> <!-- End page header-->      
       <div class="row">
         <div class="col-sm-4 adress-element"> <i class="fa fa-home fa-2x"></i>
-          <h3><?php esc_html_e('Our Address','metrostore'); ?></h3>
+          <h3><?php esc_html_e('Địa chỉ','metrostore'); ?></h3>
           <span class="font-l"><?php echo esc_attr($address_info); ?></span> 
         </div>
         <div class="col-sm-4 adress-element"> <i class="fa fa-comment fa-2x"></i>
-          <h3><?php esc_html_e('Our mail','metrostore'); ?></h3>
+          <h3><?php esc_html_e('Email','metrostore'); ?></h3>
           <span class="font-l"><a href="mailto:<?php echo esc_attr( antispambot( $email_address ) ); ?>"><?php echo esc_attr( antispambot( $email_address ) ); ?></a></span> 
         </div>
         <div class="col-sm-4 adress-element"> <i class="fa fa-phone fa-2x"></i>
-          <h3><?php esc_html_e('Our phone','metrostore'); ?></h3>
+          <h3><?php esc_html_e('Số điện thoại','metrostore'); ?></h3>
           <span class="font-l"><?php echo esc_attr($phone_number); ?></span> 
         </div>
       </div>

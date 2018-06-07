@@ -61,7 +61,7 @@ if (!function_exists('metrostore_woocommerce_before_shop_loop_item')) {
                                 <?php echo get_the_post_thumbnail( $product->get_id() , 'shop_catalog', array( 'class' => 'first-img' ) ); ?> 
                                 <?php echo get_the_post_thumbnail( $product->get_id() , 'shop_catalog', array( 'class' => 'hover-img' ) ); ?>
                     	    </figure>
-                            <div class="add-to-cart-mt">                	      
+                            <div class="add-to-cart-mt element_hidden">
                     	       <?php woocommerce_template_loop_add_to_cart(); ?> 
                     	    </div>
 

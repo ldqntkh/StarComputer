@@ -206,7 +206,7 @@ if ( ! function_exists( 'metrostore_main_header' ) ) {
 		          </div>
 		          <!-- top cart -->
 		          
-		          <div class="col-md-3 col-sm-6 top-cart">
+		          <div class="col-md-3 col-sm-6 top-cart element_hidden">
 		            <div class="mm-toggle-wrap">
 						<div class="mm-toggle">
 							<i class="fa fa-align-justify"></i>
