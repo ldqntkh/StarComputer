@@ -236,6 +236,9 @@ if ( ! function_exists( 'metrostore_scripts' ) ) {
 
 	    wp_enqueue_style( 'owl-theme', get_template_directory_uri() . '/assets/library/carouselowl/css/owl.theme.css' );
 
+		/* Add custom style */
+		wp_enqueue_style( 'custom-style', get_template_directory_uri() . '/assets/css/custom-style.css' );
+
 	    /* Metro Store Main Style */
 	    wp_enqueue_style( 'metrostore-style', get_stylesheet_uri() );
 

@@ -1,0 +1,94 @@
+.page-template-metrostore-home, .page-template-default, .product-template-default, .category-tin-tuc, .woocommerce {
+    .header-container {
+        z-index: 9999;
+        top: 0;
+        width: 100%;
+        background-color: #fbfbfb;
+    }
+
+    .logo_nav {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+    .logo.site-branding {
+        display: none;
+    }
+    .top-cart.element_hidden {
+        display: block!important;
+        .top-cart-contain {
+            display: none;
+        }
+    }
+    .video-bg {
+        .page-header-wrapper {
+            display: none;
+        }
+        .ytplayer-player {
+            max-width: 100%;
+            height: auto !important;
+        }
+    }
+    
+
+    @media screen and (min-width: 768px) {
+        .header-container {
+            position: unset;
+            z-index: 9999;
+            top: 0;
+        }
+        .logo_nav {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .logo.site-branding {
+            display: block;
+        }
+        .top-cart.element_hidden {
+            display: none!important;
+        }
+        .video-bg {
+            .page-header-wrapper {
+                display: block;
+            }
+        }
+    }
+}
+
+.product-template-default {
+    p.price {
+        color: #ff3366 !important;
+    }
+    form {
+        .quantity {
+            display: none;
+        }
+    }
+    .woocommerce-tabs.wc-tabs-wrapper {
+        #tab-mo-ta {
+            >h2 {
+                display: none;
+            }
+        }
+    }
+}
+
+.category-tin-tuc {
+    .page_header_wrap {
+        header.entry-header {
+            display: none;
+        }
+    }
+}
+
+.woocommerce-page {
+    div.toolbar {
+        border: none;
+        .woocommerce-result-count {
+            opacity: 1;
+        }
+        select.orderby {
+            border-radius: 10px;
+            padding: 5px;
+        }
+    }
+}

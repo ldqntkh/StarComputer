@@ -1776,7 +1776,7 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 * @return string
 	 */
 	public function add_to_cart_text() {
-		return apply_filters( 'woocommerce_product_add_to_cart_text', __( 'Read more', 'woocommerce' ), $this );
+		return apply_filters( 'woocommerce_product_add_to_cart_text', __( 'Xem thêm', 'woocommerce' ), $this );
 	}
 
 	/**

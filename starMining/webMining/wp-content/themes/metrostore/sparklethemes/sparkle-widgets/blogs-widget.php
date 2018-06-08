@@ -121,7 +121,7 @@ class metrostore_blogs_widget_area extends WP_Widget {
                         <li><i class="fa fa-comments"></i><?php comments_popup_link( esc_html__( '0 Comment', 'metrostore' ),  esc_html__( '1 Comment', 'metrostore' ), esc_html__( '% Comments', 'metrostore' ) ); ?></li>
                       </ul>
                       <p class="excerpt"><?php the_excerpt(); ?></p>
-                      <a class="readMore" href="<?php the_permalink(); ?>"><?php esc_html_e('Read More','metrostore'); ?> <i class="fa fa-angle-right"></i></a> </div>
+                      <a class="readMore" href="<?php the_permalink(); ?>"><?php esc_html_e('Xem thêm','metrostore'); ?> <i class="fa fa-angle-right"></i></a> </div>
                   </div>
                 </div><!-- End Item -->
               <?php endwhile; endif; wp_reset_postdata(); ?> 
