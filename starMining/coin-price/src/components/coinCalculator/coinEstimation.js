@@ -53,7 +53,7 @@ export default class CoinEstimation extends Component {
             screen = <tbody>
                 <tr>
                     <td>Ngày</td>
-                    <td>{this.state.totalCoin}</td>
+                    <td>{this.state.totalCoin.toFixed(4)}</td>
                     <td>${this.state.poolFee.toFixed(2)}</td>
                     <td>${this.state.powerUsed.toFixed(2)}</td>
                     <td>${this.state.totalUsd.toFixed(2)}</td>
@@ -61,7 +61,7 @@ export default class CoinEstimation extends Component {
                 </tr>
                 <tr>
                     <td>Tuần</td>
-                    <td>{this.state.totalCoin * 7}</td>
+                    <td>{(this.state.totalCoin * 7).toFixed(4)}</td>
                     <td>${(this.state.poolFee * 7).toFixed(2)}</td>
                     <td>${(this.state.powerUsed * 7).toFixed(2)}</td>
                     <td>${(this.state.totalUsd * 7).toFixed(2)}</td>
@@ -69,7 +69,7 @@ export default class CoinEstimation extends Component {
                 </tr>
                 <tr>
                     <td>Tháng</td>
-                    <td>{this.state.totalCoin * 30}</td>
+                    <td>{(this.state.totalCoin * 30).toFixed(4)}</td>
                     <td>${(this.state.poolFee * 30).toFixed(2)}</td>
                     <td>${(this.state.powerUsed * 30).toFixed(2)}</td>
                     <td>${(this.state.totalUsd * 30).toFixed(2)}</td>
@@ -77,7 +77,7 @@ export default class CoinEstimation extends Component {
                 </tr>
                 <tr>
                     <td>Năm</td>
-                    <td>{this.state.totalCoin * 365}</td>
+                    <td>{(this.state.totalCoin * 365).toFixed(4)}</td>
                     <td>${(this.state.poolFee * 365).toFixed(2)}</td>
                     <td>${(this.state.powerUsed * 365).toFixed(2)}</td>
                     <td>${(this.state.totalUsd * 365).toFixed(2)}</td>
@@ -94,7 +94,7 @@ export default class CoinEstimation extends Component {
                             <td></td>
                             <td>Coin ({this.state.coin_type})</td>
                             <td>Phí pool ({this.state.coin_type})</td>
-                            <td>Điện tiêu thụ</td>
+                            <td>Tiền điện</td>
                             <td>Tổng tiền</td>
                             <td>Số tiền thực thu</td>
                         </tr>
@@ -111,7 +111,7 @@ export default class CoinEstimation extends Component {
                         <span className="sp-title">Phí pool</span> : phí phải trả cho pool đào
                     </p>
                     <p>
-                        <span className="sp-title">Điện năng tiêu thụ</span> : Tổng số điện tiêu thụ trong quá trình đào coin
+                        <span className="sp-title">Tiền điện</span> : Tổng số tiền điện phải trả trong quá trình đào coin
                     </p>
                     <p>
                         <span className="sp-title">Tổng tiền</span> : tổng số tiền thu được khi chưa trừ chi phí
