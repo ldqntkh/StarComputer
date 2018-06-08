@@ -110,7 +110,7 @@ export default class CoinMarketCompnent extends Component {
                     <div className="itemCol3">Market cap</div>
                     <div className="itemCol4">Volume</div>
                     <div className="itemCol5">Giá</div>
-                    <div className="itemCol6">% giao động</div>
+                    <div className="itemCol6">% dao động</div>
                 </div>
                 <div className="parent-coinmarket">
                     {screen}

@@ -39594,7 +39594,7 @@
                                 },
                                 __self: this
                             },
-                            '% giao \u0111\u1ED9ng'
+                            '% dao \u0111\u1ED9ng'
                         )
                     ),
                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
