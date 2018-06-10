@@ -24,7 +24,7 @@ const priceExchangeStyle = StyleSheet.create({
         color: MAIN_TEXT_COLOR,
         fontSize: 16,
         marginTop: 20,
-        marignBottom: 20
+        marginBottom: 20
     },
     header : {
         width: Dimensions.get('window').width,
