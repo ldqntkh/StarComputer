@@ -1,11 +1,11 @@
 import React from 'react';
 import {
     StyleSheet,
-    Platform
+    Dimensions
 } from 'react-native';
 
 import {
-    MAIN_BACKGROUND
+    MAIN_BACKGROUND, MAIN_TEXT_COLOR
 } from '../const/variable';
 
 const mainWalletStyle = StyleSheet.create({
