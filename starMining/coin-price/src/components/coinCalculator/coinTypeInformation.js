@@ -1,34 +1,35 @@
 import React, {PureComponent} from 'react';
 
 const lstCoin=[
-    {
-        type: "BTC",
-        name: "Bitcoin"
-    },
+    // {
+    //     type: "BTC",
+    //     name: "Bitcoin"
+    // },
     {
         type: "ETH",
         name: "Ethereum"
     },
-    {
-        type: "ETC",
-        name: "Ethereum Classic"
-    },
-    {
-        type: "XMR",
-        name: "Monero"
-    },
-    {
-        type: "PASC",
-        name: "Pascal coin"
-    },
-    {
-        type: "DASH",
-        name: "Dash"
-    },
-    {
-        type: "LTC",
-        name: "Litecoin"
-    },];
+    // {
+    //     type: "ETC",
+    //     name: "Ethereum Classic"
+    // },
+    // {
+    //     type: "XMR",
+    //     name: "Monero"
+    // },
+    // {
+    //     type: "PASC",
+    //     name: "Pascal coin"
+    // },
+    // {
+    //     type: "DASH",
+    //     name: "Dash"
+    // },
+    // {
+    //     type: "LTC",
+    //     name: "Litecoin"
+    // },
+];
 //"ETH", "ETC", "XMR", "ZEC", "PASC", "DASH", "LTC"
 const urlCoinInfo = 'https://min-api.cryptocompare.com/data/top/exchanges/full?fsym={0}&tsym=USD';
 export default class CoinTypeInformation extends PureComponent {

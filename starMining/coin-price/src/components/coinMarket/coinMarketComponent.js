@@ -99,7 +99,7 @@ export default class CoinMarketCompnent extends Component {
                 );
             });
         } else {
-            screen = <h1>Chờ chút coi....</h1>
+            screen = <h1 className="h1-title-coinmarket">Chờ chút nhé....</h1>
         }
 
         return(
