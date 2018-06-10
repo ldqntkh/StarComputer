@@ -346,3 +346,8 @@ function remove_head_scripts() {
 	add_action('wp_footer', 'wp_print_head_scripts', 5); 
  } 
  add_action( 'wp_enqueue_scripts', 'remove_head_scripts' );
+ add_filter( 'woocommerce_rest_check_permissions', 'my_woocommerce_rest_check_permissions', 90, 4 );
+
+function my_woocommerce_rest_check_permissions( $permission, $context, $object_id, $post_type  ){
+  return true;
+}
