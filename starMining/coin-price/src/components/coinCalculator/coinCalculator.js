@@ -36,10 +36,12 @@ export default class CoinCalculator extends Component {
                 <div className="parent-coincalcule">
                     <div className="div-choose-coin-info">
                         <CoinTypeInformation setCoinTypeInfo={this.setCoinTypeInfo} coin_type={this.state.coin_type}/>
-                        <MinerInfo setCoinInfo={this.setCoinInfo}/>
-                        <button onClick={()=> {
-                            this.refs.CoinEstimation.calCulation(this.state);
-                        }}>Tính</button>
+                        <div className="dv-calculation-coin">
+                            <MinerInfo setCoinInfo={this.setCoinInfo}/>
+                            <button onClick={()=> {
+                                this.refs.CoinEstimation.calCulation(this.state);
+                            }}>Tính</button>
+                        </div>
                     </div>
                     <CoinEstimation ref="CoinEstimation"/>
                 </div>
