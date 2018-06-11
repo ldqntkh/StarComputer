@@ -78,8 +78,9 @@
             }
 
             .caption-adjust {
-                h1 {
+                h2 {
                     font-weight: normal;
+                    color: #fbfbfb;
                 }
 
                 h4, .button-category-pc {
@@ -109,7 +110,8 @@
                         div {
                             background-color: #0e78bb;
                             margin: 0 15px;
-                            padding: 0;
+                            padding: 10px;
+                            border-radius: 5px;
                         }
                     }
                 }

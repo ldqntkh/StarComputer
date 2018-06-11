@@ -31,8 +31,8 @@ if ( ! function_exists( 'metrostore_slider_section' ) ) {
                                 <div class="flex-caption">
                                     <div class="container">
                                         <div class="caption-adjust">
-                                            <h1><?php the_title(); ?></h1>
-                                            <p><?php the_content(); ?></p>                                      
+                                            <h2><?php the_title(); ?></h2>
+                                            <?php the_content(); ?>                                   
                                         </div>
                                     </div>
                                 </div>
