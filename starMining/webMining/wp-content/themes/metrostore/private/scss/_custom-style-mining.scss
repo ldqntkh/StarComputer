@@ -1,0 +1,123 @@
+.coin-prices {
+    .h1-title-coinmarket {
+        text-align: center;
+    }
+    .parent {
+        display: flex;
+        flex-direction: column;
+        .rowItemHeader {
+            font-weight: bold;
+            border-bottom: 2px solid black;
+        }
+        .parent-coinmarket {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rowItemHeader, .rowItem {
+            display: flex;
+            flex-direction: row;
+            .itemCol1 {
+                width: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .itemCol2 {
+                flex: 1.5;
+            }
+            .itemCol3, .itemCol4 {
+                flex: 1;
+                text-align: center;
+                display: none;
+                justify-content: center;
+                align-items: center;
+            }
+            .itemCol5, .itemCol6 {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            @media screen and (min-width: 768px){
+                .itemCol3, .itemCol4 {
+                    display: flex;
+                }
+            }
+        }
+        .rowItem {
+            border-bottom: .5px solid black;
+            &:hover {
+                border-color: #ff3366;
+            }
+            .itemCol2 {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                img {
+                    width: 25px;
+                    height: 25px;
+                    margin: 0 10px;
+                }
+            }
+        }
+    }
+}
+
+
+/* mining calculator */
+.mining-calculator {
+    .parent-coincalcule {
+        .div-choose-coin-info {
+            display: flex;
+            justify-content: flex-start;
+            border-bottom: 1px solid #ff3366;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            .div-choose-coin, .coin-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .coin-info {
+                img {
+                    width: 200px;
+                }
+            }
+            .dv-calculation-coin {
+                width: 100%;
+                padding-left: 20px;
+                .dv-input {
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 15px;
+                    input {
+                        padding: 5px;
+                    }
+                }
+                button {
+                    background: #0e78bb;
+                    margin: 0 15px;
+                    padding: 10px;
+                    border-radius: 5px;
+                    border: none;
+                    width: 100px;
+                    box-shadow: none;
+                    text-shadow: none;
+                    font-size: 15px;
+                    font-weight: bold;
+                    color: #fbfbfb;
+                }
+            }
+        }
+    }
+}
+
+
+.percentup {
+    color: green;
+}
+.percentdown {
+    color: red;
+}
