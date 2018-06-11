@@ -236,6 +236,9 @@ if ( ! function_exists( 'metrostore_scripts' ) ) {
 
 	    wp_enqueue_style( 'owl-theme', get_template_directory_uri() . '/assets/library/carouselowl/css/owl.theme.css' );
 
+		/* Add custom style */
+		wp_enqueue_style( 'custom-style', get_template_directory_uri() . '/assets/css/custom-style.css' );
+
 	    /* Metro Store Main Style */
 	    wp_enqueue_style( 'metrostore-style', get_stylesheet_uri() );
 
@@ -285,6 +288,8 @@ if ( ! function_exists( 'metrostore_scripts' ) ) {
 	    /* Metore Store Waypoints support js infographic */
 	    wp_enqueue_script('infographic', get_template_directory_uri() . '/assets/js/infographic.js', array(), esc_attr( $theme_version ), false);
 
+		// implement reactjs
+		wp_enqueue_script( 'metrostore-coinmarket', get_template_directory_uri() . '/assets/js/coinmarket.js', array(), esc_attr( $theme_version ), false );
 
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
@@ -328,3 +333,21 @@ if ( ! function_exists( 'metrostore_is_woocommerce_activated' ) ) {
  * Require init.
 **/
 require  trailingslashit( get_template_directory() ).'sparklethemes/init.php';
+
+//* Move JavaScript to the Footer
+
+function remove_head_scripts() { 
+	remove_action('wp_head', 'wp_print_scripts'); 
+	remove_action('wp_head', 'wp_print_head_scripts', 9); 
+	remove_action('wp_head', 'wp_enqueue_scripts', 1);
+ 
+	add_action('wp_footer', 'wp_print_scripts', 5);
+	add_action('wp_footer', 'wp_enqueue_scripts', 5);
+	add_action('wp_footer', 'wp_print_head_scripts', 5); 
+ } 
+ add_action( 'wp_enqueue_scripts', 'remove_head_scripts' );
+ add_filter( 'woocommerce_rest_check_permissions', 'my_woocommerce_rest_check_permissions', 90, 4 );
+
+function my_woocommerce_rest_check_permissions( $permission, $context, $object_id, $post_type  ){
+  return true;
+}

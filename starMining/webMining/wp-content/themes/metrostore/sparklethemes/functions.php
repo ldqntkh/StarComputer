@@ -31,8 +31,8 @@ if ( ! function_exists( 'metrostore_slider_section' ) ) {
                                 <div class="flex-caption">
                                     <div class="container">
                                         <div class="caption-adjust">
-                                            <h1><?php the_title(); ?></h1>
-                                            <p><?php the_content(); ?></p>                                      
+                                            <h2><?php the_title(); ?></h2>
+                                            <?php the_content(); ?>                                   
                                         </div>
                                     </div>
                                 </div>
@@ -295,6 +295,13 @@ if ( ! function_exists( 'metrostore_breadcrumb_woocommerce' ) ) {
         }else{
           $breadcrumb_bg_image = get_template_directory_uri().'/assets/images/about.jpg';
         }
+        $post = get_post();
+        if (has_post_thumbnail( $post->ID ) ):
+            $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' );
+        endif;
+        if (count($image) > 0) {
+            $breadcrumb_bg_image = $image[0];
+        }
         if($breadcrumb_options == '1') { ?>
             <div class="page_header_wrap" style="background:url('<?php echo esc_url($breadcrumb_bg_image); ?>') no-repeat center; background-size: cover; background-attachment:fixed;">
                 <div class="container">
@@ -329,6 +336,13 @@ if ( ! function_exists( 'metrostore_breadcrumb_woocommercepage' ) ) {
             $breadcrumb_bg_image = $breadcrumb_bg_image;
         }else{
           $breadcrumb_bg_image = get_template_directory_uri().'/assets/images/about.jpg';
+        }
+        $post = get_post();
+        if (has_post_thumbnail( $post->ID ) ):
+            $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' );
+        endif;
+        if ($image && count($image) > 0) {
+            $breadcrumb_bg_image = $image[0];
         }
         if($breadcrumb_options == '1') { ?>
             <div class="page_header_wrap" style="background:url('<?php echo esc_url($breadcrumb_bg_image); ?>') no-repeat center; background-size: cover; background-attachment:fixed;">

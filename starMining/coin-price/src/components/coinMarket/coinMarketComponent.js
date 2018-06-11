@@ -99,7 +99,7 @@ export default class CoinMarketCompnent extends Component {
                 );
             });
         } else {
-            screen = <h1>Chờ chút coi....</h1>
+            screen = <h1 className="h1-title-coinmarket">Chờ chút nhé....</h1>
         }
 
         return(
@@ -110,7 +110,7 @@ export default class CoinMarketCompnent extends Component {
                     <div className="itemCol3">Market cap</div>
                     <div className="itemCol4">Volume</div>
                     <div className="itemCol5">Giá</div>
-                    <div className="itemCol6">% giao động</div>
+                    <div className="itemCol6">% dao động</div>
                 </div>
                 <div className="parent-coinmarket">
                     {screen}

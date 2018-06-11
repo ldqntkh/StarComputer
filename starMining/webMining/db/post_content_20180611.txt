@@ -1,0 +1,9 @@
+<h4>Professional Crypto Mining Rigs</h4>
+<div></div>
+<h4>The ultimate Ethereum, Zcash Mining Machine</h4>
+<div class="col-md-6 col-sm-6 button-category-pc">
+<div class="col-md-3 col-sm-3"><a href="#" class="btn-primary">4 GPU</a></div>
+<div class="col-md-3 col-sm-3"><a href="#" class="btn-primary">6 GPU</a></div>
+<div class="col-md-3 col-sm-3"><a href="#" class="btn-primary">8 GPU</a></div>
+</div>
+<div class="ms-btn view-more-btn-mobile"><a href="/">Xem thêm</a></div>

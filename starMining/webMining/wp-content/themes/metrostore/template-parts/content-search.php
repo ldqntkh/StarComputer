@@ -46,7 +46,7 @@
 			</div>
 
 			<div class="entry-more"> 
-				<a href="<?php the_permalink(); ?>" class="button"><?php esc_html_e('Read more','metrostore'); ?>&nbsp; <i class="fa fa-angle-double-right"></i></a>
+				<a href="<?php the_permalink(); ?>" class="button"><?php esc_html_e('Xem thêm','metrostore'); ?>&nbsp; <i class="fa fa-angle-double-right"></i></a>
 			</div>
 
 		</div>
