@@ -341,7 +341,7 @@ if ( ! function_exists( 'metrostore_breadcrumb_woocommercepage' ) ) {
         if (has_post_thumbnail( $post->ID ) ):
             $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' );
         endif;
-        if (count($image) > 0) {
+        if ($image && count($image) > 0) {
             $breadcrumb_bg_image = $image[0];
         }
         if($breadcrumb_options == '1') { ?>
