@@ -8,6 +8,8 @@ import {
 import Button from 'react-native-button';
 import { Field, reduxForm, submit, SubmissionError } from 'redux-form';
 
+import ScannerQrCodeComponent from '../../lib/scannerQrCodeComponent';
+
 // import style
 import { walletModalStyle } from '../../../styleSheets/modal/walletModalStyle';
 
@@ -114,10 +116,22 @@ class WalletModalFormComponent extends Component {
         });
     }
 
+    useQrCode = ()=> {
+        this.refs.ScannerQrCodeComponent.openQRCode();
+        this.setState({
+            useQrComponent: true
+        })
+    }
+
     render() {
         const {handleSubmit} = this.props;
         return (
-            <View style={{marginTop: 10}}>
+            <React.Fragment>
+                <ScannerQrCodeComponent onChangeValueInput={this.onChangeValueInput} ref="ScannerQrCodeComponent"/>
+                {!this.state.useQrComponent ? <View style={{marginTop: 10}}>
+                <TouchableOpacity onPress={this.useQrCode} style={walletModalStyle.buttonCamera}>
+                    <Icon name="md-camera"  style={walletModalStyle.iconCamera}/>
+                </TouchableOpacity>
                 <Field name="walletId" keyboardType="default" label="Wallet id*" component={renderInputField} 
                        style={walletModalStyle.inputField} styleItem={{width: 300}} validate={[required]}/>
                 <Field name="name" keyboardType="default" label="Wallet name*" component={renderInputField} 
@@ -159,7 +173,8 @@ class WalletModalFormComponent extends Component {
 
                 </View>
 
-            </View>
+            </View>: null}
+            </React.Fragment>
         );
     }
 }

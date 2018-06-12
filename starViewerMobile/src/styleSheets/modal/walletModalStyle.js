@@ -98,6 +98,27 @@ const walletModalStyle = StyleSheet.create({
         backgroundColor: BTN_CANCEL_BG_COLOR,
         borderColor: BTN_CANCEL_BG_COLOR
     },
+    buttonCamera: {
+        position: 'absolute',
+        top: 10.5,
+        right: 9,
+        width: 40,
+        zIndex: 999,
+        backgroundColor: 'white',
+        ...Platform.select({
+            android: {
+                padding: 6
+            },
+            ios: {
+                padding: 4
+            }
+        }),
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20,
+    },
+    iconCamera: {
+        color: 'red'
+    }
 });
 
 export {walletModalStyle};
