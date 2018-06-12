@@ -3899,8 +3899,8 @@ padding-left: 0;
 .yith-woocompare-widget .compare,
 .yith-woocompare-widget .clear-all {
     display: inline-block;
-    border: 1px solid #ff3366 !important;
-    background-color: #ff3366 !important;
+    border: 1px solid #ff3366;
+    background-color: #ff3366;
     border-radius: 0px !important;
     color: #ffffff !important;
     font-size: 16px !important;
@@ -3913,10 +3913,10 @@ padding-left: 0;
 }
 .yith-woocompare-widget .compare:hover,
 .yith-woocompare-widget .clear-all:hover {
-    border: 1px solid #ff3366 !important;
+    border: 1px solid #ff3366;
     background-color: transparent !important;
     border-radius: 0px !important;
-    color: #ff3366 !important;
+    color: #ff3366;
 }
 
 /*--------------------------------------------------------------
@@ -4033,10 +4033,8 @@ padding-left: 0;
 }
 	
 .blog-posts .post-item .entry-more a {
-	border: 1px solid #ff3366;
 	color: #fff;
 	padding: 8px 25px;
-	background: #ff3366;
 	border-radius: 50px;
 	font-weight: 400;
 	font-size: 14px;
@@ -4733,7 +4731,7 @@ display: none;
 .single-product .yith-wcwl-wishlistexistsbrowse.show a:hover,
 .single-product .entry-summary .compare.button:hover,
 .single-product .yith-wcwl-add-to-wishlist a.add_to_wishlist:hover {
-    color:#ff3366 !important;
+    color:#ff3366;
 }
 .single-product .yith-wcwl-wishlistaddedbrowse{
 	margin-right: 10px;
@@ -4866,9 +4864,6 @@ font-size: 16px;
     margin:0px;
     padding:0;
 }
-.woocommerce div.product .woocommerce-tabs ul.tabs:before {
-    border: 1px solid #ff3366;
-}
 .woocommerce div.product .woocommerce-tabs ul.tabs li{
     border:none !important;
     padding: 3px 1em;
@@ -4876,7 +4871,6 @@ font-size: 16px;
 .woocommerce div.product .woocommerce-tabs ul.tabs li:hover,
 .woocommerce div.product .woocommerce-tabs ul.tabs li.active{
     border:none !important;
-    background:#ff3366 !important;
     border-radius:0;
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs li:hover a,
@@ -4895,9 +4889,7 @@ font-size: 16px;
     line-height:1;
     margin-top: 10px;
 }
-.woocommerce div.product .woocommerce-tabs ul.tabs:before{
-    border:1px solid #ff3366;
-}
+
 .woocommerce div.product .woocommerce-tabs ul.tabs li{
     background: none !important;
 }
