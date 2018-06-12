@@ -12,18 +12,18 @@ import {
 const workerItemStyle = StyleSheet.create({
     parent : {
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        width: 100,
-        height: 100,
-        margin: 10,
-        padding: 5,
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: BORDER_WORKER_COLOR
+        flexDirection: 'row',
+        borderColor: BORDER_WORKER_COLOR,
+        borderTopWidth: 1,
+        height: 70,
+        padding: 5
     },
-
+    leftImage: {
+        width: 80,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     workerInfo: {
         display: 'flex',
         flexDirection: 'column',
@@ -31,7 +31,7 @@ const workerItemStyle = StyleSheet.create({
     },
 
     imageWorker: {
-        width: 100,
+        width: 70,
         height: 55
     },
 

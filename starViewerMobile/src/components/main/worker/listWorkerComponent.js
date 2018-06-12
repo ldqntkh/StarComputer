@@ -4,7 +4,8 @@ import {
     Image,
     Text,
     AsyncStorage,
-    Alert
+    Alert,
+    FlatList
 } from 'react-native';
 import {
     Container, Content
@@ -113,16 +114,16 @@ class ListWorkersComponent extends Component {
         if (!this.state.loaded) {
             screen = <View style={listWorkerStyle.parentViewLoading}>
                         <Image source={require('../../../../public/images/loading.gif')}
-                          style={{width: 200, height: 150}} />
+                          style={{width: 100, height: 90}} />
                     </View>
         } else {
             // make func reload and delete all
             let lstWorker = this.state.dataWorkers.length > 0 ?
-                            <View style={listWorkerStyle.parentView}>
-                                { this.state.dataWorkers.map((item, index) => {
-                                    return <WorkerItemComponent workerItem={JSON.stringify(item)} key={index} navigation={this.props.navigation}/>
-                                }) }
-                            </View>
+                            <FlatList style={listWorkerStyle.lstItem} data={ this.state.dataWorkers }
+                                renderItem={({item, index}) => <WorkerItemComponent workerItem={JSON.stringify(item)}  
+                                                                    navigation={this.props.navigation}/>}
+                                            keyExtractor={(item, index) => index.toString()}
+                            />
                             :
                             <Text style={{fontWeight: 'bold', color: 'red', marginTop: 10}}> {this.state.message} </Text>
             

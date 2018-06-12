@@ -138,7 +138,7 @@ class WorkerItemDetailsComponent extends Component {
                                 style={workerItemDetailsStyle.btnDetails}
                                 containerStyle={workerItemDetailsStyle.btnCustom}
                                 onPress={() => this.props.navigation.goBack()} >
-                                Back
+                                Quay lại
                             </Button>
                             <Button 
                                 style={workerItemDetailsStyle.btnDetails}
@@ -150,7 +150,7 @@ class WorkerItemDetailsComponent extends Component {
                                     });
                                     this.getWorkerDetails();
                                 }}>
-                                Reload
+                                Làm mới
                             </Button>
                         </View>
                         {
@@ -162,7 +162,7 @@ class WorkerItemDetailsComponent extends Component {
                                         onPress={() => {
                                             this.deleteWorkerDetail();
                                         }}>
-                                        Delete
+                                        Xoá
                                     </Button>
                                 </View> : null
                         }
@@ -171,7 +171,7 @@ class WorkerItemDetailsComponent extends Component {
         } else {
             screen = <View style={workerItemDetailsStyle.parentViewLoading}>
                         <Image source={require('../../../../public/images/loading.gif')}
-                          style={{width: 200, height: 150}} />
+                          style={{width: 100, height: 90}} />
                     </View>
         }
 

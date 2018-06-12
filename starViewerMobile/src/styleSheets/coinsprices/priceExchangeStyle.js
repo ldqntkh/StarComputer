@@ -53,7 +53,10 @@ const priceExchangeStyle = StyleSheet.create({
         alignItems: 'center'
     },
     col2: {
-        width: Dimensions.get('window').width - 180
+        width: Dimensions.get('window').width - 180,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     col3: {
         width: 130,

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    View, Text, ScrollView
+    View, Text, ScrollView, Image
 } from 'react-native';
 import {
     Container, Content, Label, Icon
@@ -51,7 +51,8 @@ export default class PriceExchangeComponent extends Component {
             
             let results = []
             for(let index in data) {
-                let name = data[index].name,
+                let id = data[index].id,
+                    name = data[index].name,
                     rank = data[index].rank,
                     symbol = data[index].symbol,
                     price = data[index].quotes.USD.price,
@@ -59,6 +60,7 @@ export default class PriceExchangeComponent extends Component {
                     status = data[index].quotes.USD.percent_change_24h > 0 ? true : false;
                     
                 results.push({
+                    id : id,
                     name : name, 
                     rank : rank,
                     price: price, 
@@ -104,7 +106,7 @@ export default class PriceExchangeComponent extends Component {
         
     }
 
-    render() {
+    render() {//https://s2.coinmarketcap.com/static/img/coins/16x16/1.png
         return (<Container style={ priceExchangeStyle.parentContainer }>
                     <HeaderDetailsComponent walletName={COINSPRICE} 
                                             navigation={typeof (this.props.screenProps) === 'undefined' ? this.props.navigation : this.props.screenProps.mainNavigate} 
@@ -116,7 +118,7 @@ export default class PriceExchangeComponent extends Component {
                                 <Label style={priceExchangeStyle.headerLabel}>#</Label>
                             </View>
                             <View style={priceExchangeStyle.col2}>
-                                <Label style={priceExchangeStyle.headerLabel}>Tên</Label>
+                                <Label style={priceExchangeStyle.headerLabel}>Tiền điện tử</Label>
                             </View>
                             <View style={priceExchangeStyle.col3}>
                                 <Label style={priceExchangeStyle.headerLabel}>Giá</Label>
@@ -130,8 +132,12 @@ export default class PriceExchangeComponent extends Component {
                                             <Text style={priceExchangeStyle.itemText}>{index + 1}</Text>
                                         </View>
                                         <View style={priceExchangeStyle.col2}>
-                                            <Text style={priceExchangeStyle.itemText}>{ item.name }</Text>
-                                            <Text style={priceExchangeStyle.itemText}>{item.symbol}</Text>
+                                            <Image source={{uri:"https://s2.coinmarketcap.com/static/img/coins/16x16/" + item.id + ".png"}} 
+                                                    style={{width: 20, height:20, marginRight: 15}}/>
+                                            <View>
+                                                <Text style={priceExchangeStyle.itemText}>{ item.name }</Text>
+                                                <Text style={priceExchangeStyle.itemText}>{item.symbol}</Text>
+                                            </View>
                                         </View>
                                         <View style={priceExchangeStyle.col3}>
                                             <Text style={priceExchangeStyle.itemText}>${ item.price.toFixed(2) }</Text>

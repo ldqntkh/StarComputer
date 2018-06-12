@@ -93,7 +93,7 @@ export default class ProductSlideShowComponent extends PureComponent {
         if (!this.state.loaded) {
             screen = <View style={productListPageStyle.parentViewLoading}>
                         <Image source={require('../../../../public/images/loading.gif')}
-                          style={{width: 200, height: 150}} />
+                          style={{width: 100, height: 90}} />
                     </View>
         } else {
             let miniScreens = [];
