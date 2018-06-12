@@ -279,7 +279,7 @@ function metrostore_woocommerce_breadcrumbs() {
         'wrap_after'  => '</div>',
         'before'      => '',
         'after'       => '',
-        'home'        => esc_html__( 'Home', 'metrostore'),
+        'home'        => esc_html__( 'Trang chủ', 'metrostore'),
     );
 }
 
