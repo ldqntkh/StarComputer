@@ -44,7 +44,7 @@ const drawerSlideStyle = StyleSheet.create({
     },
 
     itemIcon: {
-        color: 'blue'
+        color: 'red'
     },
 
     url: {

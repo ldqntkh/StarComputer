@@ -5,7 +5,6 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
-import MarqueeText from 'react-native-marquee';
 
 // import style
 import { workerItemStyle } from '../../../styleSheets/worker/workerItemStyle';
@@ -31,26 +30,19 @@ class WorkerItemComponent extends Component {
         return (
             <TouchableOpacity onPress={() => this.gotoWorkerDetails(workerItem)}>
                 <View style={ workerItemStyle.parent }>
-                    <Image source={ imageSource } style={ workerItemStyle.imageWorker } />
+                    <View style={workerItemStyle.leftImage}>
+                        <Image source={ imageSource } style={ workerItemStyle.imageWorker } />
+                    </View>
                     { workerItem.status ? 
                         <View style={workerItemStyle.workerInfo}>
-                            {workerItem.workerName.length < 10 ? 
-                                <Text style={ workerItemStyle.activeText }>{workerItem.workerName}</Text>:
-                                <MarqueeText
-                                    style={ workerItemStyle.activeText }
-                                    duration={3000}
-                                    marqueeOnStart
-                                    loop
-                                    marqueeDelay={1000}
-                                    marqueeResetDelay={1000}
-                                >
-                                {workerItem.workerName}
-                                </MarqueeText>
-                            }
-                            
+                            <Text style={ workerItemStyle.activeText }>{workerItem.workerName}</Text>
                             <Text style={ workerItemStyle.activeText }>{workerItem.hashrate.toFixed(2)} Mhz/s</Text>
                         </View> 
-                        : <Text style={ workerItemStyle.inactiveText }> {DISCONNECT} </Text>}
+                        : <View style={workerItemStyle.workerInfo}>
+                        <Text style={ workerItemStyle.inactiveText }> {DISCONNECT} </Text>
+                            <Text style={ workerItemStyle.inactiveText }> {DISCONNECT} </Text>
+                        </View>
+                    }
                 </View>
             </TouchableOpacity>
         )

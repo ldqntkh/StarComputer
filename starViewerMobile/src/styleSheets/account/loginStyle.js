@@ -120,7 +120,8 @@ const loginStyle = StyleSheet.create({
     socialButtonContainer: {
         padding: 5,
         paddingRight: 20,
-        backgroundColor: BTN_SOCIAL_FB_BG_COLOR
+        backgroundColor: BTN_SOCIAL_FB_BG_COLOR,
+        borderRadius: 5
     },
 
     socialIcon: {

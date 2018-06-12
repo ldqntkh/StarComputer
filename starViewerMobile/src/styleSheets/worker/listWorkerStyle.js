@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     StyleSheet,
-    Platform
+    Dimensions
 } from 'react-native';
 
 import {
@@ -37,25 +37,29 @@ const listWorkerStyle = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 10
+        marginTop: 10,
+        marginBottom: 15
+    },
+    lstItem : {
+        maxHeight: Dimensions.get('window').height - 150
     },
 
     btnDetails : {
-        fontSize: 20,
+        fontSize: 15,
         color: MAIN_TEXT_COLOR,
-        padding: 10,
-        width: 120
+        padding: 5,
+        width: 80
     },
     btnCustom: {
         backgroundColor: BTN_LOGIN_BG_COLOR,
-        borderRadius: 40,
+        borderRadius: 5,
         paddingLeft: 20,
         paddingRight: 20,
         marginRight: 5
     },
     btnRemove: {
         backgroundColor: BTN_CANCEL_BG_COLOR,
-        borderRadius: 40,
+        borderRadius: 5,
         paddingLeft: 20,
         paddingRight: 20,
         marginRight: 5

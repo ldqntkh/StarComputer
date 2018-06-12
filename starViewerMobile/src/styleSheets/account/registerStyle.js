@@ -56,14 +56,14 @@ const registerStyle = StyleSheet.create({
     },
 
     btnRegister : {
-        fontSize: 20,
+        fontSize: 15,
         color: MAIN_TEXT_COLOR,
-        padding: 10,
-        width: 120
+        padding: 5,
+        width: 80
     },
     btnRegisterCustom: {
         backgroundColor: BTN_LOGIN_BG_COLOR,
-        borderRadius: 40,
+        borderRadius: 5,
         paddingLeft: 20,
         paddingRight: 20,
         marginRight: 5
@@ -71,7 +71,7 @@ const registerStyle = StyleSheet.create({
 
     btnCancelCustom: {
         backgroundColor: BTN_CANCEL_BG_COLOR,
-        borderRadius: 40,
+        borderRadius: 5,
         paddingLeft: 20,
         paddingRight: 20,
         marginLeft: 5
