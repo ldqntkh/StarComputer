@@ -168,7 +168,7 @@ class LoginComponent extends PureComponent {
         if (!this.state.logged) {
             screen = <View style={loginStyle.parentViewLoading}>
                         <Image source={require('../../../public/images/loading.gif')}
-                          style={{width: 200, height: 150}} />
+                          style={{width: 100, height: 90}} />
                     </View>
         } else {
             screen = <Container>

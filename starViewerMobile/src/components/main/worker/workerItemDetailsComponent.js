@@ -171,7 +171,7 @@ class WorkerItemDetailsComponent extends Component {
         } else {
             screen = <View style={workerItemDetailsStyle.parentViewLoading}>
                         <Image source={require('../../../../public/images/loading.gif')}
-                          style={{width: 200, height: 150}} />
+                          style={{width: 100, height: 90}} />
                     </View>
         }
 
