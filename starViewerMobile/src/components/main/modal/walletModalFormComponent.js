@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import {
-    View
+    View, TouchableOpacity, Text
 } from 'react-native';
 import {
-    Picker
+    Picker, Icon
 } from 'native-base';
-import Button from 'react-native-button';
 import { Field, reduxForm, submit, SubmissionError } from 'redux-form';
 
 import ScannerQrCodeComponent from '../../lib/scannerQrCodeComponent';
@@ -39,6 +38,7 @@ class WalletModalFormComponent extends Component {
         this.state = {
             poolservice : null,
             poolservicedata: [],
+            useQrComponent: false,
             labelPoolService: 'Please choose a pool service!'
         };
     }
@@ -116,6 +116,15 @@ class WalletModalFormComponent extends Component {
         });
     }
 
+    onChangeValueInput = (value) => {
+        this.props.initialize({
+            walletId: value
+        })
+        this.setState({
+            useQrComponent: false
+        })
+    }
+
     useQrCode = ()=> {
         this.refs.ScannerQrCodeComponent.openQRCode();
         this.setState({
@@ -157,19 +166,19 @@ class WalletModalFormComponent extends Component {
 
                 <View style={walletModalStyle.btnGroup}>
 
-                    <Button
+                    <TouchableOpacity
                         style={ [walletModalStyle.btnSaveCustom, walletModalStyle.btnCustom] }
                         onPress={ handleSubmit(this.save) }
                     >
-                        {SAVE}
-                    </Button>
+                        <Text style={walletModalStyle.btnText}>{SAVE}</Text>
+                    </TouchableOpacity>
 
-                    <Button
+                    <TouchableOpacity
                         style={ [walletModalStyle.btnCancelCustom, walletModalStyle.btnCustom] }
                         onPress={ this.props.hideWalletModal }
                     >
-                        {CANCEL}
-                    </Button>
+                        <Text style={walletModalStyle.btnText}>{CANCEL}</Text>
+                    </TouchableOpacity>
 
                 </View>
 

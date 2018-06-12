@@ -88,7 +88,7 @@ const walletModalStyle = StyleSheet.create({
         paddingBottom: 5,
         width: 120,
         margin: 5,
-        color: MAIN_TEXT_COLOR
+        textAlign: 'center'
     },
     btnSaveCustom: {
         backgroundColor: BTN_LOGIN_BG_COLOR,
@@ -118,6 +118,10 @@ const walletModalStyle = StyleSheet.create({
     },
     iconCamera: {
         color: 'red'
+    },
+    btnText : {
+        color: MAIN_TEXT_COLOR,
+        textAlign: 'center'
     }
 });
 
