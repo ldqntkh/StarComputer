@@ -39,7 +39,6 @@ class WorkerItemComponent extends Component {
                             <Text style={ workerItemStyle.activeText }>{workerItem.hashrate.toFixed(2)} Mhz/s</Text>
                         </View> 
                         : <View style={workerItemStyle.workerInfo}>
-                        <Text style={ workerItemStyle.inactiveText }> {DISCONNECT} </Text>
                             <Text style={ workerItemStyle.inactiveText }> {DISCONNECT} </Text>
                         </View>
                     }
