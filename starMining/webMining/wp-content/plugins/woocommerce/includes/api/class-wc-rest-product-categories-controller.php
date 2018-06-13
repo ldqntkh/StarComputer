@@ -38,7 +38,24 @@ class WC_REST_Product_Categories_Controller extends WC_REST_Product_Categories_V
 
 		// Get category order.
 		$menu_order = get_woocommerce_term_meta( $item->term_id, 'order' );
-
+		$args = array(
+            'limit' => 40,
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'category' => array('show-mobile')
+        );
+		$products = wc_get_products($args);
+		$storedProducts = array();
+		foreach($products as $product) {
+			array_push($storedProducts, array(
+											'id' => $product->name,
+											'name' => $product->name,
+											'price' => $product->price,
+											'sale_price' => $product->sale_price,
+											'images' => $product->images,
+											'permalink' => $product->get_permalink()
+			));
+		}
 		$data = array(
 			'id'          => (int) $item->term_id,
 			'name'        => $item->name,
@@ -49,6 +66,7 @@ class WC_REST_Product_Categories_Controller extends WC_REST_Product_Categories_V
 			'image'       => null,
 			'menu_order'  => (int) $menu_order,
 			'count'       => (int) $item->count,
+			'products'    => $storedProducts,
 		);
 
 		// Get category image.
