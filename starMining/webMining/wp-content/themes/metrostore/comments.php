@@ -84,10 +84,10 @@ if ( post_password_required() ) {
 		),
 
 			'comment_field' => '<div class="cmm-box-right"><div class="control-group"><div class="controls">' .
-			'<textarea id="comment" name="comment" placeholder="'.esc_html__( 'Comment *', 'metrostore' ).'" cols="45" rows="8" aria-required="true"></textarea>' .
+			'<textarea id="comment" name="comment" placeholder="'.esc_html__( 'Bình luận *', 'metrostore' ).'" cols="45" rows="8" aria-required="true"></textarea>' .
 			'</div></div></div>',
 			'comment_notes_after' => '',
-			'label_submit' => esc_html__( 'ADD COMMENT', 'metrostore' ),
+			'label_submit' => esc_html__( 'Thêm bình luận', 'metrostore' ),
 			'comment_notes_before' => '',
 		);
 		       
