@@ -70,3 +70,16 @@
 ?>
 
 <div id="content" class="site-content">
+    <div class="contactus_side_bar">
+        <div class="contactus_side_box">
+            <ul>
+                <li>
+                    <a target="_blank" href="http://zalo.me/0902920224">
+                        <div class="icon_box">
+                            <img src="https://grabmining.com.vn/images/whatsup_icon.png" alt="" title="">
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>

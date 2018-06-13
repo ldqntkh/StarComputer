@@ -124,6 +124,32 @@
             }
         }
     }
+
+    .site-content {
+        .contactus_side_bar {
+            float: left;
+            position: fixed;
+            top: 83%;
+            z-index: 5999999;
+
+            ul {
+                margin: 0;
+                li {
+                    list-style-type: none;
+
+                    img {
+                        height: 64px;
+                        width: 64px;
+
+                        @media (max-width: 767) {
+                            height: 50px;
+                            width: 50px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 .product-template-default {
