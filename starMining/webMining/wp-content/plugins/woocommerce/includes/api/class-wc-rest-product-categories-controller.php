@@ -38,7 +38,25 @@ class WC_REST_Product_Categories_Controller extends WC_REST_Product_Categories_V
 
 		// Get category order.
 		$menu_order = get_woocommerce_term_meta( $item->term_id, 'order' );
-
+		$args = array(
+			'limit' => 40,
+			'orderby' => 'date',
+			'order' => 'DESC',
+			'category' => array( $item->name )
+		);
+		$storedProducts = array();
+		$products = wc_get_products($args);
+		$prices_precision = wc_get_price_decimals();
+		foreach($products as $product) {
+			array_push($storedProducts, array(
+											'id' => $product->get_id(),
+											'name' => $product->get_name(),
+											'price' => wc_format_decimal( $product->get_price(), $prices_precision ),
+											'sale_price' => $product->get_sale_price() ? wc_format_decimal( $product->get_sale_price(), $prices_precision ) : null,
+											'images' => $this->get_images($product),
+											'permalink' => $product->get_permalink(),
+			));
+		}
 		$data = array(
 			'id'          => (int) $item->term_id,
 			'name'        => $item->name,
@@ -49,6 +67,7 @@ class WC_REST_Product_Categories_Controller extends WC_REST_Product_Categories_V
 			'image'       => null,
 			'menu_order'  => (int) $menu_order,
 			'count'       => (int) $item->count,
+			'products'    => $storedProducts,
 		);
 
 		// Get category image.
@@ -208,5 +227,67 @@ class WC_REST_Product_Categories_Controller extends WC_REST_Product_Categories_V
 		);
 
 		return $this->add_additional_fields_schema( $schema );
+	}
+
+	/**
+	 * Get the images for a product or product variation
+	 *
+	 * @since 2.1
+	 * @param WC_Product|WC_Product_Variation $product
+	 * @return array
+	 */
+	private function get_images( $product ) {
+		$images        = $attachment_ids = array();
+		$product_image = $product->get_image_id();
+
+		// Add featured image.
+		if ( ! empty( $product_image ) ) {
+			$attachment_ids[] = $product_image;
+		}
+
+		// Add gallery images.
+		$attachment_ids = array_merge( $attachment_ids, $product->get_gallery_image_ids() );
+
+		// Build image data.
+		foreach ( $attachment_ids as $position => $attachment_id ) {
+
+			$attachment_post = get_post( $attachment_id );
+
+			if ( is_null( $attachment_post ) ) {
+				continue;
+			}
+
+			$attachment = wp_get_attachment_image_src( $attachment_id, 'full' );
+
+			if ( ! is_array( $attachment ) ) {
+				continue;
+			}
+
+			$images[] = array(
+				'id'         => (int) $attachment_id,
+				'created_at' => $attachment_post->post_date_gmt,
+				'updated_at' => $attachment_post->post_modified_gmt,
+				'src'        => current( $attachment ),
+				'title'      => get_the_title( $attachment_id ),
+				'alt'        => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
+				'position'   => (int) $position,
+			);
+		}
+
+		// Set a placeholder image if the product has no images set.
+		if ( count( $images ) === 0 ) {
+
+			$images[] = array(
+				'id'         => 0,
+				'created_at' => time(), // Default to now.
+				'updated_at' => time(),
+				'src'        => wc_placeholder_img_src(),
+				'title'      => __( 'Placeholder', 'woocommerce' ),
+				'alt'        => __( 'Placeholder', 'woocommerce' ),
+				'position'   => 0,
+			);
+		}
+
+		return $images;
 	}
 }
