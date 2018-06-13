@@ -118,7 +118,7 @@ class metrostore_blogs_widget_area extends WP_Widget {
                       <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                       <ul class="post-info">
                         <li><i class="fa fa-calendar"></i><?php the_time('F j, Y'); ?></li>
-                        <li><i class="fa fa-comments"></i><?php comments_popup_link( esc_html__( '0 Comment', 'metrostore' ),  esc_html__( '1 Comment', 'metrostore' ), esc_html__( '% Comments', 'metrostore' ) ); ?></li>
+                        <li><i class="fa fa-comments"></i><?php comments_popup_link( esc_html__( '0 Bình luận', 'metrostore' ),  esc_html__( '1 Bình luận', 'metrostore' ), esc_html__( '% Bình luận', 'metrostore' ) ); ?></li>
                       </ul>
                       <p class="excerpt"><?php the_excerpt(); ?></p>
                       <a class="readMore" href="<?php the_permalink(); ?>"><?php esc_html_e('Xem thêm','metrostore'); ?> <i class="fa fa-angle-right"></i></a> </div>
