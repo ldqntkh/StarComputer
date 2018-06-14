@@ -74,6 +74,13 @@
         <div class="contactus_side_box">
             <ul>
                 <li>
+                    <a target="_blank" href="tel:0902920224">
+                        <div class="icon_phone">
+                            <img src="<?php echo wp_get_attachment_image_src(119)[0]?>" alt="" title="">
+                        </div>
+                    </a>
+                </li>
+                <li>
                     <a target="_blank" href="http://zalo.me/0902920224">
                         <div class="icon_box">
                             <img src="https://grabmining.com.vn/images/whatsup_icon.png" alt="" title="">
