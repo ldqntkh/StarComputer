@@ -105,7 +105,7 @@ const walletBalanceStyle = StyleSheet.create({
     },
 
     parentViewHashrate : {
-        display: 'flex',
+        display: 'none',
         height: 160,
         flexDirection: 'column',
         justifyContent: 'center',
