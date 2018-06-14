@@ -9,7 +9,11 @@ class DbConnect {
             password: '',
             database: 'starcomputer'
         });
-        //Minemart@1234567
+        /**
+         * user: 'admin_starapi',
+            password: 'admin_starapi',
+            database: 'admin_starcomputerapi'
+         */
     }
 
     // format string
