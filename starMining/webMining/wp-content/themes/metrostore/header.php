@@ -70,3 +70,23 @@
 ?>
 
 <div id="content" class="site-content">
+    <div class="contactus_side_bar">
+        <div class="contactus_side_box">
+            <ul>
+                <li>
+                    <a target="_blank" href="tel:0902920224">
+                        <div class="icon_phone">
+                            <img src="<?php echo wp_get_attachment_image_src(477)[0]?>" alt="" title="">
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://zalo.me/0902920224">
+                        <div class="icon_box">
+                            <img src="<?php echo wp_get_attachment_image_src(478)[0]?>" alt="" title="">
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
