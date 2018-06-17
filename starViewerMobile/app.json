@@ -6,9 +6,9 @@
     "privacy": "public",
     "sdkVersion": "27.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.0",
+    "version": "1.1.1",
     "orientation": "portrait",
-    "icon": "./public/images/logo.png",
+    "icon": "./public/images/icon.png",
     "splash": {
       "image": "./public/images/logo.png",
       "resizeMode": "contain",
@@ -21,7 +21,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "infoPlist":{  
+        "NSCameraUsageDescription":"StarMining muốn sử dụng camera để quét mã Qrcode. Bạn có muốn cho StarMining sử dụng camera?"
+     },
+      "supportsTablet": true,
+      "bundleIdentifier" : "com.starcomputer.starminingviewer"
     }
   }
 }

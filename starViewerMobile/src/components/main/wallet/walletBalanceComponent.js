@@ -118,13 +118,13 @@ class WalletBalanceComponent extends PureComponent {
                             </View>
                         </View>
 
-                        <View style={walletBalanceStyle.parentViewHashrate}>
+                        {/* <View style={walletBalanceStyle.parentViewHashrate}>
                             <View style={ walletBalanceStyle.viewHashrate }>
                                 <Text style={ walletBalanceStyle.label }>{TOTAL_HASHRATE}</Text>
                                 <Text style={ walletBalanceStyle.labelHashrate }>3000.125</Text>
                                 <Text style={ walletBalanceStyle.label }>Mh/s</Text>
                             </View>
-                        </View>
+                        </View> */}
 
                         <View style={walletBalanceStyle.viewLabelTotal}>
                             <Text style={ walletBalanceStyle.label }> {WALLET_BALANCE} </Text>

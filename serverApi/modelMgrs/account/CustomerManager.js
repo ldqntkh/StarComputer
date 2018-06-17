@@ -54,6 +54,11 @@ class CustomerManager extends AccountManager {
     async addNewAccount(customer) {
         try {
             customer.setPassword(globalFunc.encrypt(customer.getPassword()));
+            if (!customer.hasOwnProperty('provinceid')) customer.setCustomerProvinceid(0);
+            if (!customer.hasOwnProperty('address')) customer.setCustomerAddress('');
+            if (!customer.hasOwnProperty('logintype')) customer.setLoginType(0);
+            if (!customer.hasOwnProperty('phone')) customer.setCustomerPhone('');
+            console.log(customer);
             let result = null;
             result = await this.dbConnect.ExcuteInsert("insert into customer(email, password, phone, fullname, avatar, wardsid, provinceid, district, address, points, points_used, logintype) " +
                                                             "values(:email, :password, :phone, :fullname, :avatar, :wardsid, :provinceid, :district, :address, :points, :points_used, :logintype)", customer);

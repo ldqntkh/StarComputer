@@ -100,24 +100,24 @@ class WalletItemComponent extends Component {
                     onPress : ()=> {
                         this.props.showWalletModal(this.props.walletItem)
                     },
-                    text: 'Edit',
+                    text: 'Sửa',
                     type: 'edit'
                 },
                 {
                     onPress : ()=> {
                         Alert.alert(
-                            'Delete wallet',
-                            'Are you sure want to delete?',
+                            'Xóa địa chỉ ví',
+                            'Bạn muốn xóa địa chỉ ví này?',
                             [
                                 {
-                                    text : 'No',
+                                    text : 'Không',
                                     style : 'cancel',
                                     onPress : ()=> {
                                         // 
                                     }
                                 },
                                 {
-                                    text : 'Yes',
+                                    text : 'Đồng ý',
                                     style : 'ok',
                                     onPress : ()=> {
                                         this.deleteWalletDetail(this.props.walletItem.walletId);
@@ -129,7 +129,7 @@ class WalletItemComponent extends Component {
                             }
                         );
                     },
-                    text: 'Delete',
+                    text: 'Xóa',
                     type: 'delete'
                 }
             ],
