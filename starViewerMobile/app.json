@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "StarMiningViewer",
-    "description": "StarMining viewer, ETH crypto viewer",
-    "slug": "starMiningViewer",
+    "name": "StarComputer",
+    "description": "StarComputer viewer, ETH crypto viewer",
+    "slug": "starComputerViewer",
     "privacy": "public",
     "sdkVersion": "27.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./public/images/logo.png",
+    "icon": "./public/images/icon.png",
     "splash": {
       "image": "./public/images/logo.png",
       "resizeMode": "contain",
@@ -21,7 +21,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "infoPlist":{  
+        "NSCameraUsageDescription":"StarComputer muốn sử dụng camera để quét mã Qrcode. Bạn có muốn cho StarMining sử dụng camera?"
+     },
+      "supportsTablet": true,
+      "bundleIdentifier" : "com.hungvu.starcomputer"
     }
   }
 }

@@ -73,14 +73,17 @@ router.post(['/register'], async (req, res) => {
         let customerMgr = new CustomerManager(req.app.locals._db);
         let customer = req.body.customer;
         let existedEmail = await customerMgr.getAccountByEmail(customer.email);
-        let existedPhone = await customerMgr.getAccountByPhone(customer.phone);
-        if (existedPhone) {
-            res.send({
-                errCode: 3,
-                data : null,
-                errMessage: 'the phone number ' + customer.phone + ' is already existed'
-            });
-        } else if (existedEmail) {
+        if (customer.phone) {
+            let existedPhone = await customerMgr.getAccountByPhone(customer.phone);
+            if (existedPhone) {
+                res.send({
+                    errCode: 3,
+                    data : null,
+                    errMessage: 'the phone number ' + customer.phone + ' is already existed'
+                });
+            }
+        }
+        if (existedEmail) {
             res.send({
                 errCode: 2,
                 data : null,

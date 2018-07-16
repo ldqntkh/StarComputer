@@ -39,7 +39,7 @@ class WalletModalFormComponent extends Component {
             poolservice : null,
             poolservicedata: [],
             useQrComponent: false,
-            labelPoolService: 'Please choose a pool service!'
+            labelPoolService: 'Chọn một pool đào!'
         };
     }
 
@@ -141,9 +141,9 @@ class WalletModalFormComponent extends Component {
                 <TouchableOpacity onPress={this.useQrCode} style={walletModalStyle.buttonCamera}>
                     <Icon name="md-camera"  style={walletModalStyle.iconCamera}/>
                 </TouchableOpacity>
-                <Field name="walletId" keyboardType="default" label="Wallet id*" component={renderInputField} 
+                <Field name="walletId" keyboardType="default" label="Địa chỉ ví*" component={renderInputField} 
                        style={walletModalStyle.inputField} styleItem={{width: 300}} validate={[required]}/>
-                <Field name="name" keyboardType="default" label="Wallet name*" component={renderInputField} 
+                <Field name="name" keyboardType="default" label="Tên địa chỉ ví*" component={renderInputField} 
                        style={walletModalStyle.inputField} styleItem={{width: 300}} validate={[required, maxLength250]}/>
                 {/**
                     only support for ethereum

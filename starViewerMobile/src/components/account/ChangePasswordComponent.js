@@ -116,9 +116,9 @@ class ChangePasswordComponent extends Component {
                         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                             <View style={registerStyle.parentView}>
                                 <View>
-                                    <Field name="password" keyboardType="default" label="Old password *" component={renderInputField} style={registerStyle._input} validate={[required, minLength6, maxLength50]} secureTextEntry={true}/>
-                                    <Field name="newpassword" keyboardType="default" label="Create new password *" component={renderInputField} style={registerStyle._input} validate={[required, minLength6, maxLength50]} secureTextEntry={true}/>
-                                    <Field name="newpasswordconfirm" keyboardType="default" label="Confirm new password *" component={renderInputField} style={registerStyle._input} validate={[required, minLength6, maxLength50, matchPassword]} secureTextEntry={true}/>
+                                    <Field name="password" keyboardType="default" label="Mật khẩu hiện tại*" component={renderInputField} style={registerStyle._input} validate={[required, minLength6, maxLength50]} secureTextEntry={true}/>
+                                    <Field name="newpassword" keyboardType="default" label="Mật khẩu mới*" component={renderInputField} style={registerStyle._input} validate={[required, minLength6, maxLength50]} secureTextEntry={true}/>
+                                    <Field name="newpasswordconfirm" keyboardType="default" label="Mật khẩu mới*" component={renderInputField} style={registerStyle._input} validate={[required, minLength6, maxLength50, matchPassword]} secureTextEntry={true}/>
                                     <Field name="hiddenField" keyboardType="default" label="hiddenField" component={renderInputField} style={registerStyle.hidden_input} />
                                 </View>
                                 {submitting ? <ActivityIndicator size="large" color={MAIN_TEXT_COLOR} /> :

@@ -109,6 +109,19 @@ const registerStyle = StyleSheet.create({
 
     pointValue: {
         color: YELLOW_TEXT_COLOR
+    },
+
+    note : {
+        display: 'flex',
+        flexDirection: 'row',
+        width: 360
+    },
+    label : {
+        color: MAIN_TEXT_COLOR
+    },
+    notelabel : {
+        fontWeight: 'bold',
+        color: 'red'
     }
 });
 

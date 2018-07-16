@@ -11,7 +11,7 @@ import {
     ActivityIndicator
 } from 'react-native';
 import {
-    Container, Content, Icon, Picker
+    Container, Content, Icon, Picker, Label
 } from 'native-base'
 import Button from 'react-native-button';
 import {Field, reduxForm, submit, SubmissionError} from 'redux-form';
@@ -41,7 +41,8 @@ import {
     MAIN_WALLET_SCREEN, LOG_IN_SCREEN
 } from '../../const/variableScreen'
 import {
-    CANCEL, SAVE, MY_ACCOUNT, RANKING, TOTAL_POINT, USED_POINT, OK, UPDATE_ACCOUNT_TITLE, UPDATE_ACCOUNT_SUBTITLE
+    CANCEL, SAVE, MY_ACCOUNT, RANKING, TOTAL_POINT, USED_POINT, OK, UPDATE_ACCOUNT_TITLE, 
+    UPDATE_ACCOUNT_SUBTITLE, NOTE, NOTE_DESC
 } from '../../const/variableLabel'
 import {
     KEY_USER_LOGIN,
@@ -173,7 +174,7 @@ class MyAccountComponent extends Component {
                                 <View style={registerStyle.parentView}>
                                 
                                     <Field name="email" keyboardType="email-address" label="Email *" component={renderInputField} style={registerStyle._input} validate={[required, email, minLength6, maxLength50]}/>
-                                    <Field name="phone" keyboardType="numeric" label="Số điện thoại *" component={renderInputField} style={registerStyle._input} validate={[required, minLengthPhone, maxLengthPhone, number]}/>
+                                    <Field name="phone" keyboardType="numeric" label="Số điện thoại" component={renderInputField} style={registerStyle._input} validate={[minLengthPhone, maxLengthPhone, number]}/>
                                     <Field name="fullname" keyboardType="default" label="Họ tên *" component={renderInputField} style={registerStyle._input} validate={[required, minLength6, maxLength50]}/>
                                     <View style={{height: 50}}>
                                         <Field
@@ -182,14 +183,13 @@ class MyAccountComponent extends Component {
                                             iosHeader={ 'Tỉnh/Thành phố' }
                                             selectedValue={ this.state.provinceId }
                                             onChange={ this.onChange }
-                                            validate={ [requiredForCombobox] }
                                             value={ this.state.provinces }
                                             style={ registerStyle.picker }
                                             viewStyle={ registerStyle.pickerView}>
                                             {this.state.provinces.map((item, index) => <Picker.Item label={item.name} value={item.id} key={index}/> )}
                                         </Field>
                                     </View>
-                                    <Field name="address" keyboardType="default" label="Địa chỉ *" component={renderInputField} style={registerStyle._input} validate={[required]}/>
+                                    <Field name="address" keyboardType="default" label="Địa chỉ " component={renderInputField} style={registerStyle._input}/>
                                     <Field name="hiddenField" keyboardType="default" label="hiddenField" component={renderInputField} style={registerStyle.hidden_input}/>
                            
                                     <View style={registerStyle.pointView}>
@@ -205,6 +205,12 @@ class MyAccountComponent extends Component {
                                             <Text style={registerStyle.pointLabel}>{USED_POINT} </Text>
                                             <Text style={registerStyle.pointValue}>{this.state.points_used}</Text>
                                         </Text>
+                                    </View>
+                                    <View style={registerStyle.note}>
+                                        <Label style={registerStyle.label}>
+                                            <Label style={registerStyle.notelabel}>{NOTE}</Label>
+                                            {NOTE_DESC}
+                                        </Label>
                                     </View>
                                     {submitting ? <ActivityIndicator size="large" color={MAIN_TEXT_COLOR} /> :
                                         <View style={registerStyle.viewButton}>
