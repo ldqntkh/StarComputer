@@ -19,7 +19,6 @@ class App extends Component {
                     <div>
                         <MainHeaderContainer />
                         <MainBodyContainer />
-                        <CoinPriesComponent />
                         <MainFooterContainer />
                     </div>
                 </Provider>

@@ -27,6 +27,9 @@
             },
             workerId: require('os').hostname()
         }
+
+        var win = require('electron').remote.getCurrentWindow();
+
         require('macaddress').one(function (err, mac) {
             dataBitbox.workerId = Buffer.from(mac).toString('base64');
         });
@@ -155,6 +158,8 @@
 
         function ChoosePathFolder() {
             const {dialog} = require('electron').remote
+
+            win.setAlwaysOnTop(false);
 
             return path = dialog.showOpenDialog({
                 properties: ['openDirectory']

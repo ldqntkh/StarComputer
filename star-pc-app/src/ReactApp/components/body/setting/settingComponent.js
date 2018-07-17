@@ -77,6 +77,7 @@ class SettingComponent extends Component {
 
     chooseFolderPath() {
         let folderPath = ChoosePathFolder();
+        win.setAlwaysOnTop(true, "floating");
         if (folderPath && folderPath.length > 0) {
             this.setState({
                 claymorepath: folderPath[0]

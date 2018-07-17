@@ -71,13 +71,16 @@ class CoinPriesComponent extends Component {
     }
 
     runSlide() {
-        let windowWidth = -window.innerWidth;
-        document.getElementById('slide').style.right = `${-window.innerWidth}px`;
+        let slideItem = document.getElementById('slide');
+        let slideItems = document.getElementsByClassName('slide-items')[0];
+        let slideHeight = slideItem.clientHeight;
+        
+        slideItems.style.top = `${slideHeight}px`;
         clearInterval(interval);
         interval = setInterval(function() {
-            windowWidth ++;
-            if (windowWidth > 180 * 20) windowWidth = -window.innerWidth;
-            document.getElementById('slide').style.right = `${windowWidth}px`;
+            slideHeight --;
+            if (slideHeight == -(slideItems.offsetHeight)) slideHeight = slideItem.clientHeight;
+            slideItems.style.top = `${slideHeight}px`;
         }, 50);
     }
 
@@ -85,19 +88,21 @@ class CoinPriesComponent extends Component {
         return (
             <div className="dv-coinprices">
                 <div id="slide">
-                    {this.state.dataCoin.map((item, index) => {
-                        if (index < 20) 
-                        return <div className="dv-coin-item" key={index}>
-                                    <p>{item.name} ({item.symbol})</p>
-                                    <div>
-                                        <span>${item.price.toFixed(4)}</span>
-                                        <span className={item.status ? 'up' : 'down'}>
-                                            <i className={item.status ? 'up' : 'down'}></i>
-                                            {item.percent}%
-                                        </span>
+                    <div className="slide-items">
+                        {this.state.dataCoin.map((item, index) => {
+                            if (index < 20) 
+                            return <div className="dv-coin-item" key={index}>
+                                        <p>{item.name} ({item.symbol})</p>
+                                        <div>
+                                            <span>${item.price.toFixed(4)}</span>
+                                            <span className={item.status ? 'up' : 'down'}>
+                                                <i className={item.status ? 'up' : 'down'}></i>
+                                                {item.percent}%
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                    })}
+                        })}
+                    </div>
                 </div>
             </div>
         )   
