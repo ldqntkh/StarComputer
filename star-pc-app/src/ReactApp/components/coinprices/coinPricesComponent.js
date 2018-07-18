@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-var urlCoinMarket = 'https://api.coinmarketcap.com/v2/ticker/?limit=20';
+var urlCoinMarket = 'https://api.coinmarketcap.com/v2/ticker/?limit=100';
 var interval = null,
     intervalLoadUrl = null;
 class CoinPriesComponent extends Component {
@@ -98,9 +98,15 @@ class CoinPriesComponent extends Component {
                             <div className="slide-items">
                                 {this.state.dataCoin.map((item, index) => {
                                     if (index < 20) 
-                                    return <div className="dv-coin-item" key={index}>
-                                                <p>{item.name} ({item.symbol})</p>
-                                                <div>
+                                    return <div className={index % 2 == 0 ? 'dv-coin-item bg-silver' : 'dv-coin-item'} key={index}>
+                                                <div className="dv-coin-item-col-1">
+                                                    <span>{index + 1}</span>
+                                                </div>
+                                                <div className="dv-coin-item-col-2">
+                                                    <img src={"https://s2.coinmarketcap.com/static/img/coins/16x16/" + (index  + 1) + ".png"} width="20" height="20" />
+                                                    <p>{item.name} <br/> ({item.symbol})</p>
+                                                </div>
+                                                <div className="dv-coin-item-col-3">
                                                     <span>${item.price.toFixed(4)}</span>
                                                     <span className={item.status ? 'up' : 'down'}>
                                                         <i className={item.status ? 'up' : 'down'}></i>

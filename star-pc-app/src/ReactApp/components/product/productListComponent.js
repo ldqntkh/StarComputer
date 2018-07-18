@@ -65,7 +65,7 @@ export default class ProductListComponent extends Component {
                         indexPage : 0
                     });
                 }
-            }, 5000);
+            }, 10000);
 
         } catch (err) {
             console.log(err.message)

@@ -30,30 +30,29 @@ class MainBodyComponent extends Component {
         }
         clearInterval(interval);
 
-        if (this.props.screen != 'setting') {
-            let screen = '';
-            if (this.props.screen == 'mywallet') screen = 'myearning'
-            if (this.props.screen == 'myearning') screen = 'mybitbox'
-            if (this.props.screen == 'mybitbox') screen = 'mywallet'
-            interval = setInterval(() => {
-                this.toggleScreen(screen);
-            }, 60000);
-        }
-        
+        // if (this.props.screen != 'setting') {
+        //     let screen = '';
+        //     if (this.props.screen == 'mywallet') screen = 'myearning'
+        //     if (this.props.screen == 'myearning') screen = 'mybitbox'
+        //     if (this.props.screen == 'mybitbox') screen = 'mywallet'
+        //     interval = setInterval(() => {
+        //         this.toggleScreen(screen);
+        //     }, 60000);
+        // }
 
         return (
             <main>
                 <div className="dv-ft-button left-bar">
-                    <div className={screen == 'mywallet' ? 'dv-row active' : 'dv-row'} onClick={()=> toggleScreen('mywallet')}>
+                    <div className={screen == 'mywallet' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('mywallet')}>
                         <img src="../public/images/wallet.jpg"/>
                     </div>
-                    <div className={screen == 'myearning' ? 'dv-row active' : 'dv-row'} onClick={()=> toggleScreen('myearning')}>
+                    <div className={screen == 'myearning' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('myearning')}>
                         <img src="../public/images/earning.jpg"/>
                     </div>
-                    <div className={screen == 'mybitbox' ? 'dv-row active' : 'dv-row'} onClick={()=> toggleScreen('mybitbox')}>
+                    <div className={screen == 'mybitbox' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('mybitbox')}>
                         <img src="../public/images/box.jpg"/>
                     </div>
-                    <div className={screen == 'setting' ? 'dv-row active' : 'dv-row'} onClick={()=> toggleScreen('setting')}>
+                    <div className={screen == 'setting' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('setting')}>
                         <img src="../public/images/setting.jpg"/>
                     </div>
                 </div>
