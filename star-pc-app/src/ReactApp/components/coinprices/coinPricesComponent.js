@@ -8,7 +8,8 @@ class CoinPriesComponent extends Component {
         super(props);
         this.state = {
             dataCoin : [],
-            elementSlide : document.getElementById('slide')
+            elementSlide : document.getElementById('slide'),
+            loaded: false
         }
     }
 
@@ -53,7 +54,8 @@ class CoinPriesComponent extends Component {
             if (results.length > 0) {
                 results.sort(this.compare);
                 this.setState({
-                    dataCoin : [...results]
+                    dataCoin : [...results],
+                    loaded: true
                 });
                 this.runSlide();
             }
@@ -73,39 +75,47 @@ class CoinPriesComponent extends Component {
     runSlide() {
         let slideItem = document.getElementById('slide');
         let slideItems = document.getElementsByClassName('slide-items')[0];
-        let slideHeight = slideItem.clientHeight;
-        
+        let slideStartHeight = slideItem.clientHeight - (parseInt(slideItem.clientHeight / 2));
+        let slideHeight = slideStartHeight
+
         slideItems.style.top = `${slideHeight}px`;
         clearInterval(interval);
         interval = setInterval(function() {
             slideHeight --;
-            if (slideHeight == -(slideItems.offsetHeight)) slideHeight = slideItem.clientHeight;
+            if (slideHeight == -(slideItems.offsetHeight)) slideHeight = slideStartHeight;
             slideItems.style.top = `${slideHeight}px`;
         }, 50);
     }
 
     render() {
-        return (
-            <div className="dv-coinprices">
-                <div id="slide">
-                    <div className="slide-items">
-                        {this.state.dataCoin.map((item, index) => {
-                            if (index < 20) 
-                            return <div className="dv-coin-item" key={index}>
-                                        <p>{item.name} ({item.symbol})</p>
-                                        <div>
-                                            <span>${item.price.toFixed(4)}</span>
-                                            <span className={item.status ? 'up' : 'down'}>
-                                                <i className={item.status ? 'up' : 'down'}></i>
-                                                {item.percent}%
-                                            </span>
-                                        </div>
-                                    </div>
-                        })}
+        let screen = null;
+        if (!this.state.loaded) {
+            screen = 
+                <img className="loading-icon" src="../public/images/loading.gif" width="80" height="80"/>
+        } else {
+            screen = <div className="dv-coinprices">
+                        <div id="slide">
+                            <div className="slide-items">
+                                {this.state.dataCoin.map((item, index) => {
+                                    if (index < 20) 
+                                    return <div className="dv-coin-item" key={index}>
+                                                <p>{item.name} ({item.symbol})</p>
+                                                <div>
+                                                    <span>${item.price.toFixed(4)}</span>
+                                                    <span className={item.status ? 'up' : 'down'}>
+                                                        <i className={item.status ? 'up' : 'down'}></i>
+                                                        {item.percent}%
+                                                    </span>
+                                                </div>
+                                            </div>
+                                })}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        )   
+        }
+        return (
+            screen
+        )
     }
     
 }

@@ -97,26 +97,48 @@ export default class ProductListComponent extends Component {
         return results;
     }
     
+    replaceTextWithDot (text, n) {
+        let updatedText = text;
+        if (text.length > n) {
+            updatedText =  text.substr(0, n) + '...';
+        } 
+        return updatedText;
+    }
 
     render() {
         let screen  = null;
-        let i = this.state.indexPage * this.state.productPerpage;
         let productArr = [];
         let item;
-        for(; i < i+ this.state.productPerpage; i++) {
-            item = this.state.dataProducts[i];
-            // productArr.push(
-            //     <div className="dv-product-item">
-            //         <img src={item.imageurl} width="80" height="80" />
-            //         <p>{item.name}</p>
-            //         <p>{item.price}</p>
-            //     </div>
-            // )
+        if (!this.state.loaded) {
+            screen = 
+                <img className="loading-icon" src="../public/images/loading.gif" width="80" height="80"/>
+        } else {
+            if (this.state.dataProducts.length > 0) {
+                let i = this.state.indexPage * this.state.productPerpage;
+                let rank = i + this.state.productPerpage;
+                if (rank > this.state.dataProducts.length) {
+                    rank = this.state.dataProducts.length;
+                }
+    
+                for(var x = i; x < rank; x++) {
+                    item = this.state.dataProducts[x];
+                    productArr.push(
+                        <div className="dv-product-item">
+                            <img src={item.imageurl} height="80"/>
+                            <p>{this.replaceTextWithDot(item.name, 35)}</p>
+                            <p>Giá:<span className="red-color">{item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Vnđ</span></p>
+                        </div>
+                    )
+                }
+                screen = 
+                    <div className="dv-list-products">
+                        {productArr}
+                    </div>
+            }
         }
+
         return (
-            <div className="dv-list-products">
-                {productArr}
-            </div>
+            screen
         )
     }
 }
