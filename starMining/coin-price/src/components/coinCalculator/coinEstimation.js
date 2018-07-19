@@ -87,22 +87,24 @@ export default class CoinEstimation extends Component {
         }
 
         return(
-            <div className="dv-estimation">
-                <table>
-                    <thead>
-                        <tr>
-                            <td></td>
-                            <td>Coin ({this.state.coin_type})</td>
-                            <td>Phí pool ({this.state.coin_type})</td>
-                            <td>Tiền điện</td>
-                            <td>Tổng tiền</td>
-                            <td>Số tiền thực thu</td>
-                        </tr>
-                    </thead>
-                    {
-                        screen   
-                    }
-                </table>
+            <React.Fragment>
+                <div className="dv-estimation table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <td>Coin ({this.state.coin_type})</td>
+                                <td>Phí pool ({this.state.coin_type})</td>
+                                <td>Tiền điện</td>
+                                <td>Tổng tiền</td>
+                                <td>Số tiền thực thu</td>
+                            </tr>
+                        </thead>
+                        {
+                            screen   
+                        }
+                    </table>
+                </div>
                 <div className="dv-desc">
                     <p>
                         <span className="sp-title">Coin</span> : số coin thu được
@@ -125,7 +127,7 @@ export default class CoinEstimation extends Component {
                         Trên đây chỉ là ước tính tại thời điểm hiện tại, nó có sai số và thay đổi hàng giờ
                     </p>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }
