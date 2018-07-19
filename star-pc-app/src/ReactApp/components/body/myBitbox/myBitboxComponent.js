@@ -98,7 +98,7 @@ class MyBitboxComponent extends React.Component {
                             }) }
                         </tbody>
                     </table>
-                    <h3>Total hashrate: {totalHash} Mh/s </h3>
+                    <h3>Tổng hashrate: {totalHash} Mh/s </h3>
                 </div>
             );
         }

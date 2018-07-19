@@ -97,7 +97,7 @@ class CoinPriesComponent extends Component {
                         <div id="slide">
                             <div className="slide-items">
                                 {this.state.dataCoin.map((item, index) => {
-                                    if (index < 20) 
+                                    
                                     return <div className={index % 2 == 0 ? 'dv-coin-item bg-silver' : 'dv-coin-item'} key={index}>
                                                 <div className="dv-coin-item-col-1">
                                                     <span>{index + 1}</span>

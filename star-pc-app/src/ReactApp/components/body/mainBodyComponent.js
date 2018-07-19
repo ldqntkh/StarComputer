@@ -30,15 +30,15 @@ class MainBodyComponent extends Component {
         }
         clearInterval(interval);
 
-        // if (this.props.screen != 'setting') {
-        //     let screen = '';
-        //     if (this.props.screen == 'mywallet') screen = 'myearning'
-        //     if (this.props.screen == 'myearning') screen = 'mybitbox'
-        //     if (this.props.screen == 'mybitbox') screen = 'mywallet'
-        //     interval = setInterval(() => {
-        //         this.toggleScreen(screen);
-        //     }, 60000);
-        // }
+        if (this.props.screen != 'setting') {
+            let screen = '';
+            if (this.props.screen == 'mywallet') screen = 'myearning'
+            if (this.props.screen == 'myearning') screen = 'mybitbox'
+            if (this.props.screen == 'mybitbox') screen = 'mywallet'
+            interval = setInterval(() => {
+                this.toggleScreen(screen);
+            }, 60000);
+        }
 
         return (
             <main>
