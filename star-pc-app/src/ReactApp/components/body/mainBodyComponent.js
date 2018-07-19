@@ -44,16 +44,16 @@ class MainBodyComponent extends Component {
             <main>
                 <div className="dv-ft-button left-bar">
                     <div className={screen == 'mywallet' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('mywallet')}>
-                        <img src="../public/images/wallet.jpg"/>
+                        <img src="../public/images/wallet.png"/>
                     </div>
                     <div className={screen == 'myearning' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('myearning')}>
-                        <img src="../public/images/earning.jpg"/>
+                        <img src="../public/images/earning.png"/>
                     </div>
                     <div className={screen == 'mybitbox' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('mybitbox')}>
-                        <img src="../public/images/box.jpg"/>
+                        <img src="../public/images/box.png"/>
                     </div>
                     <div className={screen == 'setting' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('setting')}>
-                        <img src="../public/images/setting.jpg"/>
+                        <img src="../public/images/setting.png"/>
                     </div>
                 </div>
                 {mainScreen}

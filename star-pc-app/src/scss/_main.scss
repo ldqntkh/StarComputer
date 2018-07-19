@@ -35,7 +35,7 @@ body {
         height: calc(100vh - 220px);
 
         .left-bar {
-            background-color: #162845;
+            background-color: $body_back_ground;
             border-right: 1px solid #fff;
             display: flex;
             flex-direction: column;

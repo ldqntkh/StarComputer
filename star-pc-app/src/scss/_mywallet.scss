@@ -36,10 +36,22 @@
                     text-align: right;
                 }
                 &:nth-child(2) {
-                    width: calc(100vw - 200px);
                     margin-left: 5px;
                     text-align: left;
                 }
+            }
+        }
+    }
+    .dv-wallet-detail-container {
+        display: flex;
+        flex-direction: row;
+        .qrcode-container , .dv-wallet-details{
+            width: 50%;
+        }
+        @media screen and (min-height: 540px) {
+            flex-direction: column;
+            .qrcode-container , .dv-wallet-details{
+                width: 100%;
             }
         }
     }
