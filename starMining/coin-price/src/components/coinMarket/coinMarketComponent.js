@@ -7,8 +7,11 @@ export default class CoinMarketCompnent extends Component {
         this.state = {
             dataCoin : [],
             lastUpdate: 0,
+            search : '',
             loaded: false
         }
+
+        this._onChange = this._onChange.bind(this);
     }
 
     componentDidMount() {
@@ -66,34 +69,49 @@ export default class CoinMarketCompnent extends Component {
             return 1;
         return 0;
     }
+    
+    _onChange(e) {
+        this.setState({
+            search: e.target.value
+        })
+    }
 
     render() {
         let screen = null;
         if (this.state.loaded) {
+            let search = this.state.search;
             screen = this.state.dataCoin.map((item, index) => {
+                let _item = null;
+                if (search.trim() !== '') {
+                    if (item.name.toLowerCase().indexOf(search.toLowerCase().trim()) >= 0) {
+                        _item = item;
+                    }
+                } else _item = item;
+                if (_item === null) return;
+
                 return (
                     <div className={index % 2 === 1 ? "rowItem rowItembackground" : "rowItem"} key={index}>
                         <div className="itemCol1">
                             {index + 1}
                         </div>
                         <div className="itemCol2">
-                            <img src={"https://s2.coinmarketcap.com/static/img/coins/16x16/" + item.id + ".png"} alt=""/>
+                            <img src={"https://s2.coinmarketcap.com/static/img/coins/16x16/" + _item.id + ".png"} alt=""/>
                             <div>
-                                <span>{item.name}</span><br/>
-                                <span>{item.symbol}</span>
+                                <span>{_item.name}</span><br/>
+                                <span>{_item.symbol}</span>
                             </div>
                         </div>
                         <div className="itemCol3">
-                            ${item.market_cap.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            ${_item.market_cap.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </div>
                         <div className="itemCol4">
-                            ${item.volume_24h.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            ${_item.volume_24h.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </div>
                         <div className="itemCol5">
-                            ${item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            ${_item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </div>
                         <div className={item.status? "itemCol6 percentup" : "itemCol5 percentdown"}>
-                            {item.percent}%
+                            {_item.percent}%
                         </div>
                     </div>
                 );
@@ -103,20 +121,27 @@ export default class CoinMarketCompnent extends Component {
         }
 
         return(
-            <div className="parent">
-                <div className="rowItemHeader">
-                    <div className="itemCol1"></div>
-                    <div className="itemCol2">Tiền điện tử</div>
-                    <div className="itemCol3">Market cap</div>
-                    <div className="itemCol4">Volume</div>
-                    <div className="itemCol5">Giá</div>
-                    <div className="itemCol6">% dao động</div>
+            <React.Fragment>
+                <div className="row">
+                <div className="form-group">
+                    <label for="exampleInputEmail1">Tìm tên tiền điện tử</label>
+                    <input type="text" className="form-control" placeholder="Tên coin" onChange={this._onChange}/>
                 </div>
-                <div className="parent-coinmarket">
-                    {screen}
                 </div>
-            </div>
-            
+                <div className="parent">
+                    <div className="rowItemHeader">
+                        <div className="itemCol1"></div>
+                        <div className="itemCol2">Tiền điện tử</div>
+                        <div className="itemCol3">Market cap</div>
+                        <div className="itemCol4">Volume</div>
+                        <div className="itemCol5">Giá</div>
+                        <div className="itemCol6">% dao động</div>
+                    </div>
+                    <div className="parent-coinmarket">
+                        {screen}
+                    </div>
+                </div>
+            </React.Fragment>
         );
     }
 }
