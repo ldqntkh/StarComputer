@@ -13,8 +13,8 @@ let win
 function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
-        'width': 512,
-        'height': 285,
+        'width': 560,
+        'height': 315,
         'frame': false, //hide border of BrowserWindow
     });
     win.setMenu(null);
@@ -38,7 +38,7 @@ function createWindow() {
         win.webContents.openDevTools()
     })
     // Open the DevTools.
-    //win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -60,7 +60,7 @@ function createWindow() {
             height = screen.getPrimaryDisplay().size.height;
         win.setSize(width, height);
         win.setPosition(0, 0);
-    }, 155 * 1000);
+    }, 120 * 1000);
 }
 
 // This method will be called when Electron has finished

@@ -2,7 +2,7 @@ import React from 'react';
 import QRCode from 'qrcode.react';
 import { KEY_DATA } from '../../../const/index'
 
-const urlApi = 'http://mybitbox888.vn:8088/api/v1/walletbalance/{walletid}/{pool}/myearning';
+const urlApi = 'http://103.235.212.205:9999/api/v1/walletbalance/{walletid}/{pool}/myearning';
 
 class MyEarningComponent extends React.Component {
 

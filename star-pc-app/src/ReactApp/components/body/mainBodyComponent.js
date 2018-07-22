@@ -11,6 +11,8 @@ class MainBodyComponent extends Component {
 
     constructor(props) {
         super(props);
+
+        this.toggleScreen = this.toggleScreen.bind(this);
     }
 
     toggleScreen (screen) {
@@ -19,6 +21,7 @@ class MainBodyComponent extends Component {
 
     render() {
         let mainScreen = null;
+        let screen = this.props.screen;
         switch(this.props.screen) {
             case 'mywallet': mainScreen = <MyWalletContainer />; break;
             case 'myearning': mainScreen = <MyEarningContainer />; break;
@@ -35,10 +38,24 @@ class MainBodyComponent extends Component {
             interval = setInterval(() => {
                 this.toggleScreen(screen);
             }, 60000);
-        } 
+        }
 
         return (
             <main>
+                <div className="dv-ft-button left-bar">
+                    <div className={screen == 'mywallet' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('mywallet')}>
+                        <img src="../public/images/wallet.png"/>
+                    </div>
+                    <div className={screen == 'myearning' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('myearning')}>
+                        <img src="../public/images/earning.png"/>
+                    </div>
+                    <div className={screen == 'mybitbox' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('mybitbox')}>
+                        <img src="../public/images/box.png"/>
+                    </div>
+                    <div className={screen == 'setting' ? 'dv-row active' : 'dv-row'} onClick={()=> this.toggleScreen('setting')}>
+                        <img src="../public/images/setting.png"/>
+                    </div>
+                </div>
                 {mainScreen}
             </main>
         )

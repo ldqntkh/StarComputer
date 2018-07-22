@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {KEY_DATA} from '../../../const/index';
-const urlApi = 'http://mybitbox888.vn:8088/api/v1/pools/all';
+const urlApi = 'http://103.235.212.205:9999/api/v1/pools/all';
 class SettingComponent extends Component {
 
     constructor(props) {
@@ -77,6 +77,7 @@ class SettingComponent extends Component {
 
     chooseFolderPath() {
         let folderPath = ChoosePathFolder();
+        win.setAlwaysOnTop(true, "floating");
         if (folderPath && folderPath.length > 0) {
             this.setState({
                 claymorepath: folderPath[0]

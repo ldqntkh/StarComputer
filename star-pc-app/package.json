@@ -1,5 +1,5 @@
 {
-  "name": "mybitbox",
+  "name": "StarMining",
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -30,18 +30,18 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "release": "electron-packager . myBitboxMonitor --overwrite --asar=true --platform=win32 --arch=ia32 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE"
+    "release": "electron-packager . StarMining --overwrite --asar=true --platform=win32 --arch=ia32 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE"
   },
   "build": {
-    "appId": "com.ldqntkh.mybitbox.viewer",
+    "appId": "com.ldqntkh.StarMining",
     "productName": "myBitbox Viewer",
     "mac": {
-      "category": "com.ldqntkh.mybitbox.viewer"
+      "category": "com.ldqntkh.StarMining"
     }
   },
   "main": "main.js",
   "version": "1.0.0",
   "license": "MIT",
   "description": "",
-  "author": "myBitbox"
+  "author": "ldqntkh"
 }

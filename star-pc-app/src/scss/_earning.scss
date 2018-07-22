@@ -1,9 +1,11 @@
 .pt_earning {
+    width:100%;
     table {
         width: 100%;
         text-align: center;
         tr {
             td {
+                width: 25%;
                 border: 1px solid #fff;
                 &:nth-child(1) {
                     text-transform: uppercase;

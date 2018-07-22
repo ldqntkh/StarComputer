@@ -6,10 +6,10 @@ const MainHeaderComponent = ({screen}) => {
     let title = '';
 
     switch(screen) {
-        case 'mywallet': title = 'My Wallet'; break;
-        case 'myearning': title = 'My Earning'; break;
-        case 'mybitbox': title = 'myBitbox'; break;
-        case 'setting': title = 'Setting'; break;
+        case 'mywallet': title = 'Thông tin ví'; break;
+        case 'myearning': title = 'Ước tính thu nhập'; break;
+        case 'mybitbox': title = 'Thông tin máy đào'; break;
+        case 'setting': title = 'Thiết lập'; break;
     }
     return (
         <header>

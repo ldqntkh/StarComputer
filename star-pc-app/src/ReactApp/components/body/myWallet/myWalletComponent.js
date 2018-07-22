@@ -3,7 +3,7 @@ import QRCode from 'qrcode.react';
 
 import { KEY_DATA } from '../../../const/index'
 
-const urlApi = 'http://mybitbox888.vn:8088/api/v1/walletbalance/{walletid}/{pool}/mywallet';
+const urlApi = 'http://103.235.212.205:9999/api/v1/walletbalance/{walletid}/{pool}/mywallet';
 
 class MyWalletComponent extends React.Component {
 
@@ -93,24 +93,26 @@ class MyWalletComponent extends React.Component {
         return (
             <div className="pt_wallet">
                 <div className="dv-input-wallet">
-                    <label>Wallet Id:</label>
+                    <label>Địa chỉ ví:</label>
                     <input type="text" value={this.state.walletId} readOnly={true} />
                 </div>
-                <div className="qrcode-container">
-                    <QRCode value={this.state.walletId} size={170} level='Q'/>
-                </div>
-                <div className="dv-wallet-details">
-                    <div>
-                        <p>Active workers:</p>
-                        <p> {this.state.walletData.activeWorker} </p>
+                <div className="dv-wallet-detail-container">
+                    <div className="qrcode-container">
+                        <QRCode value={this.state.walletId} size={170} level='Q'/>
                     </div>
-                    <div>
-                        <p>Unpaid balance:</p>
-                        <p> {this.state.walletData.unpaidBalance} ETH</p>
-                    </div>
-                    <div>
-                        <p>Wallet balance:</p>
-                        <p> {this.state.walletData.totalBalance} ETH</p>
+                    <div className="dv-wallet-details">
+                        <div>
+                            <p>Số máy đào:</p>
+                            <p> {this.state.walletData.activeWorker} </p>
+                        </div>
+                        <div>
+                            <p>Số dư:</p>
+                            <p> {this.state.walletData.unpaidBalance} ETH</p>
+                        </div>
+                        <div>
+                            <p>Số coin:</p>
+                            <p> {this.state.walletData.totalBalance} ETH</p>
+                        </div>
                     </div>
                 </div>
             </div>

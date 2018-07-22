@@ -57,7 +57,7 @@ class MyBitboxComponent extends React.Component {
 
     async UpdateWorkerData(dataJson, dataConfig) {
         if (await updateWorkerData(dataConfig)) {
-            fetch('http://mybitbox888.vn:8088/api/v1/workers/worker/handle', {
+            fetch('http://103.235.212.205:9999/api/v1/workers/worker/handle', {
                 method: 'post',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({data: {
@@ -98,7 +98,7 @@ class MyBitboxComponent extends React.Component {
                             }) }
                         </tbody>
                     </table>
-                    <h3>Total hashrate: {totalHash} Mh/s </h3>
+                    <h3>Tổng hashrate: {totalHash} Mh/s </h3>
                 </div>
             );
         }
