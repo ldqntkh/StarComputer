@@ -2,11 +2,11 @@
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /softwares/StarComputer/tinhocngoisao/
+RewriteBase /softwares/starComputer/star_ecommerce/web-tinhocngoisao
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /softwares/StarComputer/tinhocngoisao/index.php [L]
+RewriteRule . /softwares/starComputer/star_ecommerce/web-tinhocngoisao/index.php [L]
 </IfModule>
 
 # END WordPress
