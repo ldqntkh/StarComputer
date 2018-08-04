@@ -28,14 +28,14 @@ if ( ! wc_coupons_enabled() ) { // @codingStandardsIgnoreLine.
 
 <form class="checkout_coupon woocommerce-form-coupon" method="post" style="display:none">
 
-	<p><?php esc_html_e( 'If you have a coupon code, please apply it below.', 'woocommerce' ); ?></p>
+	<p><?php esc_html_e( 'Nếu bạn có mã phiếu giảm giá, vui lòng áp dụng mã bên dưới.', 'woocommerce' ); ?></p>
 
 	<p class="form-row form-row-first">
-		<input type="text" name="coupon_code" class="input-text" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" id="coupon_code" value="" />
+		<input type="text" name="coupon_code" class="input-text" placeholder="<?php esc_attr_e( 'Mã khuyến mãi', 'woocommerce' ); ?>" id="coupon_code" value="" />
 	</p>
 
 	<p class="form-row form-row-last">
-		<button type="submit" class="button" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
+		<button type="submit" class="button" name="apply_coupon" value="<?php esc_attr_e( 'Áp dụng', 'woocommerce' ); ?>"><?php esc_html_e( 'Áp dụng', 'woocommerce' ); ?></button>
 	</p>
 
 	<div class="clear"></div>
