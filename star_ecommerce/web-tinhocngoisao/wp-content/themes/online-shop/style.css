@@ -268,13 +268,13 @@ blockquote:before {
 body {
 	background: #fff;
 	color: #2d2d2d;
-	font-family: 'Open Sans', sans-serif;
+	font-family: "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 	font-size: 14px;
 	line-height: 22px;
 }
 .wrapper {
 	margin: 0 auto;
-	width: 1200px;
+	width: 80%;
 }
 .float-right{
 	float: right;
@@ -341,7 +341,6 @@ h3, h3 a,
 h4, h4 a,
 h5, h5 a,
 h6, h6 a{
-	font-family: "Oswald", sans-serif;
 	font-weight: 400;
 	line-height: 1.1;
 }
@@ -1007,7 +1006,7 @@ a.my-account:hover{
 	right: 0;
 	top: 127%;
 	visibility: hidden;
-	width: 260px;
+	width: 350px;
 	z-index: 99;
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
@@ -2763,9 +2762,9 @@ ul li.product {
 }
 .woocommerce .star-rating,
 .woocommerce ul.products li.product .star-rating {
-	display: inline-block;
 	float: none;
 	font-size: 15px;
+	margin: 0 auto;
 }
 
 .woocommerce ul.products li.product .price del,

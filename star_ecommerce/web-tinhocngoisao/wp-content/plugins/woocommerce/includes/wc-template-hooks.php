@@ -101,8 +101,8 @@ add_action( 'woocommerce_before_subcategory', 'woocommerce_template_loop_categor
 add_action( 'woocommerce_shop_loop_subcategory_title', 'woocommerce_template_loop_category_title', 10 );
 add_action( 'woocommerce_after_subcategory', 'woocommerce_template_loop_category_link_close', 10 );
 
-add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
-add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 5 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 6 );
 
 /**
  * Subcategories.
