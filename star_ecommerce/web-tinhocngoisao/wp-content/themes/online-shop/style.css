@@ -274,7 +274,7 @@ body {
 }
 .wrapper {
 	margin: 0 auto;
-	width: 80%;
+	max-width: 1200px;
 }
 .float-right{
 	float: right;
@@ -3197,6 +3197,7 @@ ul li.product {
 	.online-shop-feature-special-menu .slider-feature-wrap {
 		width: calc(100% - 237px);
 		float: right;
+		margin-top: 30px;
 	}
 	.online-shop-feature-special-menu .special-menu-wrapper >li > ul.special-sub-menu {
 		left: auto;
