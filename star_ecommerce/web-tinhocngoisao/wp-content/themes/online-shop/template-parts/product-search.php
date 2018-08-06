@@ -6,6 +6,8 @@
             'taxonomy'   => 'product_cat',
             'hide_empty' => true,
             'parent'     => 0,
+            'orderby'    => 'id',
+            'order'      => 'DESC'
         ) );
 		if (  ! empty( $terms ) && ! is_wp_error( $terms ) ) : ?>
 			<?php $current = ( isset( $_GET['product_category'] ) ) ? absint( $_GET['product_category'] ) : '' ; ?>
