@@ -389,7 +389,7 @@ if ( !function_exists('online_shop_get_default_theme_options') ) :
             'online-shop-header-logo-ads-display-position'  => 'left-logo-right-ads',
 
             /*footer options*/
-            'online-shop-footer-copyright'  => esc_html__( 'Copyright &copy; All Right Reserved', 'online-shop' ),
+            'online-shop-footer-copyright'  => esc_html__( 'Copyright &copy; Tin học ngôi sao', 'online-shop' ),
 
             /*blog layout*/
             'online-shop-blog-archive-img-size' => 'full',

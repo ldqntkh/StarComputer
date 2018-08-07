@@ -136,9 +136,6 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
 			                        <?php echo wp_kses_post( $online_shop_customizer_all_values['online-shop-footer-copyright'] ); ?>
 		                        <?php endif; ?>
                             </span>
-                            <span>
-	                            <?php printf( esc_html__( '%1$s by %2$s', 'online-shop' ), 'Online Shop', '<a href="https://www.acmethemes.com/">Acme Themes</a>' ); ?>
-                            </span>
                         </div><!-- .site-info -->
                     </div>
                     <div class="clearfix"></div>

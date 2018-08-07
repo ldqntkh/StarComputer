@@ -1142,7 +1142,6 @@ a.my-account:hover{
 	line-height: 58px;
 	padding: 0 15px;
 	position: relative;
-	text-transform: uppercase;
 }
 .header-wrapper .acmethemes-nav .menu > li:first-child{
 	margin-left: -15px;
@@ -1560,12 +1559,7 @@ a.my-account:hover{
 	display: table;
 	content: '';
 }
-.full-width-bottom-footer,
-.full-width-top-footer,
-#footer-top,
-#footer-bottom {
-	border-bottom: 1px solid #444;
-}
+
 .site-footer {
 	margin-top: 40px;
 }
@@ -2234,7 +2228,6 @@ a.my-account:hover{
 	margin-left: 10px;
 	vertical-align: middle;
 	border: 1px solid #e2e2e4;
-	border-radius: 50px;
 	font-size: 12px;
 	font-weight: 600;
 	line-height: 0;
