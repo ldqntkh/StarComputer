@@ -25,4 +25,5 @@ global $product;
 
 <?php if ( $price_html = $product->get_price_html() ) : ?>
 	<span class="price"><?php echo $price_html; ?></span>
+	<?php if ( $product->get_sale_price() === '') : ?><br><br><?php endif; ?>
 <?php endif; ?>
