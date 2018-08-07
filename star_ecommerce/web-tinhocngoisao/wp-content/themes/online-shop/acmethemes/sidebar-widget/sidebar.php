@@ -123,26 +123,6 @@ function online_shop_widget_init(){
         'after_title' => '</h3></div>'
     ));
 
-    register_sidebar(array(
-        'name' => esc_html__('Footer Top Column Three', 'online-shop'),
-        'id' => 'footer-top-col-three',
-        'description' => esc_html__('Displays items on top footer section.', 'online-shop'),
-        'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-        'after_widget' => '</aside>',
-        'before_title' => '<div class="at-title-action-wrapper clearfix"><h3 class="widget-title">',
-        'after_title' => '</h3></div>'
-    ));
-
-	register_sidebar(array(
-		'name' => esc_html__('Footer Top Column Four', 'online-shop'),
-		'id' => 'footer-top-col-four',
-		'description' => esc_html__('Displays items on top footer section.', 'online-shop'),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<div class="at-title-action-wrapper clearfix"><h3 class="widget-title">',
-		'after_title' => '</h3></div>'
-	));
-
 	register_sidebar(array(
 		'name' => esc_html__('Footer Bottom Column One', 'online-shop'),
 		'id' => 'footer-bottom-col-one',
@@ -156,6 +136,26 @@ function online_shop_widget_init(){
 	register_sidebar(array(
 		'name' => esc_html__('Footer Bottom Column Two', 'online-shop'),
 		'id' => 'footer-bottom-col-two',
+		'description' => esc_html__('Displays items on bottom footer section.', 'online-shop'),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<div class="at-title-action-wrapper clearfix"><h3 class="widget-title">',
+		'after_title' => '</h3></div>'
+	));
+
+	register_sidebar(array(
+        'name' => esc_html__('Footer Bottom Column Three', 'online-shop'),
+        'id' => 'footer-bottom-col-three',
+        'description' => esc_html__('Displays items on bottom footer section.', 'online-shop'),
+        'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+        'after_widget' => '</aside>',
+        'before_title' => '<div class="at-title-action-wrapper clearfix"><h3 class="widget-title">',
+        'after_title' => '</h3></div>'
+    ));
+
+	register_sidebar(array(
+		'name' => esc_html__('Footer Bottom Column Four', 'online-shop'),
+		'id' => 'footer-bottom-col-four',
 		'description' => esc_html__('Displays items on bottom footer section.', 'online-shop'),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside>',

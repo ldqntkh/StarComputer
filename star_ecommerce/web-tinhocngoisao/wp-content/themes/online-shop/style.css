@@ -2234,6 +2234,7 @@ a.my-account:hover{
 	margin-left: 10px;
 	vertical-align: middle;
 	border: 1px solid #e2e2e4;
+	border-radius: 50px;
 	font-size: 12px;
 	font-weight: 600;
 	line-height: 0;
