@@ -53,11 +53,14 @@ class WC_Shortcode_My_Account {
 
 			if ( isset( $wp->query_vars['lost-password'] ) ) {
 				self::lost_password();
-			} elseif ($wp->query_vars['pagename'] == 'my-account' ) {
+			} else {
 				wc_get_template( 'myaccount/form-login.php' );
-			} elseif ($wp->query_vars['pagename'] == 'register-account' ) {
-				wc_get_template( 'myaccount/form-register.php' );
-			} 
+			}
+			// elseif ($wp->query_vars['pagename'] == 'my-account' ) {
+			// 	wc_get_template( 'myaccount/form-login.php' );
+			// } elseif ($wp->query_vars['pagename'] == 'register-account' ) {
+			// 	wc_get_template( 'myaccount/form-register.php' );
+			// } 
 		} else {
 			// Start output buffer since the html may need discarding for BW compatibility.
 			ob_start();
