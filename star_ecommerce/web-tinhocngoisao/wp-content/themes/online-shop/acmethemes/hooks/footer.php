@@ -95,12 +95,12 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
 			                    <?php
                                 endif;
                                 if (is_active_sidebar('footer-bottom-col-three')) : ?>
-                                    <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
+                                    <div class="footer-sidebar <?php echo esc_attr($footer_bottom_col); ?>">
                                         <?php dynamic_sidebar('footer-bottom-col-three'); ?>
                                     </div>
                                 <?php endif;
                                 if (is_active_sidebar('footer-bottom-col-four')) : ?>
-                                    <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
+                                    <div class="footer-sidebar <?php echo esc_attr($footer_bottom_col); ?>">
                                         <?php dynamic_sidebar('footer-bottom-col-four'); ?>
                                     </div>
                                 <?php endif;

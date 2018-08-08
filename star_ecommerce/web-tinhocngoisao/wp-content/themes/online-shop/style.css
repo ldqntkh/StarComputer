@@ -1509,8 +1509,7 @@ a.my-account:hover{
 \*-----------------*/
 /*** COMMON FOOTER CSS ***/
 .footer-wrapper{
-	background: #272823;
-	color: #fff;
+	background-color: #f9f9f9;
 }
 .footer-columns {
 	margin-left: -10px;
@@ -1524,11 +1523,7 @@ a.my-account:hover{
 	color: #ababab;
 }
 .footer-copyright{
-	background: #161614;
 	margin-top: -1px;
-}
-.footer-wrapper .widget-title{
-	color: #fff;
 }
 .footer-wrapper a,.footer-copyright a{
 	color: #fff;
@@ -1549,9 +1544,7 @@ a.my-account:hover{
 	float: left;
 }
 .site-info{
-	width: 30%;
-	float: right;
-	text-align: right;
+	text-align: center;
 	margin-top: 15px;
 }
 .site-info > span:after {
