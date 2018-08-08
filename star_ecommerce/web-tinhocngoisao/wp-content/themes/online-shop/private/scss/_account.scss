@@ -3,6 +3,9 @@
         header.entry-header {
             display: none;
         }
-        
+        article.page {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
     }
 }
