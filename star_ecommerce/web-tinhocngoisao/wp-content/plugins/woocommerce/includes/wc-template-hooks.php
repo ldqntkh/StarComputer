@@ -283,6 +283,7 @@ add_action( 'woocommerce_account_content', 'woocommerce_account_content' );
 add_action( 'woocommerce_account_orders_endpoint', 'woocommerce_account_orders' );
 add_action( 'woocommerce_account_view-order_endpoint', 'woocommerce_account_view_order' );
 add_action( 'woocommerce_account_downloads_endpoint', 'woocommerce_account_downloads' );
+add_action( 'woocommerce_account_wishlist_endpoint', 'woocommerce_account_wishlist' );
 add_action( 'woocommerce_account_edit-address_endpoint', 'woocommerce_account_edit_address' );
 add_action( 'woocommerce_account_payment-methods_endpoint', 'woocommerce_account_payment_methods' );
 add_action( 'woocommerce_account_add-payment-method_endpoint', 'woocommerce_account_add_payment_method' );

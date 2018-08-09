@@ -2904,6 +2904,16 @@ if ( ! function_exists( 'woocommerce_account_downloads' ) ) {
 	}
 }
 
+if ( ! function_exists( 'woocommerce_account_wishlist' ) ) {
+
+	/**
+	 * My Account > Wishlist template.
+	 */
+	function woocommerce_account_wishlist() {
+		wc_get_template( 'myaccount/my-wishlist.php' );
+	}
+}
+
 if ( ! function_exists( 'woocommerce_account_edit_address' ) ) {
 
 	/**
