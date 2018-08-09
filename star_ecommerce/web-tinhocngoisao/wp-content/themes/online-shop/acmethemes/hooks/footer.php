@@ -89,11 +89,27 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
                                     </div>
 			                    <?php endif;
 			                    if (is_active_sidebar('footer-bottom-col-two')) : ?>
-                                    <div class="footer-sidebar float-right <?php echo esc_attr($footer_bottom_col); ?>">
+                                    <div class="footer-sidebar <?php echo esc_attr($footer_bottom_col); ?>">
 					                    <?php dynamic_sidebar('footer-bottom-col-two'); ?>
                                     </div>
-			                    <?php
-                                endif;
+                                <?php else : ?>
+                                    <div class="footer-sidebar footer-bottom-category <?php echo esc_attr($footer_bottom_col); ?>">
+                                        <div class="at-title-action-wrapper clearfix"><h3 class="widget-title">Danh mục</h3></div>
+                                        <?php $terms = get_terms( array(
+                                        'taxonomy'   => 'product_cat',
+                                        'hide_empty' => true,
+                                        'parent'     => 0,
+                                        'orderby'    => 'id',
+                                        'order'      => 'DESC',
+                                        'number'     => 5
+                                        ) );
+                                        if (  ! empty( $terms ) && ! is_wp_error( $terms ) ) : ?>
+                                            <?php foreach ( $terms as $cat ) : ?>
+                                                <a href="<?php echo get_term_link( $cat->term_id ); ?>"><p><?php echo esc_attr( $cat->name ); ?></p></a>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif;
                                 if (is_active_sidebar('footer-bottom-col-three')) : ?>
                                     <div class="footer-sidebar <?php echo esc_attr($footer_bottom_col); ?>">
                                         <?php dynamic_sidebar('footer-bottom-col-three'); ?>
