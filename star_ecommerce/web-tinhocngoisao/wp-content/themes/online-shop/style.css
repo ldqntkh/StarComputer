@@ -1520,13 +1520,7 @@ a.my-account:hover{
 	padding-right: 20px;
 }
 .footer-copyright{
-	color: #ababab;
-}
-.footer-copyright{
 	margin-top: -1px;
-}
-.footer-wrapper a,.footer-copyright a{
-	color: #fff;
 }
 #footer-top,
 #footer-bottom,
