@@ -3160,7 +3160,7 @@ function wc_get_rating_html( $rating, $count = 0 ) {
 		$html .= wc_get_star_rating_html( $rating, $count );
 		$html .= '</div>';
 	} else {
-		$html = '';
+		$html = '<p class="star-rating-empty"></p>';
 	}
 
 	return apply_filters( 'woocommerce_product_get_rating_html', $html, $rating, $count );

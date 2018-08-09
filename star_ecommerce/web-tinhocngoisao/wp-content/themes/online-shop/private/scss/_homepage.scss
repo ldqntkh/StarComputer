@@ -10,6 +10,28 @@
     }
 }
 
+.main-navigation {
+    .special-menu-wrapper {
+        li {
+            .special-menu {
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.products {
+    .star-rating-empty {
+        height: 15px;
+        margin: 0;
+    }
+}
+
+.footer-sidebar {
+    .text-center {
+        text-align: center;
+    }
+}
 .main-navigation ul.special-menu-wrapper ul.special-sub-menu a {
     text-transform: unset;
 }

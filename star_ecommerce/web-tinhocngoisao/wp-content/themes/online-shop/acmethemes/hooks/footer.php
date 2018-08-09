@@ -49,16 +49,14 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
                     <?php
                     if(
                         is_active_sidebar('footer-top-col-one') ||
-                        is_active_sidebar('footer-top-col-two') ||
-                        is_active_sidebar('footer-top-col-three') ||
-                        is_active_sidebar('footer-top-col-four')
+                        is_active_sidebar('footer-top-col-two')
                     )
                     {
                         ?>
                         <div id="footer-top">
                             <div class="footer-columns clearfix">
 			                    <?php
-			                    $footer_top_col = 'footer-sidebar acme-col-4';
+			                    $footer_top_col = 'footer-sidebar acme-col-2';
 			                    if (is_active_sidebar('footer-top-col-one')) : ?>
                                     <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
 					                    <?php dynamic_sidebar('footer-top-col-one'); ?>
@@ -68,31 +66,23 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
                                     <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
 					                    <?php dynamic_sidebar('footer-top-col-two'); ?>
                                     </div>
-			                    <?php endif;
-			                    if (is_active_sidebar('footer-top-col-three')) : ?>
-                                    <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
-					                    <?php dynamic_sidebar('footer-top-col-three'); ?>
-                                    </div>
-			                    <?php endif;
-			                    if (is_active_sidebar('footer-top-col-four')) : ?>
-                                    <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
-					                    <?php dynamic_sidebar('footer-top-col-four'); ?>
-                                    </div>
-			                    <?php endif; ?>
+			                    <?php endif;?>
                             </div>
                         </div><!-- #foter-top -->
                         <?php
                     }
                     if(
                         is_active_sidebar('footer-bottom-col-one') ||
-                        is_active_sidebar('footer-bottom-col-two')
+                        is_active_sidebar('footer-bottom-col-two') ||
+                        is_active_sidebar('footer-bottom-col-three') ||
+                        is_active_sidebar('footer-bottom-col-four')
                     )
                     {
                         ?>
                         <div id="footer-bottom">
                             <div class="footer-columns clearfix">
                                 <?php
-			                    $footer_bottom_col = 'footer-sidebar acme-col-2';
+			                    $footer_bottom_col = 'footer-sidebar acme-col-4';
 			                    if (is_active_sidebar('footer-bottom-col-one')) : ?>
                                     <div class="footer-sidebar <?php echo esc_attr($footer_bottom_col); ?>">
 					                    <?php dynamic_sidebar('footer-bottom-col-one'); ?>
@@ -104,6 +94,16 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
                                     </div>
 			                    <?php
                                 endif;
+                                if (is_active_sidebar('footer-bottom-col-three')) : ?>
+                                    <div class="footer-sidebar <?php echo esc_attr($footer_bottom_col); ?>">
+                                        <?php dynamic_sidebar('footer-bottom-col-three'); ?>
+                                    </div>
+                                <?php endif;
+                                if (is_active_sidebar('footer-bottom-col-four')) : ?>
+                                    <div class="footer-sidebar <?php echo esc_attr($footer_bottom_col); ?>">
+                                        <?php dynamic_sidebar('footer-bottom-col-four'); ?>
+                                    </div>
+                                <?php endif;
                                 ?>
                             </div>
                         </div>
@@ -135,9 +135,6 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
 		                        <?php if( isset( $online_shop_customizer_all_values['online-shop-footer-copyright'] ) ): ?>
 			                        <?php echo wp_kses_post( $online_shop_customizer_all_values['online-shop-footer-copyright'] ); ?>
 		                        <?php endif; ?>
-                            </span>
-                            <span>
-	                            <?php printf( esc_html__( '%1$s by %2$s', 'online-shop' ), 'Online Shop', '<a href="https://www.acmethemes.com/">Acme Themes</a>' ); ?>
                             </span>
                         </div><!-- .site-info -->
                     </div>

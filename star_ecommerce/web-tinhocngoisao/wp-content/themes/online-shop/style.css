@@ -1142,7 +1142,6 @@ a.my-account:hover{
 	line-height: 58px;
 	padding: 0 15px;
 	position: relative;
-	text-transform: uppercase;
 }
 .header-wrapper .acmethemes-nav .menu > li:first-child{
 	margin-left: -15px;
@@ -1510,8 +1509,7 @@ a.my-account:hover{
 \*-----------------*/
 /*** COMMON FOOTER CSS ***/
 .footer-wrapper{
-	background: #272823;
-	color: #fff;
+	background-color: #f9f9f9;
 }
 .footer-columns {
 	margin-left: -10px;
@@ -1525,11 +1523,7 @@ a.my-account:hover{
 	color: #ababab;
 }
 .footer-copyright{
-	background: #161614;
 	margin-top: -1px;
-}
-.footer-wrapper .widget-title{
-	color: #fff;
 }
 .footer-wrapper a,.footer-copyright a{
 	color: #fff;
@@ -1550,9 +1544,7 @@ a.my-account:hover{
 	float: left;
 }
 .site-info{
-	width: 30%;
-	float: right;
-	text-align: right;
+	text-align: center;
 	margin-top: 15px;
 }
 .site-info > span:after {
@@ -1560,12 +1552,7 @@ a.my-account:hover{
 	display: table;
 	content: '';
 }
-.full-width-bottom-footer,
-.full-width-top-footer,
-#footer-top,
-#footer-bottom {
-	border-bottom: 1px solid #444;
-}
+
 .site-footer {
 	margin-top: 40px;
 }
