@@ -172,7 +172,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	            $online_shop_header_top_social_display_selection = $online_shop_customizer_all_values['online-shop-header-top-social-display-selection'];
 	            $online_shop_top_right_button_options = $online_shop_customizer_all_values['online-shop-top-right-button-options'];
 	            ?>
-                <div class="top-header-wrapper clearfix">
+                <div class="top-header-wrapper clearfix hide-mobile">
                     <div class="wrapper">
                         <div class="header-left">
 				            <?php
@@ -202,7 +202,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	                            $online_shop_top_right_button_title = !empty( $online_shop_top_right_button_title )? $online_shop_top_right_button_title : '';
 	                            if( 'widget' == $online_shop_top_right_button_options ){
 		                            ?>
-                                    <div class="icon-box">
+                                    <div class="icon-box hide-mobile">
                                         <a id="at-modal-open" class="my-account at-modal" href="<?php echo esc_url( $online_shop_top_right_button_link );?>">
 				                            <?php echo esc_html( $online_shop_top_right_button_title );?>
                                         </a>
@@ -226,7 +226,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                 <?php
             }
             ?>
-            <div class="header-wrapper clearfix">
+            <div class="header-wrapper clearfix hide-mobile">
                 <div class="wrapper">
 	                <?php
 	                if( 'above-logo' == $online_shop_header_media_position ){
@@ -407,9 +407,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	                            }
 	                            ?>
                             </div>
-
                         </div>
-                        <div class="responsive-slick-menu clearfix"></div>
                     </nav>
                     <?php
                     if( 'below-menu' == $online_shop_header_media_position ){
@@ -421,6 +419,11 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                 <!-- .header-container -->
             </div>
             <!-- header-wrapper-->
+
+            <!-- implement header mobile -->
+            <?php 
+                require_once online_shop_file_directory('acmethemes/customizer/header-mobile/header-mobile.php');
+            ?>
         </header>
         <!-- #masthead -->
     <?php
