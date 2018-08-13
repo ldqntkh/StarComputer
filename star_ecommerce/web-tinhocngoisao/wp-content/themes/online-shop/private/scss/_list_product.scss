@@ -1,5 +1,6 @@
 .featured-entries-col .post-container {
     background: #f3f3f3;
+    padding: 3px !important;
 }
 .featured-entries-col .single-list.acme-col-4 {
     width: 100%;
@@ -15,7 +16,8 @@
 }
 
 .featured-entries-col.woocommerce ul.products li.product, 
-.featured-entries-col.woocommerce-page ul.products li.product {
+.featured-entries-col.woocommerce-page ul.products li.product,
+ul.custom-plp-page.products[class*=columns-] li.product {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -51,7 +53,7 @@
             }
         }
     }
-    a.yith-wcqv-button {
+    a.yith-wcqv-button, a.product_type_variable {
         margin-left: 10px;
         margin-bottom: 1em;
         font-size: 13px;
@@ -60,7 +62,35 @@
         -o-transition: all 0.5s ease-in-out;
         transition: all 0.5s ease-in-out;
     }
-    a.add_to_cart_button, a.yith-wcqv-button {
+    a.add_to_cart_button, a.yith-wcqv-button, a.product_type_variable {
         width: 120px;
+    }
+}
+
+.woocommerce-page {
+    ul.custom-plp-page.products[class*=columns-] {
+        display: block;
+        @media screen and (min-width: 1200px) {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        li {
+            width: 100%;
+            background: #f3f3f3;
+            padding: 3px;
+            @media screen and (min-width: 640px) {
+                width: 48%;
+                margin: 15px 1%;
+            }
+            @media screen and (min-width: 1200px) {
+                width: 32%;
+                margin: 15px 0.5%;
+            }
+            @media screen and (min-width: 1400px) {
+                width: 24%;
+                margin: 15px 0.5%;
+            }
+        }
     }
 }
