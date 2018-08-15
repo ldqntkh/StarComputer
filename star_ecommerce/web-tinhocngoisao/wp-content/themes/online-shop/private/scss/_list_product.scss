@@ -94,3 +94,9 @@ ul.custom-plp-page.products[class*=columns-] li.product {
         }
     }
 }
+
+.woocommerce {
+    a.added_to_cart {
+        margin: 13px 0 13px 10px;
+    }
+}
