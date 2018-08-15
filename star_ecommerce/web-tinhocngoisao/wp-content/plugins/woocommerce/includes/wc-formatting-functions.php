@@ -1168,7 +1168,7 @@ function wc_format_stock_quantity_for_display( $stock_quantity, $product ) {
  * @return string
  */
 function wc_format_sale_price( $regular_price, $sale_price ) {
-	$price = '<p><ins>' . ( is_numeric( $sale_price ) ? wc_price( $sale_price ) : $sale_price ) . '</ins></p> <p><del>' . ( is_numeric( $regular_price ) ? wc_price( $regular_price ) : $regular_price ) . '</del></p>';
+	$price = '<p><span class="price_label">Giá: </span><ins>' . ( is_numeric( $sale_price ) ? wc_price( $sale_price ) : $sale_price ) . '</ins></p> <p><span class="price_label">Sale: </span><del>' . ( is_numeric( $regular_price ) ? wc_price( $regular_price ) : $regular_price ) . '</del></p>';
 	return apply_filters( 'woocommerce_format_sale_price', $price, $regular_price, $sale_price );
 }
 

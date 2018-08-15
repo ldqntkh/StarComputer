@@ -2740,6 +2740,7 @@ ul li.product {
 	margin: 0;
 	font-size: 18px;
 	color: #2d2d2d;
+	text-align: left;
 }
 .woocommerce .star-rating,
 .woocommerce ul.products li.product .star-rating {
