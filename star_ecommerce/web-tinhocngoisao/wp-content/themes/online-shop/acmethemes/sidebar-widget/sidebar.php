@@ -58,7 +58,7 @@ function online_shop_widget_init(){
         'description'	=> $description,
         'before_widget' => '<aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside>',
-        'before_title' => '<div class="at-title-action-wrapper clearfix"><h2 class="widget-title">',
+        'before_title' => '<div class="pointer"><h2 class="widget-title">',
         'after_title' => '</h2></div>',
     ));
 

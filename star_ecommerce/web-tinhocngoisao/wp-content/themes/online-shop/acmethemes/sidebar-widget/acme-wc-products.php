@@ -450,24 +450,28 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
                 ){
 		            if( -1 != $online_shop_wc_product_cat ){
 			            echo "<div class='at-cat-color-wrap-".esc_attr( $online_shop_wc_product_cat )."'>";
-		            }
+					}
+					echo "<div class='at-title-action-wrapper clearfix'>";
 	                echo $args['before_title'];
-		            echo $online_shop_widget_title;
-		            echo "<span class='at-action-wrapper'>";
-		            if( 'disable' != $view_all_option && !empty( $all_link_text ) && !empty( $all_link_url )){
-			            $target ='';
-		                if( 'new-tab-link' == $view_all_option ){
-		                    $target = 'target="_blank"';
-                        }
-		                echo '<a href="'.$all_link_url.'" class="all-link" '.$target.'>'.$all_link_text.'</a>';
-                    }
+					echo $online_shop_widget_title;
 
-		            if( 1 == $enable_prev_next && 'carousel' == $display_type){
-		                echo '<i class="prev fa fa-angle-left"></i><i class="next fa fa-angle-right"></i>';
-                    }
-		            echo "</span>";/*.at-action-wrapper*/
+					echo $args['after_title'];
+					/*.at-action-wrapper*/
+					echo "<span class='at-action-wrapper'>";
+					if( 'disable' != $view_all_option && !empty( $all_link_text ) && !empty( $all_link_url )){
+						$target ='';
+						if( 'new-tab-link' == $view_all_option ){
+							$target = 'target="_blank"';
+						}
+						echo '<a href="'.$all_link_url.'" class="all-link" '.$target.'>'.$all_link_text.'</a>';
+					}
 
-		            echo $args['after_title'];
+					if( 1 == $enable_prev_next && 'carousel' == $display_type){
+						echo '<i class="prev fa fa-angle-left"></i><i class="next fa fa-angle-right"></i>';
+					}
+					echo "</span>";/*.at-action-wrapper*/
+					echo "</div>";
+
 		            if( -1 != $online_shop_wc_product_cat ){
 			            echo "</div>";
 		            }
