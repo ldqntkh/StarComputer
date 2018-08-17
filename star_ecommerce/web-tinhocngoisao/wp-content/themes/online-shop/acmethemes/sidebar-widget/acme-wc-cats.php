@@ -490,6 +490,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Feature_Cats' ) ) {
 	             ( 1 == $enable_prev_next && 1 == $enable_slider_mode )
 	        ){
 
+				echo "<div class='at-title-action-wrapper clearfix'>";
 		        echo $args['before_title'];
 		        echo $online_shop_widget_title;
 		        echo "<span class='at-action-wrapper'>";
@@ -506,7 +507,8 @@ if ( ! class_exists( 'Online_Shop_Wc_Feature_Cats' ) ) {
 		        }
 		        echo "</span>";/*.at-action-wrapper*/
 
-		        echo $args['after_title'];
+				echo $args['after_title'];
+				echo "</div>";
 	        }
 
 	        if(!empty( $online_shop_featured_cats ) ){

@@ -96,17 +96,17 @@ jQuery(document).ready(function($) {
                 nextArrow: nextArrow,
                 responsive: [
                     {
-                        breakpoint: 768,
+                        breakpoint: 1024,
                         settings: {
-                            slidesToShow: ( slidesToShow > 1 ? slidesToShow - 1 : slidesToShow ),
-                            slidesToScroll: ( slidesToScroll > 1 ? slidesToScroll - 1 : slidesToScroll )
+                            slidesToShow: 2,
+                            slidesToScroll: 2
                         }
                     },
                     {
-                        breakpoint: 480,
+                        breakpoint: 600,
                         settings: {
-                            slidesToShow: ( slidesToShow > 2 ? slidesToShow - 2 : slidesToShow ),
-                            slidesToScroll: ( slidesToScroll > 2 ? slidesToScroll - 2 : slidesToScroll )
+                            slidesToShow: 1,
+                            slidesToScroll: 1
                         }
                     }
                 ]

@@ -5,6 +5,15 @@
                 ins {
                     text-decoration: none;
                 }
+
+                p {
+                    text-align: left;
+                }
+
+                .price_label {
+                    color: #2d2d2d;
+                    font-size: 18px;
+                }
             }
         }
     }
@@ -38,4 +47,48 @@
 
 h2.woocommerce-loop-product__title {
     height: 56px;
+}
+
+.home {
+    .pointer {
+        display: inline-block;
+        width: 20rem;
+        height: 2.5rem;
+        position: relative;
+        background: #ebe9eb;
+        text-align: center;
+    }
+
+    .pointer:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 20px solid white;
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+    }
+
+    .pointer:before {
+        content: "";
+        position: absolute;
+        right: -20px;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 20px solid #ebe9eb;
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+    }
+
+    .at-title-action-wrapper {
+        padding-bottom: 0;
+
+        .widget-title {
+            padding-left: 2rem;
+            padding-top: 0.3rem;
+        }
+    }
 }

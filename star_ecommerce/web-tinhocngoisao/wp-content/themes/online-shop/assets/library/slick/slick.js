@@ -2059,7 +2059,9 @@
         }
 
         var offset = _.$slides.first().outerWidth(true) - _.$slides.first().width();
-        if (_.options.variableWidth === false) _.$slideTrack.children('.slick-slide').width(_.slideWidth - offset);
+        if (_.options.variableWidth === false) {
+            _.$slideTrack.children('.slick-slide').width(_.slideWidth - offset);
+        }
 
     };
 
