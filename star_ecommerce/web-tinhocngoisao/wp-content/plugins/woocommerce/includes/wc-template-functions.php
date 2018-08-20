@@ -950,6 +950,16 @@ if ( ! function_exists( 'woocommerce_get_sidebar' ) ) {
 	}
 }
 
+if ( ! function_exists( 'woocommerce_get_sidebar_in_pdp' ) ) {
+
+	/**
+	 * Get the shop sidebar template.
+	 */
+	function woocommerce_get_sidebar_in_pdp() {
+		wc_get_template( 'single-product/sidebar.php' );
+	}
+}
+
 if ( ! function_exists( 'woocommerce_demo_store' ) ) {
 
 	/**
