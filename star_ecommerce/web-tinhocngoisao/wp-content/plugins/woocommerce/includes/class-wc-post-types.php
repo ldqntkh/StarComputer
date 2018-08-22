@@ -299,7 +299,7 @@ class WC_Post_Types {
 				'woocommerce_register_post_type_product',
 				array(
 					'labels'              => array(
-						'name'                  => __( 'Products', 'woocommerce' ),
+						'name'                  => __( 'Sản phẩm', 'woocommerce' ),
 						'singular_name'         => __( 'Product', 'woocommerce' ),
 						'all_items'             => __( 'All Products', 'woocommerce' ),
 						'menu_name'             => _x( 'Products', 'Admin menu name', 'woocommerce' ),

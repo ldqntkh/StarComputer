@@ -950,6 +950,16 @@ if ( ! function_exists( 'woocommerce_get_sidebar' ) ) {
 	}
 }
 
+if ( ! function_exists( 'woocommerce_get_sidebar_in_pdp' ) ) {
+
+	/**
+	 * Get the shop sidebar template.
+	 */
+	function woocommerce_get_sidebar_in_pdp() {
+		wc_get_template( 'single-product/sidebar.php' );
+	}
+}
+
 if ( ! function_exists( 'woocommerce_demo_store' ) ) {
 
 	/**
@@ -1648,7 +1658,7 @@ if ( ! function_exists( 'woocommerce_default_product_tabs' ) ) {
 		// Description tab - shows product content.
 		if ( $post->post_content ) {
 			$tabs['description'] = array(
-				'title'    => __( 'Description', 'woocommerce' ),
+				'title'    => __( 'Mô tả', 'woocommerce' ),
 				'priority' => 10,
 				'callback' => 'woocommerce_product_description_tab',
 			);
@@ -1667,7 +1677,7 @@ if ( ! function_exists( 'woocommerce_default_product_tabs' ) ) {
 		if ( comments_open() ) {
 			$tabs['reviews'] = array(
 				/* translators: %s: reviews count */
-				'title'    => sprintf( __( 'Reviews (%d)', 'woocommerce' ), $product->get_review_count() ),
+				'title'    => sprintf( __( 'Nhận xét (%d)', 'woocommerce' ), $product->get_review_count() ),
 				'priority' => 30,
 				'callback' => 'comments_template',
 			);

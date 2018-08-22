@@ -51,9 +51,9 @@ get_header( 'shop' ); ?>
 		/**
 		 * woocommerce_sidebar hook.
 		 *
-		 * @hooked woocommerce_get_sidebar - 10
+		 * @hooked woocommerce_sidebar_in_pdp - 10
 		 */
-		do_action( 'woocommerce_sidebar' );
+		do_action( 'woocommerce_sidebar_in_pdp' );
 	?>
 
 <?php get_footer( 'shop' );

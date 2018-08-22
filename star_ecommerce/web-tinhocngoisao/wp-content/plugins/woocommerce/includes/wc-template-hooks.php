@@ -54,6 +54,13 @@ add_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 )
 add_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 
 /**
+ * Sidebar in product detail page.
+ *
+ * @see woocommerce_get_sidebar_in_pdp()
+ */
+add_action( 'woocommerce_sidebar_in_pdp', 'woocommerce_get_sidebar_in_pdp', 10 );
+
+/**
  * Archive descriptions.
  *
  * @see woocommerce_taxonomy_archive_description()
