@@ -29,5 +29,5 @@ global $product;
 		<span class="price_label">Giá: </span>
 	<?php endif; ?>
 	<?php echo $price_html; ?></span>
-	<?php if ( $product->get_sale_price() === '') : ?><br><br><?php endif; ?>
+	<?php if ( $product->get_sale_price() === '') : ?><?php endif; ?>
 <?php endif; ?>

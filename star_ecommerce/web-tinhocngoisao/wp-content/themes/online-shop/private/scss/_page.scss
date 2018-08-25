@@ -16,3 +16,17 @@
         display: block;
     }
 }
+
+.hide-scroll-body {
+    overflow: hidden;
+}
+
+// custom woocommerce product galery
+.woocommerce-product-gallery {
+    .flex-control-nav{
+        display: flex;
+        li {
+            margin-right: 3px !important;
+        }
+    }
+}
