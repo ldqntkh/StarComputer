@@ -1,9 +1,16 @@
 'use strict';
 
+// implement sidebar mobile 
 var mobile_menu = {
     
+    initSidebarMobile : function() {
+        $('#side-header').on('click', function() {
+            $('.pr-sidebar-mobile').toggleClass('toggle');
+            $('body').toggleClass('hide-scroll-body');
+        });
+    },
+
     init : function() {
-        let that = this;
         $('.menu-lv2').hide();
         $('div.pr-menu').hide();
         $('div.panel-menu').hide();
@@ -18,6 +25,8 @@ var mobile_menu = {
             $('div.pr-menu').toggle();
             $('div.panel-menu').animate({width: 'toggle'});
         });
+        
+        this.initSidebarMobile();
     }
 }
 

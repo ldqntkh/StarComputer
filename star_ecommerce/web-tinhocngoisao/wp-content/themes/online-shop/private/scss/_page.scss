@@ -16,3 +16,45 @@
         display: block;
     }
 }
+
+.hide-scroll-body {
+    overflow: hidden;
+}
+
+// custom woocommerce product galery
+.woocommerce-product-gallery {
+    .flex-control-nav{
+        display: flex;
+        li {
+            margin-right: 3px !important;
+        }
+    }
+}
+
+// custom right sidebar content
+.woocommerce-page {
+    #content {
+        .single-product-content, .single-cart-page, .single-checkout-page {
+            @media screen and(min-width: 1024px) {
+                width: 70%;
+            }
+        }
+    }
+}
+
+.fixed-header-scroll {
+    position: fixed;
+    width: 100%;
+    top: -190px;
+    z-index: 888;
+    background-color: white;
+    @media screen and(min-width: 1230px) {
+        top: 0;
+    }
+}
+.body-content-fixed {
+    margin-top: 300px;
+    @media screen and(min-width: 1230px) {
+        margin-top: 480px;
+    }
+}
