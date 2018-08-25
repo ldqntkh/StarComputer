@@ -23,15 +23,15 @@ ul.custom-plp-page.products[class*=columns-] li.product {
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 350px;
+    height: 300px;
     @media screen and (min-width: 768px) {
-        height: 500px;
+        height: 400px;
         align-items: center;
         padding-left: 10px;
         padding-right: 10px;
     }
     @media screen and (min-width: 992px) {
-        height: 500px;
+        height: 400px;
     }
     &:hover {
         a.yith-wcqv-button {
@@ -116,7 +116,6 @@ ul.custom-plp-page.products[class*=columns-] li.product {
             //background: #f3f3f3;
             padding: 1px;
             border: 1px solid #f3f3f3;
-            border-width: 0 1px 1px 0;
             margin: 0 0 10px;
             @media screen and (min-width: 992px) {
                 width: 33.33%;
@@ -132,5 +131,19 @@ ul.custom-plp-page.products[class*=columns-] li.product {
 .woocommerce {
     a.added_to_cart {
         margin: 13px 0 13px 10px;
+    }
+}
+
+// custom list product single page product
+.woocommerce-page {
+    #content {
+        .single-product-content {
+            ul.custom-plp-page.products[class*=columns-] li {
+                width: 50%;
+                @media screen and(min-width: 1024px) {
+                    width: 33.33%;
+                }
+            }
+        }
     }
 }

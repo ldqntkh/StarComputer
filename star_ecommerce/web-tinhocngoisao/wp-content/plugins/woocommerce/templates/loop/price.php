@@ -26,7 +26,7 @@ global $product;
 <?php if ( $price_html = $product->get_price_html() ) : ?>
 	<span class="price">
 	<?php if ($product->get_sale_price() === ''): ?>
-		<span class="price_label">Giá: </span>
+		<span class="price_label"></span>
 	<?php endif; ?>
 	<?php echo $price_html; ?></span>
 	<?php if ( $product->get_sale_price() === '') : ?><?php endif; ?>
