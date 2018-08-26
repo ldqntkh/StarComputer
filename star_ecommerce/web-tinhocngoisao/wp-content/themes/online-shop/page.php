@@ -33,6 +33,10 @@
 		</main><!-- #main -->
 	</div><!-- #primary -->
 <?php
-get_sidebar( 'left' );
-get_sidebar();
+if ( !is_cart() ) {
+    get_sidebar( 'left' );
+    get_sidebar();
+} else {
+    get_sidebar( 'cart-right' );
+}
 get_footer();
