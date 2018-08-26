@@ -36,14 +36,14 @@ if ( $show_downloads ) {
 <section class="woocommerce-order-details">
 	<?php do_action( 'woocommerce_order_details_before_order_table', $order ); ?>
 
-	<h2 class="woocommerce-order-details__title"><?php _e( 'Order details', 'woocommerce' ); ?></h2>
+	<h2 class="woocommerce-order-details__title"><?php _e( 'Chi tiết hóa đơn', 'woocommerce' ); ?></h2>
 
 	<table class="woocommerce-table woocommerce-table--order-details shop_table order_details">
 
 		<thead>
 			<tr>
-				<th class="woocommerce-table__product-name product-name"><?php _e( 'Product', 'woocommerce' ); ?></th>
-				<th class="woocommerce-table__product-table product-total"><?php _e( 'Total', 'woocommerce' ); ?></th>
+				<th class="woocommerce-table__product-name product-name"><?php _e( 'Sản phẩm', 'woocommerce' ); ?></th>
+				<th class="woocommerce-table__product-table product-total"><?php _e( 'Tổng cộng', 'woocommerce' ); ?></th>
 			</tr>
 		</thead>
 
