@@ -25,9 +25,12 @@ global $post;
 $heading = esc_html( apply_filters( 'woocommerce_product_description_heading', __( 'Mô tả', 'woocommerce' ) ) );
 
 ?>
-
-<?php if ( $heading ) : ?>
-  <h2><?php echo $heading; ?></h2>
-<?php endif; ?>
-
-<?php the_content(); ?>
+<div class="description-wrapper">
+  <?php if ( $heading ) : ?>
+    <h2><?php echo $heading; ?></h2>
+  <?php endif; ?>
+  <div class="more-content">
+    <?php the_content(); ?>
+  </div>
+  <p class="show-more-content hidden">Xem thêm nội dung</p>
+</div>
