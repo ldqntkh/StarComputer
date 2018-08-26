@@ -12,8 +12,13 @@
  * @package Acme Themes
  * @subpackage Online Shop
  */
-get_header(); ?>
-	<div id="primary" class="content-area">
+    get_header(); 
+    $page_class = "";
+    if (is_cart()) $page_class = "single-cart-page";
+    if (is_checkout()) $page_class = "single-checkout-page";
+?>
+
+	<div id="primary" class="content-area <?php echo $page_class; ?>">
 		<main id="main" class="site-main">
 			<?php
             while ( have_posts() ) : the_post();

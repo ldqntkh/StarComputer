@@ -82,7 +82,10 @@ if ( ! class_exists( 'Online_Shop_WooCommerce' ) ) :
 		 * @since 1.0.0
 		 */
 		function before_main_content() {
-			echo '<div id="primary" class="content-area">';
+			$page_class = "";
+			if (is_product()) $page_class = "single-product-content";
+			
+			echo '<div id="primary" class="content-area ' . $page_class . '">';
 			echo '<main id="main" class="site-main">';
 		}
 
