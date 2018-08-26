@@ -470,7 +470,7 @@ class WC_Frontend_Scripts {
 				break;
 			case 'wc-single-product':
 				$params = array(
-					'i18n_required_rating_text' => esc_attr__( 'Please select a rating', 'woocommerce' ),
+					'i18n_required_rating_text' => esc_attr__( 'Xin vui lòng đánh giá sản phẩm', 'woocommerce' ),
 					'review_rating_required'    => get_option( 'woocommerce_review_rating_required' ),
 					'flexslider'                => apply_filters(
 						'woocommerce_single_product_carousel_options', array(
