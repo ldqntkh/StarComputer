@@ -55,6 +55,15 @@ function online_shop_widget_init(){
         'before_title' => '<div class="at-title-action-wrapper clearfix"><h3 class="widget-title">',
         'after_title' => '</h3></div>'
     ));
+    register_sidebar(array(
+        'name' => esc_html__('Cart Right Sidebar Area', 'online-shop'),
+        'id'   => 'sidebar-in-cart',
+        'description' => esc_html__('Displays items on sidebar in cart page.', 'online-shop'),
+        'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+        'after_widget' => '</aside>',
+        'before_title' => '<div class="at-title-action-wrapper clearfix"><h3 class="widget-title">',
+        'after_title' => '</h3></div>'
+    ));
     if ( is_customize_preview() ) {
         $description = sprintf( esc_html__( 'Displays widgets on home page main content area.%1$s Note : Please go to %2$s Homepage Settings %3$s, Select "A static page" then "Front page" and "Posts page" to show added widgets', 'online-shop' ), '<br />','<b><a class="at-customizer" data-section="static_front_page" style="cursor: pointer">','</a></b>' );
     }

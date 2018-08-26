@@ -45,3 +45,9 @@ form.cart {
         margin-top: 10px;
     }
 }
+
+.cart_totals {
+    .shipping {
+        display: none;
+    }
+}
