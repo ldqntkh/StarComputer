@@ -926,10 +926,10 @@ class WC_Coupon extends WC_Legacy_Coupon {
 	public function get_coupon_message( $msg_code ) {
 		switch ( $msg_code ) {
 			case self::WC_COUPON_SUCCESS:
-				$msg = __( 'Coupon code applied successfully.', 'woocommerce' );
+				$msg = __( 'Áp dụng mã khuyến mãi thành công.', 'woocommerce' );
 				break;
 			case self::WC_COUPON_REMOVED:
-				$msg = __( 'Coupon code removed successfully.', 'woocommerce' );
+				$msg = __( 'Xóa mã khuyến mãi thành công.', 'woocommerce' );
 				break;
 			default:
 				$msg = '';
@@ -951,18 +951,18 @@ class WC_Coupon extends WC_Legacy_Coupon {
 				break;
 			case self::E_WC_COUPON_NOT_EXIST:
 				/* translators: %s: coupon code */
-				$err = sprintf( __( 'Coupon "%s" does not exist!', 'woocommerce' ), $this->get_code() );
+				$err = sprintf( __( 'Mã khuyến mãi "%s" không tồn tại!', 'woocommerce' ), $this->get_code() );
 				break;
 			case self::E_WC_COUPON_INVALID_REMOVED:
 				/* translators: %s: coupon code */
-				$err = sprintf( __( 'Sorry, it seems the coupon "%s" is invalid - it has now been removed from your order.', 'woocommerce' ), $this->get_code() );
+				$err = sprintf( __( 'Mã khuyến mãi "%s" không tồn tại nên mã khuyến mãi này đã được xóa từ đơn hàng của bạn.', 'woocommerce' ), $this->get_code() );
 				break;
 			case self::E_WC_COUPON_NOT_YOURS_REMOVED:
 				/* translators: %s: coupon code */
-				$err = sprintf( __( 'Sorry, it seems the coupon "%s" is not yours - it has now been removed from your order.', 'woocommerce' ), $this->get_code() );
+				$err = sprintf( __( 'Mã khuyến mãi "%s" không phải của bạn nên mã khuyến mãi này đã được xóa từ đơn hàng của bạn.', 'woocommerce' ), $this->get_code() );
 				break;
 			case self::E_WC_COUPON_ALREADY_APPLIED:
-				$err = __( 'Coupon code already applied!', 'woocommerce' );
+				$err = __( 'Mã khuyến mãi này đã được sử dụng!', 'woocommerce' );
 				break;
 			case self::E_WC_COUPON_ALREADY_APPLIED_INDIV_USE_ONLY:
 				/* translators: %s: coupon code */
