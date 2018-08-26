@@ -13,7 +13,7 @@ $my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', 
 	'order-number'  => __( 'Order', 'woocommerce' ),
 	'order-date'    => __( 'Date', 'woocommerce' ),
 	'order-status'  => __( 'Status', 'woocommerce' ),
-	'order-total'   => __( 'Total', 'woocommerce' ),
+	'order-total'   => __( 'Tổng cộng', 'woocommerce' ),
 	'order-actions' => '&nbsp;',
 ) );
 
