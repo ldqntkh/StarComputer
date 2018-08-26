@@ -4,6 +4,10 @@
     border-width: 0 1px 1px 0;
     
 }
+.featured-entries-col .single-list {
+    padding-left: 0;
+    padding-right: 0;
+}
 .featured-entries-col .single-list.acme-col-4 {
     width: 50%;
     padding-left: 0;
@@ -24,11 +28,11 @@ ul.custom-plp-page.products[class*=columns-] li.product {
     flex-direction: row;
     flex-wrap: wrap;
     height: 300px;
+    padding-left: 0;
+    padding-right: 0;
     @media screen and (min-width: 768px) {
         height: 400px;
         align-items: center;
-        padding-left: 10px;
-        padding-right: 10px;
     }
     @media screen and (min-width: 992px) {
         height: 400px;
