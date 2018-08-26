@@ -22,20 +22,6 @@ var productdetailpage = {
         });
     },
 
-    showMoreReview: function() {
-        $('.show-more-review').off('click').on('click', function() {
-            var $comments = $(this).parent();
-            var $commentList = $comments.find('.commentlist');
-            var allowMaxHeight = 240;
-            $comments.toggleClass('expand');
-            if ( $comments.hasClass('expand') ) {
-                $commentList.css('max-height', 'none');
-            } else {
-                $commentList.css('max-height', allowMaxHeight);
-            }
-        });
-    },
-
     displayShowMoreContentButton: function() {
         var allowMaxHeight = 150;
         var $showMoreContentBtn = '';
@@ -57,7 +43,6 @@ var productdetailpage = {
     init: function() {
         let that = this;
         that.showMoreContent();
-        that.showMoreReview();
         that.displayShowMoreContentButton();
     }
 }
