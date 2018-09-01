@@ -4,6 +4,7 @@ var cartpage = require('./cart');
 var accountpage = require('./account');
 var mobile_menu = require('./menu_mobile');
 var productdetailpage = require('./pdp');
+var checkoutpage = require('./checkout');
 
 $(document).ready(function() {
     header_menu.init();
@@ -11,4 +12,5 @@ $(document).ready(function() {
     accountpage.init();
     mobile_menu.init();
     productdetailpage.init();
+    checkoutpage.init();
 })
