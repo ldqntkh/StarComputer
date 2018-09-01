@@ -271,6 +271,7 @@ function wc_body_class( $classes ) {
 
 		$classes[] = 'woocommerce';
 		$classes[] = 'woocommerce-page';
+		$classes[] = 'woocommerce-plp';
 
 	} elseif ( is_checkout() ) {
 

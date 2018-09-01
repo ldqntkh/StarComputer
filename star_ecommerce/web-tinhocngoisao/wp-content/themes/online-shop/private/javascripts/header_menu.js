@@ -3,7 +3,7 @@
 // implement sidebar mobile 
 var header_menu = {
 
-    init : function() {
+    headerScroll : function() {
         $(document).scroll(function() {  // OR  $(window).scroll(function() {
             if ($(this).width() >= 1024) {
                 var pos = $(this).scrollTop();
@@ -16,6 +16,16 @@ var header_menu = {
                 }
             }
         });
+    },
+
+    filterPlp: function() {
+        $('.custom-sidebar-pc > .header-filter').on('click', function() {
+            $('.custom-sidebar-pc').toggleClass('toggle-filter', 300);
+        });
+    },
+
+    init : function() {
+        this.filterPlp();
     }
 }
 

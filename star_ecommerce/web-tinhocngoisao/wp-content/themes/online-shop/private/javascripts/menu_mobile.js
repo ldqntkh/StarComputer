@@ -10,6 +10,13 @@ var mobile_menu = {
         });
     },
 
+    closeSidebarMobile: function() {
+        $('.sidebar-custom-mobile > i.fa-close').on('click', function() {
+            $('.pr-sidebar-mobile').toggleClass('toggle');
+            $('body').toggleClass('hide-scroll-body');
+        });
+    },
+
     init : function() {
         $('.menu-lv2').hide();
         $('div.pr-menu').hide();
@@ -27,6 +34,7 @@ var mobile_menu = {
         });
         
         this.initSidebarMobile();
+        this.closeSidebarMobile();
     }
 }
 
