@@ -1,0 +1,35 @@
+.woocommerce-checkout {
+    .checkout {
+        &.woocommerce-checkout {
+            max-height: 657px;
+            overflow: hidden;
+        }
+    }
+
+    .woocommerce {
+        .continue-place-order {
+            background-color: #f73838;
+            border: 1px solid #f73838;
+            border-radius: 3px;
+            clear: both;
+            color: #fff;
+            float: right;
+            font-weight: bold;
+            padding: 10px;
+        }
+    }
+}
+
+.woocommerce-checkout {
+    .step-2 {
+        .continue-place-order {
+            display: none;
+        }
+
+        .checkout {
+            &.woocommerce-checkout {
+                max-height: none;
+            }
+        }
+    }
+}
