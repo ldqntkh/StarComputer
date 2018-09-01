@@ -23,8 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 <table class="shop_table woocommerce-checkout-review-order-table">
 	<thead>
 		<tr>
-			<th class="product-name"><?php _e( 'Product', 'woocommerce' ); ?></th>
-			<th class="product-total"><?php _e( 'Total', 'woocommerce' ); ?></th>
+			<th class="product-name"><?php _e( 'Sản phẩm', 'woocommerce' ); ?></th>
+			<th class="product-total"><?php _e( 'Tổng cộng', 'woocommerce' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -103,7 +103,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php do_action( 'woocommerce_review_order_before_order_total' ); ?>
 
 		<tr class="order-total">
-			<th><?php _e( 'Total', 'woocommerce' ); ?></th>
+			<th><?php _e( 'Tổng cộng', 'woocommerce' ); ?></th>
 			<td><?php wc_cart_totals_order_total_html(); ?></td>
 		</tr>
 

@@ -674,7 +674,7 @@ class WC_Shop_Customizer {
 
 		// Checkout field controls.
 		$fields = array(
-			'company'   => __( 'Company name', 'woocommerce' ),
+			'company'   => __( 'Tên công ty', 'woocommerce' ),
 			'address_2' => __( 'Address line 2', 'woocommerce' ),
 			'phone'     => __( 'Phone', 'woocommerce' ),
 		);

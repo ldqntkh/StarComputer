@@ -567,7 +567,7 @@ class WC_Discounts {
 	protected function validate_coupon_exists( $coupon ) {
 		if ( ! $coupon->get_id() && ! $coupon->get_virtual() ) {
 			/* translators: %s: coupon code */
-			throw new Exception( sprintf( __( 'Coupon "%s" does not exist!', 'woocommerce' ), $coupon->get_code() ), 105 );
+			throw new Exception( sprintf( __( 'Mã khuyến mãi "%s" không tồn tại!', 'woocommerce' ), $coupon->get_code() ), 105 );
 		}
 
 		return true;
@@ -693,7 +693,7 @@ class WC_Discounts {
 			}
 
 			if ( ! $valid ) {
-				throw new Exception( __( 'Sorry, this coupon is not applicable to selected products.', 'woocommerce' ), 109 );
+				throw new Exception( __( 'Rất lấy làm tiếc! Mã khuyến mãi này không được áp dụng cho sản phẩm này.', 'woocommerce' ), 109 );
 			}
 		}
 
@@ -731,7 +731,7 @@ class WC_Discounts {
 			}
 
 			if ( ! $valid ) {
-				throw new Exception( __( 'Sorry, this coupon is not applicable to selected products.', 'woocommerce' ), 109 );
+				throw new Exception( __( 'Rất lấy làm tiếc! Mã khuyến mãi này không được áp dụng cho sản phẩm này.', 'woocommerce' ), 109 );
 			}
 		}
 
@@ -786,7 +786,7 @@ class WC_Discounts {
 			}
 
 			if ( ! $valid ) {
-				throw new Exception( __( 'Sorry, this coupon is not applicable to selected products.', 'woocommerce' ), 109 );
+				throw new Exception( __( 'Rất lấy làm tiếc! Mã khuyến mãi này không được áp dụng cho sản phẩm này.', 'woocommerce' ), 109 );
 			}
 		}
 

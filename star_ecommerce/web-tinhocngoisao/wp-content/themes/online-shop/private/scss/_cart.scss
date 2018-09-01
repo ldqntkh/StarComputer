@@ -51,3 +51,15 @@ form.cart {
         display: none;
     }
 }
+
+.woocommerce-cart {
+    .cart-collaterals {
+        .cart_totals {
+            table {
+                th {
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
