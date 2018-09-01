@@ -53,6 +53,36 @@
                 width: 320px;
             }
         }
+        i.fa-close {
+            color: red;
+            font-size: 20px;
+            float: right;
+            margin-bottom: 10px;
+        }
+        aside {
+            &.last {
+                ul {
+                    li {
+                        a {
+                            &:before {
+                                content: "" !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        aside {
+            ul {
+                li {
+                    a {
+                        &:before {
+                            content: '' !important;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 .woocommerce-page {
