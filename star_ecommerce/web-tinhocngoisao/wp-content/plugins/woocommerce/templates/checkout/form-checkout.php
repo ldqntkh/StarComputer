@@ -63,5 +63,5 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
 
 </form>
-
+	<button type="button" class="continue-place-order">Tiếp tục thanh toán</button>
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>
