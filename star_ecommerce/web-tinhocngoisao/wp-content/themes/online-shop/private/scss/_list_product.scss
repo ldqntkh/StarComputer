@@ -27,7 +27,7 @@ ul.custom-plp-page.products[class*=columns-] li.product {
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 300px;
+    height: 330px;
     padding-left: 0;
     padding-right: 0;
     @media screen and (min-width: 768px) {
@@ -35,7 +35,7 @@ ul.custom-plp-page.products[class*=columns-] li.product {
         align-items: center;
     }
     @media screen and (min-width: 992px) {
-        height: 400px;
+        height: 450px;
     }
     &:hover {
         a.yith-wcqv-button {
