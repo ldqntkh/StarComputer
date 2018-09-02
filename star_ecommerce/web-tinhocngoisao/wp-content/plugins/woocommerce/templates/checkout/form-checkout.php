@@ -39,12 +39,52 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
 
 		<div class="col2-set" id="customer_details">
-			<div class="col-1">
-				<?php do_action( 'woocommerce_checkout_billing' ); ?>
-			</div>
+			<div class="progress-checkout">
+				<div class="row bs-wizard">
+                    <div class="bs-wizard-step bs-wizard-step-1">
+                        <div class="text-center bs-wizard-stepnum">
+                            <span>Đặt hàng</span>
+                        </div>
+                        <div class="progress">
+							<div class="progress-bar-right"></div>
+							<span class="bs-wizard-dot">1</span>
+						</div>
+                    </div>
 
-			<div class="col-2">
-				<?php do_action( 'woocommerce_checkout_shipping' ); ?>
+                    <div class="bs-wizard-step bs-wizard-step-2 active">
+                        <div class="text-center bs-wizard-stepnum">
+                            <span class="hidden-xs">Địa Chỉ Giao Hàng</span>
+                        </div>
+                        <div class="progress">
+							<div class="progress-bar-left"></div>
+							<div class="progress-bar-right"></div>
+							<span class="bs-wizard-dot">2</span>
+						</div>
+                    </div>
+
+                    <div class="bs-wizard-step bs-wizard-step-3 disabled">
+                        <div class="text-center bs-wizard-stepnum">
+                            <span class="hidden-xs">Thanh Toán &amp; Đặt Mua</span>
+                        </div>
+                        <div class="progress">
+							<div class="progress-bar-left"></div>
+							<span class="bs-wizard-dot">3</span>
+						</div>
+                    </div>
+
+                </div>
+			</div>
+			<div class="address-billing-and-shipping">
+				<div class="col-1">
+					<?php do_action( 'woocommerce_checkout_billing' ); ?>
+				</div>
+
+				<div class="col-2">
+					<?php do_action( 'woocommerce_checkout_shipping' ); ?>
+				</div>
+			</div>
+			<div class="progress-payment">
+				<?php do_action( 'woocommerce_checkout_payment_review' ); ?>
 			</div>
 		</div>
 
@@ -52,16 +92,27 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 	<?php endif; ?>
 
-	<h3 id="order_review_heading"><?php _e( 'Hóa đơn của bạn', 'woocommerce' ); ?></h3>
+	<div class="order-review-pr">
+		<div class="order-review-details">
+			<div id="checkout-address"></div>
+			<h3 id="order_review_heading"><?php _e( 'Đơn hàng của bạn', 'woocommerce' ); ?></h3>
 
-	<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
+			<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
 
-	<div id="order_review" class="woocommerce-checkout-review-order">
-		<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+			<div id="order_review" class="woocommerce-checkout-review-order">
+				<?php do_action( 'woocommerce_checkout_order_review' ); ?>
+			</div>
+
+			<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
+
+			<?php do_action( 'woocommerce_review_order_before_submit' ); ?>
+
+			<?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( 'Tiếp tục' ) . '" data-value="' . esc_attr( 'Tiếp tục' ) . '">' . esc_html( 'Tiếp tục' ) . '</button>' ); // @codingStandardsIgnoreLine ?>
+
+			<?php do_action( 'woocommerce_review_order_after_submit' ); ?>
+		</div>
 	</div>
 
-	<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
-
 </form>
-	<button type="button" class="continue-place-order">Tiếp tục thanh toán</button>
+	<!-- <button type="button" class="continue-place-order">Tiếp tục thanh toán</button> -->
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>

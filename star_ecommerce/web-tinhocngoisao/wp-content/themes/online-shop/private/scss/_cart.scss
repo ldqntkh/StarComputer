@@ -35,8 +35,14 @@
             padding: 0 5px;
         }
     }
+    .wares_qty_minus {
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
     .wares_qty_add  {
         background: url(./assets/img/bg_newshop_pro.png?20170814) 9px -313px no-repeat;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
     }
 }
 
@@ -68,5 +74,51 @@ form.cart {
                 vertical-align: unset;
             }
         }
+    }
+}
+
+form.woocommerce-cart-form {
+    table {
+        td {
+            border: none;
+        }
+    }
+    td.product-thumbnail {
+        width: 120px;
+        img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+    td.product-name {
+        >div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            a.remove-product {
+                color: red;
+                font-weight: bold;
+                padding: 3px;
+            }
+        }
+    }
+    td.product-price {
+        width: 150px;
+        span.price {
+            display: flex;
+            flex-direction: column;
+            ins {
+                color: red;
+                font-weight: 600;
+                text-decoration: none;
+            }
+            del {
+                color: silver;
+            }
+        }
+    }
+    td.product-quantity {
+        width: 120px;
     }
 }

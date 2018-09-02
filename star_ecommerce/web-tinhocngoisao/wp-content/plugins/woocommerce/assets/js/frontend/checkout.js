@@ -9,6 +9,7 @@ jQuery( function( $ ) {
 	$.blockUI.defaults.overlayCSS.cursor = 'default';
 
 	var wc_checkout_form = {
+		show_payment = false,
 		updateTimer: false,
 		dirtyInput: false,
 		selectedPaymentMethod: false,
@@ -58,6 +59,8 @@ jQuery( function( $ ) {
 			if ( wc_checkout_params.option_guest_checkout === 'yes' ) {
 				$( 'input#createaccount' ).change( this.toggle_create_account ).change();
 			}
+
+			this.handleEditAddress();
 		},
 		init_payment_methods: function() {
 			var $payment_methods = $( '.woocommerce-checkout' ).find( 'input[name="payment_method"]' );
@@ -412,7 +415,49 @@ jQuery( function( $ ) {
 
 			});
 		},
-		submit: function() {
+		submit: function(e) {
+			if (!wc_checkout_form.show_payment) {
+				e.preventDefault();
+				// please valid form before next step payment
+				// valid success then next step
+
+				// show shipping address detail
+				var $checkout_address = $('#checkout-address');
+				var html_address = `<h3> Địa chỉ giao hàng</h3>
+									<table>
+										<tr>
+											<td class="title">Họ tên:</td>
+											<td>Quang Tèo</td>
+										</tr>
+										<tr>
+											<td class="title">Số phone:</td>
+											<td>0123456789</td>
+										</tr>
+										<tr>
+											<td class="title">Email:</td>
+											<td>Quang.le@mail.com</td>
+										</tr>
+										<tr>
+											<td class="title">Địa chỉ:</td>
+											<td>416 dương quảng hàm, P5 quận gò vấp</td>
+										</tr>
+									</table>
+									<button type="button" class="button alt" id="btn-edit-address">Sửa</button>`;
+				$checkout_address.html(html_address).addClass('active');
+
+				wc_checkout_form.show_payment = true;
+
+				// hide form address
+				$('.address-billing-and-shipping').hide();
+				// show form payment
+				$('.progress-payment').show(300);
+
+				// show progess bar
+				$('.bs-wizard-step-2').removeClass('active');
+				$('.bs-wizard-step-3').removeClass('disabled');
+				return;
+			}
+
 			wc_checkout_form.reset_update_checkout_timer();
 			var $form = $( this );
 
@@ -511,6 +556,23 @@ jQuery( function( $ ) {
 			}
 
 			return false;
+		},
+		handleEditAddress: function() {
+			$(document).on('click', '#btn-edit-address', function() {
+				var $checkout_address = $('#checkout-address');
+				$checkout_address.html('').removeClass('active');
+	
+				// hide form payment
+				$('.progress-payment').hide();
+				// show form address
+				$('.address-billing-and-shipping').show(300);
+				
+				// hide progess bar
+				$('.bs-wizard-step-2').addClass('active');
+				$('.bs-wizard-step-3').addClass('disabled');
+	
+				wc_checkout_form.show_payment = false;
+			});
 		},
 		submit_error: function( error_message ) {
 			$( '.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message' ).remove();

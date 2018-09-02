@@ -25,7 +25,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
 	<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
-		<thead>
+		<!-- <thead>
 			<tr>
 				<th class="product-thumbnail">&nbsp;</th>
 				<th class="product-name"><?php esc_html_e( 'Sản phẩm', 'woocommerce' ); ?></th>
@@ -34,7 +34,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 				<th class="product-subtotal"><?php esc_html_e( 'Giá', 'woocommerce' ); ?></th>
 				<th class="product-remove">&nbsp;</th>
 			</tr>
-		</thead>
+		</thead> -->
 		<tbody>
 			<?php do_action( 'woocommerce_before_cart_contents' ); ?>
 
@@ -42,7 +42,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 			foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 				$_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 				$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
-
+				
 				if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 					$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
 					?>
@@ -61,28 +61,62 @@ do_action( 'woocommerce_before_cart' ); ?>
 						</td>
 
 						<td class="product-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
-						<?php
-						if ( ! $product_permalink ) {
-							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;' );
-						} else {
-							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) );
-						}
+							<div>
+								<?php
+								if ( ! $product_permalink ) {
+									echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;' );
+								} else {
+									echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) );
+								}
 
-						do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
+								do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
 
-						// Meta data.
-						echo wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
+								// Meta data.
+								echo wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
 
-						// Backorder notification.
-						if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
-							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>' ) );
-						}
-						?>
+								// Backorder notification.
+								if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
+									echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>' ) );
+								}
+								?>
+
+								<?php
+									// @codingStandardsIgnoreLine
+									echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
+										'<a href="%s" class="remove-product" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times; Xóa</a>',
+										esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
+										__( 'Xóa sản phẩm này', 'woocommerce' ),
+										esc_attr( $product_id ),
+										esc_attr( $_product->get_sku() )
+									), $cart_item_key );
+								?>
+							</div>
 						</td>
 
 						<td class="product-price" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
 							<?php
-								echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
+								//echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
+								$price = WC()->cart->get_product_price_value($_product);
+								$regular_price = $_product->regular_price;
+								$sale_price = $_product->sale_price;
+								if (!empty($sale_price) && $sale_price > 0 && $sale_price < $regular_price) {
+									echo '
+									<span class="price">
+										<ins>
+											<span class="woocommerce-Price-amount amount">' .$price. '<span class="woocommerce-Price-currencySymbol">đ</span></span>
+										</ins>
+										<del>
+											<span class="woocommerce-Price-amount amount">' .$regular_price. '<span class="woocommerce-Price-currencySymbol">đ</span></span>
+										</del>
+									</span>';
+								} else {
+									echo '
+									<span class="price">
+										<ins>
+											<span class="woocommerce-Price-amount amount">' .$price. '<span class="woocommerce-Price-currencySymbol">đ</span></span>
+										</ins>
+									</span>';
+								}
 							?>
 						</td>
 
@@ -104,13 +138,13 @@ do_action( 'woocommerce_before_cart' ); ?>
 						?>
 						</td>
 
-						<td class="product-subtotal" data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>">
+						<!-- <td class="product-subtotal" data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>">
 							<?php
 								echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
 							?>
-						</td>
+						</td> -->
 
-						<td class="product-remove">
+						<!-- <td class="product-remove">
 							<?php
 								// @codingStandardsIgnoreLine
 								echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
@@ -121,7 +155,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 									esc_attr( $_product->get_sku() )
 								), $cart_item_key );
 							?>
-						</td>
+						</td> -->
 					</tr>
 					<?php
 				}
