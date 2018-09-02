@@ -48,7 +48,7 @@ if ( $max_value && $min_value === $max_value ) {
 		<span class="wares_qty_minus qty" data-oper="-1"></span>
 		<span class="wares_qty_num">
 			<input
-				type="number"
+				type="text"
 				id="<?php echo esc_attr( $input_id ); ?>"
 				class="input-text qty text"
 				step="<?php echo esc_attr( $step ); ?>"
@@ -60,7 +60,8 @@ if ( $max_value && $min_value === $max_value ) {
 				size="4"
 				pattern="<?php echo esc_attr( $pattern ); ?>"
 				inputmode="<?php echo esc_attr( $inputmode ); ?>"
-				aria-labelledby="<?php echo esc_attr( $labelledby ); ?>" />
+				aria-labelledby="<?php echo esc_attr( $labelledby ); ?>"
+				maxlength="3"/>
 		</span>
 		<span class="wares_qty_add qty" data-oper="1"></span>
 	</div>
