@@ -25,6 +25,14 @@ var cartpage = {
         $('body').on('click', '.wares_qty_add', function() {
             that.changeValueQuantity('add');
         });
+
+        $('.wares_qty_num').find('input').off('keypress').on('keypress', function(e) {
+            var numberPatern = /^\d+$/;
+            if ( !numberPatern.test(e.key) ) {
+                $(this).val(0);
+                return false;
+            }
+        });
     }
 }
 

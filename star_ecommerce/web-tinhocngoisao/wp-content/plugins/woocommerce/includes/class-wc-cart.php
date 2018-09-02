@@ -783,7 +783,7 @@ class WC_Cart extends WC_Legacy_Cart {
 			 */
 			if ( ! $product->has_enough_stock( $product_qty_in_cart[ $product->get_stock_managed_by_id() ] ) ) {
 				/* translators: 1: product name 2: quantity in stock */
-				$error->add( 'out-of-stock', sprintf( __( 'Sorry, we do not have enough "%1$s" in stock to fulfill your order (%2$s in stock). Please edit your cart and try again. We apologize for any inconvenience caused.', 'woocommerce' ), $product->get_name(), wc_format_stock_quantity_for_display( $product->get_stock_quantity(), $product ) ) );
+				$error->add( 'out-of-stock', sprintf( __( 'Xin lỗi, chúng tôi đã hết sản phẩm "%1$s" trong kho (vì chỉ còn %2$s sản phẩm). Vui lòng cập nhật lại giỏ hàng của bạn. Chúng tôi rất lấy làm tiếc về sự bất tiện này.', 'woocommerce' ), $product->get_name(), wc_format_stock_quantity_for_display( $product->get_stock_quantity(), $product ) ) );
 				return $error;
 			}
 
@@ -813,7 +813,7 @@ class WC_Cart extends WC_Legacy_Cart {
 
 				if ( $product->get_stock_quantity() < ( $held_stock + $product_qty_in_cart[ $product->get_stock_managed_by_id() ] ) ) {
 					/* translators: 1: product name 2: minutes */
-					$error->add( 'out-of-stock', sprintf( __( 'Sorry, we do not have enough "%1$s" in stock to fulfill your order right now. Please try again in %2$d minutes or edit your cart and try again. We apologize for any inconvenience caused.', 'woocommerce' ), $product->get_name(), get_option( 'woocommerce_hold_stock_minutes' ) ) );
+					$error->add( 'out-of-stock', sprintf( __( 'Xin lỗi, chúng tôi đã hết sản phẩm "%1$s" trong kho (vì chỉ còn %2$s sản phẩm). Vui lòng cập nhật lại giỏ hàng của bạn. Chúng tôi rất lấy làm tiếc về sự bất tiện này.', 'woocommerce' ), $product->get_name(), get_option( 'woocommerce_hold_stock_minutes' ) ) );
 					return $error;
 				}
 			}
@@ -1081,7 +1081,7 @@ class WC_Cart extends WC_Legacy_Cart {
 
 			if ( ! $product_data->has_enough_stock( $quantity ) ) {
 				/* translators: 1: product name 2: quantity in stock */
-				throw new Exception( sprintf( __( 'You cannot add that amount of &quot;%1$s&quot; to the cart because there is not enough stock (%2$s remaining).', 'woocommerce' ), $product_data->get_name(), wc_format_stock_quantity_for_display( $product_data->get_stock_quantity(), $product_data ) ) );
+				throw new Exception( sprintf( __( 'Bạn không thể thêm sản phẩm &quot;%1$s&quot; vào giỏ hàng vì số lượng sản phẩm trong kho không đủ, chỉ còn %2$s sản phẩm.', 'woocommerce' ), $product_data->get_name(), wc_format_stock_quantity_for_display( $product_data->get_stock_quantity(), $product_data ) ) );
 			}
 
 			// Stock check - this time accounting for whats already in-cart.
