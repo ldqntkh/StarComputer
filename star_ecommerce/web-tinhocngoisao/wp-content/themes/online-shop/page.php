@@ -33,10 +33,10 @@
 		</main><!-- #main -->
 	</div><!-- #primary -->
 <?php
-if ( !is_cart() && !is_checkout() ) {
+if ( !is_cart() ) {
     get_sidebar( 'left' );
     get_sidebar();
-} else if ( !is_checkout() ) {
+} else {
     get_sidebar( 'cart-right' );
 }
 get_footer();
