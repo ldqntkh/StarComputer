@@ -9,7 +9,7 @@ jQuery( function( $ ) {
 	$.blockUI.defaults.overlayCSS.cursor = 'default';
 
 	var wc_checkout_form = {
-		show_payment = false,
+		show_payment = $( window ).width() >= 1024 ? false : true,
 		updateTimer: false,
 		dirtyInput: false,
 		selectedPaymentMethod: false,
@@ -441,7 +441,7 @@ jQuery( function( $ ) {
 			});
 		},
 		submit: function(e) {
-			if (!wc_checkout_form.show_payment) {
+			if (!wc_checkout_form.show_payment && $( window ).width() >= 1024) {
 				e.preventDefault();
 				// please valid form before next step payment
 				// valid success then next step

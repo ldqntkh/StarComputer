@@ -3,26 +3,37 @@
     .woocommerce {
         form[name='checkout'] {
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
+            flex-direction: column;
+            @media screen and (min-width: 1024px) {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
             div.woocommerce-NoticeGroup {
                 width: 100%;
             }
             #customer_details {
-                width: 70%;
+                width: 100%;
+                @media screen and (min-width: 1024px) {
+                    width: 70%;
+                }
                 display: flex;
                 flex-direction: column;
                 .progress-payment {
-                    display: none;
+                    @media screen and (min-width: 1024px) {
+                        display: none;
+                    }
                 }
                 .progress-checkout {
                     .bs-wizard {
                         display: flex;
                         flex-wrap: nowrap;
-                        height: 70px;
+                        height: 75px;
                         .bs-wizard-step {
                             flex: 1;
                             text-align: center;
+                            .bs-wizard-stepnum {
+                                height: 45px;
+                            }
                             .progress {
                                 display: flex;
                                 flex-direction: column;
@@ -83,7 +94,10 @@
                 }
             }
             .order-review-pr {
-                width: 30%;
+                width: 100%;
+                @media screen and (min-width: 1024px) {
+                    width: 30%;
+                }
                 padding-left: 5px;
                 padding-right: 5px;
                 
