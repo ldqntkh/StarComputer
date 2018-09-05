@@ -136,18 +136,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span>$3.59</span>
 			</div>
 		</div>
-		<div class="order-summary">
-			<div class="order-summary-column-1">
-				<span>Subtotal (2 items):</span>
-				<span>Flat-Rate Shipping:</span>
-				<span>Estimated Tax:</span>
-				<span>Order Total:</span>
+		<div class="order-summary" style="display: inline-flex;flex-direction: row;width: 100%;">
+			<div style="flex-direction: column;width:75%"></div>
+			<div class="order-summary-column-1" style="flex-direction: column;width:15%;">
+				<p>Subtotal (2 items):</p>
+				<p>Flat-Rate Shipping:</p>
+				<p>Estimated Tax:</p>
+				<p>Order Total:</p>
 			</div>
-			<div class="order-summary-column-2">
-				<span>$8.58</span>
-				<span>$4.95</span>
-				<span>$0.54</span>
-				<span>$14.07</span>
+			<div class="order-summary-column-2" style="flex-direction: column;width:10%;text-align:right;">
+				<p>$8.58</p>
+				<p>$4.95</p>
+				<p>$0.54</p>
+				<p style="color:red;">$14.07</p>
 			</div>
 		</div>
 		<p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received"><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', __( 'Cám ơn. Vui lòng xem lại hóa đơn của bạn đã thanh toán', 'woocommerce' ), null ); ?></p>
