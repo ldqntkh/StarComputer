@@ -56,13 +56,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="woocommerce-thankyou-order-received-product-title">
 				<div class="product-title__column-one">
-					<h4>Danh sách sản phẩm</h1>
+					<h4><strong>Danh sách sản phẩm</strong></h4>
 				</div>
 				<div class="product-title__column-two">
 					<h4>Số lượng</h4>
 				</div>
 				<div class="product-title__column_three">
-					<h4>Giá</h5>
+					<h4>Giá</h4>
 				</div>
 			</div>
 		<?php
