@@ -92,6 +92,21 @@
                         }
                     }
                 }
+
+                .progress-payment {
+                    .woocommerce-checkout-payment {
+                        h2 {
+                            padding: 10px 10px 0;
+                            margin-top: 30px;
+                        }
+                    }
+                    .shipping-method {
+                        background: #ebe9eb;
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin-top: 20px;
+                    }
+                }
             }
             .order-review-pr {
                 width: 100%;
@@ -121,6 +136,7 @@
                     }
 
                     #checkout-address {
+                        width: 100%;
                         &.active {
                             display: flex;
                             flex-direction: column;
@@ -130,6 +146,8 @@
                             border-bottom: 1px solid black;
                             padding-bottom: 10px;
                             table {
+                                margin-bottom: 10px;
+                                width: 100%;
                                 .title {
                                     font-weight: bold;
                                     padding: 5px 10px;

@@ -84,6 +84,14 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 				</div>
 			</div>
 			<div class="progress-payment">
+				<div class="shipping-method">
+					<h2>Hình thức giao hàng</h2>
+					<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) :
+						do_action( 'woocommerce_review_order_before_shipping' );
+						wc_cart_totals_shipping_html();
+						do_action( 'woocommerce_review_order_after_shipping' );
+					endif; ?>
+				</div>
 				<?php do_action( 'woocommerce_checkout_payment_review' ); ?>
 			</div>
 		</div>
