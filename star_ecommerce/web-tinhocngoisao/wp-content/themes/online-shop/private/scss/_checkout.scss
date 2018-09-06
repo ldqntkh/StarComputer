@@ -33,3 +33,122 @@
         }
     }
 }
+
+.woocommerce-order-received {
+    .woocommerce-thankyou-order-received-summary-wrapper {
+        background-color: #f8f8f8;
+        border: 1px solid #000000;
+        display: inline-flex;
+        flex-direction: row;
+        width: 100%;
+
+        div {
+            border-right: 1px solid #000000;
+            flex-direction: column;
+            padding: 10px;
+            width: 50%;
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        h3 {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+
+    .woocommerce-thankyou-order-received-product-title {
+        background-color:#f8f8f8;
+        display: inline-flex;
+        flex-direction: row;
+        margin-top: 10px;
+        padding: 20px 10px;
+        width: 100%;
+
+        div {
+            flex-direction: column;
+        }
+
+        h4 {
+            margin: 0;
+
+            &:first-child {
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+        }
+
+        .product-title__column-one {
+            width: 80%;
+        }
+
+        .product-title__column-two {
+            width: 10%;
+        }
+
+        .product-title__column_three {
+            text-align: right;
+            width: 10%;
+        }
+    }
+
+    .woocommerce-thankyou-order-received-product-wrapper {
+        border-bottom: 2px solid #f8f8f8;
+        display: inline-flex;
+        flex-direction: row;
+        padding: 20px 10px;
+        width: 100%;
+
+        div {
+            flex-direction: column;
+        }
+
+        .product-wrapper__column-one {
+            width: 30%;
+        }
+
+        .product-title__column-two {
+            padding: 5em 0 0 20px;
+            width: 60%;
+        }
+
+        .product-wrapper__column-three {
+            padding-top: 3em;
+            text-align: center;
+            width: 5%;
+        }
+
+        .product-wrapper__column-four {
+            color: #ff0000;
+            padding-top: 3em;
+            text-align: right;
+            width: 15%;
+        }
+    }
+
+    .woocommerce-thankyou-order-received-order-summary {
+        display: inline-flex;
+        flex-direction: row;
+        padding: 20px 10px;
+        width: 100%;
+
+        div {
+            flex-direction: column;
+        }
+
+        .order-summary-column-one {
+            width: 35%;
+        }
+
+        .order-summary-column-two {
+            text-align: right;
+            width: 25%;
+
+            p:last-child {
+                color: #ff0000;
+            }
+        }
+    }
+}

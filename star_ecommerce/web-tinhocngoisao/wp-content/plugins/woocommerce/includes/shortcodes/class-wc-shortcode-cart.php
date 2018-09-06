@@ -84,11 +84,11 @@ class WC_Shortcode_Cart {
 		WC()->cart->calculate_totals();
 
 		if ( WC()->cart->is_empty() ) {
-			wc_get_template( 'checkout/thankyou.php' );
-			//wc_get_template( 'cart/cart-empty.php' );
+			//wc_get_template( 'checkout/thankyou.php' );
+			wc_get_template( 'cart/cart-empty.php' );
 		} else {
-			wc_get_template( 'checkout/thankyou.php' );
-			//wc_get_template( 'cart/cart.php' );
+			//wc_get_template( 'checkout/thankyou.php' );
+			wc_get_template( 'cart/cart.php' );
 		}
 	}
 }
