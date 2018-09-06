@@ -34,7 +34,7 @@
 // custom right sidebar content
 .woocommerce-page {
     #content {
-        .single-product-content, .single-cart-page, .single-checkout-page {
+        .single-product-content, .single-cart-page {
             @media screen and(min-width: 1024px) {
                 width: 70%;
             }
@@ -56,5 +56,12 @@
     margin-top: 300px;
     @media screen and(min-width: 1230px) {
         margin-top: 480px;
+    }
+}
+
+.widget_online_shop_about {
+    .featured-entries-col.column {
+        margin-left: 0;
+        margin-right: 0;
     }
 }

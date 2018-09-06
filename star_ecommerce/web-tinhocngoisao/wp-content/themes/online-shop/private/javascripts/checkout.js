@@ -13,8 +13,8 @@ var checkoutPage = {
     },
 
     init : function() {
-        let that = this;
-        that.handleContinuePlaceOrder();
+        // remove action check ajax payment
+        //$('form[name="checkout"]').unbind('submit');
     }
 }
 

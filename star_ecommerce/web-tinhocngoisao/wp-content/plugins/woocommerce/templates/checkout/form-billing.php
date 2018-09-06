@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php else : ?>
 
-		<h3><?php _e( 'Chi tiết hóa đơn', 'woocommerce' ); ?></h3>
+		<h3><?php _e( 'Địa chỉ giao hàng', 'woocommerce' ); ?></h3>
 
 	<?php endif; ?>
 
@@ -39,7 +39,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="woocommerce-billing-fields__field-wrapper">
 		<?php
 			$fields = $checkout->get_checkout_fields( 'billing' );
-
 			foreach ( $fields as $key => $field ) {
 				if ( isset( $field['country_field'], $fields[ $field['country_field'] ] ) ) {
 					$field['country'] = $checkout->get_value( $field['country_field'] );
@@ -58,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<p class="form-row form-row-wide create-account">
 				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-					<input class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" id="createaccount" <?php checked( ( true === $checkout->get_value( 'createaccount' ) || ( true === apply_filters( 'woocommerce_create_account_default_checked', false ) ) ), true ) ?> type="checkbox" name="createaccount" value="1" /> <span><?php _e( 'Create an account?', 'woocommerce' ); ?></span>
+					<input class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" id="createaccount" <?php checked( ( true === $checkout->get_value( 'createaccount' ) || ( true === apply_filters( 'woocommerce_create_account_default_checked', false ) ) ), true ) ?> type="checkbox" name="createaccount" value="1" /> <span><?php _e( 'Tạo một tài khoản mới?', 'woocommerce' ); ?></span>
 				</label>
 			</p>
 

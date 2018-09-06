@@ -1,12 +1,164 @@
-.woocommerce-checkout {
-    .checkout {
-        &.woocommerce-checkout {
-            max-height: 657px;
-            overflow: hidden;
-        }
-    }
 
+.single-checkout-page {
     .woocommerce {
+        form[name='checkout'] {
+            display: flex;
+            flex-direction: column;
+            @media screen and (min-width: 1024px) {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            div.woocommerce-NoticeGroup {
+                width: 100%;
+            }
+            #customer_details {
+                width: 100%;
+                @media screen and (min-width: 1024px) {
+                    width: 70%;
+                }
+                display: flex;
+                flex-direction: column;
+                .progress-payment {
+                    @media screen and (min-width: 1024px) {
+                        display: none;
+                    }
+                }
+                .progress-checkout {
+                    .bs-wizard {
+                        display: flex;
+                        flex-wrap: nowrap;
+                        height: 75px;
+                        .bs-wizard-step {
+                            flex: 1;
+                            text-align: center;
+                            .bs-wizard-stepnum {
+                                height: 45px;
+                            }
+                            .progress {
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                position: relative;
+                                .progress-bar-right {
+                                    width: 50%;
+                                    height: 5px;
+                                    background-color: red;
+                                    position: absolute;
+                                    left: 50%;
+                                    z-index: -1;
+                                }
+                                .progress-bar-left {
+                                    width: 50%;
+                                    height: 5px;
+                                    background-color: red;
+                                    position: absolute;
+                                    left: 0;
+                                    z-index: -1;
+                                }
+                                .bs-wizard-dot {
+                                    width: 25px;
+                                    height: 25px;
+                                    background-color: red;
+                                    border-radius: 50%;
+                                    color: white;
+                                    line-height: 25px;
+                                }
+                            }
+                            &.active {
+                                .progress-bar-right {
+                                    background-color: transparent;
+                                    border: 1px solid silver;
+                                    border-right: 0;
+                                }
+                            }
+                            &.disabled {
+                                color: #a3a3a3;
+                                .progress {
+                                    .progress-bar-right, .progress-bar-left {
+                                        background-color: transparent;
+                                        border: 1px solid silver;
+                                    }
+                                    .progress-bar-left {
+                                        border-left: 0;
+                                    }
+                                    .bs-wizard-dot {
+                                        border: 1px solid silver;
+                                        background-color: white;
+                                        color: black;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .progress-payment {
+                    .woocommerce-checkout-payment {
+                        h2 {
+                            padding: 10px 10px 0;
+                            margin-top: 30px;
+                        }
+                    }
+                    .shipping-method {
+                        background: #ebe9eb;
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin-top: 20px;
+                    }
+                }
+            }
+            .order-review-pr {
+                width: 100%;
+                @media screen and (min-width: 1024px) {
+                    width: 30%;
+                }
+                padding-left: 5px;
+                padding-right: 5px;
+                
+                .order-review-details {
+                    height: auto;
+                    padding: 5px 5px 10px;
+                    background-color: whitesmoke;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    h3#order_review_heading {
+                        padding: 5px 10px;
+                        margin-top: 0;
+                    }
+                    #order_review {
+                        width: 100%;
+                    }
+                    button {
+                        min-width: 120px;
+                    }
+
+                    #checkout-address {
+                        width: 100%;
+                        &.active {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            margin-bottom: 20px;
+                            border-bottom: 1px solid black;
+                            padding-bottom: 10px;
+                            table {
+                                margin-bottom: 10px;
+                                width: 100%;
+                                .title {
+                                    font-weight: bold;
+                                    padding: 5px 10px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         .continue-place-order {
             background-color: #f73838;
             border: 1px solid #f73838;
@@ -18,18 +170,12 @@
             padding: 10px;
         }
     }
-}
 
-.woocommerce-checkout {
-    .step-2 {
-        .continue-place-order {
-            display: none;
-        }
+    .woocommerce-error-input {
+        color: #f73838;
+    }
 
-        .checkout {
-            &.woocommerce-checkout {
-                max-height: none;
-            }
-        }
+    #shipping_state_field {
+        display: none;
     }
 }
