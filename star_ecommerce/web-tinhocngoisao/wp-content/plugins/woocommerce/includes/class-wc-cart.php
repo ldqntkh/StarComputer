@@ -1853,6 +1853,15 @@ class WC_Cart extends WC_Legacy_Cart {
 		return apply_filters( 'woocommerce_cart_product_price', wc_price( $product_price ), $product );
 	}
 
+	public function get_product_price_value($product) {
+		if ( $this->display_prices_including_tax() ) {
+			$product_price = wc_get_price_including_tax( $product );
+		} else {
+			$product_price = wc_get_price_excluding_tax( $product );
+		}
+		return $product_price;
+	}
+
 	/**
 	 * Get the product row subtotal.
 	 *

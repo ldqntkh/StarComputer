@@ -24,7 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<thead>
 		<tr>
 			<th class="product-name"><?php _e( 'Sản phẩm', 'woocommerce' ); ?></th>
-			<th class="product-total"><?php _e( 'Tổng cộng', 'woocommerce' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -67,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</tr>
 		<?php endforeach; ?>
 
-		<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
+		<!-- <?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
 
 			<?php do_action( 'woocommerce_review_order_before_shipping' ); ?>
 
@@ -75,7 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php do_action( 'woocommerce_review_order_after_shipping' ); ?>
 
-		<?php endif; ?>
+		<?php endif; ?> -->
 
 		<?php foreach ( WC()->cart->get_fees() as $fee ) : ?>
 			<tr class="fee">

@@ -220,7 +220,9 @@ add_action( 'woocommerce_product_additional_information', 'wc_display_product_at
 add_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_login_form', 10 );
 add_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
 add_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
-add_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+// remove action woocommerce_checkout_payment
+// add_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+add_action( 'woocommerce_checkout_payment_review', 'woocommerce_checkout_payment', 10 );
 add_action( 'woocommerce_checkout_terms_and_conditions', 'wc_checkout_privacy_policy_text', 20 );
 add_action( 'woocommerce_checkout_terms_and_conditions', 'wc_terms_and_conditions_page_content', 30 );
 
