@@ -179,3 +179,205 @@
         display: none;
     }
 }
+
+.woocommerce-order-received {
+    .woocommerce-thankyou-order-received-summary-wrapper {
+        background-color: #f8f8f8;
+        border: 1px solid #000000;
+        display: inline-flex;
+        flex-direction: row;
+        width: 100%;
+
+        div:first-child {
+            border-right: 1px solid #000000;
+        }
+
+        div {
+            flex-direction: column;
+            padding: 10px;
+            width: 50%;
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        h3 {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+
+    .woocommerce-thankyou-order-received-product-title {
+        background-color:#f8f8f8;
+        display: inline-flex;
+        flex-direction: row;
+        margin-top: 10px;
+        padding: 20px 10px;
+        width: 100%;
+
+        div {
+            flex-direction: column;
+        }
+
+        h4 {
+            font-size: 15px;
+            margin: 0;
+        }
+
+        @media screen and (min-width: 1024px) {
+            h4 {
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .product-title__column-one {
+                width: 80%;
+            }
+
+            .product-title__column-two {
+                width: 10%;
+            }
+        }
+
+        .product-title__column-one {
+            width: 60%;
+        }
+
+        .product-title__column-two {
+            width: 25%;
+            text-align: center;
+        }
+
+        .product-title__column_three {
+            text-align: right;
+            width: 15%;
+        }
+    }
+
+    .woocommerce-thankyou-order-received-product-wrapper {
+        border-bottom: 2px solid #f8f8f8;
+        display: inline-flex;
+        flex-direction: row;
+        padding: 20px 10px;
+        width: 100%;
+
+        div {
+            flex-direction: column;
+        }
+
+        .product-wrapper__column-one {
+            width: 15%;
+        }
+
+        .product-wrapper__column-two {
+            padding-left: 10px;
+            width: 60%;
+        }
+
+        .product-wrapper__column-three {
+            width: 10%;
+            text-align: center;
+        }
+
+        .product-wrapper__column-four {
+            color: #ff0000;
+            text-align: right;
+            width: 25%;
+        }
+
+        span {
+            font-size: 13px;
+        }
+
+        @media screen and (min-width: 1024px) {
+            span: {
+                font-size: 14px;
+            }
+
+            .product-wrapper__column-one {
+                width: 10%;
+            }
+    
+            .product-wrapper__column-two {
+                padding: 2.5em 0 0 10px;
+                width: 60%;
+            }
+    
+            .product-wrapper__column-three {
+                width: 5%;
+            }
+
+            .product-wrapper__column-three, .product-wrapper__column-four {
+                padding: 2.5em 0;
+            }
+        }
+    }
+
+    .woocommerce-thankyou-order-received-order-summary {
+        display: inline-flex;
+        flex-direction: row;
+        padding: 20px 10px;
+        width: 100%;
+
+        div {
+            flex-direction: column;
+        }
+
+        .order-summary-column-two {
+            width: 75%;
+        }
+
+        .order-summary-column-three {
+            text-align: right;
+            width: 25%;
+
+            p {
+                color: #ff0000;
+            }
+        }
+
+        @media screen and (min-width: 1024px) {
+            .order-summary-column-one {
+                width: 40%;
+            }
+
+            .order-summary-column-two {
+                width: 35%;
+            }
+        }
+    }
+
+    .widget_online_shop_wc_products {
+        .at-title-action-wrapper {
+            margin-bottom: 8px;
+        }
+    }
+
+    .related {
+        &.products {
+            .custom-plp-page {
+                li.product {
+                    width: 50%;
+                    height: 340px;
+
+                    @media screen and (min-width: 768px) {
+                        width: 25%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.woocommerce-page {
+    &.woocommerce-order-received {
+        #primary {
+            width: 100%;
+
+            @media screen and (min-width: 1024px) {
+                width: 70%;
+            }
+        }
+    }
+}
