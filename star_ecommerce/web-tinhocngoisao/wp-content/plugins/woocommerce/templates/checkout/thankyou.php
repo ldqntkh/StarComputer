@@ -44,9 +44,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div>
 					<h3>Thống kê:</h3>
 					<p>Hóa đơn số: <span><?php echo $order->get_order_number(); ?></span></p>
-					<p>Ngày: <span><?php echo wc_format_datetime( $order->get_date_created() ); ?></span></p>
+					<p>Ngày đặt hàng: <span><?php echo wc_format_datetime( $order->get_date_created() ); ?></span></p>
 					<p>Phương thức thanh toán: <span><?php echo $order->get_payment_method_title(); ?></span></p>
-					<p>Tổng hóa đơn: <span><?php echo $order->get_formatted_order_total(); ?></span></p>
 				</div>
 				<div>
 					<h3>Địa chỉ giao hàng:</h3>
@@ -74,7 +73,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 			<div class="woocommerce-thankyou-order-received-product-wrapper">
 				<div class="product-wrapper__column-one">
-					<?php echo $product->get_image('medium'); ?>
+					<?php echo $product->get_image(); ?>
 				</div>
 				<div class="product-wrapper__column-two">
 					<span><?php echo $orderItem->get_name(); ?></span>
@@ -88,14 +87,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		<?php endforeach; ?>
 			<div class="woocommerce-thankyou-order-received-order-summary">
-				<div style="width:45%"></div>
-				<div class="order-summary-column-one">
-					<p>Tổng tiền (chưa bao gồm những phí khác):</p>
+				<div class="order-summary-column-one hide-mobile"></div>
+				<div class="order-summary-column-two">
+					<p>Tổng tiền (chưa bao gồm phí khác):</p>
 					<p>Giá vận chuyển:</p>
 					<p>Giá thuế:</p>
 					<p>Tổng hóa đơn:</p>
 				</div>
-				<div class="order-summary-column-two">
+				<div class="order-summary-column-three">
 					<p><?php echo wc_price( $order->get_subtotal() ); ?></p>
 					<p><?php echo wc_price( $order->get_shipping_total() ); ?></p>
 					<p><?php echo wc_price( $order->get_total_tax() ); ?></p>
