@@ -50,7 +50,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 				<div>
 					<h3>Địa chỉ giao hàng:</h3>
-					<p><?php echo $order->get_shipping_address_1() . ', ' . $order->get_shipping_city() ; ?></p>
+					<p><?php echo $order->get_shipping_address_1(); ?></p>
+					<p>Thành phố <?php echo $order->get_shipping_city(); ?></p>
 				</div>
 			</div>
 
@@ -68,6 +69,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 			foreach ( $order->get_items() as $orderItem ):
 			$product = $orderItem->get_product();
+			$args = [];
+			$args['related_products'] = array_filter( array_map( 'wc_get_product', wc_get_related_products( $product->get_id(), $args['posts_per_page'], $product->get_upsell_ids() ) ), 'wc_products_array_filter_visible' );
 		?>
 			<div class="woocommerce-thankyou-order-received-product-wrapper">
 				<div class="product-wrapper__column-one">
@@ -99,7 +102,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<p><?php echo $order->get_formatted_order_total(); ?></p>
 				</div>
 			</div>
-
+			<?php wc_get_template( 'single-product/related.php', $args ); ?>
 		<?php endif; ?>
 
 	<?php else : ?>
