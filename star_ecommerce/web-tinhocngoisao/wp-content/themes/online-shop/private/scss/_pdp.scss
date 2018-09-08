@@ -53,12 +53,14 @@
     &.woocommerce {
         .product {
             .price {
+                color: #f73838;
+
                 del {
+                    color: #2d2d2d;
                     margin-right: 15px;
                 }
 
                 ins {
-                    color: #f73838;
                     text-decoration: none;
                 }
             }
