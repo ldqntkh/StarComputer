@@ -268,7 +268,6 @@ if( ! class_exists( 'YITH_WCQV_Frontend' ) ) {
 		public function yith_quick_view_action_template() {
 
 			// Image
-			add_action( 'yith_wcqv_product_image', 'woocommerce_show_product_sale_flash', 10 );
 			add_action( 'yith_wcqv_product_image', 'woocommerce_show_product_images', 20 );
 
 			// Summary

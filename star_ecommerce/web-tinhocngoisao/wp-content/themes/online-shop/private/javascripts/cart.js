@@ -33,6 +33,15 @@ var cartpage = {
                 return false;
             }
         });
+
+        $('.wares_qty_num').find('input').off('focusout').on('focusout', function() {
+            var $qtyElement = $( this );
+            var qtyMaxValue = parseInt( $qtyElement.attr('max') );
+            if ( parseInt( $qtyElement.val() ) > qtyMaxValue ) {
+                $qtyElement.val( qtyMaxValue );
+                return false;
+            }
+        });
     }
 }
 

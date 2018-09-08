@@ -48,3 +48,53 @@
 .hidden {
     display: none!important;
 }
+
+.single-product {
+    &.woocommerce {
+        .product {
+            .price {
+                color: #f73838;
+
+                del {
+                    color: #2d2d2d;
+                    margin-right: 15px;
+                }
+
+                ins {
+                    text-decoration: none;
+                }
+            }
+
+            .images {
+                .woocommerce-product-gallery__trigger {
+                    left: .5em;
+                    right: 0;
+                }
+            }
+
+            .onsale {
+                top: -9px;
+                right: 0;
+                left: unset;
+            }
+        }
+
+        .products {
+            .product {
+                .onsale {
+                    top: -9px;
+                    right: 0;
+                    left: unset;
+                }
+            }
+        }
+
+        #yith-quick-view-content {
+            .onsale {
+                top: 0;
+                right: 0;
+                left: unset;
+            }
+        }
+    }
+}
