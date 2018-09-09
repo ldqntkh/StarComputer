@@ -137,17 +137,3 @@ ul.custom-plp-page.products[class*=columns-] li.product {
         margin: 13px 0 13px 10px;
     }
 }
-
-// custom list product single page product
-.woocommerce-page {
-    #content {
-        .single-product-content {
-            ul.custom-plp-page.products[class*=columns-] li {
-                width: 50%;
-                @media screen and(min-width: 1024px) {
-                    width: 33.33%;
-                }
-            }
-        }
-    }
-}
