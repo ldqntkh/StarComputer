@@ -997,7 +997,7 @@ if ( ! function_exists( 'woocommerce_page_title' ) ) {
 
 		if ( is_search() ) {
 			/* translators: %s: search query */
-			$page_title = sprintf( __( 'Search results: &ldquo;%s&rdquo;', 'woocommerce' ), get_search_query() );
+			$page_title = sprintf( __( 'Kết quả tìm kiếm: &ldquo;%s&rdquo;', 'woocommerce' ), get_search_query() );
 
 			if ( get_query_var( 'paged' ) ) {
 				/* translators: %s: page number */
@@ -1307,18 +1307,18 @@ if ( ! function_exists( 'woocommerce_catalog_ordering' ) ) {
 		$show_default_orderby    = 'menu_order' === apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
 		$catalog_orderby_options = apply_filters( 'woocommerce_catalog_orderby', array(
 			'menu_order' => __( 'Default sorting', 'woocommerce' ),
-			'popularity' => __( 'Sort by popularity', 'woocommerce' ),
-			'rating'     => __( 'Sort by average rating', 'woocommerce' ),
-			'date'       => __( 'Sort by newness', 'woocommerce' ),
-			'price'      => __( 'Sort by price: low to high', 'woocommerce' ),
-			'price-desc' => __( 'Sort by price: high to low', 'woocommerce' ),
+			'popularity' => __( 'phổ biến nhất', 'woocommerce' ),
+			'rating'     => __( 'nhận xét', 'woocommerce' ),
+			'date'       => __( 'sản phẩm mới nhất', 'woocommerce' ),
+			'price'      => __( 'giá tăng dần', 'woocommerce' ),
+			'price-desc' => __( 'giá giảm dần', 'woocommerce' ),
 		) );
 
 		$default_orderby = wc_get_loop_prop( 'is_search' ) ? 'relevance' : apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby', '' ) );
 		$orderby         = isset( $_GET['orderby'] ) ? wc_clean( wp_unslash( $_GET['orderby'] ) ) : $default_orderby; // WPCS: sanitization ok, input var ok, CSRF ok.
 
 		if ( wc_get_loop_prop( 'is_search' ) ) {
-			$catalog_orderby_options = array_merge( array( 'relevance' => __( 'Relevance', 'woocommerce' ) ), $catalog_orderby_options );
+			$catalog_orderby_options = array_merge( array( 'relevance' => __( 'sản phẩm liên quan', 'woocommerce' ) ), $catalog_orderby_options );
 
 			unset( $catalog_orderby_options['menu_order'] );
 		}
@@ -1820,7 +1820,6 @@ if ( ! function_exists( 'woocommerce_related_products' ) ) {
 	 */
 	function woocommerce_related_products( $args = array() ) {
 		global $product;
-
 		if ( ! $product ) {
 			return;
 		}

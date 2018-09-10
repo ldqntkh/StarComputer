@@ -12,7 +12,7 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 		/*defaults values for fields*/
 		private $defaults = array(
 		        'online_shop_widget_title' => '',
-                'at_all_logo_items' => '',
+                'at_all_logo_items' => [],
 		        'single_item_link_option' => 'disable',
 		        'column_number'     => 4,
                 'display_type' => 'column',
