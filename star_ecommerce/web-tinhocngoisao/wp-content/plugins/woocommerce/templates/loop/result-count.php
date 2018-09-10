@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( $total <= $per_page || -1 === $per_page ) {
 		/* translators: %d: total results */
-		printf( _n( 'Showing the single result', 'Showing all %d results', $total, 'woocommerce' ), $total );
+		printf( _n( '%d kết quả', '%d kết quả', $total, 'woocommerce' ), $total );
 	} else {
 		$first = ( $per_page * $current ) - $per_page + 1;
 		$last  = min( $total, $per_page * $current );

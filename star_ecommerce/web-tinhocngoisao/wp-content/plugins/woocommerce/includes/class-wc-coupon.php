@@ -972,7 +972,7 @@ class WC_Coupon extends WC_Legacy_Coupon {
 				$err = __( 'Coupon usage limit has been reached.', 'woocommerce' );
 				break;
 			case self::E_WC_COUPON_EXPIRED:
-				$err = __( 'This coupon has expired.', 'woocommerce' );
+				$err = __( 'Mã khuyến mãi này đã hết hạn.', 'woocommerce' );
 				break;
 			case self::E_WC_COUPON_MIN_SPEND_LIMIT_NOT_MET:
 				/* translators: %s: coupon minimum amount */

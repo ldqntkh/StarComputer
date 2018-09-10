@@ -631,7 +631,7 @@ class WC_Discounts {
 	 */
 	protected function validate_coupon_expiry_date( $coupon ) {
 		if ( $coupon->get_date_expires() && apply_filters( 'woocommerce_coupon_validate_expiry_date', current_time( 'timestamp', true ) > $coupon->get_date_expires()->getTimestamp(), $coupon, $this ) ) {
-			throw new Exception( __( 'This coupon has expired.', 'woocommerce' ), 107 );
+			throw new Exception( __( 'Mã khuyến mãi này đã hết hạn.', 'woocommerce' ), 107 );
 		}
 
 		return true;
