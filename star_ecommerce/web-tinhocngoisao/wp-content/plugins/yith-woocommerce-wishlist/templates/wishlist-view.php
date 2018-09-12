@@ -163,7 +163,7 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 
                         <td class="product-name">
                             <a href="<?php echo esc_url( get_permalink( apply_filters( 'woocommerce_in_cart_product', $item['prod_id'] ) ) ) ?>"><?php echo apply_filters( 'woocommerce_in_cartproduct_obj_title', $product->get_title(), $product ) ?></a>
-                            <?php do_action( 'yith_wcwl_table_after_product_name', $item ); ?>
+                            <?php //do_action( 'yith_wcwl_table_after_product_name', $item ); ?>
                         </td>
 
                         <?php if( $show_price ) : ?>

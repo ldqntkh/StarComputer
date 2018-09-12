@@ -283,17 +283,18 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	                if ( online_shop_is_woocommerce_active() && ( $online_shop_enable_cart_icon || $online_shop_enable_wishlist_icon )) : ?>
                         <div class="cart-section">
 			                <?php
-			                if ( class_exists( 'YITH_WCWL' ) &&  $online_shop_enable_wishlist_icon ) :
-				                $wishlist_page_id = yith_wcwl_object_id( get_option( 'yith_wcwl_wishlist_page_id' ) );
-				                if ( absint( $wishlist_page_id ) > 0 ) : ?>
-                                    <div class="yith-wcwl-wrapper">
-                                        <a class="at-wc-icon wishlist-icon" href="<?php echo esc_url( get_permalink( $wishlist_page_id ) ); ?>">
-                                            <i class="fa fa-heart" aria-hidden="true"></i>
-                                            <span class="wishlist-value"><?php echo absint( yith_wcwl_count_products() ); ?></span>
-                                        </a>
-                                    </div>
-					                <?php
-				                endif;
+                            if ( class_exists( 'YITH_WCWL' ) &&  $online_shop_enable_wishlist_icon ) :
+                                $wlLink = wc_get_page_permalink( 'wishlist' );
+                                if (!strpos($wlLink ,'wishlist')) $wlLink .= '/my-account/wishlist';
+				                //$wishlist_page_id = yith_wcwl_object_id( get_option( 'yith_wcwl_wishlist_page_id' ) );
+                                ?>
+                                <div class="yith-wcwl-wrapper">
+                                    <a class="at-wc-icon wishlist-icon" href="<?php echo esc_url( $wlLink ); ?>">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                        <span class="wishlist-value"><?php echo absint( yith_wcwl_count_products() ); ?></span>
+                                    </a>
+                                </div>
+                            <?php    
 			                endif;
 			                if( $online_shop_enable_cart_icon ){
                                 ?>
