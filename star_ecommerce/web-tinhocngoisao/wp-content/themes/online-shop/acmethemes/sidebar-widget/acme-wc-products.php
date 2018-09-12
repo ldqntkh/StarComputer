@@ -521,7 +521,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 		                $online_shop_list_classes = 'single-list';
 		                if( 'carousel' != $display_type ){
 			                if( 1 != $online_shop_featured_index && $online_shop_featured_index % $column_number == 1 ){
-				                echo "<div class='clearfix'></div>";
+				                echo "<!--<div class='clearfix'></div>-->";
 			                }
 			                if( 1 == $column_number ){
 				                $online_shop_list_classes .= " acme-col-1";
@@ -561,7 +561,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 		            <?php
 	            }
                 echo $args['after_widget'];
-                echo "<div class='clearfix'></div>";
+                echo "<div class='clearfix 008'></div>";
                 // Reset the global $the_post as this query will have stomped on it
             endif;
 	        wp_reset_postdata();
