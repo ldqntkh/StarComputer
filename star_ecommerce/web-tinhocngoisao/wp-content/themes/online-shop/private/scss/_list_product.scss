@@ -12,11 +12,14 @@
     width: 50%;
     padding-left: 0;
     padding-right: 0;
-    @media screen and (min-width: 992px) {
+    @media screen and (min-width: 768px) {
         width: 33.33%;
     }
-    @media screen and (min-width: 1400px) {
+    @media screen and (min-width: 992px) {
         width: 25%;
+    }
+    @media screen and (min-width: 1400px) {
+        width: 20%;
     }
 }
 
@@ -121,11 +124,14 @@ ul.custom-plp-page.products[class*=columns-] li.product {
             padding: 1px;
             border: 1px solid #f3f3f3;
             margin: 0 0 10px;
-            @media screen and (min-width: 992px) {
+            @media screen and (min-width: 768px) {
                 width: 33.33%;
             }
-            @media screen and (min-width: 1200px) {
+            @media screen and (min-width: 992px) {
                 width: 25%;
+            }
+            @media screen and (min-width: 1400px) {
+                width: 20%;
                 margin: 0px;
             }
         }

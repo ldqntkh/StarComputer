@@ -10,6 +10,6 @@
 ?>
 <div id="secondary-right" class="widget-area sidebar secondary-sidebar float-right sidebar-single-product" role="complementary">
 	<div id="sidebar-section-top" class="widget-area sidebar clearfix">
-		<?php dynamic_sidebar( 'sidebar-in-pdp' ); ?>
+		<?php //dynamic_sidebar( 'sidebar-in-pdp' ); ?>
 	</div>
 </div>
