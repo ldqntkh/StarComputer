@@ -96,17 +96,31 @@ jQuery(document).ready(function($) {
                 nextArrow: nextArrow,
                 responsive: [
                     {
-                        breakpoint: 1024,
+                        breakpoint: 767,
                         settings: {
                             slidesToShow: 2,
                             slidesToScroll: 2
                         }
                     },
                     {
-                        breakpoint: 600,
+                        breakpoint: 991,
                         settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
+                            slidesToShow: 3,
+                            slidesToScroll: 3
+                        }
+                    },
+                    {
+                        breakpoint: 1367,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 4
+                        }
+                    },
+                    {
+                        breakpoint: 2000,
+                        settings: {
+                            slidesToShow: 5,
+                            slidesToScroll: 5
                         }
                     }
                 ]
