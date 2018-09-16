@@ -1,3 +1,11 @@
+body {
+    background: $body_background;
+}
+
+header#masthead {
+    background: $header_background;
+}
+
 .header-wrapper {
     padding: 0;
 }
@@ -64,4 +72,102 @@
         margin-left: 0;
         margin-right: 0;
     }
+}
+
+#content {
+    background: $content_background;
+    aside[id^='online_shop_posts_col'] {
+        .featured-entries-col .post-container {
+            height: 430px;
+        }
+    }
+    aside[id^='online_shop_'] {
+        background: $body_background;
+
+        .at-title-action-wrapper {
+            border-bottom: none;
+            position: relative;
+            .pointer {
+                float: left;
+                h2 {
+                    margin-left: 0;
+                    margin-top: 0;
+                    padding: 0;
+                    font-size: 30px;
+                    font-weight: 300;
+                    color: $aside_header_color;
+                }
+            }
+            .at-action-wrapper {
+                margin-top: 10px;
+                display: none;
+                @media screen  and (min-width: 768px){
+                    display: block;    
+                }
+            }
+            &:before {
+                border: none;
+            }
+        }
+        .featured-entries-col.column {
+            padding-top: 0;
+            margin-left: 0;
+            margin-right: 0;
+            background: $aside_list_product_background;
+            
+        }
+        &.widget_online_shop_wc_products {
+            .at-action-wrapper {
+                i {
+                    display: none !important;
+                    position: absolute;
+                    top: 300px;
+                    margin-left: 0;
+                    margin-right: 0;
+                    border-radius: 50%;
+                    z-index: 200;
+                    border: 2px solid red;
+                    &.prev {
+                        left: 0;
+                    }
+                    &.next {
+                        right: 0;
+                    }
+                    &:hover {
+                        background: red;
+                        color: white;
+                        font-weight: bold;
+                    }
+                }
+            }
+            &:hover {
+                .at-action-wrapper {
+                    i {
+                        display: block!important;
+                    }
+                }
+            }
+        }
+    }
+    .slider-feature-wrap {
+        aside[id^='online_shop_'] {
+            padding: 0;
+            margin: 0;
+        }
+    }
+}
+
+.onsale-price {
+    float: right;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    line-height: 50px;
+    background: red;
+    color: white;
+    text-align: center;
+    z-index: 100;
 }
