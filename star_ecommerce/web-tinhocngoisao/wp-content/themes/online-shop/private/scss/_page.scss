@@ -171,3 +171,48 @@ header#masthead {
     text-align: center;
     z-index: 100;
 }
+
+.dv-custom-marquee {
+    display: flex;
+    border: 1px solid #ff000029;
+    background: #ff000029;
+    border-radius: 20px;
+    span.warning {
+        margin: 10px;
+        background: #d42333;
+        height: 9px;
+        width: 9px;
+        display: inline-block;
+        border-radius: 50%;
+        box-shadow: 0 0 0 0 #d42333;
+        cursor: pointer;
+        -webkit-animation: pulse 1.2s infinite cubic-bezier(0.66,0,0,0.5);
+        -moz-animation: pulse 1.2s infinite cubic-bezier(0.66,0,0,0.5);
+        -ms-animation: pulse 1.2s infinite cubic-bezier(0.66,0,0,0.5);
+        animation: pulse 1.2s infinite cubic-bezier(0.66,0,0,0.5);
+    }
+    marquee {
+        padding: 3px 3px 3px 0;
+        font-weight: bold;
+        a {
+            color: #333;
+            margin-right: 15px;
+            &:hover {
+                color: red;
+            }
+        }
+    }
+}
+
+@-webkit-keyframes pulse{
+    to{box-shadow:0 0 0 12px rgba(232,76,61,0)}
+}
+@-moz-keyframes pulse{
+    to{box-shadow:0 0 0 12px rgba(232,76,61,0)}
+}
+@-ms-keyframes pulse{
+    to{box-shadow:0 0 0 12px rgba(232,76,61,0)}
+}
+@keyframes pulse{
+    to{box-shadow:0 0 0 12px rgba(232,76,61,0)}
+}

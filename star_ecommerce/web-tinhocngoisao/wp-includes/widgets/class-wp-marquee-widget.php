@@ -87,8 +87,18 @@ class WP_Marquee_Widget extends WP_Widget {
         return $instance;
     }
 
-    public function widget( $args, $instance ) { 
-        var_dump($instance);
+    public function widget( $args, $instance ) {
+        $html = '<div class="dv-custom-marquee"><span class="warning">&nbsp;</span><marquee>';
+        for($i = 1; $i <= 5; $i++) {
+            $title = isset( $instance['title_'.$i] ) ? $instance['title_'.$i] : '';
+            $url = isset( $instance['url_'.$i] ) ? $instance['url_'.$i] : '';
+
+            if ($title != '' && $url != '')
+                $html .= '<a href="' .$url. '">'. $title .'</a>';
+        }
+        
+        $html .= '</marquee></div>';
+        echo $html;
     }
 }
 
