@@ -1936,6 +1936,18 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	}
 
 	/**
+	 * Return sale percent of product
+	 * 
+	 * @return Number
+	 */
+	public function get_sale_percent($context ='view') {
+		if ( '' !== (string) $this->get_sale_price( $context ) && $this->get_regular_price( $context ) > $this->get_sale_price( $context ) ) {
+			return round(100 - (($this->get_sale_price( $context ) / $this->get_regular_price( $context ) ) * 100), 1);
+		}
+		return 0;
+	}
+
+	/**
 	 * Get availability text based on stock status.
 	 *
 	 * @return string

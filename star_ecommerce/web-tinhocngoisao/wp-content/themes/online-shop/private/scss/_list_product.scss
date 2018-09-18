@@ -1,8 +1,6 @@
 .featured-entries-col .post-container {
     padding: 1px !important;
     border: 1px solid #f3f3f3;
-    border-width: 0 1px 1px 0;
-    
 }
 .featured-entries-col .single-list {
     padding-left: 0;
@@ -73,8 +71,17 @@ ul.custom-plp-page.products[class*=columns-] li.product {
             .woocommerce-loop-product__title {
                 height: auto;
                 width: 100%;
-                font-size: 16px;
+                font-size: 14px;
                 text-align: center;
+            }
+            span.price {
+                font-size: 14px !important;
+                display: flex;
+                flex-direction: column;
+                ins {
+                    text-align: left;
+                    font-weight: normal;
+                }
             }
         }
         @media screen and (min-width: 640px) {

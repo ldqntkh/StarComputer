@@ -1641,6 +1641,8 @@ function wp_widgets_init() {
 
 	register_widget( 'WP_Widget_Custom_HTML' );
 
+	register_widget( 'WP_Marquee_Widget' );
+
 	/**
 	 * Fires after all default WordPress widgets have been registered.
 	 *
