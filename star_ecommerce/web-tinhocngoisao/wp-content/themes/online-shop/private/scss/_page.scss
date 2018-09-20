@@ -96,6 +96,19 @@ header#masthead {
                     font-size: 30px;
                     font-weight: 300;
                     color: $aside_header_color;
+                    .wg-description {
+                        font-size: 14px;
+                        font-style: italic;
+                        padding-left: 10px;
+                        display: none;
+                        @media screen and (min-width: 768px) {
+                            display: inline;
+                        }
+                    }
+                    // custom class icon
+                    i {
+                        margin-right: 5px;
+                    }
                 }
             }
             .at-action-wrapper {
@@ -174,8 +187,8 @@ header#masthead {
 
 .dv-custom-marquee {
     display: flex;
-    border: 1px solid #ff000029;
-    background: #ff000029;
+    border: 1px solid rgba(255,0,0,0.4);
+    background: rgba(255,0,0,0.4);
     border-radius: 20px;
     span.warning {
         margin: 10px;
