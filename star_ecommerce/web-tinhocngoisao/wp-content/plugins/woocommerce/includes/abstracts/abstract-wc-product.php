@@ -1473,6 +1473,13 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		if ( '' !== (string) $this->get_sale_price( $context ) && $this->get_regular_price( $context ) > $this->get_sale_price( $context ) ) {
 			$on_sale = true;
 			
+			if ( $this->get_date_on_sale_from( $context ) && $this->get_date_on_sale_from( $context )->getTimestamp() > current_time( 'timestamp', true ) ) {
+				$on_sale = false;
+			}
+
+			if ( $this->get_date_on_sale_to( $context ) && $this->get_date_on_sale_to( $context )->getTimestamp() < current_time( 'timestamp', true ) ) {
+				$on_sale = false;
+			}
 			
 			if ($on_sale) {
 				// get custom post meta
@@ -1512,8 +1519,9 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 						case '6': // saturday
 							if (!$_custom_sale_saturday) $on_sale = false;
 							break;
-						default:
+						case '6': // sunday:
 							if (!$_custom_sale_sunday) $on_sale = false;
+							break;
 					}
 				}
 
@@ -1529,17 +1537,11 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 					else if ($_custom_sale_end_time < $current_hour) $on_sale = false;
 				}
 			}
-
-			if ( $this->get_date_on_sale_from( $context ) && $this->get_date_on_sale_from( $context )->getTimestamp() > current_time( 'timestamp', true ) ) {
-				$on_sale = false;
-			}
-
-			if ( $this->get_date_on_sale_to( $context ) && $this->get_date_on_sale_to( $context )->getTimestamp() < current_time( 'timestamp', true ) ) {
-				$on_sale = false;
-			}
+			
 		} else {
 			$on_sale = false;
 		}
+		if (!$on_sale) $this->set_price($this->get_regular_price( $context ));
 		return 'view' === $context ? apply_filters( 'woocommerce_product_is_on_sale', $on_sale, $this ) : $on_sale;
 	}
 
