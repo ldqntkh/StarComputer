@@ -48,7 +48,21 @@ class WC_Meta_box_sale_date {
         update_post_meta($post_id, '_custom_sale_end_time', empty($_custom_sale_end_time) ? '0' : $_custom_sale_end_time );
     }
 }
+/**
+ * check if WooCommerce activated
+ */
+function woocommerce_is_active() {
+	return class_exists( 'WooCommerce' ) ? true : false;
+}
+//if ( woocommerce_is_active() ) :
+    add_action( 'woocommerce_product_options_pricing' , array(new WC_Meta_box_sale_date(), 'init') );
+    // save custom fields
+    add_action( 'save_post' , array(new WC_Meta_box_sale_date(), 'save_custom_sale_date') );
 
-add_action( 'woocommerce_product_options_pricing' , array(new WC_Meta_box_sale_date(), 'init') );
-// save custom fields
-add_action( 'save_post' , array(new WC_Meta_box_sale_date(), 'save_custom_sale_date') );
+    // register widget
+    include SALE_DATE_DIR . '/widget/homepage-widget/homepage.php';
+
+    // init widget
+    //add_action('widgets_init', 'wg_sale_homepage_init');
+    
+//endif;
