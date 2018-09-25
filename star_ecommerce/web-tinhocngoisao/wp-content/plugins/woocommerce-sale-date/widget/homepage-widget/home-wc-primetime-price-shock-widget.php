@@ -40,6 +40,8 @@ if ( ! class_exists( 'Primetime_Price_Shock' ) ) {
 
             $this->register_header_admin_css();
             $this->register_footer_admin_script();
+            $this->register_header_client_css();
+            $this->register_footer_client_script();
         }
     
         public function form($instance) {
@@ -308,7 +310,10 @@ if ( ! class_exists( 'Primetime_Price_Shock' ) ) {
         }
 
         public function widget($args, $instance) {
-
+        ?>
+            <div class="dv-primetime-price"></div>
+        <?php
+            
         }
 
         // custom function show checkbox list categories
@@ -507,6 +512,23 @@ if ( ! class_exists( 'Primetime_Price_Shock' ) ) {
             }
             add_action( 'admin_enqueue_scripts', 'my_javascripts' );
         }
-    
+
+        // register client css
+        function register_header_client_css() {
+            function load_custom_wp_client_style() {
+                wp_register_style( 'primetime_price_client_css', SALE_DATE_URL.'/widget/homepage-widget/assets/css/client-primetime-price.css', false, '1.0.0' );
+                wp_enqueue_style( 'primetime_price_client_css' );
+            }
+            add_action( 'wp_enqueue_scripts', 'load_custom_wp_client_style' );
+        }
+
+        // register footer client script
+        function register_footer_client_script() {
+            function client_script() {
+                wp_register_script( 'primetime_price_client_script', SALE_DATE_URL. '/widget/homepage-widget/assets/js/reactjs/homepage_primetime.js', '', '', true );
+                wp_enqueue_script( 'primetime_price_client_script' );
+            }
+            add_action( 'wp_enqueue_scripts', 'client_script' );
+        }
     }
 }
