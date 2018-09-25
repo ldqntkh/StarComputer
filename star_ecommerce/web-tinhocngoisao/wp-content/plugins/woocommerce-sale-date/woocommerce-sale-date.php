@@ -62,6 +62,9 @@ function woocommerce_is_active() {
     // register widget
     include SALE_DATE_DIR . '/widget/homepage-widget/homepage.php';
 
+    // register api
+    include SALE_DATE_DIR . '/api/function.php';
+
     // init widget
     //add_action('widgets_init', 'wg_sale_homepage_init');
     
