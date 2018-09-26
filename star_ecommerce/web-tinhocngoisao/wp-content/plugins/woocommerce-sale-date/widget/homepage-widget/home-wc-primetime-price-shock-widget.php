@@ -310,8 +310,52 @@ if ( ! class_exists( 'Primetime_Price_Shock' ) ) {
         }
 
         public function widget($args, $instance) {
+            $block_title = isset( $instance[ BLOCK_TITLE ] ) ? $instance[ BLOCK_TITLE ] : '';
+            $block_time_01 = isset( $instance[ BLOCK_TIME_01 ] ) ? $instance[ BLOCK_TIME_01 ] : 0;
+            // it will be parse to json in function render checkbox
+            $block_categories_01 = isset( $instance[ BLOCK_CATEGORIES_01 ] ) ? $instance[ BLOCK_CATEGORIES_01 ] : '';
+
+            $block_time_02 = isset( $instance[ BLOCK_TIME_02 ] ) ? $instance[ BLOCK_TIME_02 ] : 0;
+            $block_categories_02 = isset( $instance[ BLOCK_CATEGORIES_02 ] ) ? $instance[ BLOCK_CATEGORIES_02 ] : '';
+
+            $block_time_03 = isset( $instance[ BLOCK_TIME_03 ] ) ? $instance[ BLOCK_TIME_03 ] : 0;
+            $block_categories_03 = isset( $instance[ BLOCK_CATEGORIES_03 ] ) ? $instance[ BLOCK_CATEGORIES_03 ] : '';
+
+            $block_time_04 = isset( $instance[ BLOCK_TIME_04 ] ) ? $instance[ BLOCK_TIME_04 ] : 0;
+            $block_categories_04 = isset( $instance[ BLOCK_CATEGORIES_04 ] ) ? $instance[ BLOCK_CATEGORIES_04 ] : '';
+
+            $block_time_05 = isset( $instance[ BLOCK_TIME_05 ] ) ? $instance[ BLOCK_TIME_05 ] : 0;
+            $block_categories_05 = isset( $instance[ BLOCK_CATEGORIES_05 ] ) ? $instance[ BLOCK_CATEGORIES_05 ] : '';
+            $results = array(
+                "block_title"   => $block_title,
+                "block_01"      => array(
+                                        "block_time"        => $block_time_01,
+                                        "block_categories"  => json_decode($block_categories_01),
+                ),
+                "block_02"      => array(
+                                        "block_time"        => $block_time_02,
+                                        "block_categories"  => json_decode($block_categories_02),
+                                    ),
+                "block_03"      => array(
+                                        "block_time"        => $block_time_03,
+                                        "block_categories"  => json_decode($block_categories_03),
+                                    ),
+                "block_04"      => array(
+                                        "block_time"        => $block_time_04,
+                                        "block_categories"  => json_decode($block_categories_04),
+                                    ),
+                "block_05"      => array(
+                                        "block_time"        => $block_time_05,
+                                        "block_categories"  => json_decode($block_categories_05),
+                                    )
+            )
         ?>
-            <div class="dv-primetime-price"></div>
+            <script type="text/javascript">
+                var primetime_data = <?php echo json_encode($results); ?>;
+            </script>
+            <div id="dv-primetime-price">
+                
+            </div>
         <?php
             
         }
@@ -489,10 +533,18 @@ if ( ! class_exists( 'Primetime_Price_Shock' ) ) {
             foreach($arr_key as $key) {
                 if (strpos( $key, $block_name )) {
                     if ($result != '') $result .= ',';
-                    $result .= '{"cat_id": ' . $_instance[$key] . '}';
+                    $result .= '{"cat_id": ' . $_instance[$key] . ', "cat_name": "' . $this->get_cat_name($_instance[$key]) . '"}';
                 }
             }
             return $result;
+        }
+
+        function get_cat_name( $cat_id ) {
+            $cat_id = (int) $cat_id;
+            if( $term = get_term_by( 'id', $cat_id, 'product_cat' ) ){
+                return $term->name;
+            }
+            return '';
         }
 
         // register css

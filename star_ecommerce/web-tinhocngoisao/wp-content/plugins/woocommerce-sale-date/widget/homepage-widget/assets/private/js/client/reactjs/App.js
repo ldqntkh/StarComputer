@@ -3,4 +3,4 @@ import ReactDOM from 'react-dom';
 
 import MainComponent from './components/mainComponent';
 
-ReactDOM.render(<MainComponent />, document.getElementById('primetime-price'));
+ReactDOM.render(<MainComponent />, document.getElementById('dv-primetime-price'));
