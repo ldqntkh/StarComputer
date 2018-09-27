@@ -10,7 +10,7 @@ export default class BlockTimeItemComponent extends Component {
     render() {
         let valueProp = this.props;
         let activeBlock = '';
-
+        let classActive = 'active';
         if (valueProp.active) {
             activeBlock = <span className="active-time">Đang diễn ra</span>;
         } else {
@@ -21,12 +21,13 @@ export default class BlockTimeItemComponent extends Component {
             } else {
                 activeBlock = <span className="active-time">Ngày mai</span>;
             }
+            classActive = '';
         }
 
         return (
-            <div className="block-time-item">
+            <div className={"block-time-item " + classActive}>
                 <span className="time">
-                    {valueProp.block_time}
+                    {valueProp.block_time} : 00
                 </span>
                 {activeBlock}
             </div>

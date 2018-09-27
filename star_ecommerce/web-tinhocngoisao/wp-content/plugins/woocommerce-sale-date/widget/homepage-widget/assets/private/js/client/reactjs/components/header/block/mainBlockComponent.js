@@ -50,7 +50,7 @@ export default class MainBlockComponent extends Component{
             if (index == activeBlock) {
                 results.push( <BlockTimeItemComponent block_time={arr_block[index]} active={true} active_block_time={arr_block[activeBlock]} key={index}/> );
             } else {
-                results.push( <BlockTimeItemComponent block_time={arr_block[index]} active={false} key={index}/> );
+                results.push( <BlockTimeItemComponent block_time={arr_block[index]} active={false} active_block_time={arr_block[activeBlock]} key={index}/> );
             }
         }
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 // import component
 import MainHeaderComponent from './header/mainHeaderComponent';
+import MainBodyComponent from './body/mainBodyComponent';
 
 export default class MainComponent extends Component {
 
@@ -26,6 +27,7 @@ export default class MainComponent extends Component {
         return(
             <React.Fragment>
                 <MainHeaderComponent primetime_data={this.state.primetime_data}/>
+                <MainBodyComponent primetime_data={this.state.primetime_data}/>
             </React.Fragment>
         );
     }

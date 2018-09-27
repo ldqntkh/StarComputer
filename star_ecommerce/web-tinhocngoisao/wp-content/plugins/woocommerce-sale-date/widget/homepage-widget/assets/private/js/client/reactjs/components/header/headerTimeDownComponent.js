@@ -70,9 +70,9 @@ export default class HeaderTimeDownComponent extends Component {
         if (timeNow == null) return null;
         return(
             <div className="block-time-down">
-                <span className="hours">{timeNow.hours}</span>
-                <span className="minutes">{timeNow.minutes}</span>
-                <span className="seconds">{timeNow.seconds}</span>
+                <span className="hours">{ timeNow.hours >= 10 ? '' : '0' }{timeNow.hours}</span>
+                <span className="minutes">{ timeNow.minutes >= 10 ? '' : '0' }{timeNow.minutes}</span>
+                <span className="seconds">{ timeNow.seconds >= 10 ? '' : '0' }{timeNow.seconds}</span>
             </div>
         );
     }

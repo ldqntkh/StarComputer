@@ -1,0 +1,85 @@
+#dv-primetime-price {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 3px;
+    background-color: #d42333;
+    border-radius: 3px;
+
+    .main-header {
+        display: flex;
+        color: white;
+        justify-content: space-between;
+        align-items: center;
+        .header-title {
+            width: 25%;
+            h2 {
+                margin: 0;
+                padding: 0;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+        }
+        .block-time-down {
+            width: 15%;
+            position: relative;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            span {
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                border: 1px solid white;
+                background-color: red;
+                border-radius: 3px;
+                font-weight: 700;
+                top: 10x;
+                text-align: center;
+                font-size: 20px;
+                line-height: 25px;
+                &.minutes {
+                    left: 40px;
+                }
+                &.seconds {
+                    left: 80px;
+                }
+            }
+        }
+        .block-time-items {
+            width: 60%;
+            display: flex;
+            .block-time-item {
+                height: 50px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: center;
+                width: 25%;
+                border-right: 1px solid white;
+                color: #f27982;
+                cursor: pointer;
+                &:nth-last-child(1) {
+                    border-right: none;
+                }
+                &.active {
+                    background: white;
+                    .time {
+                        color: red;
+                    }
+                    .active-time {
+                        color: black;
+                    }
+                }
+                .time {
+                    font-size: 18px;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    .main-body {
+        height: 500px;
+        background-color: white;
+    }
+}
