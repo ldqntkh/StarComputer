@@ -7,9 +7,11 @@ export default class HeaderTimeDownComponent extends Component {
     // component nhan tham so dau vao la blocktime
     constructor(props) {
         super(props);
-        
+    }
+
+    componentWillMount() {
         var currentTime = new Date();
-        let block_time_data = this.props.block_time_data;
+        let block_time_data = this.props.time_down_data;
         let hours = currentTime.getHours();
         let minutes = 59 - currentTime.getMinutes();
         let seconds = 59 - currentTime.getSeconds();
@@ -22,13 +24,13 @@ export default class HeaderTimeDownComponent extends Component {
         }
         else hours = block_time_data.block_time - hours - 1;
 
-        this.state = {
+        this.setState({
             timeNow : {
                 "hours" : hours,
                 "minutes" : minutes,
                 "seconds" : seconds
             }
-        }
+        });
     }
 
     componentDidMount() {
@@ -45,6 +47,13 @@ export default class HeaderTimeDownComponent extends Component {
             var seconds = timeNow.seconds - 1,
             minutes = timeNow.minutes,
             hours = timeNow.hours;
+            // if (seconds == 0 ) {
+            //     this.props.SetBlockTimeActive({
+            //         "block_active" : this.props.next_block_active,
+            //         "next_block_active" : null,
+            //         "time_down_data" : null
+            //     });
+            // }
             if (seconds < 0) {
                 seconds = 59;
                 minutes = minutes - 1;

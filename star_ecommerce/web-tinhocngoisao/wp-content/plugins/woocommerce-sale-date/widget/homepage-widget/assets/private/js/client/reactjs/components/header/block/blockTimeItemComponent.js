@@ -7,12 +7,17 @@ export default class BlockTimeItemComponent extends Component {
         super(props);
     }
 
+    blockClick = ()=> {
+        this.props.SetBlockActiveClick(this.props.block_time);
+    }
+
     render() {
         let valueProp = this.props;
         let activeBlock = '';
-        let classActive = 'active';
-        if (valueProp.active) {
+        let classActive = '';
+        if (valueProp.block_active == valueProp.block_time) {
             activeBlock = <span className="active-time">Đang diễn ra</span>;
+            classActive = 'active';
         } else {
             let b_time_1 = 24 - valueProp.active_block_time;
             let b_time_2 = 24 - valueProp.block_time;
@@ -24,8 +29,13 @@ export default class BlockTimeItemComponent extends Component {
             classActive = '';
         }
 
+        if (typeof valueProp.block_active_click != 'undefined') {
+            if (valueProp.block_active_click == valueProp.block_time) classActive = 'active';
+            else classActive = '';
+        }
+
         return (
-            <div className={"block-time-item " + classActive}>
+            <div className={"block-time-item " + classActive} onClick={()=>this.blockClick()}>
                 <span className="time">
                     {valueProp.block_time} : 00
                 </span>

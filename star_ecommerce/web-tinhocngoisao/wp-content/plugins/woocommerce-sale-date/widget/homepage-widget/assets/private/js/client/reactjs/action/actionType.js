@@ -1,0 +1,3 @@
+export const INIT_DATA = 'INIT_DATA';
+export const SET_BLOCK_ACTIVED = 'SET_BLOCK_ACTIVED';
+export const SET_BLOCK_CLICK = 'SET_BLOCK_CLICK';

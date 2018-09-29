@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 // import component
-import BlockTimeItemComponent from './blockTimeItemComponent';
+import BlockTimeItemContainer from '../../../containers/header/block/blockTimeItemContainer';
 
 export default class MainBlockComponent extends Component{
 
@@ -10,15 +10,15 @@ export default class MainBlockComponent extends Component{
     }
 
     renderBlockTime = ()=> {
-        let block_data = this.props.block_data;
+        let data_block = this.props.data_block;
         let currentHours = new Date().getHours();
         var results = [];
 
-        let block_time_01 = block_data['block_01']['block_time'],
-            block_time_02 = block_data['block_02']['block_time'],
-            block_time_03 = block_data['block_03']['block_time'],
-            block_time_04 = block_data['block_04']['block_time'],
-            block_time_05 = block_data['block_05']['block_time'];
+        let block_time_01 = data_block['block_01']['block_time'],
+            block_time_02 = data_block['block_02']['block_time'],
+            block_time_03 = data_block['block_03']['block_time'],
+            block_time_04 = data_block['block_04']['block_time'],
+            block_time_05 = data_block['block_05']['block_time'];
         let arr_block = [];
 
         if (typeof block_time_01 !== undefined && block_time_01 > 0) {
@@ -40,7 +40,7 @@ export default class MainBlockComponent extends Component{
         var activeBlock = 0;
         for(let item = 0; item < arr_block.length; item++ ) {
             if (activeBlock == 0 && item == arr_block.length - 1) activeBlock = item;
-            if (arr_block[item] <= currentHours && currentHours < arr_block[item + 1]) {
+            if (arr_block[item] == this.props.block_active) {
                 activeBlock = item;
                 break;
             }
@@ -48,14 +48,14 @@ export default class MainBlockComponent extends Component{
 
         for(let index = activeBlock; index < arr_block.length; index++ ) {
             if (index == activeBlock) {
-                results.push( <BlockTimeItemComponent block_time={arr_block[index]} active={true} active_block_time={arr_block[activeBlock]} key={index}/> );
+                results.push( <BlockTimeItemContainer block_time={arr_block[index]} active={true} active_block_time={arr_block[activeBlock]} key={index}/> );
             } else {
-                results.push( <BlockTimeItemComponent block_time={arr_block[index]} active={false} active_block_time={arr_block[activeBlock]} key={index}/> );
+                results.push( <BlockTimeItemContainer block_time={arr_block[index]} active={false} active_block_time={arr_block[activeBlock]} key={index}/> );
             }
         }
 
         for(let index = 0; index < activeBlock; index++ ) {
-            results.push( <BlockTimeItemComponent block_time={arr_block[index]} active={false} active_block_time={arr_block[activeBlock]} key={index}/> );
+            results.push( <BlockTimeItemContainer block_time={arr_block[index]} active={false} active_block_time={arr_block[activeBlock]} key={index}/> );
         }
 
         return results;
