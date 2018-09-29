@@ -127,6 +127,47 @@ jQuery(document).ready(function($) {
             });
         });
 
+        $('.custom-primetime-sale').slick({
+            slidesToShow: 5,
+            slidesToScroll: 5,
+            autoplay: true,
+            adaptiveHeight: true,
+            cssEase: 'linear',
+            arrows: true,
+            prevArrow: $('.custom-primetime-sale').find('.at-action-wrapper > .prev'),
+            nextArrow: $('.custom-primetime-sale').find('.at-action-wrapper > .next'),
+            responsive: [
+                {
+                    breakpoint: 767,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 991,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 1367,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                    }
+                },
+                {
+                    breakpoint: 2000,
+                    settings: {
+                        slidesToShow: 5,
+                        slidesToScroll: 5
+                    }
+                }
+            ]
+        });
+
         $('.featured-slider').each(function() {
             var at_featured_img_slider = $(this);
             var autoplay = parseInt(at_featured_img_slider.data('autoplay'));
