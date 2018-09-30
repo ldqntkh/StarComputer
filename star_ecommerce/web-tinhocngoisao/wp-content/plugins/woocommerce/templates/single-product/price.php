@@ -24,3 +24,11 @@ global $product;
 
 ?>
 <p class="price"><?php echo $product->get_price_html(); ?></p>
+<?php if ( WC_Admin_Extra_Profile::is_staff() ) { ?>
+	<p class="employeeDiscount">
+		<?php
+			echo __( 'Chiết khấu', 'employee-discounts' ) . '&nbsp;' . WC_Employee_Discounts::get_price_discount_html( WC_Employee_Discounts::calculate_employee_discount($product) );
+		?>
+	</p>
+<?php } ?>
+
