@@ -99,6 +99,48 @@
         .woocommerce.column.custom-primetime-sale {
             margin-left: 0;
             margin-right: 0;
+
+            .slick-arrow {
+                border: 2px solid lightgray;
+                border-radius: 50%;
+                color: #aaa;
+                cursor: pointer;
+                display: none !important;
+                font-size: 20px;
+                font-weight: bold;
+                position: absolute;
+                padding: 6px 10px;
+                top: 48%;
+                z-index: 999;
+
+
+                &.slick-next {
+                    right: 0;
+                }
+
+                &.slick-prev {
+                    left: 0;
+                }
+
+                &:hover {
+                    background-color: #d42333;
+                    color: #fff;
+                }
+            }
+
+            .slick-track {
+                margin: 0;
+            }
+
+            .acme-col-4 {
+                width: 100% !important;
+            }
+
+            &:hover {
+                .slick-arrow {
+                    display: block !important;
+                }
+            }
         }
     }
 }

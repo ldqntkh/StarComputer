@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
+import Slider from "react-slick";
 
 // import component
 import ProductItemComponent from './productItemComponent';
+import NextArrowComponent from '../arrows/nextArrowComponent';
+import PrevArrowComponent from '../arrows/prevArrowComponent';
 
 // import variable 
 import {
@@ -74,10 +77,48 @@ export default class ListProductComponent extends Component {
     }
 
     render() {
+        // config slider
+        const settings = {
+            autoplay: true,
+            adaptiveHeight: true,
+            dots: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 5,
+            slidesToScroll: 5,
+            nextArrow: <NextArrowComponent className="fa fa-angle-left"/>,
+            prevArrow: <PrevArrowComponent className="fa fa-angle-right" />,
+            responsive: [
+                {
+                    breakpoint: 767,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 991,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 1367,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4
+                    }
+                }
+            ]
+        };
+
         if (this.state.loaded == false) return <div> Cho chut coi </div>
         return (
             <div className="featured-entries-col woocommerce column custom-primetime-sale">
-                {this.renderListProduct()}
+                <Slider {...settings}>
+                    {this.renderListProduct()}
+                </Slider>
             </div>
         );
     }
