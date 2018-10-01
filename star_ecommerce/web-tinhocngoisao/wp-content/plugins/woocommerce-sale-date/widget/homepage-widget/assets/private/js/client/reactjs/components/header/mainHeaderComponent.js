@@ -54,6 +54,7 @@ export default class MainHeaderComponent extends Component {
                     SetBlockTimeActive({
                         "block_active" : arr_block[item],
                         "next_block_active" : arr_block[0],
+                        "end_block_time" : arr_block[0],
                         "time_down_data" : {
                                                 "block_time": 24 + arr_block[0],
                                                 "current_block_time" : arr_block[item]
@@ -65,6 +66,7 @@ export default class MainHeaderComponent extends Component {
                     SetBlockTimeActive({
                         "block_active" : arr_block[item],
                         "next_block_active" : arr_block[item + 1],
+                        "end_block_time" : arr_block[item + 1],
                         "time_down_data" : {
                                                 "block_time": arr_block[item + 1],
                                                 "current_block_time" : arr_block[item]
@@ -78,7 +80,6 @@ export default class MainHeaderComponent extends Component {
 
     render() {
         var data_block = this.props.data_block;
-        console.log(this.props);
         if (data_block == null) return null;
         return(
             <div className="main-header">

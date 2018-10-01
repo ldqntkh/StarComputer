@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 // import component
 import HeaderCategoriesComponent from './header/headerCategoriesComponent';
-import ListProductComponent from './products/listProductComponent';
+// import container
+import ListProductContainer from '../../containers/body/products/listProductContainer';
 export default class MainBodyComponent extends Component {
 
     constructor(props) {
@@ -22,7 +23,7 @@ export default class MainBodyComponent extends Component {
 
         for(let item in data_block) {
             if (data_block[item].block_time !== "" && data_block[item].block_time == block) {
-                result.push( <HeaderCategoriesComponent list_categories={data_block[item].block_categories} key={item}/> );
+                result.push( <HeaderCategoriesComponent list_categories={data_block[item].block_categories} key={item} /> );
                 break; 
             }
         }
@@ -33,7 +34,7 @@ export default class MainBodyComponent extends Component {
         return(
             <div className="main-body">
                 {this.renderDataBlock()}
-                <ListProductComponent />
+                <ListProductContainer ref={this.child}/>
             </div>
         );
     }

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 // import component
 import HeaderCategoryItemComponent from './headerCategoryItemComponent';
+// import container
+import HeaderCategoryItemContainer from '../../../containers/body/header/headerCategoryItemContainer';
 
 export default class HeaderCategoriesComponent extends Component {
 
@@ -13,14 +15,14 @@ export default class HeaderCategoriesComponent extends Component {
         let list_categories = this.props.list_categories;
         let result = [];
         result.push(
-            <HeaderCategoryItemComponent key={-1} category={{
-                "cat_id" : "all",
+            <HeaderCategoryItemContainer key={-1} category={{
+                "cat_id" : "-1",
                 "cat_name" : "Tất cả"
             }}/>
         )
         for(let item = 0; item < list_categories.length; item ++) {
             result.push(
-                <HeaderCategoryItemComponent key={item} category={list_categories[item]}/>
+                <HeaderCategoryItemContainer key={item} category={list_categories[item]}/>
             )
         }
         return result;

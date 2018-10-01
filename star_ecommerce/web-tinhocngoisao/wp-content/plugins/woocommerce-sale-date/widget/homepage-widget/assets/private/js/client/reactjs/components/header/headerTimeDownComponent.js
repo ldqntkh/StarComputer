@@ -47,20 +47,19 @@ export default class HeaderTimeDownComponent extends Component {
             var seconds = timeNow.seconds - 1,
             minutes = timeNow.minutes,
             hours = timeNow.hours;
-            // if (seconds == 0 ) {
-            //     this.props.SetBlockTimeActive({
-            //         "block_active" : this.props.next_block_active,
-            //         "next_block_active" : null,
-            //         "time_down_data" : null
-            //     });
-            // }
             if (seconds < 0) {
                 seconds = 59;
                 minutes = minutes - 1;
                 if (minutes < 0) {
                     minutes = 59;
                     hours = hours - 1;
-                    if (hours < 0) hours = 23;
+                    if (hours < 0) {
+                        this.props.SetBlockTimeActive({
+                            "block_active" : this.props.next_block_active,
+                            "next_block_active" : null,
+                            "time_down_data" : null
+                        });
+                    }
                 }
             }
             let data = {

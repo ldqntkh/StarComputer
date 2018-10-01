@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import MainBlockComponent from '../../../components/header/block/mainBlockComponent';
 
 import {
-    SetBlockTimeActive
+    
 } from '../../../action/actionFunction';
 
 const mapStateToProps = state => ({
