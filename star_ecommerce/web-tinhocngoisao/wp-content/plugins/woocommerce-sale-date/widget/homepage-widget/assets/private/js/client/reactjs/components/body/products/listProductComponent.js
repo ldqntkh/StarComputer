@@ -32,7 +32,6 @@ export default class ListProductComponent extends Component {
                 loaded : false,
                 listProduct : []
             });
-            console.log('update')
             await this.getProducts();
         }
     }
@@ -51,7 +50,7 @@ export default class ListProductComponent extends Component {
             if (typeof category_actived === 'undefined' && isNaN(category_actived)) category_actived = -1;
 
             let url = URL_API_GET_LIST_PRODUCT.replace('{cat_id}', category_actived).replace('{block_time}', block).replace('{end_block_time}', end_block_time);
-            console.log(url);
+            
             let response = await fetch(HOST + url);
             let dataJson = await response.json();
             this.setState({
@@ -113,7 +112,7 @@ export default class ListProductComponent extends Component {
             ]
         };
 
-        if (this.state.loaded == false) return <div> Cho chut coi </div>
+        if (this.state.loaded == false) return <div>Loading ....</div>
         return (
             <div className="featured-entries-col woocommerce column custom-primetime-sale">
                 <Slider {...settings}>

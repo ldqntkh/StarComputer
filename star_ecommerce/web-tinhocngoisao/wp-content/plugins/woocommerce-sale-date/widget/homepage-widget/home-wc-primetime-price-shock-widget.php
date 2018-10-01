@@ -520,9 +520,15 @@ if ( ! class_exists( 'Primetime_Price_Shock' ) ) {
 
         // check category selected
         function check_category($cat_json, $cat_id) {
-            foreach ($cat_json as $item) {
-                if ($item->cat_id == $cat_id) return true;
+            if (empty($cat_json)) return false;
+            try {
+                foreach ($cat_json as $item) {
+                    if ($item->cat_id == $cat_id) return true;
+                }
+            } catch(Exception $e) {
+                return false;
             }
+            
 
             return false;
         }

@@ -12,9 +12,9 @@ export default class HeaderCategoryItemComponent extends Component {
 
     render() {
         return (
-            <div className="category-item" onClick={() => this.categoryItemClick()}>
-                <span>{this.props.category.cat_name}</span>
-            </div>
+            <span className="category-item" onClick={() => this.categoryItemClick()}>
+                {this.props.category.cat_name}
+            </span>
         );
     }
 }

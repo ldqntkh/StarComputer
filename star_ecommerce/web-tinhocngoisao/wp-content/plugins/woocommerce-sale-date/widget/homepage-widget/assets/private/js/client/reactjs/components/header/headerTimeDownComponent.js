@@ -10,6 +10,26 @@ export default class HeaderTimeDownComponent extends Component {
     }
 
     componentWillMount() {
+        this.setTimeDown();
+    }
+
+    componentDidMount() {
+        this.interval  = setInterval(this.timerTick, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (JSON.stringify(prevProps) !== JSON.stringify(this.props) ) {
+            clearInterval(this.interval);
+            this.setTimeDown();
+            this.interval  = setInterval(this.timerTick, 1000);
+        }
+    }
+
+    setTimeDown = () => {
         var currentTime = new Date();
         let block_time_data = this.props.time_down_data;
         let hours = currentTime.getHours();
@@ -33,14 +53,6 @@ export default class HeaderTimeDownComponent extends Component {
         });
     }
 
-    componentDidMount() {
-        this.interval  = setInterval(this.timerTick, 1000);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
-
     timerTick = ()=> {
         var timeNow = this.state.timeNow;
         if (timeNow !== null) {
@@ -54,11 +66,20 @@ export default class HeaderTimeDownComponent extends Component {
                     minutes = 59;
                     hours = hours - 1;
                     if (hours < 0) {
-                        this.props.SetBlockTimeActive({
+                        SetBlockTimeActive({
                             "block_active" : this.props.next_block_active,
                             "next_block_active" : null,
-                            "time_down_data" : null
+                            "end_block_time" : this.props.end_block_time,
+                            "time_down_data" : {
+                                                    "block_time": this.props.next_block_active,
+                                                    "current_block_time" : this.props.next_block
+                                                }
                         });
+                        if (this.props.next_block_active < this.props.block_active) {
+                            hours = this.props.next_block_active + 24 - this.props.block_active;
+                        } else {
+                            hours = this.props.next_block_active - this.props.block_active
+                        }
                     }
                 }
             }

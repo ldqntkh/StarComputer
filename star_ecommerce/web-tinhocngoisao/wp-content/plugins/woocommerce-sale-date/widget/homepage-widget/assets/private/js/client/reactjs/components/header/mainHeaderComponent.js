@@ -6,7 +6,7 @@ import HeaderTitleComponent from './headerTitleComponent';
 // import container
 import HeaderTimeDownContainer from '../../containers/header/headerTimeDownContainer';
 import MainBlockContainer from '../../containers/header/block/mainBlockContainer';
-
+var block_time = 0;
 export default class MainHeaderComponent extends Component {
 
     constructor(props) {
@@ -60,6 +60,7 @@ export default class MainHeaderComponent extends Component {
                                                 "current_block_time" : arr_block[item]
                                             }
                     });
+                    block_time = 24 + arr_block[0];
                     return;
                 }
                 else if (arr_block[item] <= currentHours && currentHours < arr_block[item + 1]) {
@@ -72,6 +73,7 @@ export default class MainHeaderComponent extends Component {
                                                 "current_block_time" : arr_block[item]
                                             }
                     });
+                    block_time = arr_block[item + 1];
                     return;
                 }
             }
@@ -84,7 +86,7 @@ export default class MainHeaderComponent extends Component {
         return(
             <div className="main-header">
                 <HeaderTitleComponent title= {data_block.block_title}/>
-                <HeaderTimeDownContainer />
+                <HeaderTimeDownContainer next_block={block_time}/>
                 <MainBlockContainer />
             </div>
         );
