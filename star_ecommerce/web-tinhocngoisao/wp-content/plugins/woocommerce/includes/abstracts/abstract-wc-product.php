@@ -1465,9 +1465,14 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 * @return bool
 	 */
 	public function is_on_sale( $context = 'view' ) {
+
+		/**
+		 * custom function get onsale
+		 */
+		
 		if ( '' !== (string) $this->get_sale_price( $context ) && $this->get_regular_price( $context ) > $this->get_sale_price( $context ) ) {
 			$on_sale = true;
-
+			
 			if ( $this->get_date_on_sale_from( $context ) && $this->get_date_on_sale_from( $context )->getTimestamp() > current_time( 'timestamp', true ) ) {
 				$on_sale = false;
 			}
@@ -1475,9 +1480,68 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 			if ( $this->get_date_on_sale_to( $context ) && $this->get_date_on_sale_to( $context )->getTimestamp() < current_time( 'timestamp', true ) ) {
 				$on_sale = false;
 			}
+			
+			if ($on_sale) {
+				// get custom post meta
+				$post_id = $this->id;
+				$_custom_sale_monday = get_post_meta($post_id, '_custom_sale_monday',true) == 'on' ? true : false;
+				$_custom_sale_tuesday = get_post_meta($post_id, '_custom_sale_tuesday', true) == 'on' ? true : false;
+				$_custom_sale_wednesday = get_post_meta($post_id, '_custom_sale_wednesday', true) == 'on' ? true : false;
+				$_custom_sale_thursday = get_post_meta($post_id, '_custom_sale_thursday', true) == 'on' ? true : false;
+				$_custom_sale_fridays = get_post_meta($post_id, '_custom_sale_fridays', true) == 'on' ? true : false;
+				$_custom_sale_saturday = get_post_meta($post_id, '_custom_sale_saturday', true) == 'on' ? true : false;
+				$_custom_sale_sunday = get_post_meta($post_id, '_custom_sale_sunday', true) == 'on' ? true : false;
+				$_custom_sale_all_week = get_post_meta($post_id, '_custom_sale_all_week', true) == 'on' ? true : false;
+
+				$_custom_sale_start_time = get_post_meta($post_id, '_custom_sale_start_time', true);
+				$_custom_sale_start_time = empty($_custom_sale_start_time) ? 0 : $_custom_sale_start_time;
+				$_custom_sale_end_time = get_post_meta($post_id, '_custom_sale_end_time', true);
+				$_custom_sale_end_time = empty($_custom_sale_end_time) ? 0 : $_custom_sale_end_time;
+				
+				$dayofweek = date('w');
+				if (!$_custom_sale_all_week) {
+					switch($dayofweek) {
+						case '1': // monday
+							if (!$_custom_sale_monday) $on_sale = false;
+							break;
+						case '2': // tuesday
+							if (!$_custom_sale_tuesday) $on_sale = false;
+							break;
+						case '3': // wednesday
+							if (!$_custom_sale_wednesday) $on_sale = false;
+							break;
+						case '4': // thursday
+							if (!$_custom_sale_thursday) $on_sale = false;
+							break;
+						case '5': // fridays
+							if (!$_custom_sale_fridays) $on_sale = false;
+							break;
+						case '6': // saturday
+							if (!$_custom_sale_saturday) $on_sale = false;
+							break;
+						case '6': // sunday:
+							if (!$_custom_sale_sunday) $on_sale = false;
+							break;
+					}
+				}
+
+				// check if all day of week is false
+				if ( !$_custom_sale_all_week &&  !$_custom_sale_monday && !$_custom_sale_tuesday && !$_custom_sale_wednesday
+					&& !$_custom_sale_thursday && !$_custom_sale_fridays && !$_custom_sale_saturday && !$_custom_sale_sunday)
+					$on_sale = true;
+				
+				if ( $_custom_sale_start_time >= 0 && $_custom_sale_end_time > 0 && $_custom_sale_start_time < $_custom_sale_end_time) {
+					$current_hour = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
+					$current_hour = $current_hour->format('H');
+					if ($_custom_sale_start_time > $current_hour) $on_sale = false;
+					else if ($_custom_sale_end_time < $current_hour) $on_sale = false;
+				}
+			}
+			
 		} else {
 			$on_sale = false;
 		}
+		if (!$on_sale) $this->set_price($this->get_regular_price( $context ));
 		return 'view' === $context ? apply_filters( 'woocommerce_product_is_on_sale', $on_sale, $this ) : $on_sale;
 	}
 
@@ -1714,7 +1778,7 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		} else {
 			$price = wc_price( wc_get_price_to_display( $this ) ) . $this->get_price_suffix();
 		}
-
+		
 		return apply_filters( 'woocommerce_get_price_html', $price, $this );
 	}
 

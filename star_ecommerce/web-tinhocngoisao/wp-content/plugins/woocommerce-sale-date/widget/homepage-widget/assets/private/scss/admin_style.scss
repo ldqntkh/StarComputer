@@ -1,0 +1,49 @@
+div.wg-dev-list_checkbox-categories {
+    height: 300px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    p.parent-category {
+        margin-top: 0;
+    }
+    p.sub-category {
+        margin-left: 20px;
+        margin-top: -2px;
+    }
+}
+fieldset.fs-block-time {
+    position: relative;
+    border: .5px solid;
+    border-radius: 5px;
+    border-color: silver;
+    margin-bottom: 10px;
+    padding: 3px;
+    height: 46px;
+    overflow: hidden;
+    &.toggle-height {
+        height: auto;
+    }
+
+    span.show-more {
+        position: absolute;
+        top: 15px;
+        right: 5px;
+        font-size: 15px;
+        color: red;
+        border: 1px solid black;
+        background-color: silver;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        &:before {
+            content: "\f140";
+            font: 400 20px/1 dashicons;
+        }
+        &.toggle-content {
+            &:before {
+                content: "\f142";
+            }
+        }
+    }
+}
