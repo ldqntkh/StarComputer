@@ -6,7 +6,7 @@ import {
 } from '../../../action/actionFunction';
 
 const mapStateToProps = state => ({
-    
+    category_actived : state.DataPrimeTimeReducer.category_actived
 });
 
 const mapDispatchToProps = dispatch => ({

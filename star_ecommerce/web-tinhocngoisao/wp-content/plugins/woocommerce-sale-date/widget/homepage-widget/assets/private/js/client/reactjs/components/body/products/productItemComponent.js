@@ -28,6 +28,15 @@ export default class ProductItemComponent extends Component {
                         </ins>
                     </span>
         }
+        let stock = '';
+        if (product.manage_stock && product.stock_quantity !== null) {
+            // default 50 products
+            let defaultProducts = 50;
+            stock = <div className="stock-quantity">
+                        <span> Còn lại {product.stock_quantity} sản phẩm</span>
+                        <span style={{width: (product.stock_quantity)/ defaultProducts *100 + '%' }} ></span>
+                    </div>
+        }
         return(
             <div className="single-list acme-col-4">
                 <ul className="post-container products">
@@ -40,6 +49,7 @@ export default class ProductItemComponent extends Component {
                                 </h2>
                                 {price}
                                 {rating}
+                                {stock}
                             </div>
                         </a>
                         <a href="#" className="button yith-wcqv-button" data-product_id={product.id}>Xem nhanh</a>
