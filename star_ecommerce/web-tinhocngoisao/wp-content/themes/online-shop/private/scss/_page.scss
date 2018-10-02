@@ -75,15 +75,35 @@ header#masthead {
 }
 
 #content {
-    background: $content_background;
+    .wrapper {
+        .slider-feature-wrap {
+            background: $content_background;
+            padding-top: 30px;
+            margin-top: 0;
+            .featured-entries-about {
+                padding-left: 10px;
+            }
+        }
+    }
+
+    // shop page
+    #primary {
+        form.woocommerce-ordering {
+            span {
+                line-height: 40px;
+            }
+            select {
+                background-color: $content_background;
+            }
+        }
+    }
+
     aside[id^='online_shop_posts_col'] {
         .featured-entries-col .post-container {
             height: 430px;
         }
     }
     aside[id^='online_shop_'] {
-        background: $body_background;
-
         .at-title-action-wrapper {
             border-bottom: none;
             position: relative;
