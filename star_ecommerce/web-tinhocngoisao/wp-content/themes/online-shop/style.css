@@ -3323,7 +3323,7 @@ body.modal-open{
 .widget_online_shop_wc_products .woocommerce.column,
 .widget_online_shop_wc_products .woocommerce.acme-slick-carausel .slick-list,
 .widget_online_shop_wc_cats_tabs .woocommerce.acme-slick-carausel .slick-list {
-	padding-top:20px;
+	/* padding-top:20px; */
 }
 
 .widget_online_shop_wc_products .at-title-action-wrapper, 
