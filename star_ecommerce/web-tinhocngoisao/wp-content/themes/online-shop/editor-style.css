@@ -229,6 +229,7 @@ blockquote:before {
 body {
 	background: #fff;
 	color: #2d2d2d;
+	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;
 	line-height: 22px;
 }

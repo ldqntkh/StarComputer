@@ -1,5 +1,14 @@
 == Change log ==
 
+= 1.3.4 =
+* Added :  Enable/Disable Theme Name And Powered By Text
+* Fixed : Category Term error while woocommerce is not active
+* Fixed : some other minor issues
+
+= 1.3.3 =
+* Fixed : Term link
+* Fixed : Details Page Sale Color
+
 = 1.3.2 =
 * Fixed : select2 js fixed
 
