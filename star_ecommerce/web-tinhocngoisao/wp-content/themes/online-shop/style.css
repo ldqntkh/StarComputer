@@ -4,7 +4,7 @@ Theme URI: https://www.acmethemes.com/themes/online-shop
 Author: acmethemes
 Author URI: https://www.acmethemes.com/
 Description: Online Shop is a powerful, dynamic and highly customized WordPress multipurpose e-commerce theme. Online shop comes with the broad array of features, highly customized options, and advanced custom widgets to create any kinds of online eCommerce sites.  The theme has limitless possibilities to create your online store unique and beautiful. Whether you are creating or redesigning fashion store, sports store, men - women or children store, jewelry store, kitchen or food store, toys store, digital product store, affiliate store or all in one store, the theme will fit any online store you have.  This theme is fully compatible with popular plugin Woo Commerce and added custom widgets. This theme comes with advanced header options, footer options, sidebar options, copyright options, advanced slider options, featured category post, featured post page. In addition, this theme has sticky sidebar options, single post options, WooCommerce page options, sticky menu options, special menu options, advanced logo options, advertisement options and many more. Use this theme for your e-commerce website, you will feel the best ever experience. Demo: http://demo.acmethemes.com/online-shop Support: https://www.acmethemes.com/supports/
-Version: 1.3.4
+Version: 1.3.2
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: online-shop
@@ -268,13 +268,13 @@ blockquote:before {
 body {
 	background: #fff;
 	color: #2d2d2d;
-	font-family: 'Open Sans', sans-serif;
+	font-family: "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 	font-size: 14px;
 	line-height: 22px;
 }
 .wrapper {
 	margin: 0 auto;
-	width: 1200px;
+	max-width: 1200px;
 }
 .float-right{
 	float: right;
@@ -341,7 +341,6 @@ h3, h3 a,
 h4, h4 a,
 h5, h5 a,
 h6, h6 a{
-	font-family: "Oswald", sans-serif;
 	font-weight: 400;
 	line-height: 1.1;
 }
@@ -1007,7 +1006,7 @@ a.my-account:hover{
 	right: 0;
 	top: 127%;
 	visibility: hidden;
-	width: 260px;
+	width: 350px;
 	z-index: 99;
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
@@ -1132,36 +1131,28 @@ a.my-account:hover{
 .header-wrapper .header-main-menu .menu{
 	position: relative;
 }
-#menu-primary-menu{
-
-	margin-left: -15px;
+.header-wrapper .menu > li:not(:first-child){
+	margin-left: 15px;
 }
 .header-wrapper .menu li a {
 	color: #2d2d2d;
 	display: block;
 	font-weight: normal;
 	letter-spacing: 1px;
-	line-height:normal;
-	padding: 20px 15px;
+	line-height: 58px;
+	padding: 0 15px;
 	position: relative;
-	text-transform: uppercase;
 }
-.main-navigation ul li .angle-down {
+.header-wrapper .acmethemes-nav .menu > li:first-child{
+	margin-left: -15px;
+}
+.main-navigation ul li .angle-down{
 	position: absolute;
 	right: 0;
 	top: 0;
 	height: 58px;
 	width: 10px;
-	line-height: 62px;
-}
-.main-navigation ul#menu-primary-menu li .angle-down {
-	top: 50%;
-	height: auto;
-	 line-height: normal; 
-	-webkit-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	-o-transform: translateY(-50%);
-	transform: translateY(-50%);
+	line-height: 58px;
 }
 /*** SUB-MENU ***/
 .header-wrapper .main-navigation ul ul.sub-menu li{
@@ -1175,10 +1166,9 @@ a.my-account:hover{
 .header-wrapper .main-navigation ul ul.sub-menu li:last-child{
 	border-bottom: none;
 }
-.header-wrapper ul.sub-menu li a {
+.header-wrapper ul.sub-menu li a{
 	font-size: 14px;
-	line-height:normal;
-	padding: 10px;
+	line-height: 45px;
 }
 .header-wrapper .acmethemes-nav{
 	float: left;
@@ -1201,7 +1191,7 @@ a.my-account:hover{
 	width: 225px;
 }
 .special-menu .toggle {
-	line-height: normal;
+	line-height: 48px;
 	padding-right: 15px;
 }
 .main-navigation ul.special-menu-wrapper > li.menu-item-has-children > .angle-down{
@@ -1334,7 +1324,7 @@ a.my-account:hover{
 		padding-top: 12px;
 	}
 	.header-wrapper .menu li > a{
-		/*padding:0 10px;*/
+		padding:0 10px;
 	}
 	.header-wrapper .menu li >a > a{
 		float: left;
@@ -1361,17 +1351,6 @@ a.my-account:hover{
 	.center-wrapper-mx-width .header-ads-adv-search {
 		max-width: 100%;
 	}
-	.right-logo-left-ads .site-logo {
-		float: none;
-		text-align: center;
-	}
-	.right-logo-left-ads .cart-section {
-		float: right;
-		text-align: center;
-	}
-	.right-logo-left-ads .advance-product-search .searchsubmit {
-		right: 28px;
-	}
 }
 
 /* Portrait tablet to landscape and desktop */
@@ -1384,7 +1363,7 @@ a.my-account:hover{
 		height: 58px;
 	}
 	.header-wrapper .menu li > a {
-		padding: 18px 10px;
+		padding: 0 10px;
 	}
 	.slicknav_nav, .responsive-slick-menu{
 		display: block;
@@ -1437,12 +1416,11 @@ a.my-account:hover{
 		float: none;
 		position: relative;
 		width: 100%;
-		margin-left: 0px;
+		padding-top: 7px !important;
 	}
 	.slicknav_menu .slicknav_arrow {
 		float: right;
-		font-size: 36px;
-		padding-right: 10px;
+		font-size: 44px;
 	}
 	.slicknav_nav > li{
 		padding: 0 12px;
@@ -1456,13 +1434,10 @@ a.my-account:hover{
 	}
 	.main-navigation .slicknav_nav ul{
 		box-shadow: none;
-		padding-left:0px;
+		padding-left: 12px;
 		visibility: visible;
 		display: block;
 		opacity: 1;
-	}
-	.header-wrapper .menu > li:not(:first-child) {
-		margin-left: 0;
 	}
 	.header-wrapper .main-navigation .slicknav_nav ul.sub-menu li{
 		border-top: 1px solid #2d2d2d;
@@ -1486,15 +1461,6 @@ a.my-account:hover{
 	.at-menu-right-wrapper {
 		position: relative;
 		margin-right: 45px;
-	}
-	.advance-product-search .searchsubmit{
-		right: 18px;
-	}
-	.header-wrapper .menu li > a.slicknav_item{
-		padding: 0;
-	}
-	.header-wrapper .menu li > a.slicknav_item a{
-		padding: 18px 10px;
 	}
 }
 
@@ -1531,9 +1497,6 @@ a.my-account:hover{
 	.at-menu-right-wrapper {
 		display: none;
 	}
-	.center-logo-below-ads .cart-section{
-		float: none;
-	}
 }
 /* Landscape phone to portrait tablet */
 @media screen and ( max-width:640px ){
@@ -1546,12 +1509,7 @@ a.my-account:hover{
 \*-----------------*/
 /*** COMMON FOOTER CSS ***/
 .footer-wrapper{
-	background: #272823;
-	color: #fff;
-}
-.footer-wrapper .wpcf7-form .wpcf7-form-control,
-.footer-wrapper input:not([type="submit"]){
-	background: transparent;
+	background-color: #f9f9f9;
 }
 .footer-columns {
 	margin-left: -10px;
@@ -1562,17 +1520,7 @@ a.my-account:hover{
 	padding-right: 20px;
 }
 .footer-copyright{
-	color: #ababab;
-}
-.footer-copyright{
-	background: #161614;
 	margin-top: -1px;
-}
-.footer-wrapper .widget-title{
-	color: #fff;
-}
-.footer-wrapper a,.footer-copyright a{
-	color: #fff;
 }
 #footer-top,
 #footer-bottom,
@@ -1590,9 +1538,7 @@ a.my-account:hover{
 	float: left;
 }
 .site-info{
-	width: 30%;
-	float: right;
-	text-align: right;
+	text-align: center;
 	margin-top: 15px;
 }
 .site-info > span:after {
@@ -1600,12 +1546,7 @@ a.my-account:hover{
 	display: table;
 	content: '';
 }
-.full-width-bottom-footer,
-.full-width-top-footer,
-#footer-top,
-#footer-bottom {
-	border-bottom: 1px solid #444;
-}
+
 .site-footer {
 	margin-top: 40px;
 }
@@ -2281,11 +2222,6 @@ a.my-account:hover{
 .footer-sidebar.float-right{
 	text-align: right;
 }
-.site-footer .footer-sidebar.float-right .widget_nav_menu li:before,
-.site-footer .footer-sidebar.float-right .widget_recent_entries li:before{
-	position: relative;
-	margin-right: 10px;
-}
 /*Sidebar/footer fixed*/
 .secondary-sidebar .at-title-action-wrapper,
 .secondary-sidebar .at-title-action-wrapper:before,
@@ -2804,12 +2740,13 @@ ul li.product {
 	margin: 0;
 	font-size: 18px;
 	color: #2d2d2d;
+	text-align: left;
 }
 .woocommerce .star-rating,
 .woocommerce ul.products li.product .star-rating {
-	display: inline-block;
 	float: none;
 	font-size: 15px;
+	margin: 0 auto;
 }
 
 .woocommerce ul.products li.product .price del,
@@ -3242,6 +3179,7 @@ ul li.product {
 	.online-shop-feature-special-menu .slider-feature-wrap {
 		width: calc(100% - 237px);
 		float: right;
+		margin-top: 30px;
 	}
 	.online-shop-feature-special-menu .special-menu-wrapper >li > ul.special-sub-menu {
 		left: auto;
@@ -3385,7 +3323,7 @@ body.modal-open{
 .widget_online_shop_wc_products .woocommerce.column,
 .widget_online_shop_wc_products .woocommerce.acme-slick-carausel .slick-list,
 .widget_online_shop_wc_cats_tabs .woocommerce.acme-slick-carausel .slick-list {
-	padding-top:20px;
+	/* padding-top:20px; */
 }
 
 .widget_online_shop_wc_products .at-title-action-wrapper, 

@@ -20,7 +20,10 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
         private $thumb;
 
         private $defaults = array(
-	        'online_shop_widget_title' => '',
+			'online_shop_widget_title' => '',
+			'online_shop_widget_description' => '',
+			'online_shop_widget_class' => '',
+			'online_shop_widget_icon_class' => '',
 	        'wc_advanced_option' => 'recent',
             'online_shop_wc_product_cat' => -1,
             'online_shop_wc_product_tag' => -1,
@@ -50,7 +53,10 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
         /*Widget Backend*/
         public function form( $instance ) {
             $instance = wp_parse_args( (array) $instance, $this->defaults);
-	        $online_shop_widget_title = esc_attr( $instance['online_shop_widget_title'] );
+			$online_shop_widget_title = esc_attr( $instance['online_shop_widget_title'] );
+			$online_shop_widget_description = esc_attr( $instance['online_shop_widget_description'] );
+			$online_shop_widget_class = esc_attr( $instance['online_shop_widget_class'] );
+			$online_shop_widget_icon_class = esc_attr( $instance['online_shop_widget_icon_class'] );
 	        $wc_advanced_option = esc_attr( $instance[ 'wc_advanced_option' ] );
 	        $online_shop_wc_product_cat = esc_attr( $instance['online_shop_wc_product_cat'] );
 	        $online_shop_wc_product_tag = esc_attr( $instance['online_shop_wc_product_tag'] );
@@ -74,6 +80,26 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
                 </label>
                 <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'online_shop_widget_title' ) ); ?>" type="text" value="<?php echo $online_shop_widget_title; ?>" />
             </p>
+
+			<p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_description' ) ); ?>">
+                    <?php esc_html_e( 'Description', 'online-shop' ); ?>
+                </label>
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_description' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'online_shop_widget_description' ) ); ?>" type="text" value="<?php echo $online_shop_widget_description; ?>" />
+            </p>
+			<p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_class' ) ); ?>">
+                    <?php esc_html_e( 'Custom class', 'online-shop' ); ?>
+                </label>
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_class' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'online_shop_widget_class' ) ); ?>" type="text" value="<?php echo $online_shop_widget_class; ?>" />
+			</p>
+			<p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_icon_class' ) ); ?>">
+                    <?php esc_html_e( 'Custom icon class', 'online-shop' ); ?>
+                </label>
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_icon_class' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'online_shop_widget_icon_class' ) ); ?>" type="text" value="<?php echo $online_shop_widget_icon_class; ?>" />
+            </p>
+
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'wc_advanced_option' ) ); ?>"><?php esc_html_e( 'Show', 'online-shop' ); ?></label>
                 <select class="widefat at-wc-advanced-option" id="<?php echo esc_attr( $this->get_field_id( 'wc_advanced_option' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'wc_advanced_option' ) ); ?>" >
@@ -277,7 +303,10 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
          */
         public function update( $new_instance, $old_instance ) {
             $instance = array();
-	        $instance[ 'online_shop_widget_title' ] = ( isset( $new_instance['online_shop_widget_title'] ) ) ? sanitize_text_field( $new_instance['online_shop_widget_title'] ) : '';
+			$instance[ 'online_shop_widget_title' ] = ( isset( $new_instance['online_shop_widget_title'] ) ) ? sanitize_text_field( $new_instance['online_shop_widget_title'] ) : '';
+			$instance[ 'online_shop_widget_description' ] = ( isset( $new_instance['online_shop_widget_description'] ) ) ? sanitize_text_field( $new_instance['online_shop_widget_description'] ) : '';
+			$instance[ 'online_shop_widget_class' ] = ( isset( $new_instance['online_shop_widget_class'] ) ) ? sanitize_text_field( $new_instance['online_shop_widget_class'] ) : '';
+			$instance[ 'online_shop_widget_icon_class' ] = ( isset( $new_instance['online_shop_widget_icon_class'] ) ) ? sanitize_text_field( $new_instance['online_shop_widget_icon_class'] ) : '';
 
 	        $wc_advanced_options = online_shop_wc_advanced_options();
 	        $instance[ 'wc_advanced_option' ] = online_shop_sanitize_choice_options( $new_instance[ 'wc_advanced_option' ], $wc_advanced_options, 'recent' );
@@ -334,7 +363,10 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	        $online_shop_wc_product_cat = esc_attr( $instance['online_shop_wc_product_cat'] );
 	        $online_shop_wc_product_tag = esc_attr( $instance['online_shop_wc_product_tag'] );
 	        $online_shop_widget_title = !empty( $instance['online_shop_widget_title'] ) ? esc_attr( $instance['online_shop_widget_title'] ) : '';
-	        $online_shop_widget_title = apply_filters( 'widget_title', $online_shop_widget_title, $instance, $this->id_base );
+			$online_shop_widget_title = apply_filters( 'widget_title', $online_shop_widget_title, $instance, $this->id_base );
+			$online_shop_widget_description = !empty( $instance['online_shop_widget_description'] ) ? esc_attr( $instance['online_shop_widget_description'] ) : '';
+			$online_shop_widget_class = !empty( $instance['online_shop_widget_class'] ) ? esc_attr( $instance['online_shop_widget_class'] ) : '';
+			$online_shop_widget_icon_class = !empty( $instance['online_shop_widget_icon_class'] ) ? esc_attr( $instance['online_shop_widget_icon_class'] ) : '';
 	        $post_number = absint( $instance[ 'post_number' ] );
 	        $column_number = absint( $instance[ 'column_number' ] );
 	        $display_type = esc_attr( $instance[ 'display_type' ] );
@@ -441,33 +473,45 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	        }
 
             $online_shop_featured_query = new WP_Query( $query_args );
-
+			
             if ($online_shop_featured_query->have_posts()) :
-                echo $args['before_widget'];
+				echo $args['before_widget'];
+				if ( !empty($online_shop_widget_class) ) {
+					echo '<div class="' . $online_shop_widget_class . '">';
+				}
 	            if ( !empty( $online_shop_widget_title ) ||
                      'disable' != $view_all_option ||
                      ( 1 == $enable_prev_next && 'carousel' == $display_type )
                 ){
 		            if( -1 != $online_shop_wc_product_cat ){
 			            echo "<div class='at-cat-color-wrap-".esc_attr( $online_shop_wc_product_cat )."'>";
-		            }
-	                echo $args['before_title'];
-		            echo $online_shop_widget_title;
-		            echo "<span class='at-action-wrapper'>";
-		            if( 'disable' != $view_all_option && !empty( $all_link_text ) && !empty( $all_link_url )){
-			            $target ='';
-		                if( 'new-tab-link' == $view_all_option ){
-		                    $target = 'target="_blank"';
-                        }
-		                echo '<a href="'.$all_link_url.'" class="all-link" '.$target.'>'.$all_link_text.'</a>';
-                    }
+					}
+					echo "<div class='at-title-action-wrapper clearfix'>";
+					echo $args['before_title'];
+					if ( !empty($online_shop_widget_icon_class) ) {
+						echo '<i class="' .$online_shop_widget_icon_class. '"></i>';
+					}
+					echo $online_shop_widget_title;
+					if ( !empty($online_shop_widget_description) ) {
+						echo '<span class="wg-description">' . $online_shop_widget_description . '</span>';
+					}
+					echo $args['after_title'];
+					/*.at-action-wrapper*/
+					echo "<span class='at-action-wrapper'>";
+					if( 'disable' != $view_all_option && !empty( $all_link_text ) && !empty( $all_link_url )){
+						$target ='';
+						if( 'new-tab-link' == $view_all_option ){
+							$target = 'target="_blank"';
+						}
+						echo '<a href="'.$all_link_url.'" class="all-link" '.$target.'>'.$all_link_text.'</a>';
+					}
 
-		            if( 1 == $enable_prev_next && 'carousel' == $display_type){
-		                echo '<i class="prev fa fa-angle-left"></i><i class="next fa fa-angle-right"></i>';
-                    }
-		            echo "</span>";/*.at-action-wrapper*/
+					if( 1 == $enable_prev_next && 'carousel' == $display_type){
+						echo '<i class="prev fa fa-angle-left"></i><i class="next fa fa-angle-right"></i>';
+					}
+					echo "</span>";/*.at-action-wrapper*/
+					echo "</div>";
 
-		            echo $args['after_title'];
 		            if( -1 != $online_shop_wc_product_cat ){
 			            echo "</div>";
 		            }
@@ -517,7 +561,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 		                $online_shop_list_classes = 'single-list';
 		                if( 'carousel' != $display_type ){
 			                if( 1 != $online_shop_featured_index && $online_shop_featured_index % $column_number == 1 ){
-				                echo "<div class='clearfix'></div>";
+				                echo "<!--<div class='clearfix'></div>-->";
 			                }
 			                if( 1 == $column_number ){
 				                $online_shop_list_classes .= " acme-col-1";
@@ -555,7 +599,10 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 		            ?>
                     </div><!--cat product wrap-->
 		            <?php
-	            }
+				}
+				if ( !empty($online_shop_widget_class) ) {
+					echo '</div>';
+				}
                 echo $args['after_widget'];
                 echo "<div class='clearfix'></div>";
                 // Reset the global $the_post as this query will have stomped on it

@@ -7,8 +7,8 @@ Contributors: acmethemes
 Tags: one-column, two-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-menu, featured-images, footer-widgets, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready, blog, e-commerce, news
 
 Requires at least: 4.5
-Tested up to: 4.9.8
-Stable tag: 1.3.4
+Tested up to: 4.9.6
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

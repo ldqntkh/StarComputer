@@ -375,7 +375,8 @@ if ( ! class_exists( 'Online_Shop_Posts_Col' ) ) {
 	            ){
 		            if( -1 != $online_shop_post_cat ){
 			            echo "<div class='at-cat-color-wrap-".$online_shop_post_cat."'>";
-		            }
+					}
+					echo "<div class='at-title-action-wrapper clearfix'>";
 	                echo $args['before_title'];
 		            echo $online_shop_widget_title;
 		            echo "<span class='at-action-wrapper'>";
@@ -392,7 +393,8 @@ if ( ! class_exists( 'Online_Shop_Posts_Col' ) ) {
                     }
 		            echo "</span>";/*.at-action-wrapper*/
 
-		            echo $args['after_title'];
+					echo $args['after_title'];
+					echo "</div>";
 		            if( -1 != $online_shop_post_cat ){
 			            echo "</div>";
 		            }

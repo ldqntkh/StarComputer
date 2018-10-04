@@ -84,7 +84,7 @@ if ( ! function_exists( 'online_shop_wc_feature_type_default' ) ) :
 				?>
                 <div class="single-list <?php echo esc_attr( $col ).' atsi-'.absint( $i ); ?>">
                     <div class="no-media-query single-unit" style="background-image:url(<?php echo esc_url( $image_url[0] ); ?>);">
-                        <a class="at-overlay" href="<?php echo esc_url( $term_link ); ?>"></a>
+                        <a class="at-overlay" href="<?php the_permalink()?>"></a>
                         <div class="cat-details">
                             <a href="<?php echo esc_url( $term_link ); ?>">
                                 <div class="cat-title">
@@ -195,7 +195,7 @@ if ( ! function_exists( 'online_shop_wc_feature_type_two' ) ) :
 				?>
                 <div class="single-list no-media <?php echo esc_attr( $col ).' atsi-'.absint( $i ); ?>">
                     <div class="no-media-query single-unit" style="background-image:url(<?php echo esc_url( $image_url[0] ); ?>);">
-                        <a class="at-overlay" href="<?php echo esc_url( $term_link ); ?>"></a>
+                        <a class="at-overlay" href="<?php the_permalink()?>"></a>
                         <div class="cat-details">
                             <a href="<?php echo esc_url( $term_link ); ?>">
                                 <div class="cat-title">
@@ -490,9 +490,13 @@ if ( ! class_exists( 'Online_Shop_Wc_Feature_Cats' ) ) {
 	             ( 1 == $enable_prev_next && 1 == $enable_slider_mode )
 	        ){
 
+				echo "<div class='at-title-action-wrapper clearfix'>";
 		        echo $args['before_title'];
 		        echo $online_shop_widget_title;
-		        echo "<span class='at-action-wrapper'>";
+		        
+
+				echo $args['after_title'];
+				echo "<span class='at-action-wrapper'>";
 		        if( 'disable' != $view_all_option && !empty( $all_link_text ) && !empty( $all_link_url )){
 			        $target ='';
 			        if( 'new-tab-link' == $view_all_option ){
@@ -505,8 +509,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Feature_Cats' ) ) {
 			        echo '<i class="prev fa fa-angle-left"></i><i class="next fa fa-angle-right"></i>';
 		        }
 		        echo "</span>";/*.at-action-wrapper*/
-
-		        echo $args['after_title'];
+				echo "</div>";
 	        }
 
 	        if(!empty( $online_shop_featured_cats ) ){
