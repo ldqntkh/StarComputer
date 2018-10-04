@@ -1,0 +1,23 @@
+@import 'variable';
+
+/**
+    import font-awesome
+*/
+// @import './font-awesome/scss/fontawesome.scss';
+// @import "./font-awesome/scss/solid.scss";
+// @import "./font-awesome/scss/brands.scss";
+// @import "./font-awesome/scss/regular.scss";
+
+@import 'page';
+@import 'breadcrumb';
+@import 'cart';
+@import 'account';
+@import 'homepage';
+@import 'footer';
+@import 'header_mobile';
+@import 'list_product';
+@import 'plp';
+@import 'pdp';
+@import 'filter_mobile';
+@import 'sidebar';
+@import 'checkout';

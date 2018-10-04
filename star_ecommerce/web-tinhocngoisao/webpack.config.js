@@ -4,10 +4,10 @@
 const path = require('path');
 module.exports = {
     entry: {
-        app: './wp-content/themes/online-shop/private/javascripts/app.js',
+        app: './wp-content/themes/online-shop-child/private/javascripts/app.js',
     },
     output: {
-        path: path.resolve('wp-content/themes/online-shop/assets/js'),
+        path: path.resolve('wp-content/themes/online-shop-child/assets/js'),
         filename: '[name].js'
     },
     mode: 'development',
