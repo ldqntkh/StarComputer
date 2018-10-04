@@ -69,7 +69,7 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 		?>
 	</ul>
 
-	<p class="woocommerce-mini-cart__total total"><strong><?php _e( 'Tổng tiền (chưa bao gồm phí khác)', 'woocommerce' ); ?>:</strong> <?php echo WC()->cart->get_cart_subtotal(); ?></p>
+	<p class="woocommerce-mini-cart__total total"><strong><?php _e( 'Subtotal', 'woocommerce' ); ?>:</strong> <?php echo WC()->cart->get_cart_subtotal(); ?></p>
 
 	<?php do_action( 'woocommerce_widget_shopping_cart_before_buttons' ); ?>
 
@@ -77,7 +77,7 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 
 <?php else : ?>
 
-	<p class="woocommerce-mini-cart__empty-message"><?php _e( 'Chưa có sản phẩm trong giỏ hàng', 'woocommerce' ); ?></p>
+	<p class="woocommerce-mini-cart__empty-message"><?php _e( 'No products in the cart.', 'woocommerce' ); ?></p>
 
 <?php endif; ?>
 

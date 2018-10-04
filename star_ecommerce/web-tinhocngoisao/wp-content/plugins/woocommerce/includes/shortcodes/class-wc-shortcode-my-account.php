@@ -56,11 +56,6 @@ class WC_Shortcode_My_Account {
 			} else {
 				wc_get_template( 'myaccount/form-login.php' );
 			}
-			// elseif ($wp->query_vars['pagename'] == 'my-account' ) {
-			// 	wc_get_template( 'myaccount/form-login.php' );
-			// } elseif ($wp->query_vars['pagename'] == 'register-account' ) {
-			// 	wc_get_template( 'myaccount/form-register.php' );
-			// } 
 		} else {
 			// Start output buffer since the html may need discarding for BW compatibility.
 			ob_start();
@@ -369,7 +364,7 @@ class WC_Shortcode_My_Account {
 	 */
 	public static function set_reset_password_cookie( $value = '' ) {
 		$rp_cookie = 'wp-resetpass-' . COOKIEHASH;
-		$rp_path   = isset( $_SERVER['REQUEST_URI'] ) ? current( explode( '?', wc_clean( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) ) : ''; // WPCS: input var ok.
+		$rp_path   = isset( $_SERVER['REQUEST_URI'] ) ? current( explode( '?', wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) : ''; // WPCS: input var ok, sanitization ok.
 
 		if ( $value ) {
 			setcookie( $rp_cookie, $value, 0, $rp_path, COOKIE_DOMAIN, is_ssl(), true );

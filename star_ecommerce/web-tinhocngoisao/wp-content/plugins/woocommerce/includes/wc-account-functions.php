@@ -95,14 +95,13 @@ function wc_get_account_menu_items() {
 	);
 
 	$items = array(
-		'dashboard'       => __( 'Tổng quan', 'woocommerce' ),
-		'edit-account'    => __( 'Chi tiết tài khoản', 'woocommerce' ),
-		'wishlist'    	  => __( 'Danh sách yêu thích', 'woocommerce' ),
-		'edit-address'    => __( 'Sổ địa chỉ', 'woocommerce' ),
-		'orders'          => __( 'Đơn hàng', 'woocommerce' ),
-		'payment-methods' => __( 'Payment methods', 'woocommerce' ),
+		'dashboard'       => __( 'Dashboard', 'woocommerce' ),
+		'orders'          => __( 'Orders', 'woocommerce' ),
 		'downloads'       => __( 'Downloads', 'woocommerce' ),
-		'customer-logout' => __( 'Đăng xuất', 'woocommerce' ),
+		'edit-address'    => __( 'Addresses', 'woocommerce' ),
+		'payment-methods' => __( 'Payment methods', 'woocommerce' ),
+		'edit-account'    => __( 'Account details', 'woocommerce' ),
+		'customer-logout' => __( 'Logout', 'woocommerce' ),
 	);
 
 	// Remove missing endpoints.
@@ -174,10 +173,6 @@ function wc_get_account_endpoint_url( $endpoint ) {
 
 	if ( 'customer-logout' === $endpoint ) {
 		return wc_logout_url();
-	}
-
-	if ('my-wishlist' === $endpoint ) {
-		return wc_get_page_permalink( 'wishlist' );
 	}
 
 	return wc_get_endpoint_url( $endpoint, '', wc_get_page_permalink( 'myaccount' ) );

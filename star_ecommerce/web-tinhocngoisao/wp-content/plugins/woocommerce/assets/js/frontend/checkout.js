@@ -9,7 +9,6 @@ jQuery( function( $ ) {
 	$.blockUI.defaults.overlayCSS.cursor = 'default';
 
 	var wc_checkout_form = {
-		show_payment = $( window ).width() >= 1024 ? false : true,
 		updateTimer: false,
 		dirtyInput: false,
 		selectedPaymentMethod: false,
@@ -59,8 +58,6 @@ jQuery( function( $ ) {
 			if ( wc_checkout_params.option_guest_checkout === 'yes' ) {
 				$( 'input#createaccount' ).change( this.toggle_create_account ).change();
 			}
-
-			this.handleEditAddress();
 		},
 		init_payment_methods: function() {
 			var $payment_methods = $( '.woocommerce-checkout' ).find( 'input[name="payment_method"]' );
@@ -183,10 +180,6 @@ jQuery( function( $ ) {
 		ship_to_different_address: function() {
 			$( 'div.shipping_address' ).hide();
 			if ( $( this ).is( ':checked' ) ) {
-				$( 'div.shipping_address' ).find( '.woocommerce-input-wrapper' ).parent().removeClass( 'woocommerce-invalid woocommerce-invalid-required-field' );
-				if ( $( 'div.shipping_address' ).find( '.woocommerce-error-input' ).length > 0 ) {
-					$( 'div.shipping_address' ).find( '.woocommerce-error-input' ).remove();
-				}
 				$( 'div.shipping_address' ).slideDown();
 			}
 		},
@@ -208,7 +201,6 @@ jQuery( function( $ ) {
 				validated         = true,
 				validate_required = $parent.is( '.validate-required' ),
 				validate_email    = $parent.is( '.validate-email' ),
-				varlidate_phone   = $parent.is( '.validate-phone' ),
 				event_type        = e.type;
 
 			if ( 'input' === event_type ) {
@@ -224,8 +216,6 @@ jQuery( function( $ ) {
 					} else if ( $this.val() === '' ) {
 						$parent.removeClass( 'woocommerce-validated' ).addClass( 'woocommerce-invalid woocommerce-invalid-required-field' );
 						validated = false;
-						$parent.find('.woocommerce-error-input').remove();
-						$parent.append('<span class="woocommerce-error-input">Xin vui lòng điền thông tin</span>');
 					}
 				}
 
@@ -237,29 +227,11 @@ jQuery( function( $ ) {
 						if ( ! pattern.test( $this.val()  ) ) {
 							$parent.removeClass( 'woocommerce-validated' ).addClass( 'woocommerce-invalid woocommerce-invalid-email' );
 							validated = false;
-
-							$parent.find('.woocommerce-error-input').remove();
-							$parent.append('<span class="woocommerce-error-input">Địa chỉ email không hợp lệ. Vui lòng nhập lại</span>');
-						}
-					}
-				}
-
-				if ( varlidate_phone ) {
-					if ( $this.val() ) {
-						var pattern = new RegExp(/(09|01[2|6|8|9])+([0-9]{8})\b/);
-						if ( ! pattern.test( $this.val()  ) ) {
-							$parent.removeClass( 'woocommerce-validated' ).addClass( 'woocommerce-invalid woocommerce-invalid-phone' );
-							$parent.find('.woocommerce-error-input').remove();
-							$parent.append('<span class="woocommerce-error-input">Số điện thoại không hợp lệ. Vui lòng nhập lại</span>');
-							validated = false;
 						}
 					}
 				}
 
 				if ( validated ) {
-					if ( $parent.find('.woocommerce-error-input').length > 0 ) {
-						$parent.find('.woocommerce-error-input').remove();
-					}
 					$parent.removeClass( 'woocommerce-invalid woocommerce-invalid-required-field woocommerce-invalid-email' ).addClass( 'woocommerce-validated' );
 				}
 			}
@@ -440,83 +412,7 @@ jQuery( function( $ ) {
 
 			});
 		},
-		submit: function(e) {
-			if (!wc_checkout_form.show_payment && $( window ).width() >= 1024) {
-				e.preventDefault();
-				// please valid form before next step payment
-				// valid success then next step
-				var isShippingToDifferentAddress = $('#ship-to-different-address-checkbox').is(':checked');
-				var $billingWrapper = !isShippingToDifferentAddress ? $('.woocommerce-billing-fields__field-wrapper') : false;
-				var $billingAndShippingWrapper = isShippingToDifferentAddress ? $('.woocommerce-shipping-fields__field-wrapper').parents('.address-billing-and-shipping') : false;
-				var $inputFieldsWrapper = $billingAndShippingWrapper || $billingWrapper;
-				var $inputFields = $inputFieldsWrapper.find('.woocommerce-input-wrapper');
-
-				$inputFields.each(function() {
-					var $inputField = $(this);
-					var $inputFieldWrapper = $inputField.parent();
-					var $selectorElement = $inputField.find('input') || $inputField.find('select');
-					if ( $inputFieldWrapper.find('.woocommerce-error-input').length > 0 ) {
-						$inputFieldWrapper.find('.woocommerce-error-input').remove();
-					}
-
-					if ( $selectorElement.val() === '' && $inputFieldWrapper.hasClass('validate-required') ) {
-						$inputFieldWrapper.addClass('woocommerce-invalid woocommerce-invalid-required-field');
-						$inputFieldWrapper.append('<span class="woocommerce-error-input">Xin vui lòng điền thông tin</span>');
-					} else if ( $selectorElement.val() !== '' ) {
-						if ( $inputFieldWrapper.hasClass('woocommerce-invalid-email') ) {
-							$inputFieldWrapper.append('<span class="woocommerce-error-input">Địa chỉ email không hợp lệ. Vui lòng nhập lại</span>');
-						}
-					}	else {
-						$inputFieldWrapper.removeClass('woocommerce-validated');
-					}
-				});
-
-				if ( $inputFieldsWrapper.find('.woocommerce-invalid-required-field').length > 0 ) {
-					return false;
-				}
-				
-				// show shipping address detail
-				var $checkout_address = $('#checkout-address');
-				var firstName = $inputFieldsWrapper.find('#billing_first_name').val();
-				var lastName = $inputFieldsWrapper.find('#billing_last_name').val();
-				var phone = $inputFieldsWrapper.find('#billing_phone').val();
-				var email = $inputFieldsWrapper.find('#billing_email').val();
-				var address1 = $inputFieldsWrapper.find('#billing_address_1').val();
-				var html_address = `<h3> Địa chỉ giao hàng</h3>
-									<table>
-										<tr>
-											<td class="title">Họ tên:</td>
-											<td>` + firstName + ' ' + lastName + `</td>
-										</tr>
-										<tr>
-											<td class="title">Số phone:</td>
-											<td>` + phone + `</td>
-										</tr>
-										<tr>
-											<td class="title">Email:</td>
-											<td>` + email + `</td>
-										</tr>
-										<tr>
-											<td class="title">Địa chỉ:</td>
-											<td>` + address1 + `</td>
-										</tr>
-									</table>
-									<button type="button" class="button alt" id="btn-edit-address">Sửa</button>`;
-				$checkout_address.html(html_address).addClass('active');
-
-				wc_checkout_form.show_payment = true;
-
-				// hide form address
-				$('.address-billing-and-shipping').hide();
-				// show form payment
-				$('.progress-payment').show(300);
-
-				// show progess bar
-				$('.bs-wizard-step-2').removeClass('active');
-				$('.bs-wizard-step-3').removeClass('disabled');
-				return;
-			}
-
+		submit: function() {
 			wc_checkout_form.reset_update_checkout_timer();
 			var $form = $( this );
 
@@ -615,26 +511,6 @@ jQuery( function( $ ) {
 			}
 
 			return false;
-		},
-		handleEditAddress: function() {
-			$(document).on('click', '#btn-edit-address', function() {
-				var $checkout_address = $('#checkout-address');
-				$checkout_address.html('').removeClass('active');
-	
-				// hide form payment
-				$('.progress-payment').hide();
-				// show form address
-				$('.address-billing-and-shipping').show(300);
-				
-				// hide progess bar
-				$('.bs-wizard-step-2').addClass('active');
-				$('.bs-wizard-step-3').addClass('disabled');
-	
-				// remove border of input field
-				$('.woocommerce-input-wrapper').parent().removeClass( 'woocommerce-validated' );
-
-				wc_checkout_form.show_payment = false;
-			});
 		},
 		submit_error: function( error_message ) {
 			$( '.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message' ).remove();

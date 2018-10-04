@@ -212,9 +212,9 @@ class WC_Checkout {
 				'order_comments' => array(
 					'type'        => 'textarea',
 					'class'       => array( 'notes' ),
-					'label'       => __( 'Ghi chú hóa đơn', 'woocommerce' ),
+					'label'       => __( 'Order notes', 'woocommerce' ),
 					'placeholder' => esc_attr__(
-						'Những ghi chú về hóa đơn của bạn. Đặc biệt là ghi chú cho việc giao hàng',
+						'Notes about your order, e.g. special notes for delivery.',
 						'woocommerce'
 					),
 				),
@@ -664,7 +664,7 @@ class WC_Checkout {
 						break;
 					case 'billing':
 						/* translators: %s: field name */
-						$field_label = sprintf( __( '%s', 'woocommerce' ), $field_label );
+						$field_label = sprintf( __( 'Billing %s', 'woocommerce' ), $field_label );
 						break;
 				}
 
@@ -719,7 +719,7 @@ class WC_Checkout {
 
 				if ( $required && '' === $data[ $key ] ) {
 					/* translators: %s: field name */
-					$errors->add( 'required-field', apply_filters( 'woocommerce_checkout_required_field_notice', sprintf( __( '%s là ô bắt buộc.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ), $field_label ) );
+					$errors->add( 'required-field', apply_filters( 'woocommerce_checkout_required_field_notice', sprintf( __( '%s is a required field.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ), $field_label ) );
 				}
 			}
 		}

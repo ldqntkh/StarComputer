@@ -26,9 +26,7 @@ global $product;
 	do_action( 'woocommerce_after_add_to_cart_quantity' );
 	?>
 
-	<?php if ( !empty( $product->get_stock_quantity() ) && $product->get_stock_quantity() > 0 ): ?>
-		<button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
-	<?php endif; ?>
+	<button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
 
 	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 

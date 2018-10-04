@@ -1757,7 +1757,7 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 
 		if ( $subtotal ) {
 			$total_rows['cart_subtotal'] = array(
-				'label' => __( 'Tổng tiền:', 'woocommerce' ),
+				'label' => __( 'Subtotal:', 'woocommerce' ),
 				'value' => $subtotal,
 			);
 		}
@@ -1772,7 +1772,7 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 	protected function add_order_item_totals_discount_row( &$total_rows, $tax_display ) {
 		if ( $this->get_total_discount() > 0 ) {
 			$total_rows['discount'] = array(
-				'label' => __( 'Giảm giá:', 'woocommerce' ),
+				'label' => __( 'Discount:', 'woocommerce' ),
 				'value' => '-' . $this->get_discount_to_display( $tax_display ),
 			);
 		}
@@ -1787,7 +1787,7 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 	protected function add_order_item_totals_shipping_row( &$total_rows, $tax_display ) {
 		if ( $this->get_shipping_method() ) {
 			$total_rows['shipping'] = array(
-				'label' => __( 'Vận chuyển:', 'woocommerce' ),
+				'label' => __( 'Shipping:', 'woocommerce' ),
 				'value' => $this->get_shipping_to_display( $tax_display ),
 			);
 		}
@@ -1848,7 +1848,7 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 	 */
 	protected function add_order_item_totals_total_row( &$total_rows, $tax_display ) {
 		$total_rows['order_total'] = array(
-			'label' => __( 'Tổng cộng:', 'woocommerce' ),
+			'label' => __( 'Total:', 'woocommerce' ),
 			'value' => $this->get_formatted_order_total( $tax_display ),
 		);
 	}

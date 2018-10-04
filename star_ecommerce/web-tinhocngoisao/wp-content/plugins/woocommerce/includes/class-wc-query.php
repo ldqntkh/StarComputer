@@ -76,7 +76,6 @@ class WC_Query {
 			'downloads'                  => get_option( 'woocommerce_myaccount_downloads_endpoint', 'downloads' ),
 			'edit-account'               => get_option( 'woocommerce_myaccount_edit_account_endpoint', 'edit-account' ),
 			'edit-address'               => get_option( 'woocommerce_myaccount_edit_address_endpoint', 'edit-address' ),
-			'wishlist'               	 => get_option( 'woocommerce_myaccount_wishlist_endpoint', 'wishlist' ),
 			'payment-methods'            => get_option( 'woocommerce_myaccount_payment_methods_endpoint', 'payment-methods' ),
 			'lost-password'              => get_option( 'woocommerce_myaccount_lost_password_endpoint', 'lost-password' ),
 			'customer-logout'            => get_option( 'woocommerce_logout_endpoint', 'customer-logout' ),
@@ -100,7 +99,7 @@ class WC_Query {
 				$title = __( 'Pay for order', 'woocommerce' );
 				break;
 			case 'order-received':
-				$title = __( 'Hóa đơn', 'woocommerce' );
+				$title = __( 'Order received', 'woocommerce' );
 				break;
 			case 'orders':
 				if ( ! empty( $wp->query_vars['orders'] ) ) {
@@ -132,9 +131,6 @@ class WC_Query {
 				break;
 			case 'lost-password':
 				$title = __( 'Lost password', 'woocommerce' );
-				break;
-			case 'wishlist':
-				$title = __( 'Danh sách yêu thích', 'woocommerce' );
 				break;
 			default:
 				$title = '';

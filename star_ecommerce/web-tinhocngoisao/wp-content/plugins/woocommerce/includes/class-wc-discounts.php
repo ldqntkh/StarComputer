@@ -567,7 +567,7 @@ class WC_Discounts {
 	protected function validate_coupon_exists( $coupon ) {
 		if ( ! $coupon->get_id() && ! $coupon->get_virtual() ) {
 			/* translators: %s: coupon code */
-			throw new Exception( sprintf( __( 'Mã khuyến mãi "%s" không tồn tại!', 'woocommerce' ), $coupon->get_code() ), 105 );
+			throw new Exception( sprintf( __( 'Coupon "%s" does not exist!', 'woocommerce' ), $coupon->get_code() ), 105 );
 		}
 
 		return true;
@@ -631,7 +631,7 @@ class WC_Discounts {
 	 */
 	protected function validate_coupon_expiry_date( $coupon ) {
 		if ( $coupon->get_date_expires() && apply_filters( 'woocommerce_coupon_validate_expiry_date', current_time( 'timestamp', true ) > $coupon->get_date_expires()->getTimestamp(), $coupon, $this ) ) {
-			throw new Exception( __( 'Mã khuyến mãi này đã hết hạn.', 'woocommerce' ), 107 );
+			throw new Exception( __( 'This coupon has expired.', 'woocommerce' ), 107 );
 		}
 
 		return true;
@@ -693,7 +693,7 @@ class WC_Discounts {
 			}
 
 			if ( ! $valid ) {
-				throw new Exception( __( 'Rất lấy làm tiếc! Mã khuyến mãi này không được áp dụng cho sản phẩm này.', 'woocommerce' ), 109 );
+				throw new Exception( __( 'Sorry, this coupon is not applicable to selected products.', 'woocommerce' ), 109 );
 			}
 		}
 
@@ -731,7 +731,7 @@ class WC_Discounts {
 			}
 
 			if ( ! $valid ) {
-				throw new Exception( __( 'Rất lấy làm tiếc! Mã khuyến mãi này không được áp dụng cho sản phẩm này.', 'woocommerce' ), 109 );
+				throw new Exception( __( 'Sorry, this coupon is not applicable to selected products.', 'woocommerce' ), 109 );
 			}
 		}
 
@@ -747,12 +747,12 @@ class WC_Discounts {
 	 * @return bool
 	 */
 	protected function validate_coupon_sale_items( $coupon ) {
-		if ( $coupon->get_exclude_sale_items() ) {
-			$valid = false;
+		if ( $coupon->get_exclude_sale_items() && 'fixed_product' !== $coupon->get_discount_type() ) {
+			$valid = true;
 
 			foreach ( $this->get_items_to_validate() as $item ) {
-				if ( $item->product && ! $item->product->is_on_sale() ) {
-					$valid = true;
+				if ( $item->product && $item->product->is_on_sale() ) {
+					$valid = false;
 					break;
 				}
 			}
@@ -786,7 +786,7 @@ class WC_Discounts {
 			}
 
 			if ( ! $valid ) {
-				throw new Exception( __( 'Rất lấy làm tiếc! Mã khuyến mãi này không được áp dụng cho sản phẩm này.', 'woocommerce' ), 109 );
+				throw new Exception( __( 'Sorry, this coupon is not applicable to selected products.', 'woocommerce' ), 109 );
 			}
 		}
 

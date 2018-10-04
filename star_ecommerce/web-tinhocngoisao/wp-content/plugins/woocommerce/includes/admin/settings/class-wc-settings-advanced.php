@@ -253,15 +253,6 @@ class WC_Settings_Advanced extends WC_Settings_Page {
 					),
 
 					array(
-						'title'    => __( 'My wishlist', 'woocommerce' ),
-						'desc'     => __( 'Endpoint for the "My account &rarr; My wishlist" page.', 'woocommerce' ),
-						'id'       => 'woocommerce_myaccount_wishlist_endpoint',
-						'type'     => 'text',
-						'default'  => 'wishlist',
-						'desc_tip' => true,
-					),
-
-					array(
 						'title'    => __( 'Addresses', 'woocommerce' ),
 						'desc'     => __( 'Endpoint for the "My account &rarr; Addresses" page.', 'woocommerce' ),
 						'id'       => 'woocommerce_myaccount_edit_address_endpoint',
