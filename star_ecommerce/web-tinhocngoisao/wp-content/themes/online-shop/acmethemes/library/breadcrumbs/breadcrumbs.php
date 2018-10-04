@@ -263,8 +263,8 @@ class Breadcrumb_Trail {
 		$defaults = array(
 			'browse'              => esc_html__( 'Browse:',                               'online-shop' ),
 			'aria_label'          => esc_attr_x( 'Breadcrumbs', 'breadcrumbs aria label', 'online-shop' ),
-			'home'                => esc_html__( 'Trang chủ',                             'online-shop' ),
-			'error_404'           => esc_html__( 'Trang không tồn tại',                   'online-shop' ),
+			'home'                => esc_html__( 'Home',                                  'online-shop' ),
+			'error_404'           => esc_html__( '404 Not Found',                         'online-shop' ),
 			'archives'            => esc_html__( 'Archives',                              'online-shop' ),
 			// Translators: %s is the search query.
 			'search'              => esc_html__( 'Search results for: %s',                'online-shop' ),

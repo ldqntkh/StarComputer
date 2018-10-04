@@ -96,31 +96,17 @@ jQuery(document).ready(function($) {
                 nextArrow: nextArrow,
                 responsive: [
                     {
-                        breakpoint: 767,
+                        breakpoint: 768,
                         settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2
+                            slidesToShow: ( slidesToShow > 1 ? slidesToShow - 1 : slidesToShow ),
+                            slidesToScroll: ( slidesToScroll > 1 ? slidesToScroll - 1 : slidesToScroll )
                         }
                     },
                     {
-                        breakpoint: 991,
+                        breakpoint: 480,
                         settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3
-                        }
-                    },
-                    {
-                        breakpoint: 1367,
-                        settings: {
-                            slidesToShow: 4,
-                            slidesToScroll: 4
-                        }
-                    },
-                    {
-                        breakpoint: 2000,
-                        settings: {
-                            slidesToShow: 5,
-                            slidesToScroll: 5
+                            slidesToShow: ( slidesToShow > 2 ? slidesToShow - 2 : slidesToShow ),
+                            slidesToScroll: ( slidesToScroll > 2 ? slidesToScroll - 2 : slidesToScroll )
                         }
                     }
                 ]

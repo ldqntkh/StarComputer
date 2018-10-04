@@ -140,15 +140,18 @@ if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Online_Shop_Cust
 		 */
 		public function render_content() {
 			$online_shop_customizer_name = 'online_shop_customizer_dropdown_categories_' . esc_attr( $this->id );
+			$query_args = array(
+				'name'              => $online_shop_customizer_name,
+				'echo'              => 0,
+				'show_option_none'  => esc_html__('Select','online-shop'),
+				'option_none_value' => '0',
+				'selected'          => $this->value(),
+			);
+			if( online_shop_is_woocommerce_active() ){
+				$query_args['taxonomy']='product_cat';
+            }
 			$online_shop_dropdown_categories = wp_dropdown_categories(
-				array(
-					'name'              => $online_shop_customizer_name,
-					'echo'              => 0,
-					'show_option_none'  => esc_html__('Select','online-shop'),
-					'option_none_value' => '0',
-					'selected'          => $this->value(),
-					'taxonomy'          => 'product_cat'
-				)
+				$query_args
 			);
 			$online_shop_dropdown_final = str_replace( '<select', '<select ' . $this->get_link(), $online_shop_dropdown_categories );
 			printf(
