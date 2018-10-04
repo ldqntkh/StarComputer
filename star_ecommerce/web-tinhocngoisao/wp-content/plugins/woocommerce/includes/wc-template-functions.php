@@ -271,6 +271,7 @@ function wc_body_class( $classes ) {
 
 		$classes[] = 'woocommerce';
 		$classes[] = 'woocommerce-page';
+		$classes[] = 'woocommerce-plp';
 
 	} elseif ( is_checkout() ) {
 
@@ -950,6 +951,16 @@ if ( ! function_exists( 'woocommerce_get_sidebar' ) ) {
 	}
 }
 
+if ( ! function_exists( 'woocommerce_get_sidebar_in_pdp' ) ) {
+
+	/**
+	 * Get the shop sidebar template.
+	 */
+	function woocommerce_get_sidebar_in_pdp() {
+		wc_get_template( 'single-product/sidebar.php' );
+	}
+}
+
 if ( ! function_exists( 'woocommerce_demo_store' ) ) {
 
 	/**
@@ -1066,7 +1077,7 @@ if ( ! function_exists( 'woocommerce_template_loop_product_title' ) ) {
 	 * Show the product title in the product loop. By default this is an H2.
 	 */
 	function woocommerce_template_loop_product_title() {
-		echo '<h2 class="woocommerce-loop-product__title">' . get_the_title() . '</h2>';
+		echo '<div class="product-item-details"><h2 class="woocommerce-loop-product__title">' . substr( get_the_title(), 0,48) . '...</h2>';
 	}
 }
 if ( ! function_exists( 'woocommerce_template_loop_category_title' ) ) {
@@ -1809,7 +1820,7 @@ if ( ! function_exists( 'woocommerce_related_products' ) ) {
 	 */
 	function woocommerce_related_products( $args = array() ) {
 		global $product;
-
+		
 		if ( ! $product ) {
 			return;
 		}
@@ -2904,6 +2915,16 @@ if ( ! function_exists( 'woocommerce_account_downloads' ) ) {
 	}
 }
 
+if ( ! function_exists( 'woocommerce_account_wishlist' ) ) {
+
+	/**
+	 * My Account > Wishlist template.
+	 */
+	function woocommerce_account_wishlist() {
+		wc_get_template( 'myaccount/my-wishlist.php' );
+	}
+}
+
 if ( ! function_exists( 'woocommerce_account_edit_address' ) ) {
 
 	/**
@@ -3160,7 +3181,7 @@ function wc_get_rating_html( $rating, $count = 0 ) {
 		$html .= wc_get_star_rating_html( $rating, $count );
 		$html .= '</div>';
 	} else {
-		$html = '';
+		$html = '<p class="star-rating-empty"></p>';
 	}
 
 	return apply_filters( 'woocommerce_product_get_rating_html', $html, $rating, $count );

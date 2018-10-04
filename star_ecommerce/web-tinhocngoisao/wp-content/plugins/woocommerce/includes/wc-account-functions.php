@@ -96,11 +96,12 @@ function wc_get_account_menu_items() {
 
 	$items = array(
 		'dashboard'       => __( 'Dashboard', 'woocommerce' ),
-		'orders'          => __( 'Orders', 'woocommerce' ),
-		'downloads'       => __( 'Downloads', 'woocommerce' ),
-		'edit-address'    => __( 'Addresses', 'woocommerce' ),
-		'payment-methods' => __( 'Payment methods', 'woocommerce' ),
 		'edit-account'    => __( 'Account details', 'woocommerce' ),
+		'wishlist'    	  => __( 'Wishlist', 'woocommerce' ),
+		'edit-address'    => __( 'Addresses', 'woocommerce' ),
+		'orders'          => __( 'Orders', 'woocommerce' ),
+		'payment-methods' => __( 'Payment methods', 'woocommerce' ),
+		'downloads'       => __( 'Downloads', 'woocommerce' ),
 		'customer-logout' => __( 'Logout', 'woocommerce' ),
 	);
 
@@ -173,6 +174,10 @@ function wc_get_account_endpoint_url( $endpoint ) {
 
 	if ( 'customer-logout' === $endpoint ) {
 		return wc_logout_url();
+	}
+
+	if ('my-wishlist' === $endpoint ) {
+		return wc_get_page_permalink( 'wishlist' );
 	}
 
 	return wc_get_endpoint_url( $endpoint, '', wc_get_page_permalink( 'myaccount' ) );

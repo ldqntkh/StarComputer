@@ -1966,4 +1966,13 @@ class WC_Cart extends WC_Legacy_Cart {
 		$this->fees_api->remove_all_fees();
 		do_action( 'woocommerce_cart_reset', $this, false );
 	}
+
+	public function get_product_price_value($product) {
+		if ( $this->display_prices_including_tax() ) {
+			$product_price = wc_get_price_including_tax( $product );
+		} else {
+			$product_price = wc_get_price_excluding_tax( $product );
+		}
+		return $product_price;
+	}
 }
