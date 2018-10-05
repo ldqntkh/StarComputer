@@ -115,13 +115,6 @@ jQuery(document).ready(function($) {
                             slidesToShow: 4,
                             slidesToScroll: 4
                         }
-                    },
-                    {
-                        breakpoint: 2000,
-                        settings: {
-                            slidesToShow: 5,
-                            slidesToScroll: 5
-                        }
                     }
                 ]
             });
