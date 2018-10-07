@@ -78,8 +78,43 @@
                 </form>
             </div>
         </div>
-        <div class="form-order">
-
+        <div class="order-items">
+            <div class="head">
+                <span>Giỏ hàng</span>
+                <a href="#">Sửa</a>
+            </div>
+            <div class="items">
+                <div class="product-item">
+                    <span>
+                        <strong>2x</strong>
+                        <a href="#">Sản phẩm 01</a>
+                    </span>
+                    <span>150.000đ</span>
+                </div>
+                <div class="product-item">
+                    <span>
+                        <strong>1x</strong>
+                        <a href="#">Sản phẩm 02</a>
+                    </span>
+                    <span>1.300.000đ</span>
+                </div>
+            </div>
+            <div class="foot">
+                <div class="order-totals">
+                    <div class="line">
+                        <span>Tạm tính:</span>
+                        <strong>1.450.000đ</strong>
+                    </div>
+                    <div class="line">
+                        <span>Phụ phí:</span>
+                        <strong>100.000đ</strong>
+                    </div>
+                    <div class="line total">
+                        <span>Tổng cộng:</span>
+                        <strong>1.550.000đ</strong>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script>

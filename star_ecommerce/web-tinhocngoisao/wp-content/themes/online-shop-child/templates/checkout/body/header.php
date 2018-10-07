@@ -24,7 +24,7 @@
                         </div>
                     </div>
 
-                    <div class="bs-wizard-step bs-wizard-step-2 <?php if ($step == 2) echo 'active'; else echo 'disabled'; ?>">
+                    <div class="bs-wizard-step bs-wizard-step-2 <?php if ($step == 2) echo 'active'; else if ($step < 2) echo 'disabled'; ?>">
                         <div class="text-center bs-wizard-stepnum">
                             <span class="hidden-xs">Địa Chỉ Giao Hàng</span>
                         </div>
@@ -35,7 +35,7 @@
                         </div>
                     </div>
 
-                    <div class="bs-wizard-step bs-wizard-step-3 <?php if ($step == 3) echo 'active'; else echo 'disabled'; ?>">
+                    <div class="bs-wizard-step bs-wizard-step-3 <?php if ($step == 3) echo 'active'; else if ($step < 3) echo 'disabled'; ?>">
                         <div class="text-center bs-wizard-stepnum">
                             <span class="hidden-xs">Thanh Toán &amp; Đặt Mua</span>
                         </div>
@@ -46,9 +46,9 @@
                         </div>
                     </div>
 
-                    <div class="bs-wizard-step bs-wizard-step-4 <?php if ($step == 4) echo 'active'; else echo 'disabled'; ?>">
+                    <div class="bs-wizard-step bs-wizard-step-4 <?php if ($step == 4) echo 'active'; else if ($step < 4) echo 'disabled'; ?>">
                         <div class="text-center bs-wizard-stepnum">
-                            <span class="hidden-xs">Kiểm tra đơn hàng</span>
+                            <span class="hidden-xs">Hoàn tất đặt hàng</span>
                         </div>
                         <div class="progress">
                             <div class="progress-bar-left"></div>

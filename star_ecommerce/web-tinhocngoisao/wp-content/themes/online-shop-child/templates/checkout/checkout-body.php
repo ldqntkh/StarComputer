@@ -14,10 +14,10 @@
                     include_once( 'body/address.php' );
                     break;
                 case 3: // payment
-                    include_once( 'body/login.php' );
+                    include_once( 'body/payment.php' );
                     break;
                 case 4: // thank page
-                    include_once( 'body/login.php' );
+                    include_once( 'body/thankpage.php' );
                     break;
             }
         ?>
