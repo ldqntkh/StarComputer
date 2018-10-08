@@ -54,6 +54,7 @@
         .product {
             .price {
                 color: #f73838;
+                display: block;
 
                 del {
                     color: #2d2d2d;
@@ -70,12 +71,40 @@
                     left: .5em;
                     right: 0;
                 }
+
+                .flex-control-thumbs {
+                    position: absolute;
+                    top: 5px;
+                    margin-left: 3em;
+
+                    li {
+                        width: 100%;
+                        float: none;
+                    }
+                }
+
+                img {
+                    margin-left: 10em;
+                    width: 75%;
+                }
             }
 
             .onsale {
                 top: -9px;
                 right: 0;
                 left: unset;
+            }
+
+            .trading-information-wrapper {
+                p {
+                    margin: 0;
+                }
+            }
+
+            .woocommerce-product-gallery {
+                .flex-control-nav {
+                    display: block;
+                }
             }
         }
 

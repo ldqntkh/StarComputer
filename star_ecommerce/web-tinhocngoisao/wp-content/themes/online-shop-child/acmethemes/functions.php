@@ -548,3 +548,10 @@ if ( !function_exists('online_shop_widget_term_per_slide') ) :
 		return apply_filters( 'online_shop_widget_term_per_slide', $online_shop_widget_term_per_slide );
 	}
 endif;
+
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_promotion', 10 );
+if ( !function_exists('woocommerce_template_single_promotion') ) :
+	function woocommerce_template_single_promotion() {
+		wc_get_template( 'single-product/promotion.php' );
+	}
+endif;
