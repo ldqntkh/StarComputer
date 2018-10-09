@@ -552,6 +552,30 @@ endif;
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_promotion', 10 );
 if ( !function_exists('woocommerce_template_single_promotion') ) :
 	function woocommerce_template_single_promotion() {
-		wc_get_template( 'single-product/promotion.php' );
+		//wc_get_template( 'single-product/promotion.php' );
+		if (get_field('product_promotion')) {
+			echo get_field('product_promotion');
+		} else {
+			echo '';
+		}
 	}
 endif;
+
+add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_trading_information', 5 );
+if ( !function_exists('woocommerce_template_trading_information') ) :
+	function woocommerce_template_trading_information() {
+		if ( get_field('trading_information') ) {
+			echo get_field('trading_information');
+		} else {
+			echo '';
+		}
+	}
+endif;
+/**
+ * Product Summary Box.
+ */
+add_action( 'woocommerce_single_product_summary_center', 'woocommerce_template_single_title', 5 );
+add_action( 'woocommerce_single_product_summary_center', 'woocommerce_template_single_rating', 10 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_price', 5 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_promotion', 7 );
+
