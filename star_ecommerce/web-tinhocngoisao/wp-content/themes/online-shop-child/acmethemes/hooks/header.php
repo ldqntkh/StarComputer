@@ -447,9 +447,17 @@ if ( ! function_exists( 'online_shop_before_content' ) ) :
 	    global $online_shop_customizer_all_values;
 	    ?>
         <div class="content-wrapper clearfix">
+            <?php 
+                $show_breadcrumb = false;
+                if (is_woocommerce() && !is_product()) {
+                    // customize filter
+                    $show_breadcrumb = true;
+                    require_once online_shop_file_directory('acmethemes/filter/filter.php');
+                }
+            ?>
             <div id="content" class="wrapper site-content">
         <?php
-        if( 'disable' != $online_shop_customizer_all_values['online-shop-breadcrumb-options'] && !is_front_page()){
+        if( !$show_breadcrumb && 'disable' != $online_shop_customizer_all_values['online-shop-breadcrumb-options'] && !is_front_page()){
             online_shop_breadcrumbs();
         }
     }
