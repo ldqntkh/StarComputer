@@ -8,5 +8,21 @@ msgid "Is staff"
 msgstr ""
 
 #: wp-content/plugins/woocommerce/templates/single-product/price.php:28
-msgid "Chiết khấu"
+msgid "Chiết khấu:"
+msgstr ""
+
+#: 
+msgid "Thiết lập chiết khấu dành cho nhân viên"
+msgstr ""
+
+#: 
+msgid "Giá gốc:"
+msgstr ""
+
+#: 
+msgid "Chiết khấu (%):"
+msgstr ""
+
+#: 
+msgid "Chiết khấu cố định (VNĐ):"
 msgstr ""
