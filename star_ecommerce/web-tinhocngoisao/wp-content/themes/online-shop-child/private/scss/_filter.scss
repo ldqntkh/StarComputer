@@ -22,14 +22,21 @@
     }
     .lst-categories {
         display: flex;
-        flex-wrap: wrap-reverse;
-        justify-content: center;
-        align-items: center;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        overflow-x: auto;
+        @media screen and (min-width: 1024px) {
+            flex-wrap: wrap-reverse;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+        }
         a {
             background: #c0c0c01a;
             padding: 10px;
             margin: 5px 10px;
             border-radius: 5px;
+            white-space: nowrap;
         }
     }
     .filters.refine-show-main {
@@ -39,7 +46,7 @@
                 float: left;
                 .filter-title {
                     margin: 0;
-                    padding: 20px 50px 10px 0;
+                    padding: 20px 25px 10px 25px;
                     text-transform: uppercase;
                     font-weight: normal;
                     cursor: pointer;
@@ -59,7 +66,7 @@
                     margin-top: 10px;
                     padding-top: 20px;
                     background-color: white;
-                    z-index: 100;
+                    z-index: 900;
                     display: none;
                     -webkit-box-shadow: 0 17px 11px -21px rgba(0,0,0,0.75);
                     -moz-box-shadow: 0 17px 11px -21px rgba(0,0,0,0.75);
@@ -110,10 +117,16 @@
         .filter-price {
             position: relative;
             .widget_price_filter {
-                width: 300px;
-                position: absolute;
-                right: 0;
-                top: -35px;
+                width: 100%;
+                position: relative;
+                margin-top: 15px;
+                @media screen and(min-width: 1024px) {
+                    width: 300px;
+                    position: absolute;
+                    right: 0;
+                    top: -35px;
+                    margin-top: 0;
+                }
                 form {
                     button {
                         background: transparent;
@@ -130,6 +143,7 @@
 .active-filters-custom {
     ul {
         display: flex;
+        flex-wrap: wrap;
         max-width: 1200px;
         margin: 0 auto;
         border-bottom: 1px solid #c0c0c040;
