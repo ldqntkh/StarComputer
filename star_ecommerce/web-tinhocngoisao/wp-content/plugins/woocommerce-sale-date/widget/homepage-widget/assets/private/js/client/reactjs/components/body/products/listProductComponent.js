@@ -58,7 +58,7 @@ export default class ListProductComponent extends Component {
                 listProduct : dataJson
             })
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             this.setState({
                 loaded : true
             })
@@ -69,9 +69,10 @@ export default class ListProductComponent extends Component {
         
         let listProduct = this.state.listProduct;
         let result = [];
-        for(let index in listProduct) {
-            result.push(<ProductItemComponent key={index} dataProduct={listProduct[index]}/>);
-        }
+        if (listProduct && listProduct.length > 0)
+            for(let index in listProduct) {
+                result.push(<ProductItemComponent key={index} dataProduct={listProduct[index]}/>);
+            }
         return result;
     }
 
