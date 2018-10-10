@@ -134,7 +134,7 @@
             .summary {
                 &.entry-summary-left-column {
                     float: left;
-                    width: 59%;
+                    width: 57%;
 
                     .product-promotion-section {
                         border-bottom: 1px solid #ececec;
@@ -143,14 +143,16 @@
                         padding-bottom: 5px;
                         margin-bottom: 10px;
 
+                        .tra-gop-section {
+                            display: flex;
+                        }
+
                         .icon-tra-gop {
-                            background-image: url('https://pipe.tikicdn.com/desktop/img/sprite.png?v=1519811185446');
-                            background-position: -168px -127px;
-                            display: inline-block;
+                            background: url('./assets/img/sprite.png') -168px -127px no-repeat;
                             width: 85px;
                             height: 15px;
                             vertical-align: middle;
-                            margin-right: 8px;
+                            margin: 4px 8px 0 0;
                         }
 
                         span {
@@ -158,24 +160,69 @@
                             font-size: 13px;
                         }
                     }
+
+                    .woocommerce-product-details__short-description {
+                        border-bottom: 1px solid #ececec;
+                        margin-left: 1.2em;
+
+                        ul {
+                            list-style-type: circle;
+                            padding: 10px 0;
+                        }
+                    }
+
+                    .single_add_to_cart_button {
+                        border-radius: 5px;
+                        float: none;
+                        background: url('./assets/img/ic-cart.png') 10px center no-repeat #ff3945;
+                        background-size: 26px;
+                        text-transform: uppercase;
+                        letter-spacing: .5px;
+                        margin: 12px 0 0 0;
+                        padding-left: 40px;
+
+                        &:hover {
+                            color: #ececec;
+                        }
+                    }
+
+                    .woocommerce-variation-add-to-cart {
+                        display: inline-flex;
+                    }
+
+                    .wares_qty_box__label {
+                        font-size: 13px;
+                        margin-bottom: 2px;
+                    }
+
+                    .cart {
+                        border-top: none;
+                    }
                 }
 
                 &.entry-summary-right-column {
-                    border: 1px solid #ececec;
-                    border-radius: 5px;
                     padding: 10px;
                     width: 41%;
 
+                    .wrapper {
+                        border: 1px solid #ececec;
+                        border-radius: 5px;
+                        padding: 10px;
+                    }
+
+                    .trading-information-wrapper {
+                        margin-bottom: 10px;
+                    }
+
                     .icon-hoan-tien-2, .icon-warranty {
-                        background-image: url('https://pipe.tikicdn.com/desktop/img/sprite.png?v=1519811185446');
+                        background-image: url('./assets/img/sprite.png');
                         height: 20px;
                         vertical-align: middle;
-                        margin: 5px 10px 0 0;
+                        margin-top: 5px;
                     }
 
                     .icon-store {
-                        background-image: url('https://pipe.tikicdn.com/desktop/img/sprite.png?v=1519811185446');
-                        background-position: -29px -349px;
+                        background: url('./assets/img/sprite.png') -146px -349px no-repeat;
                         width: 24px;
                         height: 24px;
                         vertical-align: middle;
@@ -183,12 +230,14 @@
                     }
 
                     .icon-hoan-tien-2 {
-                        background-position: -259px -270px;
+                        background-position: -234px -270px;
+                        margin-right: 0.6rem;
                         width: 24px;
                     }
 
                     .icon-warranty {
-                        background-position: -184px -270px;
+                        background-position: -259px -270px;
+                        margin-right: 0.9rem;
                         width: 30px;
                     }
 
@@ -201,6 +250,35 @@
 
                     .title {
                         font-weight: 600;
+                    }
+
+                    .contact-infor-wrapper {
+                        .contact-infor__section-1 {
+                            .icon {
+                                height: 20px;
+                            }
+
+                            .ic-phone {
+                                background: url('./assets/img/sprite.png') -285px -270px no-repeat;
+                                width: 35px;
+                                margin: 0.6rem 0.9rem 0 0;
+                            }
+
+                            .ic-email {
+                                background: url('./assets/img/sprite.png') -160px -272px no-repeat;
+                                width: 20px;
+                                margin-right: 0.8rem;
+                            }
+
+                            .item {
+                                display: flex;
+                                line-height: 16px;
+
+                                &:first-child {
+                                    margin-bottom: 10px;
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -549,7 +549,6 @@ if ( !function_exists('online_shop_widget_term_per_slide') ) :
 	}
 endif;
 
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_promotion', 10 );
 if ( !function_exists('woocommerce_template_single_promotion') ) :
 	function woocommerce_template_single_promotion() {
 		//wc_get_template( 'single-product/promotion.php' );
@@ -561,7 +560,6 @@ if ( !function_exists('woocommerce_template_single_promotion') ) :
 	}
 endif;
 
-add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_trading_information', 5 );
 if ( !function_exists('woocommerce_template_trading_information') ) :
 	function woocommerce_template_trading_information() {
 		if ( get_field('trading_information') ) {
@@ -571,6 +569,28 @@ if ( !function_exists('woocommerce_template_trading_information') ) :
 		}
 	}
 endif;
+
+if ( !function_exists('woocommerce_template_contact_information') ) :
+	function woocommerce_template_contact_information() {
+		wc_get_template( 'single-product/contact-information.php' );
+	}
+endif;
+
+if ( !function_exists('woocommerce_template_gift_information') ) :
+	function woocommerce_template_gift_information() {
+		if ( get_field('gift_information') ) {
+			echo get_field('gift_information');
+		} else {
+			echo '';
+		}
+	}
+endif;
+
+if ( !function_exists('woocommerce_template_add_to_wishlist') ) :
+	function woocommerce_template_add_to_wishlist() {
+		echo do_shortcode( "[yith_wcwl_add_to_wishlist]" );
+	}
+endif;
 /**
  * Product Summary Box.
  */
@@ -578,4 +598,9 @@ add_action( 'woocommerce_single_product_summary_center', 'woocommerce_template_s
 add_action( 'woocommerce_single_product_summary_center', 'woocommerce_template_single_rating', 10 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_price', 5 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_promotion', 7 );
-
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_excerpt', 9 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_gift_information', 11 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_add_to_cart', 13 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_add_to_wishlist', 15 );
+add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_trading_information', 5 );
+add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_contact_information', 7 );

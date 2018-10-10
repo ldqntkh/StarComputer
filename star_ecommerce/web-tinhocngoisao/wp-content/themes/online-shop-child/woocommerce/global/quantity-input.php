@@ -45,6 +45,7 @@ if ( $max_value && $min_value === $max_value ) {
 			aria-labelledby="<?php echo esc_attr( $labelledby ); ?>" />
 	</div> -->
 	<div class="wares_qty_box">
+		<p class="wares_qty_box__label">Số lượng:</p>
 		<span class="wares_qty_minus qty" data-oper="-1"></span>
 		<span class="wares_qty_num">
 			<input
