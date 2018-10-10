@@ -25,7 +25,8 @@ if ( ! class_exists( 'WC_Employee_Discounts', false ) ) :
     class WC_Employee_Discounts {
 
         public function on_loaded() {
-            add_action( 'woocommerce_order_status_completed', array( $this, 'insert_info_discount_to_employee' ), 20 );
+            add_action( 'woocommerce_checkout_order_processed', array( $this, 'insert_info_discount_to_employee' ), 20 );
+            add_action( 'woocommerce_order_status_completed', array( $this, 'update_status_employee_discount' ), 20 );
             add_action( 'woocommerce_product_options_pricing', array( $this, 'load_templete_employee_discount' ), 20 );
             add_action( 'woocommerce_process_product_meta' , array( $this, 'save_custom_employee_discount' ), 20 );
         }
@@ -73,12 +74,15 @@ if ( ! class_exists( 'WC_Employee_Discounts', false ) ) :
                 return;
             }
 
+            $status           = 'PENDING';
             $total_discount   = 0;
             $order_date       = date( 'Y-m-d' );
             $order            = wc_get_order( $order_id );
             $customer_id      = $order->get_customer_id();
             $history_discount = get_user_meta( $customer_id, '_history_discount', true );
-            $discounts         = array();
+            $discounts        = array();
+            $creationDate     = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
+
             if ( empty( $history_discount ) ) {
                 $result = array();
             } else {
@@ -107,7 +111,10 @@ if ( ! class_exists( 'WC_Employee_Discounts', false ) ) :
                 if ( $total_discount > 0 ) {
                     $result[$order_date][$order_id] = array(
                         'discounts' => $discounts,
-                        'totalDiscount' => $total_discount
+                        'totalDiscount' => $total_discount,
+                        'creationDate' => $creationDate->format( 'd-m-Y H:i:s' ),
+                        'lastModified' => $creationDate->format( 'd-m-Y H:i:s' ),
+                        'status' => $status
                     );
                     update_user_meta( $customer_id, '_history_discount', json_encode( $result ) );
                 }
@@ -135,6 +142,29 @@ if ( ! class_exists( 'WC_Employee_Discounts', false ) ) :
             $product->update_meta_data( '_custom_employee_percent_discount',  $_custom_employee_percent_discount );
             $product->update_meta_data( '_custom_employee_fixed_price_discount',  $_custom_employee_fixed_price_discount );
             $product->save();
+        }
+
+        public function update_status_employee_discount( $order_id ) {
+            if ( ! $order_id ) {
+                return;
+            }
+
+            $status           = 'COMPLETED';
+            $order            = new WC_Order($order_id);
+            $order_date       = $order->get_date_created()->format ('Y-m-d');
+            $customer_id      = $order->get_customer_id();
+            $history_discount = get_user_meta( $customer_id, '_history_discount', true );
+            $lastModified     = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
+
+            if ( empty( $history_discount ) ) {
+                $result = array();
+            } else {
+                $result = json_decode( $history_discount, true );
+            }
+
+            $result[$order_date][$order_id]['status']       = $status;
+            $result[$order_date][$order_id]['lastModified'] = $lastModified->format( 'd-m-Y H:i:s' );
+            update_user_meta( $customer_id, '_history_discount', json_encode( $result ) );
         }
     }
 endif;
