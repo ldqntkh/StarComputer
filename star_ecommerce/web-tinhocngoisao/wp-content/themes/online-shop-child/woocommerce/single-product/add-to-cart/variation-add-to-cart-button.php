@@ -27,7 +27,8 @@ global $product;
 	?>
 
 	<?php if ( !empty( $product->get_stock_quantity() ) && $product->get_stock_quantity() > 0 ): ?>
-		<button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+		<i class="ic-cart"></i>
+		<button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( 'Chọn mua' ); ?></button>
 	<?php endif; ?>
 
 	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>

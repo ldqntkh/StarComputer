@@ -1461,6 +1461,7 @@ if ( ! function_exists( 'woocommerce_template_single_price' ) ) {
 		wc_get_template( 'single-product/price.php' );
 	}
 }
+
 if ( ! function_exists( 'woocommerce_template_single_excerpt' ) ) {
 
 	/**
