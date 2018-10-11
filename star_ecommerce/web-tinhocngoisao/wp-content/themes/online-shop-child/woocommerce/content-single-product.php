@@ -68,6 +68,10 @@ if ( post_password_required() ) {
 				do_action( 'woocommerce_single_product_summary_right' );
 			?>
 		</div>
+
+		<div class="summary entry-summary-center-footer">
+			<?php do_action( 'woocommerce_single_product_summary_center_footer' ); ?>
+		</div>
 	</div>
 
 	<?php

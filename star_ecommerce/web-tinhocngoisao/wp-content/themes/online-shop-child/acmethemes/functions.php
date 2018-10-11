@@ -591,16 +591,39 @@ if ( !function_exists('woocommerce_template_add_to_wishlist') ) :
 		echo do_shortcode( "[yith_wcwl_add_to_wishlist]" );
 	}
 endif;
+
+if ( !function_exists('woocommerce_template_installment_information') ) :
+	function woocommerce_template_installment_information() {
+		if ( get_field('installment_information') ) {
+			echo get_field('installment_information');
+		} else {
+			echo '';
+		}
+	}
+endif;
+
+if ( !function_exists('woocommerce_template_sale_information') ) :
+	function woocommerce_template_sale_information() {
+		if ( get_field('sale_information') ) {
+			echo get_field('sale_information');
+		} else {
+			echo '';
+		}
+	}
+endif;
+
 /**
  * Product Summary Box.
  */
 add_action( 'woocommerce_single_product_summary_center', 'woocommerce_template_single_title', 5 );
 add_action( 'woocommerce_single_product_summary_center', 'woocommerce_template_single_rating', 10 );
+add_action( 'woocommerce_single_product_summary_center_footer', 'woocommerce_template_sale_information', 5 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_price', 5 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_promotion', 7 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_excerpt', 9 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_gift_information', 11 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_add_to_cart', 13 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_add_to_wishlist', 15 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_installment_information', 17 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_trading_information', 5 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_contact_information', 7 );

@@ -30,7 +30,11 @@
     margin-bottom: 30px;
     padding: 10px;
     text-align: center;
-    width: 20%;
+    width: 40%;
+
+    @media screen and (min-width: 767px) {
+        width: 20%;
+    }
 
     &:hover {
         background-color: #189eff;
@@ -52,9 +56,12 @@
 .single-product {
     &.woocommerce {
         .product {
+            font-size: 13px;
+
             .price {
                 color: #f73838;
-                display: block;
+                display: flex;
+                flex-direction: column;
 
                 del {
                     color: #2d2d2d;
@@ -63,6 +70,7 @@
 
                 ins {
                     text-decoration: none;
+                    font-weight: normal;
                 }
             }
 
@@ -74,8 +82,7 @@
 
                 .flex-control-thumbs {
                     position: absolute;
-                    top: 5px;
-                    margin-left: 3em;
+                    bottom: 0;
 
                     li {
                         width: 100%;
@@ -84,8 +91,19 @@
                 }
 
                 img {
-                    margin-left: 10em;
-                    width: 75%;
+                    // width: 600px !important;
+                    // height: 600px !important;
+                }
+
+                @media screen and (min-width: 767px) {
+                    img {
+                        margin-left: 10em;
+                    }
+
+                    .flex-control-thumbs {
+                        top: 5px;
+                        margin-left: 3em;
+                    }
                 }
             }
 
@@ -102,8 +120,11 @@
             }
 
             .woocommerce-product-gallery {
-                .flex-control-nav {
-                    display: block;
+                @media screen and (min-width: 768px) {
+                    .flex-control-nav {
+                        display: block;
+                    }
+                    
                 }
             }
 
@@ -132,9 +153,18 @@
 
         #content {
             .summary {
+                .wrapper {
+                    border-top: 1px solid #ececec;
+                    padding-top: 20px;
+                }
+
                 &.entry-summary-left-column {
-                    float: left;
-                    width: 57%;
+                    width: 100%;
+
+                    @media screen and (min-width: 768px) {
+                        float: left;
+                        width: 57%;
+                    }
 
                     .product-promotion-section {
                         border-bottom: 1px solid #ececec;
@@ -202,7 +232,12 @@
 
                 &.entry-summary-right-column {
                     padding: 10px;
-                    width: 41%;
+                    width: 100%;
+
+                    @media screen and (min-width: 767px) {
+                        float: left;
+                        width: 41%;
+                    }
 
                     .wrapper {
                         border: 1px solid #ececec;
@@ -236,9 +271,15 @@
                     }
 
                     .icon-warranty {
-                        background-position: -259px -270px;
-                        margin-right: 0.9rem;
+                        background-position: -256px -270px;
+                        margin-right: 0.4rem;
                         width: 30px;
+                    }
+
+                    @media screen and (min-width: 767px) {
+                        .icon-warranty {
+                            margin-right: 0.9rem;
+                        }
                     }
 
                     .guarantee-section, .hoan-tien-section, .warranty-infor-section {
@@ -259,15 +300,25 @@
                             }
 
                             .ic-phone {
-                                background: url('./assets/img/sprite.png') -285px -270px no-repeat;
-                                width: 35px;
+                                background: url('./assets/img/sprite.png') -282px -270px no-repeat;
+                                width: 25px;
                                 margin: 0.6rem 0.9rem 0 0;
                             }
 
                             .ic-email {
                                 background: url('./assets/img/sprite.png') -160px -272px no-repeat;
                                 width: 20px;
-                                margin-right: 0.8rem;
+                                margin-right: 1.2rem;
+                            }
+
+                            @media screen and (min-width: 767px) {
+                                .ic-phone {
+                                    width: 40px;
+                                }
+
+                                .ic-email {
+                                    margin-right: 0.8rem;
+                                }
                             }
 
                             .item {
@@ -280,6 +331,12 @@
                             }
                         }
                     }
+                }
+
+                &.entry-summary-center-footer {
+                    clear: both;
+                    float: none;
+                    width: 100%;
                 }
             }
         }
