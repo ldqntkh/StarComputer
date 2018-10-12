@@ -1,8 +1,9 @@
 'use strict';
 
 var cartpage = {
-    changeValueQuantity: function(type='sub') {
-        var $waresQtyNumInput = $('.wares_qty_num').find('input');
+    changeValueQuantity: function(type='sub', $element) {
+        var $qtyBtnElement = $element;
+        var $waresQtyNumInput = $qtyBtnElement.siblings('.wares_qty_num').find('input');
         var $qty_input = $waresQtyNumInput;
         var $qty_product = parseInt($waresQtyNumInput.attr('max'));
         if (typeof $qty_input !== 'undefined') {
@@ -19,11 +20,11 @@ var cartpage = {
     init : function() {
         let that = this;
         $('body').on('click', '.wares_qty_minus', function() {
-            that.changeValueQuantity();
+            that.changeValueQuantity('sub', $(this));
         });
 
         $('body').on('click', '.wares_qty_add', function() {
-            that.changeValueQuantity('add');
+            that.changeValueQuantity('add', $(this));
         });
 
         $('.wares_qty_num').find('input').off('keypress').on('keypress', function(e) {

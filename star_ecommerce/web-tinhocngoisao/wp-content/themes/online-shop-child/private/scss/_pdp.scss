@@ -79,32 +79,6 @@
                     left: .5em;
                     right: 0;
                 }
-
-                .flex-control-thumbs {
-                    position: absolute;
-                    bottom: 0;
-
-                    li {
-                        width: 100%;
-                        float: none;
-                    }
-                }
-
-                img {
-                    // width: 600px !important;
-                    // height: 600px !important;
-                }
-
-                @media screen and (min-width: 767px) {
-                    img {
-                        margin-left: 10em;
-                    }
-
-                    .flex-control-thumbs {
-                        top: 5px;
-                        margin-left: 3em;
-                    }
-                }
             }
 
             .onsale {
@@ -119,17 +93,56 @@
                 }
             }
 
-            .woocommerce-product-gallery {
-                @media screen and (min-width: 768px) {
-                    .flex-control-nav {
-                        display: block;
-                    }
-                    
-                }
-            }
-
             .woocommerce-product-rating {
                 border-bottom: 1px solid #ececec;
+            }
+
+            &.product-type-grouped {
+                .cart {
+                    .group_table {
+                        td:first-child {
+                            width: 9em;
+                        }
+                    }
+                }
+
+                .woocommerce-grouped-product-list__quantity_label {
+                    text-align: left;
+                }
+
+                .woocommerce-grouped-product-list-item__quantity {
+                    .wares_qty_box__label{
+                        display: none;
+                    }
+                }
+
+                .woocommerce-grouped-product-list-item__price {
+                    display: flex;
+                    flex-direction: column;
+
+                    .woocommerce-Price-amount {
+                        color: #f73838;
+                    }
+    
+                    del {
+                        .woocommerce-Price-amount {
+                            color: #2d2d2d;
+                            opacity: .5;
+                        }
+                    }
+    
+                    ins {
+                        text-decoration: none;
+                    }
+
+                    .in-stock {
+                        display: none;
+                    }
+                }
+
+                .price {
+                    display: block;
+                }
             }
         }
 
@@ -338,6 +351,24 @@
                     float: none;
                     width: 100%;
                 }
+            }
+        }
+    }
+}
+
+.related {
+    &.products {
+        .custom-plp-page {
+            li.product-type-grouped {
+                .product-item-details {
+                    .price {
+                        display: block !important;
+                    }
+                }
+            }
+
+            .product_type_grouped {
+                display: none;
             }
         }
     }
