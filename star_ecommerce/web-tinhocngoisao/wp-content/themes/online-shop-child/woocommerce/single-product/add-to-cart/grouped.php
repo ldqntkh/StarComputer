@@ -34,7 +34,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 			), $product );
 			?>
 
-			<tr class="woocommerce-grouped-product-list__quantity_label">Số lượng:</tr>
+			<tr class="woocommerce-grouped-product-list__quantity_label"><?php _e('Quantity'); ?></tr>
 			<?php
 			foreach ( $grouped_products as $grouped_product_child ) {
 				$post_object        = get_post( $grouped_product_child->get_id() );
