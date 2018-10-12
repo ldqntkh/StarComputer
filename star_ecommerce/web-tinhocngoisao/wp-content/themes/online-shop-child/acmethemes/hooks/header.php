@@ -163,7 +163,8 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	    $online_shop_enable_header_top = $online_shop_customizer_all_values['online-shop-enable-header-top'];
 	    $online_shop_top_right_button_title = $online_shop_customizer_all_values['online-shop-top-right-button-title'];
 	    $online_shop_top_right_button_link = $online_shop_customizer_all_values['online-shop-top-right-button-link'];
-	    ?>
+        $headerPromotionPost = get_post(581);
+        ?>
         <header id="masthead" class="site-header">
             <?php
             if( 1 == $online_shop_enable_header_top ){
@@ -172,6 +173,15 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	            $online_shop_header_top_social_display_selection = $online_shop_customizer_all_values['online-shop-header-top-social-display-selection'];
 	            $online_shop_top_right_button_options = $online_shop_customizer_all_values['online-shop-top-right-button-options'];
 	            ?>
+                <?php
+                    if ( $headerPromotionPost->post_status === 'publish' ) :
+                ?>
+                    <div class="top-header-promotion">
+                        <?php echo $headerPromotionPost->post_content; ?>
+                    </div>
+                <?php
+                    endif;
+                ?>
                 <div class="top-header-wrapper clearfix hide-mobile">
                     <div class="wrapper">
                         <div class="header-left">

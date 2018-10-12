@@ -93,3 +93,13 @@ h2.woocommerce-loop-product__title {
         }
     }
 }
+
+.top-header-promotion {
+    display: none;
+}
+
+@media screen and (min-width: 1024px) {
+    .top-header-promotion {
+        display: block;
+    }
+}
