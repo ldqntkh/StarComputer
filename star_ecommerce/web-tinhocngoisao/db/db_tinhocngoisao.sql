@@ -2,10 +2,10 @@
 -- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Oct 11, 2018 at 03:31 PM
--- Server version: 5.7.21
--- PHP Version: 7.2.4
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th10 12, 2018 lúc 04:59 AM
+-- Phiên bản máy phục vụ: 10.1.31-MariaDB
+-- Phiên bản PHP: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,28 +19,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_tinhocngoisao`
+-- Cơ sở dữ liệu: `db_tinhocngoisao`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_commentmeta`
+-- Cấu trúc bảng cho bảng `wp_commentmeta`
 --
 
-DROP TABLE IF EXISTS `wp_commentmeta`;
-CREATE TABLE IF NOT EXISTS `wp_commentmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_commentmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL,
   `comment_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`meta_id`),
-  KEY `comment_id` (`comment_id`),
-  KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_commentmeta`
+-- Đang đổ dữ liệu cho bảng `wp_commentmeta`
 --
 
 INSERT INTO `wp_commentmeta` (`meta_id`, `comment_id`, `meta_key`, `meta_value`) VALUES
@@ -129,12 +125,11 @@ INSERT INTO `wp_commentmeta` (`meta_id`, `comment_id`, `meta_key`, `meta_value`)
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_comments`
+-- Cấu trúc bảng cho bảng `wp_comments`
 --
 
-DROP TABLE IF EXISTS `wp_comments`;
-CREATE TABLE IF NOT EXISTS `wp_comments` (
-  `comment_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_comments` (
+  `comment_ID` bigint(20) UNSIGNED NOT NULL,
   `comment_post_ID` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `comment_author` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
   `comment_author_email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -148,18 +143,11 @@ CREATE TABLE IF NOT EXISTS `wp_comments` (
   `comment_agent` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `comment_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `comment_parent` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  PRIMARY KEY (`comment_ID`),
-  KEY `comment_post_ID` (`comment_post_ID`),
-  KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
-  KEY `comment_date_gmt` (`comment_date_gmt`),
-  KEY `comment_parent` (`comment_parent`),
-  KEY `comment_author_email` (`comment_author_email`(10)),
-  KEY `woo_idx_comment_type` (`comment_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_comments`
+-- Đang đổ dữ liệu cho bảng `wp_comments`
 --
 
 INSERT INTO `wp_comments` (`comment_ID`, `comment_post_ID`, `comment_author`, `comment_author_email`, `comment_author_url`, `comment_author_IP`, `comment_date`, `comment_date_gmt`, `comment_content`, `comment_karma`, `comment_approved`, `comment_agent`, `comment_type`, `comment_parent`, `user_id`) VALUES
@@ -193,12 +181,11 @@ INSERT INTO `wp_comments` (`comment_ID`, `comment_post_ID`, `comment_author`, `c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_es_deliverreport`
+-- Cấu trúc bảng cho bảng `wp_es_deliverreport`
 --
 
-DROP TABLE IF EXISTS `wp_es_deliverreport`;
-CREATE TABLE IF NOT EXISTS `wp_es_deliverreport` (
-  `es_deliver_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_es_deliverreport` (
+  `es_deliver_id` int(10) UNSIGNED NOT NULL,
   `es_deliver_sentguid` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `es_deliver_emailid` int(10) UNSIGNED NOT NULL,
   `es_deliver_emailmail` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
@@ -206,12 +193,11 @@ CREATE TABLE IF NOT EXISTS `wp_es_deliverreport` (
   `es_deliver_status` varchar(25) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `es_deliver_viewdate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `es_deliver_sentstatus` varchar(25) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Sent',
-  `es_deliver_senttype` varchar(25) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Immediately',
-  PRIMARY KEY (`es_deliver_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+  `es_deliver_senttype` varchar(25) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Immediately'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Dumping data for table `wp_es_deliverreport`
+-- Đang đổ dữ liệu cho bảng `wp_es_deliverreport`
 --
 
 INSERT INTO `wp_es_deliverreport` (`es_deliver_id`, `es_deliver_sentguid`, `es_deliver_emailid`, `es_deliver_emailmail`, `es_deliver_sentdate`, `es_deliver_status`, `es_deliver_viewdate`, `es_deliver_sentstatus`, `es_deliver_senttype`) VALUES
@@ -222,24 +208,22 @@ INSERT INTO `wp_es_deliverreport` (`es_deliver_id`, `es_deliver_sentguid`, `es_d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_es_emaillist`
+-- Cấu trúc bảng cho bảng `wp_es_emaillist`
 --
 
-DROP TABLE IF EXISTS `wp_es_emaillist`;
-CREATE TABLE IF NOT EXISTS `wp_es_emaillist` (
-  `es_email_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_es_emaillist` (
+  `es_email_id` int(10) UNSIGNED NOT NULL,
   `es_email_name` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `es_email_mail` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `es_email_status` varchar(25) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Unconfirmed',
   `es_email_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `es_email_viewcount` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `es_email_group` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Public',
-  `es_email_guid` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  PRIMARY KEY (`es_email_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+  `es_email_guid` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Dumping data for table `wp_es_emaillist`
+-- Đang đổ dữ liệu cho bảng `wp_es_emaillist`
 --
 
 INSERT INTO `wp_es_emaillist` (`es_email_id`, `es_email_name`, `es_email_mail`, `es_email_status`, `es_email_created`, `es_email_viewcount`, `es_email_group`, `es_email_guid`) VALUES
@@ -250,21 +234,19 @@ INSERT INTO `wp_es_emaillist` (`es_email_id`, `es_email_name`, `es_email_mail`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_es_notification`
+-- Cấu trúc bảng cho bảng `wp_es_notification`
 --
 
-DROP TABLE IF EXISTS `wp_es_notification`;
-CREATE TABLE IF NOT EXISTS `wp_es_notification` (
-  `es_note_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_es_notification` (
+  `es_note_id` int(10) UNSIGNED NOT NULL,
   `es_note_cat` text COLLATE utf8mb4_unicode_520_ci,
   `es_note_group` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `es_note_templ` int(10) UNSIGNED NOT NULL,
-  `es_note_status` varchar(10) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Enable',
-  PRIMARY KEY (`es_note_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+  `es_note_status` varchar(10) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Enable'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Dumping data for table `wp_es_notification`
+-- Đang đổ dữ liệu cho bảng `wp_es_notification`
 --
 
 INSERT INTO `wp_es_notification` (`es_note_id`, `es_note_cat`, `es_note_group`, `es_note_templ`, `es_note_status`) VALUES
@@ -273,12 +255,11 @@ INSERT INTO `wp_es_notification` (`es_note_id`, `es_note_cat`, `es_note_group`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_es_sentdetails`
+-- Cấu trúc bảng cho bảng `wp_es_sentdetails`
 --
 
-DROP TABLE IF EXISTS `wp_es_sentdetails`;
-CREATE TABLE IF NOT EXISTS `wp_es_sentdetails` (
-  `es_sent_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_es_sentdetails` (
+  `es_sent_id` int(10) UNSIGNED NOT NULL,
   `es_sent_guid` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `es_sent_qstring` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `es_sent_source` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
@@ -288,12 +269,11 @@ CREATE TABLE IF NOT EXISTS `wp_es_sentdetails` (
   `es_sent_preview` text COLLATE utf8mb4_unicode_520_ci,
   `es_sent_status` varchar(25) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Sent',
   `es_sent_type` varchar(25) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Immediately',
-  `es_sent_subject` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  PRIMARY KEY (`es_sent_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+  `es_sent_subject` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Dumping data for table `wp_es_sentdetails`
+-- Đang đổ dữ liệu cho bảng `wp_es_sentdetails`
 --
 
 INSERT INTO `wp_es_sentdetails` (`es_sent_id`, `es_sent_guid`, `es_sent_qstring`, `es_sent_source`, `es_sent_starttime`, `es_sent_endtime`, `es_sent_count`, `es_sent_preview`, `es_sent_status`, `es_sent_type`, `es_sent_subject`) VALUES
@@ -304,26 +284,23 @@ INSERT INTO `wp_es_sentdetails` (`es_sent_id`, `es_sent_guid`, `es_sent_qstring`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_failed_jobs`
+-- Cấu trúc bảng cho bảng `wp_failed_jobs`
 --
 
-DROP TABLE IF EXISTS `wp_failed_jobs`;
-CREATE TABLE IF NOT EXISTS `wp_failed_jobs` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_failed_jobs` (
+  `id` bigint(20) NOT NULL,
   `job` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  `failed_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_links`
+-- Cấu trúc bảng cho bảng `wp_links`
 --
 
-DROP TABLE IF EXISTS `wp_links`;
-CREATE TABLE IF NOT EXISTS `wp_links` (
-  `link_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_links` (
+  `link_id` bigint(20) UNSIGNED NOT NULL,
   `link_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `link_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `link_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -335,19 +312,16 @@ CREATE TABLE IF NOT EXISTS `wp_links` (
   `link_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `link_rel` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `link_notes` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link_rss` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`link_id`),
-  KEY `link_visible` (`link_visible`)
+  `link_rss` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_mailchimp_carts`
+-- Cấu trúc bảng cho bảng `wp_mailchimp_carts`
 --
 
-DROP TABLE IF EXISTS `wp_mailchimp_carts`;
-CREATE TABLE IF NOT EXISTS `wp_mailchimp_carts` (
+CREATE TABLE `wp_mailchimp_carts` (
   `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(11) DEFAULT NULL,
@@ -358,21 +332,18 @@ CREATE TABLE IF NOT EXISTS `wp_mailchimp_carts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_options`
+-- Cấu trúc bảng cho bảng `wp_options`
 --
 
-DROP TABLE IF EXISTS `wp_options`;
-CREATE TABLE IF NOT EXISTS `wp_options` (
-  `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_options` (
+  `option_id` bigint(20) UNSIGNED NOT NULL,
   `option_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `option_value` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `autoload` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'yes',
-  PRIMARY KEY (`option_id`),
-  UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `autoload` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'yes'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_options`
+-- Đang đổ dữ liệu cho bảng `wp_options`
 --
 
 INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
@@ -486,7 +457,7 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (108, 'widget_tag_cloud', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (109, 'widget_nav_menu', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (110, 'widget_custom_html', 'a:2:{i:2;a:2:{s:5:\"title\";s:12:\"Test content\";s:7:\"content\";s:12:\"Test content\";}s:12:\"_multiwidget\";i:1;}', 'yes'),
-(111, 'cron', 'a:12:{i:1539273134;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1539273685;a:1:{s:32:\"woocommerce_cancel_unpaid_orders\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:2:{s:8:\"schedule\";b:0;s:4:\"args\";a:0:{}}}}i:1539297704;a:1:{s:28:\"woocommerce_cleanup_sessions\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1539302400;a:1:{s:27:\"woocommerce_scheduled_sales\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1539312734;a:3:{s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1539312806;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1539319304;a:1:{s:33:\"woocommerce_cleanup_personal_data\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1539319314;a:1:{s:30:\"woocommerce_tracker_send_event\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1539330104;a:1:{s:24:\"woocommerce_cleanup_logs\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1539355065;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1541462400;a:1:{s:25:\"woocommerce_geoip_updater\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:7:\"monthly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:2635200;}}}s:7:\"version\";i:2;}', 'yes'),
+(111, 'cron', 'a:12:{i:1539315991;a:1:{s:32:\"woocommerce_cancel_unpaid_orders\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:2:{s:8:\"schedule\";b:0;s:4:\"args\";a:0:{}}}}i:1539316334;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1539319304;a:1:{s:33:\"woocommerce_cleanup_personal_data\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1539319314;a:1:{s:30:\"woocommerce_tracker_send_event\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1539330104;a:1:{s:24:\"woocommerce_cleanup_logs\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1539340904;a:1:{s:28:\"woocommerce_cleanup_sessions\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1539355065;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1539355934;a:3:{s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1539388800;a:1:{s:27:\"woocommerce_scheduled_sales\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1539399206;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1541462400;a:1:{s:25:\"woocommerce_geoip_updater\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:7:\"monthly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:2635200;}}}s:7:\"version\";i:2;}', 'yes'),
 (112, 'theme_mods_twentyseventeen', 'a:2:{s:18:\"custom_css_post_id\";i:-1;s:16:\"sidebars_widgets\";a:2:{s:4:\"time\";i:1531710165;s:4:\"data\";a:4:{s:19:\"wp_inactive_widgets\";a:0:{}s:9:\"sidebar-1\";a:6:{i:0;s:8:\"search-2\";i:1;s:14:\"recent-posts-2\";i:2;s:17:\"recent-comments-2\";i:3;s:10:\"archives-2\";i:4;s:12:\"categories-2\";i:5;s:6:\"meta-2\";}s:9:\"sidebar-2\";a:0:{}s:9:\"sidebar-3\";a:0:{}}}}', 'yes'),
 (128, 'can_compress_scripts', '1', 'no'),
 (148, 'woocommerce_store_address', 'Go Vap district', 'yes'),
@@ -751,8 +722,6 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (3411, '_transient_wc_product_children_40', 'a:2:{s:3:\"all\";a:2:{i:0;i:41;i:1;i:42;}s:7:\"visible\";a:2:{i:0;i:41;i:1;i:42;}}', 'no'),
 (3412, '_transient_timeout_wc_var_prices_40', '1541142558', 'no'),
 (3413, '_transient_wc_var_prices_40', '{\"version\":\"1538550553\",\"9aee7ea944ebe18f6059166246f86dee\":{\"price\":{\"41\":\"35\",\"42\":\"30\"},\"regular_price\":{\"41\":\"35\",\"42\":\"35\"},\"sale_price\":{\"41\":\"35\",\"42\":\"30\"}}}', 'no'),
-(3430, '_site_transient_timeout_browser_fa9163078450116b33aea27d7429a9e8', '1539232395', 'no'),
-(3431, '_site_transient_browser_fa9163078450116b33aea27d7429a9e8', 'a:10:{s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:13:\"69.0.3497.100\";s:8:\"platform\";s:9:\"Macintosh\";s:10:\"update_url\";s:29:\"https://www.google.com/chrome\";s:7:\"img_src\";s:43:\"http://s.w.org/images/browsers/chrome.png?1\";s:11:\"img_src_ssl\";s:44:\"https://s.w.org/images/browsers/chrome.png?1\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;s:6:\"mobile\";b:0;}', 'no'),
 (3462, 'woocommerce_version', '3.4.5', 'yes'),
 (3463, 'woocommerce_db_version', '3.4.5', 'yes'),
 (3486, 'theme_mods_online-shop-child', 'a:4:{s:18:\"custom_css_post_id\";i:-1;s:18:\"nav_menu_locations\";a:3:{s:7:\"primary\";i:45;s:8:\"top-menu\";i:47;s:12:\"special-menu\";i:46;}s:25:\"online_shop_theme_options\";a:17:{s:29:\"online-shop-enable-header-top\";b:1;s:45:\"online-shop-header-top-menu-display-selection\";s:4:\"hide\";s:30:\"online-shop-display-site-title\";b:0;s:32:\"online-shop-display-site-tagline\";b:0;s:28:\"online-shop-enable-cart-icon\";b:1;s:32:\"online-shop-enable-wishlist-icon\";b:1;s:31:\"online-shop-enable-special-menu\";b:1;s:41:\"online-shop-feature-right-content-options\";s:7:\"product\";s:30:\"online-shop-enable-sticky-menu\";b:1;s:39:\"online-shop-feature-right-display-arrow\";b:1;s:35:\"online-shop-feature-content-options\";s:7:\"product\";s:38:\"online-shop-feature-slider-display-cat\";b:0;s:29:\"online-shop-special-menu-text\";s:10:\"Danh mục\";s:39:\"online-shop-feature-enable-special-menu\";b:1;s:42:\"online-shop-wc-shop-archive-sidebar-layout\";s:12:\"left-sidebar\";s:35:\"online-shop-hide-front-page-content\";b:1;s:29:\"online-shop-second-info-title\";s:22:\"starcomputer.gmail.com\";}s:11:\"custom_logo\";i:553;}', 'yes'),
@@ -767,9 +736,9 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (3592, '_site_transient_browser_8651940b33fd1e958c905441aa40a03d', 'a:10:{s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:13:\"69.0.3497.100\";s:8:\"platform\";s:7:\"Windows\";s:10:\"update_url\";s:29:\"https://www.google.com/chrome\";s:7:\"img_src\";s:43:\"http://s.w.org/images/browsers/chrome.png?1\";s:11:\"img_src_ssl\";s:44:\"https://s.w.org/images/browsers/chrome.png?1\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;s:6:\"mobile\";b:0;}', 'no'),
 (3636, 'acf_version', '5.7.7', 'yes'),
 (3955, 'wsm_display_option', 'a:11:{s:9:\"thumbnail\";s:2:\"no\";s:5:\"price\";s:7:\"display\";s:11:\"sales_price\";s:2:\"no\";s:6:\"weight\";s:7:\"display\";s:12:\"manage_stock\";s:7:\"display\";s:12:\"stock_status\";s:7:\"display\";s:10:\"backorders\";s:7:\"display\";s:5:\"stock\";s:7:\"display\";s:10:\"tax_status\";s:2:\"no\";s:9:\"tax_class\";s:2:\"no\";s:14:\"shipping_class\";s:2:\"no\";}', 'yes'),
-(3964, '_transient_timeout_wc_report_sales_by_date', '1539356677', 'no'),
-(3965, '_transient_wc_report_sales_by_date', 'a:48:{s:32:\"ac7bc9658809e9012bab116ba7137103\";a:0:{}s:32:\"4d22f9d5e461099479f47c25bbf07367\";a:0:{}s:32:\"d9223613c11943d4022aad76ac819ef0\";a:0:{}s:32:\"602ee6a1620fbb0d4b1a13e7d23fd21b\";N;s:32:\"baf1efb635cf7d08b4bb358a01143b17\";a:0:{}s:32:\"d66103c4ae54a754378a4f38ed59cd5b\";a:0:{}s:32:\"94cf3172b95b1c68df1464ea804b955e\";a:0:{}s:32:\"e10952231bbde10c3874b139d688e1ff\";a:0:{}s:32:\"8bb28082a0e925c2b362cd1fa769e50c\";a:0:{}s:32:\"7737fb07b5ac0aabf47bca45cbf9ad0c\";a:0:{}s:32:\"fdb8e6a90445fb6402406b558bcd82e3\";a:0:{}s:32:\"3e09d6fbe81aa301cdc8b52c1888c8c2\";N;s:32:\"b510b2b455620b2f5f8949264104e3d4\";a:0:{}s:32:\"c6c1485582ea9663d6ccb30c491e35e4\";a:0:{}s:32:\"824964ee300397e4a94319835daa491d\";a:0:{}s:32:\"5199c12320542cf2604b0a5fafe9b6f3\";a:0:{}s:32:\"9f2b169ea832ec31aae61d2af56ac542\";a:0:{}s:32:\"c3a15a702ea441d0340a494e1b7af9de\";a:0:{}s:32:\"bc7d22d230e7cb3b4d52004e48c34c53\";a:0:{}s:32:\"e5fe5b672da06a20fd0702d238c4e51c\";N;s:32:\"b9f2e1a2cf350f8c55d3cb0071a81800\";a:0:{}s:32:\"616f8ef12964f352c1d8bcfa336ff349\";a:0:{}s:32:\"491e7599d673e7e71d626aa4e6cfad75\";a:0:{}s:32:\"e0de264b70c3dc6d6ae0c4dae7b20df5\";a:0:{}s:32:\"c2217d9bfeb79689e0522a71d0e81456\";a:0:{}s:32:\"2f94b76c24c9fbf8129a91c48c3e07de\";a:0:{}s:32:\"5cd17486306bdd2932209ec9c00a307c\";a:0:{}s:32:\"46279bab5a766f8c678f6c3705a3260f\";N;s:32:\"ac32ee2ca56b514d3b5210d211fc7124\";a:0:{}s:32:\"77955402f7f7185b8c13e1edd4ceead3\";a:0:{}s:32:\"656c83e5d0def4146ad66124d20b0ae3\";a:0:{}s:32:\"225349958dbdb9338c2e6cf4cc987edc\";a:0:{}s:32:\"5e7a026c82bb1aee3cad48fd96bb48f9\";a:0:{}s:32:\"50f82f8784ceefa6cc45faced3ac10dd\";a:0:{}s:32:\"b84fafc6a2831745fa0195f672390daf\";a:0:{}s:32:\"8659b2be9c073ae82864db56015cacf8\";N;s:32:\"fe030f405f70c307897a40290f769fcc\";a:0:{}s:32:\"79d02a4596ea41190ececb018a7ae4f4\";a:0:{}s:32:\"bd22499d2cf362b62effbf0e497bac30\";a:0:{}s:32:\"7c7231d90bfc61407d9f20d3e4444063\";a:0:{}s:32:\"6466dac4e2a43d99b490b4967e4141df\";a:0:{}s:32:\"6e21bb0161bfaffdeeb84aafd0ca5a36\";a:0:{}s:32:\"3465c7e074aa386ece4f2fe94d5ad373\";a:0:{}s:32:\"c9f748031649b08a7b353e1c5d572df3\";N;s:32:\"c8a27df10f161b893ac30a7392238b79\";a:0:{}s:32:\"ca61da1033e11b454ec813266ac9917a\";a:0:{}s:32:\"56e8ccfd097fb79eb98956cb88c6f603\";a:0:{}s:32:\"8a1e26ffe7ab7fb49e89fc76f52f746f\";a:0:{}}', 'no'),
-(4405, '_site_transient_timeout_community-events-d41d8cd98f00b204e9800998ecf8427e', '1539313484', 'no'),
+(3964, '_transient_timeout_wc_report_sales_by_date', '1539398805', 'no'),
+(3965, '_transient_wc_report_sales_by_date', 'a:56:{s:32:\"ac7bc9658809e9012bab116ba7137103\";a:0:{}s:32:\"4d22f9d5e461099479f47c25bbf07367\";a:0:{}s:32:\"d9223613c11943d4022aad76ac819ef0\";a:0:{}s:32:\"602ee6a1620fbb0d4b1a13e7d23fd21b\";N;s:32:\"baf1efb635cf7d08b4bb358a01143b17\";a:0:{}s:32:\"d66103c4ae54a754378a4f38ed59cd5b\";a:0:{}s:32:\"94cf3172b95b1c68df1464ea804b955e\";a:0:{}s:32:\"e10952231bbde10c3874b139d688e1ff\";a:0:{}s:32:\"8bb28082a0e925c2b362cd1fa769e50c\";a:0:{}s:32:\"7737fb07b5ac0aabf47bca45cbf9ad0c\";a:0:{}s:32:\"fdb8e6a90445fb6402406b558bcd82e3\";a:0:{}s:32:\"3e09d6fbe81aa301cdc8b52c1888c8c2\";N;s:32:\"b510b2b455620b2f5f8949264104e3d4\";a:0:{}s:32:\"c6c1485582ea9663d6ccb30c491e35e4\";a:0:{}s:32:\"824964ee300397e4a94319835daa491d\";a:0:{}s:32:\"5199c12320542cf2604b0a5fafe9b6f3\";a:0:{}s:32:\"9f2b169ea832ec31aae61d2af56ac542\";a:0:{}s:32:\"c3a15a702ea441d0340a494e1b7af9de\";a:0:{}s:32:\"bc7d22d230e7cb3b4d52004e48c34c53\";a:0:{}s:32:\"e5fe5b672da06a20fd0702d238c4e51c\";N;s:32:\"b9f2e1a2cf350f8c55d3cb0071a81800\";a:0:{}s:32:\"616f8ef12964f352c1d8bcfa336ff349\";a:0:{}s:32:\"491e7599d673e7e71d626aa4e6cfad75\";a:0:{}s:32:\"e0de264b70c3dc6d6ae0c4dae7b20df5\";a:0:{}s:32:\"c2217d9bfeb79689e0522a71d0e81456\";a:0:{}s:32:\"2f94b76c24c9fbf8129a91c48c3e07de\";a:0:{}s:32:\"5cd17486306bdd2932209ec9c00a307c\";a:0:{}s:32:\"46279bab5a766f8c678f6c3705a3260f\";N;s:32:\"ac32ee2ca56b514d3b5210d211fc7124\";a:0:{}s:32:\"77955402f7f7185b8c13e1edd4ceead3\";a:0:{}s:32:\"656c83e5d0def4146ad66124d20b0ae3\";a:0:{}s:32:\"225349958dbdb9338c2e6cf4cc987edc\";a:0:{}s:32:\"5e7a026c82bb1aee3cad48fd96bb48f9\";a:0:{}s:32:\"50f82f8784ceefa6cc45faced3ac10dd\";a:0:{}s:32:\"b84fafc6a2831745fa0195f672390daf\";a:0:{}s:32:\"8659b2be9c073ae82864db56015cacf8\";N;s:32:\"fe030f405f70c307897a40290f769fcc\";a:0:{}s:32:\"79d02a4596ea41190ececb018a7ae4f4\";a:0:{}s:32:\"bd22499d2cf362b62effbf0e497bac30\";a:0:{}s:32:\"7c7231d90bfc61407d9f20d3e4444063\";a:0:{}s:32:\"6466dac4e2a43d99b490b4967e4141df\";a:0:{}s:32:\"6e21bb0161bfaffdeeb84aafd0ca5a36\";a:0:{}s:32:\"3465c7e074aa386ece4f2fe94d5ad373\";a:0:{}s:32:\"c9f748031649b08a7b353e1c5d572df3\";N;s:32:\"c8a27df10f161b893ac30a7392238b79\";a:0:{}s:32:\"ca61da1033e11b454ec813266ac9917a\";a:0:{}s:32:\"56e8ccfd097fb79eb98956cb88c6f603\";a:0:{}s:32:\"8a1e26ffe7ab7fb49e89fc76f52f746f\";a:0:{}s:32:\"72a573289eff1ca87184b1fa58725c0e\";a:0:{}s:32:\"f81b240dfe4fda2771036239ea5b0fff\";a:0:{}s:32:\"fde9ea2c0b3e343e8df22ea0c034ad30\";a:0:{}s:32:\"3c0d0fa9f011250c4192e71a873fbc4d\";N;s:32:\"bf5c099de2c2bcf088e7e1af41efd67a\";a:0:{}s:32:\"137ded376051a9cfadd432b912754d25\";a:0:{}s:32:\"0e39fb2f398a6d8dc6be1856ae976c59\";a:0:{}s:32:\"325b506ae311bd82e8b4a054c8d82089\";a:0:{}}', 'no'),
+(4405, '_site_transient_timeout_community-events-d41d8cd98f00b204e9800998ecf8427e', '1539355608', 'no'),
 (4406, '_site_transient_community-events-d41d8cd98f00b204e9800998ecf8427e', 'a:2:{s:8:\"location\";a:1:{s:2:\"ip\";b:0;}s:6:\"events\";a:0:{}}', 'no'),
 (4666, '_transient_wc_attribute_taxonomies', 'a:4:{i:0;O:8:\"stdClass\":6:{s:12:\"attribute_id\";s:1:\"4\";s:14:\"attribute_name\";s:9:\"baseprice\";s:15:\"attribute_label\";s:9:\"basePrice\";s:14:\"attribute_type\";s:6:\"select\";s:17:\"attribute_orderby\";s:10:\"menu_order\";s:16:\"attribute_public\";s:1:\"0\";}i:1;O:8:\"stdClass\":6:{s:12:\"attribute_id\";s:1:\"1\";s:14:\"attribute_name\";s:5:\"color\";s:15:\"attribute_label\";s:10:\"Màu sắc\";s:14:\"attribute_type\";s:6:\"select\";s:17:\"attribute_orderby\";s:10:\"menu_order\";s:16:\"attribute_public\";s:1:\"0\";}i:2;O:8:\"stdClass\":6:{s:12:\"attribute_id\";s:1:\"2\";s:14:\"attribute_name\";s:16:\"employeediscount\";s:15:\"attribute_label\";s:16:\"employeeDiscount\";s:14:\"attribute_type\";s:6:\"select\";s:17:\"attribute_orderby\";s:10:\"menu_order\";s:16:\"attribute_public\";s:1:\"0\";}i:3;O:8:\"stdClass\":6:{s:12:\"attribute_id\";s:1:\"3\";s:14:\"attribute_name\";s:26:\"employeefixedpricediscount\";s:15:\"attribute_label\";s:26:\"employeeFixedPriceDiscount\";s:14:\"attribute_type\";s:6:\"select\";s:17:\"attribute_orderby\";s:10:\"menu_order\";s:16:\"attribute_public\";s:1:\"0\";}}', 'yes'),
 (4672, '_transient_timeout_yith_wcwl_wishlist_count_LPA880POJWBI', '1539769846', 'no'),
@@ -778,10 +747,6 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (4675, '_transient_yith_wcwl_user_default_count_1', '1', 'no'),
 (4684, '_transient_timeout_wc_admin_report', '1539356677', 'no'),
 (4685, '_transient_wc_admin_report', 'a:2:{s:32:\"f3f7b22c36c550b52bf86c328b5475d1\";a:0:{}s:32:\"0d865ae31619110d5a4c6083f86d4796\";a:0:{}}', 'no'),
-(4700, '_transient_timeout_wc_related_339', '1539312605', 'no'),
-(4701, '_transient_wc_related_339', 'a:1:{s:51:\"limit=4&exclude_ids%5B0%5D=0&exclude_ids%5B1%5D=339\";a:4:{i:0;s:3:\"270\";i:1;s:3:\"325\";i:2;s:3:\"329\";i:3;s:3:\"333\";}}', 'no'),
-(4886, '_transient_timeout__woocommerce_helper_updates', '1539274200', 'no'),
-(4887, '_transient__woocommerce_helper_updates', 'a:4:{s:4:\"hash\";s:32:\"d751713988987e9331980363e24189ce\";s:7:\"updated\";i:1539231000;s:8:\"products\";a:0:{}s:6:\"errors\";a:1:{i:0;s:10:\"http-error\";}}', 'no'),
 (4888, '_transient_timeout_plugin_slugs', '1539356698', 'no'),
 (4889, '_transient_plugin_slugs', 'a:14:{i:0;s:35:\"acme-demo-setup/acme-demo-setup.php\";i:1;s:30:\"advanced-custom-fields/acf.php\";i:2;s:39:\"email-subscribers/email-subscribers.php\";i:3;s:51:\"mailchimp-for-woocommerce/mailchimp-woocommerce.php\";i:4;s:37:\"user-role-editor/user-role-editor.php\";i:5;s:51:\"employee-discounts/class-wc-admin-extra-profile.php\";i:6;s:50:\"employee-discounts/class-wc-employee-discounts.php\";i:7;s:27:\"woocommerce/woocommerce.php\";i:8;s:55:\"woocommerce-js-cookie-fix/woocommerce-js-cookie-fix.php\";i:9;s:91:\"woocommerce-gateway-paypal-express-checkout/woocommerce-gateway-paypal-express-checkout.php\";i:10;s:47:\"woocommerce-sale-date/woocommerce-sale-date.php\";i:11;s:55:\"woocommerce-stock-manager/woocommerce-stock-manager.php\";i:12;s:36:\"yith-woocommerce-quick-view/init.php\";i:13;s:34:\"yith-woocommerce-wishlist/init.php\";}', 'no'),
 (5059, '_transient_timeout_wc_term_counts', '1541836792', 'no'),
@@ -792,12 +757,6 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (5107, '_transient_wc_product_children_317', 'a:2:{s:3:\"all\";a:1:{i:0;i:572;}s:7:\"visible\";a:1:{i:0;i:572;}}', 'no'),
 (5108, '_transient_timeout_wc_var_prices_317', '1541862086', 'no'),
 (5109, '_transient_wc_var_prices_317', '{\"version\":\"1539253108\",\"7b49885e4e587fe923f60ffde5921278\":{\"price\":{\"572\":\"45000\"},\"regular_price\":{\"572\":\"50000\"},\"sale_price\":{\"572\":\"45000\"}}}', 'no'),
-(5111, '_site_transient_timeout_theme_roots', '1539271891', 'no'),
-(5112, '_site_transient_theme_roots', 'a:2:{s:17:\"online-shop-child\";s:7:\"/themes\";s:11:\"online-shop\";s:7:\"/themes\";}', 'no'),
-(5114, '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:1:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:6:\"latest\";s:8:\"download\";s:62:\"https://downloads.wordpress.org/release/vi/wordpress-4.9.8.zip\";s:6:\"locale\";s:2:\"vi\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:62:\"https://downloads.wordpress.org/release/vi/wordpress-4.9.8.zip\";s:10:\"no_content\";b:0;s:11:\"new_bundled\";b:0;s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"4.9.8\";s:7:\"version\";s:5:\"4.9.8\";s:11:\"php_version\";s:5:\"5.2.4\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"4.7\";s:15:\"partial_version\";s:0:\"\";}}s:12:\"last_checked\";i:1539270095;s:15:\"version_checked\";s:5:\"4.9.8\";s:12:\"translations\";a:0:{}}', 'no'),
-(5115, '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1539270096;s:7:\"checked\";a:2:{s:17:\"online-shop-child\";s:3:\"0.1\";s:11:\"online-shop\";s:5:\"1.3.4\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}}', 'no');
-INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
-(5116, '_site_transient_update_plugins', 'O:8:\"stdClass\":5:{s:12:\"last_checked\";i:1539270098;s:7:\"checked\";a:14:{s:35:\"acme-demo-setup/acme-demo-setup.php\";s:5:\"1.0.7\";s:30:\"advanced-custom-fields/acf.php\";s:5:\"5.7.7\";s:39:\"email-subscribers/email-subscribers.php\";s:5:\"3.5.6\";s:51:\"mailchimp-for-woocommerce/mailchimp-woocommerce.php\";s:5:\"2.1.9\";s:37:\"user-role-editor/user-role-editor.php\";s:4:\"4.45\";s:51:\"employee-discounts/class-wc-admin-extra-profile.php\";s:3:\"1.0\";s:50:\"employee-discounts/class-wc-employee-discounts.php\";s:3:\"1.0\";s:27:\"woocommerce/woocommerce.php\";s:5:\"3.4.5\";s:55:\"woocommerce-js-cookie-fix/woocommerce-js-cookie-fix.php\";s:3:\"1.0\";s:91:\"woocommerce-gateway-paypal-express-checkout/woocommerce-gateway-paypal-express-checkout.php\";s:5:\"1.6.1\";s:47:\"woocommerce-sale-date/woocommerce-sale-date.php\";s:5:\"1.0.0\";s:55:\"woocommerce-stock-manager/woocommerce-stock-manager.php\";s:5:\"1.2.6\";s:36:\"yith-woocommerce-quick-view/init.php\";s:5:\"1.3.1\";s:34:\"yith-woocommerce-wishlist/init.php\";s:5:\"2.2.3\";}s:8:\"response\";a:6:{s:39:\"email-subscribers/email-subscribers.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:31:\"w.org/plugins/email-subscribers\";s:4:\"slug\";s:17:\"email-subscribers\";s:6:\"plugin\";s:39:\"email-subscribers/email-subscribers.php\";s:11:\"new_version\";s:6:\"3.5.13\";s:3:\"url\";s:48:\"https://wordpress.org/plugins/email-subscribers/\";s:7:\"package\";s:67:\"https://downloads.wordpress.org/plugin/email-subscribers.3.5.13.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:70:\"https://ps.w.org/email-subscribers/assets/icon-256x256.png?rev=1348697\";s:2:\"1x\";s:70:\"https://ps.w.org/email-subscribers/assets/icon-128x128.png?rev=1348697\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:72:\"https://ps.w.org/email-subscribers/assets/banner-772x250.png?rev=1523132\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:51:\"mailchimp-for-woocommerce/mailchimp-woocommerce.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:39:\"w.org/plugins/mailchimp-for-woocommerce\";s:4:\"slug\";s:25:\"mailchimp-for-woocommerce\";s:6:\"plugin\";s:51:\"mailchimp-for-woocommerce/mailchimp-woocommerce.php\";s:11:\"new_version\";s:6:\"2.1.10\";s:3:\"url\";s:56:\"https://wordpress.org/plugins/mailchimp-for-woocommerce/\";s:7:\"package\";s:75:\"https://downloads.wordpress.org/plugin/mailchimp-for-woocommerce.2.1.10.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:78:\"https://ps.w.org/mailchimp-for-woocommerce/assets/icon-256x256.png?rev=1509501\";s:2:\"1x\";s:78:\"https://ps.w.org/mailchimp-for-woocommerce/assets/icon-256x256.png?rev=1509501\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:81:\"https://ps.w.org/mailchimp-for-woocommerce/assets/banner-1544x500.png?rev=1950415\";s:2:\"1x\";s:80:\"https://ps.w.org/mailchimp-for-woocommerce/assets/banner-772x250.jpg?rev=1950415\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";s:3:\"5.6\";s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:37:\"user-role-editor/user-role-editor.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:30:\"w.org/plugins/user-role-editor\";s:4:\"slug\";s:16:\"user-role-editor\";s:6:\"plugin\";s:37:\"user-role-editor/user-role-editor.php\";s:11:\"new_version\";s:4:\"4.46\";s:3:\"url\";s:47:\"https://wordpress.org/plugins/user-role-editor/\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/plugin/user-role-editor.4.46.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:69:\"https://ps.w.org/user-role-editor/assets/icon-256x256.jpg?rev=1020390\";s:2:\"1x\";s:69:\"https://ps.w.org/user-role-editor/assets/icon-128x128.jpg?rev=1020390\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:71:\"https://ps.w.org/user-role-editor/assets/banner-772x250.png?rev=1263116\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:91:\"woocommerce-gateway-paypal-express-checkout/woocommerce-gateway-paypal-express-checkout.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:57:\"w.org/plugins/woocommerce-gateway-paypal-express-checkout\";s:4:\"slug\";s:43:\"woocommerce-gateway-paypal-express-checkout\";s:6:\"plugin\";s:91:\"woocommerce-gateway-paypal-express-checkout/woocommerce-gateway-paypal-express-checkout.php\";s:11:\"new_version\";s:5:\"1.6.4\";s:3:\"url\";s:74:\"https://wordpress.org/plugins/woocommerce-gateway-paypal-express-checkout/\";s:7:\"package\";s:92:\"https://downloads.wordpress.org/plugin/woocommerce-gateway-paypal-express-checkout.1.6.4.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:96:\"https://ps.w.org/woocommerce-gateway-paypal-express-checkout/assets/icon-256x256.png?rev=1900204\";s:2:\"1x\";s:96:\"https://ps.w.org/woocommerce-gateway-paypal-express-checkout/assets/icon-128x128.png?rev=1900204\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:99:\"https://ps.w.org/woocommerce-gateway-paypal-express-checkout/assets/banner-1544x500.png?rev=1948167\";s:2:\"1x\";s:98:\"https://ps.w.org/woocommerce-gateway-paypal-express-checkout/assets/banner-772x250.png?rev=1948167\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:36:\"yith-woocommerce-quick-view/init.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:41:\"w.org/plugins/yith-woocommerce-quick-view\";s:4:\"slug\";s:27:\"yith-woocommerce-quick-view\";s:6:\"plugin\";s:36:\"yith-woocommerce-quick-view/init.php\";s:11:\"new_version\";s:5:\"1.3.4\";s:3:\"url\";s:58:\"https://wordpress.org/plugins/yith-woocommerce-quick-view/\";s:7:\"package\";s:76:\"https://downloads.wordpress.org/plugin/yith-woocommerce-quick-view.1.3.4.zip\";s:5:\"icons\";a:1:{s:2:\"1x\";s:80:\"https://ps.w.org/yith-woocommerce-quick-view/assets/icon-128x128.jpg?rev=1460911\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:83:\"https://ps.w.org/yith-woocommerce-quick-view/assets/banner-1544x500.jpg?rev=1460911\";s:2:\"1x\";s:82:\"https://ps.w.org/yith-woocommerce-quick-view/assets/banner-772x250.jpg?rev=1460911\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:34:\"yith-woocommerce-wishlist/init.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:39:\"w.org/plugins/yith-woocommerce-wishlist\";s:4:\"slug\";s:25:\"yith-woocommerce-wishlist\";s:6:\"plugin\";s:34:\"yith-woocommerce-wishlist/init.php\";s:11:\"new_version\";s:5:\"2.2.4\";s:3:\"url\";s:56:\"https://wordpress.org/plugins/yith-woocommerce-wishlist/\";s:7:\"package\";s:74:\"https://downloads.wordpress.org/plugin/yith-woocommerce-wishlist.2.2.4.zip\";s:5:\"icons\";a:1:{s:2:\"1x\";s:78:\"https://ps.w.org/yith-woocommerce-wishlist/assets/icon-128x128.jpg?rev=1461336\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:81:\"https://ps.w.org/yith-woocommerce-wishlist/assets/banner-1544x500.jpg?rev=1461336\";s:2:\"1x\";s:80:\"https://ps.w.org/yith-woocommerce-wishlist/assets/banner-772x250.jpg?rev=1461336\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}}s:12:\"translations\";a:1:{i:0;a:7:{s:4:\"type\";s:6:\"plugin\";s:4:\"slug\";s:11:\"woocommerce\";s:8:\"language\";s:2:\"vi\";s:7:\"version\";s:5:\"3.4.5\";s:7:\"updated\";s:19:\"2018-07-30 15:27:20\";s:7:\"package\";s:75:\"https://downloads.wordpress.org/translation/plugin/woocommerce/3.4.5/vi.zip\";s:10:\"autoupdate\";b:1;}}s:9:\"no_update\";a:4:{s:35:\"acme-demo-setup/acme-demo-setup.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:29:\"w.org/plugins/acme-demo-setup\";s:4:\"slug\";s:15:\"acme-demo-setup\";s:6:\"plugin\";s:35:\"acme-demo-setup/acme-demo-setup.php\";s:11:\"new_version\";s:5:\"1.0.7\";s:3:\"url\";s:46:\"https://wordpress.org/plugins/acme-demo-setup/\";s:7:\"package\";s:58:\"https://downloads.wordpress.org/plugin/acme-demo-setup.zip\";s:5:\"icons\";a:1:{s:2:\"1x\";s:68:\"https://ps.w.org/acme-demo-setup/assets/icon-128x128.jpg?rev=1724782\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:70:\"https://ps.w.org/acme-demo-setup/assets/banner-772x250.jpg?rev=1724790\";}s:11:\"banners_rtl\";a:0:{}}s:30:\"advanced-custom-fields/acf.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:36:\"w.org/plugins/advanced-custom-fields\";s:4:\"slug\";s:22:\"advanced-custom-fields\";s:6:\"plugin\";s:30:\"advanced-custom-fields/acf.php\";s:11:\"new_version\";s:5:\"5.7.7\";s:3:\"url\";s:53:\"https://wordpress.org/plugins/advanced-custom-fields/\";s:7:\"package\";s:71:\"https://downloads.wordpress.org/plugin/advanced-custom-fields.5.7.7.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:75:\"https://ps.w.org/advanced-custom-fields/assets/icon-256x256.png?rev=1082746\";s:2:\"1x\";s:75:\"https://ps.w.org/advanced-custom-fields/assets/icon-128x128.png?rev=1082746\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:78:\"https://ps.w.org/advanced-custom-fields/assets/banner-1544x500.jpg?rev=1729099\";s:2:\"1x\";s:77:\"https://ps.w.org/advanced-custom-fields/assets/banner-772x250.jpg?rev=1729102\";}s:11:\"banners_rtl\";a:0:{}}s:27:\"woocommerce/woocommerce.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:25:\"w.org/plugins/woocommerce\";s:4:\"slug\";s:11:\"woocommerce\";s:6:\"plugin\";s:27:\"woocommerce/woocommerce.php\";s:11:\"new_version\";s:5:\"3.4.5\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/woocommerce/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/plugin/woocommerce.3.4.5.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:64:\"https://ps.w.org/woocommerce/assets/icon-256x256.png?rev=1440831\";s:2:\"1x\";s:64:\"https://ps.w.org/woocommerce/assets/icon-128x128.png?rev=1440831\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:67:\"https://ps.w.org/woocommerce/assets/banner-1544x500.png?rev=1629184\";s:2:\"1x\";s:66:\"https://ps.w.org/woocommerce/assets/banner-772x250.png?rev=1629184\";}s:11:\"banners_rtl\";a:0:{}}s:55:\"woocommerce-stock-manager/woocommerce-stock-manager.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:39:\"w.org/plugins/woocommerce-stock-manager\";s:4:\"slug\";s:25:\"woocommerce-stock-manager\";s:6:\"plugin\";s:55:\"woocommerce-stock-manager/woocommerce-stock-manager.php\";s:11:\"new_version\";s:5:\"1.2.6\";s:3:\"url\";s:56:\"https://wordpress.org/plugins/woocommerce-stock-manager/\";s:7:\"package\";s:68:\"https://downloads.wordpress.org/plugin/woocommerce-stock-manager.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:78:\"https://ps.w.org/woocommerce-stock-manager/assets/icon-256x256.png?rev=1140096\";s:2:\"1x\";s:78:\"https://ps.w.org/woocommerce-stock-manager/assets/icon-128x128.png?rev=1140096\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:80:\"https://ps.w.org/woocommerce-stock-manager/assets/banner-772x250.png?rev=1140096\";}s:11:\"banners_rtl\";a:0:{}}}}', 'no'),
 (5117, '_transient_wc_count_comments', 'O:8:\"stdClass\":7:{s:14:\"total_comments\";i:21;s:3:\"all\";i:21;s:9:\"moderated\";s:1:\"2\";s:8:\"approved\";s:2:\"19\";s:4:\"spam\";i:0;s:5:\"trash\";i:0;s:12:\"post-trashed\";i:0;}', 'yes'),
 (5118, '_transient_timeout_wc_low_stock_count', '1541862277', 'no'),
 (5119, '_transient_wc_low_stock_count', '0', 'no'),
@@ -816,27 +775,29 @@ INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`
 (5128, '_transient_timeout_feed_mod_d117b5738fbd35bd8c0391cda1f2b5d9', '1539313488', 'no'),
 (5129, '_transient_feed_mod_d117b5738fbd35bd8c0391cda1f2b5d9', '1539270288', 'no'),
 (5130, '_transient_timeout_dash_v2_a5a61dcab273495c31cd79aafebbdc74', '1539313488', 'no'),
-(5131, '_transient_dash_v2_a5a61dcab273495c31cd79aafebbdc74', '<div class=\"rss-widget\"><ul><li><a class=\'rsswidget\' href=\'https://vi.wordpress.org/2018/09/07/wordpress-meetup-thang-09-2018-tai-nha-trang/\'>WordPress Meetup tháng 09/2018 tại Nha Trang</a></li></ul></div><div class=\"rss-widget\"><ul><li><a class=\'rsswidget\' href=\'https://wptavern.com/wpweekly-episode-333-interview-with-mike-shredder-schroder\'>WPTavern: WPWeekly Episode 333 – Interview With Mike ‘Shredder’ Schroder</a></li><li><a class=\'rsswidget\' href=\'https://wptavern.com/gutenberg-4-0-rc-1-released-testing-ramps-up-amid-critical-accessibility-concerns\'>WPTavern: Gutenberg 4.0 RC 1 Released, Testing Ramps Up Amid Critical Accessibility Concerns</a></li><li><a class=\'rsswidget\' href=\'https://wptavern.com/jetpack-6-6-improves-site-verification-tools-asset-cdn-module-now-in-beta-gutenberg-blocks-coming-soon\'>WPTavern: Jetpack 6.6 Improves Site Verification Tools, Asset CDN Module Now in Beta, Gutenberg Blocks Coming Soon</a></li></ul></div>', 'no');
+(5131, '_transient_dash_v2_a5a61dcab273495c31cd79aafebbdc74', '<div class=\"rss-widget\"><ul><li><a class=\'rsswidget\' href=\'https://vi.wordpress.org/2018/09/07/wordpress-meetup-thang-09-2018-tai-nha-trang/\'>WordPress Meetup tháng 09/2018 tại Nha Trang</a></li></ul></div><div class=\"rss-widget\"><ul><li><a class=\'rsswidget\' href=\'https://wptavern.com/wpweekly-episode-333-interview-with-mike-shredder-schroder\'>WPTavern: WPWeekly Episode 333 – Interview With Mike ‘Shredder’ Schroder</a></li><li><a class=\'rsswidget\' href=\'https://wptavern.com/gutenberg-4-0-rc-1-released-testing-ramps-up-amid-critical-accessibility-concerns\'>WPTavern: Gutenberg 4.0 RC 1 Released, Testing Ramps Up Amid Critical Accessibility Concerns</a></li><li><a class=\'rsswidget\' href=\'https://wptavern.com/jetpack-6-6-improves-site-verification-tools-asset-cdn-module-now-in-beta-gutenberg-blocks-coming-soon\'>WPTavern: Jetpack 6.6 Improves Site Verification Tools, Asset CDN Module Now in Beta, Gutenberg Blocks Coming Soon</a></li></ul></div>', 'no'),
+(5148, '_transient_is_multi_author', '0', 'yes'),
+(5151, '_site_transient_timeout_theme_roots', '1539314628', 'no'),
+(5152, '_site_transient_theme_roots', 'a:2:{s:17:\"online-shop-child\";s:7:\"/themes\";s:11:\"online-shop\";s:7:\"/themes\";}', 'no'),
+(5154, '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:1:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:6:\"latest\";s:8:\"download\";s:62:\"https://downloads.wordpress.org/release/vi/wordpress-4.9.8.zip\";s:6:\"locale\";s:2:\"vi\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:62:\"https://downloads.wordpress.org/release/vi/wordpress-4.9.8.zip\";s:10:\"no_content\";b:0;s:11:\"new_bundled\";b:0;s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"4.9.8\";s:7:\"version\";s:5:\"4.9.8\";s:11:\"php_version\";s:5:\"5.2.4\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"4.7\";s:15:\"partial_version\";s:0:\"\";}}s:12:\"last_checked\";i:1539312835;s:15:\"version_checked\";s:5:\"4.9.8\";s:12:\"translations\";a:0:{}}', 'no'),
+(5155, '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1539312836;s:7:\"checked\";a:2:{s:17:\"online-shop-child\";s:3:\"0.1\";s:11:\"online-shop\";s:5:\"1.3.4\";}s:8:\"response\";a:0:{}s:12:\"translations\";a:0:{}}', 'no'),
+(5156, '_site_transient_update_plugins', 'O:8:\"stdClass\":5:{s:12:\"last_checked\";i:1539312838;s:7:\"checked\";a:13:{s:35:\"acme-demo-setup/acme-demo-setup.php\";s:5:\"1.0.7\";s:30:\"advanced-custom-fields/acf.php\";s:5:\"5.7.7\";s:39:\"email-subscribers/email-subscribers.php\";s:5:\"3.5.6\";s:51:\"mailchimp-for-woocommerce/mailchimp-woocommerce.php\";s:5:\"2.1.9\";s:37:\"user-role-editor/user-role-editor.php\";s:4:\"4.45\";s:51:\"employee-discounts/class-wc-admin-extra-profile.php\";s:3:\"1.0\";s:50:\"employee-discounts/class-wc-employee-discounts.php\";s:3:\"1.0\";s:27:\"woocommerce/woocommerce.php\";s:5:\"3.4.5\";s:91:\"woocommerce-gateway-paypal-express-checkout/woocommerce-gateway-paypal-express-checkout.php\";s:5:\"1.6.1\";s:47:\"woocommerce-sale-date/woocommerce-sale-date.php\";s:5:\"1.0.0\";s:55:\"woocommerce-stock-manager/woocommerce-stock-manager.php\";s:5:\"1.2.6\";s:36:\"yith-woocommerce-quick-view/init.php\";s:5:\"1.3.1\";s:34:\"yith-woocommerce-wishlist/init.php\";s:5:\"2.2.3\";}s:8:\"response\";a:7:{s:39:\"email-subscribers/email-subscribers.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:31:\"w.org/plugins/email-subscribers\";s:4:\"slug\";s:17:\"email-subscribers\";s:6:\"plugin\";s:39:\"email-subscribers/email-subscribers.php\";s:11:\"new_version\";s:6:\"3.5.13\";s:3:\"url\";s:48:\"https://wordpress.org/plugins/email-subscribers/\";s:7:\"package\";s:67:\"https://downloads.wordpress.org/plugin/email-subscribers.3.5.13.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:70:\"https://ps.w.org/email-subscribers/assets/icon-256x256.png?rev=1348697\";s:2:\"1x\";s:70:\"https://ps.w.org/email-subscribers/assets/icon-128x128.png?rev=1348697\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:72:\"https://ps.w.org/email-subscribers/assets/banner-772x250.png?rev=1523132\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:51:\"mailchimp-for-woocommerce/mailchimp-woocommerce.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:39:\"w.org/plugins/mailchimp-for-woocommerce\";s:4:\"slug\";s:25:\"mailchimp-for-woocommerce\";s:6:\"plugin\";s:51:\"mailchimp-for-woocommerce/mailchimp-woocommerce.php\";s:11:\"new_version\";s:6:\"2.1.10\";s:3:\"url\";s:56:\"https://wordpress.org/plugins/mailchimp-for-woocommerce/\";s:7:\"package\";s:75:\"https://downloads.wordpress.org/plugin/mailchimp-for-woocommerce.2.1.10.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:78:\"https://ps.w.org/mailchimp-for-woocommerce/assets/icon-256x256.png?rev=1509501\";s:2:\"1x\";s:78:\"https://ps.w.org/mailchimp-for-woocommerce/assets/icon-256x256.png?rev=1509501\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:81:\"https://ps.w.org/mailchimp-for-woocommerce/assets/banner-1544x500.png?rev=1950415\";s:2:\"1x\";s:80:\"https://ps.w.org/mailchimp-for-woocommerce/assets/banner-772x250.jpg?rev=1950415\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";s:3:\"5.6\";s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:37:\"user-role-editor/user-role-editor.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:30:\"w.org/plugins/user-role-editor\";s:4:\"slug\";s:16:\"user-role-editor\";s:6:\"plugin\";s:37:\"user-role-editor/user-role-editor.php\";s:11:\"new_version\";s:4:\"4.46\";s:3:\"url\";s:47:\"https://wordpress.org/plugins/user-role-editor/\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/plugin/user-role-editor.4.46.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:69:\"https://ps.w.org/user-role-editor/assets/icon-256x256.jpg?rev=1020390\";s:2:\"1x\";s:69:\"https://ps.w.org/user-role-editor/assets/icon-128x128.jpg?rev=1020390\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:71:\"https://ps.w.org/user-role-editor/assets/banner-772x250.png?rev=1263116\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:27:\"woocommerce/woocommerce.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:25:\"w.org/plugins/woocommerce\";s:4:\"slug\";s:11:\"woocommerce\";s:6:\"plugin\";s:27:\"woocommerce/woocommerce.php\";s:11:\"new_version\";s:5:\"3.4.6\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/woocommerce/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/plugin/woocommerce.3.4.6.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:64:\"https://ps.w.org/woocommerce/assets/icon-256x256.png?rev=1440831\";s:2:\"1x\";s:64:\"https://ps.w.org/woocommerce/assets/icon-128x128.png?rev=1440831\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:67:\"https://ps.w.org/woocommerce/assets/banner-1544x500.png?rev=1629184\";s:2:\"1x\";s:66:\"https://ps.w.org/woocommerce/assets/banner-772x250.png?rev=1629184\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:91:\"woocommerce-gateway-paypal-express-checkout/woocommerce-gateway-paypal-express-checkout.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:57:\"w.org/plugins/woocommerce-gateway-paypal-express-checkout\";s:4:\"slug\";s:43:\"woocommerce-gateway-paypal-express-checkout\";s:6:\"plugin\";s:91:\"woocommerce-gateway-paypal-express-checkout/woocommerce-gateway-paypal-express-checkout.php\";s:11:\"new_version\";s:5:\"1.6.4\";s:3:\"url\";s:74:\"https://wordpress.org/plugins/woocommerce-gateway-paypal-express-checkout/\";s:7:\"package\";s:92:\"https://downloads.wordpress.org/plugin/woocommerce-gateway-paypal-express-checkout.1.6.4.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:96:\"https://ps.w.org/woocommerce-gateway-paypal-express-checkout/assets/icon-256x256.png?rev=1900204\";s:2:\"1x\";s:96:\"https://ps.w.org/woocommerce-gateway-paypal-express-checkout/assets/icon-128x128.png?rev=1900204\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:99:\"https://ps.w.org/woocommerce-gateway-paypal-express-checkout/assets/banner-1544x500.png?rev=1948167\";s:2:\"1x\";s:98:\"https://ps.w.org/woocommerce-gateway-paypal-express-checkout/assets/banner-772x250.png?rev=1948167\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:36:\"yith-woocommerce-quick-view/init.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:41:\"w.org/plugins/yith-woocommerce-quick-view\";s:4:\"slug\";s:27:\"yith-woocommerce-quick-view\";s:6:\"plugin\";s:36:\"yith-woocommerce-quick-view/init.php\";s:11:\"new_version\";s:5:\"1.3.4\";s:3:\"url\";s:58:\"https://wordpress.org/plugins/yith-woocommerce-quick-view/\";s:7:\"package\";s:76:\"https://downloads.wordpress.org/plugin/yith-woocommerce-quick-view.1.3.4.zip\";s:5:\"icons\";a:1:{s:2:\"1x\";s:80:\"https://ps.w.org/yith-woocommerce-quick-view/assets/icon-128x128.jpg?rev=1460911\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:83:\"https://ps.w.org/yith-woocommerce-quick-view/assets/banner-1544x500.jpg?rev=1460911\";s:2:\"1x\";s:82:\"https://ps.w.org/yith-woocommerce-quick-view/assets/banner-772x250.jpg?rev=1460911\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}s:34:\"yith-woocommerce-wishlist/init.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:39:\"w.org/plugins/yith-woocommerce-wishlist\";s:4:\"slug\";s:25:\"yith-woocommerce-wishlist\";s:6:\"plugin\";s:34:\"yith-woocommerce-wishlist/init.php\";s:11:\"new_version\";s:5:\"2.2.4\";s:3:\"url\";s:56:\"https://wordpress.org/plugins/yith-woocommerce-wishlist/\";s:7:\"package\";s:74:\"https://downloads.wordpress.org/plugin/yith-woocommerce-wishlist.2.2.4.zip\";s:5:\"icons\";a:1:{s:2:\"1x\";s:78:\"https://ps.w.org/yith-woocommerce-wishlist/assets/icon-128x128.jpg?rev=1461336\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:81:\"https://ps.w.org/yith-woocommerce-wishlist/assets/banner-1544x500.jpg?rev=1461336\";s:2:\"1x\";s:80:\"https://ps.w.org/yith-woocommerce-wishlist/assets/banner-772x250.jpg?rev=1461336\";}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"4.9.8\";s:12:\"requires_php\";b:0;s:13:\"compatibility\";O:8:\"stdClass\":0:{}}}s:12:\"translations\";a:1:{i:0;a:7:{s:4:\"type\";s:6:\"plugin\";s:4:\"slug\";s:11:\"woocommerce\";s:8:\"language\";s:2:\"vi\";s:7:\"version\";s:5:\"3.4.5\";s:7:\"updated\";s:19:\"2018-07-30 15:27:20\";s:7:\"package\";s:75:\"https://downloads.wordpress.org/translation/plugin/woocommerce/3.4.5/vi.zip\";s:10:\"autoupdate\";b:1;}}s:9:\"no_update\";a:3:{s:35:\"acme-demo-setup/acme-demo-setup.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:29:\"w.org/plugins/acme-demo-setup\";s:4:\"slug\";s:15:\"acme-demo-setup\";s:6:\"plugin\";s:35:\"acme-demo-setup/acme-demo-setup.php\";s:11:\"new_version\";s:5:\"1.0.7\";s:3:\"url\";s:46:\"https://wordpress.org/plugins/acme-demo-setup/\";s:7:\"package\";s:58:\"https://downloads.wordpress.org/plugin/acme-demo-setup.zip\";s:5:\"icons\";a:1:{s:2:\"1x\";s:68:\"https://ps.w.org/acme-demo-setup/assets/icon-128x128.jpg?rev=1724782\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:70:\"https://ps.w.org/acme-demo-setup/assets/banner-772x250.jpg?rev=1724790\";}s:11:\"banners_rtl\";a:0:{}}s:30:\"advanced-custom-fields/acf.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:36:\"w.org/plugins/advanced-custom-fields\";s:4:\"slug\";s:22:\"advanced-custom-fields\";s:6:\"plugin\";s:30:\"advanced-custom-fields/acf.php\";s:11:\"new_version\";s:5:\"5.7.7\";s:3:\"url\";s:53:\"https://wordpress.org/plugins/advanced-custom-fields/\";s:7:\"package\";s:71:\"https://downloads.wordpress.org/plugin/advanced-custom-fields.5.7.7.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:75:\"https://ps.w.org/advanced-custom-fields/assets/icon-256x256.png?rev=1082746\";s:2:\"1x\";s:75:\"https://ps.w.org/advanced-custom-fields/assets/icon-128x128.png?rev=1082746\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:78:\"https://ps.w.org/advanced-custom-fields/assets/banner-1544x500.jpg?rev=1729099\";s:2:\"1x\";s:77:\"https://ps.w.org/advanced-custom-fields/assets/banner-772x250.jpg?rev=1729102\";}s:11:\"banners_rtl\";a:0:{}}s:55:\"woocommerce-stock-manager/woocommerce-stock-manager.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:39:\"w.org/plugins/woocommerce-stock-manager\";s:4:\"slug\";s:25:\"woocommerce-stock-manager\";s:6:\"plugin\";s:55:\"woocommerce-stock-manager/woocommerce-stock-manager.php\";s:11:\"new_version\";s:5:\"1.2.6\";s:3:\"url\";s:56:\"https://wordpress.org/plugins/woocommerce-stock-manager/\";s:7:\"package\";s:68:\"https://downloads.wordpress.org/plugin/woocommerce-stock-manager.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:78:\"https://ps.w.org/woocommerce-stock-manager/assets/icon-256x256.png?rev=1140096\";s:2:\"1x\";s:78:\"https://ps.w.org/woocommerce-stock-manager/assets/icon-128x128.png?rev=1140096\";}s:7:\"banners\";a:1:{s:2:\"1x\";s:80:\"https://ps.w.org/woocommerce-stock-manager/assets/banner-772x250.png?rev=1140096\";}s:11:\"banners_rtl\";a:0:{}}}}', 'no');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_postmeta`
+-- Cấu trúc bảng cho bảng `wp_postmeta`
 --
 
-DROP TABLE IF EXISTS `wp_postmeta`;
-CREATE TABLE IF NOT EXISTS `wp_postmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_postmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL,
   `post_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`meta_id`),
-  KEY `post_id` (`post_id`),
-  KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=3690 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_postmeta`
+-- Đang đổ dữ liệu cho bảng `wp_postmeta`
 --
 
 INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES
@@ -3716,19 +3677,18 @@ INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUE
 (3672, 317, '_sale_price', ''),
 (3673, 1, '_edit_lock', '1539270639:1'),
 (3674, 196, '_edit_lock', '1539270912:1'),
-(3675, 581, '_edit_lock', '1539271911:1'),
+(3675, 581, '_edit_lock', '1539313157:1'),
 (3676, 581, '_edit_last', '1'),
 (3679, 581, 'online_shop_sidebar_layout', 'default-sidebar');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_posts`
+-- Cấu trúc bảng cho bảng `wp_posts`
 --
 
-DROP TABLE IF EXISTS `wp_posts`;
-CREATE TABLE IF NOT EXISTS `wp_posts` (
-  `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_posts` (
+  `ID` bigint(20) UNSIGNED NOT NULL,
   `post_author` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `post_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `post_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -3750,16 +3710,11 @@ CREATE TABLE IF NOT EXISTS `wp_posts` (
   `menu_order` int(11) NOT NULL DEFAULT '0',
   `post_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'post',
   `post_mime_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `comment_count` bigint(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID`),
-  KEY `post_name` (`post_name`(191)),
-  KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
-  KEY `post_parent` (`post_parent`),
-  KEY `post_author` (`post_author`)
-) ENGINE=InnoDB AUTO_INCREMENT=589 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `comment_count` bigint(20) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_posts`
+-- Đang đổ dữ liệu cho bảng `wp_posts`
 --
 
 INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
@@ -3951,52 +3906,48 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (577, 1, '2018-10-11 03:38:19', '2018-10-11 03:38:19', 'a:10:{s:4:\"type\";s:7:\"wysiwyg\";s:12:\"instructions\";s:0:\"\";s:8:\"required\";i:0;s:17:\"conditional_logic\";i:0;s:7:\"wrapper\";a:3:{s:5:\"width\";s:0:\"\";s:5:\"class\";s:0:\"\";s:2:\"id\";s:0:\"\";}s:13:\"default_value\";s:0:\"\";s:4:\"tabs\";s:3:\"all\";s:7:\"toolbar\";s:4:\"full\";s:12:\"media_upload\";i:1;s:5:\"delay\";i:0;}', 'Sale information', 'sale_information', 'publish', 'closed', 'closed', '', 'field_5bbec57e2acc3', '', '', '2018-10-11 03:38:19', '2018-10-11 03:38:19', '', 567, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/?post_type=acf-field&p=577', 4, 'acf-field', '', 0),
 (578, 1, '2018-10-11 08:04:41', '2018-10-11 08:04:41', '{\n    \"online-shop-child::online_shop_theme_options[online-shop-second-info-title]\": {\n        \"value\": \"starcomputer.gmail.com\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2018-10-11 08:04:41\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'e465b66e-f6c9-4b78-b11d-43eacad1febb', '', '', '2018-10-11 08:04:41', '2018-10-11 08:04:41', '', 0, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/11/e465b66e-f6c9-4b78-b11d-43eacad1febb/', 0, 'customize_changeset', '', 0),
 (580, 1, '2018-10-11 15:04:37', '0000-00-00 00:00:00', '', 'Lưu bản nháp tự động', '', 'auto-draft', 'open', 'open', '', '', '', '', '2018-10-11 15:04:37', '0000-00-00 00:00:00', '', 0, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/?p=580', 0, 'post', '', 0),
-(581, 1, '2018-10-11 15:17:56', '2018-10-11 15:17:56', '<a href=\"#\">\r\n <div style=\"background-image:url(\'https://pipe.tikicdn.com/ts/banner/d7/1b/97/30eabd46f4ca8a726ef8be6cbf9cef07.jpg\');height: 50px;\"></div>\r\n</a>', 'Header promotion', '', 'publish', 'open', 'open', '', 'header-promotion', '', '', '2018-10-11 15:29:36', '2018-10-11 15:29:36', '', 0, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/?p=581', 0, 'post', '', 0),
+(581, 1, '2018-10-11 15:17:56', '2018-10-11 15:17:56', '<a href=\"#\">\r\n <div style=\"background:url(\'https://pipe.tikicdn.com/ts/banner/d7/1b/97/30eabd46f4ca8a726ef8be6cbf9cef07.jpg\') -24px 100px;height: 50px;\"></div>\r\n</a>', 'Header promotion', '', 'publish', 'open', 'open', '', 'header-promotion', '', '', '2018-10-12 02:49:33', '2018-10-12 02:49:33', '', 0, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/?p=581', 0, 'post', '', 0),
 (582, 1, '2018-10-11 15:17:56', '2018-10-11 15:17:56', '', 'Header promotion', '', 'inherit', 'closed', 'closed', '', '581-revision-v1', '', '', '2018-10-11 15:17:56', '2018-10-11 15:17:56', '', 581, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/11/581-revision-v1/', 0, 'revision', '', 0),
 (583, 1, '2018-10-11 15:27:26', '2018-10-11 15:27:26', '<a href=\"#\" style=\"background-ima\">đây là header promotion</a>', 'Header promotion', '', 'inherit', 'closed', 'closed', '', '581-autosave-v1', '', '', '2018-10-11 15:27:26', '2018-10-11 15:27:26', '', 581, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/11/581-autosave-v1/', 0, 'revision', '', 0),
 (584, 1, '2018-10-11 15:20:09', '2018-10-11 15:20:09', '<a href=\"#\">đây là header promotion</a>', 'Header promotion', '', 'inherit', 'closed', 'closed', '', '581-revision-v1', '', '', '2018-10-11 15:20:09', '2018-10-11 15:20:09', '', 581, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/11/581-revision-v1/', 0, 'revision', '', 0),
 (585, 1, '2018-10-11 15:27:53', '2018-10-11 15:27:53', '<a href=\"#\" style=\"background-image:url(\'https://pipe.tikicdn.com/ts/banner/d7/1b/97/30eabd46f4ca8a726ef8be6cbf9cef07.jpg\') linear-gradient(to right, rgb(247, 183, 111) 40%, rgb(247, 183, 111) 50%, rgb(247, 183, 111) 60%);\">đây là header promotion</a>', 'Header promotion', '', 'inherit', 'closed', 'closed', '', '581-revision-v1', '', '', '2018-10-11 15:27:53', '2018-10-11 15:27:53', '', 581, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/11/581-revision-v1/', 0, 'revision', '', 0),
 (586, 1, '2018-10-11 15:28:11', '2018-10-11 15:28:11', '<a href=\"#\" style=\"background-image:url(\'https://pipe.tikicdn.com/ts/banner/d7/1b/97/30eabd46f4ca8a726ef8be6cbf9cef07.jpg\');\">đây là header promotion</a>', 'Header promotion', '', 'inherit', 'closed', 'closed', '', '581-revision-v1', '', '', '2018-10-11 15:28:11', '2018-10-11 15:28:11', '', 581, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/11/581-revision-v1/', 0, 'revision', '', 0),
 (587, 1, '2018-10-11 15:28:42', '2018-10-11 15:28:42', '<a href=\"#\">\r\n <div style=\"background-image:url(\'https://pipe.tikicdn.com/ts/banner/d7/1b/97/30eabd46f4ca8a726ef8be6cbf9cef07.jpg\');\"></div>\r\n</a>', 'Header promotion', '', 'inherit', 'closed', 'closed', '', '581-revision-v1', '', '', '2018-10-11 15:28:42', '2018-10-11 15:28:42', '', 581, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/11/581-revision-v1/', 0, 'revision', '', 0),
-(588, 1, '2018-10-11 15:29:36', '2018-10-11 15:29:36', '<a href=\"#\">\r\n <div style=\"background-image:url(\'https://pipe.tikicdn.com/ts/banner/d7/1b/97/30eabd46f4ca8a726ef8be6cbf9cef07.jpg\');height: 50px;\"></div>\r\n</a>', 'Header promotion', '', 'inherit', 'closed', 'closed', '', '581-revision-v1', '', '', '2018-10-11 15:29:36', '2018-10-11 15:29:36', '', 581, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/11/581-revision-v1/', 0, 'revision', '', 0);
+(588, 1, '2018-10-11 15:29:36', '2018-10-11 15:29:36', '<a href=\"#\">\r\n <div style=\"background-image:url(\'https://pipe.tikicdn.com/ts/banner/d7/1b/97/30eabd46f4ca8a726ef8be6cbf9cef07.jpg\');height: 50px;\"></div>\r\n</a>', 'Header promotion', '', 'inherit', 'closed', 'closed', '', '581-revision-v1', '', '', '2018-10-11 15:29:36', '2018-10-11 15:29:36', '', 581, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/11/581-revision-v1/', 0, 'revision', '', 0),
+(589, 1, '2018-10-12 02:49:19', '2018-10-12 02:49:19', '<a href=\"#\">\r\n <div style=\"background-image:url(\'https://pipe.tikicdn.com/ts/banner/d7/1b/97/30eabd46f4ca8a726ef8be6cbf9cef07.jpg\') -24px 100px;height: 50px;\"></div>\r\n</a>', 'Header promotion', '', 'inherit', 'closed', 'closed', '', '581-revision-v1', '', '', '2018-10-12 02:49:19', '2018-10-12 02:49:19', '', 581, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/12/581-revision-v1/', 0, 'revision', '', 0),
+(590, 1, '2018-10-12 02:49:33', '2018-10-12 02:49:33', '<a href=\"#\">\r\n <div style=\"background:url(\'https://pipe.tikicdn.com/ts/banner/d7/1b/97/30eabd46f4ca8a726ef8be6cbf9cef07.jpg\') -24px 100px;height: 50px;\"></div>\r\n</a>', 'Header promotion', '', 'inherit', 'closed', 'closed', '', '581-revision-v1', '', '', '2018-10-12 02:49:33', '2018-10-12 02:49:33', '', 581, 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/2018/10/12/581-revision-v1/', 0, 'revision', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_queue`
+-- Cấu trúc bảng cho bảng `wp_queue`
 --
 
-DROP TABLE IF EXISTS `wp_queue`;
-CREATE TABLE IF NOT EXISTS `wp_queue` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_queue` (
+  `id` bigint(20) NOT NULL,
   `job` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `attempts` tinyint(1) NOT NULL DEFAULT '0',
   `locked` tinyint(1) NOT NULL DEFAULT '0',
   `locked_at` datetime DEFAULT NULL,
   `available_at` datetime NOT NULL,
-  `created_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_termmeta`
+-- Cấu trúc bảng cho bảng `wp_termmeta`
 --
 
-DROP TABLE IF EXISTS `wp_termmeta`;
-CREATE TABLE IF NOT EXISTS `wp_termmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_termmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL,
   `term_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`meta_id`),
-  KEY `term_id` (`term_id`),
-  KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_termmeta`
+-- Đang đổ dữ liệu cho bảng `wp_termmeta`
 --
 
 INSERT INTO `wp_termmeta` (`meta_id`, `term_id`, `meta_key`, `meta_value`) VALUES
@@ -4128,22 +4079,18 @@ INSERT INTO `wp_termmeta` (`meta_id`, `term_id`, `meta_key`, `meta_value`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_terms`
+-- Cấu trúc bảng cho bảng `wp_terms`
 --
 
-DROP TABLE IF EXISTS `wp_terms`;
-CREATE TABLE IF NOT EXISTS `wp_terms` (
-  `term_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_terms` (
+  `term_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `slug` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `term_group` bigint(10) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`term_id`),
-  KEY `slug` (`slug`(191)),
-  KEY `name` (`name`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `term_group` bigint(10) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_terms`
+-- Đang đổ dữ liệu cho bảng `wp_terms`
 --
 
 INSERT INTO `wp_terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
@@ -4217,20 +4164,17 @@ INSERT INTO `wp_terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_term_relationships`
+-- Cấu trúc bảng cho bảng `wp_term_relationships`
 --
 
-DROP TABLE IF EXISTS `wp_term_relationships`;
-CREATE TABLE IF NOT EXISTS `wp_term_relationships` (
+CREATE TABLE `wp_term_relationships` (
   `object_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `term_order` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`object_id`,`term_taxonomy_id`),
-  KEY `term_taxonomy_id` (`term_taxonomy_id`)
+  `term_order` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_term_relationships`
+-- Đang đổ dữ liệu cho bảng `wp_term_relationships`
 --
 
 INSERT INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`, `term_order`) VALUES
@@ -4422,24 +4366,20 @@ INSERT INTO `wp_term_relationships` (`object_id`, `term_taxonomy_id`, `term_orde
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_term_taxonomy`
+-- Cấu trúc bảng cho bảng `wp_term_taxonomy`
 --
 
-DROP TABLE IF EXISTS `wp_term_taxonomy`;
-CREATE TABLE IF NOT EXISTS `wp_term_taxonomy` (
-  `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_term_taxonomy` (
+  `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL,
   `term_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `taxonomy` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `parent` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `count` bigint(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`term_taxonomy_id`),
-  UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
-  KEY `taxonomy` (`taxonomy`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `count` bigint(20) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_term_taxonomy`
+-- Đang đổ dữ liệu cho bảng `wp_term_taxonomy`
 --
 
 INSERT INTO `wp_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `description`, `parent`, `count`) VALUES
@@ -4513,22 +4453,18 @@ INSERT INTO `wp_term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `desc
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_usermeta`
+-- Cấu trúc bảng cho bảng `wp_usermeta`
 --
 
-DROP TABLE IF EXISTS `wp_usermeta`;
-CREATE TABLE IF NOT EXISTS `wp_usermeta` (
-  `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_usermeta` (
+  `umeta_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`umeta_id`),
-  KEY `user_id` (`user_id`),
-  KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_usermeta`
+-- Đang đổ dữ liệu cho bảng `wp_usermeta`
 --
 
 INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALUES
@@ -4548,7 +4484,7 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (14, 1, 'dismissed_wp_pointers', 'wp496_privacy,text_widget_custom_html,yith_wcwl_panel,theme_editor_notice'),
 (15, 1, 'show_welcome_panel', '1'),
 (17, 1, 'wp_dashboard_quick_press_last_post_id', '580'),
-(19, 1, 'wc_last_active', '1539216000'),
+(19, 1, 'wc_last_active', '1539302400'),
 (20, 1, 'nav_menu_recently_edited', '46'),
 (21, 1, 'managenav-menuscolumnshidden', 'a:5:{i:0;s:11:\"link-target\";i:1;s:11:\"css-classes\";i:2;s:3:\"xfn\";i:3;s:11:\"description\";i:4;s:15:\"title-attribute\";}'),
 (22, 1, 'metaboxhidden_nav-menus', 'a:4:{i:0;s:21:\"add-post-type-product\";i:1;s:12:\"add-post_tag\";i:2;s:15:\"add-product_cat\";i:3;s:15:\"add-product_tag\";}'),
@@ -4675,17 +4611,16 @@ INSERT INTO `wp_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALU
 (153, 2, 'shipping_country', ''),
 (154, 2, 'shipping_state', ''),
 (155, 2, 'last_update', '1538466663'),
-(156, 1, 'session_tokens', 'a:4:{s:64:\"abea3f70238b9f236224761ef26df7c379f18a3b753f946fa23f04cb4415d8ed\";a:4:{s:10:\"expiration\";i:1539313539;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\";s:5:\"login\";i:1539140739;}s:64:\"fd9eb77b56d29078e12b2201545a4c568beb010a32378df0583d797e5ccb37eb\";a:4:{s:10:\"expiration\";i:1539398987;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\";s:5:\"login\";i:1539226187;}s:64:\"38db4d168afe99c91e7122537e6faacc63e3c867d3d5877f2673b875c27707af\";a:4:{s:10:\"expiration\";i:1539425657;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\";s:5:\"login\";i:1539252857;}s:64:\"3188c6c01532b97aa7ddb015180adc25ced1426c363b6be82bd5569fde45fec7\";a:4:{s:10:\"expiration\";i:1539443076;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\";s:5:\"login\";i:1539270276;}}');
+(156, 1, 'session_tokens', 'a:5:{s:64:\"abea3f70238b9f236224761ef26df7c379f18a3b753f946fa23f04cb4415d8ed\";a:4:{s:10:\"expiration\";i:1539313539;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\";s:5:\"login\";i:1539140739;}s:64:\"fd9eb77b56d29078e12b2201545a4c568beb010a32378df0583d797e5ccb37eb\";a:4:{s:10:\"expiration\";i:1539398987;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\";s:5:\"login\";i:1539226187;}s:64:\"38db4d168afe99c91e7122537e6faacc63e3c867d3d5877f2673b875c27707af\";a:4:{s:10:\"expiration\";i:1539425657;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\";s:5:\"login\";i:1539252857;}s:64:\"3188c6c01532b97aa7ddb015180adc25ced1426c363b6be82bd5569fde45fec7\";a:4:{s:10:\"expiration\";i:1539443076;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\";s:5:\"login\";i:1539270276;}s:64:\"9ff33f3bd7e393531fc18732d79eaa565efa875a7d61f9c8909061f4d7fdf0f8\";a:4:{s:10:\"expiration\";i:1539485202;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:115:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36\";s:5:\"login\";i:1539312402;}}');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_users`
+-- Cấu trúc bảng cho bảng `wp_users`
 --
 
-DROP TABLE IF EXISTS `wp_users`;
-CREATE TABLE IF NOT EXISTS `wp_users` (
-  `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_users` (
+  `ID` bigint(20) UNSIGNED NOT NULL,
   `user_login` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_pass` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_nicename` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -4694,15 +4629,11 @@ CREATE TABLE IF NOT EXISTS `wp_users` (
   `user_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_activation_key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_status` int(11) NOT NULL DEFAULT '0',
-  `display_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`ID`),
-  KEY `user_login_key` (`user_login`),
-  KEY `user_nicename` (`user_nicename`),
-  KEY `user_email` (`user_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `display_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_users`
+-- Đang đổ dữ liệu cho bảng `wp_users`
 --
 
 INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES
@@ -4715,30 +4646,25 @@ INSERT INTO `wp_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_wc_download_log`
+-- Cấu trúc bảng cho bảng `wp_wc_download_log`
 --
 
-DROP TABLE IF EXISTS `wp_wc_download_log`;
-CREATE TABLE IF NOT EXISTS `wp_wc_download_log` (
-  `download_log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_wc_download_log` (
+  `download_log_id` bigint(20) UNSIGNED NOT NULL,
   `timestamp` datetime NOT NULL,
   `permission_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `user_ip_address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT '',
-  PRIMARY KEY (`download_log_id`),
-  KEY `permission_id` (`permission_id`),
-  KEY `timestamp` (`timestamp`)
+  `user_ip_address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_wc_webhooks`
+-- Cấu trúc bảng cho bảng `wp_wc_webhooks`
 --
 
-DROP TABLE IF EXISTS `wp_wc_webhooks`;
-CREATE TABLE IF NOT EXISTS `wp_wc_webhooks` (
-  `webhook_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_wc_webhooks` (
+  `webhook_id` bigint(20) UNSIGNED NOT NULL,
   `status` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
@@ -4751,20 +4677,17 @@ CREATE TABLE IF NOT EXISTS `wp_wc_webhooks` (
   `date_modified_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `api_version` smallint(4) NOT NULL,
   `failure_count` smallint(10) NOT NULL DEFAULT '0',
-  `pending_delivery` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`webhook_id`),
-  KEY `user_id` (`user_id`)
+  `pending_delivery` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_api_keys`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_api_keys`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_api_keys`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_api_keys` (
-  `key_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_api_keys` (
+  `key_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `description` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `permissions` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -4772,32 +4695,26 @@ CREATE TABLE IF NOT EXISTS `wp_woocommerce_api_keys` (
   `consumer_secret` char(43) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nonces` longtext COLLATE utf8mb4_unicode_ci,
   `truncated_key` char(7) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_access` datetime DEFAULT NULL,
-  PRIMARY KEY (`key_id`),
-  KEY `consumer_key` (`consumer_key`),
-  KEY `consumer_secret` (`consumer_secret`)
+  `last_access` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_attribute_taxonomies`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_attribute_taxonomies`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_attribute_taxonomies`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_attribute_taxonomies` (
-  `attribute_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_attribute_taxonomies` (
+  `attribute_id` bigint(20) UNSIGNED NOT NULL,
   `attribute_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `attribute_label` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `attribute_type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `attribute_orderby` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `attribute_public` int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`attribute_id`),
-  KEY `attribute_name` (`attribute_name`(20))
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `attribute_public` int(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_woocommerce_attribute_taxonomies`
+-- Đang đổ dữ liệu cho bảng `wp_woocommerce_attribute_taxonomies`
 --
 
 INSERT INTO `wp_woocommerce_attribute_taxonomies` (`attribute_id`, `attribute_name`, `attribute_label`, `attribute_type`, `attribute_orderby`, `attribute_public`) VALUES
@@ -4809,12 +4726,11 @@ INSERT INTO `wp_woocommerce_attribute_taxonomies` (`attribute_id`, `attribute_na
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_downloadable_product_permissions`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_downloadable_product_permissions`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_downloadable_product_permissions`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_downloadable_product_permissions` (
-  `permission_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_downloadable_product_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
   `download_id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL,
   `order_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
@@ -4824,50 +4740,39 @@ CREATE TABLE IF NOT EXISTS `wp_woocommerce_downloadable_product_permissions` (
   `downloads_remaining` varchar(9) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `access_granted` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `access_expires` datetime DEFAULT NULL,
-  `download_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  PRIMARY KEY (`permission_id`),
-  KEY `download_order_key_product` (`product_id`,`order_id`,`order_key`(16),`download_id`),
-  KEY `download_order_product` (`download_id`,`order_id`,`product_id`),
-  KEY `order_id` (`order_id`)
+  `download_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_log`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_log`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_log`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_log` (
-  `log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_log` (
+  `log_id` bigint(20) UNSIGNED NOT NULL,
   `timestamp` datetime NOT NULL,
   `level` smallint(4) NOT NULL,
   `source` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `message` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `context` longtext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`log_id`),
-  KEY `level` (`level`)
+  `context` longtext COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_order_itemmeta`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_order_itemmeta`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_order_itemmeta`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_order_itemmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_order_itemmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL,
   `order_item_id` bigint(20) UNSIGNED NOT NULL,
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`meta_id`),
-  KEY `order_item_id` (`order_item_id`),
-  KEY `meta_key` (`meta_key`(32))
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_woocommerce_order_itemmeta`
+-- Đang đổ dữ liệu cho bảng `wp_woocommerce_order_itemmeta`
 --
 
 INSERT INTO `wp_woocommerce_order_itemmeta` (`meta_id`, `order_item_id`, `meta_key`, `meta_value`) VALUES
@@ -4989,21 +4894,18 @@ INSERT INTO `wp_woocommerce_order_itemmeta` (`meta_id`, `order_item_id`, `meta_k
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_order_items`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_order_items`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_order_items`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_order_items` (
-  `order_item_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_order_items` (
+  `order_item_id` bigint(20) UNSIGNED NOT NULL,
   `order_item_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `order_item_type` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `order_id` bigint(20) UNSIGNED NOT NULL,
-  PRIMARY KEY (`order_item_id`),
-  KEY `order_id` (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `order_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_woocommerce_order_items`
+-- Đang đổ dữ liệu cho bảng `wp_woocommerce_order_items`
 --
 
 INSERT INTO `wp_woocommerce_order_items` (`order_item_id`, `order_item_name`, `order_item_type`, `order_id`) VALUES
@@ -5013,56 +4915,46 @@ INSERT INTO `wp_woocommerce_order_items` (`order_item_id`, `order_item_name`, `o
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_payment_tokenmeta`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_payment_tokenmeta`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_payment_tokenmeta`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_payment_tokenmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_payment_tokenmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL,
   `payment_token_id` bigint(20) UNSIGNED NOT NULL,
   `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`meta_id`),
-  KEY `payment_token_id` (`payment_token_id`),
-  KEY `meta_key` (`meta_key`(32))
+  `meta_value` longtext COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_payment_tokens`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_payment_tokens`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_payment_tokens`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_payment_tokens` (
-  `token_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_payment_tokens` (
+  `token_id` bigint(20) UNSIGNED NOT NULL,
   `gateway_id` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `type` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_default` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`token_id`),
-  KEY `user_id` (`user_id`)
+  `is_default` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_sessions`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_sessions`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_sessions`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_sessions` (
-  `session_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_sessions` (
+  `session_id` bigint(20) UNSIGNED NOT NULL,
   `session_key` char(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `session_value` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `session_expiry` bigint(20) UNSIGNED NOT NULL,
-  PRIMARY KEY (`session_key`),
-  UNIQUE KEY `session_id` (`session_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `session_expiry` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_woocommerce_sessions`
+-- Đang đổ dữ liệu cho bảng `wp_woocommerce_sessions`
 --
 
 INSERT INTO `wp_woocommerce_sessions` (`session_id`, `session_key`, `session_value`, `session_expiry`) VALUES
@@ -5071,52 +4963,44 @@ INSERT INTO `wp_woocommerce_sessions` (`session_id`, `session_key`, `session_val
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_shipping_zones`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_shipping_zones`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_shipping_zones`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_shipping_zones` (
-  `zone_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_shipping_zones` (
+  `zone_id` bigint(20) UNSIGNED NOT NULL,
   `zone_name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `zone_order` bigint(20) UNSIGNED NOT NULL,
-  PRIMARY KEY (`zone_id`)
+  `zone_order` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_shipping_zone_locations`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_shipping_zone_locations`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_shipping_zone_locations`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_shipping_zone_locations` (
-  `location_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_shipping_zone_locations` (
+  `location_id` bigint(20) UNSIGNED NOT NULL,
   `zone_id` bigint(20) UNSIGNED NOT NULL,
   `location_code` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `location_type` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`location_id`),
-  KEY `location_id` (`location_id`),
-  KEY `location_type_code` (`location_type`(10),`location_code`(20))
+  `location_type` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_shipping_zone_methods`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_shipping_zone_methods`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_shipping_zone_methods`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_shipping_zone_methods` (
+CREATE TABLE `wp_woocommerce_shipping_zone_methods` (
   `zone_id` bigint(20) UNSIGNED NOT NULL,
-  `instance_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `instance_id` bigint(20) UNSIGNED NOT NULL,
   `method_id` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `method_order` bigint(20) UNSIGNED NOT NULL,
-  `is_enabled` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`instance_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `is_enabled` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wp_woocommerce_shipping_zone_methods`
+-- Đang đổ dữ liệu cho bảng `wp_woocommerce_shipping_zone_methods`
 --
 
 INSERT INTO `wp_woocommerce_shipping_zone_methods` (`zone_id`, `instance_id`, `method_id`, `method_order`, `is_enabled`) VALUES
@@ -5126,12 +5010,11 @@ INSERT INTO `wp_woocommerce_shipping_zone_methods` (`zone_id`, `instance_id`, `m
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_tax_rates`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_tax_rates`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_tax_rates`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_tax_rates` (
-  `tax_rate_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_tax_rates` (
+  `tax_rate_id` bigint(20) UNSIGNED NOT NULL,
   `tax_rate_country` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `tax_rate_state` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `tax_rate` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -5140,51 +5023,39 @@ CREATE TABLE IF NOT EXISTS `wp_woocommerce_tax_rates` (
   `tax_rate_compound` int(1) NOT NULL DEFAULT '0',
   `tax_rate_shipping` int(1) NOT NULL DEFAULT '1',
   `tax_rate_order` bigint(20) UNSIGNED NOT NULL,
-  `tax_rate_class` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`tax_rate_id`),
-  KEY `tax_rate_country` (`tax_rate_country`),
-  KEY `tax_rate_state` (`tax_rate_state`(2)),
-  KEY `tax_rate_class` (`tax_rate_class`(10)),
-  KEY `tax_rate_priority` (`tax_rate_priority`)
+  `tax_rate_class` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_woocommerce_tax_rate_locations`
+-- Cấu trúc bảng cho bảng `wp_woocommerce_tax_rate_locations`
 --
 
-DROP TABLE IF EXISTS `wp_woocommerce_tax_rate_locations`;
-CREATE TABLE IF NOT EXISTS `wp_woocommerce_tax_rate_locations` (
-  `location_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_woocommerce_tax_rate_locations` (
+  `location_id` bigint(20) UNSIGNED NOT NULL,
   `location_code` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tax_rate_id` bigint(20) UNSIGNED NOT NULL,
-  `location_type` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`location_id`),
-  KEY `tax_rate_id` (`tax_rate_id`),
-  KEY `location_type_code` (`location_type`(10),`location_code`(20))
+  `location_type` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_yith_wcwl`
+-- Cấu trúc bảng cho bảng `wp_yith_wcwl`
 --
 
-DROP TABLE IF EXISTS `wp_yith_wcwl`;
-CREATE TABLE IF NOT EXISTS `wp_yith_wcwl` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_yith_wcwl` (
+  `ID` int(11) NOT NULL,
   `prod_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `wishlist_id` int(11) DEFAULT NULL,
-  `dateadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ID`),
-  KEY `prod_id` (`prod_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `dateadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `wp_yith_wcwl`
+-- Đang đổ dữ liệu cho bảng `wp_yith_wcwl`
 --
 
 INSERT INTO `wp_yith_wcwl` (`ID`, `prod_id`, `quantity`, `user_id`, `wishlist_id`, `dateadded`) VALUES
@@ -5195,26 +5066,22 @@ INSERT INTO `wp_yith_wcwl` (`ID`, `prod_id`, `quantity`, `user_id`, `wishlist_id
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wp_yith_wcwl_lists`
+-- Cấu trúc bảng cho bảng `wp_yith_wcwl_lists`
 --
 
-DROP TABLE IF EXISTS `wp_yith_wcwl_lists`;
-CREATE TABLE IF NOT EXISTS `wp_yith_wcwl_lists` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wp_yith_wcwl_lists` (
+  `ID` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `wishlist_slug` varchar(200) NOT NULL,
   `wishlist_name` text,
   `wishlist_token` varchar(64) NOT NULL,
   `wishlist_privacy` tinyint(1) NOT NULL DEFAULT '0',
   `is_default` tinyint(1) NOT NULL DEFAULT '0',
-  `dateadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `wishlist_token` (`wishlist_token`),
-  KEY `wishlist_slug` (`wishlist_slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `dateadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `wp_yith_wcwl_lists`
+-- Đang đổ dữ liệu cho bảng `wp_yith_wcwl_lists`
 --
 
 INSERT INTO `wp_yith_wcwl_lists` (`ID`, `user_id`, `wishlist_slug`, `wishlist_name`, `wishlist_token`, `wishlist_privacy`, `is_default`, `dateadded`) VALUES
@@ -5224,11 +5091,501 @@ INSERT INTO `wp_yith_wcwl_lists` (`ID`, `user_id`, `wishlist_slug`, `wishlist_na
 (4, 1, '', '', 'LPA880POJWBI', 0, 1, '2018-08-16 14:01:37');
 
 --
--- Constraints for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Constraints for table `wp_wc_download_log`
+-- Chỉ mục cho bảng `wp_commentmeta`
+--
+ALTER TABLE `wp_commentmeta`
+  ADD PRIMARY KEY (`meta_id`),
+  ADD KEY `comment_id` (`comment_id`),
+  ADD KEY `meta_key` (`meta_key`(191));
+
+--
+-- Chỉ mục cho bảng `wp_comments`
+--
+ALTER TABLE `wp_comments`
+  ADD PRIMARY KEY (`comment_ID`),
+  ADD KEY `comment_post_ID` (`comment_post_ID`),
+  ADD KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
+  ADD KEY `comment_date_gmt` (`comment_date_gmt`),
+  ADD KEY `comment_parent` (`comment_parent`),
+  ADD KEY `comment_author_email` (`comment_author_email`(10)),
+  ADD KEY `woo_idx_comment_type` (`comment_type`);
+
+--
+-- Chỉ mục cho bảng `wp_es_deliverreport`
+--
+ALTER TABLE `wp_es_deliverreport`
+  ADD PRIMARY KEY (`es_deliver_id`);
+
+--
+-- Chỉ mục cho bảng `wp_es_emaillist`
+--
+ALTER TABLE `wp_es_emaillist`
+  ADD PRIMARY KEY (`es_email_id`);
+
+--
+-- Chỉ mục cho bảng `wp_es_notification`
+--
+ALTER TABLE `wp_es_notification`
+  ADD PRIMARY KEY (`es_note_id`);
+
+--
+-- Chỉ mục cho bảng `wp_es_sentdetails`
+--
+ALTER TABLE `wp_es_sentdetails`
+  ADD PRIMARY KEY (`es_sent_id`);
+
+--
+-- Chỉ mục cho bảng `wp_failed_jobs`
+--
+ALTER TABLE `wp_failed_jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `wp_links`
+--
+ALTER TABLE `wp_links`
+  ADD PRIMARY KEY (`link_id`),
+  ADD KEY `link_visible` (`link_visible`);
+
+--
+-- Chỉ mục cho bảng `wp_options`
+--
+ALTER TABLE `wp_options`
+  ADD PRIMARY KEY (`option_id`),
+  ADD UNIQUE KEY `option_name` (`option_name`);
+
+--
+-- Chỉ mục cho bảng `wp_postmeta`
+--
+ALTER TABLE `wp_postmeta`
+  ADD PRIMARY KEY (`meta_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `meta_key` (`meta_key`(191));
+
+--
+-- Chỉ mục cho bảng `wp_posts`
+--
+ALTER TABLE `wp_posts`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `post_name` (`post_name`(191)),
+  ADD KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
+  ADD KEY `post_parent` (`post_parent`),
+  ADD KEY `post_author` (`post_author`);
+
+--
+-- Chỉ mục cho bảng `wp_queue`
+--
+ALTER TABLE `wp_queue`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `wp_termmeta`
+--
+ALTER TABLE `wp_termmeta`
+  ADD PRIMARY KEY (`meta_id`),
+  ADD KEY `term_id` (`term_id`),
+  ADD KEY `meta_key` (`meta_key`(191));
+
+--
+-- Chỉ mục cho bảng `wp_terms`
+--
+ALTER TABLE `wp_terms`
+  ADD PRIMARY KEY (`term_id`),
+  ADD KEY `slug` (`slug`(191)),
+  ADD KEY `name` (`name`(191));
+
+--
+-- Chỉ mục cho bảng `wp_term_relationships`
+--
+ALTER TABLE `wp_term_relationships`
+  ADD PRIMARY KEY (`object_id`,`term_taxonomy_id`),
+  ADD KEY `term_taxonomy_id` (`term_taxonomy_id`);
+
+--
+-- Chỉ mục cho bảng `wp_term_taxonomy`
+--
+ALTER TABLE `wp_term_taxonomy`
+  ADD PRIMARY KEY (`term_taxonomy_id`),
+  ADD UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
+  ADD KEY `taxonomy` (`taxonomy`);
+
+--
+-- Chỉ mục cho bảng `wp_usermeta`
+--
+ALTER TABLE `wp_usermeta`
+  ADD PRIMARY KEY (`umeta_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `meta_key` (`meta_key`(191));
+
+--
+-- Chỉ mục cho bảng `wp_users`
+--
+ALTER TABLE `wp_users`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `user_login_key` (`user_login`),
+  ADD KEY `user_nicename` (`user_nicename`),
+  ADD KEY `user_email` (`user_email`);
+
+--
+-- Chỉ mục cho bảng `wp_wc_download_log`
+--
+ALTER TABLE `wp_wc_download_log`
+  ADD PRIMARY KEY (`download_log_id`),
+  ADD KEY `permission_id` (`permission_id`),
+  ADD KEY `timestamp` (`timestamp`);
+
+--
+-- Chỉ mục cho bảng `wp_wc_webhooks`
+--
+ALTER TABLE `wp_wc_webhooks`
+  ADD PRIMARY KEY (`webhook_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_api_keys`
+--
+ALTER TABLE `wp_woocommerce_api_keys`
+  ADD PRIMARY KEY (`key_id`),
+  ADD KEY `consumer_key` (`consumer_key`),
+  ADD KEY `consumer_secret` (`consumer_secret`);
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_attribute_taxonomies`
+--
+ALTER TABLE `wp_woocommerce_attribute_taxonomies`
+  ADD PRIMARY KEY (`attribute_id`),
+  ADD KEY `attribute_name` (`attribute_name`(20));
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_downloadable_product_permissions`
+--
+ALTER TABLE `wp_woocommerce_downloadable_product_permissions`
+  ADD PRIMARY KEY (`permission_id`),
+  ADD KEY `download_order_key_product` (`product_id`,`order_id`,`order_key`(16),`download_id`),
+  ADD KEY `download_order_product` (`download_id`,`order_id`,`product_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_log`
+--
+ALTER TABLE `wp_woocommerce_log`
+  ADD PRIMARY KEY (`log_id`),
+  ADD KEY `level` (`level`);
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_order_itemmeta`
+--
+ALTER TABLE `wp_woocommerce_order_itemmeta`
+  ADD PRIMARY KEY (`meta_id`),
+  ADD KEY `order_item_id` (`order_item_id`),
+  ADD KEY `meta_key` (`meta_key`(32));
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_order_items`
+--
+ALTER TABLE `wp_woocommerce_order_items`
+  ADD PRIMARY KEY (`order_item_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_payment_tokenmeta`
+--
+ALTER TABLE `wp_woocommerce_payment_tokenmeta`
+  ADD PRIMARY KEY (`meta_id`),
+  ADD KEY `payment_token_id` (`payment_token_id`),
+  ADD KEY `meta_key` (`meta_key`(32));
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_payment_tokens`
+--
+ALTER TABLE `wp_woocommerce_payment_tokens`
+  ADD PRIMARY KEY (`token_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_sessions`
+--
+ALTER TABLE `wp_woocommerce_sessions`
+  ADD PRIMARY KEY (`session_key`),
+  ADD UNIQUE KEY `session_id` (`session_id`);
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_shipping_zones`
+--
+ALTER TABLE `wp_woocommerce_shipping_zones`
+  ADD PRIMARY KEY (`zone_id`);
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_shipping_zone_locations`
+--
+ALTER TABLE `wp_woocommerce_shipping_zone_locations`
+  ADD PRIMARY KEY (`location_id`),
+  ADD KEY `location_id` (`location_id`),
+  ADD KEY `location_type_code` (`location_type`(10),`location_code`(20));
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_shipping_zone_methods`
+--
+ALTER TABLE `wp_woocommerce_shipping_zone_methods`
+  ADD PRIMARY KEY (`instance_id`);
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_tax_rates`
+--
+ALTER TABLE `wp_woocommerce_tax_rates`
+  ADD PRIMARY KEY (`tax_rate_id`),
+  ADD KEY `tax_rate_country` (`tax_rate_country`),
+  ADD KEY `tax_rate_state` (`tax_rate_state`(2)),
+  ADD KEY `tax_rate_class` (`tax_rate_class`(10)),
+  ADD KEY `tax_rate_priority` (`tax_rate_priority`);
+
+--
+-- Chỉ mục cho bảng `wp_woocommerce_tax_rate_locations`
+--
+ALTER TABLE `wp_woocommerce_tax_rate_locations`
+  ADD PRIMARY KEY (`location_id`),
+  ADD KEY `tax_rate_id` (`tax_rate_id`),
+  ADD KEY `location_type_code` (`location_type`(10),`location_code`(20));
+
+--
+-- Chỉ mục cho bảng `wp_yith_wcwl`
+--
+ALTER TABLE `wp_yith_wcwl`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `prod_id` (`prod_id`);
+
+--
+-- Chỉ mục cho bảng `wp_yith_wcwl_lists`
+--
+ALTER TABLE `wp_yith_wcwl_lists`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `wishlist_token` (`wishlist_token`),
+  ADD KEY `wishlist_slug` (`wishlist_slug`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `wp_commentmeta`
+--
+ALTER TABLE `wp_commentmeta`
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_comments`
+--
+ALTER TABLE `wp_comments`
+  MODIFY `comment_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_es_deliverreport`
+--
+ALTER TABLE `wp_es_deliverreport`
+  MODIFY `es_deliver_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_es_emaillist`
+--
+ALTER TABLE `wp_es_emaillist`
+  MODIFY `es_email_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_es_notification`
+--
+ALTER TABLE `wp_es_notification`
+  MODIFY `es_note_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_es_sentdetails`
+--
+ALTER TABLE `wp_es_sentdetails`
+  MODIFY `es_sent_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_failed_jobs`
+--
+ALTER TABLE `wp_failed_jobs`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_links`
+--
+ALTER TABLE `wp_links`
+  MODIFY `link_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_options`
+--
+ALTER TABLE `wp_options`
+  MODIFY `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5157;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_postmeta`
+--
+ALTER TABLE `wp_postmeta`
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3694;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_posts`
+--
+ALTER TABLE `wp_posts`
+  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=591;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_queue`
+--
+ALTER TABLE `wp_queue`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_termmeta`
+--
+ALTER TABLE `wp_termmeta`
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_terms`
+--
+ALTER TABLE `wp_terms`
+  MODIFY `term_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_term_taxonomy`
+--
+ALTER TABLE `wp_term_taxonomy`
+  MODIFY `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_usermeta`
+--
+ALTER TABLE `wp_usermeta`
+  MODIFY `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_users`
+--
+ALTER TABLE `wp_users`
+  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_wc_download_log`
+--
+ALTER TABLE `wp_wc_download_log`
+  MODIFY `download_log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_wc_webhooks`
+--
+ALTER TABLE `wp_wc_webhooks`
+  MODIFY `webhook_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_api_keys`
+--
+ALTER TABLE `wp_woocommerce_api_keys`
+  MODIFY `key_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_attribute_taxonomies`
+--
+ALTER TABLE `wp_woocommerce_attribute_taxonomies`
+  MODIFY `attribute_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_downloadable_product_permissions`
+--
+ALTER TABLE `wp_woocommerce_downloadable_product_permissions`
+  MODIFY `permission_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_log`
+--
+ALTER TABLE `wp_woocommerce_log`
+  MODIFY `log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_order_itemmeta`
+--
+ALTER TABLE `wp_woocommerce_order_itemmeta`
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_order_items`
+--
+ALTER TABLE `wp_woocommerce_order_items`
+  MODIFY `order_item_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_payment_tokenmeta`
+--
+ALTER TABLE `wp_woocommerce_payment_tokenmeta`
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_payment_tokens`
+--
+ALTER TABLE `wp_woocommerce_payment_tokens`
+  MODIFY `token_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_sessions`
+--
+ALTER TABLE `wp_woocommerce_sessions`
+  MODIFY `session_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_shipping_zones`
+--
+ALTER TABLE `wp_woocommerce_shipping_zones`
+  MODIFY `zone_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_shipping_zone_locations`
+--
+ALTER TABLE `wp_woocommerce_shipping_zone_locations`
+  MODIFY `location_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_shipping_zone_methods`
+--
+ALTER TABLE `wp_woocommerce_shipping_zone_methods`
+  MODIFY `instance_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_tax_rates`
+--
+ALTER TABLE `wp_woocommerce_tax_rates`
+  MODIFY `tax_rate_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_woocommerce_tax_rate_locations`
+--
+ALTER TABLE `wp_woocommerce_tax_rate_locations`
+  MODIFY `location_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_yith_wcwl`
+--
+ALTER TABLE `wp_yith_wcwl`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `wp_yith_wcwl_lists`
+--
+ALTER TABLE `wp_yith_wcwl_lists`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `wp_wc_download_log`
 --
 ALTER TABLE `wp_wc_download_log`
   ADD CONSTRAINT `fk_wc_download_log_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `wp_woocommerce_downloadable_product_permissions` (`permission_id`) ON DELETE CASCADE;
