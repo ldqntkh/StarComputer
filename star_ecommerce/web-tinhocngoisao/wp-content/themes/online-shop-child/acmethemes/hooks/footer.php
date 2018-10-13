@@ -54,17 +54,6 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
                     {
                         ?>
                         <div id="footer-top">
-                            <?php
-                                if( is_active_sidebar( 'online-shop-before-feature' ) ) :
-                                    ?>
-                                    <div class="online-shop-before-feature">
-                                        <?php
-                                        dynamic_sidebar( 'online-shop-before-feature' );
-                                        ?>
-                                    </div>
-                                    <?php
-                                endif;
-                            ?>
                             <div class="footer-columns clearfix">
 			                    <?php
 			                    $footer_top_col = 'footer-sidebar acme-col-2';
