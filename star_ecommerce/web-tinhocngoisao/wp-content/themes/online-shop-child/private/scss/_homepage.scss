@@ -119,6 +119,20 @@ h2.woocommerce-loop-product__title {
                 }
             }
         }
+
+        aside#online_shop_about-2 {
+            .featured-entries-about {
+                display: block;
+
+                @media screen and (min-width: 769px) {
+                    display: none;
+                }
+
+                &.column {
+                    background-color: unset;
+                }
+            }
+        }
     }
 }
 
