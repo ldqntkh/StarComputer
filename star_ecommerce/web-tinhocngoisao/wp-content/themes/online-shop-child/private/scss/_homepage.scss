@@ -92,6 +92,48 @@ h2.woocommerce-loop-product__title {
             padding-top: 0.3rem;
         }
     }
+
+    #content {
+        .products {
+            .product-type-grouped {
+                .product-item-details {
+                    .price {
+                        display: block;
+                    }
+                }
+
+                .product_type_grouped {
+                    display: none;
+                }
+            }
+        }
+
+        .wrapper {
+            .slider-feature-wrap {
+                .featured-entries-about {
+                    display: none;
+
+                    @media screen and (min-width: 769px) {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        aside#online_shop_about-2 {
+            .featured-entries-about {
+                display: block;
+
+                @media screen and (min-width: 769px) {
+                    display: none;
+                }
+
+                &.column {
+                    background-color: unset;
+                }
+            }
+        }
+    }
 }
 
 .top-header-promotion {
