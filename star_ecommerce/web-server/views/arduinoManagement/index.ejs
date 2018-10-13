@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    
+    <title>Arduino Management</title>
+</head>
+<body>
+    <!-- include những  phần khác của giao diện vào đây -->
+    <!-- bên dưới chỉ là nội dung right content -->
+    <div id="lst-arduino">
+    </div>
+</body>
+    <script src="/js/reactjs/admin_control_arduino.js"></script>
+    <!-- <script type="text/javascript">
+        var io = io('localhost:3000');
+        //io.emit('_ON_ADMIN_RECEIVE_LIST_ARDUINO');
+        io.on('_EMIT_ADMIN_REQUEST_LIST_ARDUINO', function(data) {
+            if (data && data.length > 0) {
+                for(var index in data) {
+                    
+                }
+            }
+        });
+    </script> -->
+</html>
