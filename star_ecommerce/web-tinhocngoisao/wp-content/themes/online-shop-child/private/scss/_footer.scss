@@ -16,3 +16,16 @@
         opacity: 0.5;
     }
 }
+
+.site-footer {
+    #footer-top {
+        .online-shop-before-feature {
+            display: block;
+
+            @media screen and (min-width: 769px) {
+                display: none;
+            }
+        }
+    }
+}
+

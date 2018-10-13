@@ -92,6 +92,34 @@ h2.woocommerce-loop-product__title {
             padding-top: 0.3rem;
         }
     }
+
+    #content {
+        .products {
+            .product-type-grouped {
+                .product-item-details {
+                    .price {
+                        display: block;
+                    }
+                }
+
+                .product_type_grouped {
+                    display: none;
+                }
+            }
+        }
+
+        .wrapper {
+            .slider-feature-wrap {
+                .featured-entries-about {
+                    display: none;
+
+                    @media screen and (min-width: 769px) {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .top-header-promotion {
