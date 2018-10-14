@@ -4,6 +4,15 @@
     /**
      * customizer filter page shop
      */
+    $category = get_queried_object();
+    $category_id = $category->term_id;
+
+    if ( !empty($category_id) ) {
+        $term = get_term_by( 'id', $category_id, 'product_cat' );
+        $termBackgroundImage = get_field( 'background_image_header', $term );
+        $termBackgroundColor = get_field( 'background_color', $term );
+    }
+
 ?>
 
 <div class="custom-shop-filter">
@@ -13,8 +22,7 @@
             online_shop_breadcrumbs();
             echo "</div>";
         }
-        $category = get_queried_object();
-        $category_id = $category->term_id;
+
         if (empty($category_id)) {
             // show all categories product
             require_once online_shop_file_directory('acmethemes/filter/categories.php');
