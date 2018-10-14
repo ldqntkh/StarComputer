@@ -627,3 +627,34 @@ add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_add
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_installment_information', 17 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_trading_information', 5 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_contact_information', 7 );
+
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'rest_api/v1', '/product/(?P<productId>\d+)', array(
+        'methods' => 'GET',
+        'callback' => 'get_product_api',
+    ) );
+} );
+
+function get_product_api($data) {
+	$product = wc_get_product(intval($data['productId']));
+	if ( empty( $product ) ) {
+		return new WP_Error( 'no_product', 'No product was found', array( 'status' => 404 ) );
+	}
+
+	if ( $product->get_type() === 'variable' ) {
+		$regularPrice = $product->get_variation_regular_price();
+		$salePrice = $product->get_variation_sale_price();
+	} else {
+		$regularPrice = $product->get_regular_price();
+		$salePrice = $product->get_sale_price();
+	}
+
+	$productDatas = [
+		'name' => $product->get_name(),
+		'imageLink' => wp_get_attachment_url($product->get_image_id()),
+		'regularPrice' => $regularPrice,
+		'salePrice' => $salePrice,
+		'link' => $product->get_permalink()
+	];
+	return new WP_Error( 'success', '', $productDatas );
+}
