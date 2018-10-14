@@ -1,0 +1,58 @@
+#lst-arduino {
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+        h3 {
+            font-weight: 300;
+        }
+        button {
+            border: 0;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    }
+    .body-list-arduino {
+        border-top: 3px solid silver;
+        .item-arduino {
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid silver;
+            margin-right: 10px;
+            padding-top: 10px;
+            margin-top: 10px;
+            padding-bottom: 5px;
+            .item-id {
+                width: 200px;
+            }
+            .item-input {
+                width: calc(100% - 210px);
+                input {
+                    border: 0.5px solid;
+                    margin: 0 10px;
+                    border-radius: 5px;
+                }
+                button {
+                    border-radius: 3px;
+                    border: 0.5px solid;
+                    cursor: pointer;
+                }
+            }
+            .item-product-details {
+                width: 100%;
+                a {
+                    display: flex;
+                    width: 100%;
+                    float: left;
+                    img {
+                        width: 100px;
+                        height: 100px;
+                        margin-left: 200px;
+                        margin-right: 20px;
+                    }
+                }
+            }
+        }
+    }
+    
+}

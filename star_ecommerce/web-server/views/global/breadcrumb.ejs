@@ -1,0 +1,6 @@
+<div class="main-breadcrumb">
+    <a href="/">Dashboard</a>
+    <% if (typeof breadcrumb_item !== "undefined") {%>
+        / <a href="<%= breadcrumb_item.link %>"> <%= breadcrumb_item.name %> </a>
+    <%}%>
+</div>

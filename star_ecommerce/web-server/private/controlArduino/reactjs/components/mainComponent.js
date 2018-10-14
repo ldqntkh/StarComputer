@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 
-
+// import component
+import HeaderComponent from './header/headerComponent';
+import BodyComponent from './body/bodyComponent';
 class MainComponent extends Component {
 
     render() {
         return (
-            <h3>Hehe</h3>
+            <React.Fragment>
+                <HeaderComponent />
+                <BodyComponent />
+            </React.Fragment>
         )
     }
 }

@@ -8,7 +8,8 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 module.exports = {
     entry: {
         admin_control_arduino: './private/controlArduino/reactjs/App.js',
-        admin_style_arduino: ['./private/controlArduino/scss/style.scss']
+        admin_style_arduino: ['./private/controlArduino/scss/style.scss'],
+        style: ['./private/global/scss/style.scss']
     },
     
     mode: 'development',
@@ -20,11 +21,11 @@ module.exports = {
                     use: [
                         {
                             loader: 'css-loader',
-                            options: {
-                                modules: true,
-                                camelCase: 'dashes',
-                                minimize: true
-                            }
+                            // options: {
+                            //     modules: true,
+                            //     camelCase: 'dashes',
+                            //     minimize: true
+                            // }
                         },
                         {
                             loader: 'sass-loader'
