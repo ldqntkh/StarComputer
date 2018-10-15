@@ -110,6 +110,14 @@ h2.woocommerce-loop-product__title {
 
         .wrapper {
             .slider-feature-wrap {
+                margin-right: -10px;
+                margin-left: -10px;
+
+                @media screen and (min-width: 768px) {
+                    margin-right: 0;
+                    margin-left: 0;
+                }
+
                 .featured-entries-about {
                     display: none;
 
@@ -143,5 +151,12 @@ h2.woocommerce-loop-product__title {
 @media screen and (min-width: 1024px) {
     .top-header-promotion {
         display: block;
+    }
+}
+
+.online-shop-feature-special-menu {
+    .slider-section-right {
+        float: right;
+        width: 25%;
     }
 }

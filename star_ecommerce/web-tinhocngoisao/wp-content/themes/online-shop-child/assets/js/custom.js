@@ -146,15 +146,30 @@ jQuery(document).ready(function($) {
             var prevArrow = at_featured_img_slider.closest('.beside-slider').find('.at-action-wrapper > .prev');
             var nextArrow = at_featured_img_slider.closest('.beside-slider').find('.at-action-wrapper > .next');
             at_featured_img_slider.css('visibility', 'visible').slick({
-                slidesToShow: 2,
+                slidesToShow: 4,
                 slidesToScroll: 1,
                 autoplay: (autoplay===1),
-                vertical: true,
-                verticalSwiping: true,
+                adaptiveHeight: true,
+                cssEase: 'linear',
                 arrows: (arrows===1),
                 prevArrow: prevArrow,
                 nextArrow: nextArrow,
-                adaptiveHeight: false
+                responsive: [
+                    {
+                        breakpoint: 767,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 991,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3
+                        }
+                    }
+                ]
             });
         });
 

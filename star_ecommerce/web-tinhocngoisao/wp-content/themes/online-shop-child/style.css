@@ -1684,7 +1684,7 @@ a.my-account:hover{
 	float: left;
 	max-width: 839px;
 	position: relative;
-	width: 68%;
+	width: 75%;
 }
 
 /*slider button prev next*/
@@ -1717,9 +1717,8 @@ a.my-account:hover{
 }
 /*beside slider*/
 .beside-slider{
-	float: right;
-	max-width: 380px;
-	width: 31%;
+	clear: both;
+	width: 100%;
 	position: relative;
 	overflow: hidden;
 }
@@ -3178,10 +3177,10 @@ ul li.product {
 	}
 
 	.online-shop-feature-special-menu .at-feature-section .at-slide-unit {
-		height: 418px;
+		height: 300px;
 	}
 	.online-shop-feature-special-menu .beside-slider .fs-right-slider .at-beside-slider-unit {
-		height: 204.5px;
+		height: 130px;
 	}
 }
 /* Portrait tablet to landscape and desktop */
