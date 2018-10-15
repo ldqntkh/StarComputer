@@ -78,7 +78,10 @@ header#masthead {
     .wrapper {
         .slider-feature-wrap {
             background: $content_background;
-            padding-top: 30px;
+            @media screen and(min-width: 768px) {
+                padding-top: 30px;
+            }
+
             margin-top: 0;
             .featured-entries-about {
                 padding-left: 10px;
