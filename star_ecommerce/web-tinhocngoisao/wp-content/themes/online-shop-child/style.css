@@ -1683,6 +1683,7 @@ a.my-account:hover{
 .slider-section {
 	float: left;
 	max-width: 839px;
+	margin-bottom: 5px;
 	position: relative;
 	width: 75%;
 }
@@ -3155,12 +3156,9 @@ ul li.product {
 		visibility: visible;
 		display: block;
 		opacity: 1;
-		top: 116%;
+		top: 100%;
 		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 		animation: none;
-	}
-	.online-shop-feature-special-menu .special-menu-wrapper >li > ul.special-sub-menu:hover {
-
 	}
 	.special-sub-menu::-webkit-scrollbar {
 		width: 6px;

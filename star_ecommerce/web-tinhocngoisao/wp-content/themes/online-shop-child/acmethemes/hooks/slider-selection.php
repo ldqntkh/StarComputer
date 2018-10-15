@@ -216,7 +216,7 @@ if ( !function_exists('online_shop_feature_slider') ) :
 			        <?php
 				}
 				?>
-				<div class="slider-section-right"></div>
+				<div id="slider-section-right"></div>
 				<?php
 		        if( 'disable' != $online_shop_feature_right_content_options ){
 			        $online_shop_fs_right_image_display_options = $online_shop_customizer_all_values['online-shop-feature-right-image-display-options'];
