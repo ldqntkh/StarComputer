@@ -9,8 +9,8 @@ const socketServer = function(server) {
 
     io.on("connection", socket => {
         // arduino request
-        console.log('------Client connect-----------')
         if (socket.handshake.headers.origin && socket.handshake.headers.origin.toLowerCase() === "arduino") {
+            
             socketArduino(io, socket);
         } else {
             socketBrowser(io, socket);

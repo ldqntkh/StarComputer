@@ -11,13 +11,13 @@ module.exports = {
             if (arduinos.length > 0) {
                 let results = [];
                 for(let index in arduinos) {
-                    results.push(arduinos[index]);
+                    results.push(arduinos[index].dataValues);
                 }
                 return results;
             }
             return null;
         } catch (err) {
-            console.log(arduino);
+            console.log(err);
             return null;
         }
     },
@@ -29,7 +29,6 @@ module.exports = {
                     "arduino_num" : arduino_num
                 }
             });
-
             return arduino && arduino.dataValues !== null ? new ArduinoModel(arduino.dataValues) : null;
         } catch (err) {
             console.log(err);
@@ -44,6 +43,20 @@ module.exports = {
         } catch (err) {
             console.log(err);
             return null;
+        }
+    },
+
+    updateArduinoProductId: async (arduinoObject) => {
+        try {
+            let rs = await ArduinoTable.update(arduinoObject, {
+                where: {
+                    arduino_num: arduinoObject.arduino_num
+                }
+            });
+            return rs && rs.dataValues !== null ? true : false;
+        } catch (err) {
+            console.log(err);
+            return false;
         }
     }
 }

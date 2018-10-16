@@ -2,7 +2,7 @@
 
 class ArduinoModel {
     constructor(ArduinoObject) {
-        ArduinoObject && Object.assign(ArduinoObject);
+        ArduinoObject && Object.assign(this, ArduinoObject);
     }
 
 
@@ -22,3 +22,5 @@ class ArduinoModel {
         return this.product_id;
     }
 }
+
+module.exports = ArduinoModel;

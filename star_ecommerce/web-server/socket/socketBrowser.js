@@ -16,7 +16,7 @@ const socketBrowser = function(io, socket) {
             if (listArduino !== null && listArduino.length > 0) {
                 socket.emit(
                     socketVariable._ON_ADMIN_RECEIVE_LIST_ARDUINO,
-                    arrSocketArduinos
+                    listArduino
                 );
             } else {
                 socket.emit(
@@ -35,7 +35,13 @@ const socketBrowser = function(io, socket) {
     socket.on(socketVariable._EMIT_ADMIN_UPDATE_PRICE, function() {
         //console.log(arrSocketArduinos);
         // yêu cầu tất cả các arduino hiện đang kết nối cập nhật lại giá trị
-        io.sockets.emit(socketVariable._EMIT_ARDUINO_UPDATE_PRICE);
+        console.log('_EMIT_ADMIN_UPDATE_PRICE');
+        io.sockets.emit(socketVariable._EMIT_ARDUINO_UPDATE_PRICE, {});
+    });
+
+    socket.on(socketVariable._EMIT_ADMIN_UPDATE_ARDUINO_PRODUCTID, (data)=> {
+        console.log(data);
+        ArduinoManager.updateArduinoProductId(data); 
     });
 }
 

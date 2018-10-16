@@ -1,41 +1,75 @@
 import React, {Component} from 'react';
+const urlProduct = 'http://traucay.vn/wp-json/rest_api/v1/product/';
+
+import {
+    _Emit_ServerUpdateArduinoId
+} from '../../lib/socketArduino';
 
 export default class ItemArduinoComponent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            product_id : "",
             product_data : null,
             check_product : false
         }
+        this._handleChange = this._handleChange.bind(this);
     }
 
-    // async componentDidMount() {
-    //     let {arduinoItem} = this.props;
-    //     if (arduinoItem && arduinoItem.id_product) {
-    //         await this.checkProductData();
-    //     }
-    // }
+    async componentDidMount() {
+        let {arduinoItem} = this.props;
+        if (arduinoItem && arduinoItem.product_id) {
+            await this.checkProductData();
+        }
+    }
+
+    _handleChange (e) {
+        this.setState({product_id: e.target.value})
+    }
 
     checkProductData = async () => {
         this.setState({
             check_product : true,
             product_data : null
         });
-        // fetch data
-        this.setState({
-            product_data : {
-                err : 0,
-                err_msg: "",
-                data : {
-                    product_img : "http://traucay.vn/wp-content/uploads/2017/12/vga03-1-100x100.png",
-                    product_name : "Dàn máy đào 6 VGA RX470 4G His",
-                    product_link : "http://traucay.vn/product/mobile/",
-                    product_price : 10000000
-                }
-            },
-            check_product : false
-        })
+        try {
+            // fetch data
+            let product_id = this.state.product_id !== "" ? this.state.product_id : this.props.arduinoItem.product_id;
+            let data = await fetch(urlProduct + product_id);
+            let jsonData = await data.json();
+            if (jsonData.code === 'success') {
+                jsonData = jsonData.data;
+                let price = jsonData.salePrice !== null && jsonData.salePrice < jsonData.regularPrice ? jsonData.salePrice : jsonData.regularPrice;
+                this.setState({
+                    product_data : {
+                        err : 0,
+                        err_msg: "",
+                        data : {
+                            product_img : jsonData.imageLink,
+                            product_name : jsonData.name,
+                            product_link : jsonData.link,
+                            product_price : price
+                        }
+                    },
+                    check_product : false
+                });
+                _Emit_ServerUpdateArduinoId(this.props.arduinoItem.arduino_num, product_id);
+            } else {
+                this.setState({
+                    product_data : {
+                        err: 1,
+                        err_msg : jsonData.message
+                    },
+                    check_product : false
+                })
+            }
+        } catch (err) {
+            console.log(err);
+            this.setState({
+                check_product : false
+            })
+        }
     }
 
     render() {
@@ -64,8 +98,8 @@ export default class ItemArduinoComponent extends Component {
                 <div className="item-input">
                     <span>Product ID:</span>
                     <input type="input" name={arduinoItem.arduino_num} 
-                        value={arduinoItem.id_product ? arduinoItem.id_product : ''} 
-                        onChange={()=> console.log('')}/>
+                        value={this.state.product_id !== "" ? this.state.product_id : arduinoItem.product_id ? arduinoItem.product_id : ''} 
+                        onChange={this._handleChange}/>
                     {
                         !check_product ? 
                         <button type="button" onClick={ ()=> this.checkProductData() }>Check</button>

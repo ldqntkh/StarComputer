@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 import {
     _Emit_AdminRequestListArduino,
-    _On_ServerReceiveListArduino
+    _On_ServerReceiveListArduino,
+    _On_ServerReceiveArduinoItem
 } from '../../lib/socketArduino';
 
 // import component
@@ -21,17 +22,23 @@ export default class BodyComponent extends Component {
         _Emit_AdminRequestListArduino();
         _On_ServerReceiveListArduino((err, data) => {
             if (err) throw err;
-            this.setState({
-                listArduinoConnected : data.arrSocketArduinos
-            })
-        })
+            if (data.hasOwnProperty('errMsg')) {
+                alert(data.errMsg);
+            } else {
+                this.setState({
+                    listArduinoConnected : data
+                })
+            }
+        });
+        _On_ServerReceiveArduinoItem((err, data)=> {
+            console.log(data);
+        });
     }
 
 
     render() {
         // render list arduino
         let {listArduinoConnected} = this.state;
-        console.log(listArduinoConnected);
         if (listArduinoConnected.length == 0) return null;
         
         let listArduinos = [];
