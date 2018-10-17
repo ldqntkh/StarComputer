@@ -1,0 +1,3 @@
+Config WP Mail SMTP plugin to send email
+I/ Setup Gmail app
+- References documentation: https://wpforms.com/how-to-securely-send-wordpress-emails-using-gmail-smtp
