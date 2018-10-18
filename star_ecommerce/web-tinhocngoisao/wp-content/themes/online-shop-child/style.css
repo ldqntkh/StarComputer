@@ -1479,7 +1479,7 @@ a.my-account:hover{
 \*-----------------*/
 /*** COMMON FOOTER CSS ***/
 .footer-wrapper{
-	background-color: #f9f9f9;
+	background-color: #00000017;
 }
 .footer-columns {
 	margin-left: -10px;
@@ -1491,6 +1491,8 @@ a.my-account:hover{
 }
 .footer-copyright{
 	margin-top: -1px;
+	border-top: 1px solid red;
+    font-weight: 700;
 }
 #footer-top,
 #footer-bottom,
@@ -1519,6 +1521,7 @@ a.my-account:hover{
 
 .site-footer {
 	margin-top: 40px;
+	border-top: 5px solid red;
 }
 .site-footer .widget_online_shop_advanced_image_logo{
 	margin-bottom: 0;
