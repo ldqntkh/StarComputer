@@ -128,7 +128,7 @@ if ( !function_exists('online_shop_social_links') ) :
 				$icon = $social_data->icon;
 				$link = $social_data->link;
 				$checkbox = $social_data->checkbox;
-				echo '<div class="icon-box hide-mobile">';
+				echo '<div class="icon-box">';
 				echo '<a href="'.esc_url( $link ).'" target="'.($checkbox == 1? '_blank':'').'">';
 				echo '<i class="fa '.esc_attr( $icon ).'"></i>';
 				echo '</a>';

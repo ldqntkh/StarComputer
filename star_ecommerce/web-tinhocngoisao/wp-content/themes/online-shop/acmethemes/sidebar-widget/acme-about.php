@@ -59,7 +59,7 @@ if ( ! class_exists( 'Online_Shop_About' ) ) {
             <div class="at-repeater">
 				<?php
 				$total_repeater = 0;
-				if  (count($at_all_page_items) > 0 && is_array($at_all_page_items) ){
+				if  ( is_array($at_all_page_items) && count($at_all_page_items) > 0 ){
 					foreach ($at_all_page_items as $about){
 						$repeater_id  = $this->get_field_id( 'at_all_page_items') .$total_repeater.'page_id';
 						$repeater_name  = $this->get_field_name( 'at_all_page_items' ).'['.$total_repeater.']['.'page_id'.']';
@@ -250,7 +250,7 @@ if ( ! class_exists( 'Online_Shop_About' ) ) {
 			$page_ids = array();
 			if( isset($new_instance['at_all_page_items'] )){
 				$at_all_page_items    = $new_instance['at_all_page_items'];
-				if  (count($at_all_page_items) > 0 && is_array($at_all_page_items) ){
+				if  ( is_array($at_all_page_items) && count($at_all_page_items) > 0 ){
 					foreach ($at_all_page_items as $key=>$about ){
 						$page_ids[$key]['page_id'] = absint( $about['page_id'] );
 					}
@@ -335,7 +335,7 @@ if ( ! class_exists( 'Online_Shop_About' ) ) {
             <div <?php echo $div_attr;?>>
 	            <?php
 	            $post_in = array();
-	            if  (count($at_all_page_items) > 0 && is_array($at_all_page_items) ){
+	            if  ( is_array($at_all_page_items) && count($at_all_page_items) > 0 ){
 		            foreach ( $at_all_page_items as $about ){
 			            if( isset( $about['page_id'] ) && !empty( $about['page_id'] ) ){
 				            $post_in[] = $about['page_id'];
@@ -343,15 +343,15 @@ if ( ! class_exists( 'Online_Shop_About' ) ) {
 		            }
 	            }
 	            if( !empty( $post_in )) :
-				$query_args = array(
-					'post__in'         => $post_in,
-					'orderby'             => 'post__in',
-					'posts_per_page'      => count( $post_in ),
-					'post_type'           => 'page',
-					'no_found_rows'       => true,
-					'post_status'         => 'publish'
-				);
-		            $online_shop_featured_query = new WP_Query( $query_args );
+                    $query_args = array(
+                            'post__in'         => $post_in,
+                            'orderby'             => 'post__in',
+                            'posts_per_page'      => count( $post_in ),
+                            'post_type'           => 'page',
+                            'no_found_rows'       => true,
+                            'post_status'         => 'publish'
+                    );
+	                $online_shop_featured_query = new WP_Query( $query_args );
 		            $online_shop_featured_index = 1;
 		            while ( $online_shop_featured_query->have_posts() ) :$online_shop_featured_query->the_post();
 		            $online_shop_list_classes = 'single-list';

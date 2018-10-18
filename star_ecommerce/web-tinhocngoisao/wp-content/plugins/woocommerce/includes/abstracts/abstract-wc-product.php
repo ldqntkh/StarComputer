@@ -1831,7 +1831,7 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 * @return string
 	 */
 	public function single_add_to_cart_text() {
-		return apply_filters( 'woocommerce_product_single_add_to_cart_text', __( 'Thêm vào giỏ hàng', 'woocommerce' ), $this );
+		return apply_filters( 'woocommerce_product_single_add_to_cart_text', __( 'Add to cart', 'woocommerce' ), $this );
 	}
 
 	/**
@@ -2005,8 +2005,17 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 * @return Number
 	 */
 	public function get_sale_percent($context ='view') {
-		if ( '' !== (string) $this->get_sale_price( $context ) && $this->get_regular_price( $context ) > $this->get_sale_price( $context ) ) {
-			return round(100 - (($this->get_sale_price( $context ) / $this->get_regular_price( $context ) ) * 100), 1);
+		$regular_price = '';
+		$sale_price = '';
+		if ( $this->get_type() === 'variable' ) {
+			$regular_price = $this->get_variation_regular_price( $context );
+			$sale_price = $this->get_variation_sale_price( $context );
+		} else {
+			$regular_price = $this->get_regular_price( $context );
+			$sale_price = $this->get_sale_price( $context );
+		}
+		if ( '' !== (string) $sale_price && $regular_price > $sale_price ) {
+			return round(100 - (($sale_price / $regular_price ) * 100), 1);
 		}
 		return 0;
 	}

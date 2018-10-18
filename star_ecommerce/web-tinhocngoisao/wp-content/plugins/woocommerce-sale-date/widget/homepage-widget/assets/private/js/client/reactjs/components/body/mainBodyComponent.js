@@ -33,7 +33,6 @@ export default class MainBodyComponent extends Component {
     render() {
         return(
             <div className="main-body">
-                {this.renderDataBlock()}
                 <ListProductContainer ref={this.child}/>
             </div>
         );

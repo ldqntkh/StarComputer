@@ -4,7 +4,7 @@
 const path = require('path');
 module.exports = {
     entry: {
-        homepage_primetime: './widget/homepage-widget/assets/private/js/client/reactjs/App.js'
+        react_primetime: './widget/homepage-widget/assets/private/js/client/reactjs/App.js'
     },
     output: {
         path: path.resolve('widget/homepage-widget/assets/js/reactjs'),

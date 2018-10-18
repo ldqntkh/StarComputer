@@ -470,7 +470,7 @@ class WC_Frontend_Scripts {
 				break;
 			case 'wc-single-product':
 				$params = array(
-					'i18n_required_rating_text' => esc_attr__( 'Xin vui lòng đánh giá sản phẩm', 'woocommerce' ),
+					'i18n_required_rating_text' => esc_attr__( 'Please select a rating', 'woocommerce' ),
 					'review_rating_required'    => get_option( 'woocommerce_review_rating_required' ),
 					'flexslider'                => apply_filters(
 						'woocommerce_single_product_carousel_options', array(
@@ -543,7 +543,7 @@ class WC_Frontend_Scripts {
 				$params = array(
 					'ajax_url'                => WC()->ajax_url(),
 					'wc_ajax_url'             => WC_AJAX::get_endpoint( '%%endpoint%%' ),
-					'i18n_view_cart'          => esc_attr__( 'Xem giỏ hàng', 'woocommerce' ),
+					'i18n_view_cart'          => esc_attr__( 'View cart', 'woocommerce' ),
 					'cart_url'                => apply_filters( 'woocommerce_add_to_cart_redirect', wc_get_cart_url() ),
 					'is_cart'                 => is_cart(),
 					'cart_redirect_after_add' => get_option( 'woocommerce_cart_redirect_after_add' ),

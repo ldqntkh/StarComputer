@@ -15,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
+define( 'EMPLOYEE_DISCOUNTS_DIR', plugin_dir_path( __FILE__ ) );
+define( 'EMPLOYEE_DISCOUNTS_URL', plugin_dir_url( __FILE__ ) );
+
 if ( ! class_exists( 'WC_Employee_Discounts', false ) ) :
     /**
      * WC_Employee_Discounts Class.
@@ -22,25 +25,42 @@ if ( ! class_exists( 'WC_Employee_Discounts', false ) ) :
     class WC_Employee_Discounts {
 
         public function on_loaded() {
-            add_action( 'woocommerce_order_status_completed', array( $this, 'insert_info_discount_to_employee' ) );
+            add_action( 'woocommerce_checkout_order_processed', array( $this, 'insert_info_discount_to_employee' ), 20 );
+            add_action( 'woocommerce_order_status_completed', array( $this, 'update_status_employee_discount' ), 20 );
+            add_action( 'woocommerce_product_options_pricing', array( $this, 'load_templete_employee_discount' ), 20 );
+            add_action( 'woocommerce_process_product_meta' , array( $this, 'save_custom_employee_discount' ), 20 );
         }
 
         public static function get_product_custom_attribute( $product, $key ) {
-            $result = array_shift( wc_get_product_terms( $product->id, 'pa_' . $key, array( 'fields' => 'names' ) ) ); 
+            $result = get_post_meta( $product->id, $key, true );
             return $result;
         }
 
-        public static function calculate_employee_discount($product) {
+        public static function calculate_employee_discount( $product ) {
             $result = 0.0;
-            $employee_discount = floatval( self::get_product_custom_attribute( $product, 'employeediscount' ) );
-            $employee_fixed_price_discount = floatval( self::get_product_custom_attribute( $product, 'employeefixedpricediscount' ) );
-            $regular_price = floatval( $product->get_price() );
-            $base_price = floatval( self::get_product_custom_attribute( $product, 'baseprice' ) );
+            $price = 0.0;
 
-            if ($regular_price > $base_price) {
-                $result = ( ($regular_price - $base_price) * $employee_discount ) / 100;
+            if( $product->is_on_sale() ) {
+                $price = $product->get_sale_price();
             } else {
-                $result = $employee_fixed_price_discount;
+                $price = $product->get_regular_price();
+            }
+
+            $price = floatval( $price );
+
+            $_custom_base_price = self::get_product_custom_attribute( $product, '_custom_base_price' );
+            $_custom_base_price = floatval( empty( $_custom_base_price ) ? 0 : $_custom_base_price );
+
+            $_custom_employee_percent_discount = self::get_product_custom_attribute( $product, '_custom_employee_percent_discount' );
+            $_custom_employee_percent_discount = floatval( empty( $_custom_employee_percent_discount ) ? 0 : $_custom_employee_percent_discount );
+
+            $_custom_employee_fixed_price_discount = self::get_product_custom_attribute( $product, '_custom_employee_fixed_price_discount' );
+            $_custom_employee_fixed_price_discount = floatval( empty( $_custom_employee_fixed_price_discount ) ? 0 : $_custom_employee_fixed_price_discount );
+
+            if ( $price > $_custom_base_price ) {
+                $result = ( ( $price - $_custom_base_price ) * $_custom_employee_percent_discount ) / 100;
+            } else {
+                $result = $_custom_employee_fixed_price_discount;
             }
             return $result;
         }
@@ -54,12 +74,15 @@ if ( ! class_exists( 'WC_Employee_Discounts', false ) ) :
                 return;
             }
 
+            $status           = 'PENDING';
             $total_discount   = 0;
-            $order_date       = date('Y-m-d');
+            $order_date       = date( 'Y-m-d' );
             $order            = wc_get_order( $order_id );
             $customer_id      = $order->get_customer_id();
-            $history_discount = get_user_meta( $customer_id, 'history_discount', true );
-            $discounts         = array();
+            $history_discount = get_user_meta( $customer_id, '_history_discount', true );
+            $discounts        = array();
+            $creationDate     = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
+
             if ( empty( $history_discount ) ) {
                 $result = array();
             } else {
@@ -76,7 +99,7 @@ if ( ! class_exists( 'WC_Employee_Discounts', false ) ) :
                     $product = $item_product->get_product();
                     $discount = self::calculate_employee_discount( $product );
 
-                    if ($discount <= 0) {
+                    if ( $discount <= 0 ) {
                         continue;
                     }
 
@@ -88,14 +111,63 @@ if ( ! class_exists( 'WC_Employee_Discounts', false ) ) :
                 if ( $total_discount > 0 ) {
                     $result[$order_date][$order_id] = array(
                         'discounts' => $discounts,
-                        'totalDiscount' => $total_discount
+                        'totalDiscount' => $total_discount,
+                        'creationDate' => $creationDate->format( 'd-m-Y H:i:s' ),
+                        'lastModified' => $creationDate->format( 'd-m-Y H:i:s' ),
+                        'status' => $status
                     );
-                    update_user_meta( $customer_id, 'history_discount', json_encode( $result ) );
+                    update_user_meta( $customer_id, '_history_discount', json_encode( $result ) );
                 }
             }
+        }
+
+        public function load_templete_employee_discount() {
+            global $product_object;
+            include EMPLOYEE_DISCOUNTS_DIR . '/views/employee-discounts.php';
+        }
+
+        public function save_custom_employee_discount( $post_id ) {
+            $product = wc_get_product( $post_id );
+
+            $_custom_base_price = $_POST[ '_custom_base_price' ];
+            $_custom_base_price = empty( $_custom_base_price ) ? '' : $_custom_base_price;
+
+            $_custom_employee_percent_discount = $_POST[ '_custom_employee_percent_discount' ];
+            $_custom_employee_percent_discount = empty( $_custom_employee_percent_discount ) ? '' : $_custom_employee_percent_discount;
+
+            $_custom_employee_fixed_price_discount = $_POST[ '_custom_employee_fixed_price_discount' ];
+            $_custom_employee_fixed_price_discount = empty( $_custom_employee_fixed_price_discount ) ? '' : $_custom_employee_fixed_price_discount;
+
+            $product->update_meta_data( '_custom_base_price',  $_custom_base_price );
+            $product->update_meta_data( '_custom_employee_percent_discount',  $_custom_employee_percent_discount );
+            $product->update_meta_data( '_custom_employee_fixed_price_discount',  $_custom_employee_fixed_price_discount );
+            $product->save();
+        }
+
+        public function update_status_employee_discount( $order_id ) {
+            if ( ! $order_id ) {
+                return;
+            }
+
+            $status           = 'COMPLETED';
+            $order            = new WC_Order($order_id);
+            $order_date       = $order->get_date_created()->format ('Y-m-d');
+            $customer_id      = $order->get_customer_id();
+            $history_discount = get_user_meta( $customer_id, '_history_discount', true );
+            $lastModified     = new DateTime('now', new DateTimeZone('Asia/Bangkok'));
+
+            if ( empty( $history_discount ) ) {
+                $result = array();
+            } else {
+                $result = json_decode( $history_discount, true );
+            }
+
+            $result[$order_date][$order_id]['status']       = $status;
+            $result[$order_date][$order_id]['lastModified'] = $lastModified->format( 'd-m-Y H:i:s' );
+            update_user_meta( $customer_id, '_history_discount', json_encode( $result ) );
         }
     }
 endif;
 
 $wc_employee_discounts = new WC_Employee_Discounts();
-add_action('wp_loaded', array($wc_employee_discounts, 'on_loaded'));
+add_action( 'wp_loaded', array( $wc_employee_discounts, 'on_loaded' ));

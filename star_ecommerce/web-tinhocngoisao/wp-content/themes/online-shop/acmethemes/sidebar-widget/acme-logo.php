@@ -12,7 +12,7 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 		/*defaults values for fields*/
 		private $defaults = array(
 		        'online_shop_widget_title' => '',
-                'at_all_logo_items' => [],
+                'at_all_logo_items' => '',
 		        'single_item_link_option' => 'disable',
 		        'column_number'     => 4,
                 'display_type' => 'column',
@@ -59,7 +59,7 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
             <div class="at-repeater">
 				<?php
 				$total_repeater = 0;
-				if  ( count( $at_all_logo_items ) > 0 && is_array( $at_all_logo_items ) ){
+				if  ( is_array( $at_all_logo_items ) && count( $at_all_logo_items ) > 0 ){
 					foreach ($at_all_logo_items as $logo_detail){
 						$repeater_id  = $this->get_field_id( 'at_all_logo_items') .$total_repeater.'logo_img_url';
 						$repeater_name  = $this->get_field_name( 'at_all_logo_items' ).'['.$total_repeater.']['.'logo_img_url'.']';
@@ -257,7 +257,7 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 			$logo_img_details = array();
 			if( isset($new_instance['at_all_logo_items'] )){
 				$at_all_logo_items    = $new_instance['at_all_logo_items'];
-				if  (count($at_all_logo_items) > 0 && is_array($at_all_logo_items) ){
+				if  ( is_array( $at_all_logo_items ) && count( $at_all_logo_items ) > 0 ){
 					foreach ($at_all_logo_items as $key=>$logo_detail ){
 						$logo_img_details[$key]['logo_img_url'] = esc_url_raw( $logo_detail['logo_img_url'] );
 						$logo_img_details[$key]['logo_img_link'] = esc_url_raw( $logo_detail['logo_img_link'] );
@@ -319,7 +319,7 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 			     'disable' != $view_all_option ||
 			     ( 1 == $enable_prev_next && 'carousel' == $display_type )
 			){
-				echo "<div class='at-title-action-wrapper clearfix'>";
+
 				echo $args['before_title'];
 				echo $online_shop_widget_title;
 				echo "<span class='at-action-wrapper'>";
@@ -336,12 +336,11 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 				}
 				echo "</span>";/*.at-action-wrapper*/
 				echo $args['after_title'];
-				echo "</div>";
 			}
 			?>
             <div <?php echo $div_attr;?>>
                 <?php
-                if  (count($at_all_logo_items) > 0 && is_array($at_all_logo_items) ){
+                if  ( is_array( $at_all_logo_items ) && count( $at_all_logo_items ) > 0 ){
 	                $online_shop_featured_index = 1;
 
 	                foreach ( $at_all_logo_items as $logo_detail ){

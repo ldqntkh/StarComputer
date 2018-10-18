@@ -95,14 +95,14 @@ function wc_get_account_menu_items() {
 	);
 
 	$items = array(
-		'dashboard'       => __( 'Tổng quan', 'woocommerce' ),
-		'edit-account'    => __( 'Chi tiết tài khoản', 'woocommerce' ),
-		'wishlist'    	  => __( 'Danh sách yêu thích', 'woocommerce' ),
-		'edit-address'    => __( 'Sổ địa chỉ', 'woocommerce' ),
-		'orders'          => __( 'Đơn hàng', 'woocommerce' ),
+		'dashboard'       => __( 'Dashboard', 'woocommerce' ),
+		'edit-account'    => __( 'Account details', 'woocommerce' ),
+		'wishlist'    	  => __( 'Wishlist', 'woocommerce' ),
+		'edit-address'    => __( 'Addresses', 'woocommerce' ),
+		'orders'          => __( 'Orders', 'woocommerce' ),
 		'payment-methods' => __( 'Payment methods', 'woocommerce' ),
 		'downloads'       => __( 'Downloads', 'woocommerce' ),
-		'customer-logout' => __( 'Đăng xuất', 'woocommerce' ),
+		'customer-logout' => __( 'Logout', 'woocommerce' ),
 	);
 
 	// Remove missing endpoints.

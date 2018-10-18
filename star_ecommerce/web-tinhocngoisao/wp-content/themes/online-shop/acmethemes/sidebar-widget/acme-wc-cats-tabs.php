@@ -317,7 +317,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Cats_Tabs' ) ) {
 		             'disable' != $view_all_option ||
 		             ( 1 == $enable_prev_next && 'carousel' == $display_type )
 		        ){
-					echo "<div class='at-title-action-wrapper clearfix'>";
+
 			        echo $args['before_title'];
 			        echo $online_shop_widget_title;
 			        echo '<i class="fa fa-navicon mobile-only toggle-cats"></i>';
@@ -349,8 +349,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Cats_Tabs' ) ) {
 
 			        echo "</span>";/*.at-action-wrapper*/
 
-					echo $args['after_title'];
-					echo "</div>";
+			        echo $args['after_title'];
 		        }
 
 		        $i = 0;

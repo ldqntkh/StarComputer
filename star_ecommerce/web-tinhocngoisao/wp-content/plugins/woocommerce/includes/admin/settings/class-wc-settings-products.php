@@ -400,7 +400,7 @@ class WC_Settings_Products extends WC_Settings_Page {
 						),
 
 						array(
-							'title' => __( 'Nhận xét', 'woocommerce' ),
+							'title' => __( 'Reviews', 'woocommerce' ),
 							'type'  => 'title',
 							'desc'  => '',
 							'id'    => 'product_rating_options',

@@ -100,7 +100,9 @@ export default class HeaderTimeDownComponent extends Component {
         return(
             <div className="block-time-down">
                 <span className="hours">{ timeNow.hours >= 10 ? '' : '0' }{timeNow.hours}</span>
+                <span>:</span>
                 <span className="minutes">{ timeNow.minutes >= 10 ? '' : '0' }{timeNow.minutes}</span>
+                <span>:</span>
                 <span className="seconds">{ timeNow.seconds >= 10 ? '' : '0' }{timeNow.seconds}</span>
             </div>
         );

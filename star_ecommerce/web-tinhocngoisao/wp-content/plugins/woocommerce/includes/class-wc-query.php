@@ -100,7 +100,7 @@ class WC_Query {
 				$title = __( 'Pay for order', 'woocommerce' );
 				break;
 			case 'order-received':
-				$title = __( 'Hóa đơn', 'woocommerce' );
+				$title = __( 'Order received', 'woocommerce' );
 				break;
 			case 'orders':
 				if ( ! empty( $wp->query_vars['orders'] ) ) {
@@ -134,7 +134,7 @@ class WC_Query {
 				$title = __( 'Lost password', 'woocommerce' );
 				break;
 			case 'wishlist':
-				$title = __( 'Danh sách yêu thích', 'woocommerce' );
+				$title = __( 'Wishlist', 'woocommerce' );
 				break;
 			default:
 				$title = '';

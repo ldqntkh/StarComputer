@@ -560,11 +560,11 @@ class WC_Form_Handler {
 				// Don't show undo link if removed item is out of stock.
 				if ( $product && $product->is_in_stock() && $product->has_enough_stock( $cart_item['quantity'] ) ) {
 					/* Translators: %s Product title. */
-					$removed_notice  = sprintf( __( '%s đã được xóa.', 'woocommerce' ), $item_removed_title );
-					$removed_notice .= ' <a href="' . esc_url( wc_get_cart_undo_url( $cart_item_key ) ) . '" class="restore-item">' . __( 'Hoàn tác?', 'woocommerce' ) . '</a>';
+					$removed_notice  = sprintf( __( '%s removed.', 'woocommerce' ), $item_removed_title );
+					$removed_notice .= ' <a href="' . esc_url( wc_get_cart_undo_url( $cart_item_key ) ) . '" class="restore-item">' . __( 'Undo?', 'woocommerce' ) . '</a>';
 				} else {
 					/* Translators: %s Product title. */
-					$removed_notice = sprintf( __( '%s đã được xóa.', 'woocommerce' ), $item_removed_title );
+					$removed_notice = sprintf( __( '%s removed.', 'woocommerce' ), $item_removed_title );
 				}
 
 				wc_add_notice( $removed_notice );
@@ -638,7 +638,7 @@ class WC_Form_Handler {
 				wp_safe_redirect( wc_get_checkout_url() );
 				exit;
 			} elseif ( $cart_updated ) {
-				wc_add_notice( __( 'Giỏ hàng đã được cập nhật', 'woocommerce' ) );
+				wc_add_notice( __( 'Cart updated.', 'woocommerce' ) );
 				$referer = remove_query_arg( array( 'remove_coupon', 'add-to-cart' ), ( wp_get_referer() ? wp_get_referer() : wc_get_cart_url() ) );
 				wp_safe_redirect( $referer );
 				exit;

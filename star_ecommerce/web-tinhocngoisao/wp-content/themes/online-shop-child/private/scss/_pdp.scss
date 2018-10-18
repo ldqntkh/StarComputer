@@ -1,0 +1,375 @@
+.description-wrapper {
+    clear: both;
+    overflow: hidden;
+
+    h2 {
+        border-bottom: 1px solid #f73838;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+
+    .more-content {
+        overflow: hidden;
+    }
+}
+
+.woocommerce-Reviews {
+    .commentlist {
+        overflow: hidden;
+    }
+
+    .commentlist {
+        margin-bottom: 30px;
+    }
+}
+
+.show-more-content {
+    border: 1px solid #189eff;
+    cursor: pointer;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    padding: 10px;
+    text-align: center;
+    width: 40%;
+
+    @media screen and (min-width: 767px) {
+        width: 20%;
+    }
+
+    &:hover {
+        background-color: #189eff;
+    }
+}
+
+.woocommerce-Reviews {
+    .woocommerce-Reviews-title {
+        border-bottom: 1px solid #f73838;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+}
+
+.hidden {
+    display: none!important;
+}
+
+.single-product {
+    &.woocommerce {
+        .product {
+            font-size: 13px;
+
+            .price {
+                color: #f73838;
+                display: flex;
+                flex-direction: column;
+
+                del {
+                    color: #2d2d2d;
+                    margin-right: 15px;
+                }
+
+                ins {
+                    text-decoration: none;
+                    font-weight: normal;
+                }
+            }
+
+            .images {
+                .woocommerce-product-gallery__trigger {
+                    left: .5em;
+                    right: 0;
+                }
+            }
+
+            .onsale {
+                top: -9px;
+                right: 0;
+                left: unset;
+            }
+
+            .trading-information-wrapper {
+                p {
+                    margin: 0;
+                }
+            }
+
+            .woocommerce-product-rating {
+                border-bottom: 1px solid #ececec;
+            }
+
+            &.product-type-grouped {
+                .cart {
+                    .group_table {
+                        td:first-child {
+                            width: 9em;
+                        }
+                    }
+                }
+
+                .woocommerce-grouped-product-list__quantity_label {
+                    text-align: left;
+                }
+
+                .woocommerce-grouped-product-list-item__quantity {
+                    .wares_qty_box__label{
+                        display: none;
+                    }
+                }
+
+                .woocommerce-grouped-product-list-item__price {
+                    display: flex;
+                    flex-direction: column;
+
+                    .woocommerce-Price-amount {
+                        color: #f73838;
+                    }
+    
+                    del {
+                        .woocommerce-Price-amount {
+                            color: #2d2d2d;
+                            opacity: .5;
+                        }
+                    }
+    
+                    ins {
+                        text-decoration: none;
+                    }
+
+                    .in-stock {
+                        display: none;
+                    }
+                }
+
+                .price {
+                    display: block;
+                }
+            }
+        }
+
+        .products {
+            .product {
+                .onsale {
+                    top: -9px;
+                    right: 0;
+                    left: unset;
+                }
+            }
+        }
+
+        #yith-quick-view-content {
+            .onsale {
+                top: 0;
+                right: 0;
+                left: unset;
+            }
+        }
+
+        #content {
+            .summary {
+                .wrapper {
+                    border-top: 1px solid #ececec;
+                    padding-top: 20px;
+                }
+
+                &.entry-summary-left-column {
+                    width: 100%;
+
+                    @media screen and (min-width: 768px) {
+                        float: left;
+                        width: 57%;
+                    }
+
+                    .product-promotion-section {
+                        border-bottom: 1px solid #ececec;
+                        color: #9b9b9b;
+                        display: inline-block;
+                        padding-bottom: 5px;
+                        margin-bottom: 10px;
+
+                        .tra-gop-section {
+                            display: flex;
+                        }
+
+                        .icon-tra-gop {
+                            background: url('./assets/img/sprite.png') -168px -127px no-repeat;
+                            width: 85px;
+                            height: 15px;
+                            vertical-align: middle;
+                            margin: 4px 8px 0 0;
+                        }
+
+                        span {
+                            white-space: nowrap;
+                            font-size: 13px;
+                        }
+                    }
+
+                    .woocommerce-product-details__short-description {
+                        border-bottom: 1px solid #ececec;
+                        margin-left: 1.2em;
+
+                        ul {
+                            list-style-type: circle;
+                            padding: 10px 0;
+                        }
+                    }
+
+                    .single_add_to_cart_button {
+                        border-radius: 5px;
+                        float: none;
+                        background: url('./assets/img/ic-cart.png') 10px center no-repeat #ff3945;
+                        background-size: 26px;
+                        text-transform: uppercase;
+                        letter-spacing: .5px;
+                        margin: 12px 0 0 0;
+                        padding-left: 40px;
+
+                        &:hover {
+                            color: #ececec;
+                        }
+                    }
+
+                    .woocommerce-variation-add-to-cart {
+                        display: inline-flex;
+                    }
+
+                    .wares_qty_box__label {
+                        font-size: 13px;
+                        margin-bottom: 2px;
+                    }
+
+                    .cart {
+                        border-top: none;
+                    }
+                }
+
+                &.entry-summary-right-column {
+                    padding: 10px;
+                    width: 100%;
+
+                    @media screen and (min-width: 767px) {
+                        float: left;
+                        width: 41%;
+                    }
+
+                    .wrapper {
+                        border: 1px solid #ececec;
+                        border-radius: 5px;
+                        padding: 10px;
+                    }
+
+                    .trading-information-wrapper {
+                        margin-bottom: 10px;
+                    }
+
+                    .icon-hoan-tien-2, .icon-warranty {
+                        background-image: url('./assets/img/sprite.png');
+                        height: 20px;
+                        vertical-align: middle;
+                        margin-top: 5px;
+                    }
+
+                    .icon-store {
+                        background: url('./assets/img/sprite.png') -146px -349px no-repeat;
+                        width: 24px;
+                        height: 24px;
+                        vertical-align: middle;
+                        margin: 5px 10px 0 0;
+                    }
+
+                    .icon-hoan-tien-2 {
+                        background-position: -234px -270px;
+                        margin-right: 0.6rem;
+                        width: 24px;
+                    }
+
+                    .icon-warranty {
+                        background-position: -256px -270px;
+                        margin-right: 0.4rem;
+                        width: 30px;
+                    }
+
+                    @media screen and (min-width: 767px) {
+                        .icon-warranty {
+                            margin-right: 0.9rem;
+                        }
+                    }
+
+                    .guarantee-section, .hoan-tien-section, .warranty-infor-section {
+                        display: inline-flex;
+                        line-height: 16px;
+                        margin-top: 5px;
+                        margin-bottom: 10px;
+                    }
+
+                    .title {
+                        font-weight: 600;
+                    }
+
+                    .contact-infor-wrapper {
+                        .contact-infor__section-1 {
+                            .icon {
+                                height: 20px;
+                            }
+
+                            .ic-phone {
+                                background: url('./assets/img/sprite.png') -282px -270px no-repeat;
+                                width: 25px;
+                                margin: 0.6rem 0.9rem 0 0;
+                            }
+
+                            .ic-email {
+                                background: url('./assets/img/sprite.png') -160px -272px no-repeat;
+                                width: 20px;
+                                margin-right: 1.2rem;
+                            }
+
+                            @media screen and (min-width: 767px) {
+                                .ic-phone {
+                                    width: 40px;
+                                }
+
+                                .ic-email {
+                                    margin-right: 0.8rem;
+                                }
+                            }
+
+                            .item {
+                                display: flex;
+                                line-height: 16px;
+
+                                &:first-child {
+                                    margin-bottom: 10px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.entry-summary-center-footer {
+                    clear: both;
+                    float: none;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.related {
+    &.products {
+        .custom-plp-page {
+            li.product-type-grouped {
+                .product-item-details {
+                    .price {
+                        display: block !important;
+                    }
+                }
+            }
+
+            .product_type_grouped {
+                display: none;
+            }
+        }
+    }
+}
