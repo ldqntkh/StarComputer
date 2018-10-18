@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import { Minimatch } from 'minimatch';
 
-
-export default class HeaderTimeDownComponent extends Component {
+export default class ProductTimeDownComponent extends Component {
 
     // component nhan tham so dau vao la blocktime
     constructor(props) {
@@ -21,28 +19,12 @@ export default class HeaderTimeDownComponent extends Component {
         clearInterval(this.interval);
     }
 
-    componentDidUpdate(prevProps) {
-        if (JSON.stringify(prevProps) !== JSON.stringify(this.props) ) {
-            clearInterval(this.interval);
-            this.setTimeDown();
-            this.interval  = setInterval(this.timerTick, 1000);
-        }
-    }
-
     setTimeDown = () => {
         var currentTime = new Date();
-        let block_time_data = this.props.time_down_data;
-        let hours = currentTime.getHours();
+        let block_time_data = this.props.sale_end_time - 1;
+        let hours = block_time_data - currentTime.getHours();
         let minutes = 59 - currentTime.getMinutes();
         let seconds = 59 - currentTime.getSeconds();
-        if (block_time_data.block_time> 24) {
-            if (hours < block_time_data.current_block_time) {
-                hours = block_time_data.block_time - 24 - hours - 1;
-            } else {
-                hours = block_time_data.block_time - hours - 1;
-            }
-        }
-        else hours = block_time_data.block_time - hours - 1;
 
         this.setState({
             timeNow : {
@@ -66,20 +48,7 @@ export default class HeaderTimeDownComponent extends Component {
                     minutes = 59;
                     hours = hours - 1;
                     if (hours < 0) {
-                        SetBlockTimeActive({
-                            "block_active" : this.props.next_block_active,
-                            "next_block_active" : null,
-                            "end_block_time" : this.props.end_block_time,
-                            "time_down_data" : {
-                                                    "block_time": this.props.next_block_active,
-                                                    "current_block_time" : this.props.next_block
-                                                }
-                        });
-                        if (this.props.next_block_active < this.props.block_active) {
-                            hours = this.props.next_block_active + 24 - this.props.block_active;
-                        } else {
-                            hours = this.props.next_block_active - this.props.block_active
-                        }
+                        clearInterval(this.interval);
                     }
                 }
             }
@@ -99,6 +68,7 @@ export default class HeaderTimeDownComponent extends Component {
         if (timeNow == null) return null;
         return(
             <div className="block-time-down">
+                <i className="fa fa-clock-o"></i>
                 <span className="hours">{ timeNow.hours >= 10 ? '' : '0' }{timeNow.hours}</span>
                 <span>:</span>
                 <span className="minutes">{ timeNow.minutes >= 10 ? '' : '0' }{timeNow.minutes}</span>

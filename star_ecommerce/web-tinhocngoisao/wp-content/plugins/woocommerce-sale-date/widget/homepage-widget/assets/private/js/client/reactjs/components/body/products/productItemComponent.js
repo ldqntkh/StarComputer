@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ProductTimeDownComponent from './productTimeDownComponent';
 
 export default class ProductItemComponent extends Component {
 
@@ -42,17 +43,17 @@ export default class ProductItemComponent extends Component {
                 <ul className="post-container products">
                     <li className="product type-product status-publish has-post-thumbnail product_cat-san-pham-duoc-yeu-thich first outofstock shipping-taxable purchasable product-type-variable has-default-attributes">
                         <a href={product.link} className="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+                            {parseInt(product.sale_end_time) === 0 ? null : <ProductTimeDownComponent sale_end_time={parseInt(product.sale_end_time)} /> }
                             <img src={product.image} />
                             <div className="product-item-details">
                                 <h2 className="woocommerce-loop-product__title">
-                                    {product.name.length > 40 ? product.name.substr(0, 40) + '...' : product.name }
+                                    {product.name.length > 40 ? product.name.substr(0, 20) + '...' : product.name }
                                 </h2>
                                 {price}
                                 {rating}
                                 {stock}
                             </div>
                         </a>
-                        <a href="#" className="button yith-wcqv-button" data-product_id={product.id}>Xem nhanh</a>
                     </li>
                 </ul>
             </div>

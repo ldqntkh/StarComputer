@@ -11,4 +11,4 @@ ReactDOM.render(
     <Provider store={PrimeTimeStore}>
         <MainContainer />
     </Provider>, 
-    document.getElementById('dv-primetime-price'));
+    document.getElementById('slider-section-right'));
