@@ -157,7 +157,67 @@ h2.woocommerce-loop-product__title {
 .online-shop-feature-special-menu {
     #slider-section-right {
         float: right;
-        width: 25%;
+        width: 98%;
         margin-bottom: 5px;
+        height: 300px;
+
+        @media screen and (min-width: 768px) {
+            width: 23%;
+        }
+
+        .block-time-down {
+            margin-bottom: 5px;
+            text-align: left;
+            width: 100%;
+
+            .hours, .minutes, .seconds {
+                background-color: #f73838;
+                border: 1px solid #fff;
+                border-radius: 3px;
+                color: #fff;
+                font-weight: 700;
+                padding: 0 3px;
+            }
+
+            span {
+                color: red;
+                margin-right: 5px;
+            }
+
+            .fa-clock-o {
+                color: #000000;
+                font-size: 20px;
+                margin: 0 5px;
+                vertical-align: middle;
+            }
+        }
+
+        .custom-primetime-sale {
+            .single-list {
+                &.acme-col-4 {
+                    width: 100%;
+                }
+            }
+
+            &.featured-entries-col {
+                padding: 0 5px;
+
+                &.woocommerce {
+                    ul.products {
+                        li.product {
+                            a:nth-child(1) {
+                                img {
+                                    width: 130px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .stock-quantity {
+                margin: 0 auto;
+            }
+        }
     }
 }

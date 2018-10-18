@@ -8,7 +8,7 @@ import PrevArrowComponent from '../arrows/prevArrowComponent';
 
 // import variable 
 import {
-    HOST, URL_API_GET_LIST_PRODUCT
+    HOST, URL_API_GET_LIST_PRODUCT_ON_SALE
 } from '../../../variable';
 
 export default class ListProductComponent extends Component {
@@ -39,18 +39,13 @@ export default class ListProductComponent extends Component {
     getProducts = async() => {
         try {
             let {
-                category_actived,
-                block_active,
-                block_active_click,
-                end_block_time
+                category_actived
             } = this.props;
-    
-            let block = typeof block_active_click != 'undefined' ? block_active_click : block_active;
 
             if (typeof category_actived === 'undefined' && isNaN(category_actived)) category_actived = -1;
 
-            let url = URL_API_GET_LIST_PRODUCT.replace('{cat_id}', category_actived).replace('{block_time}', block).replace('{end_block_time}', end_block_time);
-            
+            let url = URL_API_GET_LIST_PRODUCT_ON_SALE.replace('{cat_id}', category_actived);
+            console.log(url);
             let response = await fetch(HOST + url);
             let dataJson = await response.json();
             this.setState({
@@ -79,13 +74,14 @@ export default class ListProductComponent extends Component {
     render() {
         // config slider
         const settings = {
-            autoplay: true,
+            autoplay: false,
             adaptiveHeight: true,
+            arrows: false,
             dots: false,
             infinite: true,
             speed: 500,
-            slidesToShow: 5,
-            slidesToScroll: 5,
+            slidesToShow: 1,
+            slidesToScroll: 1,
             nextArrow: <NextArrowComponent className="fa fa-angle-left"/>,
             prevArrow: <PrevArrowComponent className="fa fa-angle-right" />,
             responsive: [
@@ -94,20 +90,6 @@ export default class ListProductComponent extends Component {
                     settings: {
                         slidesToShow: 2,
                         slidesToScroll: 2
-                    }
-                },
-                {
-                    breakpoint: 991,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3
-                    }
-                },
-                {
-                    breakpoint: 1367,
-                    settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 4
                     }
                 }
             ]
