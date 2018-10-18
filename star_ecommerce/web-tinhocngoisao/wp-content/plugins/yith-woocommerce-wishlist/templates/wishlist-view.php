@@ -53,73 +53,7 @@ if ( ! defined( 'YITH_WCWL' ) ) {
     <?php 
     if (count( $wishlist_items ) > 0) : ?>
     <!-- WISHLIST TABLE -->
-	<table class="shop_table cart wishlist_table" data-pagination="<?php echo esc_attr( $pagination )?>" data-per-page="<?php echo esc_attr( $per_page )?>" data-page="<?php echo esc_attr( $current_page )?>" data-id="<?php echo $wishlist_id ?>" data-token="<?php echo $wishlist_token ?>">
-
-	    <?php $column_count = 2; ?>
-
-        <thead>
-        <tr>
-	        <?php if( $show_cb ) : ?>
-
-		        <th class="product-checkbox">
-			        <input type="checkbox" value="" name="" id="bulk_add_to_cart"/>
-		        </th>
-
-	        <?php
-		        $column_count ++;
-            endif;
-	        ?>
-
-	        <?php if( $is_user_owner ): ?>
-		        <th class="product-remove"></th>
-	        <?php
-	            $column_count ++;
-	        endif;
-	        ?>
-
-            <th class="product-thumbnail"></th>
-
-            <th class="product-name">
-                <span class="nobr"><?php echo apply_filters( 'yith_wcwl_wishlist_view_name_heading', __( 'Sản phẩm', 'yith-woocommerce-wishlist' ) ) ?></span>
-            </th>
-
-            <?php if( $show_price ) : ?>
-
-                <th class="product-price">
-                    <span class="nobr">
-                        <?php echo apply_filters( 'yith_wcwl_wishlist_view_price_heading', __( 'Giá', 'yith-woocommerce-wishlist' ) ) ?>
-                    </span>
-                </th>
-
-            <?php
-	            $column_count ++;
-            endif;
-            ?>
-
-            <?php if( $show_stock_status ) : ?>
-
-                <th class="product-stock-status">
-                    <span class="nobr">
-                        <?php echo apply_filters( 'yith_wcwl_wishlist_view_stock_heading', __( 'Trạng thái', 'yith-woocommerce-wishlist' ) ) ?>
-                    </span>
-                </th>
-
-            <?php
-	            $column_count ++;
-            endif;
-            ?>
-
-            <?php if( $show_last_column ) : ?>
-
-                <th class="product-add-to-cart"></th>
-
-            <?php
-	            $column_count ++;
-            endif;
-            ?>
-        </tr>
-        </thead>
-
+	<div class="shop_table cart wishlist_table" data-pagination="<?php echo esc_attr( $pagination )?>" data-per-page="<?php echo esc_attr( $per_page )?>" data-page="<?php echo esc_attr( $current_page )?>" data-id="<?php echo $wishlist_id ?>" data-token="<?php echo $wishlist_token ?>">
         <tbody>
         <?php
         if( count( $wishlist_items ) > 0 ) :
@@ -140,49 +74,31 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 
                 if( $product && $product->exists() ) :
 	                ?>
-                    <tr id="yith-wcwl-row-<?php echo $item['prod_id'] ?>" data-row-id="<?php echo $item['prod_id'] ?>">
-	                    <?php if( $show_cb ) : ?>
-		                    <td class="product-checkbox">
-			                    <input type="checkbox" value="<?php echo esc_attr( $item['prod_id'] ) ?>" name="add_to_cart[]" <?php echo ( ! $product->is_type( 'simple' ) ) ? 'disabled="disabled"' : '' ?>/>
-		                    </td>
-	                    <?php endif ?>
-
+                    <div class="width-item" id="yith-wcwl-row-<?php echo $item['prod_id'] ?>" data-row-id="<?php echo $item['prod_id'] ?>">
                         <?php if( $is_user_owner ): ?>
-                        <td class="product-remove">
-                            <div>
+                            <div class="product-remove">
                                 <a href="<?php echo esc_url( add_query_arg( 'remove_from_wishlist', $item['prod_id'] ) ) ?>" class="remove remove_from_wishlist" title="<?php _e( 'Remove this product', 'yith-woocommerce-wishlist' ) ?>">&times;</a>
                             </div>
-                        </td>
                         <?php endif; ?>
 
-                        <td class="product-thumbnail">
+                        <div class="product-detail">
                             <a href="<?php echo esc_url( get_permalink( apply_filters( 'woocommerce_in_cart_product', $item['prod_id'] ) ) ) ?>">
                                 <?php echo $product->get_image() ?>
                             </a>
-                        </td>
-
-                        <td class="product-name">
-                            <a href="<?php echo esc_url( get_permalink( apply_filters( 'woocommerce_in_cart_product', $item['prod_id'] ) ) ) ?>"><?php echo apply_filters( 'woocommerce_in_cartproduct_obj_title', $product->get_title(), $product ) ?></a>
-                            <?php //do_action( 'yith_wcwl_table_after_product_name', $item ); ?>
-                        </td>
-
-                        <?php if( $show_price ) : ?>
-                            <td class="product-price">
+                            <div class="detail">
+                                <a href="<?php echo esc_url( get_permalink( apply_filters( 'woocommerce_in_cart_product', $item['prod_id'] ) ) ) ?>"><?php echo apply_filters( 'woocommerce_in_cartproduct_obj_title', $product->get_title(), $product ) ?></a>
+                                <div class="price">
                                 <?php
-                                $base_product = $product->is_type( 'variable' ) ? $product->get_variation_regular_price( 'max' ) : $product->get_price();
-                                echo $base_product ? $product->get_price_html() : apply_filters( 'yith_free_text', __( 'Free!', 'yith-woocommerce-wishlist' ) ); 
+                                    $base_product = $product->is_type( 'variable' ) ? $product->get_variation_regular_price( 'max' ) : $product->get_price();
+                                    echo $base_product ? $product->get_price_html() : apply_filters( 'yith_free_text', __( 'Free!', 'yith-woocommerce-wishlist' ) ); 
                                 ?>
-                            </td>
-                        <?php endif ?>
-
-                        <?php if( $show_stock_status ) : ?>
-                            <td class="product-stock-status">
+                                </div>
                                 <?php echo $stock_status == 'out-of-stock' ? '<span class="wishlist-out-of-stock">' . __( 'Tạm hết hàng', 'yith-woocommerce-wishlist' ) . '</span>' : '<span class="wishlist-in-stock">' . __( 'Còn hàng', 'yith-woocommerce-wishlist' ) . '</span>'; ?>
-                            </td>
-                        <?php endif ?>
+                            </div>
+                        </div>
 
 	                    <?php if( $show_last_column ): ?>
-                        <td class="product-add-to-cart">
+                        <div class="product-add-to-cart">
 	                        <!-- Date added -->
 	                        <?php
 	                        if( $show_dateadded && isset( $item['dateadded'] ) ):
@@ -232,9 +148,9 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 	                        <?php if( $is_user_owner && $repeat_remove_button ): ?>
                                 <a href="<?php echo esc_url( add_query_arg( 'remove_from_wishlist', $item['prod_id'] ) ) ?>" class="remove_from_wishlist button" title="<?php _e( 'Remove this product', 'yith-woocommerce-wishlist' ) ?>"><?php _e( 'Xóa', 'yith-woocommerce-wishlist' ) ?></a>
                             <?php endif; ?>
-                        </td>
+                        </div>
 	                <?php endif; ?>
-                    </tr>
+                    </div>
                 <?php
                 endif;
             endforeach;
@@ -283,7 +199,7 @@ if ( ! defined( 'YITH_WCWL' ) ) {
         </tr>
         </tfoot>
 
-    </table>
+    </div>
     <?php else : ?>
         <div class="woocommerce-message woocommerce-message--info woocommerce-Message woocommerce-Message--info woocommerce-info">
             <a class="woocommerce-Button button" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
