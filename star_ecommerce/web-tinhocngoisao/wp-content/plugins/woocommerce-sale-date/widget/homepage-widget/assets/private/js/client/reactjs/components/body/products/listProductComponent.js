@@ -45,7 +45,6 @@ export default class ListProductComponent extends Component {
             if (typeof category_actived === 'undefined' && isNaN(category_actived)) category_actived = -1;
 
             let url = URL_API_GET_LIST_PRODUCT_ON_SALE.replace('{cat_id}', category_actived);
-            console.log(url);
             let response = await fetch(HOST + url);
             let dataJson = await response.json();
             this.setState({
@@ -74,7 +73,7 @@ export default class ListProductComponent extends Component {
     render() {
         // config slider
         const settings = {
-            autoplay: false,
+            autoplay: true,
             adaptiveHeight: true,
             arrows: false,
             dots: false,
