@@ -1,6 +1,6 @@
 
 .wares_qty_box {
-    width: 120px;
+    width: 100%;
     position: relative;
     display: table-cell;
     vertical-align: top;
@@ -126,6 +126,15 @@ form.woocommerce-cart-form {
                 }
                 div.product-price {
                     padding: 3px 0;
+                }
+                div.product-qty {
+                    width: 100%;
+                    div.wares_qty_box {
+                        p.wares_qty_box__label {
+                            float: left;
+                            margin-right: 10px;
+                        }
+                    }
                 }
             }
         }

@@ -162,7 +162,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 
 	    $online_shop_enable_header_top = $online_shop_customizer_all_values['online-shop-enable-header-top'];
 	    $online_shop_top_right_button_title = $online_shop_customizer_all_values['online-shop-top-right-button-title'];
-	    $online_shop_top_right_button_link = $online_shop_customizer_all_values['online-shop-top-right-button-link'];
+	    $online_shop_top_right_button_link = get_site_url(null, 'my-account');
         $headerPromotionPost = get_post(581);
         ?>
         <header id="masthead" class="site-header">
@@ -213,7 +213,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	                            if( 'widget' == $online_shop_top_right_button_options ){
 		                            ?>
                                     <div class="icon-box hide-mobile">
-                                        <a id="at-modal-open" class="my-account at-modal" href="<?php echo esc_url( $online_shop_top_right_button_link );?>">
+                                        <a id="at-modal-open" class="my-account at-modal" href="<?php echo $online_shop_top_right_button_link;?>">
 				                            <?php echo esc_html( $online_shop_top_right_button_title );?>
                                         </a>
                                     </div>
@@ -222,7 +222,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	                            else{
 		                            ?>
                                     <div class="icon-box">
-                                        <a class="my-account" href="<?php echo esc_url( $online_shop_top_right_button_link );?>">
+                                        <a class="my-account" href="<?php echo $online_shop_top_right_button_link;?>">
 				                            <?php echo esc_html( $online_shop_top_right_button_title );?>
                                         </a>
                                     </div>

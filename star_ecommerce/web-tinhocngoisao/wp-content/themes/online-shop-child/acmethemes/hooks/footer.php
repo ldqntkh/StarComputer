@@ -56,17 +56,11 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
                         <div id="footer-top">
                             <div class="footer-columns clearfix">
 			                    <?php
-			                    $footer_top_col = 'footer-sidebar acme-col-2';
-			                    if (is_active_sidebar('footer-top-col-one')) : ?>
-                                    <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
-					                    <?php dynamic_sidebar('footer-top-col-one'); ?>
-                                    </div>
-			                    <?php endif;
-			                    if (is_active_sidebar('footer-top-col-two')) : ?>
-                                    <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
-					                    <?php dynamic_sidebar('footer-top-col-two'); ?>
-                                    </div>
-			                    <?php endif;?>
+                                    $footer_top_col = 'footer-sidebar';
+                                ?>
+			                    <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
+                                    <?php dynamic_sidebar('footer-top-col-two'); ?>
+                                </div>
                             </div>
                         </div><!-- #foter-top -->
                         <?php
