@@ -583,7 +583,7 @@ if ( ! class_exists( 'Primetime_Price_Shock' ) ) {
         // register footer client script
         function register_footer_client_script() {
             function client_script() {
-                wp_register_script( 'primetime_price_client_script', SALE_DATE_URL. '/widget/homepage-widget/assets/js/reactjs/homepage_primetime.js', '', '', true );
+                wp_register_script( 'primetime_price_client_script', SALE_DATE_URL. '/widget/homepage-widget/assets/js/reactjs/react_primetime.js', '', '', true );
                 wp_enqueue_script( 'primetime_price_client_script' );
             }
             add_action( 'wp_enqueue_scripts', 'client_script' );

@@ -85,9 +85,7 @@ export default class MainHeaderComponent extends Component {
         if (data_block == null) return null;
         return(
             <div className="main-header">
-                <HeaderTitleComponent title= {data_block.block_title}/>
-                <HeaderTimeDownContainer next_block={block_time}/>
-                <MainBlockContainer />
+                
             </div>
         );
     }

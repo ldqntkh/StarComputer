@@ -33,6 +33,6 @@ $heading = esc_html( apply_filters( 'woocommerce_product_description_heading', _
     <?php the_content(); ?>
   </div>
   <p class="show-more-content hidden">
-    <?php _e('Show more content', 'woocommerce') ?>
+    <?php _e('Xem thêm nội dung', 'woocommerce') ?>
   </p>
 </div>

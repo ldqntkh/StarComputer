@@ -548,3 +548,113 @@ if ( !function_exists('online_shop_widget_term_per_slide') ) :
 		return apply_filters( 'online_shop_widget_term_per_slide', $online_shop_widget_term_per_slide );
 	}
 endif;
+
+if ( !function_exists('woocommerce_template_single_promotion') ) :
+	function woocommerce_template_single_promotion() {
+		//wc_get_template( 'single-product/promotion.php' );
+		if (get_field('product_promotion')) {
+			echo get_field('product_promotion');
+		} else {
+			echo '';
+		}
+	}
+endif;
+
+if ( !function_exists('woocommerce_template_trading_information') ) :
+	function woocommerce_template_trading_information() {
+		if ( get_field('trading_information') ) {
+			echo get_field('trading_information');
+		} else {
+			echo '';
+		}
+	}
+endif;
+
+if ( !function_exists('woocommerce_template_contact_information') ) :
+	function woocommerce_template_contact_information() {
+		wc_get_template( 'single-product/contact-information.php' );
+	}
+endif;
+
+if ( !function_exists('woocommerce_template_gift_information') ) :
+	function woocommerce_template_gift_information() {
+		if ( get_field('gift_information') ) {
+			echo get_field('gift_information');
+		} else {
+			echo '';
+		}
+	}
+endif;
+
+if ( !function_exists('woocommerce_template_add_to_wishlist') ) :
+	function woocommerce_template_add_to_wishlist() {
+		echo do_shortcode( "[yith_wcwl_add_to_wishlist]" );
+	}
+endif;
+
+if ( !function_exists('woocommerce_template_installment_information') ) :
+	function woocommerce_template_installment_information() {
+		if ( get_field('installment_information') ) {
+			echo get_field('installment_information');
+		} else {
+			echo '';
+		}
+	}
+endif;
+
+if ( !function_exists('woocommerce_template_sale_information') ) :
+	function woocommerce_template_sale_information() {
+		if ( get_field('sale_information') ) {
+			echo get_field('sale_information');
+		} else {
+			echo '';
+		}
+	}
+endif;
+
+/**
+ * Product Summary Box.
+ */
+add_action( 'woocommerce_single_product_summary_center', 'woocommerce_template_single_title', 5 );
+add_action( 'woocommerce_single_product_summary_center', 'woocommerce_template_single_rating', 10 );
+add_action( 'woocommerce_single_product_summary_center_footer', 'woocommerce_template_sale_information', 5 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_price', 5 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_promotion', 7 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_excerpt', 9 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_gift_information', 11 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_add_to_cart', 13 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_add_to_wishlist', 15 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_installment_information', 17 );
+add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_trading_information', 5 );
+add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_contact_information', 7 );
+
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'rest_api/v1', '/product/(?P<productId>\d+)', array(
+        'methods' => 'GET',
+        'callback' => 'get_product_api',
+    ) );
+} );
+
+function get_product_api($data) {
+	$product = wc_get_product(intval($data['productId']));
+	if ( empty( $product ) ) {
+		return new WP_Error( 'no_product', 'No product was found', array( 'status' => 404 ) );
+	}
+
+	if ( $product->get_type() === 'variable' ) {
+		$regularPrice = $product->get_variation_regular_price();
+		$salePrice = $product->get_variation_sale_price();
+	} else {
+		$regularPrice = $product->get_regular_price();
+		$salePrice = $product->get_sale_price();
+	}
+
+	$productDatas = [
+		'name' => $product->get_name(),
+		'imageLink' => wp_get_attachment_url($product->get_image_id()),
+		'regularPrice' => $regularPrice,
+		'salePrice' => $salePrice,
+		'link' => $product->get_permalink()
+	];
+	return new WP_Error( 'success', '', $productDatas );
+}

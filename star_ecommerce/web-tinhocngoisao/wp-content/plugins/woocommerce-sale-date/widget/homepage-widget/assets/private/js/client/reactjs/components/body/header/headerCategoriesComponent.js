@@ -20,11 +20,12 @@ export default class HeaderCategoriesComponent extends Component {
                 "cat_name" : "Tất cả"
             }}/>
         )
-        for(let item = 0; item < list_categories.length; item ++) {
-            result.push(
-                <HeaderCategoryItemContainer key={item} category={list_categories[item]}/>
-            )
-        }
+        if (list_categories && list_categories.length > 0)
+            for(let item = 0; item < list_categories.length; item ++) {
+                result.push(
+                    <HeaderCategoryItemContainer key={item} category={list_categories[item]}/>
+                )
+            }
         return result;
     }
 
