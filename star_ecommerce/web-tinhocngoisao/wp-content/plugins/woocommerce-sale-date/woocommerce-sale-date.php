@@ -33,9 +33,9 @@ class WC_Meta_box_sale_date {
         $_custom_sale_saturday = $_POST['_custom_sale_saturday'];
         $_custom_sale_sunday = $_POST['_custom_sale_sunday'];
         $_custom_sale_all_week = $_POST['_custom_sale_all_week'];
-
-        $_custom_sale_start_time = sanitize_text_field($_POST['_custom_sale_start_time']);
-        $_custom_sale_end_time = sanitize_text_field($_POST['_custom_sale_end_time']);
+      
+        $_custom_sale_start_time = isset($_POST['_custom_sale_start_time']) ? sanitize_text_field($_POST['_custom_sale_start_time']) : 0;
+        $_custom_sale_end_time = isset($_POST['_custom_sale_end_time']) ? sanitize_text_field($_POST['_custom_sale_end_time']) : 0;
 
         $product->update_meta_data( '_custom_sale_monday', empty($_custom_sale_monday) ? '' : $_custom_sale_monday );
         $product->update_meta_data( '_custom_sale_tuesday', empty($_custom_sale_tuesday) ? '' : $_custom_sale_tuesday );
