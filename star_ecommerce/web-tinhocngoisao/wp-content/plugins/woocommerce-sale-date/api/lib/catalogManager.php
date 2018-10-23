@@ -6,6 +6,14 @@ class CatalogManager {
         $query_args = array(
             'post_type'             => 'product',
             'post_status'           => 'publish',
+            'meta_query'            => array(
+                array(
+                    'key'           => '_custom_sale_end_time',
+                    'value'         => '0',
+                    'compare'       => '>',
+                    'type'          => 'NUMERIC'
+                )
+            )
         );
         if ($cat_id > -1) {
             $query_args["tax_query"] = array( array(
@@ -22,17 +30,26 @@ class CatalogManager {
         $productMgr = new ProductManager();
         $current_hour = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
         $current_hour = $current_hour->format('H');
+        $regular_price = 0;
+        $sale_price = 0;
         while ( $loop->have_posts() ) : $loop->the_post(); 
             global $product;
             if($product->is_on_sale()) {
                 // xử lý vụ sale cho ngày hôm sau
                 if ($product->manage_stock && $product->stock_quantity != null) {
+                    if ($product->get_type() === 'variable') {
+                        $regular_price = $product->get_variation_regular_price();
+                        $sale_price = $product->get_variation_sale_price();
+                    } else {
+                        $regular_price = $product->get_regular_price();
+                        $sale_price = $product->get_sale_price();
+                    }
                     $arrPt = array(
                         'id' => $product->id,
                         'name' => $product->name,
                         'link' => get_permalink( $product->product_id),
-                        'regular_price' => number_format((float)$product->regular_price, 0, '.', ','),
-                        'sale_price' => number_format((float)$product->sale_price, 0, '.', ','),
+                        'regular_price' => number_format((float)$regular_price, 0, '.', ','),
+                        'sale_price' => number_format((float)$sale_price, 0, '.', ','),
                         'image' => wp_get_attachment_image_src( $product->image_id, 'medium', true )[0],
                         'average_rating' => $product->average_rating,
                         'review_count' => $product->review_count

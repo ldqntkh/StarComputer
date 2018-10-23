@@ -40,10 +40,38 @@ var productdetailpage = {
         });
     },
 
+    displayCountDownTime: function() {
+        var currentTime = new Date();
+        var endTime = parseInt($('#woocommerce-product-sale-date').data('sale-time'));
+        if (endTime === '') {
+            return false;
+        }
+        var hours = endTime - currentTime.getHours() - 1;
+        var minutes = 59 - currentTime.getMinutes();
+        var seconds = 59 - currentTime.getSeconds();
+        var x = setInterval(function() {
+            seconds--;
+            if (seconds < 0) {
+                minutes--;
+                seconds = 59;
+                if (minutes < 0) {
+                    hours--;
+                    minutes = 59;
+                }
+            }
+            $('#woocommerce-product-sale-date').find('div').empty();
+            $('#woocommerce-product-sale-date').find('div').append(`<div><span class="hours">${hours >= 0 && hours < 10 ? '0' + hours : hours}</span>&nbsp;:&nbsp;<span class="minutes">${minutes >= 0 && minutes < 10 ? '0' + minutes : minutes}</span>&nbsp;:&nbsp;<span>${seconds >= 0 && seconds < 10 ? '0' + seconds : seconds}</span></div>`);
+            if (hours < 0) {
+                clearInterval(x);
+            }
+        }, 1000);
+    },
+
     init: function() {
         let that = this;
         that.showMoreContent();
         that.displayShowMoreContentButton();
+        that.displayCountDownTime();
     }
 }
 
