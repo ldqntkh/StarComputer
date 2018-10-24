@@ -163,7 +163,12 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	    $online_shop_enable_header_top = $online_shop_customizer_all_values['online-shop-enable-header-top'];
 	    $online_shop_top_right_button_title = $online_shop_customizer_all_values['online-shop-top-right-button-title'];
 	    $online_shop_top_right_button_link = get_site_url(null, 'my-account');
-        $headerPromotionPost = get_post(581);
+        $headerPromotionPost = get_posts(array(
+                                            'post_name'   => 'header-promotion',
+                                            'post_type'   => 'post',
+                                            'post_status' => 'publish',
+                                            'numberposts' => 1
+                                        ))[0];
         ?>
         <header id="masthead" class="site-header">
             <?php
