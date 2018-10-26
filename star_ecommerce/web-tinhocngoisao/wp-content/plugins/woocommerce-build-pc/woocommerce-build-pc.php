@@ -117,7 +117,7 @@ class Build_PC_Manager {
             if (isset( $_POST['buildpc-type'] )) {
                 $product->update_meta_data( '_buildpc-type', $_POST['buildpc-type'] );
             }
-            if ( isset( $_POST['buildpc-ids'] ) ) {
+            if ( isset( $_POST['buildpc-ids'] ) ) { // not use
                 $buildpcs = array();
                 $ids     = $_POST['buildpc-ids'];
 
@@ -129,9 +129,9 @@ class Build_PC_Manager {
                     }
 
                     $product->update_meta_data( '_linked_buildpc_ids', empty($buildpcs) ? [] : $buildpcs );
-                    $product->save();
                 } 
             }
+            $product->save();
         } catch(Exception $e) {
             var_dump($e);
             die;
@@ -146,3 +146,6 @@ add_action( 'woocommerce_product_data_panels' , array(new Build_PC_Manager(), 'i
 
 // save custom fields
 add_action( 'woocommerce_process_product_meta' , array(new Build_PC_Manager(), 'save_buildpc_data') );
+
+// register api
+include BUILD_PC_DIR . '/api/function.php';

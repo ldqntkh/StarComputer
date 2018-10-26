@@ -7,23 +7,33 @@
 
     $product_types = array(
         array(
-            "name" => __('CPU', 'woocommerce-buildpc'),
-            "value" => "cpu",
-            "require" => true
-        ),
-        array(
             "name" => __('Main', 'woocommerce-buildpc'),
             "value" => "main",
-            "require" => true
+            "require-by" => null,
+            "require" => true,
+            "link" => null
+        ),
+        array(
+            "name" => __('CPU', 'woocommerce-buildpc'),
+            "value" => "cpu",
+            "require-by" => "main",
+            "require-field" => "socket",
+            "require" => true,
+            "link" => null
         ),
         array(
             "name" => __('RAM', 'woocommerce-buildpc'),
             "value" => "ram",
-            "require" => true
+            "require-by" => "main",
+            "require-field" => "ram",
+            "require" => true,
+            "link" => null
         ),
         array(
             "name" => __('SSD', 'woocommerce-buildpc'),
             "value" => "ssd",
+            "require-by" => "main",
+            "require-field" => "sata",
             "require" => false,
             "link" => "hdd"
         ),
@@ -31,57 +41,78 @@
             "name" => __('HDD', 'woocommerce-buildpc'),
             "value" => "hdd",
             "require" => false,
-            "link" => "ssd"
+            "link"  => "ssd",
+            "require-by" => null,
         ),
         array(
             "name" => __('Optane', 'woocommerce-buildpc'),
             "value" => "optane",
-            "require" => false
+            "require" => false,
+            "require-by" => "main",
+            "link"  => null
         ),
         array(
             "name" => __('VGA', 'woocommerce-buildpc'),
             "value" => "vga",
-            "require" => false
+            "require" => false,
+            "require-by" => null,
+            "link"  => null
         ),
         array(
             "name" => __('Power', 'woocommerce-buildpc'),
             "value" => "power",
-            "require" => true
+            "require" => true,
+            "require-by" => null,
+            "link"  => null
         ),
         array(
             "name" => __('Case', 'woocommerce-buildpc'),
             "value" => "case",
-            "require" => false
+            "require" => true,
+            "require-by" => null,
+            "link"  => null
         ),
         array(
             "name" => __('Radiator', 'woocommerce-buildpc'),
             "value" => "radiator",
-            "require" => true
+            "require" => false,
+            "require-by" => null,
+            "link"  => null
         ),
         array(
             "name" => __('Screen', 'woocommerce-buildpc'),
             "value" => "screen",
-            "require" => false
+            "require" => false,
+            "require-by" => null,
+            "link"  => null
         ),
         array(
             "name" => __('Keyboard', 'woocommerce-buildpc'),
             "value" => "keyboard",
-            "require" => false
+            "require" => false,
+            "require-by" => null,
+            "link"  => null
         ),
         array(
             "name" => __('Mouse', 'woocommerce-buildpc'),
             "value" => "mouse",
-            "require" => false
+            "require" => false,
+            "require-by" => null,
+            "link"  => null
         ),
         array(
             "name" => __('Headphone', 'woocommerce-buildpc'),
             "value" => "headphone",
-            "require" => false
+            "require" => false,
+            "require-by" => null,
+            "link"  => null
         ),
         array(
             "name" => __('Soundcase', 'woocommerce-buildpc'),
             "value" => "soundcase",
-            "require" => false
+            "require" => false,
+            "require-by" => null,
+            "link"  => null
         ),
     );
 ?>

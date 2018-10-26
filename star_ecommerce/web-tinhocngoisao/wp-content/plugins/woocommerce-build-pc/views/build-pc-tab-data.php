@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</p>
 	</div>
 
-	<div class="options_group">
+	<!-- <div class="options_group">
 		<p class="form-field">
 			<label for="buildpc-ids"><?php esc_html_e( 'Linked products', 'woocommerce-buildpc' ); ?></label>
 			<select class="wc-product-search" multiple="multiple" style="width: 50%;" id="buildpc-ids" name="buildpc-ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
@@ -38,5 +38,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</select> 
             <?php echo wc_help_tip( __( 'Build PC: We will use product IDs to verify the products that can connect to each other!', 'woocommerce-buildpc' ) ); // WPCS: XSS ok. ?>
 		</p>
-	</div>
+	</div> -->
 </div>

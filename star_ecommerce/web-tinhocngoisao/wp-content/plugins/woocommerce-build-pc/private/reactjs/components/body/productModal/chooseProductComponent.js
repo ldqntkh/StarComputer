@@ -1,7 +1,20 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
 
-Modal.setAppElement('#build-pc-function')
+// import component
+
+
+// import container
+import ChooseBodyContainer from '../../../containers/body/productModal/chooseBodyContainer';
+import ChooseHeaderContainer from '../../../containers/body/productModal/chooseHeaderContainer';
+// import variable
+import {
+    HOST_URL_API
+} from '../../../variable';
+
+var url_api = 'get_products_by_custom_type?custom_type={0}';
+
+Modal.setAppElement('#build-pc-function');
 export default class ChooseProductComponent extends Component {
 
     constructor(props) {
@@ -9,21 +22,46 @@ export default class ChooseProductComponent extends Component {
     }
 
     componentWillMount() {
-        // fetch data dựa vào value_product_type
-        // trước đó kiểm tra xem đã fetch data cho type này chưa
     }
-    
-    afterOpenModal = () => {
-        
+
+    async componentDidUpdate(prevProps) {
+        if (this.props.action_data.value_product_type !== prevProps.action_data.value_product_type) {
+            // fetch data from server
+            let value_product_type = this.props.action_data.value_product_type;
+            if (value_product_type !== "") {
+                if (!this.props.product_data.hasOwnProperty(value_product_type)) {
+                    try {
+                        // check data is exists
+                        let response = await fetch( HOST_URL_API + url_api.replace('{0}', value_product_type) );
+                        let dataJson = await response.json();
+                        if (dataJson.success) {
+                            if (dataJson.data.length > 0) {
+                                // filter product by require field
+                                // dựa vào product type item component
+                                // merge to reducer
+                                this.props.InitProductDataByType({
+                                    "key" : value_product_type,
+                                    "value" : dataJson.data
+                                });
+                            }
+                        }
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            }
+        }
     }
     
     closeModal = () => {
+        this.props.CleanValueProductSearchKey();
         this.props.ToogleModalChooseProduct(false);
     }
 
     render() {
         let {action_data} = this.props;
-        console.log(action_data)
+        let value_product_type = action_data.value_product_type;
+        
         return(
         <Modal
             isOpen={action_data.toogle_modal_choose_product}
@@ -32,11 +70,11 @@ export default class ChooseProductComponent extends Component {
             shouldCloseOnOverlayClick={false}
         >
             <div className="modal-header">
-                <h2 className="header-title">Chọn linh kiện</h2>
-                <div className="input-group">
-                    <input type="text" placeholder="Tìm kiếm sản phẩm" />
-                </div>
+                <ChooseHeaderContainer />
                 <i className="fa fa-close" onClick={this.closeModal}></i>
+            </div>
+            <div className="modal-body">
+                {value_product_type !== "" && <ChooseBodyContainer product_type={value_product_type}/>}
             </div>
         </Modal>
         );

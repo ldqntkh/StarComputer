@@ -1,0 +1,1 @@
+export const HOST_URL_API = 'http://localhost:9999/softwares/starComputer/star_ecommerce/web-tinhocngoisao/wp-json/rest_api/v1/';
