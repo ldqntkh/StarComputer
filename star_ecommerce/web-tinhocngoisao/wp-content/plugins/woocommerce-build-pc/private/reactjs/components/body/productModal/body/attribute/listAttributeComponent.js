@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 // import component
 import AttributeItemComponent from './attributeItemComponent';
 
-export default class ListAttributeComponent extends Component {
+class ListAttributeComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -90,3 +90,23 @@ export default class ListAttributeComponent extends Component {
         );
     }
 }
+
+// create container
+import { connect } from 'react-redux';
+
+import {
+    
+} from '../../../../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    
+});
+
+const mapDispatchToProps = dispatch => ({
+    
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ListAttributeComponent);

@@ -2,11 +2,9 @@ import React, {Component} from 'react';
 
 // import component
 import ListAttributeComponent from './body/attribute/listAttributeComponent';
+import ListProductComponent from './body/listProductComponent';
 
-// import container
-import ListProductContainer from '../../../containers/body/productModal/body/listProductContainer';
-
-export default class ChooseBodyComponent extends Component {
+class ChooseBodyComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -25,9 +23,30 @@ export default class ChooseBodyComponent extends Component {
 
                 {/*Show list product*/}
                 {
-                    product_data_by_type !== null && <ListProductContainer product_data={product_data_by_type} />
+                    product_data_by_type !== null && <ListProductComponent product_data={product_data_by_type} />
                 }
             </React.Fragment>
         );
     }
 }
+
+// create container
+import { connect } from 'react-redux';
+
+import {
+    
+} from '../../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    action_data : state.ActionReducer,
+    product_data : state.ProductDataReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+    
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ChooseBodyComponent);

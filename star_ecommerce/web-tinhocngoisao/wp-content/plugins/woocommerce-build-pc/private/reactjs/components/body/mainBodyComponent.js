@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 
 // import component
+import ProductTypeItemComponent from '../body/productType/productTypeItemComponent';
+import ChooseProductComponent from '../body/productModal/chooseProductComponent';
 
-// import container
-import ProductTypeItemContainer from '../../containers/body/productType/productTypeItemContainer';
-import ChooseProductContainer from '../../containers/body/productModal/chooseProductContainer';
-
-export default class MainBodyComponent extends Component {
+class MainBodyComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -19,7 +17,7 @@ export default class MainBodyComponent extends Component {
         if (data_product_type !== undefined) {
             for(let index in data_product_type) {
                 listProductType.push(
-                    <ProductTypeItemContainer key={index} product_type={data_product_type[index]} index={parseInt(index) + 1}/>
+                    <ProductTypeItemComponent key={index} product_type={data_product_type[index]} index={parseInt(index) + 1}/>
                 );
             }
         }
@@ -29,8 +27,27 @@ export default class MainBodyComponent extends Component {
                 <div className="build-pc-body">
                     {listProductType}
                 </div>
-                <ChooseProductContainer />
+                <ChooseProductComponent />
             </React.Fragment>
         );
     }
 }
+
+// create container
+import { connect } from 'react-redux';
+import {
+    //InitDataProductType
+} from '../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    data_product_type : state.ProductTypeReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+    
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MainBodyComponent);

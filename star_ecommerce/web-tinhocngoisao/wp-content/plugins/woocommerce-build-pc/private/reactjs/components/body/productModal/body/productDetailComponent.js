@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export default class ProductDetailComponent extends Component {
+class ProductDetailComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -45,3 +45,25 @@ export default class ProductDetailComponent extends Component {
         );
     }
 }
+
+// create container
+import { connect } from 'react-redux';
+
+import {
+    SetValueComputerProductByType,
+    ToogleModalChooseProduct
+} from '../../../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    action_data : state.ActionReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+    SetValueComputerProductByType   : computer_product_type => dispatch(SetValueComputerProductByType(computer_product_type)),
+    ToogleModalChooseProduct        : toogle_value => dispatch(ToogleModalChooseProduct(toogle_value))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ProductDetailComponent);

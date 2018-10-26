@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class ChooseHeaderComponent extends Component {
+class ChooseHeaderComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -25,3 +25,23 @@ export default class ChooseHeaderComponent extends Component {
         );
     }
 }
+
+// create container
+import { connect } from 'react-redux';
+
+import {
+    SetValueProductSearchKey
+} from '../../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    action_data : state.ActionReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+    SetValueProductSearchKey : product_search_key => dispatch(SetValueProductSearchKey(product_search_key))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ChooseHeaderComponent);

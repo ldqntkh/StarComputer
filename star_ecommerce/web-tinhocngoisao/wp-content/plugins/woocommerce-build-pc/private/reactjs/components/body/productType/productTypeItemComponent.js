@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-// import container
-import ProductDetailsContainer from '../../../containers/body/productType/productDetailsContainer';
+// import component
+import ProductDetailsComponent from './productDetailsComponent';
 
-export default class ProductTypeItemComponent extends Component {
+class ProductTypeItemComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -64,7 +64,7 @@ export default class ProductTypeItemComponent extends Component {
                                 {product_type.name}
                             </button>
                         :
-                            <ProductDetailsContainer product_type={product_type.value} product_data = {product_data} />
+                            <ProductDetailsComponent product_type={product_type.value} product_data = {product_data} />
                     }
                 </div>
             </div>
@@ -72,3 +72,27 @@ export default class ProductTypeItemComponent extends Component {
         );
     }
 }
+
+// create container
+import { connect } from 'react-redux';
+
+import {
+    ToogleModalChooseProduct,
+    CleanValueProductSearchKey,
+    SetValueProductType
+} from '../../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    computer_building_data : state.ComputerBuildingDataReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+    ToogleModalChooseProduct        : toogle_value => dispatch(ToogleModalChooseProduct(toogle_value)),
+    CleanValueProductSearchKey      : () => dispatch(CleanValueProductSearchKey()),
+    SetValueProductType             : product_type => dispatch(SetValueProductType(product_type)),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ProductTypeItemComponent);

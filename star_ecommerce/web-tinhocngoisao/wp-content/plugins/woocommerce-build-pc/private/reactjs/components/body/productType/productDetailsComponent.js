@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class ProductDetailsComponent extends Component {
+class ProductDetailsComponent extends Component {
 
     constructor (props){
         super(props);
@@ -75,3 +75,24 @@ export default class ProductDetailsComponent extends Component {
         );
     }
 }
+// create container
+import { connect } from 'react-redux';
+
+import {
+    SetQuantityOfComputerProduct,
+    ClearValueComputerProductByType
+} from '../../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    data_product_type : state.ProductTypeReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+    SetQuantityOfComputerProduct        : computer_product_data => dispatch(SetQuantityOfComputerProduct(computer_product_data)),
+    ClearValueComputerProductByType     : computer_product_data => dispatch(ClearValueComputerProductByType(computer_product_data)),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ProductDetailsComponent);

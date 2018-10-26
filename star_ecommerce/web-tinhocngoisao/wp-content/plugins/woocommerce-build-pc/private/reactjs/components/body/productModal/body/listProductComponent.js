@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
-// import container
-import ProductDetailContainer from '../../../../containers/body/productModal/body/productDetailContainer';
+// import component
+import ProductDetailComponent from './productDetailComponent';
 
 const product_per_page = 7;
 
-export default class ListProductComponent extends Component {
+class ListProductComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -24,7 +24,7 @@ export default class ListProductComponent extends Component {
             let page = this.state.page;
             let max = page * product_per_page > product_data.length ? product_data.length : page * product_per_page;
             for(let index = (page - 1) * product_per_page; index < max; index ++) {
-                result.push(<ProductDetailContainer key={index} product={product_data[index]} />)
+                result.push(<ProductDetailComponent key={index} product={product_data[index]} />)
             }
         }
         return result;
@@ -133,3 +133,23 @@ export default class ListProductComponent extends Component {
         );
     }
 }
+
+// create container
+import { connect } from 'react-redux';
+
+import {
+    
+} from '../../../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    action_data : state.ActionReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+    
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ListProductComponent);

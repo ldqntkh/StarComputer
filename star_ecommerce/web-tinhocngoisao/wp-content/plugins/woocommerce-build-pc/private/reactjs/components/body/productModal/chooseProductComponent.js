@@ -5,8 +5,8 @@ import Modal from 'react-modal';
 
 
 // import container
-import ChooseBodyContainer from '../../../containers/body/productModal/chooseBodyContainer';
-import ChooseHeaderContainer from '../../../containers/body/productModal/chooseHeaderContainer';
+import ChooseBodyComponent from './chooseBodyComponent';
+import ChooseHeaderComponent from './chooseHeaderComponent';
 // import variable
 import {
     HOST_URL_API
@@ -15,7 +15,7 @@ import {
 var url_api = 'get_products_by_custom_type?custom_type={0}';
 
 Modal.setAppElement('#build-pc-function');
-export default class ChooseProductComponent extends Component {
+class ChooseProductComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -70,13 +70,39 @@ export default class ChooseProductComponent extends Component {
             shouldCloseOnOverlayClick={false}
         >
             <div className="modal-header">
-                <ChooseHeaderContainer />
+                <ChooseHeaderComponent />
                 <i className="fa fa-close" onClick={this.closeModal}></i>
             </div>
             <div className="modal-body">
-                {value_product_type !== "" && <ChooseBodyContainer product_type={value_product_type}/>}
+                {value_product_type !== "" && <ChooseBodyComponent product_type={value_product_type}/>}
             </div>
         </Modal>
         );
     }
 }
+
+// create container
+import { connect } from 'react-redux';
+
+import {
+    ToogleModalChooseProduct,
+    InitProductDataByType,
+    CleanValueProductSearchKey
+} from '../../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    data_product_type : state.ProductTypeReducer,
+    action_data : state.ActionReducer,
+    product_data : state.ProductDataReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+    ToogleModalChooseProduct        : toogle_value => dispatch(ToogleModalChooseProduct(toogle_value)),
+    CleanValueProductSearchKey      : () => dispatch(CleanValueProductSearchKey()),
+    InitProductDataByType           : product_data_by_type => dispatch(InitProductDataByType(product_data_by_type))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ChooseProductComponent);

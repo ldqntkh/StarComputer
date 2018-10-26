@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 
-// import container
-import MainBodyContainer from '../containers/body/mainBodyContainer';
-import HeaderContainer from '../containers/header/headerContainer';
 
-export default class MainComponent extends Component {
+// import component
+import MainBodyComponent from './body/mainBodyComponent';
+import HeaderComponent from './header/headerComponent';
+
+class MainComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -168,9 +169,30 @@ export default class MainComponent extends Component {
     render() {
         return(
             <React.Fragment>
-                <HeaderContainer />
-                <MainBodyContainer />
+                <HeaderComponent />
+                <MainBodyComponent />
             </React.Fragment>
         );
     }
 }
+
+// Create container
+import { connect } from 'react-redux';
+import {
+    InitDataProductType,
+    InitComputerbuildingData
+} from '../action/actionFunction';
+
+const mapStateToProps = state => ({
+    data_product_type : state.ProductTypeReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+    InitDataProductType         : data_product_type => dispatch(InitDataProductType(data_product_type)),
+    InitComputerbuildingData    : computer_building_data => dispatch(InitComputerbuildingData(computer_building_data))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MainComponent);

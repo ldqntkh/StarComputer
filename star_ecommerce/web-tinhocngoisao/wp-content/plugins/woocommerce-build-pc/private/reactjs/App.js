@@ -7,10 +7,10 @@ import {BuildPcStore} from './stores/indexStore';
 // import component
 
 // import container
-import MainContainer from './containers/mainContainer';
+import MainComponent from './components/mainComponent';
 
 ReactDOM.render(
     <Provider store={BuildPcStore}>
-        <MainContainer />
+        <MainComponent />
     </Provider>, 
     document.getElementById('build-pc-function') );

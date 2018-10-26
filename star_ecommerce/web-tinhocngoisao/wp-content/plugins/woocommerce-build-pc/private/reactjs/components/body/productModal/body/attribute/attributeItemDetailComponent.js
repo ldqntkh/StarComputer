@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class AttributeItemDetailComponent extends Component {
+class AttributeItemDetailComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -43,3 +43,23 @@ export default class AttributeItemDetailComponent extends Component {
         );
     }
 }
+
+// create container
+import { connect } from 'react-redux';
+
+import {
+    SetValueProductSearchAttribute,
+} from '../../../../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    action_data : state.ActionReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+    SetValueProductSearchAttribute : product_search_attribute => dispatch(SetValueProductSearchAttribute(product_search_attribute))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AttributeItemDetailComponent);

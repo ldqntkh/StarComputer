@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-// import container
-import AttributeItemDetailContainer from '../../../../../containers/body/productModal/body/attribute/attributeItemDetailContainer';
+// import component
+import AttributeItemDetailComponent from './attributeItemDetailComponent';
 
-export default class AttributeItemComponent extends Component {
+class AttributeItemComponent extends Component {
 
     constructor(props) {
         super(props);
@@ -29,10 +29,30 @@ export default class AttributeItemComponent extends Component {
                 </div>
                 <div className="body-attr-value">
                     {
-                        attribute_value.map((item, index) => <AttributeItemDetailContainer item={item} key={index}/>)
+                        attribute_value.map((item, index) => <AttributeItemDetailComponent item={item} key={index}/>)
                     }
                 </div>
             </div>
         );
     }
 }
+
+// create container
+import { connect } from 'react-redux';
+
+import {
+    
+} from '../../../../../action/actionFunction';
+
+const mapStateToProps = state => ({
+    
+});
+
+const mapDispatchToProps = dispatch => ({
+    
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AttributeItemComponent);
