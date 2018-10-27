@@ -1,0 +1,381 @@
+#build-pc-function {
+
+    .build-pc-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px 10px;
+        border-bottom: 1px solid red;
+        .left-content {
+            button.re-build {
+                border: 0;
+                padding: 8px 15px;
+                border-radius: 10px;
+                color: white;
+                background-color: red;
+                font-weight: bold;
+                i {
+                    margin-right: 15px;
+                }
+            }
+        }
+        .right-content {
+            strong {
+                color: red;
+            }
+        }
+    }
+
+    .build-pc-body {
+        .product-type-item {
+            display: flex;
+            &:nth-child(2n) {
+                background-color: #c0c0c024;
+            }
+            .left-content {
+                border: 1px solid silver;
+                border-top: 0;
+                border-left: 0;
+                width: 200px;
+                padding: 5px;
+            }
+            .right-content {
+                border-bottom: 1px solid silver;
+                width: calc(100% - 200px);
+                button.choose-product {
+                    border: 0;
+                    margin: 5px;
+                    padding: 5px 10px;
+                    background-color: red;
+                    color: white;
+                    border-radius: 4px;
+                    i {
+                        margin-right: 10px;
+                    }
+                }
+                .choose-product-item-detail {
+                    display: flex;
+                    .image {
+                        width: 130px;
+                        height: 130%;
+                        padding: 5px;
+                        img {
+                            width: 120px;
+                            height: 120px;
+                        }
+                    }
+                    .content {
+                        width: calc(100% - 130px);
+                        padding: 5px;
+                        position: relative;
+                        p {
+                            padding: 3px 0;
+                            margin: 0;
+                            &.name {
+                                font-weight: bold;
+                                color: black;
+                            }
+                            &.price {
+                                font-weight: bold;
+                                font-size: 18px;
+                                color: red;
+                            }
+                            &.productid {
+                                font-weight: 500;
+                                color: black;
+                            }
+                        }
+                        .star-rating {
+                            overflow: hidden;
+                            position: relative;
+                            height: 1em;
+                            line-height: 1;
+                            font-size: 1em;
+                            width: 5.4em;
+                            font-family: 'star';
+                            color: red;
+                        
+                            &::before {
+                                content: '\73\73\73\73\73';
+                                float: left;
+                                top: 0;
+                                left: 0;
+                                position: absolute;
+                            }
+                        
+                            span {
+                                overflow: hidden;
+                                float: left;
+                                top: 0;
+                                left: 0;
+                                position: absolute;
+                                padding-top: 1.5em;
+                            }
+                        
+                            span::before {
+                                content: '\53\53\53\53\53';
+                                top: 0;
+                                position: absolute;
+                                left: 0;
+                            }
+                        }
+                        div.action {
+                            p.input-group {
+                                input {
+                                    margin: 0 4px;
+                                    border-radius: 5px;
+                                    width: 100px;
+                                    text-align: center;
+                                    border: 1px solid silver;
+                                }
+                                strong.price {
+                                    color: red;
+                                    font-weight: bold;
+                                }
+                            }
+                            div.buttons {
+                                button {
+                                    border: 0;
+                                    font-size: 20px;
+                                    color: red;
+                                    background-color: transparent;
+                                }
+                            }
+                        }
+                    }
+                    .quantity {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .build-pc-footer {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+        .btn-item {
+            margin-left: 10px;
+            .btn {
+                border: 0;
+                margin: 5px;
+                padding: 5px 10px;
+                background-color: red;
+                color: white;
+                border-radius: 4px;
+                i {
+                    font-size: 20px;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}
+
+.page-template-templatesbuildpc-php {
+    .ReactModal__Content {
+        width: 1200px;
+        margin: 0 auto;
+        padding: 0 !important;
+        .modal-header {
+            position: relative;
+            display: flex;
+            background-color: red;
+            color: white;
+            padding: 0;
+            height: 50px;
+            .header-title {
+                width: 400px;
+                font-weight: bold;
+                text-transform: uppercase;
+                margin: 0;
+                padding: 10px;
+            }
+            .input-group {
+                width: calc(100% - 450px);
+                input {
+                    width: 100%;
+                    height: 70%;
+                    margin: 7px 0;
+                    color: black;
+                    padding: 0 5px;
+                }
+            }
+            i.fa-close {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                z-index: 100;
+                font-size: 25px;
+                cursor: pointer;
+            }
+        }
+
+        .modal-body {
+            width: 100%;
+            height: calc(100% - 50px);
+            display: flex;
+            padding: 5px;
+            .filter-attri {
+                width: 390px;
+                margin-right: 5px;
+                border-right: 1px solid silver;
+                overflow-x: hidden;
+                overflow-y: auto;
+                .attribute-item {
+                    border-bottom: 1px solid #c0c0c047;
+                    height: 30px;
+                    overflow: hidden;
+                    margin-bottom: 5px;
+                    padding-bottom: 5px;
+                    &.show {
+                        height: auto;
+                    }
+                    .header-attr-name {
+                        display: flex;
+                        justify-content: space-between;
+                        padding-right: 15px;
+                        height: 30px;
+                        cursor: pointer;
+                        &:hover {
+                            color: red;
+                        }
+                        h4 {
+                            padding: 0;
+                            margin: 0;
+                            height: 100%;
+                            line-height: 30px;
+                        }
+                        i {
+                            line-height: 30px;
+                        }
+                    }
+                    .body-attr-value {
+                        display: flex;
+                        flex-wrap: wrap;
+                        .input-group {
+                            width: 50%;
+                            padding-left: 5px;
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+            .list-product-modal {
+                width: calc(100% - 400px);
+                display: flex;
+                flex-direction: column;
+                .list-product-header {
+                    height: 33px;
+                    width: 100%;
+                    text-align: right;
+                    margin-bottom: 2px;
+                    padding-bottom: 3px;
+                    border-bottom: 2px solid red;
+                    .btn-page {
+                        margin: 0 5px;
+                        background-color: white;
+                        border: 1px solid red;
+                        border-radius: 50%;
+                        width: 30px;
+                        height: 30px;
+                        &.active {
+                            background-color: red;
+                            color: white;
+                            font-weight: bold;
+                        }
+                    }
+                }
+                .list-produuct-data {
+                    overflow: hidden;
+                    overflow-y: auto;
+                    .modal-product-detail {
+                        min-height: 130px;
+                        height: 130px;
+                        width: 100%;
+                        border-bottom: 1px solid silver;
+                        display: flex;
+                        
+                        .image {
+                            width: 130px;
+                            height: 130%;
+                            padding: 5px;
+                            img {
+                                width: 120px;
+                                height: 120px;
+                            }
+                        }
+                        .content {
+                            width: calc(100% - 130px);
+                            padding: 5px;
+                            position: relative;
+                            p {
+                                padding: 3px 0;
+                                margin: 0;
+                                &.name {
+                                    font-weight: bold;
+                                    color: black;
+                                }
+                                &.price {
+                                    font-weight: bold;
+                                    font-size: 18px;
+                                    color: red;
+                                }
+                                &.productid {
+                                    font-weight: 500;
+                                    color: black;
+                                }
+                            }
+                            .star-rating {
+                                overflow: hidden;
+                                position: relative;
+                                height: 1em;
+                                line-height: 1;
+                                font-size: 1em;
+                                width: 5.4em;
+                                font-family: 'star';
+                                color: red;
+                            
+                                &::before {
+                                    content: '\73\73\73\73\73';
+                                    float: left;
+                                    top: 0;
+                                    left: 0;
+                                    position: absolute;
+                                }
+                            
+                                span {
+                                    overflow: hidden;
+                                    float: left;
+                                    top: 0;
+                                    left: 0;
+                                    position: absolute;
+                                    padding-top: 1.5em;
+                                }
+                            
+                                span::before {
+                                    content: '\53\53\53\53\53';
+                                    top: 0;
+                                    position: absolute;
+                                    left: 0;
+                                }
+                            }
+    
+                            .add-to-build {
+                                border: 0;
+                                margin: 5px;
+                                padding: 5px 10px;
+                                background-color: red;
+                                color: white;
+                                border-radius: 4px;
+                                position: absolute;
+                                right: 0;
+                                bottom: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

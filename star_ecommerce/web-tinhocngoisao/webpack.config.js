@@ -9,7 +9,8 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 module.exports = {
     entry: {
         app: './wp-content/themes/online-shop-child/private/javascripts/app.js',
-        "custom-style" : "./wp-content/themes/online-shop-child/private/scss/style.scss"
+        "custom-style" : "./wp-content/themes/online-shop-child/private/scss/style.scss",
+        "build-pc" : "./wp-content/plugins/woocommerce-build-pc/private/reactjs/App.js"
     },
     output: {
         path: path.resolve('wp-content/themes/online-shop-child/assets/js'),

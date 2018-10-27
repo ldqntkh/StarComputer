@@ -29,6 +29,8 @@ class WC_Widget_Layered_Custom extends WC_Widget {
 	public function renderFilter( $attribute ) {
         
 		if ( ! is_shop() && ! is_product_taxonomy() ) {
+			// render empty filter
+			echo '<div class="product-filter-attri"><h5 class="filter-title">&nbsp;</h5></div>';
 			return;
 		}
         
@@ -37,6 +39,8 @@ class WC_Widget_Layered_Custom extends WC_Widget {
         $query_type         = 'or';
         
 		if ( ! taxonomy_exists( $taxonomy ) ) {
+			// render empty filter
+			echo '<div class="product-filter-attri"><h5 class="filter-title">&nbsp;</h5></div>';
 			return;
 		}
 
@@ -45,6 +49,8 @@ class WC_Widget_Layered_Custom extends WC_Widget {
         $terms = get_terms( $taxonomy, $get_terms_args );
         
 		if ( 0 === count( $terms ) ) {
+			// render empty filter
+			echo '<div class="product-filter-attri"><h5 class="filter-title">&nbsp;</h5></div>';
 			return;
 		}
 
