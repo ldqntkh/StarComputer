@@ -149,6 +149,27 @@
             }
         }
     }
+
+    .build-pc-footer {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+        .btn-item {
+            margin-left: 10px;
+            .btn {
+                border: 0;
+                margin: 5px;
+                padding: 5px 10px;
+                background-color: red;
+                color: white;
+                border-radius: 4px;
+                i {
+                    font-size: 20px;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
 }
 
 .page-template-templatesbuildpc-php {

@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 // import component
 import MainBodyComponent from './body/mainBodyComponent';
 import HeaderComponent from './header/headerComponent';
+import FooterComponent from './footer/FooterComponent';
 
 class MainComponent extends Component {
 
@@ -171,6 +172,7 @@ class MainComponent extends Component {
             <React.Fragment>
                 <HeaderComponent />
                 <MainBodyComponent />
+                <FooterComponent />
             </React.Fragment>
         );
     }

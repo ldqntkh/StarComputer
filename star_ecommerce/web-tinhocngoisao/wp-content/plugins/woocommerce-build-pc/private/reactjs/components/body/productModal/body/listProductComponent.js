@@ -66,7 +66,9 @@ class ListProductComponent extends Component {
         var regex = null;
         let result = [];
 
-        let regex_string = '';
+        let str_check_require = this.filterProducyByFeildRequire();
+
+        let regex_string = str_check_require === null ? "" : str_check_require;
         for (let index in product_search_attribute) {
             if (product_search_attribute[index].length > 0) {
                 let regex_str = "";
@@ -115,6 +117,53 @@ class ListProductComponent extends Component {
         return product_data;
     }
 
+    filterProducyByFeildRequire = () => {
+        let {
+            product_type,
+            action_data,
+            computer_building_data
+        } = this.props;
+
+        for (let index in product_type) {
+            if (action_data.value_product_type === product_type[index].value) {
+                if (product_type[index]['require-by'] === null) {
+                    return null;
+                }
+                let product_require = computer_building_data[product_type[index]['require-by']].product;
+                
+                if (product_require === null || product_require.attributes === null || product_require.attributes.length == 0) {
+                    console.log('Can not find data');
+                    return null;
+                }
+                let require_field = 'pa_' + product_type[index]['require-field'];
+                let attributes_require = null;
+
+                for(let i in product_require['attributes']) {
+                    if (product_require['attributes'][i].name === require_field) {
+                        attributes_require = product_require['attributes'][i].values;
+                        break;
+                    }
+                }
+                if (attributes_require === null || attributes_require.length === 0) {
+                    return null;
+                }
+
+                let regex_str = "";
+                for (let k in attributes_require) {
+                    if (regex_str !== "") {
+                        regex_str += '|';
+                    }
+                    regex_str += attributes_require[k].slug;
+                }
+                
+                if (regex_str !== "") {
+                    return `(?=.*${regex_str})`;
+                }
+                return null;
+            }
+        }
+    }
+
     render() {
         let product_data = this.findProductByFilter();
         return (
@@ -142,7 +191,9 @@ import {
 } from '../../../../action/actionFunction';
 
 const mapStateToProps = state => ({
-    action_data : state.ActionReducer
+    action_data : state.ActionReducer,
+    product_type : state.ProductTypeReducer,
+    computer_building_data : state.ComputerBuildingDataReducer
 });
 
 const mapDispatchToProps = dispatch => ({

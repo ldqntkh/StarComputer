@@ -18,7 +18,7 @@ class ChooseBodyComponent extends Component {
             <React.Fragment>
                 {/*filter attribute*/}
                 <div className="filter-attri">
-                    <ListAttributeComponent product_data={product_data_by_type}/>
+                    <ListAttributeComponent product_data={product_data_by_type} product_type={this.props.product_type}/>
                 </div>
 
                 {/*Show list product*/}
