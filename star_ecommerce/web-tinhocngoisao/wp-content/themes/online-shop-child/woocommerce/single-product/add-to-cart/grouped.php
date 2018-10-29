@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 global $product, $post;
 
 do_action( 'woocommerce_before_add_to_cart_form' ); ?>
-
+<?php if ( !empty( $product->get_stock_quantity() ) && $product->get_stock_quantity() > 0 ) : ?>
 <form class="cart grouped_form" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
 	<table cellspacing="0" class="woocommerce-grouped-product-list group_table">
 		<tbody>
@@ -36,6 +36,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 			<tr class="woocommerce-grouped-product-list__quantity_label"><?php _e('Quantity'); ?></tr>
 			<?php
+			var_dump($grouped_products);
 			foreach ( $grouped_products as $grouped_product_child ) {
 				$post_object        = get_post( $grouped_product_child->get_id() );
 				$quantites_required = $quantites_required || ( $grouped_product_child->is_purchasable() && ! $grouped_product_child->has_options() );
@@ -109,5 +110,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 	<?php endif; ?>
 </form>
-
+<?php else: ?>
+	<div class="out-of-stock-message-wrapper"><p><?php printf( __('Sản phẩm đang hết hàng. Xin quý khách vui lòng chọn sản phẩm khác') ); ?></p></div>
+<?php endif; ?>
 <?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
