@@ -34,7 +34,25 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
 	'images',
 ) );
 ?>
-<div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
+
+<?php 
+	$show_video = false;
+	$video_id = '';
+	if (get_field('video_id')) {
+		$show_video = true;
+        $video_id = get_field('video_id');
+	}
+?>
+
+<div <?php if ($show_video) echo 'id="show_video_product"'; ?> class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); if ($show_video) echo ' show-video';?>" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
+	
+	<?php 
+		// custom show video
+		if ($show_video) {
+			echo '<script> var video_product_id = "' . $video_id . '"; </script>';
+		}
+	?>
+
 	<?php woocommerce_show_product_sale_flash(); ?>
 	<figure class="woocommerce-product-gallery__wrapper">
 		<?php
