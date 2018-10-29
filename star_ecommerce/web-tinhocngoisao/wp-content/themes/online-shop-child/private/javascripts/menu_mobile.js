@@ -31,6 +31,12 @@ var mobile_menu = {
         $('body').on('click', '#toggle-menu, .panel-background', function() {
             $('div.pr-menu').toggle();
             $('div.panel-menu').animate({width: 'toggle'});
+            
+            if ($(this).attr('class') === 'panel-background') {
+                $('.fixed-product-detail').show();
+            } else {
+                $('.fixed-product-detail').hide();
+            }
         });
         
         this.initSidebarMobile();
