@@ -169,6 +169,17 @@
                     display: inline-block;
                 }
             }
+
+            .woocommerce-product-gallery {
+                .woocommerce-product-gallery__image {
+                    cursor: pointer;
+                }
+            }
+
+            .out-of-stock-message-wrapper {
+                color: #f73838;
+                margin-top: 25px;
+            }
         }
 
         .products {
