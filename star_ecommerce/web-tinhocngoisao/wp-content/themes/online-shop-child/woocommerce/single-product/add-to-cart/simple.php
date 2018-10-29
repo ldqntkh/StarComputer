@@ -23,9 +23,10 @@ if ( ! $product->is_purchasable() ) {
 	return;
 }
 
-echo wc_get_stock_html( $product ); // WPCS: XSS ok.
+// do not need to show the number of stock quantity
+//echo wc_get_stock_html( $product ); // WPCS: XSS ok.
 
-if ( $product->is_in_stock() ) : ?>
+if ( $product->is_in_stock() && !empty( $product->get_stock_quantity() ) && $product->get_stock_quantity() > 0 ) : ?>
 
 	<?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
@@ -53,5 +54,6 @@ if ( $product->is_in_stock() ) : ?>
 	</form>
 
 	<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
-
+<?php else: ?>
+	<div class="out-of-stock-message-wrapper"><p><?php printf( __('Sản phẩm đang hết hàng. Xin quý khách vui lòng chọn sản phẩm khác') ); ?></p></div>
 <?php endif; ?>
