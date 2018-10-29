@@ -6,9 +6,12 @@ import { Provider } from 'react-redux';
 import PrimeTimeStore from './stores/indexStore';
 
 import MainContainer from './containers/mainContainer';
-
-ReactDOM.render(
-    <Provider store={PrimeTimeStore}>
-        <MainContainer />
-    </Provider>, 
-    document.getElementById('slider-section-right'));
+try {
+    ReactDOM.render(
+        <Provider store={PrimeTimeStore}>
+            <MainContainer />
+        </Provider>, 
+        document.getElementById('slider-section-right'));
+} catch(err) {
+    // 
+}
