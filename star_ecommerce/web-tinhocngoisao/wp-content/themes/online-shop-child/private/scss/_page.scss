@@ -155,14 +155,17 @@ header#masthead {
         &.widget_online_shop_wc_products {
             .at-action-wrapper {
                 i {
-                    display: none !important;
+                    //display: none !important;
                     position: absolute;
                     top: 300px;
                     margin-left: 0;
                     margin-right: 0;
-                    border-radius: 50%;
+                    //border-radius: 50%;
                     z-index: 200;
                     border: 2px solid red;
+                    background: red;
+                    color: white;
+                    font-weight: bold;
                     &.prev {
                         left: 0;
                     }
@@ -176,13 +179,13 @@ header#masthead {
                     }
                 }
             }
-            &:hover {
-                .at-action-wrapper {
-                    i {
-                        display: block!important;
-                    }
-                }
-            }
+            // &:hover {
+            //     .at-action-wrapper {
+            //         i {
+            //             display: block!important;
+            //         }
+            //     }
+            // }
         }
     }
     .slider-feature-wrap {
