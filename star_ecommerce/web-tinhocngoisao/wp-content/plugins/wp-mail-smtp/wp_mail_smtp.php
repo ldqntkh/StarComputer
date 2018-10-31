@@ -267,7 +267,6 @@ if ( ! function_exists( 'wp_mail_smtp_options_page' ) ) :
 			?>
 			<div id="message" class="updated notice is-dismissible"><p><strong><?php esc_html_e( 'Test Message Sent', 'wp-mail-smtp' ); ?></strong></p>
 				<p><?php esc_html_e( 'The result was:', 'wp-mail-smtp' ); ?></p>
-				<pre><?php var_dump( $result ); ?></pre>
 
 				<p><?php esc_html_e( 'The full debugging output is shown below:', 'wp-mail-smtp' ); ?></p>
 				<pre><?php print_r( $phpmailer ); ?></pre>
