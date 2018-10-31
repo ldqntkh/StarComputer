@@ -250,11 +250,11 @@ class WC_Widget_Layered_Custom extends WC_Widget {
             }
             $style= '';
             if (sanitize_title( str_replace( 'pa_', '', $taxonomy ) ) == 'color') {
-                $style = 'style=" background-color: ' . $term->name . ' ;"';
+                $style = 'style=" background-color: ' . $term->slug . ' ;"';
             }
             echo '<li >';
             echo '<a href="' . $link . '" ' .$style. '></a>';
-            echo '<h3>' . $term->description . '<span>(' . $count . ')</span></h3>';
+            echo '<h3>' . $term->name . '<span>(' . $count . ')</span></h3>';
 			echo '</li>';
 		}
 
