@@ -1,14 +1,20 @@
 .custom-checkout {
 
     header#masthead {
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
         .site-logo {
+            width: 100%;
             img {
                 max-height: 150px;
             }
         }
 
         .checkout-step {
-            width: 60%;
+            width: 100%;
             float: left;
             position: relative;
             height: 150px;
@@ -80,6 +86,9 @@
                                 .progress-bar-left {
                                     border-left: 0;
                                 }
+                                .progress-bar-right {
+                                    border-right: 0;
+                                }
                                 .bs-wizard-dot {
                                     border: 1px solid silver;
                                     background-color: white;
@@ -93,10 +102,30 @@
         }
 
         .hot-line {
-            width: 18%;
-            float: left;
-            position: relative;
-            height: 150px;
+            // width: 18%;
+            // float: left;
+            // position: relative;
+            width: 100%;
+            height: auto;
+            //height: 150px;
+        }
+        @media screen and (min-width: 1366px) {
+            .wrapper {
+                flex-direction: row;
+                flex-wrap: nowrap;
+            }
+            .site-logo {
+                width: auto;
+            }
+            .checkout-step {
+                width: 60%;
+            }
+            .hot-line {
+                width: 18%;
+                float: left;
+                position: relative;
+                height: 150px;
+            }
         }
     }
     div#content-checkout {
@@ -109,9 +138,13 @@
                 align-items: center;
                 .social-buttons {
                     display: flex;
+                    flex-direction: column;
                     width: 100%;
                     justify-content: center;
                     align-items: center;
+                    @media screen and (min-width: 640px) {
+                        flex-direction: row;
+                    }
                     .btn-block {
                         width: 230px;
                         color: #fff;
@@ -155,18 +188,32 @@
                             }
                         }
                     }
+                    p.or {
+                        margin: 5px 0;
+                    }
                 }
             }
             .account-order {
                 display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
                 width: 100%;
-                margin-top: 10px;
+                margin-top: 20px;
+                
                 .form-account {
-                    flex: 3;
+                    //flex: 3;
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    margin-bottom: 20px;
+                    
                     .tab {
-                        float: left;
-                        width: 25%;
-                        height: 370px;
+                        width: 100%;
+                        height: auto;
+                        display: flex;
+                        //float: left;
+                        //width: 25%;
+                        //height: 370px;
                         background: #f1f1f1;
                     }
                     .tab button {
@@ -181,10 +228,12 @@
                         transition: 0.3s;
                         border-bottom: 1px solid silver;
                         text-align: center;
+                        padding: 5px 0;
                         span {
                             font-weight: 600;
                         }
                         i {
+                            display: none;
                         }
                     }
                     .tab button:hover {
@@ -194,12 +243,15 @@
                         background-color: #ccc;
                     }
                     .tabcontent {
-                        float: left;
-                        padding: 0px 12px;
                         border: 1px solid #ccc;
-                        width: 70%;
-                        border-left: none;
-                        height: 370px;
+                        width: 100%;
+                        padding: 0px 12px;
+                        border-bottom-left-radius: 5px;
+                        border-bottom-right-radius: 5px;
+                        // float: left;
+                        // width: 70%;
+                        // border-left: none;
+                        // height: 370px;
                     }
 
                     .input-form {
@@ -228,7 +280,23 @@
                     }
                 }
                 .order-items {
-                    flex: 1;
+                    //flex: 1;
+                    width: 100%;
+                }
+                @media screen and (min-width: 1024px){
+                    flex-direction: row;
+                    justify-content: space-between;
+                    flex-wrap: nowrap;
+                    .form-account {
+                        //flex: 3;
+                        width: calc(100% - 280px);
+                        margin-bottom: 0;
+                    }
+                    .order-items {
+                        //flex: 1;
+                        width: 270px;
+                        margin-left: 10px;
+                    }
                 }
             }
         }
@@ -236,9 +304,10 @@
         .checkout-address {
             .list-address {
                 display: flex;
-                flex-wrap: wrap;
+                flex-direction: column;
+                flex-wrap: nowrap;
                 .address-item {
-                    width: 50%;
+                    width: 100%;
                     padding: 10px;
                     &.active {
                         .address-content {
@@ -276,14 +345,24 @@
                         }
                     }
                 }
+                @media screen and (min-width: 768px) {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    .address-item {
+                        width: 50%;
+                    }
+                }
             }
             .new-address {
                 form {
-                    width: 360px;
+                    width: 320px;
                     margin: 0 auto;
                     padding: 5px;
                     border: 1px solid silver;
                     border-radius: 5px;
+                    @media screen and (min-width: 480px) {
+                        width: 400px;
+                    }
                     .group-button {
                         display: flex;
                         justify-content: space-between;
@@ -293,7 +372,7 @@
                             background: red;
                             color: white;
                             font-weight: 700;
-                            padding: 10px 15px;
+                            padding: 10px 2px;
                         }
                         .cancel {
                             background: #ccc;
@@ -309,10 +388,18 @@
 
         .checkout-payment {
             display: flex;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
+            flex-direction: column-reverse;
+            @media screen and (min-width: 1024px) {
+                flex-direction: row;
+                flex-wrap: nowrap;
+            }
             .paymnent-details {
                 flex: 3;
-                padding-right: 20px;
+                
+                @media screen and (min-width: 1024px) {
+                    padding-right: 20px;
+                }
             }
             .order-details {
                 flex: 1;
@@ -349,7 +436,11 @@
                 }
             }
             .right-content {
-                flex: 1;
+                display: none;
+                @media screen and (min-width: 1024px) {
+                    display: block;
+                    flex: 1;
+                }
             }
         }
 
