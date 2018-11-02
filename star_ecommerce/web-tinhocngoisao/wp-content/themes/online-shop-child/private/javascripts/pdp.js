@@ -1,4 +1,5 @@
 'use strict';
+var cartpage = require('./cart');
 
 var productdetailpage = {
 
@@ -120,13 +121,47 @@ var productdetailpage = {
         }
     },
 
+    displayTotalPriceGroupedProduct: function() {
+        var $price = $('.price');
+        var total = 0;
+        $('.grouped_form').eq(0).find('.woocommerce-grouped-product-list-item').each(function( index ) {
+            var $productItem = $(this);
+            var $quantity = $productItem.find('.wares_qty_box').find(':text');
+            var $priceProduct = $productItem.find('.price-product');
+            total += parseInt($quantity.val()) * parseFloat($priceProduct.val());
+        });
+
+        if ( total > 0 ) {
+            $price.text(total.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.') + '₫');
+        }
+    },
+
+    handleEventOnClickQty: function() {
+        let that = this;
+        $('.wares_qty_minus').off('click').on('click', function() {
+            console.log('clicked');
+            cartpage.changeValueQuantity('sub', $(this));
+            that.displayTotalPriceGroupedProduct();
+        });
+
+        $('.wares_qty_add').off('click').on('click', function() {
+            cartpage.changeValueQuantity('add', $(this));
+            that.displayTotalPriceGroupedProduct();
+        });
+    },
     init: function() {
         let that = this;
         that.showMoreContent();
         that.displayShowMoreContentButton();
         that.displayCountDownTime();
         that.closeVideoImage();
-        that.initFixedProductDetail();
+        //that.initFixedProductDetail();
+
+        // init functions for grouped product type
+        if ( $('.grouped_form').length > 0 ) {
+            that.displayTotalPriceGroupedProduct();
+            that.handleEventOnClickQty();
+        }
     }
 }
 

@@ -19,7 +19,9 @@ defined( 'ABSPATH' ) || exit;
 
 global $product, $post;
 
-do_action( 'woocommerce_before_add_to_cart_form' ); ?>
+do_action( 'woocommerce_before_add_to_cart_form' );
+$grouped_products = json_decode(str_replace("\\", "", $grouped_products_data));
+?>
 
 <form class="cart grouped_form" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
 	<table cellspacing="0" class="woocommerce-grouped-product-list group_table">
@@ -28,28 +30,39 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 			$quantites_required      = false;
 			$previous_post           = $post;
 			$grouped_product_columns = apply_filters( 'woocommerce_grouped_product_columns', array(
-				'quantity',
 				'label',
-				'price',
 			), $product );
 			?>
 
 			<tr class="woocommerce-grouped-product-list__quantity_label"><?php _e('Quantity'); ?></tr>
 			<?php
-			foreach ( $grouped_products as $grouped_product_child ) {
+			foreach ( $grouped_products as $grouped_product ) {
+				$grouped_product_child = wc_get_product( $grouped_product->productId );
+				
 				$post_object        = get_post( $grouped_product_child->get_id() );
 				$quantites_required = $quantites_required || ( $grouped_product_child->is_purchasable() && ! $grouped_product_child->has_options() );
 				$post               = $post_object; // WPCS: override ok.
+				if ( $grouped_product_child->is_on_sale() ) {
+					$price = $grouped_product_child->get_sale_price();
+				} else {
+					$price =  $grouped_product_child->get_regular_price();
+				}
 				setup_postdata( $post );
 
 				echo '<tr id="product-' . esc_attr( $grouped_product_child->get_id() ) . '" class="woocommerce-grouped-product-list-item ' . esc_attr( implode( ' ', wc_get_product_class( '', $grouped_product_child->get_id() ) ) ) . '">';
 
+				printf('<td><img src="%s" /></td>', wp_get_attachment_url($grouped_product_child->get_image_id()));
 				// Output columns for each product.
 				foreach ( $grouped_product_columns as $column_id ) {
 					do_action( 'woocommerce_grouped_product_list_before_' . $column_id, $grouped_product_child );
 
 					switch ( $column_id ) {
-						case 'quantity':
+						case 'label':
+							$value  = '<label for="product-' . esc_attr( $grouped_product_child->get_id() ) . '">';
+							$value .= $grouped_product_child->is_visible() ? '<a href="' . esc_url( apply_filters( 'woocommerce_grouped_product_list_link', $grouped_product_child->get_permalink(), $grouped_product_child->get_id() ) ) . '">' . $grouped_product_child->get_name() . '</a>' : $grouped_product_child->get_name();
+							$value .= '</label>';
+							$value .= $grouped_product_child->get_price_html() . wc_get_stock_html( $grouped_product_child );
+							$value .= "<input type='hidden' class='price-product' value='" . $price . "'/>";
 							ob_start();
 
 							if ( ! $grouped_product_child->is_purchasable() || $grouped_product_child->has_options() || ! $grouped_product_child->is_in_stock() ) {
@@ -61,23 +74,15 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 								woocommerce_quantity_input( array(
 									'input_name'  => 'quantity[' . $grouped_product_child->get_id() . ']',
-									'input_value' => isset( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ? wc_stock_amount( wc_clean( wp_unslash( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ) ) : 0, // WPCS: CSRF ok, input var okay, sanitization ok.
+									'input_value' => $grouped_product->quantity, // WPCS: CSRF ok, input var okay, sanitization ok.
 									'min_value'   => apply_filters( 'woocommerce_quantity_input_min', 0, $grouped_product_child ),
 									'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $grouped_product_child->get_max_purchase_quantity(), $grouped_product_child ),
 								) );
 
 								do_action( 'woocommerce_after_add_to_cart_quantity' );
 							}
-
-							$value = ob_get_clean();
-							break;
-						case 'label':
-							$value  = '<label for="product-' . esc_attr( $grouped_product_child->get_id() ) . '">';
-							$value .= $grouped_product_child->is_visible() ? '<a href="' . esc_url( apply_filters( 'woocommerce_grouped_product_list_link', $grouped_product_child->get_permalink(), $grouped_product_child->get_id() ) ) . '">' . $grouped_product_child->get_name() . '</a>' : $grouped_product_child->get_name();
-							$value .= '</label>';
-							break;
-						case 'price':
-							$value = $grouped_product_child->get_price_html() . wc_get_stock_html( $grouped_product_child );
+							
+							$value .= ob_get_clean();
 							break;
 						default:
 							$value = '';
