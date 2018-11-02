@@ -31,12 +31,14 @@
                 $('#product-' + index).append('<td>' + product.name + '</td>');
                 $('#product-' + index).append('<td>' + product.quantity + '</td>');
                 $('#product-' + index).append('<td class="remove" style="cursor:pointer;">Xóa</td>');
-
-                removeProduct(products);
             }
         }
-        // $linkedProductData.find('.show_if_grouped').append($('#custom-grouped-product').html());
-        // $('#custom-grouped-product').remove();
+        // append list product
+        $linkedProductData.find('.show_if_grouped').append($('#custom-grouped-product').html());
+        // bind event remove after append
+        removeProduct(products);
+
+        $('#custom-grouped-product').remove();
         $('.save_custom_product_group').off('click').on('click', function() {
             var product = {};
             var listProduct = $groupProductData.val() !== '' ? JSON.parse($groupProductData.val()) : [];
@@ -56,14 +58,19 @@
 
                 $('.product').remove();
                 for (var index in listProduct) {
-                    var productDump = listProduct[index];
+                    var product = listProduct[index];
                     $('.list-product-wrapper').find('table').append('<tr class="product" id="product-' + index + '"></tr>');
-                    $('#product-' + index).append('<td>' + productDump.name + '</td>');
-                    $('#product-' + index).append('<td>' + productDump.quantity + '</td>');
+                    $('#product-' + index).append('<td>' + product.name + '</td>');
+                    $('#product-' + index).append('<td>' + product.quantity + '</td>');
                     $('#product-' + index).append('<td class="remove" style="cursor:pointer;">Xóa</td>');
 
                     removeProduct(listProduct);
                 }
+            } else {
+                $groupProduct.empty();
+                $quantity.val(1);
+                alert('Sản phẩm đã tồn tại. Xin vui lòng nhập sản phẩm khác');
+                $groupProduct.focus();
             }
         });
 
