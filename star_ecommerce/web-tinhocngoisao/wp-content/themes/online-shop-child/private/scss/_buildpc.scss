@@ -8,7 +8,7 @@
     }
 }
 
-#build-pc-function {
+#build-pc-function, .build-pc-function {
 
     .build-pc-header {
         display: flex;
@@ -49,6 +49,10 @@
                 padding: 5px;
                 @media screen and (min-width: 1024px) {
                     width: 200px;
+                }
+                .require {
+                    font-weight: bold;
+                    color: red;
                 }
             }
             .right-content {
@@ -175,6 +179,17 @@
                 }
             }
         }
+        .total-price {
+            text-align: right;
+            margin-top: 10px;
+            span {
+                font-weight: bold;
+            }
+            strong {
+                font-size: 20px;
+                color: red;
+            }
+        }
     }
 
     .build-pc-footer {
@@ -196,6 +211,12 @@
                 i {
                     font-size: 20px;
                     margin-right: 10px;
+                }
+                a {
+                    color: white;
+                    &:hover {
+                        color: white;
+                    }
                 }
             }
         }
