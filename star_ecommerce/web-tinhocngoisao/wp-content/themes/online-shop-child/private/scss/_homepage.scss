@@ -159,17 +159,29 @@ h2.woocommerce-loop-product__title {
 }
 
 .online-shop-feature-special-menu {
-    #slider-section-right {
+    .primetime-price-mobile {
+        margin: 10px 0;
+        h2.widget-title {
+            color: red;
+            margin-bottom: 5px;
+        }
+        @media screen and (min-width: 768px) {
+            display: none;
+        }
+    }
+    #slider-section-right  {
+        display: none;
         float: right;
         width: 100%;
         margin-bottom: 5px;
         height: auto;
-
         @media screen and (min-width: 768px) {
-            width: 23%;
+            display: block;
+            width: 25%;
             height: 300px;
         }
-
+    }
+    #dv-primetime-price-mobile, #slider-section-right {
         .block-time-down {
             margin-bottom: 5px;
             text-align: left;

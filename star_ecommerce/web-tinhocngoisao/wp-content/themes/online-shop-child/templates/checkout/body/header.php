@@ -1,7 +1,3 @@
-<?php 
-
-?>
-
 <header id="masthead">
     <div class="wrapper clearfix">
         <div class="site-logo">

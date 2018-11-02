@@ -42,6 +42,7 @@ $grouped_products = json_decode(str_replace("\\", "", $grouped_products_data));
 				$post_object        = get_post( $grouped_product_child->get_id() );
 				$quantites_required = $quantites_required || ( $grouped_product_child->is_purchasable() && ! $grouped_product_child->has_options() );
 				$post               = $post_object; // WPCS: override ok.
+
 				if ( $grouped_product_child->is_on_sale() ) {
 					$price = $grouped_product_child->get_sale_price();
 				} else {
@@ -63,26 +64,28 @@ $grouped_products = json_decode(str_replace("\\", "", $grouped_products_data));
 							$value .= '</label>';
 							$value .= $grouped_product_child->get_price_html() . wc_get_stock_html( $grouped_product_child );
 							$value .= "<input type='hidden' class='price-product' value='" . $price . "'/>";
-							ob_start();
+							if ( !empty( $grouped_product_child->get_stock_quantity() ) && $grouped_product_child->get_stock_quantity() > 0 ) {
+								ob_start();
 
-							if ( ! $grouped_product_child->is_purchasable() || $grouped_product_child->has_options() || ! $grouped_product_child->is_in_stock() ) {
-								woocommerce_template_loop_add_to_cart();
-							} elseif ( $grouped_product_child->is_sold_individually() ) {
-								echo '<input type="checkbox" name="' . esc_attr( 'quantity[' . $grouped_product_child->get_id() . ']' ) . '" value="1" class="wc-grouped-product-add-to-cart-checkbox" />';
-							} else {
-								do_action( 'woocommerce_before_add_to_cart_quantity' );
-
-								woocommerce_quantity_input( array(
-									'input_name'  => 'quantity[' . $grouped_product_child->get_id() . ']',
-									'input_value' => $grouped_product->quantity, // WPCS: CSRF ok, input var okay, sanitization ok.
-									'min_value'   => apply_filters( 'woocommerce_quantity_input_min', 0, $grouped_product_child ),
-									'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $grouped_product_child->get_max_purchase_quantity(), $grouped_product_child ),
-								) );
-
-								do_action( 'woocommerce_after_add_to_cart_quantity' );
+								if ( ! $grouped_product_child->is_purchasable() || $grouped_product_child->has_options() || ! $grouped_product_child->is_in_stock() ) {
+									woocommerce_template_loop_add_to_cart();
+								} elseif ( $grouped_product_child->is_sold_individually() ) {
+									echo '<input type="checkbox" name="' . esc_attr( 'quantity[' . $grouped_product_child->get_id() . ']' ) . '" value="1" class="wc-grouped-product-add-to-cart-checkbox" />';
+								} else {
+									do_action( 'woocommerce_before_add_to_cart_quantity' );
+	
+									woocommerce_quantity_input( array(
+										'input_name'  => 'quantity[' . $grouped_product_child->get_id() . ']',
+										'input_value' => $grouped_product->quantity, // WPCS: CSRF ok, input var okay, sanitization ok.
+										'min_value'   => apply_filters( 'woocommerce_quantity_input_min', 0, $grouped_product_child ),
+										'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $grouped_product_child->get_max_purchase_quantity(), $grouped_product_child ),
+									) );
+	
+									do_action( 'woocommerce_after_add_to_cart_quantity' );
+								}
+								
+								$value .= ob_get_clean();
 							}
-							
-							$value .= ob_get_clean();
 							break;
 						default:
 							$value = '';
@@ -114,5 +117,4 @@ $grouped_products = json_decode(str_replace("\\", "", $grouped_products_data));
 
 	<?php endif; ?>
 </form>
-
 <?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>

@@ -73,7 +73,7 @@
                     </div>
                     <div class="group-button">
                         <p>Khi bạn đăng ký tài khoản, bạn đã đồng ý với mọi <a href="#">chính sách</a> của chúng tôi.</p> 
-                        <button class="btn-login">Đăng nhập</button>
+                        <button class="btn-login">Đăng ký</button>
                     </div>
                 </form>
             </div>
