@@ -9,15 +9,14 @@ class ChooseBodyComponent extends Component {
     constructor(props) {
         super(props);
     }
-
     // xử lý render list product trước
     render() {
-        let {product_data} = this.props;
-        let product_data_by_type = product_data[this.props.action_data.value_product_type];
+        let {product_data, action_data} = this.props;
+        let product_data_by_type = product_data[action_data.value_product_type];
         return (
             <React.Fragment>
                 {/*filter attribute*/}
-                <div className="filter-attri">
+                <div className={`filter-attri ${action_data.toogle_filter_product ? "active" : ""}`}>
                     <ListAttributeComponent product_data={product_data_by_type} product_type={this.props.product_type}/>
                 </div>
 
@@ -34,7 +33,7 @@ class ChooseBodyComponent extends Component {
 import { connect } from 'react-redux';
 
 import {
-    
+    ToogleFilterProduct
 } from '../../../action/actionFunction';
 
 const mapStateToProps = state => ({

@@ -1,5 +1,6 @@
 import {
     TOOGLE_MODAL_CHOOSE_PRODUCT,
+    TOOGLE_FILTER_PRODUCT,
     SET_VALUE_PRODUCT_TYPE,
     SET_VALUE_PRODUCT_SEARCH_KEY,
     SET_VALUE_PRODUCT_SEARCH_ATTRIBUTE,
@@ -8,6 +9,7 @@ import {
 
 export const ActionReducer = (action_data = {
     toogle_modal_choose_product : false,
+    toogle_filter_product: false,
     value_product_type : '',
     product_search_key : '',
     product_search_attribute : []
@@ -17,6 +19,10 @@ export const ActionReducer = (action_data = {
         case TOOGLE_MODAL_CHOOSE_PRODUCT:
             result = Object.assign({}, action_data);
             result['toogle_modal_choose_product'] = action.data;
+            return result;
+        case TOOGLE_FILTER_PRODUCT:
+            result = Object.assign({}, action_data);
+            result['toogle_filter_product'] = !result['toogle_filter_product'];
             return result;
         case SET_VALUE_PRODUCT_TYPE:
             result = Object.assign({}, action_data);

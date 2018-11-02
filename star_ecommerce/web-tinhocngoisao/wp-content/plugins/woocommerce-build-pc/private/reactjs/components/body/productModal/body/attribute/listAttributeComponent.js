@@ -18,6 +18,10 @@ class ListAttributeComponent extends Component {
         return JSON.stringify(obj) === JSON.stringify({});
     };
 
+    toggleFilter = ()=> {
+        this.props.ToogleFilterProduct();
+    }
+
     findListAttribute = ()=> {
         let {product_data, product_type, product_type_reducer, computer_building_data} = this.props;
         let require_field = 'pa_';
@@ -119,7 +123,12 @@ class ListAttributeComponent extends Component {
         let listAttribute = this.findListAttribute();
         return(
             <React.Fragment>
-                {this.renderListAttributes(listAttribute)}
+                <div className="filter-attr-items-rect" onClick={this.toggleFilter}>
+                    
+                </div>
+                <div className="list-attributes">
+                    {this.renderListAttributes(listAttribute)}
+                </div>
             </React.Fragment>
         );
     }
@@ -129,7 +138,7 @@ class ListAttributeComponent extends Component {
 import { connect } from 'react-redux';
 
 import {
-    
+    ToogleFilterProduct
 } from '../../../../../action/actionFunction';
 
 const mapStateToProps = state => ({
@@ -138,7 +147,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    
+    ToogleFilterProduct : () => dispatch(ToogleFilterProduct())
 });
 
 export default connect(

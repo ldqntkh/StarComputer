@@ -22,12 +22,15 @@ class HeaderComponent extends Component {
         }
         return total_price;
     }
+    rebuildPC = ()=> {
+        this.props.ResetValueBuildPC();
+    }
 
     render() {
         return(
             <div className="build-pc-header">
                 <div className="left-content">
-                    <button className="re-build">
+                    <button className="re-build" onClick={this.rebuildPC}>
                         <i className="fa fa-refresh"></i>
                         Xây dựng lại
                     </button>
@@ -44,7 +47,7 @@ class HeaderComponent extends Component {
 import { connect } from 'react-redux';
 
 import {
-    InitComputerbuildingData
+    ResetValueBuildPC
 } from '../../action/actionFunction';
 
 const mapStateToProps = state => ({
@@ -52,7 +55,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    InitComputerbuildingData : computer_building_data => dispatch(InitComputerbuildingData(computer_building_data))
+    ResetValueBuildPC : () => dispatch(ResetValueBuildPC())
 });
 
 export default connect(
