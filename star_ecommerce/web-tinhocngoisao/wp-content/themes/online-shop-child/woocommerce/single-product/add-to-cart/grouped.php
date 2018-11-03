@@ -22,7 +22,7 @@ global $product, $post;
 do_action( 'woocommerce_before_add_to_cart_form' );
 $grouped_products = json_decode(str_replace("\\", "", $grouped_products_data));
 ?>
-
+<?php if ( $grouped_products ): ?>
 <form class="cart grouped_form" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
 	<table cellspacing="0" class="woocommerce-grouped-product-list group_table">
 		<tbody>
@@ -62,7 +62,9 @@ $grouped_products = json_decode(str_replace("\\", "", $grouped_products_data));
 							$value  = '<label for="product-' . esc_attr( $grouped_product_child->get_id() ) . '">';
 							$value .= $grouped_product_child->is_visible() ? '<a href="' . esc_url( apply_filters( 'woocommerce_grouped_product_list_link', $grouped_product_child->get_permalink(), $grouped_product_child->get_id() ) ) . '">' . $grouped_product_child->get_name() . '</a>' : $grouped_product_child->get_name();
 							$value .= '</label>';
+							$value .= '<div class="woocommerce-grouped-product-list-item__price">';
 							$value .= $grouped_product_child->get_price_html() . wc_get_stock_html( $grouped_product_child );
+							$value .= '</div>';
 							$value .= "<input type='hidden' class='price-product' value='" . $price . "'/>";
 							if ( !empty( $grouped_product_child->get_stock_quantity() ) && $grouped_product_child->get_stock_quantity() > 0 ) {
 								ob_start();
@@ -117,4 +119,5 @@ $grouped_products = json_decode(str_replace("\\", "", $grouped_products_data));
 
 	<?php endif; ?>
 </form>
+<?php endif; ?>
 <?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>

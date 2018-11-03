@@ -14,7 +14,7 @@ define( 'CUSTOM_GROUPED_PRODUCT_DIR', plugin_dir_path( __FILE__ ) );
 
 class WC_Meta_box_grouped_product {
     public function init() {
-        include CUSTOM_GROUPED_PRODUCT_DIR . '/views/grouped-product.php';
+        include CUSTOM_GROUPED_PRODUCT_DIR . 'views/grouped-product.php';
     }
 
     function custom_quantity_field() {
@@ -61,10 +61,17 @@ class WC_Meta_box_grouped_product {
             ) );
         }
     }
+
+    // register css
+    function register_custom_grouped_product_css() {
+        wp_register_style( 'custom_grouped_product_css', plugins_url('woocommerce-grouped-product/assets/css/admin-custom-grouped-product.css', false, '1.0.0', __FILE__ ));
+        wp_enqueue_style( 'custom_grouped_product_css' );
+    }
 }
 add_action( 'woocommerce_product_options_related' , array(new WC_Meta_box_grouped_product(), 'init') );
 add_action( 'woocommerce_process_product_meta', array(new WC_Meta_box_grouped_product(), 'save_grouped_product_data') );
 add_action( 'woocommerce_product_options_related', array(new WC_Meta_box_grouped_product(), 'display_grouped_product_data') );
 remove_action( 'woocommerce_grouped_add_to_cart', 'woocommerce_grouped_add_to_cart', 30 );
 add_action( 'woocommerce_grouped_add_to_cart', array(new WC_Meta_box_grouped_product(), 'woocommerce_custom_grouped_add_to_cart'), 30 );
+add_action( 'admin_enqueue_scripts', array(new WC_Meta_box_grouped_product(), 'register_custom_grouped_product_css') );
 ?>

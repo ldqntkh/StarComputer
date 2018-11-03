@@ -5,6 +5,7 @@
         <button type="button" class="save_custom_product_group"><?php echo __( 'Thêm sản phẩm', 'woocommerce' ); ?></button>
     </p>
     <div class="form-field list-product-wrapper">
+        <label class="list-product-wrapper__label"><?php echo __( 'Danh sách sản phẩm', 'woocommerce' ); ?></label>
         <table>
             <tr class="label">
                 <td><?php echo __( 'Tên sản phẩm', 'woocommerce' ); ?></td>
@@ -30,7 +31,7 @@
                 $listProductWrapper.find('tbody').append('<tr class="product" id="product-' + index + '"></tr>');
                 $('#product-' + index).append('<td>' + product.name + '</td>');
                 $('#product-' + index).append('<td>' + product.quantity + '</td>');
-                $('#product-' + index).append('<td class="remove" style="cursor:pointer;">Xóa</td>');
+                $('#product-' + index).append('<td class="remove">Xóa</td>');
             }
         }
         // append list product
