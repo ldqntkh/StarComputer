@@ -64,8 +64,13 @@ class WC_Meta_box_grouped_product {
 
     // register css
     function register_custom_grouped_product_css() {
-        wp_register_style( 'custom_grouped_product_css', plugins_url('woocommerce-grouped-product/assets/css/admin-custom-grouped-product.css', false, '1.0.0', __FILE__ ));
-        wp_enqueue_style( 'custom_grouped_product_css' );
+        wp_register_style( 'custom_grouped_product_style', plugins_url('woocommerce-grouped-product/assets/css/admin-custom-grouped-product.css', false, '1.0.0', __FILE__ ));
+        wp_enqueue_style( 'custom_grouped_product_style' );
+    }
+
+    function register_custom_grouped_product_script() {
+        wp_register_script( 'custom_grouped_product_script', plugins_url('woocommerce-grouped-product/assets/js/admin-custom-grouped-product.js'), '', '', true );
+        wp_enqueue_script( 'custom_grouped_product_script' );
     }
 }
 add_action( 'woocommerce_product_options_related' , array(new WC_Meta_box_grouped_product(), 'init') );
@@ -74,4 +79,5 @@ add_action( 'woocommerce_product_options_related', array(new WC_Meta_box_grouped
 remove_action( 'woocommerce_grouped_add_to_cart', 'woocommerce_grouped_add_to_cart', 30 );
 add_action( 'woocommerce_grouped_add_to_cart', array(new WC_Meta_box_grouped_product(), 'woocommerce_custom_grouped_add_to_cart'), 30 );
 add_action( 'admin_enqueue_scripts', array(new WC_Meta_box_grouped_product(), 'register_custom_grouped_product_css') );
+add_action( 'admin_enqueue_scripts', array(new WC_Meta_box_grouped_product(), 'register_custom_grouped_product_script') );
 ?>
