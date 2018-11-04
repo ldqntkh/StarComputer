@@ -29,9 +29,9 @@
         echo '</form></div>';
     }
 
-    add_action( 'admin_init', 'plugin_admin_init' );
+    add_action( 'admin_init', 'custom_preferences_init' );
 
-    function plugin_admin_init() {
+    function custom_preferences_init() {
         register_setting( 'custom_preferences_options', 'custom_preferences_options' );
         add_settings_section( 'facebook_main', 'Facebook Settings', 'facebook_section_title', 'custom_preferences' );
         add_settings_field( 'fb_appId', 'Facebook App ID', 'fb_app_id_section', 'custom_preferences', 'facebook_main' );
