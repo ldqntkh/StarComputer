@@ -11,7 +11,7 @@ var cartpage = {
             if (type === 'sub' && value > 1) value--;
             if (type === 'add' && value < $qty_product) value++;
             $qty_input.val(value);
-            $('.woocommerce-cart-form :input[name="update_cart"]').prop("disabled", 0)
+            $('.woocommerce-cart-form :input[name="update_cart"]').prop("disabled", 0);
         } else {
             $('.woocommerce-cart-form :input[name="update_cart"]').prop("disabled", 1);
         }
@@ -19,11 +19,11 @@ var cartpage = {
 
     init : function() {
         let that = this;
-        $('body').on('click', '.wares_qty_minus', function() {
+        $('.wares_qty_minus').off('click').on('click', function() {
             that.changeValueQuantity('sub', $(this));
         });
 
-        $('body').on('click', '.wares_qty_add', function() {
+        $('.wares_qty_add').off('click').on('click', function() {
             that.changeValueQuantity('add', $(this));
         });
 
