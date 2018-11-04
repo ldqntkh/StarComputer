@@ -87,6 +87,8 @@ $grouped_products = json_decode(str_replace("\\", "", $grouped_products_data));
 								}
 								
 								$value .= ob_get_clean();
+							} else {
+								$value .= "<div class='woocommerce-grouped-product-list-item__message'><p>" . __('Sản phẩm đã hết hàng') . "</p></div>";
 							}
 							break;
 						default:
