@@ -70,7 +70,7 @@
                                     <div class="action">
                                         <p class="input-group">
                                             <span>Số lượng : </span>
-                                            <input name="main_quantity" type="number" min="1" max="10" value="<?php echo $item->quantity; ?>" readonly=true><span> = <strong class="price"><?php echo wc_price($price * $item->quantity) ?></strong> </span>
+                                            <input name="main_quantity" type="number" min="1" max="10" value="<?php echo $item->quantity; ?>" readonly=true><span>= <strong class="price"><?php echo wc_price($price * $item->quantity) ?></strong> </span>
                                         </p>
                                     </div>
                                 </div>

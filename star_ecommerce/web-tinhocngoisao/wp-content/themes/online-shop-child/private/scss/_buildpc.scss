@@ -154,13 +154,19 @@
                                 input {
                                     margin: 0 4px;
                                     border-radius: 5px;
-                                    width: 100px;
+                                    width: 40px;
                                     text-align: center;
                                     border: 1px solid silver;
+                                    @media screen and (min-width: 768px) {
+                                        width: 100px;
+                                    }
                                 }
                                 strong.price {
                                     color: red;
                                     font-weight: bold;
+                                    span {
+                                        display: initial;
+                                    }
                                 }
                             }
                             div.buttons {
