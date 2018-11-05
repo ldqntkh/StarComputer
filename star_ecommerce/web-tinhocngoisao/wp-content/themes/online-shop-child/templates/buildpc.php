@@ -183,6 +183,9 @@
         <?php if($edit_building_data !== null) : ?>
          var edit_building_data = <?php echo json_encode($edit_building_data); ?>;
         <?php endif; ?>
+        <?php if ( !empty( get_option( 'custom_preferences_options' )['fb_appId'] ) ) : ?>
+            var facebookAppId = <?php echo get_option( 'custom_preferences_options' )['fb_appId']; ?>;
+        <?php endif; ?>
     </script>
     <div class="wrapper">
         <div id="build-pc-function"></div>
