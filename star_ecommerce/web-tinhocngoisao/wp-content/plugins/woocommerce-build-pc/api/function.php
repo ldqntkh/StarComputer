@@ -134,7 +134,7 @@ function insert_multiple_products_to_cart(WP_REST_Request $request) {
                 continue;
             }
         
-            $add_to_cart_handler = apply_filters( 'woocommerce_add_to_cart_handler', $adding_to_cart->product_type, $adding_to_cart );
+            $add_to_cart_handler = apply_filters( 'woocommerce_add_to_cart_handler', $adding_to_cart->get_type(), $adding_to_cart );
         
             /*
             * Sorry.. if you want non-simple products, you're on your own.
@@ -146,16 +146,24 @@ function insert_multiple_products_to_cart(WP_REST_Request $request) {
             *
             * Why you gotta be like that WooCommerce?
             */
-            if ( 'simple' !== $add_to_cart_handler ) {
-                continue;
-            }
-        
+            // if ( 'simple' !== $add_to_cart_handler ) {
+            //     continue;
+            // }
+
             // For now, quantity applies to all products.. This could be changed easily enough, but I didn't need this feature.
             $quantity          = apply_filters( 'woocommerce_stock_amount', $_quantity );
             $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );
 
-            if ( $passed_validation && false !== WC()->cart->add_to_cart( $product_id, $quantity ) ) {
-                wc_add_to_cart_message( array( $product_id => $quantity ), true );
+            if ( $passed_validation ) {
+                if ( 'variable' === $add_to_cart_handler || 'variation' === $add_to_cart_handler ) {
+                    if ( $adding_to_cart->is_type( 'variation' ) ) {
+                        $variation_id   = $product_id;
+                        $product_id     = $adding_to_cart->get_parent_id();
+                    }
+                    $was_added_to_cart = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $adding_to_cart->get_variation_attributes() );
+                } else {
+                   $was_added_to_cart =  WC()->cart->add_to_cart( $product_id, $quantity );
+                }
             }
         }
     } catch(Exception $e) {
