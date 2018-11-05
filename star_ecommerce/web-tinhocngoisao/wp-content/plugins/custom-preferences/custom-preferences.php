@@ -33,8 +33,9 @@
 
     function custom_preferences_init() {
         register_setting( 'custom_preferences_options', 'custom_preferences_options' );
-        add_settings_section( 'facebook_main', 'Facebook Settings', 'facebook_section_title', 'custom_preferences' );
-        add_settings_field( 'fb_appId', 'Facebook App ID', 'fb_app_id_section', 'custom_preferences', 'facebook_main' );
+        add_settings_section( 'configuration_main', 'Configuration Settings', 'configuration_section_title', 'custom_preferences' );
+        add_settings_field( 'fb_appId', 'Facebook App ID', 'fb_app_id_section', 'custom_preferences', 'configuration_main' );
+        add_settings_field( 'render_chatbox', 'Render Chat Box By Script', 'render_chatbox_section', 'custom_preferences', 'configuration_main' );
     }
 
     function fb_app_id_section() {
@@ -42,7 +43,12 @@
         echo "<input type='text' id='fb_app_id' name='custom_preferences_options[fb_appId]' size='40' value='{$facebookAppID}' />";
     }
 
-    function facebook_section_title() {
-        echo '<p>These configuration is used for facebook app.</p>';
+    function render_chatbox_section() {
+        $renderChatbox = get_option( 'custom_preferences_options' )['render_chatbox'];
+        echo "<textarea name='custom_preferences_options[render_chatbox]' cols='60' rows='10'>{$renderChatbox}</textarea>";
+    }
+
+    function configuration_section_title() {
+        echo '<p>These configuration is used in storefront.</p>';
     }
 ?>
