@@ -99,11 +99,83 @@ function get_products_by_custom_type(WP_REST_Request $request) {
         );
     }
 }
+
+// insert multiple products to cart
+/**
+ * ex: wp-json/rest_api/v1/insert_multiple_products_to_cart?product_data_add_to_cart=<product_id>_<quantity>,<product_id>_<quantity>....
+ */
+// có lỗi khi nó là product variation
+function insert_multiple_products_to_cart(WP_REST_Request $request) {
+    try {
+        $product_data_add_to_cart = explode( ',', $_REQUEST['product_data_add_to_cart'] );
+        $count       = count( $product_data_add_to_cart );
+        $number      = 0;
+        
+        foreach ( $product_data_add_to_cart as $product_data ) {
+
+            // control product quantity
+            $data = explode('_', $product_data);
+            $product_id = $data[0];
+            $_quantity = count($data) === 2 ? $data[1] : 1;
+            
+            if ( ++$number === $count ) {
+                // Ok, final item, let's send it back to woocommerce's add_to_cart_action method for handling.
+                return array(
+                    "success" => true,
+                    "erMsg" => ""
+                );
+            }
+        
+            $product_id        = apply_filters( 'woocommerce_add_to_cart_product_id', absint( $product_id ) );
+            $was_added_to_cart = false;
+            $adding_to_cart    = wc_get_product( $product_id );
+        
+            if ( ! $adding_to_cart ) {
+                continue;
+            }
+        
+            $add_to_cart_handler = apply_filters( 'woocommerce_add_to_cart_handler', $adding_to_cart->product_type, $adding_to_cart );
+        
+            /*
+            * Sorry.. if you want non-simple products, you're on your own.
+            *
+            * Related: WooCommerce has set the following methods as private:
+            * WC_Form_Handler::add_to_cart_handler_variable(),
+            * WC_Form_Handler::add_to_cart_handler_grouped(),
+            * WC_Form_Handler::add_to_cart_handler_simple()
+            *
+            * Why you gotta be like that WooCommerce?
+            */
+            if ( 'simple' !== $add_to_cart_handler ) {
+                continue;
+            }
+        
+            // For now, quantity applies to all products.. This could be changed easily enough, but I didn't need this feature.
+            $quantity          = apply_filters( 'woocommerce_stock_amount', $_quantity );
+            $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );
+
+            if ( $passed_validation && false !== WC()->cart->add_to_cart( $product_id, $quantity ) ) {
+                wc_add_to_cart_message( array( $product_id => $quantity ), true );
+            }
+        }
+    } catch(Exception $e) {
+        return array(
+            "success" => false,
+            "erMsg" => $e
+        );
+    }
+}
+
 // register api get_products_primetime_price
 add_action( 'rest_api_init', function () {
     register_rest_route( 'rest_api/v1', '/get_products_by_custom_type', array(
         'methods' => 'GET',
         'callback' => 'get_products_by_custom_type',
+    ) );
+
+    register_rest_route( 'rest_api/v1', '/insert_multiple_products_to_cart', array(
+        'methods' => 'GET',
+        'callback' => 'insert_multiple_products_to_cart',
     ) );
 } );
 

@@ -54,7 +54,7 @@ class ListAttributeComponent extends Component {
         let arrAttributes = {};
         for(let index in product_data) {
             let attributes = product_data[index]['attributes'];
-            if (regex !== null && !regex.test(JSON.stringify(attributes).toLowerCase())) {
+            if (regex !== null && attributes && !regex.test(JSON.stringify(attributes).toLowerCase())) {
                 delete product_data[index];
                 continue;
             }
