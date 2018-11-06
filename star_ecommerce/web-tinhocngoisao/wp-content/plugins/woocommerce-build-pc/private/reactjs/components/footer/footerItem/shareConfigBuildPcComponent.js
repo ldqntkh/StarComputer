@@ -34,10 +34,10 @@ export default class ShareConfigBuildPcComponent extends Component {
                 }
                 
                 let link = HOST_URL + 'share-buildpc?building_data=' + btoa(escape(JSON.stringify(result_building_data)));
-
+                let fbAppId = window.facebookAppId !== undefined ? window.facebookAppId : '';
                 //let openLink = `https://www.facebook.com/sharer.php?s=100&amp;p%5Btitle%5D=${encodeURI("Chia sẻ cấu hình")}&amp;p%5Burl%5D=${link}`;
                 var url = 'https://www.facebook.com/dialog/feed?' +
-                            'app_id=350121975741363' +
+                            'app_id=' + fbAppId +
                             '&display=popup'+
                             '&name='+encodeURIComponent('Chia sẻ cấu hình máy tính')+
                             '&link='+encodeURIComponent(link)+
