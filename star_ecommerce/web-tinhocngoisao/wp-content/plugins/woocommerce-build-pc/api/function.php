@@ -60,35 +60,32 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                     'average_rating' => $product->average_rating,
                     'review_count' => $product->review_count
                 );
-                
-                $attributes = $product->get_attributes();
-                if (count($attributes)) {
-                    $arrPt['attributes'] = [];
-                    foreach($attributes as $attribute) {
-                        $get_terms_args = array( 'hide_empty' => '1' );
-                        $terms = get_terms( $attribute['name'], $get_terms_args );
-                        
-                        $index = 0;
-                        foreach($terms as $term) {
-                            $options = $attribute->get_options();
-                            $options = ! empty( $options ) ? $options : array();
-                            if (wc_selected( $term->term_id, $options ) === "") {
-                                unset($terms[$index]);
-                                //var_dump($terms);
-                            }
-                            $index++;
-                        }
-                        if (count($terms)) {
-                            $arrAttr = array(
-                                "name" => $attribute['name'],
-                                "values" => $terms
+
+                $arrPt['attributes'] = get_product_attributes( $product );
+                $arrPt['manage_stock'] = true;
+                $arrPt['stock_quantity'] = $product->stock_quantity;
+                if ($product->get_type() === 'variable') {
+                    $productsChildId = $product->get_visible_children();
+                    if ( count( $productsChildId ) > 0 ) {
+                        $arrPt['product_childs'] = [];
+                        foreach( $productsChildId as $productChildId ) {
+                            $productChild = wc_get_product( $productChildId );
+                            $arrPtChild = array(
+                                'id' => $productChild->get_id(),
+                                'name' => $productChild->name,
+                                'link' => get_permalink( $productChild->get_id()),
+                                'regular_price' => $productChild->get_regular_price(),
+                                'sale_price' => $productChild->get_sale_price(),
+                                'image' => wp_get_attachment_image_src( $productChild->image_id, 'medium', true )[0],
+                                'average_rating' => $productChild->average_rating,
+                                'review_count' => $productChild->review_count,
+                                'stock_quantity' =>  $productChild->stock_quantity,
+                                'attributes' => get_product_child_attribute_name( $productChildId, array_keys( $productChild->get_attributes() )[0] )
                             );
-                            array_push($arrPt['attributes'], $arrAttr);
+                            array_push( $arrPt['product_childs'], $arrPtChild );
                         }
                     }
                 }
-                $arrPt['manage_stock'] = true;
-                $arrPt['stock_quantity'] = $product->stock_quantity;
                 array_push($arrProducts, $arrPt);
             }
         endwhile;
@@ -100,6 +97,41 @@ function get_products_by_custom_type(WP_REST_Request $request) {
     }
 }
 
+function get_product_child_attribute_name( $productId, $attributeName ) {
+    $meta = get_post_meta($productId, 'attribute_'. $attributeName, true);
+    $term = get_term_by('slug', $meta, $attributeName);
+    return $term;
+}
+
+function get_product_attributes( $product ) {
+    $product_attributes = $product->get_attributes();
+    $attributes = [];
+
+    if (count($product_attributes)) {
+        foreach($product_attributes as $product_attribute) {
+            $get_terms_args = array( 'hide_empty' => '1' );
+            $terms = get_terms( $product_attribute['name'], $get_terms_args );
+            $index = 0;
+
+            foreach($terms as $term) {
+                $options = $product_attribute->get_options();
+                $options = ! empty( $options ) ? $options : array();
+                if (wc_selected( $term->term_id, $options ) === "") {
+                    unset($terms[$index]);
+                }
+                $index++;
+            }
+            if (count($terms)) {
+                $arrAttr = array(
+                    "name" => $product_attribute['name'],
+                    "values" => $terms
+                );
+                array_push( $attributes, $arrAttr);
+            }
+        }
+    }
+    return $attributes;
+}
 // insert multiple products to cart
 /**
  * ex: wp-json/rest_api/v1/insert_multiple_products_to_cart?product_data_add_to_cart=<product_id>_<quantity>,<product_id>_<quantity>....
@@ -110,22 +142,12 @@ function insert_multiple_products_to_cart(WP_REST_Request $request) {
         $product_data_add_to_cart = explode( ',', $_REQUEST['product_data_add_to_cart'] );
         $count       = count( $product_data_add_to_cart );
         $number      = 0;
-        
         foreach ( $product_data_add_to_cart as $product_data ) {
 
             // control product quantity
             $data = explode('_', $product_data);
             $product_id = $data[0];
             $_quantity = count($data) === 2 ? $data[1] : 1;
-            
-            if ( ++$number === $count ) {
-                // Ok, final item, let's send it back to woocommerce's add_to_cart_action method for handling.
-                return array(
-                    "success" => true,
-                    "erMsg" => ""
-                );
-            }
-        
             $product_id        = apply_filters( 'woocommerce_add_to_cart_product_id', absint( $product_id ) );
             $was_added_to_cart = false;
             $adding_to_cart    = wc_get_product( $product_id );
@@ -156,6 +178,14 @@ function insert_multiple_products_to_cart(WP_REST_Request $request) {
 
             if ( $passed_validation && false !== WC()->cart->add_to_cart( $product_id, $quantity ) ) {
                 wc_add_to_cart_message( array( $product_id => $quantity ), true );
+            }
+
+            if ( ++$number === $count ) {
+                // Ok, final item, let's send it back to woocommerce's add_to_cart_action method for handling.
+                return array(
+                    "success" => true,
+                    "erMsg" => ""
+                );
             }
         }
     } catch(Exception $e) {
