@@ -168,9 +168,6 @@ function insert_multiple_products_to_cart(WP_REST_Request $request) {
             *
             * Why you gotta be like that WooCommerce?
             */
-            // if ( 'simple' !== $add_to_cart_handler ) {
-            //     continue;
-            // }
 
             // For now, quantity applies to all products.. This could be changed easily enough, but I didn't need this feature.
             $quantity          = apply_filters( 'woocommerce_stock_amount', $_quantity );
@@ -182,17 +179,27 @@ function insert_multiple_products_to_cart(WP_REST_Request $request) {
                         $variation_id   = $product_id;
                         $product_id     = $adding_to_cart->get_parent_id();
                     }
+
+                    if ( $adding_to_cart->is_type( 'variable' ) ) {
+                        $adding_to_cart = wc_get_product( $adding_to_cart->get_visible_children()[0] );
+                        $variation_id = $adding_to_cart->get_visible_children()[0];
+                    }
                     $was_added_to_cart = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $adding_to_cart->get_variation_attributes() );
                 } else {
                    $was_added_to_cart =  WC()->cart->add_to_cart( $product_id, $quantity );
                 }
             }
 
-            if ( ++$number === $count ) {
+            if ( ++$number === $count && $was_added_to_cart ) {
                 // Ok, final item, let's send it back to woocommerce's add_to_cart_action method for handling.
                 return array(
                     "success" => true,
                     "erMsg" => ""
+                );
+            } else {
+                return array(
+                    "success" => false,
+                    "erMsg" => "Can not add product to cart"
                 );
             }
         }
