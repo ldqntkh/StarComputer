@@ -50,6 +50,11 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                     $regular_price = $product->get_regular_price();
                     $sale_price = $product->get_sale_price();
                 }
+
+                if ( !$product->is_on_sale() ) {
+                    $sale_price = "0";
+                }
+
                 $arrPt = array(
                     'id' => $product->id,
                     'name' => $product->name,
@@ -140,8 +145,6 @@ function get_product_attributes( $product ) {
 function insert_multiple_products_to_cart(WP_REST_Request $request) {
     try {
         $product_data_add_to_cart = explode( ',', $_REQUEST['product_data_add_to_cart'] );
-        $count       = count( $product_data_add_to_cart );
-        $number      = 0;
         foreach ( $product_data_add_to_cart as $product_data ) {
 
             // control product quantity
@@ -174,35 +177,25 @@ function insert_multiple_products_to_cart(WP_REST_Request $request) {
             $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );
 
             if ( $passed_validation ) {
+                $was_added_to_cart = false;
                 if ( 'variable' === $add_to_cart_handler || 'variation' === $add_to_cart_handler ) {
                     if ( $adding_to_cart->is_type( 'variation' ) ) {
                         $variation_id   = $product_id;
                         $product_id     = $adding_to_cart->get_parent_id();
-                    }
-
-                    if ( $adding_to_cart->is_type( 'variable' ) ) {
+                    } else {
                         $adding_to_cart = wc_get_product( $adding_to_cart->get_visible_children()[0] );
-                        $variation_id = $adding_to_cart->get_visible_children()[0];
+                        $variation_id = $adding_to_cart->get_id();
                     }
                     $was_added_to_cart = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $adding_to_cart->get_variation_attributes() );
                 } else {
                    $was_added_to_cart =  WC()->cart->add_to_cart( $product_id, $quantity );
                 }
             }
-
-            if ( ++$number === $count && $was_added_to_cart ) {
-                // Ok, final item, let's send it back to woocommerce's add_to_cart_action method for handling.
-                return array(
-                    "success" => true,
-                    "erMsg" => ""
-                );
-            } else {
-                return array(
-                    "success" => false,
-                    "erMsg" => "Can not add product to cart"
-                );
-            }
         }
+        return array(
+            "success" => true,
+            "erMsg" => ""
+        );
     } catch(Exception $e) {
         return array(
             "success" => false,

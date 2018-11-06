@@ -32,6 +32,20 @@ class ProductDetailComponent extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (JSON.stringify(prevProps.product) !== JSON.stringify(this.props.product) ) {
+            this.setState({
+                productId: null,
+                image: null,
+                link: null,
+                name: null,
+                average_rating: null,
+                price: null,
+                slug: null
+            });
+        }
+    }
+
     SetValueComputerProductByType = ()=> {
         let {
             product,
@@ -86,9 +100,6 @@ class ProductDetailComponent extends Component {
     renderAttributeSelectBox = (productsChild) => {
         let showArr = [];
         let defaultValue = null;
-        let spanStyle = {
-            backgroundColor: 'red'
-        };
 
         for ( let index in productsChild) {
             if (defaultValue === null) {
@@ -97,7 +108,6 @@ class ProductDetailComponent extends Component {
             showArr.push(<option key={index} value={productsChild[index].attributes.slug}>{productsChild[index].attributes.name}</option>);
         }
         return <select className="variation-option" onChange={this.handleChangeAttribute}>
-            <span style={spanStyle}></span>
             {showArr}
         </select>
     }

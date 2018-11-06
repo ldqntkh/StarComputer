@@ -417,7 +417,7 @@
                     height: 100%;
                     .modal-product-detail {
                         min-height: 130px;
-                        height: 130px;
+                        height: auto;
                         width: 100%;
                         border-bottom: 1px solid silver;
                         display: flex;
@@ -498,10 +498,24 @@
                                 right: 0;
                                 bottom: 5px;
                             }
+
+                            .variation-option {
+                                border-radius: 4px;
+                                padding: 3px;
+                                margin-top: 3px;
+                            }
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+.ReactModalPortal {
+    .ReactModal__Overlay {
+        &.ReactModal__Overlay--after-open {
+            z-index: 101;
         }
     }
 }

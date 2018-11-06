@@ -48,7 +48,7 @@ export default class AddConfigBuildPcToCartComponent extends Component {
                     let response = await fetch(link);
                     let jsonResponse = await response.json();
                     if (jsonResponse.success) {
-                        alert("Toàn bộ sản phẩm đã được thêm vào giỏ hàng.");
+                        window.location.reload();
                     } else {
                         alert(jsonResponse.errMsg);
                     }

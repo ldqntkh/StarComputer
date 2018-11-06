@@ -8,6 +8,10 @@ header#masthead {
 
 .header-wrapper {
     padding: 0;
+
+    #site-navigation {
+        z-index: 100;
+    }
 }
 
 .top-header-wrapper {
