@@ -17,30 +17,49 @@ var mobile_menu = {
         });
     },
 
+    toggleMainMenu: function(that) {
+        $('div.pr-menu').toggle();
+        $('div.panel-menu').animate({width: 'toggle'});
+        
+        if ($(that).attr('class') === 'panel-background') {
+            $('.fixed-product-detail').show();
+        } else {
+            $('.fixed-product-detail').hide();
+        }
+    },
+
     init : function() {
+        let that = this;
         $('.menu-lv2').hide();
         $('div.pr-menu').hide();
         $('div.panel-menu').hide();
-        $('body').on('click', '.slicknav_arrow', function() {
+        $('.slicknav_arrow').on('click', function() {
             var id  = $(this).eq(0).attr('id');
             if (id !== 'undefined') {
                 $('li#' + id + '>ul').toggle(300);
             }
         });
 
-        $('body').on('click', '#toggle-menu, .panel-background', function() {
-            $('div.pr-menu').toggle();
-            $('div.panel-menu').animate({width: 'toggle'});
+        // $('body').on('click', '#toggle-menu, .panel-background', function() {
+        //     $('div.pr-menu').toggle();
+        //     $('div.panel-menu').animate({width: 'toggle'});
             
-            if ($(this).attr('class') === 'panel-background') {
-                $('.fixed-product-detail').show();
-            } else {
-                $('.fixed-product-detail').hide();
-            }
+        //     if ($(this).attr('class') === 'panel-background') {
+        //         $('.fixed-product-detail').show();
+        //     } else {
+        //         $('.fixed-product-detail').hide();
+        //     }
+        // });
+        // fix code not work in safari mobile
+        $('#toggle-menu').on('click', function() {
+            that.toggleMainMenu(this);
+        });
+        $('.panel-background').on('click', function() {
+            that.toggleMainMenu(this);
         });
         
-        this.initSidebarMobile();
-        this.closeSidebarMobile();
+        that.initSidebarMobile();
+        that.closeSidebarMobile();
     }
 }
 

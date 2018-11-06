@@ -8,10 +8,9 @@
     $attributes = wc_get_attribute_taxonomies();
 ?>
     <div class="category-attributes">
-    <div class="wrapper clearfix">
+    <div class="wrapper clearfix list-filters">
     <?php 
         if (!empty($attributes)) {
-            $filter_html = '';
             require_once online_shop_file_directory('acmethemes/filter/attribute/filter-attr.php');
             $_FilterWidget = null;
             
