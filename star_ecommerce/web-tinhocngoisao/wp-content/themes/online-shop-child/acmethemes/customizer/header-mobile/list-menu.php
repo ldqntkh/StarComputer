@@ -61,7 +61,7 @@
                 </li>
                 <li>
                     <i class="fa fa-building"></i>
-                    <a href="<?php echo wc_get_page_permalink( 'my-account' ); ?>">Hệ thống showroom</a>
+                    <a href="<?php echo home_url( '/show-rooms/' ); ?>">Hệ thống showroom</a>
                 </li>
             </ul>
 
@@ -86,56 +86,6 @@
             endif;
             echo '</ul>';
         ?> -->
-        <!-- <?php
-            $taxonomy     = 'product_cat';
-            $orderby      = 'name';  
-            $show_count   = 0;      // 1 for yes, 0 for no
-            $pad_counts   = 0;      // 1 for yes, 0 for no
-            $hierarchical = 1;      // 1 for yes, 0 for no  
-            $title        = '';  
-            $empty        = 0;
-
-            $args = array(
-                'taxonomy'     => $taxonomy,
-                'orderby'      => $orderby,
-                'show_count'   => $show_count,
-                'pad_counts'   => $pad_counts,
-                'hierarchical' => $hierarchical,
-                'title_li'     => $title,
-                'hide_empty'   => $empty
-            );
-            $all_categories = get_categories( $args );
-            echo '<ul class="menu-lv1">';
-            foreach ($all_categories as $cat) {
-                if($cat->category_parent == 0) {
-                    $category_id = $cat->term_id;       
-                    echo '<li id="li_'. $category_id .'"><a href="'. get_term_link($cat->slug, 'product_cat') .'">'. $cat->name .'</a>';
-
-                    $args2 = array(
-                            'taxonomy'     => $taxonomy,
-                            'child_of'     => 0,
-                            'parent'       => $category_id,
-                            'orderby'      => $orderby,
-                            'show_count'   => $show_count,
-                            'pad_counts'   => $pad_counts,
-                            'hierarchical' => $hierarchical,
-                            'title_li'     => $title,
-                            'hide_empty'   => $empty
-                    );
-                    $sub_cats = get_categories( $args2 );
-                    if($sub_cats) {
-                        echo '<span class="slicknav_arrow" id="li_'. $category_id .'">+</span>';
-                        echo '<ul class="menu-lv2">';
-                        foreach($sub_cats as $sub_category) {
-                            echo '<li><a href="'. get_term_link($sub_category->slug, 'product_cat') .'">'. $sub_category->name .'</a>';
-                        }
-                        echo '</ul>';
-                    }
-                    echo '</li>';
-                }       
-            }
-            echo '</ul>';
-            ?> -->
         </div>
         <div class="footer">
             <span>
