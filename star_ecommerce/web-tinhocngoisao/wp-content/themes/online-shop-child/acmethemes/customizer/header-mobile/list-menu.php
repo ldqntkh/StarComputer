@@ -14,7 +14,58 @@
         </div>
         
         <div class="body-list-menu-items">
-        <?php 
+            <ul class="menu-lv1 session-1">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="<?php echo home_url(); ?>">Trang chủ</a>
+                </li>
+                <li>
+                    <i class="fa fa-bars"></i>
+                    <a href="<?php echo home_url( '/danh-sach-mat-hang/' ); ?>">Danh sách mặt hàng</a>
+                </li>
+                <li>
+                    <i class="fa fa-user-circle-o"></i>
+                    <a href="<?php echo home_url( '/my-account/' ); ?>">Quản lý tài khoản</a>
+                </li>
+                <!-- <li>
+                    <i class="fa fa-bell"></i>
+                    <a href="<?php echo wc_get_page_permalink( 'home' ); ?>">Thông báo</a>
+                </li> -->
+            </ul>
+            <ul class="menu-lv1 session-1">
+                <li>
+                    <i class="fa fa-wrench"></i>
+                    <a href="<?php echo home_url('/build-pc/'); ?>">Xây dựng cấu hình</a>
+                </li>
+                <li>
+                    <i class="fa fa-eye"></i>
+                    <a href="<?php echo wc_get_page_permalink( 'home' ); ?>">Sản phẩm đã xem</a>
+                </li>
+                <li>
+                    <i class="fa fa-shopping-cart"></i>
+                    <a href="<?php echo home_url('/cart/'); ?>">Giỏ hàng</a>
+                </li>
+                <li>
+                    <i class="fa fa-truck"></i>
+                    <a href="<?php echo home_url('/my-account/orders/'); ?>">Kiểm tra đơn hàng</a>
+                </li>
+            </ul>
+            <ul class="menu-lv1 session-1">
+                <li>
+                    <i class="fa fa-weixin"></i>
+                    <a href="<?php echo wc_get_page_permalink( 'home' ); ?>">Tư vấn mua hàng</a>
+                </li>
+                <li>
+                    <i class="fa fa-phone"></i>
+                    <a href="<?php echo wc_get_page_permalink( 'home' ); ?>">Hot line</a>
+                </li>
+                <li>
+                    <i class="fa fa-building"></i>
+                    <a href="<?php echo wc_get_page_permalink( 'my-account' ); ?>">Hệ thống showroom</a>
+                </li>
+            </ul>
+
+        <!-- <?php 
             // render my account
             $user = wp_get_current_user();
             echo '<ul class="menu-lv1">';
@@ -34,8 +85,8 @@
                 echo '<li class="login-account"><a href="'. wc_get_page_permalink( 'myaccount' ). '"> <strong>Đăng nhập</strong> <br/>Để nhận nhiều ưu đãi từ chúng tôi</a></li>';
             endif;
             echo '</ul>';
-        ?>
-        <?php
+        ?> -->
+        <!-- <?php
             $taxonomy     = 'product_cat';
             $orderby      = 'name';  
             $show_count   = 0;      // 1 for yes, 0 for no
@@ -84,10 +135,14 @@
                 }       
             }
             echo '</ul>';
-            ?>
+            ?> -->
         </div>
         <div class="footer">
-            
+            <span>
+                <?php if( isset( $online_shop_customizer_all_values['online-shop-footer-copyright'] ) ): ?>
+                    <?php echo wp_kses_post( $online_shop_customizer_all_values['online-shop-footer-copyright'] ); ?>
+                <?php endif; ?>
+            </span>
         </div>
     </div>
 </div>

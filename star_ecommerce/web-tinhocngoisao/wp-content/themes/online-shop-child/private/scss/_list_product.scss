@@ -77,10 +77,16 @@ ul.custom-plp-page.products[class*=columns-] li.product {
             span.price {
                 font-size: 14px !important;
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
+                span.amount {
+                    margin: 0 3px;
+                }
                 ins {
                     text-align: left;
                     font-weight: normal;
+                }
+                del {
+                    margin-left: 5px;
                 }
             }
         }
@@ -120,22 +126,18 @@ ul.custom-plp-page.products[class*=columns-] li.product {
     ul.custom-plp-page.products[class*=columns-] {
         display: flex;
         flex-wrap: wrap;
-        @media screen and (min-width: 1200px) {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
         li {
-            width: 49.9%;
+            width: 49.8%;
             //background: #f3f3f3;
             padding: 1px;
             border: 1px solid #f3f3f3;
             margin: 0 0 10px;
+            overflow: hidden;
             @media screen and (min-width: 768px) {
                 width: 33.33%;
             }
             @media screen and (min-width: 992px) {
-                width: 25%;
+                width: 24.9%;
             }
             @media screen and (min-width: 1400px) {
                 width: 20%;

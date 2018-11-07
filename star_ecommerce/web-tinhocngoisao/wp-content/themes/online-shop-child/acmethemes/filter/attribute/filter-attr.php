@@ -27,41 +27,35 @@ class WC_Widget_Layered_Custom extends WC_Widget {
 	 * @param object $attribute.
 	 */
 	public function renderFilter( $attribute ) {
-        
 		if ( ! is_shop() && ! is_product_taxonomy() ) {
-			// render empty filter
-			echo '<div class="product-filter-attri"><h5 class="filter-title">&nbsp;</h5></div>';
+			//echo '<div class="product-filter-attri"><h5 class="filter-title">&nbsp;</h5></div>';
 			return;
 		}
-        
+		
 		$_chosen_attributes = WC_Query::get_layered_nav_chosen_attributes();
 		$taxonomy           = 'pa_' . $attribute->attribute_name;
         $query_type         = 'or';
         
 		if ( ! taxonomy_exists( $taxonomy ) ) {
-			// render empty filter
-			echo '<div class="product-filter-attri"><h5 class="filter-title">&nbsp;</h5></div>';
+			//echo '<div class="product-filter-attri"><h5 class="filter-title">&nbsp;</h5></div>';
 			return;
 		}
 
 		$get_terms_args = array( 'hide_empty' => '1' );
 
-        $terms = get_terms( $taxonomy, $get_terms_args );
-        
+		$terms = get_terms( $taxonomy, $get_terms_args );
+		
 		if ( 0 === count( $terms ) ) {
-			// render empty filter
-			echo '<div class="product-filter-attri"><h5 class="filter-title">&nbsp;</h5></div>';
+			//echo '<div class="product-filter-attri"><h5 class="filter-title">&nbsp;</h5></div>';
 			return;
 		}
 
 		ob_start();
-
 		$this->widget_start( $args, $instance );
 
 		$found = $this->layered_nav_list( $terms, $taxonomy, $query_type , $attribute);
-
 		$this->widget_end( $args );
-
+		
 		// Force found when option is selected - do not force found on taxonomy attributes.
 		if ( ! is_tax() && is_array( $_chosen_attributes ) && array_key_exists( $taxonomy, $_chosen_attributes ) ) {
 			$found = true;
