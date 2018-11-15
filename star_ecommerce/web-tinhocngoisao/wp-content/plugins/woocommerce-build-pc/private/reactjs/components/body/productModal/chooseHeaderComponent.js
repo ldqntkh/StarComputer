@@ -10,6 +10,10 @@ class ChooseHeaderComponent extends Component {
         this.props.SetValueProductSearchKey(e.target.value);
     }
 
+    toggleFilter = ()=> {
+        this.props.ToogleFilterProduct();
+    }
+
     render() {
         let product_search_key = this.props.action_data.product_search_key;
         return (
@@ -20,6 +24,7 @@ class ChooseHeaderComponent extends Component {
                         value={product_search_key === null ? "" : product_search_key}
                         onChange={this._handleChange}
                     />
+                    <i className="fa fa-bars" onClick={this.toggleFilter}/>
                 </div>
             </React.Fragment>
         );
@@ -30,7 +35,8 @@ class ChooseHeaderComponent extends Component {
 import { connect } from 'react-redux';
 
 import {
-    SetValueProductSearchKey
+    SetValueProductSearchKey,
+    ToogleFilterProduct
 } from '../../../action/actionFunction';
 
 const mapStateToProps = state => ({
@@ -38,7 +44,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    SetValueProductSearchKey : product_search_key => dispatch(SetValueProductSearchKey(product_search_key))
+    SetValueProductSearchKey : product_search_key => dispatch(SetValueProductSearchKey(product_search_key)),
+    ToogleFilterProduct : () => dispatch(ToogleFilterProduct())
 });
 
 export default connect(

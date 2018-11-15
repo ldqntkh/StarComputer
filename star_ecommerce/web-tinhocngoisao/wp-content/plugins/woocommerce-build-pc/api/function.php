@@ -50,6 +50,11 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                     $regular_price = $product->get_regular_price();
                     $sale_price = $product->get_sale_price();
                 }
+
+                if ( !$product->is_on_sale() ) {
+                    $sale_price = "0";
+                }
+
                 $arrPt = array(
                     'id' => $product->id,
                     'name' => $product->name,
@@ -60,35 +65,32 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                     'average_rating' => $product->average_rating,
                     'review_count' => $product->review_count
                 );
-                
-                $attributes = $product->get_attributes();
-                if (count($attributes)) {
-                    $arrPt['attributes'] = [];
-                    foreach($attributes as $attribute) {
-                        $get_terms_args = array( 'hide_empty' => '1' );
-                        $terms = get_terms( $attribute['name'], $get_terms_args );
-                        
-                        $index = 0;
-                        foreach($terms as $term) {
-                            $options = $attribute->get_options();
-                            $options = ! empty( $options ) ? $options : array();
-                            if (wc_selected( $term->term_id, $options ) === "") {
-                                unset($terms[$index]);
-                                //var_dump($terms);
-                            }
-                            $index++;
-                        }
-                        if (count($terms)) {
-                            $arrAttr = array(
-                                "name" => $attribute['name'],
-                                "values" => $terms
+
+                $arrPt['attributes'] = get_product_attributes( $product );
+                $arrPt['manage_stock'] = true;
+                $arrPt['stock_quantity'] = $product->stock_quantity;
+                if ($product->get_type() === 'variable') {
+                    $productsChildId = $product->get_visible_children();
+                    if ( count( $productsChildId ) > 0 ) {
+                        $arrPt['product_childs'] = [];
+                        foreach( $productsChildId as $productChildId ) {
+                            $productChild = wc_get_product( $productChildId );
+                            $arrPtChild = array(
+                                'id' => $productChild->get_id(),
+                                'name' => $productChild->name,
+                                'link' => get_permalink( $productChild->get_id()),
+                                'regular_price' => $productChild->get_regular_price(),
+                                'sale_price' => $productChild->get_sale_price(),
+                                'image' => wp_get_attachment_image_src( $productChild->image_id, 'medium', true )[0],
+                                'average_rating' => $productChild->average_rating,
+                                'review_count' => $productChild->review_count,
+                                'stock_quantity' =>  $productChild->stock_quantity,
+                                'attributes' => get_product_child_attribute_name( $productChildId, array_keys( $productChild->get_attributes() )[0] )
                             );
-                            array_push($arrPt['attributes'], $arrAttr);
+                            array_push( $arrPt['product_childs'], $arrPtChild );
                         }
                     }
                 }
-                $arrPt['manage_stock'] = true;
-                $arrPt['stock_quantity'] = $product->stock_quantity;
                 array_push($arrProducts, $arrPt);
             }
         endwhile;
@@ -99,11 +101,119 @@ function get_products_by_custom_type(WP_REST_Request $request) {
         );
     }
 }
+
+function get_product_child_attribute_name( $productId, $attributeName ) {
+    $meta = get_post_meta($productId, 'attribute_'. $attributeName, true);
+    $term = get_term_by('slug', $meta, $attributeName);
+    return $term;
+}
+
+function get_product_attributes( $product ) {
+    $product_attributes = $product->get_attributes();
+    $attributes = [];
+
+    if (count($product_attributes)) {
+        foreach($product_attributes as $product_attribute) {
+            $get_terms_args = array( 'hide_empty' => '1' );
+            $terms = get_terms( $product_attribute['name'], $get_terms_args );
+            $index = 0;
+
+            foreach($terms as $term) {
+                $options = $product_attribute->get_options();
+                $options = ! empty( $options ) ? $options : array();
+                if (wc_selected( $term->term_id, $options ) === "") {
+                    unset($terms[$index]);
+                }
+                $index++;
+            }
+            if (count($terms)) {
+                $arrAttr = array(
+                    "name" => $product_attribute['name'],
+                    "values" => $terms
+                );
+                array_push( $attributes, $arrAttr);
+            }
+        }
+    }
+    return $attributes;
+}
+// insert multiple products to cart
+/**
+ * ex: wp-json/rest_api/v1/insert_multiple_products_to_cart?product_data_add_to_cart=<product_id>_<quantity>,<product_id>_<quantity>....
+ */
+// có lỗi khi nó là product variation
+function insert_multiple_products_to_cart(WP_REST_Request $request) {
+    try {
+        $product_data_add_to_cart = explode( ',', $_REQUEST['product_data_add_to_cart'] );
+        foreach ( $product_data_add_to_cart as $product_data ) {
+
+            // control product quantity
+            $data = explode('_', $product_data);
+            $product_id = $data[0];
+            $_quantity = count($data) === 2 ? $data[1] : 1;
+            $product_id        = apply_filters( 'woocommerce_add_to_cart_product_id', absint( $product_id ) );
+            $was_added_to_cart = false;
+            $adding_to_cart    = wc_get_product( $product_id );
+        
+            if ( ! $adding_to_cart ) {
+                continue;
+            }
+        
+            $add_to_cart_handler = apply_filters( 'woocommerce_add_to_cart_handler', $adding_to_cart->get_type(), $adding_to_cart );
+        
+            /*
+            * Sorry.. if you want non-simple products, you're on your own.
+            *
+            * Related: WooCommerce has set the following methods as private:
+            * WC_Form_Handler::add_to_cart_handler_variable(),
+            * WC_Form_Handler::add_to_cart_handler_grouped(),
+            * WC_Form_Handler::add_to_cart_handler_simple()
+            *
+            * Why you gotta be like that WooCommerce?
+            */
+
+            // For now, quantity applies to all products.. This could be changed easily enough, but I didn't need this feature.
+            $quantity          = apply_filters( 'woocommerce_stock_amount', $_quantity );
+            $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );
+
+            if ( $passed_validation ) {
+                $was_added_to_cart = false;
+                if ( 'variable' === $add_to_cart_handler || 'variation' === $add_to_cart_handler ) {
+                    if ( $adding_to_cart->is_type( 'variation' ) ) {
+                        $variation_id   = $product_id;
+                        $product_id     = $adding_to_cart->get_parent_id();
+                    } else {
+                        $adding_to_cart = wc_get_product( $adding_to_cart->get_visible_children()[0] );
+                        $variation_id = $adding_to_cart->get_id();
+                    }
+                    $was_added_to_cart = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $adding_to_cart->get_variation_attributes() );
+                } else {
+                   $was_added_to_cart =  WC()->cart->add_to_cart( $product_id, $quantity );
+                }
+            }
+        }
+        return array(
+            "success" => true,
+            "erMsg" => ""
+        );
+    } catch(Exception $e) {
+        return array(
+            "success" => false,
+            "erMsg" => $e
+        );
+    }
+}
+
 // register api get_products_primetime_price
 add_action( 'rest_api_init', function () {
     register_rest_route( 'rest_api/v1', '/get_products_by_custom_type', array(
         'methods' => 'GET',
         'callback' => 'get_products_by_custom_type',
+    ) );
+
+    register_rest_route( 'rest_api/v1', '/insert_multiple_products_to_cart', array(
+        'methods' => 'GET',
+        'callback' => 'insert_multiple_products_to_cart',
     ) );
 } );
 

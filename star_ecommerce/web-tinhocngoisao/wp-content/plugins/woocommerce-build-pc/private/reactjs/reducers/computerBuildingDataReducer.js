@@ -4,7 +4,8 @@ import {
     INIT_COMPUTER_BUILDING_DATA,
     SET_VALUE_COMPUTER_PRODUCT_BY_TYPE,
     SET_QUANTITY_COMPUTER_PRODUCT_BY_TYPE,
-    CLEAR_VALUE_COMPUTER_PRODUCT_BY_TYPE
+    CLEAR_VALUE_COMPUTER_PRODUCT_BY_TYPE,
+    RESET_VALUE_COMPUTER_PRODUCT
 } from '../action/actionType';
 
 /**
@@ -38,6 +39,13 @@ export const ComputerBuildingDataReducer = (computer_building_data = {}, action)
         case SET_QUANTITY_COMPUTER_PRODUCT_BY_TYPE:
             result = Object.assign({}, computer_building_data);
             result[action.data.type]["quantity"] = action.data.value;
+            return result;
+        case RESET_VALUE_COMPUTER_PRODUCT:
+            result = Object.assign({}, computer_building_data);
+            for(let index in result) {
+                result[index]["product"] = null;
+                result[index]["quantity"] = 1;
+            }
             return result;
         default :
             return computer_building_data;

@@ -173,7 +173,7 @@ class ListProductComponent extends Component {
                         this.renderPageCount(product_data)
                     }
                 </div>
-                <div className="list-produuct-data">
+                <div className="list-product-data">
                     {
                         this.renderListProduct(product_data)
                     }

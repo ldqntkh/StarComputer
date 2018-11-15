@@ -3,6 +3,7 @@ import {
     INIT_DATA_PRODUCT_TYPE,
 
     TOOGLE_MODAL_CHOOSE_PRODUCT,
+    TOOGLE_FILTER_PRODUCT,
     SET_VALUE_PRODUCT_TYPE,
     SET_VALUE_PRODUCT_SEARCH_KEY,
     SET_VALUE_PRODUCT_SEARCH_ATTRIBUTE,
@@ -13,7 +14,8 @@ import {
     INIT_COMPUTER_BUILDING_DATA,
     SET_VALUE_COMPUTER_PRODUCT_BY_TYPE,
     CLEAR_VALUE_COMPUTER_PRODUCT_BY_TYPE,
-    SET_QUANTITY_COMPUTER_PRODUCT_BY_TYPE
+    SET_QUANTITY_COMPUTER_PRODUCT_BY_TYPE,
+    RESET_VALUE_COMPUTER_PRODUCT
 } from './actionType';
 
 //---------------Product type function------------------
@@ -33,6 +35,11 @@ export const InitProductDataByType = product_data_by_type => ({
 export const ToogleModalChooseProduct = toogle_value => ({
     type : TOOGLE_MODAL_CHOOSE_PRODUCT,
     data : toogle_value
+});
+
+export const ToogleFilterProduct = () => ({
+    type : TOOGLE_FILTER_PRODUCT,
+    data : null
 });
 
 export const SetValueProductType = product_type => ({
@@ -76,3 +83,7 @@ export const SetQuantityOfComputerProduct = computer_product_data => ({
     type : SET_QUANTITY_COMPUTER_PRODUCT_BY_TYPE,
     data : computer_product_data
 });
+
+export const ResetValueBuildPC = () => ({
+    type: RESET_VALUE_COMPUTER_PRODUCT
+})

@@ -35,7 +35,7 @@ class ProductTypeItemComponent extends Component {
     checkProductTypeExists = (product_type)=> {
         let {computer_building_data} = this.props;
         
-        if (computer_building_data[product_type]['product'] !== null) 
+        if (computer_building_data[product_type] && computer_building_data[product_type]['product'] !== null) 
             return computer_building_data[product_type];
         
         return false;
@@ -48,7 +48,8 @@ class ProductTypeItemComponent extends Component {
             <React.Fragment>
             <div className="product-type-item">
                 <div className="left-content">
-                    {this.props.index} . {product_type.name}
+                    {this.props.index} . {product_type.name} 
+                    {product_type.require ? <span className="require">&nbsp;*</span> : null}
                 </div>
                 <div className="right-content">
                     {
