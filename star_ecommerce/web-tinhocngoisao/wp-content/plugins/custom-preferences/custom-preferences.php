@@ -36,6 +36,8 @@
         add_settings_section( 'configuration_main', 'Configuration Settings', 'configuration_section_title', 'custom_preferences' );
         add_settings_field( 'fb_appId', 'Facebook App ID', 'fb_app_id_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'render_chatbox', 'Render Chat Box By Script', 'render_chatbox_section', 'custom_preferences', 'configuration_main' );
+        add_settings_field( 'google_map_key', 'Google map key', 'google_map_key_section', 'custom_preferences', 'configuration_main' );
+        add_settings_field( 'list_address_store', 'Danh sách địa chỉ showroom', 'list_address_store_section', 'custom_preferences', 'configuration_main' );
     }
 
     function fb_app_id_section() {
@@ -46,6 +48,16 @@
     function render_chatbox_section() {
         $renderChatbox = get_option( 'custom_preferences_options' )['render_chatbox'];
         echo "<textarea name='custom_preferences_options[render_chatbox]' cols='60' rows='10'>{$renderChatbox}</textarea>";
+    }
+
+    function google_map_key_section() {
+        $google_map_key = get_option( 'custom_preferences_options' )['google_map_key'];
+        echo "<input type='text' id='google_map_key' name='custom_preferences_options[google_map_key]' size='40' value='{$google_map_key}' />";
+    }
+
+    function list_address_store_section() {
+        $list_address_store = get_option( 'custom_preferences_options' )['list_address_store'];
+        echo "<textarea name='custom_preferences_options[list_address_store]' cols='60' rows='10'>{$list_address_store}</textarea>";
     }
 
     function configuration_section_title() {

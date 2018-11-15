@@ -61,11 +61,13 @@
             .price {
                 color: #f73838;
                 display: flex;
-                flex-direction: column;
-
+                flex-direction: row;
+                span.amount {
+                    margin: 0 3px;
+                }
                 del {
                     color: #2d2d2d;
-                    margin-right: 15px;
+                    margin-right: 5px;
                 }
 
                 ins {

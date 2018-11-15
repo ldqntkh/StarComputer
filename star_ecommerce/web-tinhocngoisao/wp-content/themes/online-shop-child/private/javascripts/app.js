@@ -6,6 +6,7 @@ var mobile_menu = require('./menu_mobile');
 var productdetailpage = require('./pdp');
 var checkoutpage = require('./checkout');
 var custom_filter = require('./custom_filter');
+var showRooms = require('./showroom');
 
 $(document).ready(function() {
     header_menu.init();
@@ -15,4 +16,5 @@ $(document).ready(function() {
     productdetailpage.init();
     checkoutpage.init();
     custom_filter.init();
+    showRooms.init();
 })

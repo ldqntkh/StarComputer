@@ -16,3 +16,36 @@
         opacity: 0.5;
     }
 }
+.site-footer {
+    .footer-wrapper {
+        #footer-top {
+            padding-top: 0;
+            .footer-columns  {
+                border-bottom: 1px solid red;
+            }
+            .featured-entries-col {
+                text-align: left;
+                @media screen and (min-width: 768px) {
+                    text-align: center;
+                }
+            }
+        }
+        #footer-bottom {
+            .es_form_container {
+                .es_textbox {
+                    input {
+                        width: 100%;
+                    }
+                }
+                .es_button {
+                    input[type="submit"] {
+                        background-color: red;
+                        color: white;
+                        font-weight: bold;
+                        border-radius: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

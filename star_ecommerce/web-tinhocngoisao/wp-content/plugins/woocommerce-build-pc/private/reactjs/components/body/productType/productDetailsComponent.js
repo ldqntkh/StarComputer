@@ -42,7 +42,7 @@ class ProductDetailsComponent extends Component {
         let product_type = this.props.product_type;
         let product = product_data.product;
         let rating = null;
-        let price = product.sale_price !== "0" ? product.sale_price : product.regular_price;
+        let price = (product.sale_price !== "0" && product.sale_price !== "") ? product.sale_price : product.regular_price;
         if (product.average_rating !== "0") {
             rating = <div className="star-rating">
                         <span style={{width: (product.average_rating)/5 *100 + '%' }}>Rated <strong className="rating">{product.average_rating}</strong> out of 5</span>

@@ -72,6 +72,7 @@
                 justify-content: center;
                 align-items: center;
                 height: 150px;
+                background-color: #c0c0c03d;
                 a {
                     margin: 10px 25px;
                 }
@@ -85,7 +86,6 @@
                     }
                     li {
                         padding: 10px 5px 10px 15px;
-                        border-bottom: 1px solid rgba(192, 192, 192, 0.38);
                         span.slicknav_arrow {
                             float: right;
                             font-size: 25px;
@@ -114,9 +114,23 @@
                         }
                     }
                 }
+                ul.session-1 {
+                    border-bottom: 1px solid rgba(192, 192, 192, 0.38);
+                    margin-bottom: 5px;
+                    li {
+                        i.fa {
+                            font-size: 20px;
+                            margin-right: 10px;
+                            color: red;
+                        }
+                    }
+                }
             }
             .footer {
                 height: 50px;
+                background-color: #c0c0c03d;
+                text-align: center;
+                font-weight: 500;
             }
         }
     }

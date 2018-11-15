@@ -40,6 +40,12 @@
         }
     }
     .filters.refine-show-main {
+        .list-filters {
+            min-height: 0px;
+            @media screen and (min-width: 1024px) {
+                min-height: 45px;
+            }
+        }
         .category-attributes {
             border-top: 1px solid #c0c0c045;
             .product-filter-attri {
