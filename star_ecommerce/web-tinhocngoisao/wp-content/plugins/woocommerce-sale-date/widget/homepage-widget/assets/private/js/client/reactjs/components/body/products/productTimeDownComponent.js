@@ -5,6 +5,9 @@ export default class ProductTimeDownComponent extends Component {
     // component nhan tham so dau vao la blocktime
     constructor(props) {
         super(props);
+        this.state = {
+            displayTime: true
+        }
     }
 
     componentWillMount() {
@@ -23,6 +26,12 @@ export default class ProductTimeDownComponent extends Component {
         var currentTime = new Date();
         let block_time_data = this.props.sale_end_time - 1;
         let hours = block_time_data - currentTime.getHours();
+        if (hours < 0) {
+            this.setState({
+                displayTime: false
+            })
+        }
+
         let minutes = 59 - currentTime.getMinutes();
         let seconds = 59 - currentTime.getSeconds();
 
@@ -41,6 +50,10 @@ export default class ProductTimeDownComponent extends Component {
             var seconds = timeNow.seconds - 1,
             minutes = timeNow.minutes,
             hours = timeNow.hours;
+            if (hours < 0) {
+                clearInterval(this.interval);
+                return;
+            }
             if (seconds < 0) {
                 seconds = 59;
                 minutes = minutes - 1;
@@ -49,6 +62,7 @@ export default class ProductTimeDownComponent extends Component {
                     hours = hours - 1;
                     if (hours < 0) {
                         clearInterval(this.interval);
+                        hours = 0;
                     }
                 }
             }
@@ -67,14 +81,16 @@ export default class ProductTimeDownComponent extends Component {
         var timeNow = this.state.timeNow;
         if (timeNow == null) return null;
         return(
-            <div className="block-time-down">
-                <i className="fa fa-clock-o"></i>
-                <span className="hours">{ timeNow.hours >= 10 ? '' : '0' }{timeNow.hours}</span>
-                <span>:</span>
-                <span className="minutes">{ timeNow.minutes >= 10 ? '' : '0' }{timeNow.minutes}</span>
-                <span>:</span>
-                <span className="seconds">{ timeNow.seconds >= 10 ? '' : '0' }{timeNow.seconds}</span>
-            </div>
+            this.state.displayTime ?
+                <div className="block-time-down">
+                    <i className="fa fa-clock-o"></i>
+                    <span className="hours">{ timeNow.hours >= 10 ? '' : '0' }{timeNow.hours}</span>
+                    <span>:</span>
+                    <span className="minutes">{ timeNow.minutes >= 10 ? '' : '0' }{timeNow.minutes}</span>
+                    <span>:</span>
+                    <span className="seconds">{ timeNow.seconds >= 10 ? '' : '0' }{timeNow.seconds}</span>
+                </div>
+                : null
         );
     }
 }
