@@ -104,10 +104,10 @@ do_action( 'woocommerce_before_cart' ); ?>
 									echo '
 									<span class="price">
 										<ins>
-											<span class="woocommerce-Price-amount amount">' . wc_price( $regular_price ). '</span>
+											<span class="woocommerce-Price-amount amount">' . wc_price( $sale_price ). '</span>
 										</ins>
 										<del>
-											<span class="woocommerce-Price-amount amount">' . wc_price( $sale_price ). '</span>
+											<span class="woocommerce-Price-amount amount">' . wc_price( $regular_price ). '</span>
 										</del>
 									</span>';
 								} else {
