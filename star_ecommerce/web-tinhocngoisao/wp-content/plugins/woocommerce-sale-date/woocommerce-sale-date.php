@@ -58,9 +58,9 @@ function woocommerce_is_active() {
 	return class_exists( 'WooCommerce' ) ? true : false;
 }
 //if ( woocommerce_is_active() ) :
-    add_action( 'woocommerce_product_options_pricing' , array(new WC_Meta_box_sale_date(), 'init') );
+    // add_action( 'woocommerce_product_options_pricing' , array(new WC_Meta_box_sale_date(), 'init') );
     // save custom fields
-    add_action( 'woocommerce_process_product_meta' , array(new WC_Meta_box_sale_date(), 'save_custom_sale_date') );
+    // add_action( 'woocommerce_process_product_meta' , array(new WC_Meta_box_sale_date(), 'save_custom_sale_date') );
 
     // register widget
     include SALE_DATE_DIR . '/widget/homepage-widget/homepage.php';

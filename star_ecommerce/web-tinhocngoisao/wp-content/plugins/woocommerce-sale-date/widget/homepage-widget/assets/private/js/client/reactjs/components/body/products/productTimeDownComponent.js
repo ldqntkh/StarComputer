@@ -11,11 +11,13 @@ export default class ProductTimeDownComponent extends Component {
     }
 
     componentWillMount() {
-        this.setTimeDown();
+        if (this.props.sale_end_time !== null)
+            this.setTimeDown();
     }
 
     componentDidMount() {
-        this.interval  = setInterval(this.timerTick, 1000);
+        if (this.props.sale_end_time !== null)
+            this.interval  = setInterval(this.timerTick, 1000);
     }
 
     componentWillUnmount() {
@@ -23,9 +25,17 @@ export default class ProductTimeDownComponent extends Component {
     }
 
     setTimeDown = () => {
+        // sale_end_time is value with type is date
+        var end_time_day = new Date(this.props.sale_end_time).getDay();
+
         var currentTime = new Date();
-        let block_time_data = this.props.sale_end_time - 1;
-        let hours = block_time_data - currentTime.getHours();
+        var currentDay = currentTime.getDay();
+        var currentHour = currentTime.getHours();
+        
+        var day = end_time_day - currentDay;
+        var hours = 24 - currentHour;
+        if (day > 0) hours += 24 * day;
+    
         if (hours < 0) {
             this.setState({
                 displayTime: false
@@ -77,9 +87,17 @@ export default class ProductTimeDownComponent extends Component {
         }
     }
 
+    renderEmptyTime =()=> {
+        return <div className="block-time-down">
+                    <span >  </span>
+                    <span >  </span>
+                    <span >  </span>
+                </div>
+    }
+
     render() {
         var timeNow = this.state.timeNow;
-        if (timeNow == null) return null;
+        if (timeNow == null) return this.renderEmptyTime();
         return(
             this.state.displayTime ?
                 <div className="block-time-down">
@@ -90,7 +108,7 @@ export default class ProductTimeDownComponent extends Component {
                     <span>:</span>
                     <span className="seconds">{ timeNow.seconds >= 10 ? '' : '0' }{timeNow.seconds}</span>
                 </div>
-                : null
+                : this.renderEmptyTime()
         );
     }
 }
