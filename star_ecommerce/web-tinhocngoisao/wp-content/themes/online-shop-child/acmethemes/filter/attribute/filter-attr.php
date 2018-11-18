@@ -247,8 +247,8 @@ class WC_Widget_Layered_Custom extends WC_Widget {
                 $style = 'style=" background-color: ' . $term->slug . ' ;"';
             }
             echo '<li >';
-            echo '<a href="' . $link . '" ' .$style. '></a>';
-            echo '<h3>' . $term->name . '<span>(' . $count . ')</span></h3>';
+            echo '<a href="' . $link . '" ' .$style. '>';
+            echo '<h6>' . $term->name . '<span>(' . $count . ')</span></h6></a>';
 			echo '</li>';
 		}
 

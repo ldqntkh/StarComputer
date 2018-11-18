@@ -79,6 +79,8 @@
                     box-shadow: 0 17px 11px -21px rgba(0,0,0,0.75); 
                     ul {
                         display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
                         li {
                             list-style: none;
                             margin-right: 30px;
@@ -87,12 +89,12 @@
                         &:not(.filter-ratting) {
                             li {
                                 a {
-                                    height: 72px;
-                                    width: 72px;
-                                    display: inline-block;
-                                    border-radius: 35px;
-                                    position: relative;
-                                    background-color: rgb(168, 180, 168);
+                                    //height: 72px;
+                                    //width: 72px;
+                                    //display: inline-block;
+                                    //border-radius: 35px;
+                                    //position: relative;
+                                    //background-color: rgb(168, 180, 168);
                                 }
                             }
                         }
