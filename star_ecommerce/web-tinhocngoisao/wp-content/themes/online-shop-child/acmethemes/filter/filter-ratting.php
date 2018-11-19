@@ -128,4 +128,65 @@ class Rating_Filter extends WC_Widget {
 			echo ob_get_clean(); // WPCS: XSS ok.
 		}
 	}
+
+	/**
+	 * Widget function.
+	 *
+	 * @see WP_Widget
+	 * @param array $args     Arguments.
+	 * @param array $instance Widget instance.
+	 */
+	public function renderRattingFilterMobile( ) {
+		if ( ! is_shop() && ! is_product_taxonomy() ) {
+			return;
+		}
+
+		if ( ! wc()->query->get_main_query()->post_count ) {
+			return;
+		}
+
+		ob_start();
+
+		$found         = false;
+		$rating_filter = isset( $_GET['rating_filter'] ) ? array_filter( array_map( 'absint', explode( ',', wp_unslash( $_GET['rating_filter'] ) ) ) ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
+
+		echo '<div class="product-filter-attri">';
+        echo '<h5 class="filter-title" data_attri_id="ratting">'. 'Ratting' .'</h5>';
+        echo '<div class="filter-attris" id="ratting">';
+        echo '<div class="wrapper clearfix">';
+        echo '<ul class="filter-ratting">';
+
+		for ( $rating = 5; $rating >= 1; $rating-- ) {
+			$count = $this->get_filtered_product_count( $rating );
+			if ( empty( $count ) ) {
+				continue;
+			}
+			$found = true;
+			$link  = $this->get_current_page_url();
+
+			if ( in_array( $rating, $rating_filter, true ) ) {
+				$link_ratings = implode( ',', array_diff( $rating_filter, array( $rating ) ) );
+			} else {
+				$link_ratings = implode( ',', array_merge( $rating_filter, array( $rating ) ) );
+			}
+
+			$class       = in_array( $rating, $rating_filter, true ) ? 'wc-layered-nav-rating chosen' : 'wc-layered-nav-rating';
+			$link        = apply_filters( 'woocommerce_rating_filter_link', $link_ratings ? add_query_arg( 'rating_filter', $link_ratings ) : remove_query_arg( 'rating_filter' ) );
+			$rating_html = wc_get_star_rating_html( $rating );
+			$count_html  = esc_html( apply_filters( 'woocommerce_rating_filter_count', "({$count})", $count, $rating ) );
+
+			printf( '<li class="%s"><a href="%s"><span class="star-rating">%s</span> <span class="count-rating">%s</span></a></li>', esc_attr( $class ), esc_url( $link ), $rating_html, $count_html ); // WPCS: XSS ok.
+		}
+
+		echo '</ul>';
+        echo '</div>';
+        echo '</div>';
+		echo '</div>';
+
+		if ( ! $found ) {
+			ob_end_clean();
+		} else {
+			echo ob_get_clean(); // WPCS: XSS ok.
+		}
+	}
 }

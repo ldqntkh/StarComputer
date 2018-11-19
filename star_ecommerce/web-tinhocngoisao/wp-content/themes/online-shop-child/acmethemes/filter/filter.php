@@ -18,7 +18,7 @@
 <div class="custom-shop-filter">
     <?php 
         if( 'disable' != $online_shop_customizer_all_values['online-shop-breadcrumb-options'] && !is_front_page()){
-            echo '<div class="wrapper clearfix">';
+            echo '<div class="wrapper clearfix hide-mobile">';
             online_shop_breadcrumbs();
             echo "</div>";
         }
