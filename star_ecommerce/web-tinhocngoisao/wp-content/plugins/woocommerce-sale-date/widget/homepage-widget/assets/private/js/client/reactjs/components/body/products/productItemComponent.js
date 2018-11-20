@@ -44,7 +44,10 @@ export default class ProductItemComponent extends Component {
                     <li className="product type-product status-publish has-post-thumbnail product_cat-san-pham-duoc-yeu-thich first outofstock shipping-taxable purchasable product-type-variable has-default-attributes">
                         <a href={product.link} className="woocommerce-LoopProduct-link woocommerce-loop-product__link">
                             {<ProductTimeDownComponent sale_end_time={product.sale_end_time} /> }
-                            <img src={product.image} />
+                            <div className="image">
+                                <img src={product.image} />
+                            </div>
+                            
                             <div className="product-item-details">
                                 <h2 className="woocommerce-loop-product__title">
                                     {product.name.length > 40 ? product.name.substr(0, 20) + '...' : product.name }

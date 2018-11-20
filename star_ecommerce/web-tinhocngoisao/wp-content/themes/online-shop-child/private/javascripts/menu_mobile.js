@@ -26,6 +26,9 @@ var mobile_menu = {
         } else {
             $('.fixed-product-detail').hide();
         }
+
+        // hide footer menu
+        $('.filters-mobile').toggleClass('hide');
     },
 
     init : function() {

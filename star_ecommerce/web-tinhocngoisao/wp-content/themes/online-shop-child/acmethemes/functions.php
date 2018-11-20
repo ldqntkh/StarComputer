@@ -285,7 +285,7 @@ if( ! function_exists( 'online_shop_breadcrumbs' ) ):
 				'show_browse' => false
 			);
 
-			echo "<div class='breadcrumbs clearfix'><div id='online-shop-breadcrumbs'>";
+			echo "<div class='breadcrumbs clearfix hide-mobile'><div id='online-shop-breadcrumbs'>";
 			if( 'wc-breadcrumb' == $online_shop_breadcrumb_options && online_shop_is_woocommerce_active() ){
 				woocommerce_breadcrumb(  $breadcrumb_args );
             }

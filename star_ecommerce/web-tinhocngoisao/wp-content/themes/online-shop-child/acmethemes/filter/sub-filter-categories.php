@@ -22,7 +22,7 @@
     echo '<h2 class="category-title">' . $cat_name . ' ('.$cat_product_count.')</h2>';
     echo '<h4 class="category-desc">' . $cat_desc . '</h4>';
     if( !empty($product_categories) ){
-        echo '<div class="lst-categories">';
+        echo '<div class="lst-categories hide-mobile">';
         foreach ($product_categories as $key => $category) {?>
             <a href="<?php echo get_category_link($category); ?>" class="category-item">
                 <?php echo $category->name ?>

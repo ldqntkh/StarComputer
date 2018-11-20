@@ -33,7 +33,15 @@
         }
     }
 }
+.woocommerce-cart {
+    #secondary-right {
+        .at-title-action-wrapper {
+            margin: 0;
+            padding: 0;
 
+        }
+    }
+}
 span.price {
     padding-left: 10px;
     font-weight: normal;

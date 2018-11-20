@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<form class="woocommerce-ordering  hide-mobile" method="get">
+<form class="woocommerce-ordering hide-mobile" method="get">
 	<span>Sắp xếp theo</span>
 	<select name="orderby" class="orderby">
 		<?php foreach ( $catalog_orderby_options as $id => $name ) : ?>

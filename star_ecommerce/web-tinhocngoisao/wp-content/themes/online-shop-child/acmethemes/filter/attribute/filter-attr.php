@@ -26,7 +26,7 @@ class WC_Widget_Layered_Custom extends WC_Widget {
 	 *
 	 * @param object $attribute.
 	 */
-	public function renderFilter( $attribute ) {
+	public function renderFilter( $attribute, $type = 'pc' ) {
 		if ( ! is_shop() && ! is_product_taxonomy() ) {
 			//echo '<div class="product-filter-attri"><h5 class="filter-title">&nbsp;</h5></div>';
 			return;
@@ -53,7 +53,7 @@ class WC_Widget_Layered_Custom extends WC_Widget {
 		ob_start();
 		$this->widget_start( $args, $instance );
 
-		$found = $this->layered_nav_list( $terms, $taxonomy, $query_type , $attribute);
+		$found = $type === 'pc' ? $this->layered_nav_list( $terms, $taxonomy, $query_type , $attribute) : $this->layered_nav_list_mobile( $terms, $taxonomy, $query_type , $attribute);
 		$this->widget_end( $args );
 		
 		// Force found when option is selected - do not force found on taxonomy attributes.
@@ -247,8 +247,97 @@ class WC_Widget_Layered_Custom extends WC_Widget {
                 $style = 'style=" background-color: ' . $term->slug . ' ;"';
             }
             echo '<li >';
-            echo '<a href="' . $link . '" ' .$style. '></a>';
-            echo '<h3>' . $term->name . '<span>(' . $count . ')</span></h3>';
+            echo '<a href="' . $link . '" ' .$style. '>';
+            echo '<h6>' . $term->name . '<span>(' . $count . ')</span></h6></a>';
+			echo '</li>';
+		}
+
+        echo '</ul>';
+        echo '</div>';
+        echo '</div>';
+		echo '</div>';
+
+		return $found;
+	}
+
+	/**
+	 * Show list based layered nav on mobile.
+	 *
+	 * @param  array  $terms Terms.
+	 * @param  string $taxonomy Taxonomy.
+	 * @param  string $query_type Query Type.
+	 * @return bool   Will nav display?
+	 */
+	protected function layered_nav_list_mobile( $terms, $taxonomy, $query_type , $attribute) {
+        // List display.
+        
+		echo '<div class="product-filter-attri">';
+		echo '<h5 class="filter-title" data_attri_id="' .$attribute->attribute_name. '">'. $attribute->attribute_label .'</h5>';
+		echo '<i class="fa fa-angle-down"></i>';
+        echo '<div class="filter-attris" id="' .$attribute->attribute_name. '">';
+        echo '<div class="wrapper clearfix">';
+        echo '<ul>';
+		$term_counts        = $this->get_filtered_term_product_counts( wp_list_pluck( $terms, 'term_id' ), $taxonomy, $query_type );
+		$_chosen_attributes = WC_Query::get_layered_nav_chosen_attributes();
+		$found              = false;
+
+		foreach ( $terms as $term ) {
+			$current_values = isset( $_chosen_attributes[ $taxonomy ]['terms'] ) ? $_chosen_attributes[ $taxonomy ]['terms'] : array();
+			$option_is_set  = in_array( $term->slug, $current_values, true );
+			$count          = isset( $term_counts[ $term->term_id ] ) ? $term_counts[ $term->term_id ] : 0;
+
+			// Skip the term for the current archive.
+			if ( $this->get_current_term_id() === $term->term_id ) {
+				continue;
+			}
+
+			// Only show options with count > 0.
+			if ( 0 < $count ) {
+				$found = true;
+			} elseif ( 0 === $count && ! $option_is_set ) {
+				continue;
+			}
+
+			$filter_name    = 'filter_' . sanitize_title( str_replace( 'pa_', '', $taxonomy ) );
+			$current_filter = isset( $_GET[ $filter_name ] ) ? explode( ',', wc_clean( wp_unslash( $_GET[ $filter_name ] ) ) ) : array(); // WPCS: input var ok, CSRF ok.
+			$current_filter = array_map( 'sanitize_title', $current_filter );
+
+			if ( ! in_array( $term->slug, $current_filter, true ) ) {
+				$current_filter[] = $term->slug;
+			}
+
+			$link = remove_query_arg( $filter_name, $this->get_current_page_url() );
+
+			// Add current filters to URL.
+			foreach ( $current_filter as $key => $value ) {
+				// Exclude query arg for current term archive term.
+				if ( $value === $this->get_current_term_slug() ) {
+					unset( $current_filter[ $key ] );
+				}
+
+				// Exclude self so filter can be unset on click.
+				if ( $option_is_set && $value === $term->slug ) {
+					unset( $current_filter[ $key ] );
+				}
+			}
+
+			if ( ! empty( $current_filter ) ) {
+				asort( $current_filter );
+				$link = add_query_arg( $filter_name, implode( ',', $current_filter ), $link );
+
+				// Add Query type Arg to URL.
+				if ( 'or' === $query_type && ! ( 1 === count( $current_filter ) && $option_is_set ) ) {
+					$link = add_query_arg( 'query_type_' . sanitize_title( str_replace( 'pa_', '', $taxonomy ) ), 'or', $link );
+				}
+				$link = str_replace( '%2C', ',', $link );
+            }
+            $style= '';
+            if (sanitize_title( str_replace( 'pa_', '', $taxonomy ) ) == 'color') {
+                $style = 'style=" background-color: ' . $term->slug . ' ;"';
+            }
+            echo '<li >';
+            echo '<a href="' . $link . '" ' .$style. '>';
+            echo '<h6>' . $term->name . '<span>(' . $count . ')</span></h6></a>';
 			echo '</li>';
 		}
 

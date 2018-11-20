@@ -17,6 +17,36 @@ var custom_filter = {
             
             !flag && $($element).toggleClass('showfilter');
         });
+
+        this.initMobileFilter();
+    },
+
+    initMobileFilter: function() {
+        $('.filters-mobile').on('click', '#short-products', function() {
+            $('#popup-short-product').toggleClass('show-block');
+        }).on('click', '#categories', function() {
+            $('#popup-categories').toggleClass('show-block');
+        }).on('click', '#filter-product-attr', function() {
+            $('#popup-filter-product-attr').toggleClass('show-block');
+        });
+        // init onchange short product
+        $('input[type=radio][name=short-product]').change(function() {
+            $('select.orderby option[value=' +this.value+ ']').prop('selected', true);
+            $('select.orderby').closest("form").submit();
+        });
+
+        // close modal 
+        $('i[id^=close-popup-]').on('click', function() {
+            var data_close = $(this).attr('data-close');
+            if (data_close !== null) {
+                $('#' + data_close).toggleClass('show-block');
+            }
+        });
+
+        // init filter attri
+        $('.filter-products-attr').on('click', '.product-filter-attri > h5', function() {
+            $(this).closest('.product-filter-attri').toggleClass('auto-height');
+        });
     }
 }
 
