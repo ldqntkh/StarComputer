@@ -42,6 +42,11 @@ var custom_filter = {
                 $('#' + data_close).toggleClass('show-block');
             }
         });
+
+        // init filter attri
+        $('.filter-products-attr').on('click', '.product-filter-attri > h5', function() {
+            $(this).closest('.product-filter-attri').toggleClass('auto-height');
+        });
     }
 }
 

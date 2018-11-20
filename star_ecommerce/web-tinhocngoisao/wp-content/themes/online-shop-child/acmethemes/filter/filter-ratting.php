@@ -151,7 +151,8 @@ class Rating_Filter extends WC_Widget {
 		$rating_filter = isset( $_GET['rating_filter'] ) ? array_filter( array_map( 'absint', explode( ',', wp_unslash( $_GET['rating_filter'] ) ) ) ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		echo '<div class="product-filter-attri">';
-        echo '<h5 class="filter-title" data_attri_id="ratting">'. 'Ratting' .'</h5>';
+		echo '<h5 class="filter-title" data_attri_id="ratting">'. 'Ratting' .'</h5>';
+		echo '<i class="fa fa-angle-down"></i>';
         echo '<div class="filter-attris" id="ratting">';
         echo '<div class="wrapper clearfix">';
         echo '<ul class="filter-ratting">';

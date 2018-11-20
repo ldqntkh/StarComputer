@@ -272,7 +272,8 @@ class WC_Widget_Layered_Custom extends WC_Widget {
         // List display.
         
 		echo '<div class="product-filter-attri">';
-        echo '<h5 class="filter-title" data_attri_id="' .$attribute->attribute_name. '">'. $attribute->attribute_label .'</h5>';
+		echo '<h5 class="filter-title" data_attri_id="' .$attribute->attribute_name. '">'. $attribute->attribute_label .'</h5>';
+		echo '<i class="fa fa-angle-down"></i>';
         echo '<div class="filter-attris" id="' .$attribute->attribute_name. '">';
         echo '<div class="wrapper clearfix">';
         echo '<ul>';

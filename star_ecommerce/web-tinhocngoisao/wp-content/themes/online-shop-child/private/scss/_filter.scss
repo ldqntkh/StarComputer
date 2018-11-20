@@ -315,8 +315,71 @@
                     font-weight: 400;
                 }
             }
+            .filter-products-attr {
+                height: 100%;
+                overflow: hidden;
+                overflow-y: auto;
+                .product-filter-attri {
+                    min-height: 50px;
+                    border-bottom: 1px solid #c0c0c057;
+                    height: 50px;
+                    overflow: hidden;
+                    position: relative;
+                    &.auto-height {
+                        height: auto;
+                        h5 {
+                            color: red;
+                        }
+                        i {
+                            &:before {
+                                content: "\f106";
+                            }
+                        }
+                    }
+                    h5 {
+                        height: 50px;
+                        font-size: 20px;
+                        margin: 0;
+                        line-height: 50px;
+                        padding-left: 15px;
+                    }
+                    i {
+                        color: red;
+                        position: absolute;
+                        right: 10px;
+                        top: 15px;
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+                    .filter-attris {
+                        ul.filter-ratting {
+                            flex-direction: column;
+                            justify-content: flex-start;
+                            align-items: flex-start;
+                            .wc-layered-nav-rating {
+                                margin-bottom: 10px;
+                                .star-rating {
+                                    float: left;
+                                }
+                                .count-rating {
+                                    float: left;
+                                    margin-left: 5px;
+                                    margin-top: -3px;
+                                }
+                            }
+                        }
+                        li {
+                            list-style: none;
+                            padding-left: 10px;
+                        }
+                    }
+                }
+                .widget_price_filter {
+                    margin: 10px 0 0;
+                    padding: 0 10px;
+                }
+            }
         }
-    
     }
 }
 
