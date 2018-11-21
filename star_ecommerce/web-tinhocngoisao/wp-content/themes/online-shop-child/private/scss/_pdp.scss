@@ -528,3 +528,77 @@
         }
     }
 }
+
+.post-product-description {
+    display: flex;
+    flex-direction: column-reverse;
+    @media screen and(min-width: 768px) {
+        flex-direction: row;
+    }
+    .post-product-description-column {
+        display: flex;
+        flex-direction: column;
+        &.post-product-description__detail-info {
+            flex: 2;
+            @media screen and(min-width: 768px) {
+                border-right: 1px solid #fc0000;
+            }
+        }
+        &.post-product-description__configured-detail {
+            flex: 1;
+        }
+        .post-product-description__header {
+            background-color: #f73838;
+            color: #fff;
+            padding: 10px;
+            text-transform: uppercase;
+        }
+        .detail-info-content {
+            padding: 10px;
+            .detail-info-content__image {
+                display: flex;
+                justify-content: center;
+            }
+            .detail-info-content__header {
+                font-size: 20px;
+                font-weight: 700;
+            }
+        }
+        .configured-detail-content {
+            .configured-detail-content__table {
+                th {
+                    width: 40%;
+                }
+                td {
+                    width: 60%;
+                }
+            }
+        }
+        .show-more-button-wrapper {
+            text-align: center;
+            margin-top: 15px;
+            .show-more-button-wrapper__content {
+                display: inline-flex;
+                border: 1px solid #000000;
+                align-items: center;
+                padding: 5px 10px;
+                .show-more-content-btn {
+                    text-transform: uppercase;
+                }
+                i {
+                    margin-left: 5px;
+                }
+                &:hover {
+                    border: 1px solid #f73838;
+                    cursor: pointer;
+                    .show-more-content-btn, i {
+                        color: #f73838;
+                    }
+                }
+            }
+        }
+        .post-product-description-content {
+            overflow: hidden;
+        }
+    }
+}
