@@ -5,42 +5,25 @@ var productdetailpage = {
 
     showMoreContent: function() {
         // Configure/customize these variables.
-        $('.show-more-content').off('click').on('click', function() {
-            var $moreContentBtn = $(this);
-            var $parentElement = $moreContentBtn.parent();
-            var $moreContentElement = $moreContentBtn.siblings('.more-content');
-            var allowMaxHeight = $moreContentElement.is('ol') ? 240 : 150;
+        $('.show-more-content-btn').off('click').on('click', function() {
+            var $showMoreContentBtn = $(this);
+            var $productDescriptionContent = $showMoreContentBtn.parents('.show-more-button-wrapper').siblings('.post-product-description-content');
+            var allowMaxHeight = 750;
 
-            $parentElement.toggleClass('expand');
+            $productDescriptionContent.toggleClass('expanded');
+            $showMoreContentBtn.siblings().removeClass();
 
-            if ( $parentElement.hasClass('expand') ) {
-                $moreContentElement.css('max-height', 'none');
-                $moreContentBtn.empty().text('Thu gọn nội dung');
+            if ( $productDescriptionContent.hasClass('expanded') ) {
+                $productDescriptionContent.removeAttr('style');
+                $showMoreContentBtn.empty().text('Thu gọn');
+                $showMoreContentBtn.siblings().addClass('fa fa-angle-up');
             } else {
-                $moreContentElement.css('max-height', allowMaxHeight);
-                $moreContentBtn.empty().text('Xem thêm nội dung');
+                $productDescriptionContent.css('max-height', allowMaxHeight);
+                $showMoreContentBtn.empty().text('Xem thêm nội dung');
+                $showMoreContentBtn.siblings().addClass('fa fa-angle-down');
             }
         });
     },
-
-    displayShowMoreContentButton: function() {
-        var allowMaxHeight = 150;
-        var $showMoreContentBtn = '';
-        $('.more-content').each(function() {
-            var $moreContent = $(this);
-            // comment list will use different max-height and element
-            if ( $moreContent.is('ol') ) {
-                allowMaxHeight = 240;
-            }
-            $showMoreContentBtn = $moreContent.siblings('.show-more-content');
-
-            if ( $moreContent.height() > allowMaxHeight ) {
-                $moreContent.css('max-height', allowMaxHeight);
-                $showMoreContentBtn.removeClass('hidden');
-            }
-        });
-    },
-
     displayCountDownTime: function() {
         var currentTime = new Date();
         var endTime = parseInt($('#woocommerce-product-sale-date').data('sale-time'));
@@ -151,14 +134,24 @@ var productdetailpage = {
             that.displayTotalPriceGroupedProduct();
         });
     },
+    displayShowMoreButtonInProductContent: function() {
+        var $postsDescriptionContent = $('.post-product-description-content');
+        var allowMaxHeight = 750;
+        $postsDescriptionContent.each(function() {
+            var $postDescriptionContent = $(this);
+            if ( $postDescriptionContent.height() > allowMaxHeight ) {
+                $postDescriptionContent.css('max-height', allowMaxHeight);
+                $postDescriptionContent.parent().find('.show-more-button-wrapper').removeClass('hidden');
+            }
+        });
+    },
     init: function() {
         let that = this;
         that.showMoreContent();
-        that.displayShowMoreContentButton();
         that.displayCountDownTime();
         that.closeVideoImage();
         that.initFixedProductDetail();
-
+        that.displayShowMoreButtonInProductContent();
         // init functions for grouped product type
         if ( $('.grouped_form').length > 0 ) {
             that.displayTotalPriceGroupedProduct();
