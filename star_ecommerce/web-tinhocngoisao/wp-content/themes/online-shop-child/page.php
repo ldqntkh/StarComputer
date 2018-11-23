@@ -34,7 +34,8 @@
 	</div><!-- #primary -->
 <?php
 if ( !empty( is_cart() ) || !empty( is_checkout() ) ) {
-    get_sidebar( 'cart-right' );
+    if (!is_checkout())
+        get_sidebar( 'cart-right' );
 } else {
     get_sidebar( 'left' );
     get_sidebar();

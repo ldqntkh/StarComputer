@@ -177,8 +177,8 @@ jQuery(document).ready(function($) {
         function feature_special_menu_height_fixed() {
             var width = at_window.width();
             if( width > 992 ){
-                var slider_height = $('.online-shop-feature-special-menu .slider-feature-wrap').height();
-                $('.online-shop-feature-special-menu .special-menu-wrapper > li > ul').height( slider_height + 20 );
+                // var slider_height = $('.online-shop-feature-special-menu .slider-feature-wrap').height();
+                // $('.online-shop-feature-special-menu .special-menu-wrapper > li > ul').height( slider_height + 20 );
             }
             else{
                 $('.online-shop-feature-special-menu .special-menu-wrapper > li > ul').attr('style','');
