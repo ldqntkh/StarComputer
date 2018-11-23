@@ -20,16 +20,6 @@
     }
 }
 
-.main-navigation {
-    .special-menu-wrapper {
-        li {
-            .special-menu {
-                text-transform: uppercase;
-            }
-        }
-    }
-}
-
 .products {
     .star-rating-empty {
         height: 15px;
@@ -120,6 +110,7 @@ h2.woocommerce-loop-product__title {
                 @media screen and (min-width: 1024px) {
                     margin-right: 0px;
                     margin-left: 0px;
+                    padding-top: 20px;
                 }
 
                 .featured-entries-about {
@@ -235,6 +226,33 @@ h2.woocommerce-loop-product__title {
 
             .stock-quantity {
                 margin: 0 auto;
+            }
+        }
+    }
+}
+
+.navigation-wrapper {
+    .main-navigation {
+        .special-menu-wrapper {
+            li {
+                .special-menu {
+                    text-transform: uppercase;
+                }
+            }
+            .menu-item-has-children {
+                .angle-down {
+                    position: absolute;
+                }
+            }
+            #menu-special-menu {
+                a {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap
+                }
+                .menu-item {
+                    padding: 1.5px;
+                }
             }
         }
     }
