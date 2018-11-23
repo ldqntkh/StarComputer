@@ -178,7 +178,7 @@ jQuery(document).ready(function($) {
             var width = at_window.width();
             if( width > 992 ){
                 var slider_height = $('.online-shop-feature-special-menu .slider-feature-wrap').height();
-                $('.online-shop-feature-special-menu .special-menu-wrapper > li > ul').height( slider_height+19 );
+                $('.online-shop-feature-special-menu .special-menu-wrapper > li > ul').height( slider_height + 20 );
             }
             else{
                 $('.online-shop-feature-special-menu .special-menu-wrapper > li > ul').attr('style','');
