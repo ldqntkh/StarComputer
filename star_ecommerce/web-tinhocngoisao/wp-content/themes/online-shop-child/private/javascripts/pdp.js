@@ -11,6 +11,7 @@ var productdetailpage = {
             var allowMaxHeight = 750;
 
             $productDescriptionContent.toggleClass('expanded');
+            $showMoreContentBtn.toggleClass('less-more-content');
             $showMoreContentBtn.siblings().removeClass();
 
             if ( $productDescriptionContent.hasClass('expanded') ) {
@@ -19,8 +20,9 @@ var productdetailpage = {
                 $showMoreContentBtn.siblings().addClass('fa fa-angle-up');
             } else {
                 $productDescriptionContent.css('max-height', allowMaxHeight);
-                $showMoreContentBtn.empty().text('Xem thêm nội dung');
+                $showMoreContentBtn.empty().text('Xem đầy đủ');
                 $showMoreContentBtn.siblings().addClass('fa fa-angle-down');
+                productdetailpage.handleLessMoreEvent(this);
             }
         });
     },
@@ -124,7 +126,6 @@ var productdetailpage = {
     handleEventOnClickQty: function() {
         let that = this;
         $('.wares_qty_minus').off('click').on('click', function() {
-            console.log('clicked');
             cartpage.changeValueQuantity('sub', $(this));
             that.displayTotalPriceGroupedProduct();
         });
@@ -144,6 +145,12 @@ var productdetailpage = {
                 $postDescriptionContent.parent().find('.show-more-button-wrapper').removeClass('hidden');
             }
         });
+    },
+    handleLessMoreEvent: function(element) {
+        var positionTop = $(element).closest('.post-product-description-column').position().top;
+        $('html, body').animate({
+            scrollTop: positionTop + 700
+        }, 1000);
     },
     init: function() {
         let that = this;
