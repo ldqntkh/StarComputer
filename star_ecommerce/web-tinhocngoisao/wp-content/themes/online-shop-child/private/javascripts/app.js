@@ -7,6 +7,7 @@ var productdetailpage = require('./pdp');
 var checkoutpage = require('./checkout');
 var custom_filter = require('./custom_filter');
 var showRooms = require('./showroom');
+var buildPC = require('./buildPC');
 
 $(document).ready(function() {
     header_menu.init();
@@ -17,4 +18,5 @@ $(document).ready(function() {
     checkoutpage.init();
     custom_filter.init();
     showRooms.init();
+    buildPC.init();
 })
