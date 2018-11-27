@@ -111,7 +111,6 @@ class SaveImageConfigBuildPcComponent extends Component {
         let currentDate = new Date();
         el.href = canvas.toDataURL("image/png");
         el.download = 'buildPC_' + currentDate.getDate() + '-' + currentDate.getMonth() + '-' + currentDate.getHours() + '-' + currentDate.getMinutes() + '-' + currentDate.getSeconds() + '.png';
-        el.target = '_blank';
         el.click();
     }
 
