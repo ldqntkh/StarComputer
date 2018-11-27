@@ -189,15 +189,6 @@
     </script>
     <div class="wrapper">
         <div id="build-pc-function"></div>
-        <div id="save-image-popup" class="modal">
-            <div class="modal-content">
-                <p>Bạn muốn tải ảnh báo giá</p>
-                <div class="modal-button-container">
-                    <button class="cancel" tabindex="2" style="display: inline-block; box-shadow: none;">Hủy</button>
-                    <button class="confirm">Xác nhận</button>
-                </div>
-            </div>
-        </div>
     </div>
 <?php
     add_action( 'wp_footer', function(){
