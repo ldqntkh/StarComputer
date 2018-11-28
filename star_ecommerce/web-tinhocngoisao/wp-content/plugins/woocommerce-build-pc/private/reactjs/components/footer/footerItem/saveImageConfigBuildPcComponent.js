@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-
+var arrImages = [];
 class SaveImageConfigBuildPcComponent extends Component {
     constructor(props) {
         super(props);
     }
-    handleSaveImages = ()=> {
+    handleSaveImages = () => {
         // check require product build pc
         if (localStorage.getItem('computer_building_data')) {
             let computer_building_data = JSON.parse(localStorage.getItem('computer_building_data'));
@@ -25,7 +25,9 @@ class SaveImageConfigBuildPcComponent extends Component {
     }
 
     saveImages = () => {
+        arrImages = [];
         let canvas = document.createElement('canvas');
+        let that = this;
         canvas.id = 'save-image-canvas';
         canvas.width = 1024;
         canvas.height = 768;
@@ -42,7 +44,11 @@ class SaveImageConfigBuildPcComponent extends Component {
         let logoImg = new Image;
         logoImg.onload = () => {
             ctx.drawImage(logoImg, canvas.width / 3.2, 18, 45, 40);
+            arrImages[parseInt(logoImg.name)] = true;
+            that.downloadImage(canvas);
         };
+        logoImg.name = arrImages.length;
+        arrImages[arrImages.length] = false;
         logoImg.src = "http://traucay.vn/wp-content/uploads/2018/08/cropped-cropped-logo-star-01-1.png";
         ctx.fillStyle = "#2d3877";
         ctx.fillText("Xây dựng cấu hình PC".toUpperCase(), canvas.width / 2 , 90);
@@ -59,7 +65,7 @@ class SaveImageConfigBuildPcComponent extends Component {
             let productPrice = (product.sale_price !== "0" && product.sale_price !== "") ? parseInt(product.sale_price) : parseInt(product.regular_price);
             let productQty = parseInt(item.quantity);
             let productPosition = parseInt(index) === 0 ? 1 : parseInt(index) + 1;
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "#000";
             ctx.textAlign = "left";
             ctx.font = "16px arial";
             ctx.fillText(product.name + ' ' + '[' + product.id + ']', canvas.width / 5, productPosition * 150);
@@ -79,44 +85,65 @@ class SaveImageConfigBuildPcComponent extends Component {
             for (let index in images) {
                 let imagePosition = parseInt(index) === 0 ? 1 : parseInt(index) + 1;
                 ctx.drawImage(images[index], 40, imagePosition * 130, 120, 120);
+                arrImages[parseInt(images[index].name)] = true;
             }
+            that.downloadImage(canvas);
         });
-
-        let downloadButton = document.createElement('a');
-        downloadButton.id = 'download-button';
-        document.getElementById('save-image-canvas').appendChild(downloadButton);
-        this.downloadImage(canvas, downloadButton);
-        // remove canvas after download image success
-        buildPCFunction.removeChild(buildPCFunction.lastChild);
     }
 
     loadImages = (sources, callback) => {
         let images = {};
         let loadedImages = 0;
         let numImages = 0;
+        let computerBuildingData = JSON.parse(localStorage.getItem('computer_building_data'));
         // get num of sources
         for(let index in sources) {
+            let item = computerBuildingData[sources[index].value];
+            let product = item.product;
+            if (product === null) {
+                continue;
+            }
             images[index] = new Image();
             images[index].onload = () => {
                 if(++loadedImages >= numImages) {
                     callback(images);
                 }
             };
-            images[index].src = sources[index].image_url;
+            images[index].src = product.image;
+            images[index].name = arrImages.length;
+            arrImages[arrImages.length] = false;
             numImages++;
         }
     }
 
-    downloadImage = (canvas, el) => {
-        let currentDate = new Date();
-        el.href = canvas.toDataURL("image/png");
-        el.download = 'buildPC_' + currentDate.getDate() + '-' + currentDate.getMonth() + '-' + currentDate.getHours() + '-' + currentDate.getMinutes() + '-' + currentDate.getSeconds() + '.png';
-        el.click();
+    downloadImage = (canvas) => {
+        let isImageLoad = false;
+        for (let index = 0; index < arrImages.length; index++) {
+            if (arrImages[index] === false) {
+                break;
+            }
+            if (arrImages.length - 1 === index) {
+                isImageLoad = true;
+            }
+        }
+        if (isImageLoad) {
+            let currentDate = new Date();
+            let downloadButton = document.createElement('a');
+            let buildPCFunction = document.getElementById('build-pc-function');
+            downloadButton.id = 'download-button';
+            canvas.appendChild(downloadButton);
+            downloadButton.href = canvas.toDataURL("image/png");
+            downloadButton.download = 'buildPC_' + currentDate.getDate() + '-' + currentDate.getMonth() + '-' + currentDate.getHours() + '-' + currentDate.getMinutes() + '-' + currentDate.getSeconds() + '.png';
+            downloadButton.click();
+            // remove canvas after download image success
+            buildPCFunction.removeChild(buildPCFunction.lastChild);
+        }
     }
 
     formatPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
     render() {
         return(
             <div className="btn-item">
