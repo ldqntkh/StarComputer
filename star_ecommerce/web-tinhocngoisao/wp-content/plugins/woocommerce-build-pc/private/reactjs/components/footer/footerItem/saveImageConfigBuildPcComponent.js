@@ -35,15 +35,16 @@ class SaveImageConfigBuildPcComponent extends Component {
         let buildPCFunction = document.getElementById('build-pc-function');
         buildPCFunction.appendChild(canvas);
         let ctx = canvas.getContext("2d");
+        ctx.save();
         ctx.textAlign = "center";
         ctx.fillStyle = "#dfdfdf";
-        ctx.fillRect(0,0, canvas.width, canvas.height / 7);
-        ctx.fillStyle = "red";
-        ctx.font = "30px arial";
-        ctx.fillText("Tin học ngôi sao".toUpperCase(), canvas.width / 2, 50);
+        ctx.fillRect(0,0, canvas.width, canvas.height / 5);
         let logoImg = new Image;
         logoImg.onload = () => {
-            ctx.drawImage(logoImg, canvas.width / 3.2, 18, 45, 40);
+            ctx.drawImage(logoImg, canvas.width / 2.3, 10, 100, 100);
+            ctx.globalAlpha = 0.3;
+            ctx.drawImage(logoImg, canvas.width / 3.1, 160, 300, 300);
+            ctx.restore();
             arrImages[parseInt(logoImg.name)] = true;
             that.downloadImage(canvas);
         };
@@ -51,7 +52,8 @@ class SaveImageConfigBuildPcComponent extends Component {
         arrImages[arrImages.length] = false;
         logoImg.src = "http://traucay.vn/wp-content/uploads/2018/08/cropped-cropped-logo-star-01-1.png";
         ctx.fillStyle = "#2d3877";
-        ctx.fillText("Xây dựng cấu hình PC".toUpperCase(), canvas.width / 2 , 90);
+        ctx.font = "30px arial";
+        ctx.fillText("Xây dựng cấu hình PC".toUpperCase(), canvas.width / 2 , 140);
         let computerBuildingData = JSON.parse(localStorage.getItem('computer_building_data'));
         let dataProductType = this.props.data_product_type;
         let totalPrice = 0;
@@ -68,23 +70,23 @@ class SaveImageConfigBuildPcComponent extends Component {
             ctx.fillStyle = "#000";
             ctx.textAlign = "left";
             ctx.font = "16px arial";
-            ctx.fillText(product.name + ' ' + '[' + product.id + ']', canvas.width / 5, productPosition * 150);
+            ctx.fillText(product.name + ' ' + '[' + product.id + ']', canvas.width / 5, productPosition * 180);
             ctx.fillStyle = "grey";
-            ctx.fillText(this.formatPrice(productPrice) +' đ', canvas.width / 5, productPosition * 150 + 30);
-            ctx.fillText('x', canvas.width / 3.3, productPosition * 150 + 30);
-            ctx.fillText(productQty, canvas.width / 3, productPosition * 150 + 30);
+            ctx.fillText(this.formatPrice(productPrice) +' đ', canvas.width / 5, productPosition * 180 + 30);
+            ctx.fillText('x', canvas.width / 3.3, productPosition * 180 + 30);
+            ctx.fillText(productQty, canvas.width / 3, productPosition * 180 + 30);
             ctx.fillStyle = "red";
-            ctx.fillText( '= ' + this.formatPrice(productQty * productPrice) + ' đ', canvas.width / 1.2, productPosition * 150 + 30);
+            ctx.fillText( '= ' + this.formatPrice(productQty * productPrice) + ' đ', canvas.width / 1.2, productPosition * 180 + 30);
             totalPrice += (productQty * productPrice);
         }
         ctx.textAlign = "center";
         ctx.fillStyle = "red";
         ctx.font = "bold 16px arial";
-        ctx.fillText('Tổng chi phí: ' + this.formatPrice(totalPrice) + ' đ', canvas.width / 2, canvas.height - 300);
+        ctx.fillText('Tổng chi phí: ' + this.formatPrice(totalPrice) + ' đ', canvas.width / 2 - 43, canvas.height - 200);
         this.loadImages(dataProductType, function(images) {
             for (let index in images) {
                 let imagePosition = parseInt(index) === 0 ? 1 : parseInt(index) + 1;
-                ctx.drawImage(images[index], 40, imagePosition * 130, 120, 120);
+                ctx.drawImage(images[index], 40, imagePosition * 160, 120, 120);
                 arrImages[parseInt(images[index].name)] = true;
             }
             that.downloadImage(canvas);
