@@ -62,6 +62,18 @@
         .inactive {
             display: none;
         }
+        #comment-content {
+            .woocommerce-Reviews {
+                display: block;
+                .comment-form-rating {
+                    .stars {
+                        &:nth-last-child(2) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -94,6 +106,7 @@
 }
 
 .woocommerce-Reviews {
+    display: none;
     .woocommerce-Reviews-title {
         border-bottom: 1px solid #f73838;
         padding-bottom: 20px;

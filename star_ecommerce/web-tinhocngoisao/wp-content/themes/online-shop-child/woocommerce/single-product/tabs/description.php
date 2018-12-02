@@ -59,8 +59,7 @@ $heading = esc_html( apply_filters( 'woocommerce_product_description_heading', _
         </div>
 
         <div id="comment-content" class="tab-content inactive">
-            <h3>Comment</h3>
-            <p>Tokyo is the capital of Japan.</p>
+            <?php comments_template(); ?>
         </div>
     </div>
 </div>
