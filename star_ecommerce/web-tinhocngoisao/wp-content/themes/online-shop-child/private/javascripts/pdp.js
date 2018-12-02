@@ -152,6 +152,17 @@ var productdetailpage = {
             scrollTop: positionTop + 700
         }, 1000);
     },
+    handleSwitchTabElement: function() {
+        $('.tab-wrapper').find('li').off('click').on('click', function() {
+            var $tabItem = $(this);
+            $('.tab-wrapper').find('li').removeClass('active');
+            $('.tab-content-wrapper').find('.tab-content').hide();
+            $('#' + $tabItem.data('content') + '-content').show();
+            if (!$tabItem.hasClass('active')) {
+                $tabItem.addClass('active');
+            }
+        });
+    },
     init: function() {
         let that = this;
         that.showMoreContent();
