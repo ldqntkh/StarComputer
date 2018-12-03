@@ -155,11 +155,38 @@ var productdetailpage = {
     handleSwitchTabElement: function() {
         $('.tab-wrapper').find('li').off('click').on('click', function() {
             var $tabItem = $(this);
+            var $fixedProductDetail = $tabItem.parents('.fixed-product-detail');
             $('.tab-wrapper').find('li').removeClass('active');
             $('.tab-content-wrapper').find('.tab-content').hide();
             $('#' + $tabItem.data('content') + '-content').show();
             if (!$tabItem.hasClass('active')) {
-                $tabItem.addClass('active');
+                $tabItem.not($tabItem.parents('.fixed-product-detail')).addClass('active');
+            }
+
+            if ($fixedProductDetail.length > 0 && !$fixedProductDetail.hasClass('hidden')) {
+                var positionTop = $('.tab-content-wrapper').position().top;
+                $('html, body').animate({
+                    scrollTop: positionTop + 330
+                }, 1000);
+            }
+        });
+    },
+    displayViewMoreContentButton: function(element) {
+        var $moreContent = $('.more-content');
+        var $moreContentParent = $moreContent.parent();
+        $moreContent.css('max-height', 460);
+        $moreContentParent.append('<p class="show-more-content">Xem thêm nội dung</p>');
+        productdetailpage.handleViewMoreContent($moreContentParent, 460);
+    },
+    handleViewMoreContent: function(element, allowMaxHeight) {
+        var $showMoreContentBtn = element.find('.show-more-content');
+        var $moreContent = element.find('.more-content');
+        $showMoreContentBtn.off('click').on('click', function() {
+            $showMoreContentBtn.toggleClass('hidden');
+            if (element.find('.hidden').length > 0) {
+                $moreContent.css('max-height', 'auto');
+            } else {
+                $moreContent.css('max-height', allowMaxHeight);
             }
         });
     },
@@ -170,6 +197,8 @@ var productdetailpage = {
         that.closeVideoImage();
         that.initFixedProductDetail();
         that.displayShowMoreButtonInProductContent();
+        that.handleSwitchTabElement();
+        that.displayViewMoreContentButton();
         // init functions for grouped product type
         if ( $('.grouped_form').length > 0 ) {
             that.displayTotalPriceGroupedProduct();

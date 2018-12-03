@@ -16,6 +16,14 @@ global $product;
         woocommerce_template_single_rating();
         woocommerce_template_single_price();
     ?>
+            <div class="tab-wrapper">
+                <ul>
+                    <li id="product-detail-tab" data-content="detail"><span>Thông tin chi tiết</span></li>
+                    <li id="product-config-detail-tab" data-content="config-detail"><span>Cấu hình chi tiết</span></li>
+                    <li id="product-warranty-tab" data-content="warranty"><span>Bảo hành</span></li>
+                    <li id="product-comment-tab" data-content="comment"><span>Bình luận</span></li>
+                </ul>
+            </div>
         </div>
         <div class="add-to-cart-form">
             <?php  woocommerce_template_single_add_to_cart(); ?>
