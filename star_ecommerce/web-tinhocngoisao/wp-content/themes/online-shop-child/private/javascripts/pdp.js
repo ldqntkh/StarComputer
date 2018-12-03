@@ -171,12 +171,17 @@ var productdetailpage = {
             }
         });
     },
-    displayViewMoreContentButton: function(element) {
-        var $moreContent = $('.more-content');
-        var $moreContentParent = $moreContent.parent();
-        $moreContent.css('max-height', 460);
-        $moreContentParent.append('<p class="show-more-content">Xem thêm nội dung</p>');
-        productdetailpage.handleViewMoreContent($moreContentParent, 460);
+    displayViewMoreContentButton: function() {
+        var $tabContents = $('.tab-content');
+        var allowMaxHeight = 200;
+
+        $tabContents.each(function() {
+            var $tabContentItem = $(this);
+            if ( $tabContentItem.height() > allowMaxHeight ) {
+                $tabContentItem.find('.detail-content').css('max-height', allowMaxHeight);
+                $tabContentItem.append('<p class="show-more-content">Xem thêm nội dung</p>');
+            }
+        });
     },
     handleViewMoreContent: function(element, allowMaxHeight) {
         var $showMoreContentBtn = element.find('.show-more-content');
