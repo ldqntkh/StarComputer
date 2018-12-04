@@ -2,30 +2,6 @@
 var cartpage = require('./cart');
 
 var productdetailpage = {
-
-    showMoreContent: function() {
-        // Configure/customize these variables.
-        $('.show-more-content-btn').off('click').on('click', function() {
-            var $showMoreContentBtn = $(this);
-            var $productDescriptionContent = $showMoreContentBtn.parents('.show-more-button-wrapper').siblings('.post-product-description-content');
-            var allowMaxHeight = 750;
-
-            $productDescriptionContent.toggleClass('expanded');
-            $showMoreContentBtn.toggleClass('less-more-content');
-            $showMoreContentBtn.siblings().removeClass();
-
-            if ( $productDescriptionContent.hasClass('expanded') ) {
-                $productDescriptionContent.removeAttr('style');
-                $showMoreContentBtn.empty().text('Thu gọn');
-                $showMoreContentBtn.siblings().addClass('fa fa-angle-up');
-            } else {
-                $productDescriptionContent.css('max-height', allowMaxHeight);
-                $showMoreContentBtn.empty().text('Xem đầy đủ');
-                $showMoreContentBtn.siblings().addClass('fa fa-angle-down');
-                productdetailpage.handleLessMoreEvent(this);
-            }
-        });
-    },
     displayCountDownTime: function() {
         var currentTime = new Date();
         var endTime = parseInt($('#woocommerce-product-sale-date').data('sale-time'));
@@ -146,12 +122,6 @@ var productdetailpage = {
             }
         });
     },
-    handleLessMoreEvent: function(element) {
-        var positionTop = $(element).closest('.post-product-description-column').position().top;
-        $('html, body').animate({
-            scrollTop: positionTop + 700
-        }, 1000);
-    },
     handleSwitchTabElement: function() {
         $('.tab-wrapper').find('li').off('click').on('click', function() {
             var $tabItem = $(this);
@@ -173,31 +143,37 @@ var productdetailpage = {
     },
     displayViewMoreContentButton: function() {
         var $tabContents = $('.tab-content');
-        var allowMaxHeight = 200;
+        var allowMaxHeight = 750;
 
         $tabContents.each(function() {
             var $tabContentItem = $(this);
             if ( $tabContentItem.height() > allowMaxHeight ) {
-                $tabContentItem.find('.detail-content').css('max-height', allowMaxHeight);
-                $tabContentItem.append('<p class="show-more-content">Xem thêm nội dung</p>');
+                $tabContentItem.find('.tab-detail-content').css('max-height', allowMaxHeight);
+                $tabContentItem.append('<p class="show-more-content">Xem đầy đủ</p>');
             }
+            productdetailpage.handleViewMoreContent($tabContentItem, allowMaxHeight);
         });
     },
     handleViewMoreContent: function(element, allowMaxHeight) {
         var $showMoreContentBtn = element.find('.show-more-content');
-        var $moreContent = element.find('.more-content');
+        var $tabDetailContent = element.find('.tab-detail-content');
+        var $tabContentWrapper = element.parent();
         $showMoreContentBtn.off('click').on('click', function() {
-            $showMoreContentBtn.toggleClass('hidden');
-            if (element.find('.hidden').length > 0) {
-                $moreContent.css('max-height', 'auto');
+            $tabDetailContent.toggleClass('expanded');
+            if ($tabDetailContent.hasClass('expanded')) {
+                $tabDetailContent.css('max-height', 'none');
+                $showMoreContentBtn.empty().text('Thu gọn');
             } else {
-                $moreContent.css('max-height', allowMaxHeight);
+                $tabDetailContent.css('max-height', allowMaxHeight);
+                $showMoreContentBtn.empty().text('Xem đầy đủ');
+                $('html, body').animate({
+                    scrollTop: $tabContentWrapper.position().top
+                }, 1000);
             }
         });
     },
     init: function() {
         let that = this;
-        that.showMoreContent();
         that.displayCountDownTime();
         that.closeVideoImage();
         that.initFixedProductDetail();
