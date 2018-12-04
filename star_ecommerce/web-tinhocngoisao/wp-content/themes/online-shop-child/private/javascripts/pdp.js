@@ -167,7 +167,7 @@ var productdetailpage = {
                 $tabDetailContent.css('max-height', allowMaxHeight);
                 $showMoreContentBtn.empty().text('Xem đầy đủ');
                 $('html, body').animate({
-                    scrollTop: $tabContentWrapper.position().top
+                    scrollTop: $tabContentWrapper.position().top + allowMaxHeight
                 }, 1000);
             }
         });
