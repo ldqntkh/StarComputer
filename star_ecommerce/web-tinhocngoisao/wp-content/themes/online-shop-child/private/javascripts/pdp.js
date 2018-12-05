@@ -126,11 +126,12 @@ var productdetailpage = {
         $('.tab-wrapper').find('li').off('click').on('click', function() {
             var $tabItem = $(this);
             var $fixedProductDetail = $tabItem.parents('.fixed-product-detail');
+            var $tabClasseName = $tabItem.attr('class').split(' ').length > 1 ? $tabItem.attr('class').split(' ')[0] : $tabItem.attr('class');
             $('.tab-wrapper').find('li').removeClass('active');
             $('.tab-content-wrapper').find('.tab-content').hide();
             $('#' + $tabItem.data('content') + '-content').show();
             if (!$tabItem.hasClass('active')) {
-                $tabItem.not($tabItem.parents('.fixed-product-detail')).addClass('active');
+                $('.' + $tabClasseName).addClass('active');
             }
 
             if ($fixedProductDetail.length > 0 && !$fixedProductDetail.hasClass('hidden')) {

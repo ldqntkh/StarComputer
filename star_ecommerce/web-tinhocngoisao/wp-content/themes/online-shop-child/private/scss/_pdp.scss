@@ -1,6 +1,6 @@
 .description-wrapper {
     clear: both;
-    overflow: hidden;
+    margin: 18px 0;
 
     h2 {
         border-bottom: 1px solid #f73838;
@@ -518,10 +518,18 @@
                 }
             }
             .tab-wrapper {
-                display: inline-block;
+                display: none;
                 margin-left: 4%;
                 vertical-align: middle;
                 top: 0;
+                @media screen and(min-width: 1024px) {
+                    display: inline-block;
+                }
+                ul {
+                    li {
+                        border-bottom-color: #ccc;
+                    }
+                }
             }
         }
         .add-to-cart-form {
@@ -637,16 +645,17 @@
             margin: 0 0 0 -1px;
             padding: 0 25px;
             border-left: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
-            background-color: #e8ecef;
+            border-bottom: 1px solid #f73838;
+            background-color: #fff;
             line-height: 38px;
             cursor: pointer;
             &.active{
-                border-bottom-color: #fff;
-                background: #fff;
+                border-bottom-color: #f73838;
+                background-color: #f73838;
+                color: #fff;
                 cursor: default;
                 &:hover {
-                    background-color: #fff;
+                    background-color: #f73838;
                 }
             }
             &:hover {
@@ -668,7 +677,7 @@
     z-index: 2;
     margin: 0;
     padding: 1em 10px 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #f73838;
     background: #fff;
     .inactive {
         display: none;
