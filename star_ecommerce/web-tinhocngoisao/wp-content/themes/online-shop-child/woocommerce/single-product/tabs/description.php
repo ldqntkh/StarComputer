@@ -26,7 +26,48 @@ $heading = esc_html( apply_filters( 'woocommerce_product_description_heading', _
 
 ?>
 <div class="description-wrapper">
-  <div class="more-content">
-    <?php the_content(); ?>
-  </div>
+    <?php if ( $heading ) : ?>
+        <h2><?php echo $heading; ?></h2>
+    <?php endif; ?>
+    <div class="tab-wrapper">
+        <ul>
+            <li id="product-detail-tab" data-content="detail" class="active"><span><?php echo __( 'Thông tin chi tiết', 'woocommerce' ); ?></span></li>
+            <li id="product-config-detail-tab" data-content="config-detail"><span><?php echo __( 'Cấu hình chi tiết', 'woocommerce' ); ?></span></li>
+            <li id="product-warranty-tab" data-content="warranty"><span><?php echo __( 'Bảo hành', 'woocommerce' ); ?></span></li>
+            <li id="product-comment-tab" data-content="comment"><span><?php echo __( 'Bình luận', 'woocommerce' ); ?></span></li>
+        </ul>
+    </div>
+    <div class="tab-content-wrapper">
+        <div id="detail-content" class="tab-content active">
+            <div class="tab-detail-content">
+            <?php the_content(); ?>
+            </div>
+        </div>
+
+        <div id="config-detail-content" class="tab-content inactive">
+            <div class="tab-detail-content">
+            <?php
+                if (get_field('product_configured_detail')) {
+                    echo get_field('product_configured_detail');
+                }
+            ?>
+            </div>
+        </div>
+
+        <div id="warranty-content" class="tab-content inactive">
+            <div class="tab-detail-content">
+            <?php
+                if (get_field('product_warranty')) {
+                    echo get_field('product_warranty');
+                }
+            ?>
+            </div>
+        </div>
+
+        <div id="comment-content" class="tab-content inactive">
+            <div class="tab-detail-content">
+            <?php comments_template(); ?>
+            </div>
+        </div>
+    </div>
 </div>
