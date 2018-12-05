@@ -27,14 +27,14 @@ $heading = esc_html( apply_filters( 'woocommerce_product_description_heading', _
 ?>
 <div class="description-wrapper">
     <?php if ( $heading ) : ?>
-        <h2><?php echo $heading; ?></h2>
+        <h2 class="hidden"><?php echo $heading; ?></h2>
     <?php endif; ?>
     <div class="tab-wrapper">
         <ul>
-            <li id="product-detail-tab" data-content="detail" class="active"><span><?php echo __( 'Thông tin chi tiết', 'woocommerce' ); ?></span></li>
-            <li id="product-config-detail-tab" data-content="config-detail"><span><?php echo __( 'Cấu hình chi tiết', 'woocommerce' ); ?></span></li>
-            <li id="product-warranty-tab" data-content="warranty"><span><?php echo __( 'Bảo hành', 'woocommerce' ); ?></span></li>
-            <li id="product-comment-tab" data-content="comment"><span><?php echo __( 'Bình luận', 'woocommerce' ); ?></span></li>
+            <li class="product-detail-tab active" data-content="detail"><span><?php echo __( 'Thông tin chi tiết', 'woocommerce' ); ?></span></li>
+            <li class="product-config-detail-tab" data-content="config-detail"><span><?php echo __( 'Cấu hình chi tiết', 'woocommerce' ); ?></span></li>
+            <li class="product-warranty-tab" data-content="warranty"><span><?php echo __( 'Bảo hành', 'woocommerce' ); ?></span></li>
+            <li class="product-comment-tab" data-content="comment"><span><?php echo __( 'Bình luận', 'woocommerce' ); ?></span></li>
         </ul>
     </div>
     <div class="tab-content-wrapper">
