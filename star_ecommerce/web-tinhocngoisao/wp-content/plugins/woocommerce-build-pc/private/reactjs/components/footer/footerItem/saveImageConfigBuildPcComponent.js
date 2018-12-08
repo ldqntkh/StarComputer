@@ -26,6 +26,8 @@ class SaveImageConfigBuildPcComponent extends Component {
 
     saveImages = () => {
         arrImages = [];
+        let customLogoLink = document.getElementsByClassName('custom-logo-link')[0];
+        let customLogoSrc = typeof(customLogoLink) !== 'undefined' ? customLogoLink.getElementsByTagName('img')[0].src : '';
         let canvas = document.createElement('canvas');
         let that = this;
         canvas.id = 'save-image-canvas';
@@ -50,7 +52,7 @@ class SaveImageConfigBuildPcComponent extends Component {
         };
         logoImg.name = arrImages.length;
         arrImages[arrImages.length] = false;
-        logoImg.src = "http://traucay.vn/wp-content/uploads/2018/08/cropped-cropped-logo-star-01-1.png";
+        logoImg.src = customLogoSrc;
         ctx.fillStyle = "#2d3877";
         ctx.font = "30px arial";
         ctx.fillText("Xây dựng cấu hình PC".toUpperCase(), canvas.width / 2 , 140);
@@ -131,15 +133,16 @@ class SaveImageConfigBuildPcComponent extends Component {
         if (isImageLoad) {
             let currentDate = new Date();
             let downloadButton = document.createElement('a');
-            let buildPCFunction = document.getElementById('build-pc-function');
             downloadButton.id = 'download-button';
-            canvas.appendChild(downloadButton);
             downloadButton.href = canvas.toDataURL("image/png");
+            downloadButton.target = '_blank';
             downloadButton.download = 'buildPC_' + currentDate.getDate() + '-' + currentDate.getMonth() + '-' + currentDate.getHours() + '-' + currentDate.getMinutes() + '-' + currentDate.getSeconds() + '.png';
+            canvas.appendChild(downloadButton);
             downloadButton.click();
-            // remove canvas after download image success
-            buildPCFunction.removeChild(buildPCFunction.lastChild);
         }
+        let buildPCFunction = document.getElementById('build-pc-function');
+        // remove canvas after download image success
+        buildPCFunction.removeChild(buildPCFunction.lastChild);
     }
 
     formatPrice = (price) => {
