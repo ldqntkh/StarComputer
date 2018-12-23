@@ -1405,40 +1405,51 @@ class es_cls_registerhook {
 		?>
 
         <div class="es_form_container">
-            <form class="es_<?php echo $es_pre ?>_form" data-es_form_id="es_<?php echo $es_pre ?>_form">
-				<?php if ( $es_desc != "" ) { ?>
-                    <div class="es_caption"><?php echo $es_desc; ?></div>
-				<?php } ?>
-				<?php if ( $es_name == "YES" ) { ?>
-                    <div class="es_lablebox">
-                        <label class="es_<?php echo $es_pre ?>_form_name"><?php echo __( 'Name', ES_TDOMAIN ); ?></label>
-                    </div>
-                    <div class="es_textbox">
-                        <input type="text" id="es_txt_name" class="es_textbox_class" name="es_txt_name" value="" maxlength="60">
-                    </div>
-				<?php } ?>
-                <div class="es_lablebox">
-                    <label class="es_<?php echo $es_pre ?>_form_email"><?php echo __( 'Email *', ES_TDOMAIN ); ?></label>
-                </div>
-                <div class="es_textbox">
-                    <input type="email" id="es_txt_email" class="es_textbox_class" name="es_txt_email" value="" maxlength="60" required>
-                </div>
-				<?php if ( ( in_array( 'gdpr/gdpr.php', $active_plugins ) || array_key_exists( 'gdpr/gdpr.php', $active_plugins ) ) ) {
-					echo GDPR::consent_checkboxes();
-				} ?>
-                <div class="es_button">
-                    <input type="submit" id="es_txt_button" class="es_textbox_button es_submit_button" name="es_txt_button" value="<?php echo __( 'Đăng ký', ES_TDOMAIN ); ?>">
-                </div>
-                <div class="es_msg" id="es_<?php echo $es_pre ?>_msg">
-                    <span id="es_msg"></span>
-                </div>
-				<?php if ( $es_name != "YES" ) { ?>
-                    <input type="hidden" id="es_txt_name" name="es_txt_name" value="">
-				<?php } ?>
-                <input type="hidden" id="es_txt_group" name="es_txt_group" value="<?php echo $es_group; ?>">
-				<?php $nonce = wp_create_nonce( 'es-subscribe' ); ?>
-                <input type="hidden" name="es-subscribe" id="es-subscribe" value="<?php echo $nonce; ?>"/>
-            </form>
+			<i class="icon-subscription-email"></i>
+			<div class="form-subscription-email">
+				<div class="description">
+					<h3>
+						<?php echo __( 'Đăng ký nhận bản tin từ Tin học ngôi sao', ES_TDOMAIN ); ?>
+					</h3>
+					<p>
+						<?php echo __( 'Đừng bỏ lỡ hàng nghìn sản phẩn và những khuyến mại hấp dẫn từ chúng tôi', ES_TDOMAIN ); ?>
+					</p>
+				</div>
+				<form class="es_<?php echo $es_pre ?>_form" data-es_form_id="es_<?php echo $es_pre ?>_form">
+					<!-- <?php if ( $es_desc != "" ) { ?>
+						<div class="es_caption"><?php echo $es_desc; ?></div>
+					<?php } ?>
+					<?php if ( $es_name == "YES" ) { ?>
+						<div class="es_lablebox">
+							<label class="es_<?php echo $es_pre ?>_form_name"><?php echo __( 'Name', ES_TDOMAIN ); ?></label>
+						</div>
+						<div class="es_textbox">
+							<input type="text" id="es_txt_name" class="es_textbox_class" name="es_txt_name" value="" maxlength="60">
+						</div>
+					<?php } ?>
+					<div class="es_lablebox">
+						<label class="es_<?php echo $es_pre ?>_form_email"><?php echo __( 'Email *', ES_TDOMAIN ); ?></label>
+					</div> -->
+					<div class="es_textbox">
+						<input type="email" id="es_txt_email" placeholder="Địa chỉ email của bạn" class="es_textbox_class" name="es_txt_email" value="" maxlength="60" required>
+					</div>
+					<?php if ( ( in_array( 'gdpr/gdpr.php', $active_plugins ) || array_key_exists( 'gdpr/gdpr.php', $active_plugins ) ) ) {
+						echo GDPR::consent_checkboxes();
+					} ?>
+					<div class="es_button">
+						<input type="submit" id="es_txt_button" class="es_textbox_button es_submit_button" name="es_txt_button" value="<?php echo __( 'Đăng ký', ES_TDOMAIN ); ?>">
+					</div>
+					<div class="es_msg" id="es_<?php echo $es_pre ?>_msg">
+						<span id="es_msg"></span>
+					</div>
+					<?php if ( $es_name != "YES" ) { ?>
+						<input type="hidden" id="es_txt_name" name="es_txt_name" value="">
+					<?php } ?>
+					<input type="hidden" id="es_txt_group" name="es_txt_group" value="<?php echo $es_group; ?>">
+					<?php $nonce = wp_create_nonce( 'es-subscribe' ); ?>
+					<input type="hidden" name="es-subscribe" id="es-subscribe" value="<?php echo $nonce; ?>"/>
+				</form>
+			</div>
 			<?php do_action( 'es_after_form' ) ?>
         </div>
 
