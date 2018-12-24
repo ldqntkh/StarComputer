@@ -22,6 +22,11 @@
 
     <div class="account-order">
         <div class="form-account">
+
+            <div class="error_msg">
+                <?php wc_print_notices(); ?>
+            </div>
+
             <div class="tab">
                 <button class="tablinks" id="checkout_login" onclick="openTabAccount(event, 'login')">
                     <span>Đăng nhập</span>
@@ -36,44 +41,46 @@
             </div>
 
             <div id="login" class="tabcontent">
-                <form>
+                <form method="post">
                     <div class="input-form">
-                        <label for="username">Email hoặc username:</label>
-                        <input type="text" placeholder="Tài khoản" value="" name="username" id="username">
+                        <label for="username"><?php esc_html_e( 'Email or username', 'wooomsa' ); ?></label>
+                        <input type="text" placeholder="Tài khoản" value="<?php echo !empty($_POST['username']) ? $_POST['username'] : '' ?>" name="username" autocomplete="username" id="username">
                     </div>
                     <div class="input-form">
-                        <label for="password">Mật khẩu:</label>
-                        <input type="password" placeholder="Mật khẩu" value="" name="password" id="password">
+                        <label for="password"><?php esc_html_e( 'Password', 'wooomsa' ); ?></label>
+                        <input type="password" placeholder="Mật khẩu" value="" name="password" autocomplete="current-password" id="password">
                     </div>
                     <div class="group-button">
-                        <p>Quên mật khẩu? Bạn có thể khôi phục tại <a href="#">đây</a></p> 
-                        <button class="btn-login">Đăng nhập</button>
+                        <p><?php esc_html_e( 'Lost your password?', 'wooomsa' ); ?> <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Here', 'wooomsa' ); ?></a></p> 
+                        <?php wp_nonce_field( 'woocommerce-login', 'woocommerce-login-nonce' ); ?>
+                        <input type="hidden" name="redirect" value="<?php echo esc_url( wc_get_page_permalink( 'checkout' ) ) ?>" />
+                        <input type="hidden" name="currentTab" value="login"/>
+                        <button type="submit" class="btn-login" name="login" value="<?php esc_attr_e( 'Login', 'woocommerce' ); ?>"><?php esc_html_e( 'Login', 'woocommerce' ); ?></button>
                     </div>
                 </form>
             </div>
 
             <div id="register" class="tabcontent">
                 <!-- kiểm tra thử 2 cái form có name input giống nhau có bị gì ko nhe a K -->
-                <form>
+                <form method="post">
                     <div class="input-form">
-                        <label for="username">Email hoặc username:</label>
-                        <input type="text" placeholder="Tài khoản" value="" name="username" id="username">
+                        <label for="username"><?php esc_html_e( 'Email', 'wooomsa' ); ?></label>
+                        <input type="text" placeholder="Tài khoản" value="<?php ?>" name="email" id="reg_email">
                     </div>
                     <div class="input-form">
-                        <label for="password">Mật khẩu:</label>
-                        <input type="password" placeholder="Mật khẩu" value="" name="password" id="password">
+                        <label for="password"><?php esc_html_e( 'Mật khẩu', 'wooomsa' ); ?></label>
+                        <input type="password" placeholder="<?php esc_html_e( 'Mật khẩu', 'placeholder', 'wooomsa' ); ?>" value="" name="password" autocomplete="new-password" id="reg_password">
                     </div>
                     <div class="input-form">
-                        <label for="re-password">Nhập lại mật khẩu:</label>
-                        <input type="password" placeholder="Mật khẩu" value="" name="re-password" id="re-password">
-                    </div>
-                    <div class="input-form">
-                        <label for="username">Họ tên</label>
-                        <input type="text" placeholder="Họ tên" value="" name="fullname" id="username">
+                        <label for="re-password"><?php esc_html_e( 'Nhập lại mật khẩu', 'wooomsa' ); ?></label>
+                        <input type="password" placeholder="<?php esc_html_e( 'Nhập lại mật khẩu', 'placeholder', 'wooomsa' ); ?>" value="" name="password" autocomplete="new-password" id="reg_password_again">
                     </div>
                     <div class="group-button">
-                        <p>Khi bạn đăng ký tài khoản, bạn đã đồng ý với mọi <a href="#">chính sách</a> của chúng tôi.</p> 
-                        <button class="btn-login">Đăng ký</button>
+                        <p>Khi bạn đăng ký tài khoản, bạn đã đồng ý với mọi <a href="<?php echo esc_url( get_permalink( wc_privacy_policy_page_id() ) ) ?>" class="woocommerce-privacy-policy-link" target="_blank"><?php echo __( 'privacy policy', 'woomsa' ) ?></a> của chúng tôi.</p> 
+                        <?php wp_nonce_field( 'woocommerce-register', 'woocommerce-register-nonce' ); ?>
+                        <input type="hidden" name="redirect" value="<?php echo esc_url( wc_get_page_permalink( 'checkout' ) ) ?>" />
+                        <input type="hidden" name="currentTab" value="register"/>
+                        <button type="submit" class="btn-login" name="register" value="<?php esc_attr_e( 'Đăng ký', 'wooomsa' ); ?>"><?php esc_html_e( 'Đăng ký', 'wooomsa' ); ?></button>
                     </div>
                 </form>
             </div>
@@ -81,37 +88,45 @@
         <div class="order-items">
             <div class="head">
                 <span>Giỏ hàng</span>
-                <a href="#">Sửa</a>
+                <a href="<?php echo esc_url( wc_get_page_permalink( 'cart' ) ) ?>">Sửa</a>
             </div>
             <div class="items">
-                <div class="product-item">
-                    <span>
-                        <strong>2x</strong>
-                        <a href="#">Sản phẩm 01</a>
-                    </span>
-                    <span>150.000đ</span>
-                </div>
-                <div class="product-item">
-                    <span>
-                        <strong>1x</strong>
-                        <a href="#">Sản phẩm 02</a>
-                    </span>
-                    <span>1.300.000đ</span>
-                </div>
+                <?php
+                foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+                    $_product = $cart_item['data'];
+                    $quantity = $cart_item['quantity'];
+                    $product_id = $cart_item['product_id'];
+                    $product_permalink = $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '';
+                    $price = WC()->cart->get_product_price_value($_product);
+                    $regular_price = $_product->regular_price;
+                    $sale_price = $_product->sale_price;
+                ?>
+                    <div class="product-item">
+                        <span>
+                            <strong><?php echo $quantity;?>x</strong>
+                            <?php echo sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ); ?>
+                        </span>
+                        <?php if ( ! empty( $sale_price ) && $sale_price > 0 && $sale_price < $regular_price ) { ?>
+                            <span class="price">
+                                <span class="woocommerce-Price-amount amount"><?php echo wc_price( $sale_price ); ?></span>
+                            </span>
+                        <?php } else { ?>
+                            <span class="price">
+                                <span class="woocommerce-Price-amount amount"><?php wc_price( $regular_price ); ?></span>
+                            </span>;
+                        <?php } ?>
+                    </div>
+                <?php } ?>
             </div>
             <div class="foot">
                 <div class="order-totals">
                     <div class="line">
-                        <span>Tạm tính:</span>
-                        <strong>1.450.000đ</strong>
-                    </div>
-                    <div class="line">
-                        <span>Phụ phí:</span>
-                        <strong>100.000đ</strong>
+                        <span><?php esc_attr_e( 'Subtotal', 'woomsa' ); ?></span>
+                        <strong><?php wc_cart_totals_subtotal_html(); ?></strong>
                     </div>
                     <div class="line total">
-                        <span>Tổng cộng:</span>
-                        <strong>1.550.000đ</strong>
+                        <span><?php _e( 'Total', 'woomsa' ); ?></span>
+                        <strong><?php wc_cart_totals_order_total_html(); ?></strong>
                     </div>
                 </div>
             </div>
@@ -123,21 +138,22 @@
             var i, tabcontent, tablinks;
 
             // Get all elements with class="tabcontent" and hide them
-            tabcontent = document.getElementsByClassName("tabcontent");
+            tabcontent = document.getElementsByClassName('tabcontent');
             for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+                tabcontent[i].style.display = 'none';
             }
 
             // Get all elements with class="tablinks" and remove the class "active"
-            tablinks = document.getElementsByClassName("tablinks");
+            tablinks = document.getElementsByClassName('tablinks');
             for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                tablinks[i].className = tablinks[i].className.replace(' active', '');
             }
 
             // Show the current tab, and add an "active" class to the link that opened the tab
-            document.getElementById(tabname).style.display = "block";
-            evt.currentTarget.className += " active";
+            document.getElementById(tabname).style.display = 'block';
+            evt.currentTarget.className += ' active';
         }
-        document.getElementById("checkout_login").click();
+        var currentTab = '<?php echo ! empty( $_POST['login'] ) ? 'checkout_login' : ! empty( $_POST['register'] ) ? 'checkout_register' : 'checkout_login'; ?>';
+        document.getElementById(currentTab).click();
     </script>
 </div>

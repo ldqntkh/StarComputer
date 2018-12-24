@@ -9,7 +9,7 @@ jQuery( function( $ ) {
 	$.blockUI.defaults.overlayCSS.cursor = 'default';
 
 	var wc_checkout_form = {
-		show_payment = $( window ).width() >= 1024 ? false : true,
+		show_payment: $( window ).width() >= 1024 ? false : true,
 		updateTimer: false,
 		dirtyInput: false,
 		selectedPaymentMethod: false,
@@ -441,81 +441,82 @@ jQuery( function( $ ) {
 			});
 		},
 		submit: function(e) {
-			if (!wc_checkout_form.show_payment && $( window ).width() >= 1024) {
-				e.preventDefault();
-				// please valid form before next step payment
-				// valid success then next step
-				var isShippingToDifferentAddress = $('#ship-to-different-address-checkbox').is(':checked');
-				var $billingWrapper = !isShippingToDifferentAddress ? $('.woocommerce-billing-fields__field-wrapper') : false;
-				var $billingAndShippingWrapper = isShippingToDifferentAddress ? $('.woocommerce-shipping-fields__field-wrapper').parents('.address-billing-and-shipping') : false;
-				var $inputFieldsWrapper = $billingAndShippingWrapper || $billingWrapper;
-				var $inputFields = $inputFieldsWrapper.find('.woocommerce-input-wrapper');
+			//it's seems we don't need this validate anymore. please kindly check.
+			// if (!wc_checkout_form.show_payment && $( window ).width() >= 1024) {
+			// 	e.preventDefault();
+			// 	// please valid form before next step payment
+			// 	// valid success then next step
+			// 	var isShippingToDifferentAddress = $('#ship-to-different-address-checkbox').is(':checked');
+			// 	var $billingWrapper = !isShippingToDifferentAddress ? $('.woocommerce-billing-fields__field-wrapper') : false;
+			// 	var $billingAndShippingWrapper = isShippingToDifferentAddress ? $('.woocommerce-shipping-fields__field-wrapper').parents('.address-billing-and-shipping') : false;
+			// 	var $inputFieldsWrapper = $billingAndShippingWrapper || $billingWrapper;
+			// 	var $inputFields = $inputFieldsWrapper.find('.woocommerce-input-wrapper');
 
-				$inputFields.each(function() {
-					var $inputField = $(this);
-					var $inputFieldWrapper = $inputField.parent();
-					var $selectorElement = $inputField.find('input') || $inputField.find('select');
-					if ( $inputFieldWrapper.find('.woocommerce-error-input').length > 0 ) {
-						$inputFieldWrapper.find('.woocommerce-error-input').remove();
-					}
+			// 	$inputFields.each(function() {
+			// 		var $inputField = $(this);
+			// 		var $inputFieldWrapper = $inputField.parent();
+			// 		var $selectorElement = $inputField.find('input') || $inputField.find('select');
+			// 		if ( $inputFieldWrapper.find('.woocommerce-error-input').length > 0 ) {
+			// 			$inputFieldWrapper.find('.woocommerce-error-input').remove();
+			// 		}
 
-					if ( $selectorElement.val() === '' && $inputFieldWrapper.hasClass('validate-required') ) {
-						$inputFieldWrapper.addClass('woocommerce-invalid woocommerce-invalid-required-field');
-						$inputFieldWrapper.append('<span class="woocommerce-error-input">Xin vui lòng điền thông tin</span>');
-					} else if ( $selectorElement.val() !== '' ) {
-						if ( $inputFieldWrapper.hasClass('woocommerce-invalid-email') ) {
-							$inputFieldWrapper.append('<span class="woocommerce-error-input">Địa chỉ email không hợp lệ. Vui lòng nhập lại</span>');
-						}
-					}	else {
-						$inputFieldWrapper.removeClass('woocommerce-validated');
-					}
-				});
+			// 		if ( $selectorElement.val() === '' && $inputFieldWrapper.hasClass('validate-required') ) {
+			// 			$inputFieldWrapper.addClass('woocommerce-invalid woocommerce-invalid-required-field');
+			// 			$inputFieldWrapper.append('<span class="woocommerce-error-input">Xin vui lòng điền thông tin</span>');
+			// 		} else if ( $selectorElement.val() !== '' ) {
+			// 			if ( $inputFieldWrapper.hasClass('woocommerce-invalid-email') ) {
+			// 				$inputFieldWrapper.append('<span class="woocommerce-error-input">Địa chỉ email không hợp lệ. Vui lòng nhập lại</span>');
+			// 			}
+			// 		}	else {
+			// 			$inputFieldWrapper.removeClass('woocommerce-validated');
+			// 		}
+			// 	});
 
-				if ( $inputFieldsWrapper.find('.woocommerce-invalid-required-field').length > 0 ) {
-					return false;
-				}
+			// 	if ( $inputFieldsWrapper.find('.woocommerce-invalid-required-field').length > 0 ) {
+			// 		return false;
+			// 	}
 				
-				// show shipping address detail
-				var $checkout_address = $('#checkout-address');
-				var firstName = $inputFieldsWrapper.find('#billing_first_name').val();
-				var lastName = $inputFieldsWrapper.find('#billing_last_name').val();
-				var phone = $inputFieldsWrapper.find('#billing_phone').val();
-				var email = $inputFieldsWrapper.find('#billing_email').val();
-				var address1 = $inputFieldsWrapper.find('#billing_address_1').val();
-				var html_address = `<h3> Địa chỉ giao hàng</h3>
-									<table>
-										<tr>
-											<td class="title">Họ tên:</td>
-											<td>` + firstName + ' ' + lastName + `</td>
-										</tr>
-										<tr>
-											<td class="title">Số phone:</td>
-											<td>` + phone + `</td>
-										</tr>
-										<tr>
-											<td class="title">Email:</td>
-											<td>` + email + `</td>
-										</tr>
-										<tr>
-											<td class="title">Địa chỉ:</td>
-											<td>` + address1 + `</td>
-										</tr>
-									</table>
-									<button type="button" class="button alt" id="btn-edit-address">Sửa</button>`;
-				$checkout_address.html(html_address).addClass('active');
+			// 	// show shipping address detail
+			// 	var $checkout_address = $('#checkout-address');
+			// 	var firstName = $inputFieldsWrapper.find('#billing_first_name').val();
+			// 	var lastName = $inputFieldsWrapper.find('#billing_last_name').val();
+			// 	var phone = $inputFieldsWrapper.find('#billing_phone').val();
+			// 	var email = $inputFieldsWrapper.find('#billing_email').val();
+			// 	var address1 = $inputFieldsWrapper.find('#billing_address_1').val();
+			// 	var html_address = `<h3> Địa chỉ giao hàng</h3>
+			// 						<table>
+			// 							<tr>
+			// 								<td class="title">Họ tên:</td>
+			// 								<td>` + firstName + ' ' + lastName + `</td>
+			// 							</tr>
+			// 							<tr>
+			// 								<td class="title">Số phone:</td>
+			// 								<td>` + phone + `</td>
+			// 							</tr>
+			// 							<tr>
+			// 								<td class="title">Email:</td>
+			// 								<td>` + email + `</td>
+			// 							</tr>
+			// 							<tr>
+			// 								<td class="title">Địa chỉ:</td>
+			// 								<td>` + address1 + `</td>
+			// 							</tr>
+			// 						</table>
+			// 						<button type="button" class="button alt" id="btn-edit-address">Sửa</button>`;
+			// 	$checkout_address.html(html_address).addClass('active');
 
-				wc_checkout_form.show_payment = true;
+			// 	wc_checkout_form.show_payment = true;
 
-				// hide form address
-				$('.address-billing-and-shipping').hide();
-				// show form payment
-				$('.progress-payment').show(300);
+			// 	// hide form address
+			// 	$('.address-billing-and-shipping').hide();
+			// 	// show form payment
+			// 	$('.progress-payment').show(300);
 
-				// show progess bar
-				$('.bs-wizard-step-2').removeClass('active');
-				$('.bs-wizard-step-3').removeClass('disabled');
-				return;
-			}
+			// 	// show progess bar
+			// 	$('.bs-wizard-step-2').removeClass('active');
+			// 	$('.bs-wizard-step-3').removeClass('disabled');
+			// 	return;
+			// }
 
 			wc_checkout_form.reset_update_checkout_timer();
 			var $form = $( this );

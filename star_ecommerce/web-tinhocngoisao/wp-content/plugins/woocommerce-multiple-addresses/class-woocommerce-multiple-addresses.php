@@ -76,9 +76,6 @@ class WC_Multiple_addresses {
 		// Show a 'configure addresses' button on checkout
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'before_checkout_form' ) );
 
-		// Save billing and shipping addresses as default when creating a new customer aco
-		add_action( 'woocommerce_created_customer', array( $this, 'created_customer_save_shipping_as_default' ) );
-
 		// Add a dropdown to choose an address
 		add_filter( 'woocommerce_checkout_fields', array( $this, 'add_dd_to_checkout_fields' ) );
 
@@ -627,46 +624,6 @@ class WC_Multiple_addresses {
 		$arr[ $key ] = $val;
 
 		return array_reverse( $arr, true );
-	}
-
-	/**
-	 * Creating the same default shipping for newly created customer
-	 *
-	 * @since    1.0.0
-	 *
-	 * @param    integer $current_user_id
-	 */
-	public function created_customer_save_shipping_as_default( $current_user_id ) {
-		global $woocommerce;
-		if ( $current_user_id == 0 ) {
-			return;
-		}
-
-		$checkout        = $woocommerce->checkout->posted;
-		$default_address = array();
-		if ( $checkout['shiptobilling'] == 0 ) {
-			$default_address[0]['shipping_country']    = $checkout['shipping_country'];
-			$default_address[0]['shipping_first_name'] = $checkout['shipping_first_name'];
-			$default_address[0]['shipping_last_name']  = $checkout['shipping_last_name'];
-			$default_address[0]['shipping_company']    = $checkout['shipping_company'];
-			$default_address[0]['shipping_address_1']  = $checkout['shipping_address_1'];
-			$default_address[0]['shipping_address_2']  = $checkout['shipping_address_2'];
-			$default_address[0]['shipping_city']       = $checkout['shipping_city'];
-			$default_address[0]['shipping_state']      = $checkout['shipping_state'];
-			$default_address[0]['shipping_postcode']   = $checkout['shipping_postcode'];
-		} elseif ( $checkout['shiptobilling'] == 1 ) {
-			$default_address[0]['shipping_country']    = $checkout['billing_country'];
-			$default_address[0]['shipping_first_name'] = $checkout['billing_first_name'];
-			$default_address[0]['shipping_last_name']  = $checkout['billing_last_name'];
-			$default_address[0]['shipping_company']    = $checkout['billing_company'];
-			$default_address[0]['shipping_address_1']  = $checkout['billing_address_1'];
-			$default_address[0]['shipping_address_2']  = $checkout['billing_address_2'];
-			$default_address[0]['shipping_city']       = $checkout['billing_city'];
-			$default_address[0]['shipping_state']      = $checkout['billing_state'];
-			$default_address[0]['shipping_postcode']   = $checkout['billing_postcode'];
-		}
-		$default_address[0]['shipping_address_is_default'] = 'true';
-		update_user_meta( $current_user_id, 'wc_multiple_shipping_addresses', $default_address );
 	}
 
 	/**

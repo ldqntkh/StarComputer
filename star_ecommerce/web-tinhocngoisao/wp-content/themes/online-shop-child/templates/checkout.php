@@ -10,7 +10,9 @@
         WC()->session->set( 'checkoutstep', 2 );
     }
 
-    if ( WC()->session->__isset( 'checkoutstep' ) && ! isset( $wp->query_vars['order-received'] ) ) {
+    if ( ! is_user_logged_in() ) {
+        $step = 1;
+    } else if ( WC()->session->__isset( 'checkoutstep' ) && ! isset( $wp->query_vars['order-received'] ) ) {
         $step = WC()->session->get('checkoutstep');
     } else if ( isset( $wp->query_vars['order-received'] ) ) {
         WC()->session->__unset( 'checkoutstep' );

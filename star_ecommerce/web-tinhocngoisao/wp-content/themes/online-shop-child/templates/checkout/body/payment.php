@@ -16,7 +16,7 @@
 <div class="checkout-payment">
     <div class="paymnent-details">
         <h2>3. Chọn hình thức giao hàng và thanh toán</h2>
-        <form class="checkout">
+        <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
             <div class="delivery">
                 <h3>3.1 Chọn hình thức giao hàng</h3>
                 <div class="delivery-items">
