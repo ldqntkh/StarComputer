@@ -1,0 +1,131 @@
+(function($) {
+    $(document).ready(function() {
+        $('.city-field').on('change', function() {
+            getDistrict( $(this).parents('.shipping_address'), $(this).val() );
+        });
+
+        $('.district-field').off('change').on('change', function() {
+            getWard( $(this).parents('.shipping_address'), $(this).val() );
+        });
+
+        $('.update-address').off('click').on('click', function() {
+            var $updateAddressForm = $('.update-address-form');
+            var addresses = $updateAddressForm.find('#addresses');
+            var $updateBtn = $(this);
+            var $addressHiddenField = $updateBtn.parents('.address-content').siblings();
+            var $fullNameHiddenField = $addressHiddenField.find('input[name="shipping_last_name[]"]'),
+                $phoneHiddenField = $addressHiddenField.find('input[name="shipping_phone[]"]'),
+                $stateHiddenField = $addressHiddenField.find('input[name="shipping_state[]"]'),
+                $cityHiddenField = $addressHiddenField.find('input[name="shipping_city[]"]'),
+                $address02HiddenField = $addressHiddenField.find('input[name="shipping_address_2[]"]'),
+                $address01HiddenField = $addressHiddenField.find('input[name="shipping_address_1[]"]'),
+                $defaultOptionHiddenField = $addressHiddenField.find('input[name="shipping_address_is_default[]"]');
+
+            var $defaultOptionField = $updateAddressForm.find('.choose_default_address');
+
+            if ( $updateAddressForm.hasClass('hidden') ) {
+                $updateAddressForm.removeClass('hidden');
+            }
+
+            if ( !$('.new-address').hasClass('hidden') ) {
+                $('.new-address').addClass('hidden');
+            }
+
+            $updateAddressForm.find('#fullname').val( $fullNameHiddenField.val() );
+            $updateAddressForm.find('#phone').val( $phoneHiddenField.val() );
+            $updateAddressForm.find('#city').val( $stateHiddenField.val() );
+            $updateAddressForm.find('#address').val( $address01HiddenField.val() );
+
+            if ( $defaultOptionHiddenField.val() === 'true' && !$defaultOptionField.parent().hasClass('hidden') ) {
+                $defaultOptionField.parent().addClass('hidden');
+            } else {
+                $defaultOptionField.parent().removeClass('hidden');
+            }
+
+            getDistrict( $updateAddressForm, $stateHiddenField.val(), $cityHiddenField.val(), function() {
+                getWard( $updateAddressForm,  $cityHiddenField.val(), $address02HiddenField.val() );
+            } );
+
+            $('.list-address').find('.address-hidden-field').each(function(index) {
+                if ($('.shipping_address_hidden_field_' + index).length === 0) {
+                    addresses.append('<div class="shipping_address_hidden_field_' + index + '"></div>');
+                    $(this).clone().appendTo( '.shipping_address_hidden_field_' + index );
+
+                    if ( $(this).is($addressHiddenField) ) {
+                        $('.shipping_address_hidden_field_' + index).addClass('selected');
+                    }
+                }
+            });
+        });
+
+        $('.cancel-update-address').off('click').on('click', function() {
+            $(this).parents('.update-address-form').addClass('hidden');
+        });
+
+        function clearField($field) {
+            return ($field && $field.length > 0) ? $field.empty() : false;
+        }
+
+        function getDistrict( $element, $cityID, $districtValue, $callback ) {
+            $.ajax({
+                type : 'post',
+                dataType : 'json',
+                url : options_city_ajax.admin_ajax,
+                data : {action: 'diagioihanhchinh', matp : $cityID},
+                success: function(response) {
+                    var data = response.data;
+                    var $district = $element.find('#district');
+                    var $ward = $element.find('#ward');
+
+                    clearField( $element.find('#district, #ward') );
+
+                    $ward.append('<option value="">Chọn phường xã</option>');
+                    $district.append('<option value="">Chọn quận/huyện </option>');
+
+                    if (response.success && data.length > 0) {
+                        for( var i = 0; i < data.length; i++ ) {
+                            var districtItem = data[i];
+                            $district.append('<option value="' + districtItem.maqh + '">' + districtItem.name + '</option>');
+                        }
+
+                        if ( $districtValue && $districtValue !== '' ) {
+                            $district.val( $districtValue );
+                        }
+
+                        if ( $callback ) {
+                            $callback();
+                        }
+                    }
+                }
+            });
+            return false;
+        }
+
+        function getWard( $element, $districtID, $wardValue ) {
+            $.ajax({
+                type : 'post',
+                dataType : 'json',
+                url : options_city_ajax.admin_ajax,
+                data : {action: 'diagioihanhchinh', maqh : $districtID},
+                success: function(response) {
+                    var data = response.data;
+                    var $ward = $element.find('#ward');
+
+                    clearField( $ward );
+                    $ward.append('<option value="">Chọn phường xã</option>');
+
+                    if (response.success && data.length > 0) {
+                        for( var i = 0; i < data.length; i++ ) {
+                            var wardItem = data[i];
+                            $ward.append('<option value="' + wardItem.xaid + '">' + wardItem.name + '</option>');
+                        }
+
+                        if ( $wardValue && $wardValue !== '' ) {
+                            $ward.val( $wardValue );
+                        }
+                    }
+                }
+            });
+        }
+    });
+})(jQuery);

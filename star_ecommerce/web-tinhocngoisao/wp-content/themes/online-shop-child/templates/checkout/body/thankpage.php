@@ -1,14 +1,16 @@
 <div class="checkout-thank">
+    <?php $order = wc_get_order( $wp->query_vars['order-received'] ); ?>
+    <?php if ( $order ) : ?>
     <div class="thank-contents">
         <h2>4. Hoàn tất đặt hàng</h4>
         <div class="thank-content">
             <h3 class="title">
                 Cảm ơn bạn đã đặt hàng ở TinHocNgoiSao
             </h3>
-            <p>Đơn hàng của bạn với mã số <a href="#">FDBD123</a> đã được chúng tôi tiếp nhận.<br/>
+            <p>Đơn hàng của bạn với mã số <a href="<?php echo $order->get_view_order_url(); ?>"><?php echo $order->get_id(); ?></a> đã được chúng tôi tiếp nhận.<br/>
                 Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất để xác nhận lại đơn hàng của bạn</p>
             <p>Thời gian giao hàng dự kiến từ 3 đến 4 ngày làm việc</p>
-            <p>Chi tiết về đơn hàng chúng tôi đã gửi đến địa chỉ email : ldqntkh@mail.com <br/>
+            <p>Chi tiết về đơn hàng chúng tôi đã gửi đến địa chỉ email : <?php echo $order->get_billing_email(); ?> <br/>
                 <i>Nếu bạn không nhận được email này vui lòng kiểm tra trong <strong>spam</strong> hoặc <strong>Junk folder</strong></i></p>
             
             <br/>
@@ -20,4 +22,5 @@
         </div>
     </div>
     <div class="right-content"></div>
+    <?php endif;?>
 </div>
