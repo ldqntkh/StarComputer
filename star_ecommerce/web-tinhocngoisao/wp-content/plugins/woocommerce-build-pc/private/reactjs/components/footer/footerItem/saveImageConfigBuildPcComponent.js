@@ -30,17 +30,29 @@ class SaveImageConfigBuildPcComponent extends Component {
         let customLogoSrc = typeof(customLogoLink) !== 'undefined' ? customLogoLink.getElementsByTagName('img')[0].src : '';
         let canvas = document.createElement('canvas');
         let that = this;
+        let computerBuildingData = JSON.parse(localStorage.getItem('computer_building_data'));
+        let dataProductType = this.props.data_product_type;
+        let countedProduct = 0;
+        for( let index in dataProductType ) {
+            let item = computerBuildingData[dataProductType[index].value];
+            if (item.product === null) {
+                continue;
+            }
+            countedProduct++;
+        }
+    
         canvas.id = 'save-image-canvas';
         canvas.width = 1024;
-        canvas.height = 768;
+        canvas.height = countedProduct * 210;
         canvas.style.border = "1px solid #000";
+        canvas.style.backgroundColor = "#fff";
         let buildPCFunction = document.getElementById('build-pc-function');
         buildPCFunction.appendChild(canvas);
         let ctx = canvas.getContext("2d");
         ctx.save();
         ctx.textAlign = "center";
         ctx.fillStyle = "#dfdfdf";
-        ctx.fillRect(0,0, canvas.width, canvas.height / 5);
+        ctx.fillRect(0,0, canvas.width, 160);
         let logoImg = new Image;
         logoImg.onload = () => {
             ctx.drawImage(logoImg, canvas.width / 2.3, 10, 100, 100);
@@ -56,39 +68,40 @@ class SaveImageConfigBuildPcComponent extends Component {
         ctx.fillStyle = "#2d3877";
         ctx.font = "30px arial";
         ctx.fillText("Xây dựng cấu hình PC".toUpperCase(), canvas.width / 2 , 140);
-        let computerBuildingData = JSON.parse(localStorage.getItem('computer_building_data'));
-        let dataProductType = this.props.data_product_type;
+
         let totalPrice = 0;
+        let productPosition = 0;
         for( let index in dataProductType ) {
             let item = computerBuildingData[dataProductType[index].value];
             let product = item.product;
             if (product === null) {
                 continue;
             }
-
+            ++productPosition;
             let productPrice = (product.sale_price !== "0" && product.sale_price !== "") ? parseInt(product.sale_price) : parseInt(product.regular_price);
             let productQty = parseInt(item.quantity);
-            let productPosition = parseInt(index) === 0 ? 1 : parseInt(index) + 1;
+            
             ctx.fillStyle = "#000";
             ctx.textAlign = "left";
             ctx.font = "16px arial";
-            ctx.fillText(product.name + ' ' + '[' + product.id + ']', canvas.width / 5, productPosition * 180);
+            ctx.fillText(product.name + ' ' + '[' + product.id + ']', canvas.width / 5, productPosition * 185);
             ctx.fillStyle = "grey";
-            ctx.fillText(this.formatPrice(productPrice) +' đ', canvas.width / 5, productPosition * 180 + 30);
-            ctx.fillText('x', canvas.width / 3.3, productPosition * 180 + 30);
-            ctx.fillText(productQty, canvas.width / 3, productPosition * 180 + 30);
+            ctx.fillText(this.formatPrice(productPrice) +' đ', canvas.width / 5, productPosition * 185 + 30);
+            ctx.fillText('x', canvas.width / 3.3, productPosition * 185 + 30);
+            ctx.fillText(productQty, canvas.width / 3, productPosition * 185 + 30);
             ctx.fillStyle = "red";
-            ctx.fillText( '= ' + this.formatPrice(productQty * productPrice) + ' đ', canvas.width / 1.2, productPosition * 180 + 30);
+            ctx.fillText( '= ' + this.formatPrice(productQty * productPrice) + ' đ', canvas.width / 1.2, productPosition * 185 + 30);
             totalPrice += (productQty * productPrice);
         }
         ctx.textAlign = "center";
         ctx.fillStyle = "red";
         ctx.font = "bold 16px arial";
-        ctx.fillText('Tổng chi phí: ' + this.formatPrice(totalPrice) + ' đ', canvas.width / 2 - 43, canvas.height - 200);
+        ctx.fillText('Tổng chi phí: ' + this.formatPrice(totalPrice) + ' đ', canvas.width / 2 - 43, canvas.height - 10);
+        let imagePosition = 0;
         this.loadImages(dataProductType, function(images) {
             for (let index in images) {
-                let imagePosition = parseInt(index) === 0 ? 1 : parseInt(index) + 1;
-                ctx.drawImage(images[index], 40, imagePosition * 160, 120, 120);
+                ++imagePosition;
+                ctx.drawImage(images[index], 40, imagePosition * 180, 120, 120);
                 arrImages[parseInt(images[index].name)] = true;
             }
             that.downloadImage(canvas);
