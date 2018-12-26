@@ -55,11 +55,14 @@
                 }
                 .icon-subscription-email {
                     background: url('./assets/img/sprite.png') top left no-repeat;
-                    width: 180px;
+                    width: 165px;
                     height: 100px;
                     background-size: unset;
                     vertical-align: middle;
                     margin-top: -10px;
+                    @media screen and (min-width: 1366px) {
+                        width: 180px;
+                    }
                 }
                 .form-subscription-email {
                     display: flex;
@@ -134,13 +137,13 @@
         #footer-bottom {
             .footer-columns {
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-start;
                 align-items: flex-start;
                 flex-wrap: wrap;
                 .custom-footer-siderbar {
                     width: 100%;
                     @media screen and (min-width: 768px){
-                        width: 50%;
+                        width: 49.5%;
                     }
                     @media screen and (min-width: 1200px){
                         width: 25%;
@@ -234,6 +237,7 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                padding: 10px 0;
                 .app-item {
                     .icon {
                         background: url(./assets/img/sprite.png) top left no-repeat;
