@@ -370,17 +370,48 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                                         </a>
 			                            <?php
 			                            if ( has_nav_menu( 'special-menu' ) ) {
-				                            wp_nav_menu( array(
-					                            'theme_location' => 'special-menu',
-					                            'menu_class' => 'sub-menu special-sub-menu',
-					                            'container' => false
-				                            ) );
+				                            // wp_nav_menu( array(
+					                        //     'theme_location' => 'special-menu',
+					                        //     'menu_class' => 'sub-menu special-sub-menu',
+					                        //     'container' => false
+                                            // ) );
+                                            echo '<ul id="menu-special-menu" class="sub-menu special-sub-menu">';
+                                            $special_menus = wp_get_nav_menu_items('special-menu');
+                                            //var_dump($special_menus);
+                                            foreach($special_menus as $menu_item) {
+                                                if ($menu_item->post_status === 'publish' && $menu_item->menu_item_parent === '0') {
+                                                    echo '<li id="menu-item-' . $menu_item->ID . '" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-' . $menu_item->ID . '">'
+                                                            .'<i class="fa fa-angle-right angle-down"></i><a href="' . $menu_item->url . '">' . $menu_item->title . '</a>';
+                                                    echo '<div class="sub-menus">';
+                                                    echo '<section class="sub-menu-lv1">';
+                                                    foreach($special_menus as $menu_item_lv1) {
+                                                        if ($menu_item_lv1->post_status === 'publish' && $menu_item_lv1->menu_item_parent == $menu_item->ID) {
+                                                           
+                                                            echo '<section id="menu-item-' . $menu_item_lv1->ID . '" >'
+                                                                    .'<a href="' . $menu_item_lv1->url . '">' . $menu_item_lv1->title . '</a>';
+                                                            echo '<section class="sub-menu-lv2">';
+                                                                foreach($special_menus as $menu_item_lv2) {
+                                                                    if ($menu_item_lv2->post_status === 'publish' && $menu_item_lv2->menu_item_parent == $menu_item_lv1->ID) {
+                                                                        echo '<a href="' . $menu_item_lv2->url . '">' . $menu_item_lv2->title . '</a>';
+                                                                    }
+                                                                }
+                                                            echo '</section>';
+                                                            echo '</section>';
+                                                        }
+                                                    }
+                                                    echo '</section>';
+                                                    echo '</div>';
+                                                    echo '</li>';
+                                                }
+                                            }
+                                            echo '</ul>';
 			                            }
 			                            ?>
                                         <div class="responsive-special-sub-menu clearfix"></div>
                                     </li>
                                 </ul>
                                 <?php
+                                //echo '<pre>',print_r(json_encode(wp_get_nav_menu_items('special-menu')),1),'</pre>';
                             }/*special menu*/
                             ?>
                             <div class="acmethemes-nav">
