@@ -40,7 +40,13 @@ h2.woocommerce-loop-product__title {
     height: 56px;
 }
 .online-shop-before-feature {
-    margin-bottom: 10px;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    aside {
+        width: 100%;
+    }
 }
 .home {
     .at-title-action-wrapper {
