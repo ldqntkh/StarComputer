@@ -2,7 +2,7 @@
 // margin top content mobile
 .content-wrapper {
     margin-top: 60px;
-    @media screen and (min-width: 992px){
+    @media screen and (min-width: 993px){
         margin-top: 0;
     }
 }
@@ -15,7 +15,7 @@
     z-index: 9999;
     background-color: white;
     display: flex;
-    @media screen and (min-width: 992px){
+    @media screen and (min-width: 1366px){
         display: none;
     }
     i.fa-navicon {

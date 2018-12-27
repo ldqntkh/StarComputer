@@ -40,6 +40,7 @@ ul.custom-plp-page.products[class*=columns-] li.product {
     height: 330px;
     padding-left: 0;
     padding-right: 0;
+    overflow: hidden;
     @media screen and (min-width: 768px) {
         height: 400px;
         align-items: center;

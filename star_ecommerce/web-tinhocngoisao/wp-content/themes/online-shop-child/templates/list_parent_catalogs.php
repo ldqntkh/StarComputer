@@ -25,6 +25,9 @@ Template Name: Danh sách ngành hàng
     $all_categories = get_categories( $args );
     echo '<div class="list-categories">';
     foreach ($all_categories as $cat) {
+        if ($cat->name === "Uncategorized") {
+            continue;
+        }
         if($cat->category_parent == 0) {
             $category_id = $cat->term_id;
             

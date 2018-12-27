@@ -40,7 +40,13 @@ h2.woocommerce-loop-product__title {
     height: 56px;
 }
 .online-shop-before-feature {
-    margin-bottom: 10px;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    aside {
+        width: 100%;
+    }
 }
 .home {
     .at-title-action-wrapper {
@@ -88,6 +94,15 @@ h2.woocommerce-loop-product__title {
                     @media screen and (min-width: 768px) {
                         display: block;
                     }
+                }
+                @media screen and (min-width: 993px) {
+                    margin-right: 0px;
+                    margin-left: 0px;
+                }
+                @media screen and (min-width: 1366px) {
+                    width: calc(100% - 237px);
+                    float: right;
+                    margin-top: 0px;
                 }
             }
         }
@@ -203,6 +218,7 @@ h2.woocommerce-loop-product__title {
 .navigation-wrapper {
     .main-navigation {
         .special-menu-wrapper {
+            position: unset;
             li {
                 .special-menu {
                     text-transform: uppercase;
@@ -223,10 +239,77 @@ h2.woocommerce-loop-product__title {
                 .menu-item {
                     padding: 1.5px;
                 }
+                // custom new template menu
+                li.menu-item-has-children {
+                    position: unset;
+                    display: flex;
+                    flex-direction: row-reverse;
+                    i {
+                        position: unset !important;
+                        display: none;
+                    }
+                    &:hover {
+                        div.sub-menus {
+                            display: block;
+                        }
+                        i {
+                            display: initial;
+                        }
+                    }
+                }
+                div.sub-menus {
+                    display: none;
+                    @media screen and (min-width: 1024px){
+                        width: 975px;
+                        height: 545px;
+                        position: absolute;
+                        left: 225px;
+                        top: 0;
+                        z-index: 9999;
+                        background-color: white;
+                        border: 1px solid #dedede;
+                        .sub-menu-lv1 {
+                            display: flex;
+                            flex-wrap: wrap;
+                            >section {
+                                width: 24.9%;
+                                padding-top: 5px;
+                                >a {
+                                    display: block;
+                                    line-height: unset;
+                                    margin-bottom: 10px;
+                                    font-size: 14px;
+                                    font-weight: 600;
+                                }
+                            }
+                            .sub-menu-lv2 {
+                                width: 100%;
+                                padding-left: 20px;
+                                display: flex;
+                                flex-direction: column;
+                                a {
+                                    width: 100%;
+                                    padding: 0;
+                                    display: initial;
+                                    line-height: unset;
+                                    padding: 0 0 5px 10px;
+                                    font-size: 13px;
+                                    font-weight: 400;
+                                }
+                            }
+                        }
+                        a {
+                            &:hover {
+                                color: red;
+                            }
+                        }
+                    }
+                }
             }
             >li >ul {
                 height: 544px !important;
             }
         }
     }
+    
 }

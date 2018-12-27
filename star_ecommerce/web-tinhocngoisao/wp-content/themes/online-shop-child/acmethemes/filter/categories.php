@@ -16,7 +16,11 @@
         echo '<div class="wrapper clearfix">';
         echo '<h2 class="category-title">Danh mục sản phẩm</h2>';
         echo '<div class="lst-categories">';
-        foreach ($product_categories as $key => $category) {?>
+        foreach ($product_categories as $key => $category) {
+            if ($category->name === "Uncategorized") {
+                continue;
+            }
+        ?>
             <a href="<?php echo get_category_link($category); ?>" class="category-item">
                 <?php echo $category->name ?>
             </a>

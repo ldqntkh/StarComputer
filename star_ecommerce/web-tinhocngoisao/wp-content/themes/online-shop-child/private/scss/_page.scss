@@ -1,5 +1,6 @@
 body {
     background: $body_background;
+    font-family: "SST-Roman",Helvetica,Arial,sans-serif;
 }
 
 header#masthead {
@@ -12,6 +13,12 @@ header#masthead {
     #site-navigation {
         z-index: 100;
     }
+    &.hide-mobile {
+        display: none;
+        @media screen and (min-width: 1366px) {
+            display: block;
+        }
+    }
 }
 
 .top-header-wrapper {
@@ -21,10 +28,16 @@ header#masthead {
             display: inline-block;
         }
     }
+    &.hide-mobile {
+        display: none;
+        @media screen and (min-width: 1366px) {
+            display: block;
+        }
+    }
 }
 .hide-mobile {
     display: none;
-    @media screen and(min-width: 992px){
+    @media screen and(min-width: 993px){
         display: block;
     }
 }
