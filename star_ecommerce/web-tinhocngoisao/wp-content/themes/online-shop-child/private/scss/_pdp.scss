@@ -705,3 +705,31 @@
         }
     }
 }
+
+.woocommerce-pdp {
+    #secondary-right {
+        display: none;
+    }
+    ul.custom-pdp-page.products[class*=columns-] {
+        display: flex;
+        flex-wrap: wrap;
+        li {
+            width: 49.8%;
+            //background: #f3f3f3;
+            padding: 1px;
+            border: 1px solid #f3f3f3;
+            margin: 0 0 10px;
+            overflow: hidden;
+            @media screen and (min-width: 768px) {
+                width: 33.33%;
+            }
+            @media screen and (min-width: 992px) {
+                width: 24.9%;
+            }
+            @media screen and (min-width: 1400px) {
+                width: 19.9%;
+                margin: 0px;
+            }
+        }
+    }
+} 

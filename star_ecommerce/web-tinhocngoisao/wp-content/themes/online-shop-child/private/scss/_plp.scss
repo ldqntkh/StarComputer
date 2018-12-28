@@ -2,8 +2,10 @@
     .site-content {
         position: relative;
         #primary {
+            width: 100%;
             @media screen and (min-width: 1024px) {
                 margin-top: 60px;
+                width: calc(100% - 310px);
             }
         }
         #secondary-left {
@@ -11,14 +13,17 @@
             top: 50px;
             min-height: 50px;
             background-color: white;
-            z-index: 9998;
+            z-index: 10;
             border-bottom: 1px solid silver;
             -webkit-box-shadow: 0 17px 11px -21px rgba(0,0,0,0.75);
             -moz-box-shadow: 0 17px 11px -21px rgba(0,0,0,0.75);
             box-shadow: 0 17px 11px -21px rgba(0,0,0,0.75);        
-            width: 100%;
+            width: 300px;
             padding-top: 0;
-            
+            display: none;
+            @media screen and (min-width: 1024px) {
+                display: block;
+            }
             .custom-sidebar-pc {
                 @media screen and (min-width: 1024px) {
                     display: flex;
@@ -85,6 +90,15 @@
             }
             .toggle-filter {
                 height: auto;
+            }
+            ul.product-categories, ul.woocommerce-widget-layered-nav-list {
+                li {
+                    padding: 3px 0;    
+                    border-bottom: 1px solid #d7d7d75c;
+                    &.cat-item-none {
+                        display: none;
+                    }
+                }
             }
         }
     }
