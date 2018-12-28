@@ -32,7 +32,8 @@
 
 .featured-entries-col.woocommerce ul.products li.product, 
 .featured-entries-col.woocommerce-page ul.products li.product,
-ul.custom-plp-page.products[class*=columns-] li.product {
+ul.custom-plp-page.products[class*=columns-] li.product,
+ul.custom-pdp-page.products[class*=columns-] li.product {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -146,11 +147,8 @@ ul.custom-plp-page.products[class*=columns-] li.product {
             @media screen and (min-width: 768px) {
                 width: 33.33%;
             }
-            @media screen and (min-width: 992px) {
-                width: 24.9%;
-            }
             @media screen and (min-width: 1400px) {
-                width: 20%;
+                width: 24.9%;
                 margin: 0px;
             }
         }

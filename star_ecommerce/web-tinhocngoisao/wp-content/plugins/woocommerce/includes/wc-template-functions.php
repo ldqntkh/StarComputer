@@ -268,10 +268,17 @@ function wc_body_class( $classes ) {
 	$classes = (array) $classes;
 
 	if ( is_woocommerce() ) {
+		if ( is_product() ) {
 
-		$classes[] = 'woocommerce';
-		$classes[] = 'woocommerce-page';
-		$classes[] = 'woocommerce-plp';
+			$classes[] = 'woocommerce';
+			$classes[] = 'woocommerce-page';
+			$classes[] = 'woocommerce-pdp';
+	
+		} else {
+			$classes[] = 'woocommerce';
+			$classes[] = 'woocommerce-page';
+			$classes[] = 'woocommerce-plp';
+		}
 
 	} elseif ( is_checkout() ) {
 
