@@ -189,9 +189,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                             <a href="<?php echo $headerPromotion['url']; ?>">
                                 <div class="promotion-banner" style="background-image:url('<?php echo $headerPromotion['image'] ?>'),linear-gradient(to right, <?php echo $backgroundColor; ?> 40%, <?php echo $backgroundColor; ?> 50%, <?php echo $backgroundColor; ?> 60%)"></div>
                             </a>
-                            <?php
-                                endforeach;
-                            ?>
+                            <?php endforeach; ?>
                     </div>
                 <?php
                     endif;
