@@ -163,12 +163,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	    $online_shop_enable_header_top = $online_shop_customizer_all_values['online-shop-enable-header-top'];
 	    $online_shop_top_right_button_title = $online_shop_customizer_all_values['online-shop-top-right-button-title'];
 	    $online_shop_top_right_button_link = get_site_url(null, 'my-account');
-        $headerPromotionPost = get_posts(array(
-                                            'name'   => 'header-promotion',
-                                            'post_type'   => 'post',
-                                            'post_status' => 'publish',
-                                            'numberposts' => 1
-                                        ))[0];
+        $headerPromotions = get_option( 'custom_header_options' );
         ?>
         <header id="masthead" class="site-header">
             <?php
@@ -179,10 +174,20 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	            $online_shop_top_right_button_options = $online_shop_customizer_all_values['online-shop-top-right-button-options'];
 	            ?>
                 <?php
-                    if ( $headerPromotionPost->post_status === 'publish' ) :
+                    if ( count($headerPromotions) > 0 ) :
                 ?>
-                    <div class="top-header-promotion">
-                        <?php echo $headerPromotionPost->post_content; ?>
+                    <div class="top-header-promotion featured-slider hide-mobile" data-autoplay="1">
+                        <?php
+                            foreach ( $headerPromotions as  $headerPromotion ) :
+                                $backgroundColor = $headerPromotion['background_color'];
+                                if ( $headerPromotion['image'] === '' ) {
+                                    continue;
+                                }
+                        ?>
+                            <a href="<?php echo $headerPromotion['url']; ?>">
+                                <div class="promotion-banner" style="background-image:url('<?php echo $headerPromotion['image'] ?>'),linear-gradient(to right, <?php echo $backgroundColor; ?> 40%, <?php echo $backgroundColor; ?> 50%, <?php echo $backgroundColor; ?> 60%)"></div>
+                            </a>
+                            <?php endforeach; ?>
                     </div>
                 <?php
                     endif;
