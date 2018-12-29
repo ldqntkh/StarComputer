@@ -479,7 +479,7 @@
     box-shadow: 0 2px 3px #ccc;
     z-index: 99999;
     @media screen and (min-width: 1024px) {
-        top: 0;
+        top: 50px;
         bottom: unset;
         &.hide {
             display: none;
