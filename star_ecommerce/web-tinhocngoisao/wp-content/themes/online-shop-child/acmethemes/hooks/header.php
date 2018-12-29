@@ -171,28 +171,33 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	            $online_shop_header_top_basic_info_display_selection = $online_shop_customizer_all_values['online-shop-header-top-basic-info-display-selection'];
 	            $online_shop_header_top_menu_display_selection = $online_shop_customizer_all_values['online-shop-header-top-menu-display-selection'];
 	            $online_shop_header_top_social_display_selection = $online_shop_customizer_all_values['online-shop-header-top-social-display-selection'];
-	            $online_shop_top_right_button_options = $online_shop_customizer_all_values['online-shop-top-right-button-options'];
-	            ?>
+                $online_shop_top_right_button_options = $online_shop_customizer_all_values['online-shop-top-right-button-options'];
+                $headerPromotionsNotActive = [];
+                ?>
                 <?php
                     if ( count($headerPromotions) > 0 ) :
                 ?>
-                    <div class="top-header-promotion featured-slider hide-mobile" data-autoplay="1">
+                    <div class="top-header-promotion featured-slider hide-mobile" data-autoplay="1" data-autoplayspeed="5000">
                         <?php
                             foreach ( $headerPromotions as  $headerPromotion ) :
                                 $backgroundColor = $headerPromotion['background_color'];
-                                if ( $headerPromotion['image'] === '' ) {
+                                if ( empty( $headerPromotion['image'] ) || empty( $backgroundColor ) || empty( $headerPromotion['url'] ) ) {
+                                    array_push( $headerPromotionsNotActive, $headerPromotion);
                                     continue;
                                 }
                         ?>
                             <a href="<?php echo $headerPromotion['url']; ?>">
                                 <div class="promotion-banner" style="background-image:url('<?php echo $headerPromotion['image'] ?>'),linear-gradient(to right, <?php echo $backgroundColor; ?> 40%, <?php echo $backgroundColor; ?> 50%, <?php echo $backgroundColor; ?> 60%)"></div>
                             </a>
-                            <?php endforeach; ?>
+                            <?php
+                                endforeach;
+                            ?>
                     </div>
                 <?php
                     endif;
                 ?>
-                <div class="top-header-wrapper clearfix hide-mobile">
+
+                <div class="top-header-wrapper clearfix hide-mobile <?php echo count( $headerPromotionsNotActive ) === 4 ? 'header-promo-not-active' : '' ?>">
                     <div class="wrapper">
                         <div class="header-left">
 				            <?php

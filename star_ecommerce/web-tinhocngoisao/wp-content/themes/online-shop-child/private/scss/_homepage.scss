@@ -123,23 +123,23 @@ h2.woocommerce-loop-product__title {
     }
 }
 
-@media screen and (min-width: 1024px) {
-    .site-header {
-        .top-header-promotion {
-            display: block;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 9999;
-            .promotion-banner {
-                background-position: center center;
-                background-size: auto 50px;
-                background-repeat: no-repeat;
-                height: 50px;
-            }
+
+.site-header {
+    .top-header-promotion {
+        display: block;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 9999;
+        .promotion-banner {
+            background-position: center center;
+            background-size: auto 50px;
+            background-repeat: no-repeat;
+            height: 50px;
         }
     }
 }
+
 
 .online-shop-feature-special-menu {
     .primetime-price-mobile {

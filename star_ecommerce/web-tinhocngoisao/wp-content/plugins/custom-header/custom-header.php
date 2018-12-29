@@ -61,7 +61,7 @@
         $type = $args['type'];
         $fieldValue = get_option( 'custom_header_options' )[$section][$type];
         if ( $type === 'image' ) {
-            echo '<input type="text" name="custom_header_options[' . $section . '][' . $type . ']" class="regular-text image_url">';
+            echo '<input type="text" name="custom_header_options[' . $section . '][' . $type . ']" class="regular-text image_url" value="' . $fieldValue . '">';
             echo '<input type="button" name="upload-btn" class="button-secondary upload-btn" value="Upload Image">';
         } else {
             echo "<input type='text' name='custom_header_options[" . $section . "][" . $type . "]' value='".  $fieldValue . "' class='regular-text' />";

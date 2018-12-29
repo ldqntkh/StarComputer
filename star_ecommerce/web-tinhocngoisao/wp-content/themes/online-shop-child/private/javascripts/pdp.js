@@ -70,6 +70,11 @@ var productdetailpage = {
             });
 
             if ($(window).width() >= 1024) {
+                // add class when header promotion not active
+                if ( $('.top-header-promotion').find('.promotion-banner').length === 0 ) {
+                    $('.fixed-product-detail').addClass('header-promo-not-active');
+                }
+                
                 $(window).scroll(function (event) {
                     var scroll = $(window).scrollTop();
                     if (scroll >= 300) {
