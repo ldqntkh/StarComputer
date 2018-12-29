@@ -658,3 +658,28 @@ function get_product_api($data) {
 	];
 	return new WP_Error( 'success', '', $productDatas );
 }
+
+// add custom class in woocommerce body class filter
+add_filter( 'body_class', 'custom_wc_body_class' );
+
+function custom_wc_body_class( $classes ) {
+	$classes = (array) $classes;
+
+	for ( $i = 0; $i < count( $classes ); $i++ ) {
+		if ( $classes[$i] === 'woocommerce-plp' ) {
+			unset( $classes[$i] );
+			break;
+		}
+	}
+
+	if ( is_woocommerce() ) {
+		if ( is_product() ) {
+			$classes[] = 'woocommerce-pdp';
+	
+		} else {
+			$classes[] = 'woocommerce-plp';
+		}
+	}
+
+	return array_unique( $classes );
+}

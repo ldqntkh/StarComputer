@@ -484,6 +484,9 @@
         &.hide {
             display: none;
         }
+        &.header-promo-not-active {
+            top: 0;
+        }
     }
     .wrapper {
         display: flex;

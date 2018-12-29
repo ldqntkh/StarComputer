@@ -123,9 +123,10 @@ h2.woocommerce-loop-product__title {
     }
 }
 
-@media screen and (min-width: 1024px) {
-    .site-header {
-        .top-header-promotion {
+
+.site-header {
+    .top-header-promotion {
+        @media screen and (min-width: 1366px) {
             display: block;
             position: fixed;
             top: 0;
@@ -139,7 +140,25 @@ h2.woocommerce-loop-product__title {
             }
         }
     }
+    .header-promo-texts {
+        background-color: #2d2d2d;
+        height: 50px;
+        line-height: 46px;
+        position: fixed;
+        top: 0;
+        z-index: 9999;
+        width: 100%;
+        @media screen and(min-width: 1366px){
+            display: none;
+        }
+        div {
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+        }
+    }
 }
+
 
 .online-shop-feature-special-menu {
     .primetime-price-mobile {

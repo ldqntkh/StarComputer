@@ -5,7 +5,7 @@ $(document).ready(function($) {
         $linkedProductData = $('#linked_product_data');
 
     $groupProducts.removeAttr('multiple');
-    if ( $groupProductData.val() !== '' ) {
+    if ( $groupProductData.length > 0 && $groupProductData.val() !== '' ) {
         var products = $groupProductData.val() !== '' ? JSON.parse($groupProductData.val()) : [];
         for (var index in products) {
             var product = products[index];

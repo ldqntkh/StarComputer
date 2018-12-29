@@ -171,16 +171,18 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	            $online_shop_header_top_basic_info_display_selection = $online_shop_customizer_all_values['online-shop-header-top-basic-info-display-selection'];
 	            $online_shop_header_top_menu_display_selection = $online_shop_customizer_all_values['online-shop-header-top-menu-display-selection'];
 	            $online_shop_header_top_social_display_selection = $online_shop_customizer_all_values['online-shop-header-top-social-display-selection'];
-	            $online_shop_top_right_button_options = $online_shop_customizer_all_values['online-shop-top-right-button-options'];
-	            ?>
-                <?php
-                    if ( count($headerPromotions) > 0 ) :
+                $online_shop_top_right_button_options = $online_shop_customizer_all_values['online-shop-top-right-button-options'];
+                $headerPromotionsNotActive = [];
                 ?>
-                    <div class="top-header-promotion featured-slider hide-mobile" data-autoplay="1">
+                <?php
+                    if ( !empty( $headerPromotions ) && count($headerPromotions) > 0 ) :
+                ?>
+                    <div class="top-header-promotion featured-slider hide-mobile" data-autoplay="1" data-autoplayspeed="5000">
                         <?php
                             foreach ( $headerPromotions as  $headerPromotion ) :
                                 $backgroundColor = $headerPromotion['background_color'];
-                                if ( $headerPromotion['image'] === '' ) {
+                                if ( empty( $headerPromotion['image'] ) || empty( $backgroundColor ) || empty( $headerPromotion['url'] ) ) {
+                                    array_push( $headerPromotionsNotActive, $headerPromotion);
                                     continue;
                                 }
                         ?>
@@ -192,7 +194,8 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                 <?php
                     endif;
                 ?>
-                <div class="top-header-wrapper clearfix hide-mobile">
+
+                <div class="top-header-wrapper clearfix hide-mobile <?php echo empty( $headerPromotions ) || count( $headerPromotionsNotActive ) === 4 ? 'header-promo-not-active' : '' ?>">
                     <div class="wrapper">
                         <div class="header-left">
 				            <?php
