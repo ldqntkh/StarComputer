@@ -126,16 +126,35 @@ h2.woocommerce-loop-product__title {
 
 .site-header {
     .top-header-promotion {
-        display: block;
+        @media screen and (min-width: 1366px) {
+            display: block;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+            .promotion-banner {
+                background-position: center center;
+                background-size: auto 50px;
+                background-repeat: no-repeat;
+                height: 50px;
+            }
+        }
+    }
+    .header-promo-texts {
+        background-color: #2d2d2d;
+        height: 50px;
+        line-height: 46px;
         position: fixed;
         top: 0;
-        width: 100%;
         z-index: 9999;
-        .promotion-banner {
-            background-position: center center;
-            background-size: auto 50px;
-            background-repeat: no-repeat;
-            height: 50px;
+        width: 100%;
+        @media screen and(min-width: 1366px){
+            display: none;
+        }
+        div {
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
         }
     }
 }

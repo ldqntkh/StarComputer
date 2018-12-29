@@ -175,7 +175,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                 $headerPromotionsNotActive = [];
                 ?>
                 <?php
-                    if ( count($headerPromotions) > 0 ) :
+                    if ( !empty( $headerPromotions ) && count($headerPromotions) > 0 ) :
                 ?>
                     <div class="top-header-promotion featured-slider hide-mobile" data-autoplay="1" data-autoplayspeed="5000">
                         <?php
@@ -197,7 +197,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                     endif;
                 ?>
 
-                <div class="top-header-wrapper clearfix hide-mobile <?php echo count( $headerPromotionsNotActive ) === 4 ? 'header-promo-not-active' : '' ?>">
+                <div class="top-header-wrapper clearfix hide-mobile <?php echo empty( $headerPromotions ) || count( $headerPromotionsNotActive ) === 4 ? 'header-promo-not-active' : '' ?>">
                     <div class="wrapper">
                         <div class="header-left">
 				            <?php
