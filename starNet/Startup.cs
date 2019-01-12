@@ -57,6 +57,15 @@ namespace starNet
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                // Admin router
+                routes.MapRoute(
+                    name: "admin",
+                    template: "{area=Admin}/{controller=Dashboard}/{action=Index}/{id?}");
+
+                // Staruser router
+                routes.MapRoute(
+                    name: "staruser",
+                    template: "{area=StarUser}/{controller=Dashboard}/{action=Index}/{id?}");
             });
         }
     }
