@@ -64,11 +64,14 @@ if ( !class_exists( 'woocommerce_abandon_cart_cron' ) ) {
             $results      = $wpdb->get_results( $query );
             $hour_seconds = 3600;   // 60 * 60
             $day_seconds  = 86400; // 24 * 60 * 60
+            $minute_seconds = 60; // 60
             foreach ( $results as $key => $value ) {
                 if ( $value->day_or_hour == 'Days' ) {
                     $time_to_send_template_after = $value->frequency * $day_seconds;
                 } elseif ( $value->day_or_hour == 'Hours' ) {
                     $time_to_send_template_after = $value->frequency * $hour_seconds;
+                } else {
+                    $time_to_send_template_after = $value->frequency * $minute_seconds;
                 }
                 
                 $carts               = $this->wcal_get_carts( $time_to_send_template_after, $cart_abandon_cut_off_time );
