@@ -17,13 +17,9 @@
 #   3.8 Hệ thống show room
 #       - tạo 1 page với Slug là he-thong-show-room (http://prntscr.com/lfdktz)
 #   3.9 Chức năng gửi mail nhắc khách hàng
-#       . Trong mục Settings
-#           + Để thiết lập thời gian mà khách hàng quên thanh toán thì điền vào Cart abandoned cut-off time (đơn vị là phút)
-#           + Không lưu lại giỏ hàng mà khách hàng quên thanh toán khi chưa đăng nhập thì không chọn Start tracking from Cart Page
-#           + Thiết lập tự động xóa giỏ hàng chưa thanh toán sau khoản thời gian thì điền vào Automatically Delete Abandoned Orders after X days (đơn vị là ngày)
-#           + Muốn gửi email cho admin khi mà giỏ hàng đã thanh toán thì check vào ô Email admin On Order Recovery
+#       . Trong mục Settings (http://prntscr.com/m7icgj)
 #       . Trong mục Email Templates
-#           + Có thể chọn 3 khoảng thời gian theo giờ, phút giây ở "Send this email". Tối đa là (3 giờ hoặc 3 phút hoặc 3 ngày)
+#           + Cấu hình thời gian gửi email: http://prntscr.com/m7igvf
 #           + Nội dung {{products.cart}} lúc nào cũng cần phải có vì dùng để hiển thị giỏ hàng
 #       . Trong mục Abandoned Orders
 #           + Dùng để theo dõi những giỏ hàng nào mà chưa thanh toán, ta có thể xem được chi tiết đơn hàng và tổng tiền của đơn hàng đó
