@@ -124,7 +124,25 @@ header#masthead {
 
     aside[id^='online_shop_posts_col'] {
         .featured-entries-col .post-container {
-            height: 430px;
+            height: 390px;
+            overflow: hidden;
+            @media screen and (min-width: 768px) {
+                height: 400px;
+            }
+            .post-thumb {
+                height: 100px;
+                overflow: hidden;
+                @media screen and (min-width: 768px) {
+                    height: 150px;
+                }
+                @media screen and (min-width: 1366px) {
+                    height: 180px;
+                }
+                img {
+                    height: 100%;
+                    width: auto;
+                }
+            }
         }
     }
     aside[id^='online_shop_'] {
