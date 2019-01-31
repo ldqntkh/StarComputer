@@ -1082,6 +1082,21 @@ if ( ! function_exists( 'woocommerce_template_loop_product_title' ) ) {
 		echo '<div class="product-item-details"><h2 class="woocommerce-loop-product__title">' . $title . '</h2>';
 	}
 }
+
+if ( ! function_exists( 'woocommerce_template_loop_period' ) ) {
+
+	/**
+	 * Show the product title in the product loop. By default this is an H2.
+	 */
+	function woocommerce_template_loop_period() {
+		$period = get_post_meta( get_the_id(), 'warranty_period', true );
+		if (empty($period)) {
+			$period = 36;
+		}
+		echo '<span class="warranty_period">Bảo hành: <strong>'. $period .'</strong> tháng</span>';
+	}
+}
+
 if ( ! function_exists( 'woocommerce_template_loop_category_title' ) ) {
 
 	/**
