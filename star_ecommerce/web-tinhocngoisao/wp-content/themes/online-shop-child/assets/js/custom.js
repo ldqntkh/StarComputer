@@ -72,7 +72,7 @@ jQuery(document).ready(function($) {
             $('#primary-wrap, #secondary-right, #secondary-left').theiaStickySidebar();
         }
         else{
-            $('.secondary-sidebar, #primary').theiaStickySidebar();
+            // $('.secondary-sidebar, #primary').theiaStickySidebar();
         }
     }
 
@@ -279,4 +279,49 @@ jQuery(document).ready(function($) {
         }
         modal_toggle();
     });
+
+    function toggleLeftSidebar() {
+        var fixedTop = false;
+        var leftSidebar = $('#secondary-left');
+        var leftSidebarTop = leftSidebar.offset().top;
+        var footerTop = $('footer').offset().top;
+        var PlpPage = $('.custom-plp-page');
+        var promotionHeight = 100;
+        at_window.on('scroll', function() {
+            var windowScrollTop = at_window.scrollTop();
+            if (!fixedTop) {
+                if (leftSidebarTop <= windowScrollTop) {
+                    leftSidebar.css({
+                        "position" : "fixed",
+                        "top" : promotionHeight + 10 + "px"
+                    });
+                    fixedTop = true;
+                }
+            }
+
+            if (leftSidebarTop > windowScrollTop) {
+                leftSidebar.removeAttr('style');
+                fixedTop = false;
+            }
+            if (fixedTop) {
+                if (footerTop <= windowScrollTop + leftSidebar.height() + $('.woocommerce-pagination').height() + 50) {
+                    leftSidebar.css({
+                        "position" : "absolute",
+                        "top" : PlpPage.height() - leftSidebar.height() + PlpPage.position().top + "px"
+                    });
+                } else {
+                    if (leftSidebarTop <= windowScrollTop) {
+                        leftSidebar.css({
+                            "position" : "fixed",
+                            "top" : promotionHeight + 10 + "px"
+                        });
+                    }
+                }
+            }
+        });
+    }
+    // toggleLeftSidebar();
+    // at_window.on('resize', function() {
+    //     toggleLeftSidebar();
+    // });
 });

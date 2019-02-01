@@ -50,6 +50,12 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
         height: 400px;
         padding: 10px;
     }
+    @media screen and (min-width: 1366px) {
+        height: 450px;
+    }
+    @media screen and (min-width: 1400px) {
+        height: 400px;
+    }
     &:hover {
         a.yith-wcqv-button {
             display: block;
