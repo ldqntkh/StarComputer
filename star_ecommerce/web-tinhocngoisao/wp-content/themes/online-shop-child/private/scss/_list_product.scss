@@ -20,7 +20,7 @@
     padding-left: 0;
     padding-right: 0;
     @media screen and (min-width: 768px) {
-        width: 33.33%;
+        width: 33.2%;
     }
     @media screen and (min-width: 992px) {
         width: 25%;
@@ -159,10 +159,10 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
             background-color: white;
             width: 49.8%;
             border: 1px solid #f3f3f3;
-            margin: 0 0 10px;
+            margin: 0;
             overflow: hidden;
             @media screen and (min-width: 768px) {
-                width: 33.33%;
+                width: 33.2%;
             }
             @media screen and (min-width: 1400px) {
                 width: 24.9%;
