@@ -62,10 +62,5 @@ module.exports = {
     plugins: [
         new FixStyleOnlyEntriesPlugin(),
         new ExtractTextPlugin({ filename: '../../../../../wp-content/themes/online-shop-child/[name].css', disable: false, allChunks: false })
-    ],
-    optimization: {
-        splitChunks: {
-            chunks: 'all'
-        }
-    }
+    ]
 }
