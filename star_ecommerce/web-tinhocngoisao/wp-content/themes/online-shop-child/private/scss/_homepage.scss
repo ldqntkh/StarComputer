@@ -182,6 +182,14 @@ h2.woocommerce-loop-product__title {
             width: 25%;
             height: 300px;
         }
+        li.product {
+            span.price {
+                del, ins {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
     }
     #dv-primetime-price-mobile, #slider-section-right {
         .block-time-down {
