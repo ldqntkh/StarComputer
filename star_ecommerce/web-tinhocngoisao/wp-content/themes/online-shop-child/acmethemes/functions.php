@@ -683,3 +683,11 @@ function custom_wc_body_class( $classes ) {
 
 	return array_unique( $classes );
 }
+
+add_action( 'woocommerce_after_single_product_summary', 'woocommerce_rencently_viewed_products', 30 );
+
+function woocommerce_rencently_viewed_products() {
+	if( is_active_sidebar( 'single-after-content' ) ) {
+		dynamic_sidebar( 'single-after-content' );
+	}
+}

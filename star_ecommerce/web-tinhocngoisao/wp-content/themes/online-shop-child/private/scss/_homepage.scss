@@ -357,3 +357,111 @@ h2.woocommerce-loop-product__title {
         }
     }
 }
+
+.woocommerce-pdp {
+    .widget_recently_viewed_products {
+        .widget-title {
+            font-size: 24px;
+            color: #2d2d2d;
+        }
+        .at-title-action-wrapper {
+            &:before {
+                border-bottom: 1px solid #f73838;
+            }
+        }
+    }
+}
+
+.widget_recently_viewed_products {
+    .widget-title {
+        color: #29337a;
+        font-size: 30px;
+    }
+    .pointer {
+        margin-bottom: 10px;
+    }
+}
+
+.woocommerce {
+    ul.product_list_widget {
+        display: flex;
+        flex-wrap: wrap;
+        li {
+            background: #fff;
+            border: 1px solid #f3f3f3;
+            padding: 10px;
+            height: 320px;
+            position: relative;
+            overflow: hidden;
+            width: 49.8%;
+            @media screen and (min-width: 768px) {
+                height: 360px;
+                align-items: center;
+                width: 33.2%;
+            }
+            @media screen and (min-width: 992px) {
+                height: 400px;
+                padding: 10px;
+                width: 24.9%;
+            }
+            @media screen and (min-width: 1366px) {
+                height: 450px;
+            }
+            @media screen and (min-width: 1400px) {
+                height: 400px;
+                width: 19.9%;
+            }
+            .woocommerce-loop-product__link {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                img {
+                    width: 200px;
+                    margin: 0 auto;
+                    @media screen and (min-width: 992px) {
+                        flex-direction: column;
+                        align-items: center;
+                        width: 300px;
+                    }
+                }
+            }
+            .product-item-details {
+                text-align: left;
+                width: 100%;
+                .woocommerce-loop-product__title {
+                    text-align: center;
+                    font-size: 14px;
+                    height: auto;
+                }
+                .warranty_period {
+                    display: block;
+                    font-size: 13px;
+                    color: #000000;
+                    font-weight: normal;
+                }
+                .price {
+                    font-size: 14px;
+                    padding: 0;
+                    color: #f73838;
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+                    float: left;
+                    ins {
+                        display: block;
+                        text-decoration: none;
+                    }
+                    del {
+                        color: #2d2d2d;
+                        opacity: .5;
+                        margin-right: 0;
+                    }
+                }
+                .star-rating {
+                    clear: both;
+                    margin-top: 7px;
+                }
+            }
+        }
+    }
+}
