@@ -20,8 +20,10 @@ function get_products_primetime_price(WP_REST_Request $request) {
     // $end_block_time = isset($_GET['end_block_time']) && is_numeric($_GET['end_block_time']) ? (int)$_GET['end_block_time'] : die;
     $cat_id         = isset($_GET['cat_id']) && is_numeric($_GET['cat_id']) ? (int)$_GET['cat_id'] : die;
     $post_per_page  = isset($_GET['post_per_page']) && is_numeric($_GET['post_per_page']) ? (int)$_GET['post_per_page'] : die;
-
-    $results = (new CatalogManager())->getProductsSaleTimeByCategory($cat_id, $post_per_page);
+    $customQuery = array(
+        'post__in' => array_merge( array( 0 ), wc_get_product_ids_on_sale() )
+    );
+    $results = (new CatalogManager())->getProductsSaleTimeByCategory($cat_id, $post_per_page, $customQuery);
     return $results;
 }
 // register api get_products_primetime_price

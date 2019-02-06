@@ -1479,7 +1479,7 @@ a.my-account:hover{
 \*-----------------*/
 /*** COMMON FOOTER CSS ***/
 .footer-wrapper{
-	background-color: #00000017;
+	background-color: #ffffff;
 }
 .footer-columns {
 	margin-left: -10px;
@@ -1491,7 +1491,7 @@ a.my-account:hover{
 }
 .footer-copyright{
 	margin-top: -1px;
-	border-top: 1px solid red;
+	border-top: 2px solid red;
     font-weight: 700;
 }
 #footer-top,
@@ -3149,11 +3149,6 @@ ul li.product {
 }
 /*special menu practice todo*/
 @media screen and (min-width: 993px){
-	.online-shop-feature-special-menu .slider-feature-wrap {
-		width: calc(100% - 237px);
-		float: right;
-		margin-top: 30px;
-	}
 	.online-shop-feature-special-menu .special-menu-wrapper >li > ul.special-sub-menu {
 		left: auto;
 		visibility: visible;

@@ -16,3 +16,10 @@
 #   3.7 Hot line (click vao sẽ gọi đến số hot line)
 #   3.8 Hệ thống show room
 #       - tạo 1 page với Slug là he-thong-show-room (http://prntscr.com/lfdktz)
+#   3.9 Chức năng gửi mail nhắc khách hàng
+#       . Trong mục Settings (http://prntscr.com/m7icgj)
+#       . Trong mục Email Templates
+#           + Cấu hình thời gian gửi email: http://prntscr.com/m7igvf
+#           + Nội dung {{products.cart}} lúc nào cũng cần phải có vì dùng để hiển thị giỏ hàng
+#       . Trong mục Abandoned Orders
+#           + Dùng để theo dõi những giỏ hàng nào mà chưa thanh toán, ta có thể xem được chi tiết đơn hàng và tổng tiền của đơn hàng đó

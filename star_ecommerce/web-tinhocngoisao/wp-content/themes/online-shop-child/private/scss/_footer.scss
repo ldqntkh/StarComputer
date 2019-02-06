@@ -20,9 +20,6 @@
     .footer-wrapper {
         #footer-top {
             padding-top: 0;
-            .footer-columns  {
-                border-bottom: 1px solid red;
-            }
             .featured-entries-col {
                 text-align: left;
                 @media screen and (min-width: 768px) {
@@ -37,19 +34,258 @@
                 }
             }
         }
-        #footer-bottom {
+        .footer-email {
+            border-bottom: .5px solid red;
+            #footer-top {
+                padding: 0;
+                .widget {
+                    margin: 0;
+                    padding: 20px 0 10px;
+                }
+            }
             .es_form_container {
-                .es_textbox {
-                    input {
-                        width: 100%;
+                display: flex;
+                flex-direction: column;
+                margin-left: -10px;
+                margin-right: -10px;
+                justify-content: space-between;
+                align-items: center;
+                @media screen and (min-width: 1366px){
+                    flex-direction: row;
+                }
+                .icon-subscription-email {
+                    background: url('./assets/img/sprite.png') top left no-repeat;
+                    width: 165px;
+                    height: 100px;
+                    background-size: unset;
+                    vertical-align: middle;
+                    margin-top: -10px;
+                    @media screen and (min-width: 1366px) {
+                        width: 180px;
                     }
                 }
-                .es_button {
-                    input[type="submit"] {
-                        background-color: red;
-                        color: white;
-                        font-weight: bold;
-                        border-radius: 5px;
+                .form-subscription-email {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    justify-content: space-between;
+                    align-items: center;
+                    @media screen and (min-width: 1366px){
+                        flex-direction: row;
+                        padding-left: 20px;
+                    }
+                    .description {
+                        text-align: center;
+                        @media screen and (min-width: 1366px){
+                            text-align: left;
+                        }
+                        h3 {
+                            font-weight: bold;
+                            padding: 0;
+                            margin: 0 0 5px 0;
+                        }
+                        p {
+                            font-weight: 200;
+                        }
+                    }
+                    .es_widget_form {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 100%;
+                        flex-direction: column;
+                        @media screen and (min-width: 1024px){
+                            width: 500px;
+                            flex-direction: row;
+                        }
+                        .es_textbox {
+                            width: 98%;
+                            padding: 0 1%;
+                            @media screen and (min-width: 1024px){
+                                flex-direction: row;
+                                width: 370px;
+                                padding: 0 10px 0 0;
+                            }
+                            input {
+                                width: 100%;
+                                padding: 8px 5px;
+                                border-radius: 5px;
+                                border: 1px solid red;
+                            }
+                        }
+                        .es_button {
+                            width: 100%;
+                            max-width: 130px;
+                            padding: 0;
+                            margin-top: 15px;
+                            @media screen and (min-width: 1024px){
+                                margin-top: 0;
+                            }
+                            input[type="submit"] {
+                                width: 100%;
+                                background-color: red;
+                                color: white;
+                                font-weight: bold;
+                                border-radius: 5px;
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+        #footer-bottom {
+            .footer-columns {
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                flex-wrap: wrap;
+                .custom-footer-siderbar {
+                    width: 100%;
+                    @media screen and (min-width: 768px){
+                        width: 49.5%;
+                    }
+                    @media screen and (min-width: 1200px){
+                        width: 25%;
+                    }
+                }
+            }
+            .footer-column-contact {
+                .contact-item {
+                    border-bottom: 1px solid #c0c0c052;
+                    height: 30px;
+                    overflow: hidden;
+                    margin-bottom: 10px;
+                    position: relative;
+                    &.collapse-all {
+                        height: auto;
+                    }
+                    .footer-column-header {
+                        cursor: pointer;
+                        &:hover {
+                            color: red;
+                        }
+                        span {
+                            &:nth-child(1) {
+                                font-weight: 700;
+                            }
+                            &.collapse {
+                                width: 15px;
+                                height: 15px;
+                                position: absolute;
+                                top: 0px;
+                                right: 5px;
+                                background: url(./assets/img/sprite.png) top left no-repeat;
+                                background-position-x: -3px;
+                                background-position-y: -127px;
+                                opacity: .5;
+                            }
+                            &.collapse-up {
+                                background-position-y: -102px;
+                            }
+                        }
+                    }
+                    ul {
+                        li {
+                            padding-bottom: 0;
+                            padding-left: 10px;
+                            font-weight: 300;
+                        }
+                    }
+                }
+            }
+
+            .at-title-action-wrapper {
+                border-bottom: 1px solid #ff000030;
+                padding-bottom: 5px;
+                .widget-title {
+                    margin: 0;
+                    padding: 0;
+                    text-align: center;
+                    font-size: 20px;
+                }
+            }
+            
+            .footer-column-social {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                padding-top: 15px;
+                .social-item {
+                    .icon {
+                        background: url(./assets/img/sprite.png) top left no-repeat;
+                        float: left;
+                        width: 35px;
+                        height: 30px;
+                        background-size: 440px 420px;
+                        &.icon-facebook {
+                            background-position-x: -21px;
+                            background-position-y: -110px;
+                        }
+                        &.icon-youtube {
+                            background-position-x: -56px;
+                            background-position-y: -110px;
+                        }
+                        &.icon-zalo {
+                            background-position-x: -96px;
+                            background-position-y: -110px;
+                        }
+                    }
+                }
+            }
+            .footer-column-apps {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 10px 0;
+                .app-item {
+                    .icon {
+                        background: url(./assets/img/sprite.png) top left no-repeat;
+                        float: left;
+                        width: 140px;
+                        height: 40px;
+                        background-size: 440px 420px;
+                        &.icon-apple-app {
+                            background-position-x: -166px;
+                            background-position-y: -45px;
+                        }
+                        &.icon-google-app {
+                            background-position-x: -166px;
+                            background-position-y: .5px;
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }
+            .footer-column-star-info {
+                li {
+                    padding: 2px 0;
+                    margin: 0;
+                    font-weight: 300;
+                }
+            }
+        }
+        #full-width-bottom-footer {
+            border-top: .5px solid red;
+            padding-top: 10px;
+            .footer-column-store {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                @media screen and (min-width: 1024px){
+                    flex-direction: row;
+                }
+                .store-detail, .warranty-detail{
+                    padding-right: 15px;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .warranty-detail {
+                    margin-top: 20px;
+                    @media screen and (min-width: 1024px){
+                        margin-top: 0;
                     }
                 }
             }

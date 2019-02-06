@@ -163,12 +163,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	    $online_shop_enable_header_top = $online_shop_customizer_all_values['online-shop-enable-header-top'];
 	    $online_shop_top_right_button_title = $online_shop_customizer_all_values['online-shop-top-right-button-title'];
 	    $online_shop_top_right_button_link = get_site_url(null, 'my-account');
-        $headerPromotionPost = get_posts(array(
-                                            'post_name'   => 'header-promotion',
-                                            'post_type'   => 'post',
-                                            'post_status' => 'publish',
-                                            'numberposts' => 1
-                                        ))[0];
+        $headerPromotions = get_option( 'custom_header_options' );
         ?>
         <header id="masthead" class="site-header">
             <?php
@@ -176,18 +171,31 @@ if ( ! function_exists( 'online_shop_header' ) ) :
 	            $online_shop_header_top_basic_info_display_selection = $online_shop_customizer_all_values['online-shop-header-top-basic-info-display-selection'];
 	            $online_shop_header_top_menu_display_selection = $online_shop_customizer_all_values['online-shop-header-top-menu-display-selection'];
 	            $online_shop_header_top_social_display_selection = $online_shop_customizer_all_values['online-shop-header-top-social-display-selection'];
-	            $online_shop_top_right_button_options = $online_shop_customizer_all_values['online-shop-top-right-button-options'];
-	            ?>
-                <?php
-                    if ( $headerPromotionPost->post_status === 'publish' ) :
+                $online_shop_top_right_button_options = $online_shop_customizer_all_values['online-shop-top-right-button-options'];
+                $headerPromotionsNotActive = [];
                 ?>
-                    <div class="top-header-promotion">
-                        <?php echo $headerPromotionPost->post_content; ?>
+                <?php
+                    if ( !empty( $headerPromotions ) && count($headerPromotions) > 0 ) :
+                ?>
+                    <div class="top-header-promotion featured-slider hide-mobile" data-autoplay="1" data-autoplayspeed="5000">
+                        <?php
+                            foreach ( $headerPromotions as  $headerPromotion ) :
+                                $backgroundColor = $headerPromotion['background_color'];
+                                if ( empty( $headerPromotion['image'] ) || empty( $backgroundColor ) || empty( $headerPromotion['url'] ) ) {
+                                    array_push( $headerPromotionsNotActive, $headerPromotion);
+                                    continue;
+                                }
+                        ?>
+                            <a href="<?php echo $headerPromotion['url']; ?>">
+                                <div class="promotion-banner" style="background-image:url('<?php echo $headerPromotion['image'] ?>'),linear-gradient(to right, <?php echo $backgroundColor; ?> 40%, <?php echo $backgroundColor; ?> 50%, <?php echo $backgroundColor; ?> 60%)"></div>
+                            </a>
+                            <?php endforeach; ?>
                     </div>
                 <?php
                     endif;
                 ?>
-                <div class="top-header-wrapper clearfix hide-mobile">
+
+                <div class="top-header-wrapper clearfix hide-mobile <?php echo empty( $headerPromotions ) || count( $headerPromotionsNotActive ) === 4 ? 'header-promo-not-active' : '' ?>">
                     <div class="wrapper">
                         <div class="header-left">
 				            <?php
@@ -370,17 +378,48 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                                         </a>
 			                            <?php
 			                            if ( has_nav_menu( 'special-menu' ) ) {
-				                            wp_nav_menu( array(
-					                            'theme_location' => 'special-menu',
-					                            'menu_class' => 'sub-menu special-sub-menu',
-					                            'container' => false
-				                            ) );
+				                            // wp_nav_menu( array(
+					                        //     'theme_location' => 'special-menu',
+					                        //     'menu_class' => 'sub-menu special-sub-menu',
+					                        //     'container' => false
+                                            // ) );
+                                            echo '<ul id="menu-special-menu" class="sub-menu special-sub-menu">';
+                                            $special_menus = wp_get_nav_menu_items('special-menu');
+                                            //var_dump($special_menus);
+                                            foreach($special_menus as $menu_item) {
+                                                if ($menu_item->post_status === 'publish' && $menu_item->menu_item_parent === '0') {
+                                                    echo '<li id="menu-item-' . $menu_item->ID . '" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-' . $menu_item->ID . '">'
+                                                            .'<i class="fa fa-angle-right angle-down"></i><a href="' . $menu_item->url . '">' . $menu_item->title . '</a>';
+                                                    echo '<div class="sub-menus">';
+                                                    echo '<section class="sub-menu-lv1">';
+                                                    foreach($special_menus as $menu_item_lv1) {
+                                                        if ($menu_item_lv1->post_status === 'publish' && $menu_item_lv1->menu_item_parent == $menu_item->ID) {
+                                                           
+                                                            echo '<section id="menu-item-' . $menu_item_lv1->ID . '" >'
+                                                                    .'<a href="' . $menu_item_lv1->url . '">' . $menu_item_lv1->title . '</a>';
+                                                            echo '<section class="sub-menu-lv2">';
+                                                                foreach($special_menus as $menu_item_lv2) {
+                                                                    if ($menu_item_lv2->post_status === 'publish' && $menu_item_lv2->menu_item_parent == $menu_item_lv1->ID) {
+                                                                        echo '<a href="' . $menu_item_lv2->url . '">' . $menu_item_lv2->title . '</a>';
+                                                                    }
+                                                                }
+                                                            echo '</section>';
+                                                            echo '</section>';
+                                                        }
+                                                    }
+                                                    echo '</section>';
+                                                    echo '</div>';
+                                                    echo '</li>';
+                                                }
+                                            }
+                                            echo '</ul>';
 			                            }
 			                            ?>
                                         <div class="responsive-special-sub-menu clearfix"></div>
                                     </li>
                                 </ul>
                                 <?php
+                                //echo '<pre>',print_r(json_encode(wp_get_nav_menu_items('special-menu')),1),'</pre>';
                             }/*special menu*/
                             ?>
                             <div class="acmethemes-nav">

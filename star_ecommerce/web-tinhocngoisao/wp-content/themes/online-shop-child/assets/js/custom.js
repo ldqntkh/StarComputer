@@ -72,7 +72,7 @@ jQuery(document).ready(function($) {
             $('#primary-wrap, #secondary-right, #secondary-left').theiaStickySidebar();
         }
         else{
-            $('.secondary-sidebar, #primary').theiaStickySidebar();
+            // $('.secondary-sidebar, #primary').theiaStickySidebar();
         }
     }
 
@@ -124,9 +124,10 @@ jQuery(document).ready(function($) {
             var at_featured_img_slider = $(this);
             var autoplay = parseInt(at_featured_img_slider.data('autoplay'));
             var arrows = parseInt(at_featured_img_slider.data('arrows'));
-
+            var autoplaySpeed = at_featured_img_slider.data('autoplayspeed') ? parseInt(at_featured_img_slider.data('autoplayspeed') ) : 3000;
             var prevArrow = at_featured_img_slider.closest('.slider-section').find('.at-action-wrapper > .prev');
             var nextArrow = at_featured_img_slider.closest('.slider-section').find('.at-action-wrapper > .next');
+
             at_featured_img_slider.css('visibility', 'visible').slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
@@ -135,7 +136,8 @@ jQuery(document).ready(function($) {
                 cssEase: 'linear',
                 arrows: (arrows===1),
                 prevArrow: prevArrow,
-                nextArrow: nextArrow
+                nextArrow: nextArrow,
+                autoplaySpeed: autoplaySpeed
             });
         });
 
@@ -277,4 +279,49 @@ jQuery(document).ready(function($) {
         }
         modal_toggle();
     });
+
+    function toggleLeftSidebar() {
+        var fixedTop = false;
+        var leftSidebar = $('#secondary-left');
+        var leftSidebarTop = leftSidebar.offset().top;
+        var footerTop = $('footer').offset().top;
+        var PlpPage = $('.custom-plp-page');
+        var promotionHeight = 100;
+        at_window.on('scroll', function() {
+            var windowScrollTop = at_window.scrollTop();
+            if (!fixedTop) {
+                if (leftSidebarTop <= windowScrollTop) {
+                    leftSidebar.css({
+                        "position" : "fixed",
+                        "top" : promotionHeight + 10 + "px"
+                    });
+                    fixedTop = true;
+                }
+            }
+
+            if (leftSidebarTop > windowScrollTop) {
+                leftSidebar.removeAttr('style');
+                fixedTop = false;
+            }
+            if (fixedTop) {
+                if (footerTop <= windowScrollTop + leftSidebar.height() + $('.woocommerce-pagination').height() + 50) {
+                    leftSidebar.css({
+                        "position" : "absolute",
+                        "top" : PlpPage.height() - leftSidebar.height() + PlpPage.position().top + "px"
+                    });
+                } else {
+                    if (leftSidebarTop <= windowScrollTop) {
+                        leftSidebar.css({
+                            "position" : "fixed",
+                            "top" : promotionHeight + 10 + "px"
+                        });
+                    }
+                }
+            }
+        });
+    }
+    // toggleLeftSidebar();
+    // at_window.on('resize', function() {
+    //     toggleLeftSidebar();
+    // });
 });

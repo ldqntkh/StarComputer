@@ -53,18 +53,20 @@ var showRooms = {
     },
 
     init: function() {
-        if (typeof google_map_key !== 'undefined' && typeof list_address_store !== 'undefined') {
+        if (typeof google_map_key !== 'undefined' && google_map_key !== '' && typeof list_address_store !== 'undefined') {
             this.initialize();
             $('.show-map').on('click', function() {
-                let item = data_init[$(this).attr('data')];
-                map.setCenter(item.location);
-                map.setZoom(20);
-                new google.maps.event.trigger( item.marker, 'click' );
+                var item = data_init[$(this).attr('data')];
+                if (item.length > 0) {
+                    map.setCenter(item.location);
+                    map.setZoom(20);
+                    new google.maps.event.trigger( item.marker, 'click' );
 
-                var top = $('#list_address_store').position().top - 50;
-                $('html, body').animate({
-                    scrollTop: top
-                }, 1000);
+                    var top = $('#list_address_store').position().top - 50;
+                    $('html, body').animate({
+                        scrollTop: top
+                    }, 1000);
+                }
             });
         }
     }

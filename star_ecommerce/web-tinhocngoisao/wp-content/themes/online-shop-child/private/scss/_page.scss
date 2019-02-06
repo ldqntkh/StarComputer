@@ -1,5 +1,6 @@
 body {
     background: $body_background;
+    font-family: "SST-Roman",Helvetica,Arial,sans-serif;
 }
 
 header#masthead {
@@ -12,6 +13,12 @@ header#masthead {
     #site-navigation {
         z-index: 100;
     }
+    &.hide-mobile {
+        display: none;
+        @media screen and (min-width: 1366px) {
+            display: block;
+        }
+    }
 }
 
 .top-header-wrapper {
@@ -21,10 +28,20 @@ header#masthead {
             display: inline-block;
         }
     }
+    &.hide-mobile {
+        display: none;
+        @media screen and (min-width: 1366px) {
+            display: block;
+            margin-top: 50px;
+            &.header-promo-not-active {
+                margin-top: 0;
+            }
+        }
+    }
 }
 .hide-mobile {
     display: none;
-    @media screen and(min-width: 992px){
+    @media screen and(min-width: 993px){
         display: block;
     }
 }
@@ -107,7 +124,25 @@ header#masthead {
 
     aside[id^='online_shop_posts_col'] {
         .featured-entries-col .post-container {
-            height: 430px;
+            height: 390px;
+            overflow: hidden;
+            @media screen and (min-width: 768px) {
+                height: 400px;
+            }
+            .post-thumb {
+                height: 100px;
+                overflow: hidden;
+                @media screen and (min-width: 768px) {
+                    height: 150px;
+                }
+                @media screen and (min-width: 1366px) {
+                    height: 180px;
+                }
+                img {
+                    height: 100%;
+                    width: auto;
+                }
+            }
         }
     }
     aside[id^='online_shop_'] {

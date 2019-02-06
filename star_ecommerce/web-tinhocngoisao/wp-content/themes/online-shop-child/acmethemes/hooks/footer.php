@@ -45,26 +45,32 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
 	                echo "</div>";
                 endif;
                 ?>
+                <div class="footer-email">
+                    <div class="wrapper">
+                    <?php 
+                        if(
+                            is_active_sidebar('footer-top-col-one') ||
+                            is_active_sidebar('footer-top-col-two')
+                        )
+                        {
+                            ?>
+                            <div id="footer-top">
+                                <div class="footer-columns clearfix">
+                                    <?php
+                                        $footer_top_col = 'footer-sidebar';
+                                    ?>
+                                    <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
+                                        <?php dynamic_sidebar('footer-top-col-two'); ?>
+                                    </div>
+                                </div>
+                            </div><!-- #foter-top -->
+                            <?php
+                        }    
+                    ?>
+                    </div>
+                </div>
                 <div class="top-bottom wrapper">
                     <?php
-                    if(
-                        is_active_sidebar('footer-top-col-one') ||
-                        is_active_sidebar('footer-top-col-two')
-                    )
-                    {
-                        ?>
-                        <div id="footer-top">
-                            <div class="footer-columns clearfix">
-			                    <?php
-                                    $footer_top_col = 'footer-sidebar';
-                                ?>
-			                    <div class="footer-sidebar <?php echo esc_attr($footer_top_col); ?>">
-                                    <?php dynamic_sidebar('footer-top-col-two'); ?>
-                                </div>
-                            </div>
-                        </div><!-- #foter-top -->
-                        <?php
-                    }
                     if(
                         is_active_sidebar('footer-bottom-col-one') ||
                         is_active_sidebar('footer-bottom-col-two') ||
@@ -76,7 +82,7 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
                         <div id="footer-bottom">
                             <div class="footer-columns clearfix">
                                 <?php
-			                    $footer_bottom_col = 'footer-sidebar acme-col-4';
+			                    $footer_bottom_col = 'footer-sidebar custom-footer-siderbar';
 			                    if (is_active_sidebar('footer-bottom-col-one')) : ?>
                                     <div class="footer-sidebar <?php echo esc_attr($footer_bottom_col); ?>">
 					                    <?php dynamic_sidebar('footer-bottom-col-one'); ?>
@@ -119,14 +125,18 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
                         </div>
                         <?php
                     }
-	                if( is_active_sidebar( 'full-width-bottom-footer' ) ) :
-		                echo "<div class='wrapper full-width-bottom-footer'>";
-		                dynamic_sidebar( 'full-width-bottom-footer' );
-		                echo "</div>";
-	                endif;
 	                ?>
                     <div class="clearfix"></div>
                 </div><!-- top-bottom-->
+                <?php 
+                if( is_active_sidebar( 'full-width-bottom-footer' ) ) :
+                    echo '<div id="full-width-bottom-footer">';
+                    echo "<div class='wrapper full-width-bottom-footer'>";
+                    dynamic_sidebar( 'full-width-bottom-footer' );
+                    echo "</div>";
+                    echo "</div>";
+                endif;
+                ?>
                 <div class="footer-copyright">
                     <div class="wrapper">
 	                    <?php

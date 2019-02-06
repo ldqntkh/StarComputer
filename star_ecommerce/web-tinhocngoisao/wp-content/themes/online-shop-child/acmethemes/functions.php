@@ -285,7 +285,7 @@ if( ! function_exists( 'online_shop_breadcrumbs' ) ):
 				'show_browse' => false
 			);
 
-			echo "<div class='breadcrumbs clearfix hide-mobile'><div id='online-shop-breadcrumbs'>";
+			echo "<div class='breadcrumbs clearfix'><div id='online-shop-breadcrumbs'>";
 			if( 'wc-breadcrumb' == $online_shop_breadcrumb_options && online_shop_is_woocommerce_active() ){
 				woocommerce_breadcrumb(  $breadcrumb_args );
             }
@@ -657,4 +657,29 @@ function get_product_api($data) {
 		'link' => $product->get_permalink()
 	];
 	return new WP_Error( 'success', '', $productDatas );
+}
+
+// add custom class in woocommerce body class filter
+add_filter( 'body_class', 'custom_wc_body_class' );
+
+function custom_wc_body_class( $classes ) {
+	$classes = (array) $classes;
+
+	for ( $i = 0; $i < count( $classes ); $i++ ) {
+		if ( $classes[$i] === 'woocommerce-plp' ) {
+			unset( $classes[$i] );
+			break;
+		}
+	}
+
+	if ( is_woocommerce() ) {
+		if ( is_product() ) {
+			$classes[] = 'woocommerce-pdp';
+	
+		} else {
+			$classes[] = 'woocommerce-plp';
+		}
+	}
+
+	return array_unique( $classes );
 }
