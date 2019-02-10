@@ -8,6 +8,7 @@ var checkoutpage = require('./checkout');
 var custom_filter = require('./custom_filter');
 var showRooms = require('./showroom');
 var footer = require('./footer');
+var address = require('./address');
 
 $(document).ready(function() {
     header_menu.init();
@@ -19,4 +20,5 @@ $(document).ready(function() {
     custom_filter.init();
     showRooms.init();
     footer.init();
+    address.init();
 })

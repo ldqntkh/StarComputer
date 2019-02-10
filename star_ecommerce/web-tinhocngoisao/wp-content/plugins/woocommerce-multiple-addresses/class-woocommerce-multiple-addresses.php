@@ -585,8 +585,13 @@ class WC_Multiple_addresses {
 			// } else {
 			// 	wc_add_notice( __( 'Addresses have been saved', self::$plugin_slug ), $notice_type = 'success' );
 			// }
-			$page_id = woocommerce_get_page_id( 'checkout' );
-			wp_redirect( get_permalink( $page_id ) );
+			$currentPost = get_post( get_the_ID() );
+			if ( $currentPost->post_name === 'checkout' ) {
+				$page_url = get_permalink( wc_get_page_id( 'checkout' ) );
+			} else {
+				$page_url =  esc_url( wc_get_account_endpoint_url( 'edit-address' ) );
+			}
+			wp_redirect( $page_url );
 			exit;
 		}
 	}

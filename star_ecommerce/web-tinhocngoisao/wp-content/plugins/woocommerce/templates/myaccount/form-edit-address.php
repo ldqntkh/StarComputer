@@ -19,41 +19,185 @@ defined( 'ABSPATH' ) || exit;
 
 $page_title = ( 'billing' === $load_address ) ? __( 'Billing address', 'woocommerce' ) : __( 'Shipping address', 'woocommerce' );
 
-do_action( 'woocommerce_before_edit_account_address_form' ); ?>
+do_action( 'woocommerce_before_edit_account_address_form' );
+$otherAddr = get_user_meta( wp_get_current_user()->ID, 'wc_multiple_shipping_addresses', true );
+?>
+<p><a class="add-new-address" href="#">Thêm địa chỉ mới.</a></p>
+<?php if ( !empty( $otherAddr ) ): ?>
+<style>
+	.address-item {
+		border: 1px solid #ffffff;
+		border-radius: 5px;
+		padding: 10px;
+		background-color: #ffffff;
+		margin: 10px;
+		font-size: 13px;
+	}
+	.new-address {
+		width: 400px;
+		margin: 0 auto;
+		padding: 5px;
+		border: 1px solid silver;
+		border-radius: 5px;
+	}
+	.new-address .input-form {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		padding: 5px;
+		margin-bottom: 10px;
+	}
+</style>
+<div class="list-address">
+	<?php foreach ( $otherAddr as $idx => $address ): ?>
+	<?php $isAddressDefault = $address['shipping_address_is_default'] === 'true'; ?>
+	<div class="address-item <?php $isAddressDefault ? 'active' : ''; ?>">
+		<div class="address-content">
+			<p class="address-name">
+				<span class="address-name-title" style="text-transform: uppercase;font-weight: bold;"><?php echo $address['shipping_last_name']; ?></span>
+				<?php if ( $isAddressDefault ): ?>
+					<span class="default" style="color: #26bc4e;">Mặc định</span>
+				<?php endif; ?>
+				<span style="float: right;">
+					<a href="#" style="color: #007ff0;">Chỉnh sửa</a>
+					<a href="#" style="color: red;margin: 0 10px;" class="remove-address">Xóa</a>
+				</span>
 
-<?php if ( ! $load_address ) : ?>
-	<?php wc_get_template( 'myaccount/my-address.php' ); ?>
-<?php else : ?>
-
-	<form method="post">
-
-		<h3><?php echo apply_filters( 'woocommerce_my_account_edit_address_title', $page_title, $load_address ); ?></h3><?php // @codingStandardsIgnoreLine ?>
-
-		<div class="woocommerce-address-fields">
-			<?php do_action( "woocommerce_before_edit_address_form_{$load_address}" ); ?>
-
-			<div class="woocommerce-address-fields__field-wrapper">
-				<?php
-				foreach ( $address as $key => $field ) {
-					if ( isset( $field['country_field'], $address[ $field['country_field'] ] ) ) {
-						$field['country'] = wc_get_post_data_by_key( $field['country_field'], $address[ $field['country_field'] ]['value'] );
-					}
-					woocommerce_form_field( $key, $field, wc_get_post_data_by_key( $key, $field['value'] ) );
-				}
-				?>
-			</div>
-
-			<?php do_action( "woocommerce_after_edit_address_form_{$load_address}" ); ?>
-
-			<p>
-				<button type="submit" class="button" name="save_address" value="<?php esc_attr_e( 'Save address', 'woocommerce' ); ?>"><?php esc_html_e( 'Save address', 'woocommerce' ); ?></button>
-				<?php wp_nonce_field( 'woocommerce-edit_address', 'woocommerce-edit-address-nonce' ); ?>
-				<input type="hidden" name="action" value="edit_address" />
 			</p>
+			<p>
+				<?php
+					do_action( 'display_address_info', array(
+															'address' => $address['shipping_address_1'],
+															'address2'=> $address['shipping_address_2'],
+															'city'    => $address['shipping_city'],
+															'state'   => $address['shipping_state'])
+														);
+				?>
+			</p>
+			<p><span style="color: #4a4a4a;">Điện thoại:</span> <?php echo $address['shipping_phone']; ?></p>
 		</div>
-
-	</form>
-
+		<div class="address-hidden-field">
+			<input type="hidden" name="shipping_last_name[]" value="<?php echo $address['shipping_last_name']; ?>" />
+			<input type="hidden" name="shipping_phone[]" value="<?php echo $address['shipping_phone']; ?>" />
+			<input type="hidden" name="shipping_state[]" value="<?php echo $address['shipping_state']; ?>" />
+			<input type="hidden" name="shipping_city[]" value="<?php echo $address['shipping_city']; ?>" />
+			<input type="hidden" name="shipping_address_2[]" value="<?php echo $address['shipping_address_2']; ?>" />
+			<input type="hidden" name="shipping_address_1[]" value="<?php echo $address['shipping_address_1']; ?>" />
+			<input type="hidden" name="shipping_address_is_default[]" value="<?php echo $address['shipping_address_is_default']; ?>" />
+			<input type="hidden" name="shipping_address_is_selected[]" value="false" />
+		</div>
+	</div>
+	<?php endforeach; ?>
+</div>
 <?php endif; ?>
+<form method="post" class="form-shipping-address">
+	<div class="shipping_address_hidden"></div>
+	<input type="hidden" name="shipping_account_address_action" value="save" />
+</form>
+<div class="address-form new-address hidden">
+	<form method="post">
+		<h2>Tạo địa chỉ mới</h2>
+		<div id="addresses">
+			<div class="shipping_address address_block">
+				<div class="input-form">
+					<label for="fullname">Họ tên:</label>
+					<input type="text" placeholder="Tài khoản" value="" name="shipping_last_name[]" id="fullname" class="required-field" required>
+				</div>
+				<div class="input-form">
+					<label for="phone">Số điện thoại:</label>
+					<input type="text" placeholder="Số điện thoại" value="" name="shipping_phone[]" id="phone" class="required-field">
+				</div>
+				<div class="input-form">
+					<label for="city">Tỉnh / Thành phố:</label>
+					<select id="city" name="shipping_state[]" class="required-field city-field">
+						<option value=''>Chọn thành phố</option>
+						<?php do_action( 'load_tinh_thanhpho' ); ?>
+					</select>
+				</div>
+				<div class="input-form">
+					<label for="district">Quận / Huyện</label>
+					<select id="district" name="shipping_city[]" class="required-field district-field">
+						<option value=''>Chọn quận/huyện</option>
+					</select>
+				</div>
+				<div class="input-form">
+					<label for="ward">Phường / xã</label>
+					<select id="ward" name="shipping_address_2[]" class="required-field">
+						<option value=''>Chọn phường xã</option>
+					</select>
+				</div>
+				<div class="input-form">
+					<label for="address">Địa chỉ:</label>
+					<textarea type="text" placeholder="Địa chỉ" value="" name="shipping_address_1[]" id="address" class="required-field"></textarea>
+				</div>
+				<div class="input-form">
+					<input type="checkbox" name="address_is_default" class="choose_default_address" /><span>Sử dụng làm địa chỉ mặc định</span>
+					<input type="hidden" name="shipping_address_is_default[]" value="" />
+					<input type="hidden" name="shipping_address_is_selected[]" value="true" />
+					<input type="hidden" name="shipping_account_address_action" value="save" />
+				</div>
+				<div class="group-button">
+					<button class="save-new-address" type="button">Cập nhật</button>
+				</div>
+				
+			</div>
+			
+		</div>
+	</form>
+</div>
+<div class="address-form update-address-form hidden">
+	<form method="post">
+		<h2>Cập nhật địa chỉ</h2>
+		<div id="addresses">
+			<div class="shipping_address address_block">
+				<div class="input-form">
+					<label for="fullname">Họ tên:</label>
+					<input type="text" placeholder="Tài khoản" value="" id="fullname" class="required-field" required>
+				</div>
+				<div class="input-form">
+					<label for="phone">Số điện thoại:</label>
+					<input type="text" placeholder="Số điện thoại" value="" id="phone" class="required-field">
+				</div>
+				<div class="input-form">
+					<label for="city">Tỉnh / Thành phố:</label>
+					<select id="city" class="required-field city-field">
+						<option value=''>Chọn thành phố</option>
+						<?php do_action( 'load_tinh_thanhpho' ); ?>
+					</select>
+				</div>
+				<div class="input-form">
+					<label for="district">Quận / Huyện</label>
+					<select id="district" class="required-field district-field">
+						<option value=''>Chọn quận/huyện</option>
+					</select>
+				</div>
+				<div class="input-form">
+					<label for="ward">Phường / xã</label>
+					<select id="ward" class="required-field">
+						<option value=''>Chọn phường xã</option>
+					</select>
+				</div>
+				<div class="input-form">
+					<label for="address">Địa chỉ:</label>
+					<textarea type="text" placeholder="Địa chỉ" value="" id="address" class="required-field"></textarea>
+				</div>
+				<div class="input-form">
+					<input type="checkbox" class="choose_default_address" /><span>Sử dụng làm địa chỉ mặc định</span>
+				</div>
+			</div>
+		</div>
+		<div class="group-button">
+			<input type="hidden" name="shipping_account_address_action" value="update" />
+			<button class="save-new-address" type="button">Cập nhật</button>
+			<a href="#" class="cancel cancel-update-address">Hủy</a>
+		</div>
+	</form>
+</div>
+<div class="remove-address-popup hidden">
+	<form method="post" class="remove-address-form hidden">
+		<div class="shipping_address_hidden_field"></div>
+		<input type="hidden" name="shipping_account_address_action" value="delete" />
+	</form>
+</div>
 
 <?php do_action( 'woocommerce_after_edit_account_address_form' ); ?>
