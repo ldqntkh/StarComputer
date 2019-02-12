@@ -35,6 +35,7 @@ var address = {
 
             var addresses = $('.new-address').find('#addresses');
             $('.list-address').find('.address-hidden-field').each(function(index) {
+                $('.shipping_address_hidden_field_' + index).remove();
                 if ($('.shipping_address_hidden_field_' + index).length === 0) {
                     addresses.append('<div class="shipping_address_hidden_field_' + index + '"></div>');
                     $(this).clone().appendTo( '.shipping_address_hidden_field_' + index );

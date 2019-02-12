@@ -24,43 +24,19 @@ $otherAddr = get_user_meta( wp_get_current_user()->ID, 'wc_multiple_shipping_add
 ?>
 <p><a class="add-new-address" href="#">Thêm địa chỉ mới.</a></p>
 <?php if ( !empty( $otherAddr ) ): ?>
-<style>
-	.address-item {
-		border: 1px solid #ffffff;
-		border-radius: 5px;
-		padding: 10px;
-		background-color: #ffffff;
-		margin: 10px;
-		font-size: 13px;
-	}
-	.new-address {
-		width: 400px;
-		margin: 0 auto;
-		padding: 5px;
-		border: 1px solid silver;
-		border-radius: 5px;
-	}
-	.new-address .input-form {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		padding: 5px;
-		margin-bottom: 10px;
-	}
-</style>
 <div class="list-address">
 	<?php foreach ( $otherAddr as $idx => $address ): ?>
 	<?php $isAddressDefault = $address['shipping_address_is_default'] === 'true'; ?>
 	<div class="address-item <?php $isAddressDefault ? 'active' : ''; ?>">
 		<div class="address-content">
 			<p class="address-name">
-				<span class="address-name-title" style="text-transform: uppercase;font-weight: bold;"><?php echo $address['shipping_last_name']; ?></span>
+				<span class="address-name-title"><?php echo $address['shipping_last_name']; ?></span>
 				<?php if ( $isAddressDefault ): ?>
-					<span class="default" style="color: #26bc4e;">Mặc định</span>
+					<span class="default">Mặc định</span>
 				<?php endif; ?>
-				<span style="float: right;">
-					<a href="#" style="color: #007ff0;">Chỉnh sửa</a>
-					<a href="#" style="color: red;margin: 0 10px;" class="remove-address">Xóa</a>
+				<span class="address-action">
+					<a href="#" class="update-address">Chỉnh sửa</a>
+					<a href="#" class="remove-address">Xóa</a>
 				</span>
 
 			</p>
@@ -74,7 +50,7 @@ $otherAddr = get_user_meta( wp_get_current_user()->ID, 'wc_multiple_shipping_add
 														);
 				?>
 			</p>
-			<p><span style="color: #4a4a4a;">Điện thoại:</span> <?php echo $address['shipping_phone']; ?></p>
+			<p><span>Điện thoại:</span> <?php echo $address['shipping_phone']; ?></p>
 		</div>
 		<div class="address-hidden-field">
 			<input type="hidden" name="shipping_last_name[]" value="<?php echo $address['shipping_last_name']; ?>" />
