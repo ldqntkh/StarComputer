@@ -76,6 +76,14 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
         img {
             width: 100%;
             height: auto;
+            &.delivery-now-icon {
+                width: 50px;
+                position: absolute;
+                float: right;
+                right: 52px;
+                top: 16px;
+                margin: 0;
+            }
         }
         .product-item-details {
             display: flex;

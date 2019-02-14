@@ -691,3 +691,13 @@ function woocommerce_rencently_viewed_products() {
 		dynamic_sidebar( 'single-after-content' );
 	}
 }
+
+add_action( 'woocommerce_before_shop_loop_item', 'woocommerce_delivery_now', 15 );
+
+if ( !function_exists('woocommerce_delivery_now') ) :
+	function woocommerce_delivery_now() {
+		if( get_field('is_delivery_now') ) {
+			echo '<img class="delivery-now-icon" src="' . get_stylesheet_directory_uri() . '/assets/img/ic_delivery_truck.png" width="20" height="20" />';
+		}
+	}
+endif;
