@@ -52,8 +52,8 @@ $wrapper_classes   = apply_filters( 'woocommerce_single_product_image_gallery_cl
 			echo '<script> var video_product_id = "' . $video_id . '"; </script>';
 		}
 	?>
-
 	<?php woocommerce_show_product_sale_flash(); ?>
+	<?php woocommerce_delivery_now(); ?>
 	<figure class="woocommerce-product-gallery__wrapper">
 		<?php
 		if ( has_post_thumbnail() ) {
