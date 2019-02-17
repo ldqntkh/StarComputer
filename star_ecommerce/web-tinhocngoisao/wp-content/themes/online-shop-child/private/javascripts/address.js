@@ -42,6 +42,16 @@ var address = {
                 }
             });
         });
+
+        $('.deliver-address').off('click').on('click', function() {
+            var addressContent = $(this).parents('.address-content');
+            addressContent.siblings().find('input[name="shipping_address_is_selected[]"]').val('true');
+            $('.list-address').find('.address-hidden-field').each(function(index) {
+                $('.form-shipping-address').find('.shipping_address_hidden').append('<div class="shipping_address_hidden_field_' + index + '"></div>');
+                $(this).clone().appendTo( '.shipping_address_hidden_field_' + index );
+            });
+            $('.form-shipping-address').submit();
+        });
     },
     bindingHiddenFieldToForm: function() {
         var addresses = $('.new-address').find('#addresses');
