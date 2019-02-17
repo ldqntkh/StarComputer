@@ -589,6 +589,7 @@ class WC_Multiple_addresses {
 			if ( $currentPost->post_name === 'checkout' ) {
 				$page_url = get_permalink( wc_get_page_id( 'checkout' ) );
 			} else {
+				WC()->session->__unset( 'checkoutstep' );
 				$page_url =  esc_url( wc_get_account_endpoint_url( 'edit-address' ) );
 			}
 			wp_redirect( $page_url );

@@ -533,13 +533,8 @@ jQuery( function( $ ) {
 				var form_data = $form.data();
 
 				if ( 1 !== form_data['blockUI.isBlocked'] ) {
-					$form.block({
-						message: null,
-						overlayCSS: {
-							background: '#fff',
-							opacity: 0.6
-						}
-					});
+					$form.parents('body').addClass('loading');
+					$('#loading-indicator').show();
 				}
 
 				// ajaxSetup is global, but we use it to ensure JSON is valid once returned.
