@@ -9,6 +9,10 @@
         });
 
         $('.update-address').off('click').on('click', function() {
+            // not allow customer update the address is already updating
+            if ( $(this).hasClass('disabled') ) {
+                return false;
+            }
             var $updateAddressForm = $('.update-address-form');
             var addresses = $updateAddressForm.find('#addresses');
             var $updateBtn = $(this);
@@ -22,7 +26,10 @@
                 $defaultOptionHiddenField = $addressHiddenField.find('input[name="shipping_address_is_default[]"]');
 
             var $defaultOptionField = $updateAddressForm.find('.choose_default_address');
-
+            //remove class disabled in update button
+            $('.update-address').removeClass('disabled');
+            // not allow customer update the address is already updating
+            $updateBtn.addClass('disabled');
             if ( $updateAddressForm.hasClass('hidden') ) {
                 $updateAddressForm.removeClass('hidden');
             }
@@ -36,10 +43,12 @@
             $updateAddressForm.find('#city').val( $stateHiddenField.val() );
             $updateAddressForm.find('#address').val( $address01HiddenField.val() );
 
-            if ( $defaultOptionHiddenField.val() === 'true' && !$defaultOptionField.parent().hasClass('hidden') ) {
+            if ( $defaultOptionHiddenField.val() === 'true' ) {
                 $defaultOptionField.parent().addClass('hidden');
+                $defaultOptionField.prop('checked', true );
             } else {
                 $defaultOptionField.parent().removeClass('hidden');
+                $defaultOptionField.prop('checked', false );
             }
 
             getDistrict( $updateAddressForm, $stateHiddenField.val(), $cityHiddenField.val(), function() {
@@ -60,6 +69,10 @@
         });
 
         $('.cancel-update-address').off('click').on('click', function() {
+            if ( $('.update-address').hasClass('disabled') ) {
+                $('.update-address').removeClass('disabled');
+            }
+
             $(this).parents('.update-address-form').addClass('hidden');
         });
 

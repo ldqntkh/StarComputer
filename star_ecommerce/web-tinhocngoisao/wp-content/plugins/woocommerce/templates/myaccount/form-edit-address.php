@@ -36,7 +36,9 @@ $otherAddr = get_user_meta( wp_get_current_user()->ID, 'wc_multiple_shipping_add
 				<?php endif; ?>
 				<span class="address-action">
 					<a href="#" class="update-address">Chỉnh sửa</a>
-					<a href="#" class="remove-address">Xóa</a>
+					<?php if ( !$isAddressDefault ): ?>
+						<a href="#" class="remove-address">Xóa</a>
+					<?php endif;?>
 				</span>
 
 			</p>

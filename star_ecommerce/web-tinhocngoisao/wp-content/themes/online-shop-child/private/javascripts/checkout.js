@@ -87,12 +87,11 @@ var checkoutPage = {
     chooseDefaultShippingAddress: function() {
         $('.choose_default_address').off('change').on('change', function() {
             var $addressForm = $(this).parents('form');
-            console.log(  $addressForm );
             if( $(this).is(':checked') ) {
                 $addressForm.parent().find('input[name="shipping_address_is_default[]"]').val('false');
-                $(this).siblings().val('true');
+                $(this).siblings('input[name$="_address_is_default[]"]').val('true');
             } else {
-                $(this).siblings().val('false');
+                $(this).siblings('input[name$="_address_is_default[]"]').val('false');
             }
         });
     },

@@ -341,6 +341,10 @@
                                 background-color: #ccc;
                                 border-radius: 5px;
                                 cursor: pointer;
+                                &.disabled {
+                                    opacity: 0.5;
+                                    cursor: text;
+                                }
                             }
                         }
                     }
