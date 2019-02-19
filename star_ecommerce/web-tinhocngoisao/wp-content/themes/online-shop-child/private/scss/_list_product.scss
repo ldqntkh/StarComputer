@@ -38,12 +38,12 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 320px;
+    height: 340px;
     padding-left: 0;
     padding-right: 0;
     overflow: hidden;
     @media screen and (min-width: 768px) {
-        height: 360px;
+        height: 380px;
         align-items: center;
     }
     @media screen and (min-width: 992px) {
@@ -193,5 +193,40 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
     }
     .woocommerce-pagination {
         margin-top: 10px;
+    }
+}
+
+.coupon-discount {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    // width: calc(100% + 20px);
+    // margin-left: -10px;
+    // margin-right: -10px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top: 5px;
+    height: 23px;
+    line-height: 23px;
+    padding-left: 5px;
+    align-items: center;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 10px;
+    >span {
+        strong {
+            display: inline !important;
+            font-weight: bold;
+        }
+        &.discount-price {
+            margin-left: 10px;
+            i {
+                margin-right: 3px;
+                font-weight: normal;
+            }
+        }
     }
 }

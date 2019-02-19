@@ -110,6 +110,12 @@
                 border-bottom: 1px solid #ececec;
             }
 
+            .coupon-discount {
+                max-width: 200px;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+
             &.product-type-grouped {
                 .cart {
                     .group_table {
