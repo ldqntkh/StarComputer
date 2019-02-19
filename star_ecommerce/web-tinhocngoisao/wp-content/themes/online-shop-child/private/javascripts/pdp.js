@@ -34,25 +34,21 @@ var productdetailpage = {
     closeVideoImage: function() {
         //<iframe width="560" height="315" src="https://www.youtube.com/embed/Af5uIRN5Quc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         if (typeof video_product_id !== 'undefined') {
-            var html = '<div class="video-product">';
-            html += '<iframe src="https://www.youtube.com/embed/' + video_product_id + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-            html += '<i id="close-video" class="fa fa-close"></i>';
-            html += '</div>';
-            $("#show_video_product").prepend(html);
-            $("#show_video_product").addClass('show-video');
+            var html = '<div class="video-product-icon"><div class="play-video"><i></i><span>Video đánh giá</span></div></div>';
 
-            // insert first element video li
-            //$('ol.flex-control-nav >li >img').removeClass('flex-active');
-            //$('ol.flex-control-nav').prepend(`<li> <i id="show-video-item" class="fa fa-youtube-play flex-active"></i> </li>`);
+            $("#show_video_product").append(html);
 
-            $("#show_video_product").on('click', '#close-video', function() {
-                $("#show_video_product").removeClass('show-video');
-                $('.video-product').css({
-                    "display" : 'none'
+            $("#show_video_product").on('click', ".play-video", function() {
+                // display video popup
+                var html_video = '<div id="popup-video-review">';
+                html_video += '<i id="close-video" class="fa fa-close"></i>';
+                html_video += '<iframe src="https://www.youtube.com/embed/' + video_product_id + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+                html_video += '</div>';
+
+                $('body').append(html_video);
+                $('body').on('click', "#popup-video-review > #close-video", function() {
+                    $('#popup-video-review').remove();
                 });
-                
-                if ($("#show_video_product ol").find('img').length >= 2)
-                    $("#show_video_product ol").find('img').eq(1).trigger('click');
             });
         }
     },
