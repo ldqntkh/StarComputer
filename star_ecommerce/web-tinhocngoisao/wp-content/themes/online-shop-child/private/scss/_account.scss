@@ -60,5 +60,44 @@
                 text-align: right;
             }
         }
+        .address-item {
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #ffffff;
+            margin: 10px;
+            font-size: 13px;
+            .default {
+                color: #26bc4e;
+            }
+            .address-action {
+                float: right;
+                .update-address {
+                    color: #007ff0;
+                }
+                .remove-address {
+                    color: red;
+                    margin: 0 10px;
+                }
+            }
+            .address-name-title {
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+        }
+        .address-form {
+            width: 400px;
+            margin: 0 auto;
+            padding: 5px;
+            border: 1px solid silver;
+            border-radius: 5px;
+            .input-form {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 5px;
+                margin-bottom: 10px;
+            }
+        }
     }
 }

@@ -381,3 +381,23 @@
         }
     }
 }
+
+.error-form {
+    border: 1px solid #f73838 !important;
+}
+
+.error-value {
+    color: #f73838;
+}
+
+#loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: none;
+}
+
+.loading {
+    background: #fff;
+    opacity: 0.6;
+}
