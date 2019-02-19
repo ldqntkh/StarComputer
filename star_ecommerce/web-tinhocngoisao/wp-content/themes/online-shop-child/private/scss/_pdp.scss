@@ -113,7 +113,6 @@
             .coupon-discount {
                 max-width: 200px;
                 justify-content: center;
-                margin-bottom: 20px;
             }
 
             &.product-type-grouped {
@@ -266,7 +265,7 @@
                     .woocommerce-product-details__short-description {
                         border-bottom: 1px solid #ececec;
                         margin-left: 1.2em;
-
+                        margin-top: 15px;
                         ul {
                             list-style-type: circle;
                             padding: 10px 0;
