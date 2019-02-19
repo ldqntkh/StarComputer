@@ -19,8 +19,12 @@ global $product;
             <div class="tab-wrapper">
                 <ul>
                     <li class="product-detail-tab active" data-content="detail"><span>Thông tin chi tiết</span></li>
-                    <li class="product-config-detail-tab" data-content="config-detail"><span>Cấu hình chi tiết</span></li>
-                    <li class="product-warranty-tab" data-content="warranty"><span>Bảo hành</span></li>
+                    <?php  if ( get_field( 'product_configured_detail' ) ): ?>
+                        <li class="product-config-detail-tab" data-content="config-detail"><span>Cấu hình chi tiết</span></li>
+                    <?php endif; ?>
+                    <?php if ( get_field( 'product_warranty' ) ) : ?>
+                        <li class="product-warranty-tab" data-content="warranty"><span>Bảo hành</span></li>
+                    <?php endif; ?>
                     <li class="product-comment-tab" data-content="comment"><span>Bình luận</span></li>
                 </ul>
             </div>

@@ -32,8 +32,12 @@ $heading = esc_html( apply_filters( 'woocommerce_product_description_heading', _
     <div class="tab-wrapper">
         <ul>
             <li class="product-detail-tab active" data-content="detail"><span><?php echo __( 'Thông tin chi tiết', 'woocommerce' ); ?></span></li>
-            <li class="product-config-detail-tab" data-content="config-detail"><span><?php echo __( 'Cấu hình chi tiết', 'woocommerce' ); ?></span></li>
-            <li class="product-warranty-tab" data-content="warranty"><span><?php echo __( 'Bảo hành', 'woocommerce' ); ?></span></li>
+            <?php  if ( get_field( 'product_configured_detail' ) ): ?>
+                <li class="product-config-detail-tab" data-content="config-detail"><span><?php echo __( 'Cấu hình chi tiết', 'woocommerce' ); ?></span></li>
+            <?php endif;?>
+            <?php if ( get_field( 'product_warranty' ) ) : ?>
+                <li class="product-warranty-tab" data-content="warranty"><span><?php echo __( 'Bảo hành', 'woocommerce' ); ?></span></li>
+            <?php endif; ?>
             <li class="product-comment-tab" data-content="comment"><span><?php echo __( 'Bình luận', 'woocommerce' ); ?></span></li>
         </ul>
     </div>
@@ -43,26 +47,20 @@ $heading = esc_html( apply_filters( 'woocommerce_product_description_heading', _
             <?php the_content(); ?>
             </div>
         </div>
-
-        <div id="config-detail-content" class="tab-content inactive">
-            <div class="tab-detail-content">
-            <?php
-                if (get_field('product_configured_detail')) {
-                    echo get_field('product_configured_detail');
-                }
-            ?>
+        <?php  if ( get_field( 'product_configured_detail' ) ): ?>
+            <div id="config-detail-content" class="tab-content inactive">
+                <div class="tab-detail-content">
+                <?php  echo get_field('product_configured_detail'); ?>
+                </div>
             </div>
-        </div>
-
-        <div id="warranty-content" class="tab-content inactive">
-            <div class="tab-detail-content">
-            <?php
-                if (get_field('product_warranty')) {
-                    echo get_field('product_warranty');
-                }
-            ?>
+        <?php endif;?>
+        <?php if ( get_field( 'product_warranty' ) ): ?>
+            <div id="warranty-content" class="tab-content inactive">
+                <div class="tab-detail-content">
+                    <?php echo get_field('product_warranty'); ?>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
 
         <div id="comment-content" class="tab-content inactive">
             <div class="tab-detail-content">
