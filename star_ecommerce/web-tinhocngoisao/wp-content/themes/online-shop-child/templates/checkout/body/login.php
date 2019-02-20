@@ -61,7 +61,6 @@
             </div>
 
             <div id="register" class="tabcontent">
-                <!-- kiểm tra thử 2 cái form có name input giống nhau có bị gì ko nhe a K -->
                 <form method="post">
                     <div class="input-form">
                         <label for="username"><?php esc_html_e( 'Email', 'wooomsa' ); ?></label>
@@ -113,7 +112,7 @@
                         <?php } else { ?>
                             <span class="price">
                                 <span class="woocommerce-Price-amount amount"><?php wc_price( $regular_price ); ?></span>
-                            </span>;
+                            </span>
                         <?php } ?>
                     </div>
                 <?php } ?>
