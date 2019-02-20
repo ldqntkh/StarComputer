@@ -502,8 +502,8 @@ jQuery( function( $ ) {
 		 * @param {JQuery Object} $form The cart form.
 		 */
 		quantity_update: function( $form ) {
-			block( $form );
-			block( $( 'div.cart_totals' ) );
+			// block( $form );
+			// block( $( 'div.cart_totals' ) );
 
 			// Provide the submit button value because wc-form-handler expects it.
 			$( '<input />' ).attr( 'type', 'hidden' )
@@ -518,12 +518,13 @@ jQuery( function( $ ) {
 				data:     $form.serialize(),
 				dataType: 'html',
 				success:  function( response ) {
-					update_wc_div( response );
+					//update_wc_div( response );
+					window.location.href = $form.attr( 'action' );
 				},
 				complete: function() {
-					unblock( $form );
-					unblock( $( 'div.cart_totals' ) );
-					$.scroll_to_notices( $( '[role="alert"]' ) );
+					// unblock( $form );
+					// unblock( $( 'div.cart_totals' ) );
+					// $.scroll_to_notices( $( '[role="alert"]' ) );
 				}
 			} );
 		},

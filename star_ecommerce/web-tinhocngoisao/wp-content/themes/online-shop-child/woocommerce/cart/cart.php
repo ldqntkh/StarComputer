@@ -25,16 +25,6 @@ do_action( 'woocommerce_before_cart' ); ?>
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
 	<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
-		<!-- <thead>
-			<tr>
-				<th class="product-thumbnail">&nbsp;</th>
-				<th class="product-name"><?php esc_html_e( 'Sản phẩm', 'woocommerce' ); ?></th>
-				<th class="product-price"><?php esc_html_e( 'Giá', 'woocommerce' ); ?></th>
-				<th class="product-quantity"><?php esc_html_e( 'Số lượng', 'woocommerce' ); ?></th>
-				<th class="product-subtotal"><?php esc_html_e( 'Giá', 'woocommerce' ); ?></th>
-				<th class="product-remove">&nbsp;</th>
-			</tr>
-		</thead> -->
 		<tbody>
 			<?php do_action( 'woocommerce_before_cart_contents' ); ?>
 
@@ -46,6 +36,17 @@ do_action( 'woocommerce_before_cart' ); ?>
 				
 				if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 					$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
+					if ( $_product->is_sold_individually() ) {
+						$product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
+					} else {
+						$product_quantity = woocommerce_quantity_input( array(
+							'input_name'   => "cart[{$cart_item_key}][qty]",
+							'input_value'  => $cart_item['quantity'],
+							'max_value'    => $_product->get_max_purchase_quantity(),
+							'min_value'    => '0',
+							'product_name' => $_product->get_name(),
+						), $_product, false );
+					}
 					?>
 					<tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> hide-mobile">
 
@@ -120,24 +121,13 @@ do_action( 'woocommerce_before_cart' ); ?>
 								}
 							?>
 						</td>
-
-						<td class="product-quantity" data-title="<?php esc_attr_e( 'Quantity', 'woocommerce' ); ?>">
-						<?php
-						if ( $_product->is_sold_individually() ) {
-							$product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
-						} else {
-							$product_quantity = woocommerce_quantity_input( array(
-								'input_name'   => "cart[{$cart_item_key}][qty]",
-								'input_value'  => $cart_item['quantity'],
-								'max_value'    => $_product->get_max_purchase_quantity(),
-								'min_value'    => '0',
-								'product_name' => $_product->get_name(),
-							), $_product, false );
-						}
-
-						echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
-						?>
-						</td>
+						<?php if ( !is_mobile_device() ): ?>
+							<td class="product-quantity" data-title="<?php esc_attr_e( 'Quantity', 'woocommerce' ); ?>">
+							<?php
+								echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
+							?>
+							</td>
+						<?php endif;?>
 
 						<!-- <td class="product-subtotal" data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>">
 							<?php
@@ -213,11 +203,13 @@ do_action( 'woocommerce_before_cart' ); ?>
 										</span>';
 								?>
 							</div>
-							<div class="product-qty">
-								<?php
-									echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
-								?>
-							</div>
+							<?php if ( is_mobile_device() ): ?>
+								<div class="product-qty">
+									<?php
+										echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
+									?>
+								</div>
+							<?php endif;?>
 						</td>
 					</tr>
 					<?php
