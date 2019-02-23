@@ -26,7 +26,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 	<table class="shop_table cart woocommerce-cart-form__contents" cellspacing="0">
 		<tbody>
-			<?php do_action( 'woocommerce_before_cart_contents' ); ?>
+		<?php do_action( 'woocommerce_before_cart_contents' ); ?>
 
 			<?php
 			// create custom table for mobile
@@ -131,8 +131,6 @@ do_action( 'woocommerce_before_cart' ); ?>
 								<?php echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok. ?>
 							</div>
 						</td>
-
-						<?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok ?>
 					</tr>
 					<?php
 				}
