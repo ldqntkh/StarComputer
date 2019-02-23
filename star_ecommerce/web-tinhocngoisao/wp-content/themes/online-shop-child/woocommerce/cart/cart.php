@@ -24,7 +24,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
-	<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
+	<table class="shop_table cart woocommerce-cart-form__contents" cellspacing="0">
 		<tbody>
 			<?php do_action( 'woocommerce_before_cart_contents' ); ?>
 
@@ -48,9 +48,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 						), $_product, false );
 					}
 					?>
-					<tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> hide-mobile">
+					<tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
 
-						<td class="product-thumbnail">
+						<td class="item-thumbnail">
 						<?php
 						$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
 
@@ -62,8 +62,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 						?>
 						</td>
 
-						<td class="product-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
-							<div>
+						<td class="item-details">
+							<div class="item-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
 								<?php
 								if ( ! $product_permalink ) {
 									echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;' );
@@ -85,109 +85,15 @@ do_action( 'woocommerce_before_cart' ); ?>
 								<?php
 									// @codingStandardsIgnoreLine
 									echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
-										'<a href="%s" class="remove-product" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times; Xóa</a>',
+										'<a href="%s" class="remove-product hide-mobile" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times; Xóa</a>',
 										esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
 										__( 'Xóa sản phẩm này', 'woocommerce' ),
 										esc_attr( $product_id ),
 										esc_attr( $_product->get_sku() )
 									), $cart_item_key );
-								?>
-							</div>
-						</td>
 
-						<td class="product-price" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
-							<?php
-								//echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
-								$price = WC()->cart->get_product_price_value($_product);
-								$regular_price = $_product->regular_price;
-								$sale_price = $_product->sale_price;
-								if (!empty($sale_price) && $sale_price > 0 && $sale_price < $regular_price) {
-									echo '
-									<span class="price">
-										<ins>
-											<span class="woocommerce-Price-amount amount">' . wc_price( $sale_price ). '</span>
-										</ins>
-										<del>
-											<span class="woocommerce-Price-amount amount">' . wc_price( $regular_price ). '</span>
-										</del>
-									</span>';
-								} else {
-									echo '
-									<span class="price">
-										<ins>
-											<span class="woocommerce-Price-amount amount">' .wc_price( $regular_price ). '</span>
-										</ins>
-									</span>';
-								}
-							?>
-						</td>
-						<?php if ( !is_mobile_device() ): ?>
-							<td class="product-quantity" data-title="<?php esc_attr_e( 'Quantity', 'woocommerce' ); ?>">
-							<?php
-								echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
-							?>
-							</td>
-						<?php endif;?>
-
-						<!-- <td class="product-subtotal" data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>">
-							<?php
-								echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
-							?>
-						</td> -->
-
-						<!-- <td class="product-remove">
-							<?php
-								// @codingStandardsIgnoreLine
-								echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
-									'<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
-									esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
-									__( 'Remove this item', 'woocommerce' ),
-									esc_attr( $product_id ),
-									esc_attr( $_product->get_sku() )
-								), $cart_item_key );
-							?>
-						</td> -->
-					</tr>
-
-					<?php // custom for mobile ?>
-					<tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> hide-desktop woocommerce-cart-form-custom-mobile">
-
-						<td class="product-thumbnail">
-						<?php
-						$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
-
-						if ( ! $product_permalink ) {
-							echo wp_kses_post( $thumbnail );
-						} else {
-							printf( '<a href="%s">%s</a>', esc_url( $product_permalink ), wp_kses_post( $thumbnail ) );
-						}
-						?>
-						</td>
-
-						<td class="product-details" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
-							<div class="product-name"> 
-								<?php // product name
-								if ( ! $product_permalink ) {
-									echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;' );
-								} else {
-									echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) );
-								}
-
-								do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
-
-								// Meta data.
-								echo wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
-
-								// Backorder notification.
-								if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
-									echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>' ) );
-								}
-								?>
-
-								<?php
-									// @codingStandardsIgnoreLine
 									echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
-										'<a href="%s" class="remove-product" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
+										'<a href="%s" class="remove-product-mobile hide-desktop" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
 										esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
 										__( 'Xóa sản phẩm này', 'woocommerce' ),
 										esc_attr( $product_id ),
@@ -195,22 +101,38 @@ do_action( 'woocommerce_before_cart' ); ?>
 									), $cart_item_key );
 								?>
 							</div>
-							<div class="product-price">
+							<div class="item-price" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
 								<?php
-									echo '
+									//echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
+									$price = WC()->cart->get_product_price_value($_product);
+									$regular_price = $_product->regular_price;
+									$sale_price = $_product->sale_price;
+									if (!empty($sale_price) && $sale_price > 0 && $sale_price < $regular_price) {
+										echo '
 										<span class="price">
-											<span class="woocommerce-Price-amount amount">' .$price. '<span class="woocommerce-Price-currencySymbol">đ</span></span>
+											<ins>
+												<span class="woocommerce-Price-amount amount">' . wc_price( $sale_price ). '</span>
+											</ins>
+											<del>
+												<span class="woocommerce-Price-amount amount">' . wc_price( $regular_price ). '</span>
+											</del>
 										</span>';
+									} else {
+										echo '
+										<span class="price">
+											<ins>
+												<span class="woocommerce-Price-amount amount">' .wc_price( $regular_price ). '</span>
+											</ins>
+										</span>';
+									}
 								?>
 							</div>
-							<?php if ( is_mobile_device() ): ?>
-								<div class="product-qty">
-									<?php
-										echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
-									?>
-								</div>
-							<?php endif;?>
+							<div class="item-quantity" data-title="<?php esc_attr_e( 'Quantity', 'woocommerce' ); ?>">
+								<?php echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok. ?>
+							</div>
 						</td>
+
+						<?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok ?>
 					</tr>
 					<?php
 				}
