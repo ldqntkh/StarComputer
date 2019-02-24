@@ -101,6 +101,17 @@ function online_shop_widget_init(){
         'after_title' => '</h3></div>'
     ));
 
+    $description = esc_html__('Displays items right Feature Section.', 'online-shop');
+    register_sidebar(array(
+        'name' => esc_html__('Right Feature', 'online-shop'),
+        'id'   => 'online-shop-right-feature',
+        'description' => $description,
+        'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+        'after_widget' => '</aside>',
+        'before_title' => '<div class="at-title-action-wrapper clearfix"><h3 class="widget-title">',
+        'after_title' => '</h3></div>'
+    ));
+
     register_sidebar(array(
         'name' => esc_html__('Single After Content', 'online-shop'),
         'id'   => 'single-after-content',

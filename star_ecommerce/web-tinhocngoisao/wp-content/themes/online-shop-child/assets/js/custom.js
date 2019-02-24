@@ -137,7 +137,15 @@ jQuery(document).ready(function($) {
                 arrows: (arrows===1),
                 prevArrow: prevArrow,
                 nextArrow: nextArrow,
-                autoplaySpeed: autoplaySpeed
+                autoplaySpeed: autoplaySpeed,
+                responsive: [
+                    {
+                        breakpoint: 767,
+                        settings: {
+                            arrows: false
+                        }
+                    }
+                ]
             });
         });
 
@@ -147,13 +155,17 @@ jQuery(document).ready(function($) {
             var arrows = parseInt(at_featured_img_slider.data('arrows'));
             var prevArrow = at_featured_img_slider.closest('.beside-slider').find('.at-action-wrapper > .prev');
             var nextArrow = at_featured_img_slider.closest('.beside-slider').find('.at-action-wrapper > .next');
+            if (at_window.width() > 768) {
+                at_featured_img_slider.find('.widget_media_image').addClass('hide-desktop');
+            }
+            at_featured_img_slider.find('.widget_media_image');
             at_featured_img_slider.css('visibility', 'visible').slick({
                 slidesToShow: 4,
                 slidesToScroll: 1,
-                autoplay: (autoplay===1),
+                autoplay: false,
                 adaptiveHeight: true,
                 cssEase: 'linear',
-                arrows: (arrows===1),
+                arrows: false,
                 prevArrow: prevArrow,
                 nextArrow: nextArrow,
                 responsive: [
@@ -161,14 +173,8 @@ jQuery(document).ready(function($) {
                         breakpoint: 767,
                         settings: {
                             slidesToShow: 2,
-                            slidesToScroll: 2
-                        }
-                    },
-                    {
-                        breakpoint: 991,
-                        settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3
+                            slidesToScroll: 2,
+                            autoplay: (autoplay===1)
                         }
                     }
                 ]
@@ -320,6 +326,7 @@ jQuery(document).ready(function($) {
             }
         });
     }
+
     // toggleLeftSidebar();
     // at_window.on('resize', function() {
     //     toggleLeftSidebar();

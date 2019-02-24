@@ -74,7 +74,7 @@ if ( !function_exists('online_shop_feature_slider') ) :
 				        $online_shop_feature_slider_display_arrow = $online_shop_customizer_all_values['online-shop-feature-slider-display-arrow'];
 				        $online_shop_feature_slider_enable_autoplay = $online_shop_customizer_all_values['online-shop-feature-slider-enable-autoplay'];
 				        if( 1 ==$online_shop_feature_slider_display_arrow ){
-					        echo "<span class='at-action-wrapper'>";
+					        echo "<span class='at-action-wrapper hide-mobile'>";
 					        echo '<i class="prev fa fa-angle-left"></i><i class="next fa fa-angle-right"></i>';
 					        echo "</span>";/*.at-action-wrapper*/
 				        }
@@ -216,13 +216,17 @@ if ( !function_exists('online_shop_feature_slider') ) :
 			        <?php
 				}
 				?>
-				<div id="slider-section-right"></div>
+				<div class="slider-section-right">
+					<?php if( is_active_sidebar( 'online-shop-right-feature' ) ) : ?>
+						<?php dynamic_sidebar( 'online-shop-right-feature' ); ?>
+					<?php endif;?>
+				</div>
 				<?php
 		        if( 'disable' != $online_shop_feature_right_content_options ){
 			        $online_shop_fs_right_image_display_options = $online_shop_customizer_all_values['online-shop-feature-right-image-display-options'];
 			        ?>
                     <div class="beside-slider <?php echo esc_attr( $online_shop_fs_right_image_display_options ); ?>">
-				        <?php
+						<?php
 				        $online_shop_feature_slider_right_display_arrow = $online_shop_customizer_all_values['online-shop-feature-right-display-arrow'];
 				        $online_shop_feature_slider_right_enable_autoplay = $online_shop_customizer_all_values['online-shop-feature-right-enable-autoplay'];
 
@@ -235,7 +239,7 @@ if ( !function_exists('online_shop_feature_slider') ) :
                         <div class="fs-right-slider"
                              data-autoplay="<?php echo esc_attr( $online_shop_feature_slider_right_enable_autoplay);?>"
                              data-arrows="<?php echo esc_attr( $online_shop_feature_slider_right_display_arrow );?>"
-                        >
+						>
 					        <?php
 					        $online_shop_feature_right_post_cat = $online_shop_customizer_all_values['online-shop-feature-right-post-cat'];
 					        $online_shop_feature_right_product_cat = $online_shop_customizer_all_values['online-shop-feature-right-product-cat'];
@@ -328,7 +332,10 @@ if ( !function_exists('online_shop_feature_slider') ) :
 						        <?php
 					        endwhile;
 					        wp_reset_postdata();
-					        ?>
+							?>
+							<?php if( is_active_sidebar( 'online-shop-right-feature' ) ) : ?>
+								<?php dynamic_sidebar( 'online-shop-right-feature' ); ?>
+							<?php endif;?>
                         </div><!--.fs-right-slider-->
                     </div><!--beside-slider-->
 			        <?php
