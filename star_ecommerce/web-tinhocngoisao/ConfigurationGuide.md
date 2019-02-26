@@ -23,3 +23,8 @@
 #           + Nội dung {{products.cart}} lúc nào cũng cần phải có vì dùng để hiển thị giỏ hàng
 #       . Trong mục Abandoned Orders
 #           + Dùng để theo dõi những giỏ hàng nào mà chưa thanh toán, ta có thể xem được chi tiết đơn hàng và tổng tiền của đơn hàng đó
+# 4. Chỗ banner trên trang chủ (http://prntscr.com/mqe0ad)
+#   4.1 Cột dưới cùng (http://prntscr.com/mqdy3w)
+#      - Thêm widget Ảnh vào title Under Feature Section (http://prntscr.com/mqe01p)
+#   4.2 Cột bên tay phải (http://prntscr.com/mqe1eg)
+#      - Thêm widget Ảnh vào title Right Feature (http://prntscr.com/mqe1po)
