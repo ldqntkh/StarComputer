@@ -281,19 +281,33 @@ h2.woocommerce-loop-product__title {
     .beside-slider {
         .fs-right-slider {
             margin-top: 10px;
+            visibility: unset;
             @media screen and (min-width: 768px) {
                 margin: 0;
             }
             .at-beside-slider-unit {
                 height: 181px;
             }
+            &.hide-desktop {
+                display: none;
+                @media screen and (max-width: 768px) {
+                    display: block;
+                }
+            }
+            &.hide-mobile {
+                display: none;
+                @media screen and (min-width: 768px) {
+                    display: block;
+                }
+            }
         }
         .widget_media_image {
             float: left;
             height: 181px;
             width: 50%;
+            background-color: rgba(45,45,45, 0.15);
             @media screen and (min-width: 768px) {
-                display: none;
+                width: 25%;
             }
             img {
                 height: 181px !important;
