@@ -152,33 +152,27 @@ jQuery(document).ready(function($) {
         $('.fs-right-slider').each(function() {
             var at_featured_img_slider = $(this);
             var autoplay = parseInt(at_featured_img_slider.data('autoplay'));
-            var arrows = parseInt(at_featured_img_slider.data('arrows'));
-            var prevArrow = at_featured_img_slider.closest('.beside-slider').find('.at-action-wrapper > .prev');
-            var nextArrow = at_featured_img_slider.closest('.beside-slider').find('.at-action-wrapper > .next');
-            if (at_window.width() > 768) {
-                at_featured_img_slider.find('.widget_media_image').addClass('hide-desktop');
-            }
-            at_featured_img_slider.find('.widget_media_image');
-            at_featured_img_slider.css('visibility', 'visible').slick({
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                autoplay: false,
-                adaptiveHeight: true,
-                cssEase: 'linear',
-                arrows: false,
-                prevArrow: prevArrow,
-                nextArrow: nextArrow,
-                responsive: [
-                    {
-                        breakpoint: 767,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2,
-                            autoplay: (autoplay===1)
+            var isSliderDisabled = at_featured_img_slider.data('disable-slider');
+            if (!isSliderDisabled) {
+                at_featured_img_slider.slick({
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    autoplay: autoplay === 1,
+                    adaptiveHeight: true,
+                    cssEase: 'linear',
+                    arrows: false,
+                    responsive: [
+                        {
+                            breakpoint: 767,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 2,
+                                autoplay: (autoplay===1)
+                            }
                         }
-                    }
-                ]
-            });
+                    ]
+                });
+            }
         });
 
         /*feature special menu*/
