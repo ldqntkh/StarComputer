@@ -28,3 +28,5 @@
 #      - Thêm widget Ảnh vào title Under Feature Section (http://prntscr.com/mqe01p)
 #   4.2 Cột bên tay phải (http://prntscr.com/mqe1eg)
 #      - Thêm widget Ảnh vào title Right Feature (http://prntscr.com/mqe1po)
+#   4.3 Cột bên tay trái (http://prntscr.com/mqy29j)
+#      - Thêm widget Ảnh vào title Left Feature (http://prntscr.com/mqy2mm)
