@@ -56,7 +56,6 @@ $text_lighter_20 = wc_hex_lighter( $text, 20 );
 }
 
 #template_header {
-	background-color: <?php echo esc_attr( $base ); ?>;
 	border-radius: 3px 3px 0 0 !important;
 	color: <?php echo esc_attr( $base_text ); ?>;
 	border-bottom: 0;
@@ -64,6 +63,7 @@ $text_lighter_20 = wc_hex_lighter( $text, 20 );
 	line-height: 100%;
 	vertical-align: middle;
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+	text-align: center;
 }
 
 #template_header h1,
@@ -91,7 +91,7 @@ $text_lighter_20 = wc_hex_lighter( $text, 20 );
 }
 
 #body_content table td {
-	padding: 48px 48px 0;
+	padding: 10px 48px 0;
 }
 
 #body_content table td td {
@@ -152,8 +152,12 @@ $text_lighter_20 = wc_hex_lighter( $text, 20 );
 }
 
 #header_wrapper {
-	padding: 36px 48px;
+	padding: 10px 48px;
 	display: block;
+}
+
+#header_wrapper img {
+	margin: 0 auto;
 }
 
 h1 {

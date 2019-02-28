@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header">
 										<tr>
 											<td id="header_wrapper">
-												<h1><?php echo $email_heading; ?></h1>
+												<?php echo '<p style="margin-top:0;"><img src="' . esc_url( 'http://103.9.77.27/~share/wp-content/uploads/2018/08/cropped-cropped-logo-star-01-2.png' ) . '" alt="' . get_bloginfo( 'name', 'display' ) . '" /></p>' ?>
 											</td>
 										</tr>
 									</table>
