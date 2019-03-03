@@ -86,6 +86,15 @@ $text_lighter_20 = wc_hex_lighter( $text, 20 );
 	padding: 0 48px 48px 48px;
 }
 
+#template_footer span {
+	border-bottom: 1px solid #ff000030;
+	padding: 0 5px 5px;
+}
+
+#template_footer .image-wrapper .facebook-icon {
+	margin-right: 0;
+}
+
 #body_content {
 	background-color: <?php echo esc_attr( $body ); ?>;
 }
