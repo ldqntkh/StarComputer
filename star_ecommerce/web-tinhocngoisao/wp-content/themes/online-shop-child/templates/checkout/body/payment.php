@@ -122,4 +122,3 @@
         </div>
     </div>
 </div>
-<img id="loading-indicator" src="<?php echo get_stylesheet_directory_uri() . '/assets/img/loading.gif'; ?>" />
