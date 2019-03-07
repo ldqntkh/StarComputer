@@ -323,3 +323,13 @@ header#masthead {
         }
     }
 }
+.header-ads-adv-search {
+    .at-title-action-wrapper {
+        display: none;
+    }
+    .aws-container {
+        .aws-search-form {
+            height: 40px;
+        }
+    }
+}
