@@ -61,6 +61,7 @@
         width: 100vw;
         height: 100vh;
         position: absolute;
+        z-index: 100;
         
         .panel-menu {
             width: 300px;
@@ -136,6 +137,19 @@
     }
     &.header-promo-text-not-active {
         top: 0;
+    }
+
+    .aws-container {
+        margin: 2px 0;
+        .aws-show-clear .aws-search-field {
+            padding-right: 6px;
+        }
+    }
+}
+.aws-search-result {
+    @media screen and (max-width: 1365px){
+        left: 0px !important;
+        width: 100%!important;
     }
 }
 .panel-background {
