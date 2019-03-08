@@ -61,6 +61,7 @@ class ListAttributeComponent extends Component {
             let flag_attribute = false;
             for(let i in attributes) {
                 let name = attributes[i]['name'];
+                let fullname = attributes[i]['full_name'];
                 if (name === require_field) continue;
                 let values = attributes[i]['values'];
 
@@ -80,6 +81,7 @@ class ListAttributeComponent extends Component {
                         if (!flag) {
                             arrAttributes[name][arrAttributes[name].length] = {
                                 "group" : name,
+                                "full_name" : fullname,
                                 "name" : values[k]['name'],
                                 'slug' : values[k]['slug'],
                                 "count" : 1
@@ -93,6 +95,7 @@ class ListAttributeComponent extends Component {
                     for(let k in values) {
                         arrValue.push({
                             "group" : name,
+                            "full_name" : fullname,
                             "name" : values[k]['name'],
                             'slug' : values[k]['slug'],
                             "count" : 1
@@ -108,7 +111,7 @@ class ListAttributeComponent extends Component {
     renderListAttributes = (listAttribute)=> {
         if (!this.isEmpty(listAttribute)) {
             let result  = [];
-            let index = 0
+            let index = 0;
             for (var prop in listAttribute) {
                 if(!listAttribute.hasOwnProperty(prop)) continue;
                 result.push(<AttributeItemComponent attribute_name={prop} attribute_value={listAttribute[prop]} key={index} />);

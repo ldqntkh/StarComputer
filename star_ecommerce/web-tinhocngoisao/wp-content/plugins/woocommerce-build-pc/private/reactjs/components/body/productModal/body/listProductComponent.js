@@ -60,12 +60,11 @@ class ListProductComponent extends Component {
     }
 
     findProductByFilter = ()=> {
-        let product_data = this.props.product_data;
+        const product_data = this.props.product_data_value;
         let {product_search_key, product_search_attribute} = this.props.action_data;
-        
         var regex = null;
         let result = [];
-
+        
         let str_check_require = this.filterProducyByFeildRequire();
 
         let regex_string = str_check_require === null ? "" : str_check_require;
@@ -84,8 +83,8 @@ class ListProductComponent extends Component {
                 }
             }
         }
+        
         if (regex_string !== '') regex = new RegExp(regex_string);
-
         // filter product
         for(let index in product_data) {
             let pr = null;
@@ -101,7 +100,7 @@ class ListProductComponent extends Component {
             //if (pr === null && regex === null) continue;
             
             if (product_search_key !== "" && product_search_key !== null && pr !== null) {
-                if (pr.name.toLowerCase().indexOf(product_search_key) >= 0) {
+                if (pr.name.toLowerCase().indexOf(product_search_key.toLowerCase()) >= 0) {
                     result.push(pr);
                 }
                 
@@ -110,10 +109,13 @@ class ListProductComponent extends Component {
                     result.push(pr);
             }
         }
+        
         if ((product_search_key !== "" && product_search_key !== null) || result.length > 0) {
             return result;
         }
-        if (regex !== null) return result;
+        if (regex !== null) {
+            return result;
+        }
         return product_data;
     }
 

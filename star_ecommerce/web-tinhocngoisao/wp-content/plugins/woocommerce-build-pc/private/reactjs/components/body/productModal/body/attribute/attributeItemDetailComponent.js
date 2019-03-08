@@ -36,9 +36,9 @@ class AttributeItemDetailComponent extends Component {
         let item = this.props.item;
         return(
             <div className="input-group">
-                <input type="checkbox" id={item.slug} name={item.slug} value={item.name} 
+                <input type="checkbox" id={item.group + '_' + item.slug} name={item.group + '_' + item.slug} value={item.name} 
                     onChange={this._handleChange} />
-                <label htmlFor={item.slug}> {item.name} ({item.count}) </label>
+                <label htmlFor={item.group + '_' + item.slug}> {item.name} ({item.count}) </label>
             </div>
         );
     }

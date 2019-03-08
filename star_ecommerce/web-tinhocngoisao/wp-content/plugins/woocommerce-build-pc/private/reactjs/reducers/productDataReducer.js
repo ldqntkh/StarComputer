@@ -17,17 +17,14 @@ export const ProductDataReducer = (product_data = {}, action) => {
      *      .......
      * }
      */
-    let result = [];
+    let result = {...product_data};
     switch (action.type) {
         case INIT_PRODUCT_DATA_BY_TYPE :
-            result = Object.assign({}, product_data);
-
             if (!result.hasOwnProperty(action.data.key)) {
-                result[action.data.key] = action.data.value
+                result[action.data.key] = [...action.data.value]
             }
-
             return result;
         default :
-            return product_data;
+            return result;
     }
 }

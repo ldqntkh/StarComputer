@@ -114,6 +114,7 @@ class ProductDetailComponent extends Component {
 
     render() {
         let product = this.props.product;
+        if (typeof product === "undefined") return <React.Fragment />;
         let rating = null;
         let price = product.sale_price !== "0" && product.sale_price !== "" ? product.sale_price : product.regular_price;
         let state = this.state;

@@ -22,7 +22,7 @@ class ChooseBodyComponent extends Component {
 
                 {/*Show list product*/}
                 {
-                    product_data_by_type !== null && <ListProductComponent product_data={product_data_by_type} />
+                    product_data_by_type !== null && <ListProductComponent product_data_value={product_data_by_type} />
                 }
             </React.Fragment>
         );
@@ -38,7 +38,7 @@ import {
 
 const mapStateToProps = state => ({
     action_data : state.ActionReducer,
-    product_data : state.ProductDataReducer
+    product_data : {...state.ProductDataReducer}
 });
 
 const mapDispatchToProps = dispatch => ({

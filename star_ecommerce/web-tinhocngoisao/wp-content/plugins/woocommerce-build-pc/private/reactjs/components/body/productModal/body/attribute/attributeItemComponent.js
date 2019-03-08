@@ -24,7 +24,7 @@ class AttributeItemComponent extends Component {
         return(
             <div className={ `attribute-item ${this.state.show_filter ? 'show' : ''}` }>
                 <div className="header-attr-name" onClick={this.toogleFilter}>
-                    <h4>{attribute_name.replace('pa_', '').toUpperCase()}</h4>
+                    <h4>{attribute_value[0].full_name}</h4>
                     <i className="fa fa-angle-down angle-down"></i>
                 </div>
                 <div className="body-attr-value">
