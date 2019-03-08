@@ -129,6 +129,7 @@ function get_product_attributes( $product ) {
             if (count($terms)) {
                 $arrAttr = array(
                     "name" => $product_attribute['name'],
+                    "full_name" => wc_attribute_label($product_attribute['name'], $product),
                     "values" => $terms
                 );
                 array_push( $attributes, $arrAttr);
