@@ -228,6 +228,33 @@ header#masthead {
             margin: 0;
         }
     }
+    aside[id^='online_shop_advanced_image_logo'] {
+        .featured-entries-logo.column {
+            background-color: transparent;
+        }
+        .single-list {
+            padding: 5px;
+            .single-item {
+                border-radius: 5px;
+                background-color: #fff;
+            }
+        }
+    }
+
+    aside[id^='online_shop_posts_col'] {
+        margin-top: 20px;
+        .pointer {
+            margin-bottom: 10px;
+            .widget-title {
+                margin-left: 0;
+                margin-top: 0;
+                padding: 0;
+                font-size: 30px;
+                font-weight: 300;
+                color: #29337a;
+            }
+        }
+    }
 }
 
 .onsale-price {
