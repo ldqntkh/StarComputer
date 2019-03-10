@@ -442,6 +442,7 @@ h2.woocommerce-loop-product__title {
         .widget-title {
             font-size: 24px;
             color: #2d2d2d;
+            font-weight: 400;
         }
         .at-title-action-wrapper {
             &:before {
@@ -455,6 +456,8 @@ h2.woocommerce-loop-product__title {
     .widget-title {
         color: #29337a;
         font-size: 30px;
+        padding-top: 30px;
+        font-weight: 300;
     }
     .pointer {
         margin-bottom: 10px;
@@ -544,6 +547,9 @@ h2.woocommerce-loop-product__title {
                     clear: both;
                     margin-top: 7px;
                 }
+            }
+            .add_to_cart_button {
+                display: none;
             }
         }
     }
