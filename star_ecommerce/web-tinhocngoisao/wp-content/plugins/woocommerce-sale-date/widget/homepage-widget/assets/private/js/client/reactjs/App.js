@@ -11,12 +11,6 @@ try {
         <Provider store={PrimeTimeStore}>
             <MainContainer />
         </Provider>, 
-        document.getElementById('slider-section-right'));
-    ReactDOM.render(
-        <Provider store={PrimeTimeStore}>
-            <MainContainer />
-        </Provider>, 
         document.getElementById('dv-primetime-price-mobile'));
 } catch(err) {
-    // 
 }
