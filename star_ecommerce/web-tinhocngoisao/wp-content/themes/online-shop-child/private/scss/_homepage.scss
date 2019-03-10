@@ -453,6 +453,7 @@ h2.woocommerce-loop-product__title {
 }
 
 .widget_recently_viewed_products {
+    position: relative;
     .widget-title {
         color: #29337a;
         font-size: 30px;
@@ -548,8 +549,29 @@ h2.woocommerce-loop-product__title {
                     margin-top: 7px;
                 }
             }
-            .add_to_cart_button {
+            .add_to_cart_button, .product_type_grouped {
                 display: none;
+            }
+        }
+    }
+    .at-action-wrapper {
+        display: none;
+        @media screen and (min-width: 768px) {
+            display: block;
+        }
+        .slick-arrow {
+            border: 2px solid red;
+            background: red;
+            color: #fff;
+            position: absolute;
+            top: 58%;
+            z-index: 200;
+            font-weight: 700;
+            &.next {
+                right: 0;
+            }
+            &.prev {
+                left: 0;
             }
         }
     }

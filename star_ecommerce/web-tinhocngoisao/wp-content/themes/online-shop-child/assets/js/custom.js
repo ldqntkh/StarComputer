@@ -175,6 +175,53 @@ jQuery(document).ready(function($) {
             }
         });
 
+        // init slider in recently viewed product section
+        function recently_viewed_product_slider() {
+            var arrowHTML = '<span class="at-action-wrapper"><i class="prev fa fa-angle-left"></i><i class="next fa fa-angle-right"></i></span>';
+            var $productListWidget = $( '.widget_recently_viewed_products').find('.product_list_widget');
+            var $productListWidgetParent = $productListWidget.parent();
+            $productListWidgetParent.append(arrowHTML);
+            if ( $productListWidget.length > 0 ) {
+                var options = {
+                    slidesToShow: 5,
+                    slidesToScroll: 5,
+                    autoplay: true,
+                    adaptiveHeight: true,
+                    cssEase: 'linear',
+                    arrows: true,
+                    prevArrow: $productListWidgetParent.find('.prev'),
+                    nextArrow: $productListWidgetParent.find('.next'),
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 2,
+                                arrows: false
+                            }
+                        },
+                        {
+                            breakpoint: 1024,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 3
+                            }
+                        },
+                        {
+                            breakpoint: 1367,
+                            settings: {
+                                slidesToShow: 4,
+                                slidesToScroll: 4
+                            }
+                        }
+                    ]
+                }
+                $productListWidget.slick( options );
+            }
+            return false;
+        }
+        recently_viewed_product_slider();
+
         /*feature special menu*/
         function feature_special_menu_height_fixed() {
             var width = at_window.width();
