@@ -360,3 +360,14 @@ header#masthead {
         }
     }
 }
+body:not(.home) {
+    .navigation-wrapper {
+        .main-navigation {
+            .special-menu-wrapper {
+                #menu-special-menu {
+                    margin-top: 0px;
+                }
+            }
+        }
+    }
+}
