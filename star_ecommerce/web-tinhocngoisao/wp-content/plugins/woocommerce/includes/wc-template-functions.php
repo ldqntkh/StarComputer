@@ -1078,9 +1078,18 @@ if ( ! function_exists( 'woocommerce_template_loop_product_title' ) ) {
 	 */
 	function woocommerce_template_loop_product_title() {
 		$title = get_the_title();
-		$title = strlen($title) > 40 ? substr( get_the_title(), 0,40) . '...' : $title;
+		$title = strlen($title) > 40 ? cut_title( get_the_title(), 40) : $title;
 		echo '<div class="product-item-details"><h2 class="woocommerce-loop-product__title">' . $title . '</h2>';
 	}
+}
+
+function cut_title($text, $len) {
+    mb_internal_encoding('UTF-8'); 
+    if( (mb_strlen($text, 'UTF-8') > $len) ) {
+        $text = mb_substr($text, 0, $len, 'UTF-8'); 
+        $text = mb_substr($text, 0, mb_strrpos($text," ", 'UTF-8'), 'UTF-8')."..."; 
+    } 
+    return $text; 
 }
 
 if ( ! function_exists( 'woocommerce_template_loop_period' ) ) {

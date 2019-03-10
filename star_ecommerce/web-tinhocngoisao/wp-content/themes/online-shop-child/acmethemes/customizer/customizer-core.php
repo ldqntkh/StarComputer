@@ -408,7 +408,7 @@ if ( !function_exists('online_shop_get_default_theme_options') ) :
 
 	        /*single post options*/
             'online-shop-show-related'  => 1,
-            'online-shop-related-title'  => esc_html__( 'Related posts', 'online-shop' ),
+            'online-shop-related-title'  => esc_html__( 'Bài viết liên quan', 'online-shop' ),
             'online-shop-related-post-display-from'  => 'cat',
             'online-shop-single-img-size'  => 'full',
 
