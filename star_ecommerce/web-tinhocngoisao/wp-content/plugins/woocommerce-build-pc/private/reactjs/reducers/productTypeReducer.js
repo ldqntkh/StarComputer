@@ -6,10 +6,10 @@ import {
 
 
 export const ProductTypeReducer = (data_product_type = [], action) => {
-    let result = [];
+    let result = [...data_product_type];
     switch (action.type) {
         case INIT_DATA_PRODUCT_TYPE :
-            result = Object.assign({}, action.data);
+            result = [...action.data];
             return result;
         default :
             return data_product_type;

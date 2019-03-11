@@ -24,7 +24,7 @@
             "name" => __('RAM', 'woocommerce-buildpc'),
             "value" => "ram",
             "require-by" => "main",
-            "require-field" => "ram",
+            "require-field" => "kenh-ram-ho-tro",
             "require" => true,
             "link" => null
         ),
