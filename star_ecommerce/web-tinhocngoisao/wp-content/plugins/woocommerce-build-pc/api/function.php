@@ -35,6 +35,7 @@ function get_products_by_custom_type(WP_REST_Request $request) {
         $query_args = array(
             'post_type'             => 'product',
             'post_status'           => 'publish',
+            'posts_per_page'        => -1,
             'meta_key'              => '_buildpc-type',
             'meta_value'            => $custom_type,
         );

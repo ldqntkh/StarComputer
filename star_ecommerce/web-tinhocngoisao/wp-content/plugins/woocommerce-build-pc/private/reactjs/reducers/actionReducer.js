@@ -14,22 +14,18 @@ export const ActionReducer = (action_data = {
     product_search_key : '',
     product_search_attribute : []
 }, action)=> {
-    let result = {};
+    let result = {...action_data};
     switch (action.type) {
         case TOOGLE_MODAL_CHOOSE_PRODUCT:
-            result = Object.assign({}, action_data);
             result['toogle_modal_choose_product'] = action.data;
             return result;
         case TOOGLE_FILTER_PRODUCT:
-            result = Object.assign({}, action_data);
             result['toogle_filter_product'] = !result['toogle_filter_product'];
             return result;
         case SET_VALUE_PRODUCT_TYPE:
-            result = Object.assign({}, action_data);
             result['value_product_type'] = action.data;
             return result;
         case SET_VALUE_PRODUCT_SEARCH_KEY:
-            result = Object.assign({}, action_data);
             result['product_search_key'] = action.data;
             return result;
         case SET_VALUE_PRODUCT_SEARCH_ATTRIBUTE:
@@ -39,11 +35,9 @@ export const ActionReducer = (action_data = {
              *      ......
              * }
              */
-            result = Object.assign({}, action_data);
             result['product_search_attribute'] = action.data;
             return result;
         case CLEAN_ALL_ACTION_SEARCH: // this function will be call before when call function set new data
-            result = Object.assign({}, action_data);
             result['value_product_type'] = '';
             result['product_search_key'] = '';
             result['product_search_attribute'] = [];
