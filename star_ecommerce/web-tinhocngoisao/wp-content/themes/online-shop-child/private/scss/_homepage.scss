@@ -170,14 +170,14 @@ h2.woocommerce-loop-product__title {
             color: red;
             margin-bottom: 5px;
         }
-        @media screen and (min-width: 768px) {
+        @media screen and (max-width: 767px) {
             display: none;
         }
     }
     .slider-section {
         width: 100%;
         @media screen and (min-width: 768px) {
-            width: 60%;
+            width: 75%;
             margin-bottom: 0;
             height: 362px;
         }
@@ -205,7 +205,7 @@ h2.woocommerce-loop-product__title {
         overflow: hidden;
         @media screen and (min-width: 768px) {
             display: block;
-            width: 40%;
+            width: 25%;
             height: 362px;
             margin: 0;
         }
@@ -214,11 +214,15 @@ h2.woocommerce-loop-product__title {
                 del, ins {
                     width: 100%;
                     text-align: center;
+                    margin: 0;
                 }
+            }
+            .product-item-details {
+                padding: 0 10px !important;
             }
         }
         .widget_media_image {
-            width: 50%;
+            width: 100%;
             margin: 0;
             float: left;
             a {
