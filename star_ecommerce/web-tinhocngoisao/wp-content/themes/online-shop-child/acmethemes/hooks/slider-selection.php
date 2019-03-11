@@ -99,9 +99,9 @@ if ( !function_exists('online_shop_feature_slider') ) :
 						<div class="fs-right-slider hide-desktop" data-autoplay="1">
 							<?php
 								dynamic_sidebar( 'online-shop-under-feature' );
-								if( is_active_sidebar( 'online-shop-right-feature' ) ) {
-									dynamic_sidebar( 'online-shop-right-feature' );
-								}
+								// if( is_active_sidebar( 'online-shop-right-feature' ) ) {
+								// 	dynamic_sidebar( 'online-shop-right-feature' );
+								// }
 							?>
 						</div>
 					</div>
