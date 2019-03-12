@@ -177,11 +177,16 @@ jQuery(document).ready(function($) {
 
         // init slider in recently viewed product section
         function recently_viewed_product_slider() {
-            var arrowHTML = '<span class="at-action-wrapper"><i class="prev fa fa-angle-left"></i><i class="next fa fa-angle-right"></i></span>';
+            var arrowHTML = '<span class="at-action-wrapper hide-mobile"><i class="prev fa fa-angle-left"></i><i class="next fa fa-angle-right"></i></span>';
             var $productListWidget = $( '.widget_recently_viewed_products').find('.product_list_widget');
             var $productListWidgetParent = $productListWidget.parent();
-            $productListWidgetParent.append(arrowHTML);
+
+            if ( $productListWidgetParent.find( '.at-action-wrapper' ).length === 0 ) {
+                $productListWidgetParent.append(arrowHTML);
+            }
             if ( $productListWidget.length > 0 ) {
+                var $atActionWrapper = $productListWidgetParent.find( '.at-action-wrapper' );
+                var elementCounted = $productListWidget.find('li').length;
                 var options = {
                     slidesToShow: 5,
                     slidesToScroll: 5,
@@ -216,11 +221,49 @@ jQuery(document).ready(function($) {
                         }
                     ]
                 }
-                $productListWidget.slick( options );
+
+                var recentlyViewedProductSlider = '';
+                if ( isValidateElementOnDevices( elementCounted, at_window.width() ) ) {
+                    $atActionWrapper.removeClass('hidden');
+                    recentlyViewedProductSlider = $productListWidget.slick( options );
+                } else {
+                    $atActionWrapper.addClass('hidden');
+                }
+
+                $productListWidget.on('breakpoint', function(event, slick, breakpoint) {
+                    var validateMobile = (elementCounted > 2) && at_window.width() < 768;
+                    var validateTablet = (elementCounted > 3) && at_window.width() < 1024;
+                    var validateIpadPro = (elementCounted > 4) && at_window.width() < 1367;
+                    var validatePC = (elementCounted > 5) && at_window.width() > 1367;
+                    if( !validateMobile && !validateTablet && !validateIpadPro && !validatePC ) {
+                        if ( !$atActionWrapper.hasClass('hidden') ) {
+                            $atActionWrapper.addClass('hidden');
+                        }
+                        slick.unslick();
+                    } else {
+                        $atActionWrapper.removeClass('hidden');
+                    }
+                });
+
+                $(window).on('resize', function() {
+                    if( isValidateElementOnDevices( elementCounted, at_window.width() ) && (recentlyViewedProductSlider === '' || !recentlyViewedProductSlider.hasClass('slick-initialized') ) ) {
+                        $atActionWrapper.removeClass('hidden');
+                        recentlyViewedProductSlider = $productListWidget.slick( options );
+                    }
+                });
             }
             return false;
         }
         recently_viewed_product_slider();
+
+        function isValidateElementOnDevices( elementCounted, width ) {
+            //mobile 2, ipad 3, ipad pro 4, pc 5
+            var validateMobile = (elementCounted > 2) && width < 768;
+            var validateTablet = (elementCounted > 3) && width < 1024;
+            var validateIpadPro = (elementCounted > 4) && width < 1367;
+            var validatePC = (elementCounted > 5) && width > 1367;
+            return validateMobile || validateTablet || validateIpadPro || validatePC;
+        }
 
         /*feature special menu*/
         function feature_special_menu_height_fixed() {
