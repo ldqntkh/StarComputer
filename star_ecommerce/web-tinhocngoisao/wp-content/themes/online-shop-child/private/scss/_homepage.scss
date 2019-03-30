@@ -355,7 +355,15 @@ h2.woocommerce-loop-product__title {
                 a {
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    white-space: nowrap
+                    white-space: nowrap;
+                    span {
+                        width: 25px;
+                        height: 25px;
+                        float: left;
+                        margin-top: 10px;
+                        margin-left: -10px;
+                        margin-right: 5px;
+                    }
                 }
                 .menu-item {
                     padding: 1.5px;
