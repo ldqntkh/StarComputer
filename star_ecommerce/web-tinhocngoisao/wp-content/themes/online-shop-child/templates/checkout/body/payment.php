@@ -17,7 +17,7 @@
     <div class="paymnent-details">
         <h2>3. Chọn hình thức giao hàng và thanh toán</h2>
         <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
-            <div class="delivery">
+            <div class="delivery hidden">
                 <h3>3.1 Chọn hình thức giao hàng</h3>
                 <div class="delivery-items">
                     <div class="group-radio">
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="payment">
-                <h3>3.2 Chọn hình thức thanh toán</h3>
+                <h3>3.1 Chọn hình thức thanh toán</h3>
                 <div class="payment-items">
                     <div class="group-radio">
                         <input type="radio" name="payment_method" id="payment-01" value="cod" checked/>
