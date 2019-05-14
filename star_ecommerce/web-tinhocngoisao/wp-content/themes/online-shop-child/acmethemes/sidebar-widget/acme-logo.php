@@ -38,6 +38,7 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 			$instance = wp_parse_args( (array) $instance, $this->defaults );
 			/*default values*/
 			$online_shop_widget_title = esc_attr( $instance['online_shop_widget_title'] );
+			$online_shop_widget_custom_class = isset($instance['online_shop_widget_custom_class']) ? esc_attr( $instance['online_shop_widget_custom_class'] ) : '';
             $at_all_logo_items = $instance['at_all_logo_items'];
 			$single_item_link_option = esc_attr( $instance[ 'single_item_link_option' ] );
 			$column_number = absint( $instance['column_number'] );
@@ -50,6 +51,11 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
             <p>
                 <label for="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_title' ) ); ?>"><?php esc_html_e( 'Title', 'online-shop' ); ?></label>
                 <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'online_shop_widget_title' ) ); ?>" type="text" value="<?php echo $online_shop_widget_title; ?>"/>
+            </p>
+
+			<p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_custom_class' ) ); ?>"><?php esc_html_e( 'Custom class', 'online-shop' ); ?></label>
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'online_shop_widget_custom_class' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'online_shop_widget_custom_class' ) ); ?>" type="text" value="<?php echo $online_shop_widget_custom_class; ?>"/>
             </p>
 
             <!--updated code-->
@@ -66,6 +72,9 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 
 						$repeater_id_1  = $this->get_field_id( 'at_all_logo_items') .$total_repeater.'logo_img_link';
 						$repeater_name_1  = $this->get_field_name( 'at_all_logo_items' ).'['.$total_repeater.']['.'logo_img_link'.']';
+
+						$repeater_id_desc_1  = $this->get_field_id( 'at_all_logo_items') .$total_repeater.'logo_img_desc';
+						$repeater_desc_1  = $this->get_field_name( 'at_all_logo_items' ).'['.$total_repeater.']['.'logo_img_desc'.']';
 						?>
                         <div class="repeater-table">
                             <div class="at-repeater-top">
@@ -93,8 +102,13 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
                                 <input type="button" value="<?php esc_attr_e( 'Remove Image', 'online-shop' ); ?>" class="button media-image-remove" />
 
                                 <p>
-                                    <label><?php esc_html_e( 'Enter Image Link', 'online-shop' ); ?></label>
+                                    <label><?php esc_html_e( 'Enter Link', 'online-shop' ); ?></label>
                                     <input type="url" class="widefat" name="<?php echo esc_attr( $repeater_name_1 ); ?>" id="<?php echo esc_attr( $repeater_id_1 ); ?>" value="<?php echo esc_url( $logo_detail['logo_img_link'] ); ?>" />
+                                </p>
+
+								<p>
+                                    <label><?php esc_html_e( 'Enter Title', 'online-shop' ); ?></label>
+                                    <input type="text" class="widefat" name="<?php echo esc_attr( $repeater_desc_1 ); ?>" id="<?php echo esc_attr( $repeater_id_desc_1 ); ?>" value="<?php echo esc_attr( $logo_detail['logo_img_desc'] ); ?>" />
                                 </p>
 
                                 <div class="at-repeater-control-actions">
@@ -113,6 +127,9 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 
 				$repeater_id_1  = $this->get_field_id( 'at_all_logo_items') .$coder_repeater_depth.'logo_img_link';
 				$repeater_name_1  = $this->get_field_name( 'at_all_logo_items' ).'['.$coder_repeater_depth.']['.'logo_img_link'.']';
+
+				$repeater_id_desc_1  = $this->get_field_id( 'at_all_logo_items') .$coder_repeater_depth.'logo_img_desc';
+				$repeater_desc_1  = $this->get_field_name( 'at_all_logo_items' ).'['.$coder_repeater_depth.']['.'logo_img_desc'.']';
 				?>
                 <script type="text/html" class="at-code-for-repeater">
                     <div class="repeater-table">
@@ -138,9 +155,14 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
                             <input type="button" value="<?php esc_attr_e( 'Remove Image', 'online-shop' ); ?>" class="button media-image-remove" />
 
                             <p>
-                                <label><?php esc_html_e( 'Enter Image Link', 'online-shop' ); ?></label>
+                                <label><?php esc_html_e( 'Enter Link', 'online-shop' ); ?></label>
                                 <input type="url" class="widefat" name="<?php echo esc_attr( $repeater_name_1 ); ?>" id="<?php echo esc_attr( $repeater_id_1 ); ?>" />
                             </p>
+
+							<p>
+								<label><?php esc_html_e( 'Enter Title', 'online-shop' ); ?></label>
+								<input type="text" class="widefat" name="<?php echo esc_attr( $repeater_desc_1 ); ?>" id="<?php echo esc_attr( $repeater_id_desc_1 ); ?>" value="<?php echo esc_attr( $logo_detail['logo_img_desc'] ); ?>" />
+							</p>
 
                             <div class="at-repeater-control-actions">
                                 <button type="button" class="button-link button-link-delete at-repeater-remove"><?php esc_html_e('Remove','online-shop');?></button> |
@@ -253,6 +275,7 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 		public function update( $new_instance, $old_instance ) {
 			$instance                  = $old_instance;
 			$instance[ 'online_shop_widget_title' ] = ( isset( $new_instance['online_shop_widget_title'] ) ) ? sanitize_text_field( $new_instance['online_shop_widget_title'] ) : '';
+			$instance[ 'online_shop_widget_custom_class' ] = ( isset( $new_instance['online_shop_widget_custom_class'] ) ) ? sanitize_text_field( $new_instance['online_shop_widget_custom_class'] ) : '';
 			/*updated code*/
 			$logo_img_details = array();
 			if( isset($new_instance['at_all_logo_items'] )){
@@ -261,6 +284,8 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 					foreach ($at_all_logo_items as $key=>$logo_detail ){
 						$logo_img_details[$key]['logo_img_url'] = esc_url_raw( $logo_detail['logo_img_url'] );
 						$logo_img_details[$key]['logo_img_link'] = esc_url_raw( $logo_detail['logo_img_link'] );
+						$logo_img_details[$key]['logo_img_desc'] = sanitize_text_field( $logo_detail['logo_img_desc'] );
+						var_dump($logo_img_details[$key]['logo_img_desc']);
 					}
 				}
             }
@@ -300,6 +325,7 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 			/*default values*/
 			$online_shop_widget_title = !empty( $instance['online_shop_widget_title'] ) ? esc_attr( $instance['online_shop_widget_title'] ) : '';
 			$online_shop_widget_title = apply_filters( 'widget_title', $online_shop_widget_title, $instance, $this->id_base );
+			$online_shop_widget_custom_class = !empty( $instance['online_shop_widget_custom_class'] ) ? esc_attr( $instance['online_shop_widget_custom_class'] ) : '';
 			$at_all_logo_items    = $instance['at_all_logo_items'];
 			$single_item_link_option = esc_attr( $instance[ 'single_item_link_option' ] );
 			$column_number = absint( $instance['column_number'] );
@@ -309,9 +335,9 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 			$all_link_url = esc_url( $instance[ 'all_link_url' ] );
 			$enable_prev_next = esc_attr( $instance['enable_prev_next'] );
 
-			$div_attr = 'class="featured-entries-col featured-entries-logo '.$display_type.'"';
+			$div_attr = 'class="featured-entries-col featured-entries-logo '.$display_type. ' ' . $online_shop_widget_custom_class . '"';
 			if( 'carousel' == $display_type ){
-				$div_attr = 'class="featured-entries-col featured-entries-logo acme-slick-carausel" data-column="'.absint( $column_number ).'"';
+				$div_attr = 'class="featured-entries-col featured-entries-logo acme-slick-carausel '. $online_shop_widget_custom_class .'" data-column="'.absint( $column_number ).'"';
 			}
 
             echo $args['before_widget'];
@@ -339,7 +365,7 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 				echo "</div>";
 			}
 			?>
-            <div <?php echo $div_attr;?>>
+            <div <?php echo $div_attr;?> >
                 <?php
                 if  (count($at_all_logo_items) > 0 && is_array($at_all_logo_items) ){
 	                $online_shop_featured_index = 1;
@@ -347,7 +373,8 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 	                foreach ( $at_all_logo_items as $logo_detail ){
 		                if( isset( $logo_detail['logo_img_url'] ) && !empty( $logo_detail['logo_img_url'] ) ){
 			                $logo_img_url = esc_url( $logo_detail['logo_img_url'] );
-			                $logo_img_link = esc_url( $logo_detail['logo_img_link'] );
+							$logo_img_link = esc_url( $logo_detail['logo_img_link'] );
+							$logo_img_desc = esc_attr( $logo_detail['logo_img_desc'] );
 			                $online_shop_list_classes = 'single-list';
 
 			                if( 'carousel' != $display_type ){
@@ -366,7 +393,7 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 				                else{
 					                $online_shop_list_classes .= " acme-col-4";
 				                }
-			                }
+							}
 			                ?>
                             <div class="<?php echo esc_attr( $online_shop_list_classes ); ?>">
                                 <div class="single-item">
@@ -379,7 +406,8 @@ if ( ! class_exists( 'Online_Shop_Advanced_Image_Logo' ) ) {
 						                echo '<a href="'.$logo_img_link.'" class="all-link" '.$target.'>';
 					                }
 					                ?>
-                                    <img src=" <?php echo $logo_img_url?>">
+									<img src=" <?php echo $logo_img_url?>">
+									<span><?php echo $logo_img_desc?></span>
 					                <?php
 					                if( 'disable' != $single_item_link_option ){
 						                echo '</a>';
