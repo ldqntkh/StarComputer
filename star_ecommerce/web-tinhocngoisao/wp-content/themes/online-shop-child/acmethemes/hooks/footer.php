@@ -136,6 +136,11 @@ if ( ! function_exists( 'online_shop_footer' ) ) :
                     echo "</div>";
                     echo "</div>";
                 endif;
+                if( is_active_sidebar( 'full-width-bottom-footer-two' ) ) :
+                    echo '<div id="full-width-bottom-footer-two">';
+                    dynamic_sidebar( 'full-width-bottom-footer-two' );
+                    echo "</div>";
+                endif;
                 ?>
                 <div class="footer-copyright">
                     <div class="wrapper">
