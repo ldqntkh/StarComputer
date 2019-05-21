@@ -40,3 +40,145 @@
 # BuildPC
 #   Sử dụng build js webpack cho cả server và client
 #   Build scss cho server, dùng koala
+
+
+############################### Cấu hình preference ###############################
+# google map key : .....
+# showrooms : 
+[
+    {
+        "default" : true,
+        "store_name" : "Tin Học Ngôi Sao - Chi Nhánh Chính",
+        "address" : "384/8/C1 Cộng Hòa, phường 13, Tân Bình,Hồ Chí Minh, Việt Nam",
+        "phone" : "0123456789"
+    }
+]
+# Cấu hình buildPC :
+[
+    {
+        "name" : "Choose a product type",
+        "value" : ""
+    },
+    {
+        "name" : "Main",
+        "value" : "main",
+        "require-by" : null,
+        "require" : true,
+        "link" : null
+    },
+    {
+        "name" : "Cpu",
+        "value" : "cpu",
+        "require-by" : "main",
+        "require-field" : "socket",
+        "require" : true,
+        "link" : null
+    },
+    {
+        "name" : "RAM",
+        "value" : "ram",
+        "require-by" : "main",
+        "require-field" : "kenh-ram-ho-tro",
+        "require" : true,
+        "link" : null
+    },
+    {
+        "name" : "SSD",
+        "value" : "ssd",
+        "require-by" : "main",
+        "require-field" : "sata",
+        "require" : false,
+        "link" : "hdd"
+    },
+    {
+        "name" : "HDD",
+        "value" : "hdd",
+        "require-by" : null,
+        "require-field" : null,
+        "require" : false,
+        "link" : "ssd"
+    },
+    {
+        "name" : "Optane",
+        "value" : "optane",
+        "require-by" : "main",
+        "require-field" : null,
+        "require" : false,
+        "link" : null
+    },
+    {
+        "name" : "VGA",
+        "value" : "vga",
+        "require-by" : "main",
+        "require-field" : null,
+        "require" : false,
+        "link" : null
+    },
+    {
+        "name" : "Power",
+        "value" : "power",
+        "require-by" : null,
+        "require-field" : null,
+        "require" : true,
+        "link" : null
+    },
+    {
+        "name" : "Case",
+        "value" : "case",
+        "require-by" : null,
+        "require-field" : null,
+        "require" : true,
+        "link" : null
+    },
+    {
+        "name" : "Radiator",
+        "value" : "radiator",
+        "require-by" : null,
+        "require-field" : null,
+        "require" : false,
+        "link" : null
+    },
+    {
+        "name" : "Screen",
+        "value" : "screen",
+        "require-by" : null,
+        "require-field" : null,
+        "require" : true,
+        "link" : null
+    },
+    {
+        "name" : "Keyboard",
+        "value" : "keyboard",
+        "require-by" : null,
+        "require-field" : null,
+        "require" : true,
+        "link" : null
+    },
+    {
+        "name" : "Mouse",
+        "value" : "mouse",
+        "require-by" : null,
+        "require-field" : null,
+        "require" : true,
+        "link" : null
+    },
+    {
+        "name" : "Headphone",
+        "value" : "headphone",
+        "require-by" : null,
+        "require-field" : null,
+        "require" : false,
+        "link" : null
+    },
+    {
+        "name" : "Soundcase",
+        "value" : "soundcase",
+        "require-by" : null,
+        "require-field" : null,
+        "require" : false,
+        "link" : null
+    }
+]
+
+
+#
