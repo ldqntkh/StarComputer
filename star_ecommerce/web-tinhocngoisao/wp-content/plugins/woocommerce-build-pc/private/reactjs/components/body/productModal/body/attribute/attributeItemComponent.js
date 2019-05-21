@@ -20,7 +20,7 @@ class AttributeItemComponent extends Component {
     }
 
     render() {
-        let {attribute_name, attribute_value} = this.props;
+        let {attribute_value} = this.props;
         return(
             <div className={ `attribute-item ${this.state.show_filter ? 'show' : ''}` }>
                 <div className="header-attr-name" onClick={this.toogleFilter}>

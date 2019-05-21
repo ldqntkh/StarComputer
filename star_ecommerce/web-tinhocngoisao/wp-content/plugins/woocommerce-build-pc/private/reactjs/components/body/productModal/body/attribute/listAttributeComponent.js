@@ -25,32 +25,7 @@ class ListAttributeComponent extends Component {
     findListAttribute = ()=> {
         let {product_data, product_type, product_type_reducer, computer_building_data} = this.props;
         let require_field = 'pa_';
-        let product_require = null;
-        for (let i in product_type_reducer) {
-            if (product_type_reducer[i].value === product_type) {
-                if (typeof computer_building_data[product_type_reducer[i]['require-by']] === "undefined") break;
-                product_require = computer_building_data[product_type_reducer[i]['require-by']].product;
-                require_field += product_type_reducer[i]['require-by'] !== null && product_type_reducer[i]['require-field'] ? product_type_reducer[i]['require-field'] : '';
-                break;
-            }
-        }
-        
-        let attri_values = null;
-        if (product_require !== null) {
-            for(let i in product_require.attributes) {
-                if (product_require.attributes[i].name === require_field) {
-                    attri_values = product_require.attributes[i].values;
-                    break;
-                }
-            }
-        }
-        
-        let regex_string = '';
-        for(let i in attri_values) {
-            if (regex_string.length !== 0) regex_string += '|';
-            regex_string += attri_values[i].slug;
-        }
-        let regex = regex_string !== "" ? new RegExp(regex_string) : null;
+        let regex = null;
         let arrAttributes = {};
         for(let index in product_data) {
             let attributes = product_data[index]['attributes'];
@@ -58,7 +33,6 @@ class ListAttributeComponent extends Component {
                 delete product_data[index];
                 continue;
             }
-            let flag_attribute = false;
             for(let i in attributes) {
                 let name = attributes[i]['name'];
                 let fullname = attributes[i]['full_name'];

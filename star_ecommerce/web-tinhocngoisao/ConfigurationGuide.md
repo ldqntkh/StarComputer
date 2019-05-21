@@ -30,3 +30,13 @@
 #      - Thêm widget Ảnh vào title Right Feature (http://prntscr.com/mqe1po)
 #   4.3 Cột bên tay trái (http://prntscr.com/mqy29j)
 #      - Thêm widget Ảnh vào title Left Feature (http://prntscr.com/mqy2mm)
+
+
+
+
+
+############################### Cấu hình source ###############################
+# Build css cho wp-content: dùng koala build file style.scss (online_shop_child) thành file custom-style.css (online_shop_child)
+# BuildPC
+#   Sử dụng build js webpack cho cả server và client
+#   Build scss cho server, dùng koala

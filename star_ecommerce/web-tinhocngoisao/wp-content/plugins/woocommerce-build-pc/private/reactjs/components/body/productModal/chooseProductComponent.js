@@ -21,10 +21,8 @@ class ChooseProductComponent extends Component {
         super(props);
     }
 
-    componentWillMount() {
-    }
-
     async componentDidUpdate(prevProps) {
+        // hiện tại ko save nó vào local storage
         if (this.props.action_data.value_product_type !== prevProps.action_data.value_product_type) {
             // fetch data from server
             let value_product_type = this.props.action_data.value_product_type;
@@ -46,7 +44,7 @@ class ChooseProductComponent extends Component {
                             }
                         }
                     } catch (err) {
-                        console.log(err);
+                        // console.log(err);
                     }
                 }
             }
@@ -61,7 +59,6 @@ class ChooseProductComponent extends Component {
     render() {
         let {action_data} = this.props;
         let value_product_type = action_data.value_product_type;
-        
         return(
         <Modal
             isOpen={action_data.toogle_modal_choose_product}

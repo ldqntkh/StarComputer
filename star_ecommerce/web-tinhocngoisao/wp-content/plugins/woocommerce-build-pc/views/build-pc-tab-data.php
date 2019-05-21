@@ -39,4 +39,14 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php echo wc_help_tip( __( 'Build PC: We will use product IDs to verify the products that can connect to each other!', 'woocommerce-buildpc' ) ); // WPCS: XSS ok. ?>
 		</p>
 	</div> -->
+	<?php echo (__( 'Build PC: We will use product IDs to verify the products that can connect to each other!', 'woocommerce-buildpc' ) ); // WPCS: XSS ok. ?>
+	<div id="select_product"><!-- Render App Select Product --></div>
+	<?php 
+		// render element input value 
+	    $selected_product_value = get_post_meta($product_object->id, '_selected_product_value', true);
+	?>
+	<input type="hidden" value="<?php echo $selected_product_value; ?>" id="selected_product_value" name="selected_product_value" />
+	<script>
+		var product_types = <?php echo json_encode($product_types); ?>;
+	</script>
 </div>

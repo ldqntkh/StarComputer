@@ -5,15 +5,16 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
-
 module.exports = {
     entry: {
-        app: './wp-content/themes/online-shop-child/private/javascripts/app.js',
-        "custom-style" : "./wp-content/themes/online-shop-child/private/scss/style.scss",
-        "build-pc" : "./wp-content/plugins/woocommerce-build-pc/private/reactjs/App.js"
+        'wp-content/themes/online-shop-child/assets/js/app' : './wp-content/themes/online-shop-child/private/javascripts/app.js',
+        //"custom-style" : "./wp-content/themes/online-shop-child/private/scss/style.scss",
+        "wp-content/themes/online-shop-child/assets/js/build-pc" : "./wp-content/plugins/woocommerce-build-pc/private/reactjs/App.js",
+        "wp-content/plugins/woocommerce-build-pc/assets/js/build-pc-bm" : "./wp-content/plugins/woocommerce-build-pc/private/reactjsBM/App.js",
     },
     output: {
-        path: path.resolve('wp-content/themes/online-shop-child/assets/js'),
+        // path: path.resolve('wp-content/themes/online-shop-child/assets/js'),
+        path: path.resolve(__dirname),
         filename: '[name].js'
     },
     mode: 'development',
@@ -60,7 +61,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new FixStyleOnlyEntriesPlugin(),
-        new ExtractTextPlugin({ filename: '../../../../../wp-content/themes/online-shop-child/[name].css', disable: false, allChunks: false })
+        //new FixStyleOnlyEntriesPlugin(),
+        //new ExtractTextPlugin({ filename: '../../../../../wp-content/themes/online-shop-child/[name].css', disable: false, allChunks: false })
     ]
 }

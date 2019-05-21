@@ -267,6 +267,48 @@
                     width: 400px;
                 }
             }
+            >button {
+                background-color: transparent;
+                position: absolute;
+                top: 7px;
+                right: 40px;
+                font-size: 20px;
+                font-weight: bold;
+                border: 1px solid white;
+                padding: 5px 10px;
+                border-radius: 10px;
+                animation: trans_color 2s linear infinite;
+
+                @keyframes trans_color {
+                    0% { 
+                        background-color: rgba(255, 0, 0, 1);
+                        color: rgba(255, 255, 255, 1); 
+                    }
+                    20% {
+                        background-color: rgba(255, 0, 0, 0.8);
+                        color: rgba(255, 255, 255, 0.8); 
+                    }
+                    40% {
+                        background-color: rgba(255, 0, 0, 0.6);
+                        color: rgba(255, 255, 255, 0.6); 
+                    }
+                    60% {
+                        background-color: rgba(255, 0, 0, 0.4);
+                        color: rgba(255, 255, 255, 0.4);  
+                    }
+                    80% {
+                        background-color: rgba(255, 0, 0, 0.6);
+                        color: rgba(255, 255, 255, 0.6);  
+                    }
+                    100% { 
+                        background-color: rgba(255, 0, 0, 0.8);
+                        color: rgba(255, 255, 255, 0.8); 
+                    }
+                }
+                i {
+                    margin-left: 5px;
+                }
+            }
             .input-group {
                 //width: calc(100% - 450px);
                 width: 100%;
@@ -366,6 +408,7 @@
                             margin: 0;
                             height: 100%;
                             line-height: 30px;
+                            padding-left: 5px;
                         }
                         i {
                             line-height: 30px;
@@ -508,6 +551,23 @@
                     }
                 }
             }
+            .loading {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                i {
+                    font-size: 50px;
+                    color: red;
+                    animation: spin 2s linear infinite;
+                }
+
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            }
         }
     }
 }
@@ -516,6 +576,86 @@
     .ReactModal__Overlay {
         &.ReactModal__Overlay--after-open {
             z-index: 101;
+        }
+    }
+}
+
+#custom-save-image-buildpc {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: auto;
+    background-color: white;
+    height: calc(100% - 50px);
+    padding-bottom: 50px;
+    .image-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 60%;
+        }
+        h1 {
+            font-weight: 300;
+        }
+    }
+    .image-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        .row-item {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            border-bottom: 1px solid silver;
+            height: 160px;
+            width: 100%;
+            padding: 5px;
+            img {
+                width: 150px;
+                height: 150px;
+            }
+            .row-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding-left: 15px;
+                .pd-id, .pd-price {
+                    strong {
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
+
+    .image-footer {
+        width: 1024px;
+        margin: 0 auto;
+        padding: 20px 0;
+        .bill {
+            text-align: center;
+            h1 {
+                strong {
+                    color: red;
+                }
+            }
+        }
+        .info {
+            >div {
+                display: flex;
+                flex-direction: column;
+                >div {
+                    display: flex;
+                    margin: 2.5px 0;
+                    .icon {
+                        margin-right: 5px;
+                    }
+                }
+            }
         }
     }
 }
