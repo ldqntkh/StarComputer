@@ -25,7 +25,7 @@ class AttributeItemComponent extends Component {
             <div className={ `attribute-item ${this.state.show_filter ? 'show' : ''}` }>
                 <div className="header-attr-name" onClick={this.toogleFilter}>
                     <h4>{attribute_value[0].full_name}</h4>
-                    <i className="fa fa-angle-down angle-down"></i>
+                    <i className={`fa ${this.state.show_filter ? 'fa-angle-up angle-up' : 'fa-angle-down angle-down'}`}></i>
                 </div>
                 <div className="body-attr-value">
                     {
@@ -42,7 +42,7 @@ import { connect } from 'react-redux';
 
 import {
     
-} from '../../../../../action/actionFunction';
+} from '../../../../../reactjs/action/actionFunction';
 
 const mapStateToProps = state => ({
     

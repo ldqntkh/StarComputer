@@ -64,7 +64,8 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                     'sale_price' => $sale_price,
                     'image' => wp_get_attachment_image_src( $product->image_id, 'medium', true )[0],
                     'average_rating' => $product->average_rating,
-                    'review_count' => $product->review_count
+                    'review_count' => $product->review_count,
+                    'selected_product_value' => get_post_meta($product->id, '_selected_product_value', true)
                 );
 
                 $arrPt['attributes'] = get_product_attributes( $product );

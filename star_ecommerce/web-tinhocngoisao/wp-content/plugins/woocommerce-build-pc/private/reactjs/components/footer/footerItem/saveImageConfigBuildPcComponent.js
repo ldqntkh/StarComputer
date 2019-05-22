@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
-var arrImages = [];
+import domtoimage from 'dom-to-image';
+import Modal from 'react-modal';
+Modal.setAppElement('#build-pc-function');
 class SaveImageConfigBuildPcComponent extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            open_popup : false,
+            image_content : null,
+            total_item : 0
+        }
     }
     handleSaveImages = () => {
         // check require product build pc
@@ -25,151 +32,124 @@ class SaveImageConfigBuildPcComponent extends Component {
     }
 
     saveImages = () => {
-        arrImages = [];
+
+        // render image to popup
         let customLogoLink = document.getElementsByClassName('custom-logo-link')[0];
         let customLogoSrc = typeof(customLogoLink) !== 'undefined' ? customLogoLink.getElementsByTagName('img')[0].src : '';
-        let canvas = document.createElement('canvas');
-        let that = this;
         let computerBuildingData = JSON.parse(localStorage.getItem('computer_building_data'));
         let dataProductType = this.props.data_product_type;
-        let countedProduct = 0;
+        let imageResult = null;
+        let totalPrice = 0;
+        let list_product_items = [];
+        let total_item = 0;
+
         for( let index in dataProductType ) {
             let item = computerBuildingData[dataProductType[index].value];
             if (item.product === null) {
                 continue;
+            } else {
+                let productPrice = (item.product.sale_price !== "0" && item.product.sale_price !== "") ? parseInt(item.product.sale_price) : parseInt(item.product.regular_price);
+                let itemHtml = <div className="row-item" key={index}>
+                    <img src={item.product.image} alt = "" />
+                    <div className="row-content">
+                        <h1>{item.product.name}</h1>
+                        <span className="pd-id">
+                            Mã sản phẩm: <strong>{item.product.id}</strong>
+                        </span>
+                        <span className="pd-price">
+                            Số lượng: <strong>{item.quantity}</strong>
+                        </span>
+                        <span className="pd-price">
+                            Giá: <strong>{this.formatPrice(parseInt(item.quantity) * productPrice) + 'đ'}</strong>
+                        </span>
+                    </div>
+                </div>
+                list_product_items.push(itemHtml);
+                totalPrice += parseInt(item.quantity) * productPrice;
+                total_item++;
             }
-            countedProduct++;
         }
-    
-        canvas.id = 'save-image-canvas';
-        canvas.width = 1024;
-        canvas.height = countedProduct * 210;
-        canvas.style.border = "1px solid #000";
-        canvas.style.backgroundColor = "#fff";
-        let buildPCFunction = document.getElementById('build-pc-function');
-        buildPCFunction.appendChild(canvas);
-        let ctx = canvas.getContext("2d");
-        ctx.save();
-        ctx.textAlign = "center";
-        ctx.fillStyle = "#dfdfdf";
-        ctx.fillRect(0,0, canvas.width, 160);
-        let logoImg = new Image;
-        logoImg.onload = () => {
-            ctx.drawImage(logoImg, canvas.width / 2.3, 10, 100, 100);
-            ctx.globalAlpha = 0.3;
-            ctx.drawImage(logoImg, canvas.width / 3.1, 160, 300, 300);
-            ctx.restore();
-            arrImages[parseInt(logoImg.name)] = true;
-            that.downloadImage(canvas);
-        };
-        logoImg.name = arrImages.length;
-        arrImages[arrImages.length] = false;
-        logoImg.src = customLogoSrc;
-        ctx.fillStyle = "#2d3877";
-        ctx.font = "30px arial";
-        ctx.fillText("Xây dựng cấu hình PC".toUpperCase(), canvas.width / 2 , 140);
-
-        let totalPrice = 0;
-        let productPosition = 0;
-        for( let index in dataProductType ) {
-            let item = computerBuildingData[dataProductType[index].value];
-            let product = item.product;
-            if (product === null) {
-                continue;
-            }
-            ++productPosition;
-            let productPrice = (product.sale_price !== "0" && product.sale_price !== "") ? parseInt(product.sale_price) : parseInt(product.regular_price);
-            let productQty = parseInt(item.quantity);
-            
-            ctx.fillStyle = "#000";
-            ctx.textAlign = "left";
-            ctx.font = "16px arial";
-            ctx.fillText(product.name + ' ' + '[' + product.id + ']', canvas.width / 5, productPosition * 185);
-            ctx.fillStyle = "grey";
-            ctx.fillText(this.formatPrice(productPrice) +' đ', canvas.width / 5, productPosition * 185 + 30);
-            ctx.fillText('x', canvas.width / 3.3, productPosition * 185 + 30);
-            ctx.fillText(productQty, canvas.width / 3, productPosition * 185 + 30);
-            ctx.fillStyle = "red";
-            ctx.fillText( '= ' + this.formatPrice(productQty * productPrice) + ' đ', canvas.width / 1.2, productPosition * 185 + 30);
-            totalPrice += (productQty * productPrice);
-        }
-        ctx.textAlign = "center";
-        ctx.fillStyle = "red";
-        ctx.font = "bold 16px arial";
-        ctx.fillText('Tổng chi phí: ' + this.formatPrice(totalPrice) + ' đ', canvas.width / 2 - 43, canvas.height - 10);
-        let imagePosition = 0;
-        this.loadImages(dataProductType, function(images) {
-            for (let index in images) {
-                ++imagePosition;
-                ctx.drawImage(images[index], 40, imagePosition * 180, 120, 120);
-                arrImages[parseInt(images[index].name)] = true;
-            }
-            that.downloadImage(canvas);
+        imageResult = 
+            <React.Fragment>
+                <div className="image-header">
+                    <img src={customLogoSrc} alt="" />
+                    <h1>Xây dựng cấu hình máy tính</h1>
+                </div>
+                <div className="image-body">
+                    {list_product_items}
+                </div>
+                <div className="image-footer">
+                    <div className="bill">
+                        <h1>
+                            Chi phí dự tính: <strong>{this.formatPrice(totalPrice) + 'đ'}</strong>
+                        </h1>
+                    </div>
+                    <div className="info" dangerouslySetInnerHTML={{__html: document.getElementsByClassName('header-left')[0].innerHTML}}>
+                    </div>
+                </div>
+            </React.Fragment>
+        this.setState({
+            open_popup : true,
+            image_content : imageResult,
+            total_item : total_item
         });
-    }
-
-    loadImages = (sources, callback) => {
-        let images = {};
-        let loadedImages = 0;
-        let numImages = 0;
-        let computerBuildingData = JSON.parse(localStorage.getItem('computer_building_data'));
-        // get num of sources
-        for(let index in sources) {
-            let item = computerBuildingData[sources[index].value];
-            let product = item.product;
-            if (product === null) {
-                continue;
-            }
-            images[index] = new Image();
-            images[index].onload = () => {
-                if(++loadedImages >= numImages) {
-                    callback(images);
-                }
-            };
-            images[index].src = product.image;
-            images[index].name = arrImages.length;
-            arrImages[arrImages.length] = false;
-            numImages++;
-        }
-    }
-
-    downloadImage = (canvas) => {
-        let isImageLoad = false;
-        for (let index = 0; index < arrImages.length; index++) {
-            if (arrImages[index] === false) {
-                break;
-            }
-            if (arrImages.length - 1 === index) {
-                isImageLoad = true;
-            }
-        }
-        if (isImageLoad) {
-            let currentDate = new Date();
-            let downloadButton = document.createElement('a');
-            downloadButton.id = 'download-button';
-            downloadButton.href = canvas.toDataURL("image/png");
-            downloadButton.target = '_blank';
-            downloadButton.download = 'buildPC_' + currentDate.getDate() + '-' + currentDate.getMonth() + '-' + currentDate.getHours() + '-' + currentDate.getMinutes() + '-' + currentDate.getSeconds() + '.png';
-            canvas.appendChild(downloadButton);
-            downloadButton.click();
-        }
-        let buildPCFunction = document.getElementById('build-pc-function');
-        // remove canvas after download image success
-        buildPCFunction.removeChild(buildPCFunction.lastChild);
     }
 
     formatPrice = (price) => {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
+    _closeModal = ()=> {
+        this.setState({
+            open_popup : false,
+            image_content : null
+        })
+    }
+    _saveImageToDevice = ()=> {
+        const content = document.getElementById('custom-save-image-buildpc');
+        const parentDom = content.closest('.ReactModal__Content--after-open');
+        parentDom.style.height = (((this.state.total_item + 1) * 160) + 400) + 'px';
+        domtoimage.toPng(content)
+            .then(function(dataUrl) {
+                var link = document.createElement("a");
+                link.setAttribute("href", dataUrl);
+                link.setAttribute("download", "BuildPC_STARCOMPUTER.png");
+                link.click();
+                parentDom.style.height ='unset';
+            })
+            .catch(function(error) {
+                //console.error('oops, something went wrong!', error);
+                parentDom.style.height ='unset';
+            });
+    }
+
     render() {
         return(
-            <div className="btn-item">
-                <button type="button" className="btn btn-saveimg" onClick={this.handleSaveImages}>
-                    <i className="fa fa-file-image-o" />
-                    Tải ảnh cấu hình
-                </button>
-            </div>
+            <React.Fragment>
+                <div className="btn-item">
+                    <button type="button" className="btn btn-saveimg" onClick={this.handleSaveImages}>
+                        <i className="fa fa-file-image-o" />
+                        Tải ảnh cấu hình
+                    </button>
+                </div>
+                <Modal
+                    isOpen={this.state.open_popup}
+                    onAfterOpen={this.afterOpenModal}
+                    shouldCloseOnOverlayClick={false}
+                >
+                    <div className="modal-header">
+                        <h2 className="header-title">Cấu hình máy tính</h2>
+                        <button onClick={this._saveImageToDevice}>
+                            Tải ảnh
+                            <i className="fa fa-save"></i>
+                        </button>
+                        <i className="fa fa-close" onClick={this._closeModal}></i>
+                    </div>
+                    <div className="modal-body" id="custom-save-image-buildpc">
+                        {this.state.image_content}
+                    </div>
+                </Modal>
+            </React.Fragment>
         );
     }
 }

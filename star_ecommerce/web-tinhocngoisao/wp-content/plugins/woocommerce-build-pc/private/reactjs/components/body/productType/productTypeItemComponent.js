@@ -42,7 +42,7 @@ class ProductTypeItemComponent extends Component {
     }
 
     render() {
-        let {product_type, computer_building_data} = this.props;
+        let {product_type} = this.props;
         let product_data = this.checkProductTypeExists(product_type.value);
         return(
             <React.Fragment>

@@ -225,6 +225,16 @@ function online_shop_widget_init(){
     ));
 
     register_sidebar(array(
+		'name' => esc_html__('Full Width Bottom Footer Area Two', 'online-shop'),
+		'id'   => 'full-width-bottom-footer-two',
+		'description' => esc_html__('Displays items on Footer area two.', 'online-shop'),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<div class="at-title-action-wrapper clearfix"><h3 class="widget-title">',
+		'after_title' => '</h3></div>'
+	));
+
+    register_sidebar(array(
         'name' => esc_html__('Footer Bottom Left Area', 'online-shop'),
         'id'   => 'footer-bottom-left-area',
         'description' => esc_html__('Displays items on Left of the site info', 'online-shop'),

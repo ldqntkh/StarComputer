@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
-
-// import component
 import AttributeItemComponent from './attributeItemComponent';
 
 class ListAttributeComponent extends Component {
-
     constructor(props) {
         super(props);
+        if (window.eventEmitter) {
+            this.state = {
+                lstProduct : []
+            }
+            window.eventEmitter.on('showListAttribute', (lstProduct) => {
+                this.setState({
+                    lstProduct : lstProduct
+                })
+            });
+        }
     }
-    
+
     isEmpty = (obj)=> {
         for(var prop in obj) {
             if(obj.hasOwnProperty(prop))
@@ -23,14 +30,14 @@ class ListAttributeComponent extends Component {
     }
 
     findListAttribute = ()=> {
-        let {product_data} = this.props;
+        let {lstProduct} = this.state;
         let require_field = 'pa_';
         let regex = null;
         let arrAttributes = {};
-        for(let index in product_data) {
-            let attributes = product_data[index]['attributes'];
+        for(let index in lstProduct) {
+            let attributes = lstProduct[index]['attributes'];
             if (regex !== null && attributes && !regex.test(JSON.stringify(attributes).toLowerCase())) {
-                delete product_data[index];
+                delete lstProduct[index];
                 continue;
             }
             for(let i in attributes) {
@@ -99,32 +106,30 @@ class ListAttributeComponent extends Component {
     render() {
         let listAttribute = this.findListAttribute();
         return(
-            <React.Fragment>
-                <div className="filter-attr-items-rect" onClick={this.toggleFilter}>
-                    
-                </div>
+            <div className="list-attris">
                 <div className="list-attributes">
                     {this.renderListAttributes(listAttribute)}
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }
 
+
 // create container
 import { connect } from 'react-redux';
 
-import {
-    ToogleFilterProduct
-} from '../../../../../action/actionFunction';
+// import {
+//     ToogleModalChooseProduct
+// } from '../../../reactjs/action/actionFunction';
 
 const mapStateToProps = state => ({
-    product_type_reducer : state.ProductTypeReducer,
-    computer_building_data : state.ComputerBuildingDataReducer
+    product_type_selected : state.ActionReducer.product_type_selected,
+    list_product_reducer : state.ListProductReducer
 });
 
 const mapDispatchToProps = dispatch => ({
-    ToogleFilterProduct : () => dispatch(ToogleFilterProduct())
+    //ToogleModalChooseProduct        : modal_toogle_value => dispatch(ToogleModalChooseProduct(modal_toogle_value))
 });
 
 export default connect(

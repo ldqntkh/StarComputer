@@ -37,7 +37,7 @@ var checkoutPage = {
                 }
 
                 if ( $item.prop('id') === 'phone' && $item.val() !== '' ) {
-                    console.log( $item );
+                    // console.log( $item );
                     var mobileRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
                     if ( !mobileRegex.test($(this).val()) ) {
                         $item.addClass('error-form');

@@ -14,11 +14,11 @@ class ListProductComponent extends Component {
         }
     }
 
-    renderListProduct = (product_data) =>{
+    renderListProduct = (product_data, errMsg) =>{
         let result = [];
         if (typeof product_data === "undefined" || product_data.length === 0) {
             result.push(
-                <span key={0} className="error">Không tìm thấy sản phẩm nào theo yêu cầu của bạn</span>
+                <span key={0} className="error">{errMsg === '' ? 'Đang nạp dữ liệu' : errMsg}</span>
             )
         } else {
             let page = this.state.page;
@@ -62,112 +62,58 @@ class ListProductComponent extends Component {
     findProductByFilter = ()=> {
         const product_data = this.props.product_data_value;
         let {product_search_key, product_search_attribute} = this.props.action_data;
-        var regex = null;
         let result = [];
-        
-        let str_check_require = this.filterProducyByFeildRequire();
-
-        let regex_string = str_check_require === null ? "" : str_check_require;
-        for (let index in product_search_attribute) {
-            if (product_search_attribute[index].length > 0) {
-                let regex_str = "";
-                for (let i in product_search_attribute[index]) {
-                    if (regex_str !== "") {
-                        regex_str += '|';
+        // không dùng regex, for toàn bộ attr
+        let keys = Object.keys(product_search_attribute);
+        for (let i in keys) {
+            let key = keys[i];
+            if (product_search_attribute[key].length > 0) {
+                for(let index in product_data) {
+                    let attributes = product_data[index].attributes;
+                    let item = attributes.find(o => o.name === key);
+                    if(item) {
+                        item = item.values;
+                        for (let m in item) {
+                            if (product_search_attribute[key].includes(item[m].slug)) {
+                                if (result.includes(product_data[index])) {
+                                    break;
+                                } else {
+                                    result.push(product_data[index]);
+                                    break;
+                                }
+                            }
+                        }
                     }
-                    regex_str += product_search_attribute[index][i];
-                }
-                
-                if (regex_str !== "") {
-                    regex_string += `(?=.*${regex_str})`;
-                }
+                } 
             }
         }
-        
-        if (regex_string !== '') regex = new RegExp(regex_string);
-        // filter product
-        for(let index in product_data) {
-            let pr = null;
-            if (regex !== null) {
-                if (product_data[index].hasOwnProperty('attributes')) {
-                    if (regex.test(JSON.stringify(product_data[index].attributes).toLowerCase())) {
-                        pr = product_data[index];
-                    }
+        let result_1 = [];
+        if (result.length === 0) result = product_data;
+        for(let index in result) {
+            if (product_search_key !== "" && product_search_key !== null) {
+                if (result[index].name.toLowerCase().includes(product_search_key.toLowerCase())) {
+                    result_1.push(result[index]);
                 }
-            } else  {
-                pr = product_data[index];
-            }
-            //if (pr === null && regex === null) continue;
-            
-            if (product_search_key !== "" && product_search_key !== null && pr !== null) {
-                if (pr.name.toLowerCase().indexOf(product_search_key.toLowerCase()) >= 0) {
-                    result.push(pr);
-                }
-                
             } else {
-                if (pr !== null)
-                    result.push(pr);
+                result_1.push(result[index]);
             }
         }
-        
-        if ((product_search_key !== "" && product_search_key !== null) || result.length > 0) {
-            return result;
-        }
-        if (regex !== null) {
-            return result;
-        }
-        return product_data;
+
+        return result_1;
     }
 
-    filterProducyByFeildRequire = () => {
-        let {
-            product_type,
-            action_data,
-            computer_building_data
-        } = this.props;
-
-        for (let index in product_type) {
-            if (action_data.value_product_type === product_type[index].value) {
-                if (product_type[index]['require-by'] === null) {
-                    return null;
-                }
-                let product_require = computer_building_data[product_type[index]['require-by']].product;
-                
-                if (product_require === null || product_require.attributes === null || product_require.attributes.length == 0) {
-                    console.log('Can not find data');
-                    return null;
-                }
-                let require_field = 'pa_' + product_type[index]['require-field'];
-                let attributes_require = null;
-
-                for(let i in product_require['attributes']) {
-                    if (product_require['attributes'][i].name === require_field) {
-                        attributes_require = product_require['attributes'][i].values;
-                        break;
-                    }
-                }
-                if (attributes_require === null || attributes_require.length === 0) {
-                    return null;
-                }
-
-                let regex_str = "";
-                for (let k in attributes_require) {
-                    if (regex_str !== "") {
-                        regex_str += '|';
-                    }
-                    regex_str += attributes_require[k].slug;
-                }
-                
-                if (regex_str !== "") {
-                    return `(?=.*${regex_str})`;
-                }
-                return null;
-            }
+    componentWillUpdate(prevProps) {
+        if (this.props !== prevProps) {
+            this.setState({
+                page : 1
+            })
         }
     }
 
     render() {
         let product_data = this.findProductByFilter();
+        let errMsg = '';
+        if(product_data && product_data.length == 0) errMsg = 'Không tìm thấy sản phẩm nào theo yêu cầu!';
         return (
             <div className="list-product-modal">
                 <div className="list-product-header">
@@ -177,7 +123,7 @@ class ListProductComponent extends Component {
                 </div>
                 <div className="list-product-data">
                     {
-                        this.renderListProduct(product_data)
+                        this.renderListProduct(product_data, errMsg)
                     }
                 </div>
             </div>

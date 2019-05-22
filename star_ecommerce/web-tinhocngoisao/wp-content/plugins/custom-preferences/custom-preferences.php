@@ -38,6 +38,7 @@
         add_settings_field( 'render_chatbox', 'Render Chat Box By Script', 'render_chatbox_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'google_map_key', 'Google map key', 'google_map_key_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'list_address_store', 'Danh sách địa chỉ showroom', 'list_address_store_section', 'custom_preferences', 'configuration_main' );
+        add_settings_field( 'list_product_type', 'Cấu hình buildPC', 'list_product_type_section', 'custom_preferences', 'configuration_main' );
     }
 
     function fb_app_id_section() {
@@ -58,6 +59,11 @@
     function list_address_store_section() {
         $list_address_store = get_option( 'custom_preferences_options' )['list_address_store'];
         echo "<textarea name='custom_preferences_options[list_address_store]' cols='60' rows='10'>{$list_address_store}</textarea>";
+    }
+
+    function list_product_type_section() {
+        $list_product_type = get_option( 'custom_preferences_options' )['list_product_type'];
+        echo "<textarea name='custom_preferences_options[list_product_type]' cols='60' rows='10'>{$list_product_type}</textarea>";
     }
 
     function configuration_section_title() {
