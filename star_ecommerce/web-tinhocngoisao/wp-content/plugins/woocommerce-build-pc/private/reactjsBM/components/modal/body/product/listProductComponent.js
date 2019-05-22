@@ -37,14 +37,13 @@ class ListProductComponent extends Component {
         await this._loadListProductData();
     }
 
-    async componentDidMount() {
-        // await this._loadListProductData();
-    }
-
     async componentDidUpdate(prevProps) {
-        let {product_type_selected} = this.props;
+        let {product_type_selected} = this.props.action_data;
         if (this.props.position === 'left') {
-            if (product_type_selected !== prevProps.product_type_selected) {
+            if (product_type_selected !== prevProps.action_data.product_type_selected) {
+                if (window.eventEmitter) {
+                    window.eventEmitter.emit('showListAttribute', []);
+                }
                 this.setState({
                     list_product_left : [],
                     list_product_right : [],
@@ -56,7 +55,7 @@ class ListProductComponent extends Component {
                 await this._loadListProductData();
             }
         } else {
-            if (product_type_selected === prevProps.product_type_selected) {
+            if (product_type_selected === prevProps.action_data.product_type_selected) {
                 if (JSON.stringify(this.state.list_product_right) !== JSON.stringify(this.props.list_product_reducer[product_type_selected])) {
                     this.setState({
                         list_product_right : this.props.list_product_reducer[product_type_selected],
@@ -72,7 +71,7 @@ class ListProductComponent extends Component {
     }
 
     _updateRightListProduct = ()=> {
-        let {product_type_selected} = this.props;
+        let {product_type_selected} = this.props.action_data;
         let sessionProduct = sessionStorage.getItem('list_product');
         if (sessionProduct) {
             let jsonData = sessionProduct;
@@ -92,8 +91,9 @@ class ListProductComponent extends Component {
     }
 
     _getProductFromServer = async ()=> {
-        const {product_type_selected} = this.props;
+        const {product_type_selected} = this.props.action_data;
         // check data from session storage
+        // mỗi khi load left list product sẽ emit 1 sự kiện để load list attribute
         let list_product = [];
         let sessionProduct = sessionStorage.getItem('list_product');
         if (sessionProduct) {
@@ -106,6 +106,9 @@ class ListProductComponent extends Component {
         }
         if (list_product.length > 0) {
             this._checkListProductSelected(list_product);
+            if (window.eventEmitter) {
+                window.eventEmitter.emit('showListAttribute', list_product);
+            }
             this.setState({
                 list_product_left : list_product,
                 search_product_left : '',
@@ -127,6 +130,9 @@ class ListProductComponent extends Component {
                             data[product_type_selected] = dataJson.data;
                             sessionStorage.setItem('list_product', JSON.stringify(data));
                             this._checkListProductSelected(dataJson.data);
+                            if (window.eventEmitter) {
+                                window.eventEmitter.emit('showListAttribute', dataJson.data);
+                            }
                             this.setState({
                                 list_product_left : dataJson.data,
                                 search_product_left : '',
@@ -137,6 +143,9 @@ class ListProductComponent extends Component {
                                 window.eventEmitter.emit('updateListProductAfterFetch');
                             }
                         } else {
+                            if (window.eventEmitter) {
+                                window.eventEmitter.emit('showListAttribute', []);
+                            }
                             this.setState({
                                 list_product_left : [],
                                 search_product_left : '',
@@ -145,6 +154,9 @@ class ListProductComponent extends Component {
                             });
                         }
                     } else {
+                        if (window.eventEmitter) {
+                            window.eventEmitter.emit('showListAttribute', []);
+                        }
                         this.setState({
                             list_product_left : [],
                             list_product_right : [],
@@ -156,6 +168,9 @@ class ListProductComponent extends Component {
                     }
                 }
             } catch (err) {
+                if (window.eventEmitter) {
+                    window.eventEmitter.emit('showListAttribute', []);
+                }
                 this.setState({
                     list_product_left : [],
                     list_product_right : [],
@@ -173,7 +188,7 @@ class ListProductComponent extends Component {
         let sessionProductSelected = sessionStorage.getItem('list-product-selected');
         let lst_product_selected = [];
         if (sessionProductSelected) {
-            const {product_type_selected} = this.props;
+            const {product_type_selected} = this.props.action_data;
             let arrObj = JSON.parse(sessionProductSelected)[product_type_selected];
             if (arrObj && arrObj.length > 0) {
                 for (let index in list_product) {
@@ -196,7 +211,8 @@ class ListProductComponent extends Component {
          * ngược lại (right) sẽ lấy từ reducer
          * **** xử lý trường hợp edit product
          */
-        const {position, product_type_selected} = this.props;
+        const {position, action_data} = this.props;
+        const {product_type_selected} = action_data;
         if (position === 'left') {
             await this._getProductFromServer();
         } else {
@@ -230,6 +246,9 @@ class ListProductComponent extends Component {
                 break;
             }
         }
+        if (window.eventEmitter) {
+            window.eventEmitter.emit('showListAttribute', list_product);
+        }
         this.setState({
             list_product_left : list_product,
             search_product_left : ''
@@ -241,6 +260,9 @@ class ListProductComponent extends Component {
         let list_product = [...this.state.list_product_left];
         list_product.splice(product.index ? product.index : 0, 0, product);
         list_product.join();
+        if (window.eventEmitter) {
+            window.eventEmitter.emit('showListAttribute', list_product);
+        }
         this.setState({
             list_product_left : list_product,
             search_product_left : ''
@@ -252,7 +274,7 @@ class ListProductComponent extends Component {
         // set list product to session storage to user after
         let sessionProduct = sessionStorage.getItem('list_product');
         if (sessionProduct) {
-            const {product_type_selected} = this.props;
+            const {product_type_selected} = this.props.action_data;
             sessionProduct = JSON.parse(sessionProduct);
             sessionProduct[product_type_selected] = list_product;
             sessionStorage.setItem('list_product', JSON.stringify(sessionProduct));
@@ -272,11 +294,49 @@ class ListProductComponent extends Component {
         }
     }
 
+    _findProductByFilter = ()=> {
+        const {position} = this.props;
+        const {
+            list_product_left, 
+            list_product_right
+        } = this.state;
+        let list_product = position === 'left' ?  list_product_left :  list_product_right;
+        list_product = typeof list_product === 'undefined' ? [] : list_product;
+        let {product_search_attribute} = this.props.action_data;
+        let result = [];
+        // không dùng regex, for toàn bộ attr
+        let keys = Object.keys(product_search_attribute);
+        for (let i in keys) {
+            let key = keys[i];
+            if (product_search_attribute[key].length > 0) {
+                for(let index in list_product) {
+                    let attributes = list_product[index].attributes;
+                    let item = attributes.find(o => o.name === key);
+                    if(item) {
+                        item = item.values;
+                        for (let m in item) {
+                            if (product_search_attribute[key].includes(item[m].slug)) {
+                                if (result.includes(list_product[index])) {
+                                    break;
+                                } else {
+                                    result.push(list_product[index]);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } 
+            }
+        }
+        if (result.length === 0) return list_product;
+        else return result;
+    }
+
     render() {
         const {position} = this.props;
         const {
-                search_product_left, list_product_left, 
-                search_product_right, list_product_right,
+                search_product_left, 
+                search_product_right, 
                 errMsg,
                 loaded
             } = this.state;
@@ -289,9 +349,9 @@ class ListProductComponent extends Component {
             if (errMsg !== '') {
                 return <span className="error">{errMsg}</span>
             }
-            let list_product = position === 'left' ?  list_product_left :  list_product_right;
-            list_product = typeof list_product === 'undefined' ? [] : list_product;
+            
             let searchKey = position === 'left' ?  search_product_left :  search_product_right;
+            let list_product = this._findProductByFilter();
             let lst_product_render = list_product.map((item, index) => {
                 if ( item.name.toLowerCase().includes(searchKey.toLowerCase()) ) {
                     return <ProductItemComponent key={index} 
@@ -326,7 +386,7 @@ import {
 
 const mapStateToProps = state => ({
     //action_value : state.ActionReducer,
-    product_type_selected : state.ActionReducer.product_type_selected,
+    action_data : state.ActionReducer,
     list_product_reducer : state.ListProductReducer
 });
 

@@ -50,7 +50,6 @@ body.post-type-product {
                 height: calc(100% - 100px);
                 overflow: auto;
                 .list-product {
-                    width: 50%;
                     box-sizing: border-box;
                     border-bottom: 1px solid silver;
                     .error {
@@ -62,15 +61,52 @@ body.post-type-product {
                         color: green;
                     }
                     &.left-content {
+                        width: 60%;
                         border-right: 1px solid silver;
                         display: flex;
                         flex-wrap: nowrap;
                         .list-attris {
-                            height: 100%;
-                            width: 150px;
+                            width: 240px;
                             box-sizing: border-box;
                             border-right: 1px solid silver;
+                            height: 100%;
+                            overflow: auto;
+                            .attribute-item {
+                                overflow: hidden;
+                                border-bottom: .5px solid #c0c0c08c;
+                                .header-attr-name {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    padding: 5px 0;
+                                    h4 {
+                                        margin: 0;
+                                        padding: 0;
+                                    }
+                                    i {
+                                        margin-right: 10px;
+                                        font-weight: bold;
+                                        padding-top: 2px;
+                                    }
+                                }
+                                .body-attr-value {
+                                    height: 0;
+                                    .input-group {
+                                        label {
+                                            font-size: 12px;
+                                        }
+                                    }
+                                }
+                                &.show {
+                                    .body-attr-value {
+                                        height: auto;
+                                    }
+                                }
+                            }
+                            
                         }
+                    }
+                    &.right-content {
+                        width: 40%;
                     }
     
                     &.left-content, &.right-content {
@@ -91,7 +127,7 @@ body.post-type-product {
                             }
                         }
                         .left-list-product {
-                            width: calc(100% - 150px);
+                            width: calc(100% - 240px);
                         }
                         .product-item {
                             width: 100%;

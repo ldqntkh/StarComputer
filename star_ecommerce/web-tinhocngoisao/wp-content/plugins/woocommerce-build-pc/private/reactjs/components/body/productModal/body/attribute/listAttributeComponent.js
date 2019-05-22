@@ -23,7 +23,7 @@ class ListAttributeComponent extends Component {
     }
 
     findListAttribute = ()=> {
-        let {product_data, product_type, product_type_reducer, computer_building_data} = this.props;
+        let {product_data} = this.props;
         let require_field = 'pa_';
         let regex = null;
         let arrAttributes = {};
