@@ -8,6 +8,7 @@ class SaveImageConfigBuildPcComponent extends Component {
         this.state = {
             open_popup : false,
             image_content : null,
+            saving : false,
             total_item : 0
         }
     }
@@ -106,6 +107,10 @@ class SaveImageConfigBuildPcComponent extends Component {
         })
     }
     _saveImageToDevice = ()=> {
+        if (this.state.saving) return;
+        this.setState({
+            saving : true
+        });
         const content = document.getElementById('custom-save-image-buildpc');
         // const parentDom = content.closest('.ReactModal__Content--after-open');
         // set state to disable button click
@@ -130,12 +135,16 @@ class SaveImageConfigBuildPcComponent extends Component {
             link.click();
             //remove the link when done
             document.body.removeChild(link);
+            this.setState({
+                saving : false
+            });
         } else {
             window.open(uri);
         }
     }
 
     render() {
+        console.log(this.state.saving)
         return(
             <React.Fragment>
                 <div className="btn-item">
@@ -153,7 +162,7 @@ class SaveImageConfigBuildPcComponent extends Component {
                         <h2 className="header-title">Cấu hình máy tính</h2>
                         <button onClick={this._saveImageToDevice}>
                             Tải ảnh
-                            <i className="fa fa-save"></i>
+                            <i className={`fa ${this.state.saving ? "fa-spinner" : "fa-save"}`}></i>
                         </button>
                         <i className="fa fa-close" onClick={this._closeModal}></i>
                     </div>
