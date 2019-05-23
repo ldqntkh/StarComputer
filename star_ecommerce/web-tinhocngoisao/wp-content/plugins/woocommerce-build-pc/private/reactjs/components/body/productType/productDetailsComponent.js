@@ -16,7 +16,7 @@ class ProductDetailsComponent extends Component {
             product_type
         } = this.props;
         for(let index in data_product_type) {
-            if (data_product_type[index]['require-by'] === product_type) {
+            if (data_product_type[index]['require-by'] && data_product_type[index]['require-by'].includes(product_type)) {
                 this.props.ClearValueComputerProductByType({
                     "type" : data_product_type[index]['value']
                 });
