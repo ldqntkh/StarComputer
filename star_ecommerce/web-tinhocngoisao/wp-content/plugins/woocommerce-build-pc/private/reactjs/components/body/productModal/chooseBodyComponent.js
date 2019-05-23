@@ -18,31 +18,43 @@ class ChooseBodyComponent extends Component {
             if (item.value === product_type_selected) {
                 // get selected value from require product
                 // selected_product_value
+                // require_by is an array
                 const require_by = item['require-by'];
-                if (require_by === null) return lstProduct;
-                var lstProductSelected = computer_building_data[require_by];
-                if (lstProductSelected) {
-                    lstProductSelected = lstProductSelected.product.selected_product_value;
-                    if (lstProductSelected && lstProductSelected !== "") {
-                        lstProductSelected = atob(lstProductSelected);
-                        lstProductSelected = JSON.parse(lstProductSelected);
-                        lstProductSelected = lstProductSelected[product_type_selected];
-                        if (typeof lstProductSelected !== 'undefined' && lstProductSelected.length > 0) {
-                            // get list product in lstProductSelected
-                            var resultListProduct = [];
-                            for (let i in lstProduct) {
-                                for (let k in lstProductSelected) {
-                                    if (lstProduct[i].id === lstProductSelected[k].id) {
-                                        resultListProduct.push(lstProduct[i]);
-                                        break;
+                if (!require_by || require_by.length === 0) return lstProduct;
+                let resultListProduct = [];
+                for (let k in require_by) {
+                    let lstProductSelected = computer_building_data[require_by[k]];
+                    if (lstProductSelected) {
+                        // get list selected product id (base64)
+                        lstProductSelected = lstProductSelected.product.selected_product_value;
+                        if (lstProductSelected && lstProductSelected !== "") {
+                            lstProductSelected = atob(lstProductSelected);
+                            lstProductSelected = JSON.parse(lstProductSelected);
+                            lstProductSelected = lstProductSelected[product_type_selected];
+                            if (typeof lstProductSelected !== 'undefined' && lstProductSelected.length > 0) {
+                                // get list product in lstProductSelected
+                                for (let i in lstProduct) {
+                                    for (let k in lstProductSelected) {
+                                        if (lstProduct[i].id === lstProductSelected[k].id) {
+                                            if (lstProduct[i].hasOwnProperty('pushed')) {
+                                                lstProduct[i].pushed ++;
+                                            } else {
+                                                lstProduct[i].pushed = 1;
+                                            }
+                                        }
                                     }
                                 }
+                                
                             }
-                            return resultListProduct;
                         }
                     }
                 }
-                break;
+                for (let index in lstProduct) {
+                    if (lstProduct[index].pushed === require_by.length) {
+                        resultListProduct.push(lstProduct[index]);
+                    }
+                }
+                return resultListProduct;
             }
         }
         return [];
@@ -60,7 +72,7 @@ class ChooseBodyComponent extends Component {
                 </div>
             )
         }
-        let lstProduct = this._FilterProduct(product_data_by_type);
+        let lstProduct = this._FilterProduct([...product_data_by_type]);
         return (
             <React.Fragment>
                 {/*filter attribute*/}

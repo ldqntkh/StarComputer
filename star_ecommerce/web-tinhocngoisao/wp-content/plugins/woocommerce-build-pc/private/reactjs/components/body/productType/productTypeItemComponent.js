@@ -11,11 +11,13 @@ class ProductTypeItemComponent extends Component {
     checkProductRequire = ()=> {
         let {product_type, computer_building_data} = this.props;
         if (product_type['require-by'] !== null) {
-            if (computer_building_data[product_type['require-by']].product !== null) {
-                return true;
-            } else {
-                alert(`Vui lòng chọn một sản phẩm từ ${product_type['require-by']} để tiếp tục!`);
+            for (let index in  product_type['require-by']) {
+                if (computer_building_data[product_type['require-by'][index]].product === null) {
+                    alert(`Vui lòng chọn một sản phẩm từ ${product_type['require-by'][index]} để tiếp tục!`);
+                    return false;
+                }
             }
+            return true;
         } else {
             return true;
         }

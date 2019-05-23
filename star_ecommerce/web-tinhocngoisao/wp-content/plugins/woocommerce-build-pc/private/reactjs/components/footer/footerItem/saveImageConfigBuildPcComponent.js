@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import domtoimage from 'dom-to-image';
+import html2canvas from 'html2canvas';
 import Modal from 'react-modal';
 Modal.setAppElement('#build-pc-function');
 class SaveImageConfigBuildPcComponent extends Component {
@@ -18,7 +18,7 @@ class SaveImageConfigBuildPcComponent extends Component {
             let flagRequire = false;
             for(let index in computer_building_data) {
                 if (computer_building_data[index].require && computer_building_data[index].product === null) {
-                    //flagRequire = true;
+                    // flagRequire = true;
                     break;
                 }
             }
@@ -107,20 +107,32 @@ class SaveImageConfigBuildPcComponent extends Component {
     }
     _saveImageToDevice = ()=> {
         const content = document.getElementById('custom-save-image-buildpc');
-        const parentDom = content.closest('.ReactModal__Content--after-open');
-        parentDom.style.height = (((this.state.total_item + 1) * 160) + 400) + 'px';
-        domtoimage.toPng(content)
-            .then(function(dataUrl) {
-                var link = document.createElement("a");
-                link.setAttribute("href", dataUrl);
-                link.setAttribute("download", "BuildPC_STARCOMPUTER.png");
-                link.click();
-                parentDom.style.height ='unset';
-            })
-            .catch(function(error) {
-                //console.error('oops, something went wrong!', error);
-                parentDom.style.height ='unset';
-            });
+        // const parentDom = content.closest('.ReactModal__Content--after-open');
+        // set state to disable button click
+        html2canvas(content, { allowTaint : true , logging : false}).then((canvas) =>
+        {
+            canvas.getContext('2d');
+            this._saveAs(canvas.toDataURL('image/jpeg', 1.0), "BuildPC_STARCOMPUTER.png");
+        });
+    }
+
+    _saveAs = (uri, filename) => {
+        var link = document.createElement('a');
+        if (typeof link.download === 'string') {
+            link.href = uri;
+            link.download = filename;
+            link.target = '_blank';
+
+            //Firefox requires the link to be in the body
+            document.body.appendChild(link);
+
+            //simulate click
+            link.click();
+            //remove the link when done
+            document.body.removeChild(link);
+        } else {
+            window.open(uri);
+        }
     }
 
     render() {
@@ -145,8 +157,10 @@ class SaveImageConfigBuildPcComponent extends Component {
                         </button>
                         <i className="fa fa-close" onClick={this._closeModal}></i>
                     </div>
-                    <div className="modal-body" id="custom-save-image-buildpc">
-                        {this.state.image_content}
+                    <div className="content-image">
+                        <div className="modal-body" id="custom-save-image-buildpc">
+                            {this.state.image_content}
+                        </div>
                     </div>
                 </Modal>
             </React.Fragment>
