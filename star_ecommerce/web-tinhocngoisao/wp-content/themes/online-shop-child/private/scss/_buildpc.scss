@@ -280,7 +280,7 @@
                 border: 1px solid white;
                 padding: 5px 10px;
                 border-radius: 10px;
-                animation: trans_color 2s linear infinite;
+                //animation: trans_color 2s linear infinite;
 
                 @keyframes trans_color {
                     0% { 
@@ -310,7 +310,16 @@
                 }
                 i {
                     margin-left: 5px;
+                    //font-size: 50px;
+                    &.fa-spinner {
+                        animation: spin 2s linear infinite;
+                    }
                 }
+
+                // @keyframes spin {
+                //     0% { transform: rotate(0deg); }
+                //     100% { transform: rotate(360deg); }
+                // }
             }
             .input-group {
                 //width: calc(100% - 450px);
