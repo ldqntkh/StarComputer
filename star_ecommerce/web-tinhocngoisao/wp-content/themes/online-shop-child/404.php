@@ -17,9 +17,7 @@ get_header(); ?>
 				<div class="page-content">
 					<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'online-shop' ); ?></p>
 					<?php get_search_form(); ?>
-					<div class="list-product">
-						<?php dynamic_sidebar( 'content-404-area' ); ?>
-					</div>
+					<?php dynamic_sidebar( 'content-404-area' ); ?>
 				</div><!-- .page-content -->
 			</section><!-- .error-404 -->
 		</main><!-- #main -->
