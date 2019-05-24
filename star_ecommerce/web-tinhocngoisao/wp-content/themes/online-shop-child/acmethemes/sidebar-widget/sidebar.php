@@ -254,6 +254,14 @@ function online_shop_widget_init(){
         'after_title' => '</h3></div>'
     ));
 
+    register_sidebar(array(
+        'name' => esc_html__('Items In 404 Area', 'online-shop'),
+        'id'   => 'content-404-area',
+        'description' => esc_html__('Displays items in 404 page', 'online-shop'),
+        'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+        'after_widget' => '</aside>'
+    ));
+
     /*Widgets*/
     register_widget( 'Online_Shop_Posts_Col' );
     register_widget( 'Online_Shop_About' );

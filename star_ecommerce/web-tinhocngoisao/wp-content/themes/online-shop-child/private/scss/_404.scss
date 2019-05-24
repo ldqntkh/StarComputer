@@ -1,0 +1,20 @@
+#content {
+    .error-404 {
+        &.not-found {
+            aside[id^='online_shop_'] {
+                .at-title-action-wrapper {
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                    text-align: left;
+                    color: #29337a;
+                    font-size: 30px;
+                    font-weight: 300;
+                }
+                .widgettitle {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+    
+}
