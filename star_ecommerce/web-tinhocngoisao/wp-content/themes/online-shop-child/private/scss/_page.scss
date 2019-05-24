@@ -221,6 +221,15 @@ header#masthead {
             //     }
             // }
         }
+        &.slick-unavailable {
+            .acme-slick-carausel {
+                display: flex;
+                visibility: visible;
+            }
+            .at-action-wrapper {
+                display: none;
+            }
+        }
     }
     .slider-feature-wrap {
         aside[id^='online_shop_'] {

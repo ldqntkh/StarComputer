@@ -518,7 +518,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	            }
 	            $div_attr = 'class="featured-entries-col woocommerce '.$display_type.'"';
 	            if( 'carousel' == $display_type ){
-		            $div_attr = 'class="featured-entries-col woocommerce acme-slick-carausel" data-column="'.absint( $column_number ).'" data-total-post="' . $post_number . '"';
+		            $div_attr = 'class="featured-entries-col woocommerce acme-slick-carausel" data-column="'.absint( $column_number ).'"';
 	            }
 	            if( 'disable' != $wc_cat_display_option && 'cat' == $wc_advanced_option ){
 		            $taxonomy = 'product_cat';
