@@ -85,6 +85,12 @@ jQuery(document).ready(function($) {
             var slidesToScroll = parseInt(at_featured_img_slider.data('column'));
             var prevArrow =at_featured_img_slider.closest('.widget').find('.at-action-wrapper > .prev');
             var nextArrow =at_featured_img_slider.closest('.widget').find('.at-action-wrapper > .next');
+            /**
+            * vậy nếu chúng ta check trước column và tổng số product để k cho nó bắt sự kiện slide thì sao
+            */
+            if ( slidesToShow > at_featured_img_slider.find('.single-list').length ) {
+                return at_featured_img_slider.parent().addClass('slick-unavailable');
+            }
             at_featured_img_slider.css('visibility', 'visible').slick({
                 slidesToShow: slidesToShow,
                 slidesToScroll: slidesToScroll,
@@ -96,14 +102,15 @@ jQuery(document).ready(function($) {
                 nextArrow: nextArrow,
                 responsive: [
                     {
-                        breakpoint: 767,
+                        breakpoint: 768,
                         settings: {
                             slidesToShow: 2,
-                            slidesToScroll: 2
+                            slidesToScroll: 2,
+                            arrows: false
                         }
                     },
                     {
-                        breakpoint: 991,
+                        breakpoint: 1024,
                         settings: {
                             slidesToShow: 3,
                             slidesToScroll: 3
