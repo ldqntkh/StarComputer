@@ -11,6 +11,12 @@ class ChooseBodyComponent extends Component {
     }
 
     _FilterProduct = (lstProduct)=> {
+        // clear pushed product
+        for (let i in lstProduct) {
+            if (lstProduct[i].hasOwnProperty('pushed')) {
+                lstProduct[i].pushed = 0;
+            }
+        }
         const {action_data, data_product_type, computer_building_data} = this.props;
         let product_type_selected = action_data.value_product_type;
         for (let index in data_product_type) {
@@ -44,7 +50,6 @@ class ChooseBodyComponent extends Component {
                                         }
                                     }
                                 }
-                                
                             }
                         }
                     }

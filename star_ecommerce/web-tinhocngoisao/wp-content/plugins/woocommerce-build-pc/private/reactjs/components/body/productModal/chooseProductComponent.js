@@ -33,7 +33,7 @@ class ChooseProductComponent extends Component {
                         let response = await fetch( HOST_URL_API + url_api.replace('{0}', value_product_type) );
                         let dataJson = await response.json();
                         if (dataJson.success) {
-                            if (dataJson.data.length > 0) {
+                            if (dataJson.data) {
                                 // filter product by require field
                                 // dựa vào product type item component
                                 // merge to reducer
@@ -42,6 +42,11 @@ class ChooseProductComponent extends Component {
                                     "value" : dataJson.data
                                 });
                             }
+                        } else {
+                            this.props.InitProductDataByType({
+                                "key" : value_product_type,
+                                "value" : []
+                            });
                         }
                     } catch (err) {
                         // console.log(err);

@@ -193,7 +193,7 @@ class ListProductComponent extends Component {
             if (arrObj && arrObj.length > 0) {
                 for (let index in list_product) {
                     for (let i in arrObj) {
-                        if (list_product[index].id === arrObj[i].id) {
+                        if (list_product[index] && list_product[index].id === arrObj[i].id) {
                             lst_product_selected.push(list_product[index]);
                             list_product.splice(index , 1);
                             //break;
