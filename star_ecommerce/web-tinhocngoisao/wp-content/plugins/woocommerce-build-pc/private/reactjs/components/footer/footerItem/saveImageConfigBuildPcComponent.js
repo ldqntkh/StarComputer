@@ -112,12 +112,17 @@ class SaveImageConfigBuildPcComponent extends Component {
             saving : true
         });
         const content = document.getElementById('custom-save-image-buildpc');
-        // const parentDom = content.closest('.ReactModal__Content--after-open');
+        const parentDom = content.closest('.ReactModal__Content--after-open');
+        parentDom.style.height = 'auto';
+        let width = parentDom.offsetWidth;
+        parentDom.style.width = '1024px';
         // set state to disable button click
         html2canvas(content, { allowTaint : true , logging : false}).then((canvas) =>
         {
             canvas.getContext('2d');
             this._saveAs(canvas.toDataURL('image/jpeg', 1.0), "BuildPC_STARCOMPUTER.png");
+            parentDom.style.height = 'unset';
+            parentDom.style.width = width + 'px';
         });
     }
 
@@ -144,7 +149,6 @@ class SaveImageConfigBuildPcComponent extends Component {
     }
 
     render() {
-        console.log(this.state.saving)
         return(
             <React.Fragment>
                 <div className="btn-item">
