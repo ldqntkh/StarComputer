@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
                 nextArrow: nextArrow,
                 responsive: [
                     {
-                        breakpoint: 768,
+                        breakpoint: 767,
                         settings: {
                             slidesToShow: 2,
                             slidesToScroll: 2,
@@ -110,7 +110,7 @@ jQuery(document).ready(function($) {
                         }
                     },
                     {
-                        breakpoint: 1024,
+                        breakpoint: 991,
                         settings: {
                             slidesToShow: 3,
                             slidesToScroll: 3
