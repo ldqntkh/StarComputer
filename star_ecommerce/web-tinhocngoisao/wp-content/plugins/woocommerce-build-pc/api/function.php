@@ -83,7 +83,7 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                                 'link' => get_permalink( $productChild->get_id()),
                                 'regular_price' => $productChild->get_regular_price(),
                                 'sale_price' => $productChild->get_sale_price(),
-                                'image' => wp_get_attachment_image_src( $productChild->image_id, 'medium', true )[0],
+                                'image' => wp_get_attachment_image_src( $productChild->image_id, 'thumbnail', true )[0],
                                 'average_rating' => $productChild->average_rating,
                                 'review_count' => $productChild->review_count,
                                 'stock_quantity' =>  $productChild->stock_quantity,

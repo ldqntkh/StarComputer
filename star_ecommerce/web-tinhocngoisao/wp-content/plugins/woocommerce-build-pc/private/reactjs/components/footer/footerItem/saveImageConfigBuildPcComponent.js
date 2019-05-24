@@ -115,7 +115,7 @@ class SaveImageConfigBuildPcComponent extends Component {
         const parentDom = content.closest('.ReactModal__Content--after-open');
         parentDom.style.height = 'auto';
         let width = parentDom.offsetWidth;
-        parentDom.style.width = '1024px';
+        parentDom.style.width = '1200px';
         // set state to disable button click
         html2canvas(content, { allowTaint : true , logging : false}).then((canvas) =>
         {
@@ -127,24 +127,28 @@ class SaveImageConfigBuildPcComponent extends Component {
     }
 
     _saveAs = (uri, filename) => {
-        var link = document.createElement('a');
-        if (typeof link.download === 'string') {
-            link.href = uri;
-            link.download = filename;
-            link.target = '_blank';
+        try {
+            var link = document.createElement('a');
+            if (typeof link.download === 'string') {
+                link.href = uri;
+                link.download = filename;
+                link.target = '_blank';
 
-            //Firefox requires the link to be in the body
-            document.body.appendChild(link);
+                //Firefox requires the link to be in the body
+                document.body.appendChild(link);
 
-            //simulate click
-            link.click();
-            //remove the link when done
-            document.body.removeChild(link);
-            this.setState({
-                saving : false
-            });
-        } else {
-            window.open(uri);
+                //simulate click
+                link.click();
+                //remove the link when done
+                document.body.removeChild(link);
+                this.setState({
+                    saving : false
+                });
+            } else {
+                window.open(uri);
+            }
+        } catch(err) {
+            // console.log(err.message);
         }
     }
 
