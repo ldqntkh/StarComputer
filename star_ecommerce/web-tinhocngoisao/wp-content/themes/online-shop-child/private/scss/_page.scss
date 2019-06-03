@@ -258,18 +258,16 @@ header#masthead {
             padding: 0 0 20px 0;
             flex-wrap: wrap;
             .single-list {
-                width: 100%;
+                width: 50%;
                 border: none;
                 margin-bottom: 20px;
-                @media screen and (min-width: 640px) {
-                    width: 50%;
-                }
                 @media screen and (min-width: 1024px) {
                     width: 25%;
                     margin-bottom: 0px;
                 }
                 .single-item {
                     border: none;
+                    min-height: 190px;
                     a {
                         display: flex;
                         flex-direction: column;
@@ -277,8 +275,8 @@ header#masthead {
                         align-items: center;
                     }
                     img {
-                        width: 180px;
-                        height: 180px;
+                        width: 140px;
+                        height: 140px;
                         border-radius: 50%;
                         border: 5px solid white;
                         // @media screen and (min-width: 768px) {
