@@ -119,7 +119,8 @@ header#masthead {
 
     aside[id^='online_shop_posts_col'] {
         .featured-entries-col .post-container {
-            height: 390px;
+            height: auto;
+            min-height: 200px;
             overflow: hidden;
             @media screen and (min-width: 768px) {
                 height: 400px;
@@ -136,6 +137,20 @@ header#masthead {
                 img {
                     height: 100%;
                     width: auto;
+                }
+            }
+            .post-content {
+                padding: 5px;
+                .entry-header {
+                    >a {
+                        display: none;
+                    }
+                }
+                .entry-content {
+                    display: none;
+                    @media screen and (min-width : 768px) {
+                        display: block;
+                    }
                 }
             }
         }
