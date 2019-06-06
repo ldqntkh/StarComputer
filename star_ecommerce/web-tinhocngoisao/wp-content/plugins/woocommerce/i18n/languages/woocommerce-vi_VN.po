@@ -2,15 +2,22 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Woocommerce plugin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-19 03:48:20+0000\n"
+"PO-Revision-Date: 2019-06-06 21:40+0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: GlotPress/2.4.0-alpha\n"
+"X-Generator: Poedit 2.2.3\n"
 "Language: vi_VN\n"
 "Project-Id-Version: WordPress - 4.9.x - Development -  Woocommerce plugin\n"
+"POT-Creation-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
 
 #: includes/abstracts/abstract-wc-order.php:1760
 msgid "Subtotal:"
 msgstr "Tạm tính:"
+
+#: wp-content/themes/online-shop-child/templates/checkout/body/payment.php:43
+msgid "Place order"
+msgstr "Đặt hàng"
