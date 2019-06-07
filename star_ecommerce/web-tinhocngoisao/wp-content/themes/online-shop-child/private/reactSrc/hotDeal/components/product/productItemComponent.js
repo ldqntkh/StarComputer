@@ -52,7 +52,7 @@ export default class ProductItemComponent extends Component {
                                 <h2 className="woocommerce-loop-product__title">
                                     {product.name.length > 40 ? product.name.substr(0, 20) + '...' : product.name }
                                 </h2>
-                                <span class="warranty_period">Bảo hành: <strong>{product.period}</strong> tháng</span>
+                                <span className="warranty_period">Bảo hành: <strong>{product.period}</strong> tháng</span>
                                 {price}
                                 {rating}
                                 {stock}

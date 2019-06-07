@@ -9,9 +9,10 @@ module.exports = {
     entry: {
         'wp-content/themes/online-shop-child/assets/js/app' : './wp-content/themes/online-shop-child/private/javascripts/app.js',
         "custom-style" : "./wp-content/themes/online-shop-child/private/scss/style.scss",
-        "wp-content/themes/online-shop-child/assets/js/build-pc" : "./wp-content/plugins/woocommerce-build-pc/private/reactjs/App.js",
+        "wp-content/themes/online-shop-child/assets/js/bundle" : "./wp-content/themes/online-shop-child/private/reactSrc/App.js",
+        // "wp-content/themes/online-shop-child/assets/js/build-pc" : "./wp-content/plugins/woocommerce-build-pc/private/reactjs/App.js",
+        // "wp-content/themes/online-shop-child/assets/js/primetime" : "./wp-content/plugins/woocommerce-hotdeal/assets/reactjs/App.js",
         "wp-content/plugins/woocommerce-build-pc/assets/js/build-pc-bm" : "./wp-content/plugins/woocommerce-build-pc/private/reactjsBM/App.js",
-        "wp-content/themes/online-shop-child/assets/js/primetime" : "./wp-content/plugins/woocommerce-hotdeal/assets/reactjs/App.js",
     },
     output: {
         // path: path.resolve('wp-content/themes/online-shop-child/assets/js'),

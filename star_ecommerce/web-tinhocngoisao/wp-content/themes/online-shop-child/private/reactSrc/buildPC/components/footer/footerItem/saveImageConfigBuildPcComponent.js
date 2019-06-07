@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import html2canvas from 'html2canvas';
 import Modal from 'react-modal';
-Modal.setAppElement('#build-pc-function');
 class SaveImageConfigBuildPcComponent extends Component {
     constructor(props) {
         super(props);
@@ -11,6 +10,7 @@ class SaveImageConfigBuildPcComponent extends Component {
             saving : false,
             total_item : 0
         }
+        Modal.setAppElement('#build-pc-function');
     }
     handleSaveImages = () => {
         // check require product build pc
