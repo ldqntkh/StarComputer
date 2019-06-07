@@ -1,6 +1,7 @@
 .error404 {
     #content {
-        .error-404.not-found {
+        .error-404 {
+            &.not-found {
                 padding-top: 0;
                 .page-header {
                     .page-title {
@@ -28,5 +29,11 @@
                     }
                 }
             }
+        }
+        .at-title-action-wrapper {
+            margin: 0;
+            padding: 0;
+        }
+        
     }
 }
