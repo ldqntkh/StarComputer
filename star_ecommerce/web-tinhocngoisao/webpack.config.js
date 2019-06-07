@@ -11,6 +11,7 @@ module.exports = {
         "custom-style" : "./wp-content/themes/online-shop-child/private/scss/style.scss",
         "wp-content/themes/online-shop-child/assets/js/build-pc" : "./wp-content/plugins/woocommerce-build-pc/private/reactjs/App.js",
         "wp-content/plugins/woocommerce-build-pc/assets/js/build-pc-bm" : "./wp-content/plugins/woocommerce-build-pc/private/reactjsBM/App.js",
+        "wp-content/themes/online-shop-child/assets/js/primetime" : "./wp-content/plugins/woocommerce-hotdeal/assets/reactjs/App.js",
     },
     output: {
         // path: path.resolve('wp-content/themes/online-shop-child/assets/js'),
@@ -62,6 +63,6 @@ module.exports = {
     },
     plugins: [
         new FixStyleOnlyEntriesPlugin(),
-        new ExtractTextPlugin({ filename: '../../../../../wp-content/themes/online-shop-child/[name].css', disable: false, allChunks: false })
+        new ExtractTextPlugin({ filename: './wp-content/themes/online-shop-child/[name].css', disable: false, allChunks: false })
     ]
 }
