@@ -48,7 +48,7 @@ import { connect } from 'react-redux';
 
 import {
     SetValueProductSearchAttribute,
-} from '../../../../../reactjs/action/actionFunction';
+} from '../../../../action/actionFunction';
 
 const mapStateToProps = state => ({
     action_data : state.ActionReducer

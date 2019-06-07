@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 var url_api = 'insert_multiple_products_to_cart?product_data_add_to_cart={0}';
 import {
     HOST_URL_API
-} from '../../../variable';
+} from '../../../../variable';
 export default class AddConfigBuildPcToCartComponent extends Component {
 
     constructor(props) {

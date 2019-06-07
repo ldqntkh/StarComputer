@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import ProductItemComponent from './productItemComponent';
 import {
     URL_API_GET_LIST_PRODUCT_ON_SALE
-} from '../../variable';
+} from '../../../variable';
 
 /**
  * tham số đầu vào 

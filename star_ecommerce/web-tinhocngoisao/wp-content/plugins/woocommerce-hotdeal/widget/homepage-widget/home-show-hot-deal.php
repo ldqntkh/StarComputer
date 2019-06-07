@@ -22,17 +22,17 @@ if ( ! class_exists( 'ShowListProductSale' ) ) {
                 array( 'description' => esc_html__( 'Show list product is sale in primetime', 'home-page-widget' ), )
             );
 
-            $this->register_footer_client_script();
+            // $this->register_footer_client_script();
         }
 
         // register footer client script
-        function register_footer_client_script() {
-            function client_script() {
-                wp_register_script( 'primetime_price_client_script', get_stylesheet_directory_uri() . '/assets/js/primetime.js', '', '', true );
-                wp_enqueue_script( 'primetime_price_client_script' );
-            }
-            add_action( 'wp_enqueue_scripts', 'client_script' );
-        }
+        // function register_footer_client_script() {
+        //     function client_script() {
+        //         wp_register_script( 'primetime_price_client_script', get_stylesheet_directory_uri() . '/assets/js/primetime.js', '', '', true );
+        //         wp_enqueue_script( 'primetime_price_client_script' );
+        //     }
+        //     add_action( 'wp_enqueue_scripts', 'client_script' );
+        // }
 
         public function form($instance) {
             $block_title = isset( $instance[ BLOCK_TITLE ] ) ? $instance[ BLOCK_TITLE ] : '';

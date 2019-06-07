@@ -79,11 +79,8 @@ class ChooseListProductComponent extends Component {
 import { connect } from 'react-redux';
 
 import {
+    InitMessageCloseModal,
     ToogleModalChooseProduct
-} from '../../../reactjs/action/actionFunction';
-
-import {
-    InitMessageCloseModal
 } from '../../action/actionFunction';
 
 const mapStateToProps = state => ({

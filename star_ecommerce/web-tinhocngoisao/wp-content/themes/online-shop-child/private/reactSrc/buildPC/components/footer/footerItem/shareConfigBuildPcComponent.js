@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import {
     HOST_URL
-} from '../../../variable';
+} from '../../../../variable';
 
 export default class ShareConfigBuildPcComponent extends Component {
 

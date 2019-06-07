@@ -10,15 +10,14 @@ import ChooseHeaderComponent from './chooseHeaderComponent';
 // import variable
 import {
     HOST_URL_API
-} from '../../../variable';
+} from '../../../../variable';
 
 var url_api = 'get_products_by_custom_type?custom_type={0}';
-
-Modal.setAppElement('#build-pc-function');
 class ChooseProductComponent extends Component {
 
     constructor(props) {
         super(props);
+        Modal.setAppElement('#build-pc-function');
     }
 
     async componentDidUpdate(prevProps) {

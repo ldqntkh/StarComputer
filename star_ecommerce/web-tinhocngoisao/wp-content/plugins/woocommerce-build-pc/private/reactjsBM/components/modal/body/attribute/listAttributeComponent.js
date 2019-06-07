@@ -119,9 +119,6 @@ class ListAttributeComponent extends Component {
 // create container
 import { connect } from 'react-redux';
 
-// import {
-//     ToogleModalChooseProduct
-// } from '../../../reactjs/action/actionFunction';
 
 const mapStateToProps = state => ({
     product_type_selected : state.ActionReducer.product_type_selected,
