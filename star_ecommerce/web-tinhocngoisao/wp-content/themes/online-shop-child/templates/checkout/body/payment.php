@@ -4,6 +4,7 @@
     $currentUser = wp_get_current_user();
     $otherAddr = get_user_meta( $currentUser->ID, 'wc_multiple_shipping_addresses', true );
     $addressSelected = [];
+    $placeOrderText = __( 'Place order', 'woocommerce' );
     foreach ( $otherAddr as $idx => $address ) {
         if ($address['shipping_address_is_selected'] === 'true') {
             $addressSelected = $address;
@@ -40,7 +41,7 @@
                 </div>
             </div>
             <div class="btn-order">
-            <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order">Place order</button>
+            <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="<?php echo $placeOrderText ?>" data-value="<?php echo $placeOrderText ?>">"<?php echo $placeOrderText ?></button>
                 <br/>
                 <i>Vui lòng kiểm tra lại đơn hàng trước khi đặt mua</i>
             </div>

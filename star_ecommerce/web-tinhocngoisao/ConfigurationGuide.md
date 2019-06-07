@@ -30,6 +30,8 @@
 #      - Thêm widget Ảnh vào title Right Feature (http://prntscr.com/mqe1po)
 #   4.3 Cột bên tay trái (http://prntscr.com/mqy29j)
 #      - Thêm widget Ảnh vào title Left Feature (http://prntscr.com/mqy2mm)
+# 5. Trang chi tiết sản phẩm
+#   5.1 Sản phẩm có thể người dùng yêu thích (http://prntscr.com/nyg526)
 
 
 
