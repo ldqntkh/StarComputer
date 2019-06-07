@@ -1,12 +1,8 @@
-// import from client app
-import {
-    TOOGLE_MODAL_CHOOSE_PRODUCT,
-    SET_VALUE_PRODUCT_SEARCH_ATTRIBUTE
-} from '../../reactjs/action/actionType';
-
 import {
     SELECT_PRODUCT_TYPE,
-    INIT_MESSAGE_CLOSE_MODAL
+    INIT_MESSAGE_CLOSE_MODAL,
+    TOOGLE_MODAL_CHOOSE_PRODUCT,
+    SET_VALUE_PRODUCT_SEARCH_ATTRIBUTE
 } from '../action/actionType';
 
 export const ActionReducer = (action_data = {

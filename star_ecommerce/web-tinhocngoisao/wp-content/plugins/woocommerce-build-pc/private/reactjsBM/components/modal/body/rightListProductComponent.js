@@ -16,10 +16,6 @@ class RightListProductComponent extends Component {
 // create container
 import { connect } from 'react-redux';
 
-// import {
-//     ToogleModalChooseProduct
-// } from '../../../reactjs/action/actionFunction';
-
 const mapStateToProps = state => ({
     //action_value : state.ActionReducer
 });

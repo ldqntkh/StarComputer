@@ -81,11 +81,9 @@ class MainComponent extends Component {
 // create container
 import { connect } from 'react-redux';
 import {
+    SelectProductType,
     ToogleModalChooseProduct,
     InitDataProductType
-} from '../../reactjs/action/actionFunction';
-import {
-    SelectProductType
 } from '../action/actionFunction';
 import { EventEmitter } from 'events';
 

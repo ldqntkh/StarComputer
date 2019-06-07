@@ -40,9 +40,6 @@ class AttributeItemComponent extends Component {
 // create container
 import { connect } from 'react-redux';
 
-import {
-    
-} from '../../../../../reactjs/action/actionFunction';
 
 const mapStateToProps = state => ({
     

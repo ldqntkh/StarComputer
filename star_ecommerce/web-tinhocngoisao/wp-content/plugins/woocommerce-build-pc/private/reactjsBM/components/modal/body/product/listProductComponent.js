@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 // import variable
 import {
     HOST_URL_API
-} from '../../../../../reactjs/variable';
+} from '../../../../variable';
 
 const url_api = 'get_products_by_custom_type?custom_type={0}';
 

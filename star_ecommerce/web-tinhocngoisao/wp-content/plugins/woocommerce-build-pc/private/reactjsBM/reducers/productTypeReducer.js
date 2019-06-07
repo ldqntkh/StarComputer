@@ -1,7 +1,7 @@
 // import from client app
 import {
     INIT_DATA_PRODUCT_TYPE,
-} from '../../reactjs/action/actionType';
+} from '../action/actionType';
 
 export const ProductTypeReducer = (producttype_data = {
     product_types : []
