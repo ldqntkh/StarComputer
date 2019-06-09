@@ -571,7 +571,8 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     "orderby" : "<?php echo $orderby; ?>",
                     "order" : "<?php echo $order; ?>",
                     "display_option" : <?php echo $widget_display_type; ?>,
-                    "display_data" : <?php echo json_encode($widget_display_data); ?>
+                    "display_data" : <?php echo json_encode($widget_display_data) ?>,
+                    "advanced_option" :"<?php echo $wc_advanced_option; ?>"
                 };
             </script>
             <?php

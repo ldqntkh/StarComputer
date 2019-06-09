@@ -734,3 +734,7 @@ endif;
 function is_mobile_device() {
     return preg_match( '/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|iPad|up\.browser|up\.link|webos|wos)/i', $_SERVER['HTTP_USER_AGENT'] );
 }
+
+
+//********REGISTER API GET PRODUCT******** */
+include plugin_dir_path( __FILE__ ) . '/api/functions.php';
