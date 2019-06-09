@@ -1,5 +1,6 @@
 import hotDealApp from './hotDeal/App';
 import buildPCApp from './buildPC/App';
+import WidgetATProduct from './widgetAtProduct/App';
 
 const elementIds = [
     {
@@ -21,3 +22,13 @@ for (let index in elementIds) {
         }
     }
 }
+
+function checkWidgetATProduct() {
+    let elementClasses = document.getElementsByClassName('widget_online_shop_wc_products_custom');
+    for (let index in elementClasses) {
+        if (elementClasses[index].id) {
+            WidgetATProduct(elementClasses[index].id);
+        }
+    }
+}
+checkWidgetATProduct();

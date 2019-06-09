@@ -2117,8 +2117,8 @@ a.my-account:hover{
 }
 .featured-entries-col.column,
 .featured-entries-col  .slick-list {
-	margin-left: -10px;
-	margin-right: -10px;
+	/* margin-left: -10px;
+	margin-right: -10px; */
 }
 .featured-entries-col .single-list {
 	padding-left: 10px;

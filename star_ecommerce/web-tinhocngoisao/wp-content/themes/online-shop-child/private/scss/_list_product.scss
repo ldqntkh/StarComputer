@@ -10,12 +10,12 @@
             }
         }
     }
+    
 }
 .featured-entries-col .single-list {
     padding-left: 0;
     padding-right: 0;
-}
-.featured-entries-col .single-list.acme-col-4 {
+}.featured-entries-col .single-list.acme-col-4 {
     width: 50%;
     padding-left: 0;
     padding-right: 0;
@@ -89,7 +89,7 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
             flex-direction: column;
             align-items: flex-start;
             width: 100%;
-            padding: 0 2px;
+            padding: 0 10px;
             @media screen and (min-width: 992px) {
                 width: 100%;
             }
@@ -125,6 +125,7 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
             align-items: center;
             img {
                 width: 200px;
+                height: 200px;
             }
         }
         @media screen and (min-width: 992px) {
@@ -162,6 +163,15 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
         }
         strong {
             display: inline;
+        }
+    }
+
+    &.custom-show-banner {
+        padding: 0;
+        img {
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
     }
 }

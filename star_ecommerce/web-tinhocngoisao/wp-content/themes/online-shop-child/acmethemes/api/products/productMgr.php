@@ -149,8 +149,10 @@ if (!function_exists('get_products_by_productids')) :
             $products = array();
             $productIds = explode(',', $productIds);
             foreach ($productIds as $productId) {
-                $product = wc_get_product( $productId );
-                array_push($products, getProductInfo($product));
+                if (!empty($productId)){
+                    $product = wc_get_product( $productId, 'large' );
+                    array_push($products, getProductInfo($product));
+                }
             }
             $result = array(
                 "status" => "OK",
@@ -164,7 +166,7 @@ if (!function_exists('get_products_by_productids')) :
 endif;
 
 
-function getProductInfo($product) {
+function getProductInfo($product, $image_type = 'medium') {
     if ($product->get_type() === 'variable') {
         $regular_price = $product->get_variation_regular_price();
         $sale_price = $product->get_variation_sale_price();
@@ -178,7 +180,7 @@ function getProductInfo($product) {
         'link' => get_permalink( $product->get_id()),
         'regular_price' => number_format((float)$regular_price, 0, '.', ','),
         'sale_price' => number_format((float)$sale_price, 0, '.', ','),
-        'image' => wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', true )[0],
+        'image' => wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), $image_type, true )[0],
         'average_rating' => $product->get_average_rating(),
         'review_count' => $product->get_review_count()
     );
