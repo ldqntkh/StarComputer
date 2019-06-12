@@ -13,7 +13,7 @@ class DisplayOptionTwoComponent extends Component {
                 {/** display special product */}
                 <SpecialProductLargeComponent display_data={this.props.display_data} id={this.props.id}/>
                 
-                <ListProductComponent {...this.props}/>
+                <ListProductComponent {...this.props}/> 
             </div>
         );
     }

@@ -5,6 +5,7 @@ import {
 } from '../../../variable';
 
 import ProductItemColumnComponent from './productItemColumnComponent';
+import ProductItemRowComponent from './productItemRowComponent';
 
 class ListProductComponent extends Component {
     constructor(props) {
@@ -21,8 +22,7 @@ class ListProductComponent extends Component {
         let {
             id, advanced_option, product_cat, product_tag, post_number, orderby, order
         } = this.props;
-        //sessionStorage.setItem( 'wp-api-schema-model' + model.get( 'apiRoot' ) + model.get( 'versionString' ), JSON.stringify( newSchemaModel ) );
-        if(sessionStorage.getItem(id) && JSON.parse(sessionStorage.getItem(id)).products.length > 0) {
+        if(sessionStorage.getItem(id) && JSON.parse(sessionStorage.getItem(id)).products && JSON.parse(sessionStorage.getItem(id)).products.length > 0) {
             this.setState({
                 fetched : false,
                 loaded : true,
@@ -64,18 +64,21 @@ class ListProductComponent extends Component {
     }
 
     _renderListProducts = ()=> {
+        let display_option = this.props.display_option;
         let {
             products
         } = this.state;
         let listItems = products.map((item, index) => {
+            if (display_option == 3) return <ProductItemRowComponent product={item} key={index} />
             return <ProductItemColumnComponent product={item} key={index} />
         });
 
-        let display_option = this.props.display_option;
+        
         let slideShow_1 = 4;
         let slideShow_2 = 4;
         let slideShow_3 = 4;
         let slideShow_4 = 4;
+        let vertical = null;
         if (display_option == 1) {
             slideShow_2 = 3;
             slideShow_3 = 2;
@@ -85,7 +88,18 @@ class ListProductComponent extends Component {
             slideShow_2 = 2;
             slideShow_3 = 1;
             slideShow_4 = 2;
-        } 
+        } else if (display_option == 3) {
+            slideShow_1 = 5
+            slideShow_2 = 4;
+            slideShow_3 = 5;
+            slideShow_4 = 3;
+            vertical = true;
+        } else if (display_option == 4) {
+            slideShow_1 = 3;
+            slideShow_2 = 3;
+            slideShow_3 = 3;
+            slideShow_4 = 2;
+        }
         
         let settings = {
             autoplay: true,
@@ -93,6 +107,7 @@ class ListProductComponent extends Component {
             arrows: false,
             dots: false,
             infinite: true,
+            autoplaySpeed: 5000,
             speed: 1000,
             slidesToShow: slideShow_1,
             slidesToScroll: slideShow_1,
@@ -120,6 +135,10 @@ class ListProductComponent extends Component {
                 }
             ]
         };
+        if (vertical) {
+            settings.vertical = vertical;
+            settings.adaptiveHeight = false;
+        }
         return <Slider {...settings}>
                     {listItems}
                 </Slider>;

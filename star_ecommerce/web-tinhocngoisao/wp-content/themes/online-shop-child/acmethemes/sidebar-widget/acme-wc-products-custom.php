@@ -45,6 +45,8 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     "data_type_3_special_content_url_image" => "",
                     "data_type_3_special_content_title" => "",
                     "data_type_3_special_content_desc" => "",
+                    "data_type_3_special_title" => "",
+                    "data_type_3_special_url" => "",
                     "data_type_3_special_product_id_1" => "",
                     "data_type_3_special_product_id_2" => "",
                     "data_type_3_special_product_id_3" => "",
@@ -55,6 +57,8 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     "data_type_4_special_content_url_image" => "",
                     "data_type_4_special_content_title" => "",
                     "data_type_4_special_content_desc" => "",
+                    "data_type_4_special_title" => "",
+                    "data_type_4_special_url" => "",
                     "data_type_4_special_product_id_1" => "",
                     "data_type_4_special_product_id_2" => ""
                 ),
@@ -247,7 +251,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
             </p>
             <!-- custom fields for display type -->
             <section>
-                <div class="tab-display" id="tab-display-1">
+                <div class="tab-display <?php echo esc_attr( $idSelectDisplayType ); ?>" id="<?php echo esc_attr( $idSelectDisplayType ); ?>-1">
                     <?php $widget_display_data_type_1 = $widget_display_data->display_type_1; ?>
                     <p>
                         <h4><?php esc_html_e( 'Custom to show a url with large image', 'online-shop' ); ?></h4>
@@ -270,7 +274,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     <img src="<?php echo get_stylesheet_directory_uri() . '/assets/img/display_type_1.png'; ?>" style="width:100%" />
                 </div>
 
-                <div class="tab-display" id="tab-display-2" >
+                <div class="tab-display <?php echo esc_attr( $idSelectDisplayType ); ?>" id="<?php echo esc_attr( $idSelectDisplayType ); ?>-2" >
                     <?php $widget_display_data_type_2 = $widget_display_data->display_type_2; ?>
                     <p>
                         <h4><?php esc_html_e( 'Custom to show a special product', 'online-shop' ); ?></h4>
@@ -286,7 +290,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     <img src="<?php echo get_stylesheet_directory_uri() . '/assets/img/display_type_2.png'; ?>" style="width:100%" />
                 </div>
 
-                <div class="tab-display" id="tab-display-3">
+                <div class="tab-display <?php echo esc_attr( $idSelectDisplayType ); ?>" id="<?php echo esc_attr( $idSelectDisplayType ); ?>-3">
                     <?php $widget_display_data_type_3 = $widget_display_data->display_type_3; ?>
                     <p>
                         <h4><?php esc_html_e( 'Custom to show a special content image', 'online-shop' ); ?></h4>
@@ -323,6 +327,23 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_content_desc' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_content_desc' ) ); ?>" type="text" 
                                 value="<?php echo $widget_display_data_type_3->data_type_3_special_content_desc; ?>" />
+                    </p>
+                    <hr/>
+                    <p>
+                        <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_title' ) ); ?>">
+                            <?php esc_html_e( 'Special title', 'online-shop' ); ?>
+                        </label>
+                        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_title' ) ); ?>" 
+                                name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_title' ) ); ?>" type="text" 
+                                value="<?php echo $widget_display_data_type_3->data_type_3_special_title; ?>" />
+                    </p>
+                    <p>
+                        <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_url' ) ); ?>">
+                            <?php esc_html_e( 'Special category url', 'online-shop' ); ?>
+                        </label>
+                        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_url' ) ); ?>" 
+                                name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_url' ) ); ?>" type="text" 
+                                value="<?php echo $widget_display_data_type_3->data_type_3_special_url; ?>" />
                     </p>
 
                     <hr/>
@@ -366,7 +387,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     <img src="<?php echo get_stylesheet_directory_uri() . '/assets/img/display_type_3.png'; ?>" style="width:100%" />
                 </div>
 
-                <div class="tab-display" id="tab-display-4">
+                <div class="tab-display <?php echo esc_attr( $idSelectDisplayType ); ?>" id="<?php echo esc_attr( $idSelectDisplayType ); ?>-4">
                     <?php $widget_display_data_type_4 = $widget_display_data->display_type_4; ?>
                     <p>
                         <h4><?php esc_html_e( 'Custom to show a special content image', 'online-shop' ); ?></h4>
@@ -403,6 +424,25 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                                 value="<?php echo $widget_display_data_type_4->data_type_4_special_content_desc; ?>" />
                     </p>
                     <hr/>
+
+                    <p>
+                        <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_title' ) ); ?>">
+                            <?php esc_html_e( 'Special title', 'online-shop' ); ?>
+                        </label>
+                        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_title' ) ); ?>" 
+                                name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_title' ) ); ?>" type="text" 
+                                value="<?php echo $widget_display_data_type_4->data_type_4_special_title; ?>" />
+                    </p>
+                    <p>
+                        <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_url' ) ); ?>">
+                            <?php esc_html_e( 'Special category url', 'online-shop' ); ?>
+                        </label>
+                        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_url' ) ); ?>" 
+                                name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_url' ) ); ?>" type="text" 
+                                value="<?php echo $widget_display_data_type_4->data_type_4_special_url; ?>" />
+                    </p>
+                    <hr/>
+
                     <p>
                         <h4><?php esc_html_e( 'Custom to show special list product', 'online-shop' ); ?></h4>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_1' ) ); ?>">
@@ -423,14 +463,12 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     <hr/>
                     <img src="<?php echo get_stylesheet_directory_uri() . '/assets/img/display_type_4.png'; ?>" style="width:100%" />
                 </div>
-                
-                
             </section>
             <!-- wait on -->
             <script>
                 $(document).on('change', '#<?php echo esc_attr( $idSelectDisplayType ); ?>', function(e) {
-                    $('.tab-display').attr('style',  'display:none');
-                    $('.widget-content #tab-display-' + e.target.value).attr('style',  'display:block');
+                    $('.<?php echo esc_attr( $idSelectDisplayType ); ?>').attr('style',  'display:none');
+                    $('.widget-content #<?php echo esc_attr( $idSelectDisplayType ); ?>-' + e.target.value).attr('style',  'display:block');
                 });
                 $('#<?php echo esc_attr( $idSelectDisplayType ); ?>').trigger('change');
             </script>
@@ -486,6 +524,8 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     "data_type_3_special_content_url_image" => ( isset( $new_instance['data_type_3_special_content_url_image'] ) ) ? sanitize_text_field( $new_instance['data_type_3_special_content_url_image'] ) : '',
                     "data_type_3_special_content_title" => ( isset( $new_instance['data_type_3_special_content_title'] ) ) ? sanitize_text_field( $new_instance['data_type_3_special_content_title'] ) : '',
                     "data_type_3_special_content_desc" => ( isset( $new_instance['data_type_3_special_content_desc'] ) ) ? sanitize_text_field( $new_instance['data_type_3_special_content_desc'] ) : '',
+                    "data_type_3_special_title" => ( isset( $new_instance['data_type_3_special_title'] ) ) ? sanitize_text_field( $new_instance['data_type_3_special_title'] ) : '',
+                    "data_type_3_special_url" => ( isset( $new_instance['data_type_3_special_url'] ) ) ? sanitize_text_field( $new_instance['data_type_3_special_url'] ) : '',
                     "data_type_3_special_product_id_1" => ( isset( $new_instance['data_type_3_special_product_id_1'] ) ) ? sanitize_text_field( $new_instance['data_type_3_special_product_id_1'] ) : '',
                     "data_type_3_special_product_id_2" => ( isset( $new_instance['data_type_3_special_product_id_2'] ) ) ? sanitize_text_field( $new_instance['data_type_3_special_product_id_2'] ) : '',
                     "data_type_3_special_product_id_3" => ( isset( $new_instance['data_type_3_special_product_id_3'] ) ) ? sanitize_text_field( $new_instance['data_type_3_special_product_id_3'] ) : '',
@@ -496,6 +536,8 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     "data_type_4_special_content_url_image" => ( isset( $new_instance['data_type_4_special_content_url_image'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_content_url_image'] ) : '',
                     "data_type_4_special_content_title" => ( isset( $new_instance['data_type_4_special_content_title'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_content_title'] ) : '',
                     "data_type_4_special_content_desc" => ( isset( $new_instance['data_type_4_special_content_desc'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_content_desc'] ) : '',
+                    "data_type_4_special_title" => ( isset( $new_instance['data_type_4_special_title'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_title'] ) : '',
+                    "data_type_4_special_url" => ( isset( $new_instance['data_type_4_special_url'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_url'] ) : '',
                     "data_type_4_special_product_id_1" => ( isset( $new_instance['data_type_4_special_product_id_1'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_product_id_1'] ) : '',
                     "data_type_4_special_product_id_2" => ( isset( $new_instance['data_type_4_special_product_id_2'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_product_id_2'] ) : ''
                 )

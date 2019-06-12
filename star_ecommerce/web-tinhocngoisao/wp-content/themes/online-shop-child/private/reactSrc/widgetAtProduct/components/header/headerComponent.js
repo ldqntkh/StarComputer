@@ -7,7 +7,8 @@ class HeaderComponent extends Component {
 
     render() {
         let {
-            title, description, display_option
+            title, description, display_option,
+            title_link, link
         } = this.props;
         return(
             <div className="at-cat-color-wrap-15">
@@ -15,11 +16,14 @@ class HeaderComponent extends Component {
                     <h2 className="widgettitle">
                         {title}
                         { display_option !== 1 && <span className="at-action-wrapper">
-                            <a href="#" className="all-link">Xem thêm</a>
+                            <a href={!link ? "#" : link} className="all-link">
+                                {title_link}
+                            </a>
                         </span>
                         }
                         <span className="wg-description">{description}</span>
                     </h2>
+                    <span className="at-action-wrapper"></span>
                 </div>
             </div>
         );
