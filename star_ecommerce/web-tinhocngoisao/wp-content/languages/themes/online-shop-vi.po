@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Woocommerce plugin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-06-06 21:55+0700\n"
+"PO-Revision-Date: 2019-06-13 14:37+0700\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,4 +24,12 @@ msgstr "Có vẻ như không có gì được tìm thấy tại vị trí này. 
 
 #: wp-content/themes/online-shop/acmethemes/library/breadcrumbs/breadcrumbs.php:267
 msgid "404 Not Found"
-msgstr "Không tìm thấy trang (404)"
+msgstr "404 Không tìm thấy trang"
+
+#: wp-content/themes/online-shop/acmethemes/library/breadcrumbs/breadcrumbs.php:266
+msgid "Home"
+msgstr "Trang chủ"
+
+#: wp-content/themes/online-shop-child/acmethemes/customizer/customizer-core.php:422
+msgid "Search"
+msgstr "Tìm kiếm"
