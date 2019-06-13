@@ -91,7 +91,7 @@ class ListProductComponent extends Component {
         } else if (display_option == 3) {
             slideShow_1 = 5
             slideShow_2 = 4;
-            slideShow_3 = 5;
+            slideShow_3 = 3;
             slideShow_4 = 3;
             vertical = true;
         } else if (display_option == 4) {
