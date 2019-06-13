@@ -112,7 +112,7 @@
                     </div>
                     <div class="line">
                         <span>Phí vận chuyển:</span>
-                        <strong>Free shipping</strong>
+                        <strong><?php echo __( 'Free shipping', 'woocommerce' ); ?></strong>
                     </div>
                     <div class="line total">
                         <span>Tổng cộng:</span>
