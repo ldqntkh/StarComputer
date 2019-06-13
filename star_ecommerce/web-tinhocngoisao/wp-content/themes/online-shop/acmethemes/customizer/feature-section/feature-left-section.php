@@ -214,3 +214,18 @@ $wp_customize->add_control( 'online_shop_theme_options[online-shop-feature-butto
 	'type'	  	=> 'text',
 	'active_callback'   => 'online_shop_if_feature_not_disable'
 ) );
+
+/*Carousel auto play speed*/
+$wp_customize->add_setting( 'online_shop_theme_options[online-shop-feature-auto-speed]', array(
+	'capability'		=> 'edit_theme_options',
+	'default'			=> $defaults['online-shop-feature-auto-speed'],
+	'sanitize_callback' => 'sanitize_text_field'
+) );
+$wp_customize->add_control( 'online_shop_theme_options[online-shop-feature-auto-speed]', array(
+	'label'		=> esc_html__( 'Auto Speed', 'online-shop' ),
+	'description'=> esc_html__( 'Left empty auto speed will 3000', 'online-shop' ),
+	'section'   => 'online-shop-feature-content-options',
+	'settings'  => 'online_shop_theme_options[online-shop-feature-auto-speed]',
+	'type'	  	=> 'text',
+	'active_callback'   => 'online_shop_if_feature_not_disable'
+) );
