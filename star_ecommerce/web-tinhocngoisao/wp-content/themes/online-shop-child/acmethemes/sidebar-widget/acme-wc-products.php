@@ -71,7 +71,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	        $all_link_url = esc_url( $instance['all_link_url'] );
 	        $enable_prev_next = esc_attr( $instance['enable_prev_next'] );
 	        $online_shop_img_size = esc_attr( $instance['online_shop_img_size'] );
-			$carousel_auto_speed_period = esc_attr( $instance['carousel_autospeed'] );
+	        $carousel_auto_speed_period = esc_attr( $instance['carousel_autospeed'] );
 
 	        $choices = online_shop_get_image_sizes_options();
 	        ?>
@@ -341,7 +341,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	        $instance[ 'all_link_text' ] = sanitize_text_field( $new_instance[ 'all_link_text' ] );
 	        $instance[ 'all_link_url' ] = esc_url_raw( $new_instance[ 'all_link_url' ] );
 	        $instance[ 'enable_prev_next' ] = isset($new_instance['enable_prev_next'])? 1 : 0;
-			$instance['carousel_autospeed'] = isset( $new_instance['carousel_autospeed'] ) ? absint( $new_instance['carousel_autospeed'] ) : 5000;
+	        $instance['carousel_autospeed'] = isset( $new_instance['carousel_autospeed'] ) ? absint( $new_instance['carousel_autospeed'] ) : 5000;
 
 	        $online_shop_img_size = online_shop_get_image_sizes_options();
 	        $instance[ 'online_shop_img_size' ] = online_shop_sanitize_choice_options( $new_instance[ 'online_shop_img_size' ], $online_shop_img_size, 'large' );
@@ -383,7 +383,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	        $view_all_option = esc_attr( $instance[ 'view_all_option' ] );
 	        $all_link_text = esc_html( $instance[ 'all_link_text' ] );
 	        $all_link_url = esc_url( $instance[ 'all_link_url' ] );
-			$enable_prev_next = esc_attr( $instance['enable_prev_next'] );
+	        $enable_prev_next = esc_attr( $instance['enable_prev_next'] );
 	        $carousel_auto_speed = absint( $instance['carousel_autospeed'] );
 	        $this->thumb = $online_shop_img_size = esc_attr( $instance['online_shop_img_size'] );
 

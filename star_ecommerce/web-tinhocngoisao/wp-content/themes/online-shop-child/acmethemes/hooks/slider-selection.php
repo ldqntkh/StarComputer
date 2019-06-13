@@ -71,7 +71,7 @@ if ( !function_exists('online_shop_feature_slider') ) :
                     <div class="slider-section">
 				        <?php
 				        $online_shop_feature_slider_display_arrow = $online_shop_customizer_all_values['online-shop-feature-slider-display-arrow'];
-						$online_shop_feature_slider_enable_autoplay = $online_shop_customizer_all_values['online-shop-feature-slider-enable-autoplay'];
+				        $online_shop_feature_slider_enable_autoplay = $online_shop_customizer_all_values['online-shop-feature-slider-enable-autoplay'];
 				        if( 1 ==$online_shop_feature_slider_display_arrow ){
 					        echo "<span class='at-action-wrapper hide-mobile'>";
 					        echo '<i class="prev fa fa-angle-left"></i><i class="next fa fa-angle-right"></i>';
@@ -80,8 +80,8 @@ if ( !function_exists('online_shop_feature_slider') ) :
 				        ?>
                         <div class="featured-slider at-feature-section"
                              data-autoplay="<?php echo esc_attr( $online_shop_feature_slider_enable_autoplay );?>"
-							 data-arrows="<?php echo esc_attr( $online_shop_feature_slider_display_arrow );?>"
-							 data-autospeed="<?php echo $online_shop_feature_slider_autoplay_speed; ?>"
+                             data-arrows="<?php echo esc_attr( $online_shop_feature_slider_display_arrow );?>"
+                             data-autospeed="<?php echo $online_shop_feature_slider_autoplay_speed; ?>"
                         >
 							<?php dynamic_sidebar( 'online-shop-left-feature' ); ?>
                         </div>
