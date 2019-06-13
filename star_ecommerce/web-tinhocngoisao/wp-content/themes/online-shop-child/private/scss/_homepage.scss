@@ -454,7 +454,7 @@ h2.woocommerce-loop-product__title {
             height: 540px;
             >a {
                 width: 100%;
-                border-bottom: 1px solid silver;
+                border-bottom: 1px solid #c0c0c099;
                 overflow: hidden;
                 &:nth-last-child(1) {
                     border-bottom: none;
@@ -502,7 +502,7 @@ h2.woocommerce-loop-product__title {
                 .single-list {
                     .products {
                         .product {
-                            height: 102px;
+                            height: 140px;
                             padding: 5px 0;
                             a {
                                 flex-direction: row;
@@ -520,6 +520,9 @@ h2.woocommerce-loop-product__title {
                             }
                             &:nth-last-child(1) {
                                 border-bottom: none;
+                            }
+                            @media screen and (min-width: 1366px) {
+                                height: 130px;
                             }
                         }
                     }
@@ -555,7 +558,7 @@ h2.woocommerce-loop-product__title {
                 width: 100%;
                 margin: 0;
                 margin-bottom: 10px;
-                height: 345px;
+                height: 430px;
             }
             @media screen and (min-width: 768px) {
                 flex-direction: row;
@@ -585,7 +588,6 @@ h2.woocommerce-loop-product__title {
                 }
                 .show-special-products {
                     width: 100%;
-                    height: 325px;
                     .slick-vertical {
                         .slick-slide {
                             width: 50% !important;
@@ -654,36 +656,59 @@ h2.woocommerce-loop-product__title {
                     }
                 }
             }
-            .content-four {
-                // width: 62.5%;
+            .show-special-product {
                 width: 100%;
-                
-                .show-special-product {
-                    height: 250px;
+                margin: 0;
+                margin-bottom: 10px;
+                a {
+                    h3 {
+                        font-size: 14px;
+                    }
+                    .price {
+                        font-size: 13px !important;
+                    }
+                }
+                .slick-slider {
                     width: 100%;
-                    margin: 0;
-                    margin-bottom: 10px;
-                    a {
-                        h3 {
-                            font-size: 14px;
-                        }
-                        .price {
-                            font-size: 13px !important;
+                    margin-left: 0;
+                    .slick-slide {
+                        border-bottom: 2px solid #c0c0c01a;
+                        a {
+                            background-color: #fff;
                         }
                     }
                 }
-                .show-special-products-four {
-                    width: 100%;
-                    margin: 0;
-                    margin-bottom: 10px;
-                    height: 345px;
+                .special-product-item {
+                    .image {
+                        height: 110px;
+                        width: 110px;
+                    }
+                    .content {
+                        height: 110px;
+                    }
                 }
+            }
+            .content-four {
+                // width: 62.5%;
+                width: 100%;
+            }
+            .show-special-product {
+                height: 240px;
+                width: 100%;
+                margin: 0;
+                margin-bottom: 10px;
+            }
+            .show-special-products-four {
+                width: 100%;
+                margin: 0;
+                margin-bottom: 10px;
+                height: 345px;
             }
             @media screen and (min-width: 768px) {
                 flex-direction: row;
                 flex-wrap: wrap;
                 .special-content {
-                    width: 100%;
+                    width: 50%;
                     a {
                         img {
                             height: 500px;
@@ -691,28 +716,42 @@ h2.woocommerce-loop-product__title {
                         }
                     }
                 }
-                .content-four {
-                    .show-special-product {
-                        display: flex;
-                        flex-direction: row;
-                        flex-wrap: nowrap;
-                        height: 140px;
-                        background-color: transparent;
-                        >a {
-                            width: calc(50% - 5px);
-                            margin-right: 5px;
-                            background-color: white;
-                            border: none;
-                            &:nth-last-child(1) {
-                                margin-left: 5px;
-                                margin-right: 0;
-                            }
+                .show-special-product {
+                    height: 500px;
+                    width: 50%;
+                    >a {
+                        width: calc(50% - 5px);
+                        margin-right: 5px;
+                        background-color: white;
+                        border: none;
+                        &:nth-last-child(1) {
+                            margin-left: 5px;
+                            margin-right: 0;
                         }
                     }
+                    .slick-slider {
+                        width: 100%;
+                        margin: 0;
+                        height: 100%;
+                        .slick-slide {
+                            height: 125px;
+                        }
+                    }
+                    .special-product-item {
+                        .image {
+                            height: 110px;
+                            width: 110px;
+                        }
+                        .content {
+                            height: 110px;
+                        }
+                    }
+                }
+                .content-four {
                     .show-special-products-four{
                         width: 100%;
-                        margin-top: 10px;
-                        height: 540px;
+                        // margin-top: 10px;
+                        height: auto;
                         .slick-slider {
                             width: 100%;
                             margin: 0;
@@ -747,8 +786,15 @@ h2.woocommerce-loop-product__title {
                     height: 540px;
                     .show-special-product {
                         width: 100%;
-                        margin-bottom: 0;
+                        margin-bottom: 10px;
                         margin-right: 0;
+                        height: 130px;
+                        .slick-slider {
+                            .slick-slide {
+                                border-right: 2px solid #c0c0c01a;
+                                border-bottom: 0;
+                            }
+                        }
                     }
                     .show-special-products {
                         width: 100%;

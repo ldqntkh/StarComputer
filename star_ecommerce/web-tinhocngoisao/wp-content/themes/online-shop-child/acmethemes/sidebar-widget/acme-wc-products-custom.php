@@ -60,7 +60,9 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     "data_type_4_special_title" => "",
                     "data_type_4_special_url" => "",
                     "data_type_4_special_product_id_1" => "",
-                    "data_type_4_special_product_id_2" => ""
+                    "data_type_4_special_product_id_2" => "",
+                    "data_type_4_special_product_id_3" => "",
+                    "data_type_4_special_product_id_4" => ""
                 ),
             )
         );
@@ -460,6 +462,23 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_product_id_2' ) ); ?>" type="text" 
                                 value="<?php echo $widget_display_data_type_4->data_type_4_special_product_id_2; ?>" />
                     </p>
+                    <p>
+                        <h4><?php esc_html_e( 'Custom to show special list product', 'online-shop' ); ?></h4>
+                        <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_3' ) ); ?>">
+                            <?php esc_html_e( 'Special product id 3', 'online-shop' ); ?>
+                        </label>
+                        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_3' ) ); ?>" 
+                                name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_product_id_3' ) ); ?>" type="text" 
+                                value="<?php echo $widget_display_data_type_4->data_type_4_special_product_id_3; ?>" />
+                    </p>
+                    <p>
+                        <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_4' ) ); ?>">
+                            <?php esc_html_e( 'Special product id 4', 'online-shop' ); ?>
+                        </label>
+                        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_4' ) ); ?>" 
+                                name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_product_id_4' ) ); ?>" type="text" 
+                                value="<?php echo $widget_display_data_type_4->data_type_4_special_product_id_4; ?>" />
+                    </p>
                     <hr/>
                     <img src="<?php echo get_stylesheet_directory_uri() . '/assets/img/display_type_4.png'; ?>" style="width:100%" />
                 </div>
@@ -539,7 +558,9 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     "data_type_4_special_title" => ( isset( $new_instance['data_type_4_special_title'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_title'] ) : '',
                     "data_type_4_special_url" => ( isset( $new_instance['data_type_4_special_url'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_url'] ) : '',
                     "data_type_4_special_product_id_1" => ( isset( $new_instance['data_type_4_special_product_id_1'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_product_id_1'] ) : '',
-                    "data_type_4_special_product_id_2" => ( isset( $new_instance['data_type_4_special_product_id_2'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_product_id_2'] ) : ''
+                    "data_type_4_special_product_id_2" => ( isset( $new_instance['data_type_4_special_product_id_2'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_product_id_2'] ) : '',
+                    "data_type_4_special_product_id_3" => ( isset( $new_instance['data_type_4_special_product_id_3'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_product_id_3'] ) : '',
+                    "data_type_4_special_product_id_4" => ( isset( $new_instance['data_type_4_special_product_id_4'] ) ) ? sanitize_text_field( $new_instance['data_type_4_special_product_id_4'] ) : ''
                 )
             );
             $instance[ 'widget_display_data' ] = json_encode($widget_display_data);

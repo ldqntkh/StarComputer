@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import Slider from "react-slick";
 import {
     URL_GET_LIST_PRODUCT_IDS
 } from '../../../variable';
@@ -119,7 +119,60 @@ class SpecialProductMediumComponent extends Component {
                         </a>
                     );
                 }
-                return result;
+                if (this.props.display_option == 4) {
+                    // render slide
+                    let settings = {
+                        autoplay: true,
+                        adaptiveHeight: true,
+                        arrows: false,
+                        dots: false,
+                        infinite: true,
+                        autoplaySpeed: 5000,
+                        speed: 1000,
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        adaptiveHeight : false,
+                        responsive: [
+                            {
+                                breakpoint: 1366,
+                                settings: {
+                                    slidesToShow: 2,
+                                    slidesToScroll: 2,
+                                    vertical : false
+                                }
+                            },
+                            {
+                                breakpoint: 1024,
+                                settings: {
+                                    slidesToShow: 4,
+                                    slidesToScroll: 4,
+                                    vertical : true
+                                }
+                            },
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow: 4,
+                                    slidesToScroll: 4,
+                                    vertical : true
+                                }
+                            },
+                            {
+                                breakpoint: 640,
+                                settings: {
+                                    slidesToShow: 2,
+                                    slidesToScroll: 2,
+                                    vertical : true
+                                }
+                            }
+                        ]
+                    };
+                    return <Slider {...settings}>
+                        {result}
+                    </Slider>;
+                }
+                else return result;
+
             }
         }
         return <React.Fragment></React.Fragment>

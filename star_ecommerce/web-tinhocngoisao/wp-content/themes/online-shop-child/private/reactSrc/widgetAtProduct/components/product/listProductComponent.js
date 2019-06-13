@@ -96,7 +96,7 @@ class ListProductComponent extends Component {
             vertical = true;
         } else if (display_option == 4) {
             slideShow_1 = 3;
-            slideShow_2 = 3;
+            slideShow_2 = 4;
             slideShow_3 = 3;
             slideShow_4 = 2;
         }
@@ -111,6 +111,7 @@ class ListProductComponent extends Component {
             speed: 1000,
             slidesToShow: slideShow_1,
             slidesToScroll: slideShow_1,
+            adaptiveHeight : false,
             responsive: [
                 {
                     breakpoint: 992,
