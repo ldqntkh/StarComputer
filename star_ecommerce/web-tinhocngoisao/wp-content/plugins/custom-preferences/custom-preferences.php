@@ -39,6 +39,7 @@
         add_settings_field( 'google_map_key', 'Google map key', 'google_map_key_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'list_address_store', 'Danh sách địa chỉ showroom', 'list_address_store_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'list_product_type', 'Cấu hình buildPC', 'list_product_type_section', 'custom_preferences', 'configuration_main' );
+        add_settings_field( 'render_footer_script', 'Render custom script in footer', 'render_script_footer', 'custom_preferences', 'configuration_main' );
     }
 
     function fb_app_id_section() {
@@ -64,6 +65,11 @@
     function list_product_type_section() {
         $list_product_type = get_option( 'custom_preferences_options' )['list_product_type'];
         echo "<textarea name='custom_preferences_options[list_product_type]' cols='60' rows='10'>{$list_product_type}</textarea>";
+    }
+
+    function render_script_footer() {
+        $script_footer = get_option( 'custom_preferences_options' )['render_footer_script'];
+        echo "<textarea name='custom_preferences_options[render_footer_script]' cols='60' rows='10'>{$script_footer}</textarea>";
     }
 
     function configuration_section_title() {
