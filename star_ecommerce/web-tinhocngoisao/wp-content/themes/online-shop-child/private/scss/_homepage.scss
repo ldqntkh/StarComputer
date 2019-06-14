@@ -171,6 +171,10 @@ h2.woocommerce-loop-product__title {
         border-bottom: .5px solid silver;
         text-align: center;
     }
+    ul.products li.product a:nth-child(1) img {
+        width: 150px !important;
+        height: 150px !important;
+    }
 }
 
 .primetime-price-mobile, .primetime-price-desktop {
@@ -236,14 +240,14 @@ h2.woocommerce-loop-product__title {
                 ul.products {
                     li.product {
                         a:nth-child(1) {
-                            .image {
-                                height: 100px;
-                                min-height: 100px;
-                                img {
-                                    width: 100px;
-                                    height: 100px;
-                                }
-                            }
+                            // .image {
+                            //     height: 100px;
+                            //     min-height: 100px;
+                            //     img {
+                            //         width: 100px;
+                            //         height: 100px;
+                            //     }
+                            // }
                             
                         }
                     }
