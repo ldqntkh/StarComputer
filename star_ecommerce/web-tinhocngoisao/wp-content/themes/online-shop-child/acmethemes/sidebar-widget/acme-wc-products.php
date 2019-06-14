@@ -71,6 +71,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	        $all_link_url = esc_url( $instance['all_link_url'] );
 	        $enable_prev_next = esc_attr( $instance['enable_prev_next'] );
 	        $online_shop_img_size = esc_attr( $instance['online_shop_img_size'] );
+	        $carousel_auto_speed_period = esc_attr( $instance['carousel_autospeed'] );
 
 	        $choices = online_shop_get_image_sizes_options();
 	        ?>
@@ -284,6 +285,11 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 			        ?>
                 </select>
             </p>
+
+            <p class="at-carousel-autospeed">
+                <label for="<?php echo esc_attr( $this->get_field_id( 'carousel_autospeed' ) ); ?>"><?php esc_html_e( 'Carousel Auto Speed', 'online-shop' ); ?></label>
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'carousel_autospeed' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'carousel_autospeed' ) ); ?>" type="text" value="<?php echo !empty( $carousel_auto_speed_period ) ? $carousel_auto_speed_period : 5000; ?>" />
+            </p>
             <p>
                 <small><?php esc_html_e( 'Note: Some of the features only work in "Home main content area" due to minimum width in other areas.' ,'online-shop'); ?></small>
             </p>
@@ -302,7 +308,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
          *
          */
         public function update( $new_instance, $old_instance ) {
-            $instance = array();
+			$instance = array();
 			$instance[ 'online_shop_widget_title' ] = ( isset( $new_instance['online_shop_widget_title'] ) ) ? sanitize_text_field( $new_instance['online_shop_widget_title'] ) : '';
 			$instance[ 'online_shop_widget_description' ] = ( isset( $new_instance['online_shop_widget_description'] ) ) ? sanitize_text_field( $new_instance['online_shop_widget_description'] ) : '';
 			$instance[ 'online_shop_widget_class' ] = ( isset( $new_instance['online_shop_widget_class'] ) ) ? sanitize_text_field( $new_instance['online_shop_widget_class'] ) : '';
@@ -335,6 +341,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	        $instance[ 'all_link_text' ] = sanitize_text_field( $new_instance[ 'all_link_text' ] );
 	        $instance[ 'all_link_url' ] = esc_url_raw( $new_instance[ 'all_link_url' ] );
 	        $instance[ 'enable_prev_next' ] = isset($new_instance['enable_prev_next'])? 1 : 0;
+	        $instance['carousel_autospeed'] = isset( $new_instance['carousel_autospeed'] ) ? absint( $new_instance['carousel_autospeed'] ) : 5000;
 
 	        $online_shop_img_size = online_shop_get_image_sizes_options();
 	        $instance[ 'online_shop_img_size' ] = online_shop_sanitize_choice_options( $new_instance[ 'online_shop_img_size' ], $online_shop_img_size, 'large' );
@@ -377,6 +384,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	        $all_link_text = esc_html( $instance[ 'all_link_text' ] );
 	        $all_link_url = esc_url( $instance[ 'all_link_url' ] );
 	        $enable_prev_next = esc_attr( $instance['enable_prev_next'] );
+	        $carousel_auto_speed = absint( $instance['carousel_autospeed'] );
 	        $this->thumb = $online_shop_img_size = esc_attr( $instance['online_shop_img_size'] );
 
 	        $product_visibility_term_ids = wc_get_product_visibility_term_ids();
@@ -518,7 +526,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	            }
 	            $div_attr = 'class="featured-entries-col woocommerce '.$display_type.'"';
 	            if( 'carousel' == $display_type ){
-		            $div_attr = 'class="featured-entries-col woocommerce acme-slick-carausel" data-column="'.absint( $column_number ).'"';
+		            $div_attr = 'class="featured-entries-col woocommerce acme-slick-carausel" data-column="'.absint( $column_number ).'" data-autospeed="' . $carousel_auto_speed . '"';
 	            }
 	            if( 'disable' != $wc_cat_display_option && 'cat' == $wc_advanced_option ){
 		            $taxonomy = 'product_cat';

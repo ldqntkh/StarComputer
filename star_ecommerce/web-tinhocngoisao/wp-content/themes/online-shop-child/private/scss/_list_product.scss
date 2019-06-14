@@ -31,6 +31,7 @@
 }
 
 .featured-entries-col.woocommerce ul.products li.product, 
+.featured-entries-col.woocommerce ul.custom-products-viewed >li,
 .featured-entries-col.woocommerce-page ul.products li.product,
 ul.custom-plp-page.products[class*=columns-] li.product,
 ul.custom-pdp-page.products[class*=columns-] li.product {
@@ -107,6 +108,7 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
                 font-size: 13px !important;
                 display: flex;
                 flex-direction: column;
+                color: #f73838;
                 @media screen and (min-width: 768px) {
                     padding-left: 0px;
                 }

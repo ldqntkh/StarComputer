@@ -85,6 +85,7 @@ jQuery(document).ready(function($) {
             var slidesToScroll = parseInt(at_featured_img_slider.data('column'));
             var prevArrow =at_featured_img_slider.closest('.widget').find('.at-action-wrapper > .prev');
             var nextArrow =at_featured_img_slider.closest('.widget').find('.at-action-wrapper > .next');
+            var autoSpeed = at_featured_img_slider.data('autospeed') > 0 ? parseInt(at_featured_img_slider.data('autospeed')) : 3000;
             /**
             * vậy nếu chúng ta check trước column và tổng số product để k cho nó bắt sự kiện slide thì sao
             */
@@ -100,6 +101,7 @@ jQuery(document).ready(function($) {
                 arrows: true,
                 prevArrow: prevArrow,
                 nextArrow: nextArrow,
+                autoplaySpeed: autoSpeed,
                 responsive: [
                     {
                         breakpoint: 767,
@@ -160,6 +162,7 @@ jQuery(document).ready(function($) {
             var at_featured_img_slider = $(this);
             var autoplay = parseInt(at_featured_img_slider.data('autoplay'));
             var isSliderDisabled = at_featured_img_slider.data('disable-slider');
+            var autoplaySpeed = at_featured_img_slider.data('autospeed') ? parseInt(at_featured_img_slider.data('autospeed')) : 3000;
             if (!isSliderDisabled) {
                 at_featured_img_slider.slick({
                     slidesToShow: 4,
@@ -168,6 +171,7 @@ jQuery(document).ready(function($) {
                     adaptiveHeight: true,
                     cssEase: 'linear',
                     arrows: false,
+                    autoplaySpeed: autoplaySpeed,
                     responsive: [
                         {
                             breakpoint: 767,

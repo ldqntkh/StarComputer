@@ -52,7 +52,8 @@ if ( !function_exists('online_shop_feature_slider') ) :
         }
 	    if( 'disable' == $online_shop_feature_content_options ){
 		    $slider_full = 'full-width-right';
-        }
+		}
+		$online_shop_feature_slider_autoplay_speed = $online_shop_customizer_all_values['online-shop-feature-auto-speed'] > 0 ? absint($online_shop_customizer_all_values['online-shop-feature-auto-speed']) : 3000;
 	    ?>
         <div class="clearfix"></div>
         <div class="wrapper">
@@ -80,6 +81,7 @@ if ( !function_exists('online_shop_feature_slider') ) :
                         <div class="featured-slider at-feature-section"
                              data-autoplay="<?php echo esc_attr( $online_shop_feature_slider_enable_autoplay );?>"
                              data-arrows="<?php echo esc_attr( $online_shop_feature_slider_display_arrow );?>"
+                             data-autospeed="<?php echo $online_shop_feature_slider_autoplay_speed; ?>"
                         >
 							<?php dynamic_sidebar( 'online-shop-left-feature' ); ?>
                         </div>
@@ -96,7 +98,7 @@ if ( !function_exists('online_shop_feature_slider') ) :
 						<div class="fs-right-slider hide-mobile" data-disable-slider="true" data-autoplay="0">
 							<?php dynamic_sidebar( 'online-shop-under-feature' ); ?>
 						</div>
-						<div class="fs-right-slider hide-desktop" data-autoplay="1">
+						<div class="fs-right-slider hide-desktop" data-autoplay="1" data-autospeed="<?php echo ($online_shop_feature_slider_autoplay_speed - 1000); ?>">
 							<?php
 								dynamic_sidebar( 'online-shop-under-feature' );
 								// if( is_active_sidebar( 'online-shop-right-feature' ) ) {
