@@ -43,15 +43,15 @@
             <div id="login" class="tabcontent">
                 <form method="post">
                     <div class="input-form">
-                        <label for="username"><?php esc_html_e( 'Email or username', 'wooomsa' ); ?></label>
+                        <label for="username"><?php esc_html_e( 'Email or username', 'woocommerce' ); ?></label>
                         <input type="text" placeholder="Tài khoản" value="<?php echo !empty($_POST['username']) ? $_POST['username'] : '' ?>" name="username" autocomplete="username" id="username">
                     </div>
                     <div class="input-form">
-                        <label for="password"><?php esc_html_e( 'Password', 'wooomsa' ); ?></label>
+                        <label for="password"><?php esc_html_e( 'Password', 'woocommerce' ); ?></label>
                         <input type="password" placeholder="Mật khẩu" value="" name="password" autocomplete="current-password" id="password">
                     </div>
                     <div class="group-button">
-                        <p><?php esc_html_e( 'Lost your password?', 'wooomsa' ); ?> <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Here', 'wooomsa' ); ?></a></p> 
+                        <p><?php esc_html_e( 'Lost your password?', 'woocommerce' ); ?> <a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Here', 'woocommerce' ); ?></a></p> 
                         <?php wp_nonce_field( 'woocommerce-login', 'woocommerce-login-nonce' ); ?>
                         <input type="hidden" name="redirect" value="<?php echo esc_url( wc_get_page_permalink( 'checkout' ) ) ?>" />
                         <input type="hidden" name="currentTab" value="login"/>
@@ -63,23 +63,23 @@
             <div id="register" class="tabcontent">
                 <form method="post">
                     <div class="input-form">
-                        <label for="username"><?php esc_html_e( 'Email', 'wooomsa' ); ?></label>
+                        <label for="username"><?php esc_html_e( 'Email', 'woocommerce' ); ?></label>
                         <input type="text" placeholder="Tài khoản" value="<?php ?>" name="email" id="reg_email">
                     </div>
                     <div class="input-form">
-                        <label for="password"><?php esc_html_e( 'Mật khẩu', 'wooomsa' ); ?></label>
-                        <input type="password" placeholder="<?php esc_html_e( 'Mật khẩu', 'placeholder', 'wooomsa' ); ?>" value="" name="password" autocomplete="new-password" id="reg_password">
+                        <label for="password"><?php esc_html_e( 'Mật khẩu', 'woocommerce' ); ?></label>
+                        <input type="password" placeholder="<?php esc_html_e( 'Mật khẩu', 'placeholder', 'woocommerce' ); ?>" value="" name="password" autocomplete="new-password" id="reg_password">
                     </div>
                     <div class="input-form">
-                        <label for="re-password"><?php esc_html_e( 'Nhập lại mật khẩu', 'wooomsa' ); ?></label>
-                        <input type="password" placeholder="<?php esc_html_e( 'Nhập lại mật khẩu', 'placeholder', 'wooomsa' ); ?>" value="" name="password" autocomplete="new-password" id="reg_password_again">
+                        <label for="re-password"><?php esc_html_e( 'Nhập lại mật khẩu', 'woocommerce' ); ?></label>
+                        <input type="password" placeholder="<?php esc_html_e( 'Nhập lại mật khẩu', 'placeholder', 'woocommerce' ); ?>" value="" name="password" autocomplete="new-password" id="reg_password_again">
                     </div>
                     <div class="group-button">
-                        <p>Khi bạn đăng ký tài khoản, bạn đã đồng ý với mọi <a href="<?php echo esc_url( get_permalink( wc_privacy_policy_page_id() ) ) ?>" class="woocommerce-privacy-policy-link" target="_blank"><?php echo __( 'privacy policy', 'woomsa' ) ?></a> của chúng tôi.</p> 
+                        <p>Khi bạn đăng ký tài khoản, bạn đã đồng ý với mọi <a href="<?php echo esc_url( get_permalink( wc_privacy_policy_page_id() ) ) ?>" class="woocommerce-privacy-policy-link" target="_blank"><?php echo __( 'privacy policy', 'woocommerce' ) ?></a> của chúng tôi.</p> 
                         <?php wp_nonce_field( 'woocommerce-register', 'woocommerce-register-nonce' ); ?>
                         <input type="hidden" name="redirect" value="<?php echo esc_url( wc_get_page_permalink( 'checkout' ) ) ?>" />
                         <input type="hidden" name="currentTab" value="register"/>
-                        <button type="submit" class="btn-login" name="register" value="<?php esc_attr_e( 'Đăng ký', 'wooomsa' ); ?>"><?php esc_html_e( 'Đăng ký', 'wooomsa' ); ?></button>
+                        <button type="submit" class="btn-login" name="register" value="<?php esc_attr_e( 'Đăng ký', 'woocommerce' ); ?>"><?php esc_html_e( 'Đăng ký', 'woocommerce' ); ?></button>
                     </div>
                 </form>
             </div>
@@ -120,11 +120,11 @@
             <div class="foot">
                 <div class="order-totals">
                     <div class="line">
-                        <span><?php esc_attr_e( 'Subtotal', 'woomsa' ); ?></span>
+                        <span><?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?></span>
                         <strong><?php wc_cart_totals_subtotal_html(); ?></strong>
                     </div>
                     <div class="line total">
-                        <span><?php _e( 'Total', 'woomsa' ); ?></span>
+                        <span><?php _e( 'Total', 'woocommerce' ); ?></span>
                         <strong><?php wc_cart_totals_order_total_html(); ?></strong>
                     </div>
                 </div>
