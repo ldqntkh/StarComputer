@@ -39,7 +39,7 @@
                 </li>
                 <li>
                     <i class="fa fa-eye"></i>
-                    <a href="<?php echo wc_get_page_permalink( 'home' ); ?>">Sản phẩm đã xem</a>
+                    <a href="<?php echo home_url( '/san-pham-da-xem/' ); ?>">Sản phẩm đã xem</a>
                 </li>
                 <li>
                     <i class="fa fa-shopping-cart"></i>
@@ -57,7 +57,7 @@
                 </li>
                 <li>
                     <i class="fa fa-phone"></i>
-                    <a href="<?php echo wc_get_page_permalink( 'home' ); ?>">Hot line</a>
+                    <a href="tel:19000243">Hot line</a>
                 </li>
                 <li>
                     <i class="fa fa-building"></i>
