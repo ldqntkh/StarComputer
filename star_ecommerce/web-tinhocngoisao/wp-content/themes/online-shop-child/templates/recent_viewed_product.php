@@ -69,6 +69,4 @@
     wp_reset_postdata();
 ?>
 
-<?php
-    get_footer();
-?>
+<?php get_footer();
