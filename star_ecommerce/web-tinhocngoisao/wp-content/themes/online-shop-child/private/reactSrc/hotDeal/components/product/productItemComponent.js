@@ -50,7 +50,7 @@ export default class ProductItemComponent extends Component {
                             
                             <div className="product-item-details">
                                 <h2 className="woocommerce-loop-product__title">
-                                    {product.name.length > 40 ? product.name.substr(0, 20) + '...' : product.name }
+                                    {product.name.length > 40 ? product.name.substr(0, 40) + '...' : product.name }
                                 </h2>
                                 <span className="warranty_period">Bảo hành: <strong>{product.period}</strong> tháng</span>
                                 {price}
