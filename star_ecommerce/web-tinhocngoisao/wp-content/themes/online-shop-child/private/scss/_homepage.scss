@@ -235,24 +235,6 @@ h2.woocommerce-loop-product__title {
 
         &.featured-entries-col {
             margin: 0;
-
-            &.woocommerce {
-                ul.products {
-                    li.product {
-                        a:nth-child(1) {
-                            // .image {
-                            //     height: 100px;
-                            //     min-height: 100px;
-                            //     img {
-                            //         width: 100px;
-                            //         height: 100px;
-                            //     }
-                            // }
-                            
-                        }
-                    }
-                }
-            }
         }
 
         .stock-quantity {

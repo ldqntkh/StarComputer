@@ -133,6 +133,10 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
             img {
                 width: 200px;
                 height: 200px;
+                min-height: unset;
+                max-height: unset;
+                min-width: unset;
+                max-width: unset;
             }
         }
         @media screen and (min-width: 992px) {
