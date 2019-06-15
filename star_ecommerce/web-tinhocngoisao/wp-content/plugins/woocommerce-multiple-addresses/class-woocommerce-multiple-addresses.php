@@ -316,7 +316,7 @@ class WC_Multiple_addresses {
 			)
 		);
 
-		wp_enqueue_script( 'select-district-city', plugins_url( 'assets/js/select-district-city.js' , __FILE__ ), array( 'jquery' ), $this->_version, true );
+		wp_enqueue_script( 'select-district-city', plugins_url( 'assets/js/select-district-city.js' , __FILE__ ), array( 'jquery' ), self::VERSION, true );
 		wp_localize_script( 'select-district-city' , 'options_city_ajax', array(
 				'admin_ajax'        => admin_url( 'admin-ajax.php'),
 				'home_url'          => home_url()
@@ -541,6 +541,7 @@ class WC_Multiple_addresses {
 					( $_POST['shipping_account_address_action'] == 'save' || $_POST['shipping_account_address_action'] == 'delete' || $_POST['shipping_account_address_action'] == 'update' ) ) {
 			if ($_POST['shipping_account_address_action'] == 'save') {
 				WC()->session->set('checkoutstep', 3);
+				var_dump(WC()->session->get('checkoutstep'));
 			}
 
 			unset( $_POST['shipping_account_address_action'] );

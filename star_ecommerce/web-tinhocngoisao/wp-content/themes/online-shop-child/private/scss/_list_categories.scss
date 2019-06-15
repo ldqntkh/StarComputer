@@ -4,7 +4,7 @@
 
     .category-item {
         width: 50%;
-        border: 1px solid #c0c0c01a;
+        //border: 1px solid #c0c0c01a;
         @media screen and (min-width: 640px) {
             width: 33.2%;
         }
@@ -23,6 +23,11 @@
             img {
                 width: 150px;
                 height: 150px;
+                border-radius: 50%;
+            border: 5px solid #d8d2d270;
+            }
+            span {
+                text-align: center;
             }
         }
     }

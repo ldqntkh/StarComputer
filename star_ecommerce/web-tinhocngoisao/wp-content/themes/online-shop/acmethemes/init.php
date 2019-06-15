@@ -101,7 +101,8 @@ if ( online_shop_is_woocommerce_active() ) :
 	require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-products.php');
 	require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-cats.php');
 	require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-cats-tabs.php');
-	require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-search.php');
+    require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-search.php');
+    require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-products-custom.php');
 endif;
 
 require_once online_shop_file_directory('acmethemes/sidebar-widget/sidebar.php');

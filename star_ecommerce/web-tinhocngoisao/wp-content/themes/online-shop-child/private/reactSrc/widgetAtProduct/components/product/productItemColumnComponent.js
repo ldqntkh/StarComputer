@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import ProductTimeDownComponent from './productTimeDownComponent';
 
-export default class ProductItemComponent extends Component {
+class ProductItemColumnComponent extends Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
-        let product = this.props.dataProduct;
+        let product = this.props.product;
         let rating = '';
         if (product.average_rating !== "0") {
             rating = <div className="star-rating">
@@ -41,12 +43,9 @@ export default class ProductItemComponent extends Component {
         return(
             <div className="single-list">
                 <ul className="post-container products">
-                    <li className="product type-product status-publish has-post-thumbnail product_cat-san-pham-duoc-yeu-thich first outofstock shipping-taxable purchasable product-type-variable has-default-attributes">
+                    <li className="product type-product status-publish has-post-thumbnail">
                         <a href={product.link} className="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-                            {<ProductTimeDownComponent sale_end_time={product.sale_end_time} /> }
-                            <div className="image">
-                                <img src={product.image} />
-                            </div>
+                            <img src={product.image} />
                             
                             <div className="product-item-details">
                                 <h2 className="woocommerce-loop-product__title">
@@ -55,12 +54,13 @@ export default class ProductItemComponent extends Component {
                                 <span className="warranty_period">Bảo hành: <strong>{product.period}</strong> tháng</span>
                                 {price}
                                 {rating}
-                                {stock}
                             </div>
                         </a>
                     </li>
                 </ul>
             </div>
-        )
+        );
     }
 }
+
+export default ProductItemColumnComponent;

@@ -273,6 +273,7 @@ function online_shop_widget_init(){
         register_widget( 'Online_Shop_Advanced_Search_Widget' );
         register_widget( 'Online_Shop_Wc_Feature_Cats' );
         register_widget( 'Online_Shop_Wc_Cats_Tabs' );
+        register_widget( 'Online_Shop_Wc_Products_Custom' );
     endif;
 }
 add_action('widgets_init', 'online_shop_widget_init');

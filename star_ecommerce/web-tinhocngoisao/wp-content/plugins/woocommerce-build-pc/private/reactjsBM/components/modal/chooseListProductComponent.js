@@ -6,13 +6,11 @@ import HeaderProductTypeComponent from './header/headerProductTypeComponent';
 import LeftListProductComponent from './body/leftListProductComponent';
 import RightListProductComponent from './body/rightListProductComponent';
 
-
-Modal.setAppElement('#select_product');
-
 class ChooseListProductComponent extends Component {
 
     constructor(props) {
         super(props);
+        Modal.setAppElement('#select_product');
     }
 
     componentWillMount() {
