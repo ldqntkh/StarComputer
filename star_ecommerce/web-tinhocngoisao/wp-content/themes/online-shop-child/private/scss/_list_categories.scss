@@ -60,6 +60,7 @@
                     span {
                         position: absolute;
                         bottom: 0;
+                        color: red;
                     }
                 }
                 &.viewall {
@@ -69,6 +70,11 @@
                 &.back {
                     background: url('./assets/img/back.png') top no-repeat;
                     background-size: 80px;
+                    a {
+                        span {
+                            color: blue;
+                        }
+                    }
                 }
             }
         }

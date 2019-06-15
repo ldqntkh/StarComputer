@@ -112,7 +112,7 @@ class ListCategoriesComponent extends Component {
             result.unshift(
                 <div className="category-item main-item back" key={0}>
                     <a href="#" onClick={()=> this._handleCategoryClickPrev()}>
-                        <span>Trở lại</span>
+                        <span>{category_click.title}</span>
                     </a>
                 </div>
             );
