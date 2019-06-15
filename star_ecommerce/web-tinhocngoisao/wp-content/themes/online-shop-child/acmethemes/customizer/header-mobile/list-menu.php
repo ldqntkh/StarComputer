@@ -21,7 +21,7 @@
                 </li>
                 <li>
                     <i class="fa fa-bars"></i>
-                    <a href="<?php echo home_url( '/danh-sach-mat-hang/' ); ?>">Danh sách mặt hàng</a>
+                    <a href="<?php echo home_url( '/danh-sach-mat-hang/' ); ?>" id="url-list-categories">Danh sách mặt hàng</a>
                 </li>
                 <li>
                     <i class="fa fa-user-circle-o"></i>

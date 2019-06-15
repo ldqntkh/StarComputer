@@ -389,7 +389,7 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                                             foreach($special_menus as $menu_item) {
                                                 if ($menu_item->post_status === 'publish' && $menu_item->menu_item_parent === '0') {
                                                     $slug = $menu_item->url;
-                                                    if ($slug[strlen($slug) - 1] === '/') $slug = substr($slug, 0, strlen($slug) - 1);
+                                                    if (strlen($slug) && $slug[strlen($slug) - 1] === '/') $slug = substr($slug, 0, strlen($slug) - 1);
                                                     $slug = explode('/', $slug);
                                                     $slug = $slug[count($slug)- 1];
                                                     $cat = get_term_by( 'slug', $slug, 'product_cat' );

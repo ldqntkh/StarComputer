@@ -43,16 +43,17 @@ var mobile_menu = {
             }
         });
 
-        // $('body').on('click', '#toggle-menu, .panel-background', function() {
-        //     $('div.pr-menu').toggle();
-        //     $('div.panel-menu').animate({width: 'toggle'});
-            
-        //     if ($(this).attr('class') === 'panel-background') {
-        //         $('.fixed-product-detail').show();
-        //     } else {
-        //         $('.fixed-product-detail').hide();
-        //     }
-        // });
+        $('body').on('click', '#url-list-categories', function(e) {
+            e.preventDefault();
+            try {
+                sessionStorage.removeItem('CATEGORIES_DATA_HISTORY');
+                location.href = e.target.href;
+            } catch (err) {
+                // 
+            }
+        });
+
+
         // fix code not work in safari mobile
         $('#toggle-menu').on('click', function() {
             that.toggleMainMenu(this);

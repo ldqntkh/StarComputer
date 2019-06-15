@@ -53,7 +53,7 @@ if ( !function_exists('online_shop_feature_slider') ) :
 	    if( 'disable' == $online_shop_feature_content_options ){
 		    $slider_full = 'full-width-right';
 		}
-		$online_shop_feature_slider_autoplay_speed = $online_shop_customizer_all_values['online-shop-feature-auto-speed'] > 0 ? absint($online_shop_customizer_all_values['online-shop-feature-auto-speed']) : 3000;
+		$online_shop_feature_slider_autoplay_speed = isset($online_shop_customizer_all_values['online-shop-feature-auto-speed']) && $online_shop_customizer_all_values['online-shop-feature-auto-speed'] > 0 ? absint($online_shop_customizer_all_values['online-shop-feature-auto-speed']) : 3000;
 	    ?>
         <div class="clearfix"></div>
         <div class="wrapper">
