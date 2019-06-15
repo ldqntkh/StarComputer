@@ -4,6 +4,8 @@ import {
     URL_GET_LIST_PRODUCT_CAT
 } from '../../../variable';
 
+import NextArrowComponent from '../../../shareComponent/arrows/nextArrowComponent';
+import PrevArrowComponent from '../../../shareComponent/arrows/prevArrowComponent';
 import ProductItemColumnComponent from './productItemColumnComponent';
 import ProductItemRowComponent from './productItemRowComponent';
 
@@ -104,13 +106,15 @@ class ListProductComponent extends Component {
         let settings = {
             autoplay: true,
             adaptiveHeight: true,
-            arrows: false,
+            arrows: true,
             dots: false,
             infinite: true,
             autoplaySpeed: 5000,
             speed: 1000,
             slidesToShow: slideShow_1,
             slidesToScroll: slideShow_1,
+            nextArrow: <NextArrowComponent className="fa fa-angle-left"/>,
+            prevArrow: <PrevArrowComponent className="fa fa-angle-right" />,
             adaptiveHeight : false,
             responsive: [
                 {

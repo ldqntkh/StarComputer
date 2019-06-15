@@ -3,7 +3,8 @@ import Slider from "react-slick";
 import {
     URL_GET_LIST_PRODUCT_IDS
 } from '../../../variable';
-
+import NextArrowComponent from '../../../shareComponent/arrows/nextArrowComponent';
+import PrevArrowComponent from '../../../shareComponent/arrows/prevArrowComponent';
 class SpecialProductMediumComponent extends Component {
     constructor(props) {
         super(props);
@@ -124,7 +125,7 @@ class SpecialProductMediumComponent extends Component {
                     let settings = {
                         autoplay: true,
                         adaptiveHeight: true,
-                        arrows: false,
+                        arrows: true,
                         dots: false,
                         infinite: true,
                         autoplaySpeed: 5000,
@@ -132,6 +133,8 @@ class SpecialProductMediumComponent extends Component {
                         slidesToShow: 2,
                         slidesToScroll: 2,
                         adaptiveHeight : false,
+                        nextArrow: <NextArrowComponent className="fa fa-angle-left"/>,
+                        prevArrow: <PrevArrowComponent className="fa fa-angle-right" />,
                         responsive: [
                             {
                                 breakpoint: 1366,
