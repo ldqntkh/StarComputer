@@ -93,7 +93,7 @@ class ListCategoriesComponent extends Component {
                 result.push(
                     <div className="category-item" key={index+2}>
                         <a href="#" onClick={()=>this._handleCategoryClick(item)}>
-                            <img src={item.icon_url} alt=""/>
+                            <img src={item.thumbnail_image} alt=""/>
                             <span>{item.title}</span>
                         </a>
                     </div>

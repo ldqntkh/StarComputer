@@ -3,10 +3,6 @@
 if (!function_exists('findListMenuItemById')):
     function findListMenuItemById($ID, $special_menus, $menus) {
         if (count($special_menus) == 0) return null;
-        // for($index = count($special_menus)-1; $index >= 0; $index--) {
-        //     $menu_item = $special_menus[$index];
-            
-        // }
         foreach($special_menus as $menu_item) {
             if ($menu_item->post_status === 'publish' && $menu_item->menu_item_parent === $ID) {
                 $slug = $menu_item->url;
@@ -20,6 +16,17 @@ if (!function_exists('findListMenuItemById')):
 
                 if ($cat) {
                     $icon_url = get_field('menu_icon', $cat);
+
+                    $thumbnail_id = get_term_meta( $cat->term_id, 'thumbnail_id', true);
+                    if ( !empty( $thumbnail_id ) ) {
+                        $image_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+                    }
+                    else{
+                        $image_url =  get_template_directory_uri() . '/assets/img/default-image.jpg';
+                    }
+                    
+                    $menu_item->thumbnail_image = $image_url; 
+
                     $background_url = get_field('background_menu', $cat);
                     if (strlen($icon_url) > 0) {
                         $menu_item->icon_url = $icon_url; 
@@ -62,6 +69,16 @@ if (!function_exists('findListMenuAttributes')):
                     if (strlen($background_url) > 0) {
                         $menu_item->background_url = $background_url; 
                     }
+
+                    $thumbnail_id = get_term_meta( $cat->term_id, 'thumbnail_id', true);
+                    if ( !empty( $thumbnail_id ) ) {
+                        $image_url = wp_get_attachment_image_src($thumbnail_id, 'full')[0];
+                    }
+                    else{
+                        $image_url =  get_template_directory_uri() . '/assets/img/default-image.jpg';
+                    }
+                    
+                    $menu_item->thumbnail_image = $image_url; 
                 }
                 // findListMenuItemById($menu_item->menu_item_parent,$subArray , $menu_item);
                 array_push($menus, $menu_item);
