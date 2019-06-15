@@ -384,7 +384,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	        $all_link_text = esc_html( $instance[ 'all_link_text' ] );
 	        $all_link_url = esc_url( $instance[ 'all_link_url' ] );
 	        $enable_prev_next = esc_attr( $instance['enable_prev_next'] );
-	        $carousel_auto_speed = absint( $instance['carousel_autospeed'] );
+	        $carousel_auto_speed = isset($instance['carousel_autospeed']) && absint( $instance['carousel_autospeed'] );
 	        $this->thumb = $online_shop_img_size = esc_attr( $instance['online_shop_img_size'] );
 
 	        $product_visibility_term_ids = wc_get_product_visibility_term_ids();
