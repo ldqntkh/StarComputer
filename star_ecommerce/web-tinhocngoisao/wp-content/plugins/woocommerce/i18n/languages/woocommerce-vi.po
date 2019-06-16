@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-06-14 10:41+0700\n"
+"PO-Revision-Date: 2019-06-16 00:36+0700\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: Poedit 2.2.3\n"
 "Last-Translator: \n"
@@ -22504,7 +22504,7 @@ msgstr ""
 #: includes/shortcodes/class-wc-shortcode-my-account.php:134
 #: templates/checkout/thankyou.php:35
 msgid "My account"
-msgstr ""
+msgstr "Tài khoản"
 
 #: includes/shortcodes/class-wc-shortcode-my-account.php:258
 msgid "Enter a username or email address."
@@ -24897,3 +24897,7 @@ msgstr[0] "Hiển thị %1$d&ndash;%2$d trên tổng %3$d sản phẩm"
 msgctxt "submit button"
 msgid "Search"
 msgstr ""
+
+#: templates/wc-account-functions.php:100
+msgid "Wishlist"
+msgstr "Sản phẩm yêu thích"
