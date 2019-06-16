@@ -218,7 +218,7 @@ $wp_customize->add_control( 'online_shop_theme_options[online-shop-feature-butto
 /*Carousel auto play speed*/
 $wp_customize->add_setting( 'online_shop_theme_options[online-shop-feature-auto-speed]', array(
 	'capability'		=> 'edit_theme_options',
-	'default'			=> $defaults['online-shop-feature-auto-speed'],
+	'default'			=> isset($defaults['online-shop-feature-auto-speed']) ? $defaults['online-shop-feature-auto-speed'] : 3000,
 	'sanitize_callback' => 'sanitize_text_field'
 ) );
 $wp_customize->add_control( 'online_shop_theme_options[online-shop-feature-auto-speed]', array(
