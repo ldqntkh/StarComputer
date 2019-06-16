@@ -1016,11 +1016,7 @@ msgstr ""
 
 #: acmethemes/customizer/customizer-core.php:356
 msgid "My Account"
-<<<<<<< HEAD
 msgstr "Tài khoản"
-=======
-msgstr "Tài khoản của tôi"
->>>>>>> development
 
 #: acmethemes/customizer/customizer-core.php:357
 msgid "Popup Content"
