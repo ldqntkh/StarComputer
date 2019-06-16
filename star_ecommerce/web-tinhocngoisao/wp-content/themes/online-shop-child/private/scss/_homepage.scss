@@ -172,8 +172,12 @@ h2.woocommerce-loop-product__title {
         text-align: center;
     }
     ul.products li.product a:nth-child(1) img {
-        width: 150px !important;
-        height: 150px !important;
+        width: 100px !important;
+        height: 100px !important;
+        @media screen and (min-width: 1024px) {
+            width: 150px !important;
+            height: 150px !important;
+        }
     }
 }
 
