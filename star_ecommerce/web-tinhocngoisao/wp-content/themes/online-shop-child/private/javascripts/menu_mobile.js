@@ -36,11 +36,8 @@ var mobile_menu = {
         $('.menu-lv2').hide();
         $('div.pr-menu').hide();
         $('div.panel-menu').hide();
-        $('.slicknav_arrow').on('click', function() {
-            var id  = $(this).eq(0).attr('id');
-            if (id !== 'undefined') {
-                $('li#' + id + '>ul').toggle(300);
-            }
+        $('#lst-action-account').on('click', function() {
+            $('.menu-lv2').toggle(300);
         });
 
         $('body').on('click', '#url-list-categories', function(e) {

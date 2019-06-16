@@ -23,9 +23,31 @@
                     <i class="fa fa-bars"></i>
                     <a href="<?php echo home_url( '/danh-sach-mat-hang/' ); ?>" id="url-list-categories">Danh sách mặt hàng</a>
                 </li>
-                <li>
+                <?php $user = wp_get_current_user();?>
+                <li id="<?php if ( $user->exists() )  echo "lst-action-account";?>">
                     <i class="fa fa-user-circle-o"></i>
-                    <a href="<?php echo home_url( '/my-account/' ); ?>">Quản lý tài khoản</a>
+                    <a href="<?php if ( $user->exists() )  echo "#"; else  echo home_url( '/my-account/' ); ?>">
+                        <?php if ( $user->exists() )  {
+                                echo "Xin chào ".$user->display_name; 
+                                echo '<span class="slicknav_arrow" id="menu-account">+</span>';
+                            }
+                            else  {
+                                echo "Quản lý tài khoản"; 
+                            }?>
+                    </a>
+                    <?php 
+                        if ($user->exists()) :?>
+                            <ul class="menu-lv2">
+                                <?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : 
+                                    if ($endpoint == "dashboard" || $endpoint == "downloads") continue;
+                                ?>
+                                    <li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
+                                        <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                       <?php endif;
+                    ?> 
                 </li>
                 <!-- <li>
                     <i class="fa fa-bell"></i>
@@ -64,28 +86,6 @@
                     <a href="<?php echo home_url( '/show-rooms/' ); ?>">Hệ thống showroom</a>
                 </li>
             </ul>
-
-        <!-- <?php 
-            // render my account
-            $user = wp_get_current_user();
-            echo '<ul class="menu-lv1">';
-            if ($user->exists()) :?>
-                    <li id="menu-account">
-                        <span class='display-name'>Xin chào <?php echo $user->display_name; ?></span>
-                        <span class="slicknav_arrow" id="menu-account">+</span>
-                        <ul class="menu-lv2">
-                        <?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-                            <li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
-                                <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>
-                            </li>
-                        <?php endforeach; ?>
-                        </ul>
-                    </li>
-            <?php else :
-                echo '<li class="login-account"><a href="'. wc_get_page_permalink( 'myaccount' ). '"> <strong>Đăng nhập</strong> <br/>Để nhận nhiều ưu đãi từ chúng tôi</a></li>';
-            endif;
-            echo '</ul>';
-        ?> -->
         </div>
         <div class="footer">
             <span>
