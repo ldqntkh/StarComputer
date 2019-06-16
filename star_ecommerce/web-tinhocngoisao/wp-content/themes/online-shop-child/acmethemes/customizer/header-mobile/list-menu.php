@@ -17,15 +17,37 @@
             <ul class="menu-lv1 session-1">
                 <li>
                     <i class="fa fa-home"></i>
-                    <a href="<?php echo home_url(); ?>">Trang chủ</a>
+                    <a href="<?php echo home_url(); ?>"><?php echo __( 'Home', 'online-shop' ) ?></a>
                 </li>
                 <li>
                     <i class="fa fa-bars"></i>
-                    <a href="<?php echo home_url( '/danh-sach-mat-hang/' ); ?>" id="url-list-categories">Danh sách mặt hàng</a>
+                    <a href="<?php echo home_url( '/danh-sach-mat-hang/' ); ?>" id="url-list-categories"><?php echo __( 'Product list', 'online-shop' ) ?></a>
                 </li>
-                <li>
+                <?php $user = wp_get_current_user();?>
+                <li id="<?php if ( $user->exists() )  echo "lst-action-account";?>">
                     <i class="fa fa-user-circle-o"></i>
-                    <a href="<?php echo home_url( '/my-account/' ); ?>">Quản lý tài khoản</a>
+                    <a href="<?php if ( $user->exists() )  echo "#"; else  echo home_url( '/my-account/' ); ?>">
+                        <?php if ( $user->exists() )  {
+                                printf( __( 'Hello %1$s', 'online-shop' ), $user->display_name );
+                                echo '<span class="slicknav_arrow" id="menu-account">+</span>';
+                            }
+                            else  {
+                                echo __( 'Manage your account', 'online-shop' );
+                            }?>
+                    </a>
+                    <?php 
+                        if ($user->exists()) :?>
+                            <ul class="menu-lv2">
+                                <?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : 
+                                    if ($endpoint == "dashboard" || $endpoint == "downloads") continue;
+                                ?>
+                                    <li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
+                                        <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                       <?php endif;
+                    ?> 
                 </li>
                 <!-- <li>
                     <i class="fa fa-bell"></i>
@@ -35,57 +57,35 @@
             <ul class="menu-lv1 session-1">
                 <li>
                     <i class="fa fa-wrench"></i>
-                    <a href="<?php echo home_url('/build-pc/'); ?>">Xây dựng cấu hình</a>
+                    <a href="<?php echo home_url('/build-pc/'); ?>"><?php echo __( 'Build configuration', 'online-shop' ); ?></a>
                 </li>
                 <li>
                     <i class="fa fa-eye"></i>
-                    <a href="<?php echo home_url( '/san-pham-da-xem/' ); ?>">Sản phẩm đã xem</a>
+                    <a href="<?php echo home_url( '/san-pham-da-xem/' ); ?>"><?php echo __( 'Products viewed', 'online-shop' ); ?></a>
                 </li>
                 <li>
                     <i class="fa fa-shopping-cart"></i>
-                    <a href="<?php echo home_url('/cart/'); ?>">Giỏ hàng</a>
+                    <a href="<?php echo home_url('/cart/'); ?>"><?php echo __( 'Cart', 'online-shop' ); ?></a>
                 </li>
                 <li>
                     <i class="fa fa-truck"></i>
-                    <a href="<?php echo home_url('/my-account/orders/'); ?>">Kiểm tra đơn hàng</a>
+                    <a href="<?php echo home_url('/my-account/orders/'); ?>"><?php echo __( 'View your order', 'online-shop' ); ?></a>
                 </li>
             </ul>
             <ul class="menu-lv1 session-1">
                 <li>
                     <i class="fa fa-weixin"></i>
-                    <a href="<?php echo wc_get_page_permalink( 'home' ); ?>">Tư vấn mua hàng</a>
+                    <a href="<?php echo wc_get_page_permalink( 'home' ); ?>"><?php echo __( 'Shopping advice', 'online-shop' ); ?></a>
                 </li>
                 <li>
                     <i class="fa fa-phone"></i>
-                    <a href="tel:19000243">Hot line</a>
+                    <a href="tel:19000243"><?php echo __( 'Hot line', 'online-shop' ); ?></a>
                 </li>
                 <li>
                     <i class="fa fa-building"></i>
-                    <a href="<?php echo home_url( '/show-rooms/' ); ?>">Hệ thống showroom</a>
+                    <a href="<?php echo home_url( '/show-rooms/' ); ?>"><?php echo __( 'Showroom system', 'online-shop' ); ?></a>
                 </li>
             </ul>
-
-        <!-- <?php 
-            // render my account
-            $user = wp_get_current_user();
-            echo '<ul class="menu-lv1">';
-            if ($user->exists()) :?>
-                    <li id="menu-account">
-                        <span class='display-name'>Xin chào <?php echo $user->display_name; ?></span>
-                        <span class="slicknav_arrow" id="menu-account">+</span>
-                        <ul class="menu-lv2">
-                        <?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-                            <li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
-                                <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>
-                            </li>
-                        <?php endforeach; ?>
-                        </ul>
-                    </li>
-            <?php else :
-                echo '<li class="login-account"><a href="'. wc_get_page_permalink( 'myaccount' ). '"> <strong>Đăng nhập</strong> <br/>Để nhận nhiều ưu đãi từ chúng tôi</a></li>';
-            endif;
-            echo '</ul>';
-        ?> -->
         </div>
         <div class="footer">
             <span>

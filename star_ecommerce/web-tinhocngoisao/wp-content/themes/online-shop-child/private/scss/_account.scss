@@ -13,6 +13,9 @@
         @media screen and(min-width: 812px) {
             display: block;
         }
+        .woocommerce-MyAccount-navigation-link--downloads {
+            display: none;
+        }
     }
     .woocommerce-MyAccount-content {
         // wishlist

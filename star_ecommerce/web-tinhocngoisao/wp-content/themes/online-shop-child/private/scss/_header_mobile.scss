@@ -132,7 +132,17 @@
                         padding-left: 20px;
                         li {
                             border: none;
+                            padding-left: 0;
                             list-style: none;
+                            padding: 2px 0 5px 0;
+                            &:before {
+                                content: "\2022";
+                                color: red;
+                                font-weight: bold;
+                                font-size: 18px;
+                                width: 20px;
+                                padding-right: 10px;
+                              }
                         }
                     }
                 }
