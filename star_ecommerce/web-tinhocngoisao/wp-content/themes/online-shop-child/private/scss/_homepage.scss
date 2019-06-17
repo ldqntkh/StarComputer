@@ -607,7 +607,8 @@ h2.woocommerce-loop-product__title {
                     a {
                         img {
                             height: 540px;
-                            width: unset;
+                            width: 100%;
+                            max-width: 100%;
                         }
                         a {
                             h3 {
@@ -771,7 +772,8 @@ h2.woocommerce-loop-product__title {
                     a {
                         img {
                             height: 540px;
-                            width: unset;
+                            width: 100%;
+                            max-width: 100%;
                         }
                         a {
                             h3 {
@@ -1300,4 +1302,8 @@ h2.woocommerce-loop-product__title {
     @media screen and(min-width: 1024px) {
         height: 300px;
     }
+}
+
+.socials-share {
+    padding: 10px 0;
 }

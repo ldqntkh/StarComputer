@@ -586,6 +586,36 @@ if ( !function_exists('woocommerce_template_gift_information') ) :
     }
 endif;
 
+if ( !function_exists('woocommerce_template_social_share') ) :
+    function woocommerce_template_social_share() {
+        echo '<div class="socials-share">';
+        // zalo
+        if ( !empty( get_option( 'custom_preferences_zalo_options' )['zalo_enable'] ) && get_option( 'custom_preferences_zalo_options' )['zalo_enable'] === "true" ) :
+            $zaloAppID = isset(get_option( 'custom_preferences_zalo_options' )['zalo_appId']) ? get_option( 'custom_preferences_zalo_options' )['zalo_appId'] : "";
+            $zaloLayout = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_layout']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_layout'] : "1";
+            $zaloButtonColor = isset(get_option( 'custom_preferences_zalo_options' )['zalo_button_color']) ? get_option( 'custom_preferences_zalo_options' )['zalo_button_color'] : "blue";
+            $currentUrl = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+            $zaloScriptCallback = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_callback']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_callback'] : "";
+            $zaloScriptCallbackFunc = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_callback_func']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_callback_func'] : "";
+            if (!empty($zaloAppID)) {
+                if (!empty($zaloScriptCallback) && !empty($zaloScriptCallbackFunc)) {
+                    echo '<div class="zalo-share-button" data-href="'.$currentUrl.'" data-oaid="'.$zaloAppID.'" data-layout="'.$zaloLayout
+                            .'" data-color="'.$zaloButtonColor.'" data-callback="'.
+                            $zaloScriptCallback.'" data-customize=false></div>';
+                    echo '<script type="text/javascript">';
+                    echo $zaloScriptCallbackFunc;
+                    echo '</script>';
+                }
+                else {
+                    echo '<div class="zalo-share-button" data-href="'.$currentUrl.'" data-oaid="'.$zaloAppID.'" data-layout="'.$zaloLayout.'" data-color="'.$zaloButtonColor.'" data-customize=false></div>';
+                }
+            }
+        endif;
+
+        echo '</div>';
+    }
+endif;
+
 if ( !function_exists('woocommerce_template_add_to_wishlist') ) :
     function woocommerce_template_add_to_wishlist() {
         echo do_shortcode( "[yith_wcwl_add_to_wishlist]" );
@@ -622,11 +652,32 @@ add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_sin
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_promotion', 7 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_excerpt', 9 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_gift_information', 11 );
+add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_social_share', 12 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_add_to_cart', 13 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_add_to_wishlist', 15 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_installment_information', 17 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_trading_information', 5 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_contact_information', 7 );
+
+/**
+ * Product header
+ */
+add_action( 'wp_head', 'render_header_meta_single_product', 100);
+if (!function_exists('render_header_meta_single_product')) {
+    function render_header_meta_single_product() {
+        global $post;
+        $product = wc_get_product( $post->ID );
+        if ($product) {
+            echo '<meta property="og:image" content="'.wp_get_attachment_image_src( $product->get_image_id(), 'medium', true )[0].'">';
+            echo '<meta property="og:type" content="'.$product->get_type().'">';
+            echo '<meta property="og:image:alt" content="'.$product->get_name().'">';
+            echo '<meta property="og:title" content="'.$product->get_name().'">';
+            echo '<meta property="og:url" content="'.get_permalink( $product->get_id()).'">';
+            echo '<meta property="og:description" content="'.$product->get_name().'">';
+        }
+    }
+}
+
 
 add_action( 'rest_api_init', function () {
     register_rest_route( 'rest_api/v1', '/product/(?P<productId>\d+)', array(
