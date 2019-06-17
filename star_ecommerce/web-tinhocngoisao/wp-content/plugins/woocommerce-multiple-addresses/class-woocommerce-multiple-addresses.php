@@ -541,7 +541,6 @@ class WC_Multiple_addresses {
 					( $_POST['shipping_account_address_action'] == 'save' || $_POST['shipping_account_address_action'] == 'delete' || $_POST['shipping_account_address_action'] == 'update' ) ) {
 			if ($_POST['shipping_account_address_action'] == 'save') {
 				WC()->session->set('checkoutstep', 3);
-				var_dump(WC()->session->get('checkoutstep'));
 			}
 
 			unset( $_POST['shipping_account_address_action'] );

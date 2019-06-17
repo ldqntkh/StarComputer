@@ -665,15 +665,17 @@ add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_co
 add_action( 'wp_head', 'render_header_meta_single_product', 100);
 if (!function_exists('render_header_meta_single_product')) {
     function render_header_meta_single_product() {
-        global $post;
-        $product = wc_get_product( $post->ID );
-        if ($product) {
-            echo '<meta property="og:image" content="'.wp_get_attachment_image_src( $product->get_image_id(), 'medium', true )[0].'">';
-            echo '<meta property="og:type" content="'.$product->get_type().'">';
-            echo '<meta property="og:image:alt" content="'.$product->get_name().'">';
-            echo '<meta property="og:title" content="'.$product->get_name().'">';
-            echo '<meta property="og:url" content="'.get_permalink( $product->get_id()).'">';
-            echo '<meta property="og:description" content="'.$product->get_name().'">';
+        if (is_product()) {
+            global $post;
+            $product = wc_get_product( $post->ID );
+            if ($product) {
+                echo '<meta property="og:image" content="'.wp_get_attachment_image_src( $product->get_image_id(), 'medium', true )[0].'">';
+                echo '<meta property="og:type" content="'.$product->get_type().'">';
+                echo '<meta property="og:image:alt" content="'.$product->get_name().'">';
+                echo '<meta property="og:title" content="'.$product->get_name().'">';
+                echo '<meta property="og:url" content="'.get_permalink( $product->get_id()).'">';
+                echo '<meta property="og:description" content="'.$product->get_name().'">';
+            }
         }
     }
 }
