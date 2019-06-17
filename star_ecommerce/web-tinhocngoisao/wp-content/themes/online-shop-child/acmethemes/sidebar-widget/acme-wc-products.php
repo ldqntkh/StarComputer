@@ -71,7 +71,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	        $all_link_url = esc_url( $instance['all_link_url'] );
 	        $enable_prev_next = esc_attr( $instance['enable_prev_next'] );
 	        $online_shop_img_size = esc_attr( $instance['online_shop_img_size'] );
-	        $carousel_auto_speed_period = esc_attr( $instance['carousel_autospeed'] );
+	        $carousel_auto_speed_period = isset($instance['carousel_autospeed']) ? esc_attr( $instance['carousel_autospeed'] ) : "";
 
 	        $choices = online_shop_get_image_sizes_options();
 	        ?>
