@@ -38,6 +38,8 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     "data_type_1_link_redirect" => ""
                 ),
                 "display_type_2" => array(
+                    "data_type_2_special_title" => "",
+                    "data_type_2_special_url" => "",
                     "data_type_2_special_product_id" => ""
                 ),
                 "display_type_3" => array(
@@ -279,6 +281,22 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                 <div class="tab-display <?php echo esc_attr( $idSelectDisplayType ); ?>" id="<?php echo esc_attr( $idSelectDisplayType ); ?>-2" >
                     <?php $widget_display_data_type_2 = $widget_display_data->display_type_2; ?>
                     <p>
+                        <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_2_special_title' ) ); ?>">
+                            <?php esc_html_e( 'Special title', 'online-shop' ); ?>
+                        </label>
+                        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_2_special_title' ) ); ?>" 
+                                name="<?php echo esc_attr( $this->get_field_name( 'data_type_2_special_title' ) ); ?>" type="text" 
+                                value="<?php echo $widget_display_data_type_2->data_type_2_special_title; ?>" />
+                    </p>
+                    <p>
+                        <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_2_special_url' ) ); ?>">
+                            <?php esc_html_e( 'Special category url', 'online-shop' ); ?>
+                        </label>
+                        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_2_special_url' ) ); ?>" 
+                                name="<?php echo esc_attr( $this->get_field_name( 'data_type_2_special_url' ) ); ?>" type="text" 
+                                value="<?php echo $widget_display_data_type_2->data_type_2_special_url; ?>" />
+                    </p>
+                    <p>
                         <h4><?php esc_html_e( 'Custom to show a special product', 'online-shop' ); ?></h4>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_2_special_product_id' ) ); ?>">
                             <?php esc_html_e( 'Special product id', 'online-shop' ); ?>
@@ -463,7 +481,6 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                                 value="<?php echo $widget_display_data_type_4->data_type_4_special_product_id_2; ?>" />
                     </p>
                     <p>
-                        <h4><?php esc_html_e( 'Custom to show special list product', 'online-shop' ); ?></h4>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_3' ) ); ?>">
                             <?php esc_html_e( 'Special product id 3', 'online-shop' ); ?>
                         </label>
@@ -536,6 +553,8 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                     "data_type_1_link_redirect" => ( isset( $new_instance['data_type_1_link_redirect'] ) ) ? sanitize_text_field( $new_instance['data_type_1_link_redirect'] ) : ''
                 ),
                 "display_type_2" => array(
+                    "data_type_2_special_title" => ( isset( $new_instance['data_type_2_special_title'] ) ) ? sanitize_text_field( $new_instance['data_type_2_special_title'] ) : '',
+                    "data_type_2_special_url" => ( isset( $new_instance['data_type_2_special_url'] ) ) ? sanitize_text_field( $new_instance['data_type_2_special_url'] ) : '',
                     "data_type_2_special_product_id" => ( isset( $new_instance['data_type_2_special_product_id'] ) ) ? sanitize_text_field( $new_instance['data_type_2_special_product_id'] ) : ''
                 ),
                 "display_type_3" => array(
