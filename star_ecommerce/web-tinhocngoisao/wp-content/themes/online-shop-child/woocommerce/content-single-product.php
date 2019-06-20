@@ -30,7 +30,13 @@ if ( post_password_required() ) {
 }
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class(); ?>>
-
+	<?php
+		$facebookOptions = get_option( 'custom_preferences_facebook_options' );
+		$facebookEnable = !empty( $facebookOptions ) && !empty( $facebookOptions['facebook_enable'] );
+	?>
+	<?php if ( $facebookEnable ) : ?>
+		<div class="fb-share-button" data-href="http://beta.tinhocngoisao.com" data-layout="<?php echo 'button'; ?>" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php" class="fb-xfbml-parse-ignore">Share</a></div>
+	<?php endif; ?>
 	<?php
 		/**
 		 * Hook: woocommerce_before_single_product_summary.

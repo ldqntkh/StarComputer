@@ -791,3 +791,18 @@ function is_mobile_device() {
 
 //********REGISTER API GET PRODUCT******** */
 include plugin_dir_path( __FILE__ ) . '/api/functions.php';
+
+// var_dump( get_option( 'custom_preferences_facebook_options' ) );
+// die();
+if ( get_option( 'custom_preferences_facebook_options' ) && get_option( 'custom_preferences_facebook_options' )['facebook_enable'] ) :
+    if ( ! function_exists( 'add_facebook_script_after_body' ) ) :
+
+        function add_facebook_script_after_body() {
+            ?>
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=1017059581804224&autoLogAppEvents=1"></script>
+        <?php
+        }
+    endif;
+    add_action( 'online_shop_action_before', 'add_facebook_script_after_body', 15 );
+endif;
