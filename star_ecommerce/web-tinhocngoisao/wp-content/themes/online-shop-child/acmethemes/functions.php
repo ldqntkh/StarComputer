@@ -792,15 +792,16 @@ function is_mobile_device() {
 //********REGISTER API GET PRODUCT******** */
 include plugin_dir_path( __FILE__ ) . '/api/functions.php';
 
-// var_dump( get_option( 'custom_preferences_facebook_options' ) );
-// die();
 if ( get_option( 'custom_preferences_facebook_options' ) && get_option( 'custom_preferences_facebook_options' )['facebook_enable'] ) :
     if ( ! function_exists( 'add_facebook_script_after_body' ) ) :
 
         function add_facebook_script_after_body() {
+            $fbBodyScript = isset( get_option( 'custom_preferences_facebook_options' )['facebook_body_script'] ) ? get_option( 'custom_preferences_facebook_options' )['facebook_body_script'] : '';
             ?>
             <div id="fb-root"></div>
-            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=1017059581804224&autoLogAppEvents=1"></script>
+            <?php if ( !empty( $fbBodyScript ) ) : ?>
+                <script async defer crossorigin="anonymous" src="<?php echo trim( $fbBodyScript ); ?>"></script>
+            <?php endif; ?>
         <?php
         }
     endif;

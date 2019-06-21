@@ -10,18 +10,9 @@
 
         add_settings_field( 'facebook_layout', __( 'Layout', 'online-shop' ), 'facebook_layout_section', 'custom_preferences_facebook', 'configuration_facebook' );
 
-        add_settings_field( '' );
-        // add_settings_field( 'zalo_appId', 'Zalo App ID', 'zalo_app_id_section', 'custom_preferences_zalo', 'configuration_zalo' );
+        add_settings_field( 'facebook_button_size', __( 'Button size', 'online-shop' ), 'facebook_button_size_section', 'custom_preferences_facebook', 'configuration_facebook' );
 
-        // add_settings_field( 'zalo_script_url', 'Zalo script url', 'zalo_app_script_url_section', 'custom_preferences_zalo', 'configuration_zalo' );
-
-        // add_settings_field( 'zalo_script_callback', 'Zalo script callback name', 'zalo_app_script_callback_section', 'custom_preferences_zalo', 'configuration_zalo' );
-
-        // add_settings_field( 'zalo_script_callback_func', 'Zalo script callback function', 'zalo_app_script_callback_function_section', 'custom_preferences_zalo', 'configuration_zalo' );
-
-        // add_settings_field( 'zalo_script_layout', 'Zalo layout', 'zalo_app_layout_section', 'custom_preferences_zalo', 'configuration_zalo' );
-
-        // add_settings_field( 'zalo_button_color', 'Zalo button color', 'zalo_button_section', 'custom_preferences_zalo', 'configuration_zalo' );
+        add_settings_field( 'facebook_body_script', __( 'Body script', 'online-shop' ), 'facebook_body_script_section', 'custom_preferences_facebook', 'configuration_facebook' );
     }
 
     function configuration_section_facebook() {
@@ -38,11 +29,26 @@
     function facebook_layout_section() {
         $layout = isset( facebookOptions['facebook_layout'] ) ? facebookOptions['facebook_layout'] : 'button_count';
         ?>
-            <select id="facebook_layout" name="custom_preferences_facebook[facebook_layout]">
+            <select id="facebook_layout" name="custom_preferences_facebook_options[facebook_layout]">
                 <option value="box_count" <?php if ($layout == "box_count") echo "selected"; ?>>Box count</option>
                 <option value="button_count" <?php if ($layout == "button_count") echo "selected"; ?>>Button count</option>
                 <option value="button" <?php if ($layout == "button") echo "selected"; ?>>Button</option>
             </select>
         <?php
+    }
+
+    function facebook_button_size_section() {
+        $buttonSize = isset( facebookOptions['facebook_button_size'] ) ? facebookOptions['facebook_button_size'] : 'small';
+    ?>
+        <select id="facebook_button_size" name="custom_preferences_facebook_options[facebook_button_size]">
+            <option value="small" <?php if ($buttonSize == "small") echo "selected"; ?>>Small</option>
+            <option value="large" <?php if ($buttonSize == "large") echo "selected"; ?>>Large</option>
+        </select>
+    <?php
+    }
+
+    function facebook_body_script_section() {
+        $bodyScript = isset( facebookOptions['facebook_body_script'] ) ? trim( facebookOptions['facebook_body_script'] ) : '';
+        echo '<textarea name="custom_preferences_facebook_options[facebook_body_script]" rows="4" cols="50">' . $bodyScript . '</textarea>';
     }
 ?>
