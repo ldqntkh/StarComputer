@@ -587,19 +587,19 @@ if ( !function_exists('woocommerce_template_gift_information') ) :
 endif;
 
 if ( !function_exists('woocommerce_template_social_share') ) :
-    function woocommerce_template_social_share() {
+    function woocommerce_template_social_share($args) {
         echo '<div class="socials-share">';
         // zalo
         if ( !empty( get_option( 'custom_preferences_zalo_options' )['zalo_enable'] ) && get_option( 'custom_preferences_zalo_options' )['zalo_enable'] === "true" ) :
             $zaloAppID = isset(get_option( 'custom_preferences_zalo_options' )['zalo_appId']) ? get_option( 'custom_preferences_zalo_options' )['zalo_appId'] : "";
             $zaloLayout = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_layout']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_layout'] : "1";
             $zaloButtonColor = isset(get_option( 'custom_preferences_zalo_options' )['zalo_button_color']) ? get_option( 'custom_preferences_zalo_options' )['zalo_button_color'] : "blue";
-            $currentUrl = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+            $shareURL = !empty( $args['shareURL'] ) ? $args['shareURL'] : get_home_url();
             $zaloScriptCallback = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_callback']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_callback'] : "";
             $zaloScriptCallbackFunc = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_callback_func']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_callback_func'] : "";
             if (!empty($zaloAppID)) {
                 if (!empty($zaloScriptCallback) && !empty($zaloScriptCallbackFunc)) {
-                    echo '<div class="zalo-share-button" data-href="'.$currentUrl.'" data-oaid="'.$zaloAppID.'" data-layout="'.$zaloLayout
+                    echo '<div class="zalo-share-button" data-href="'.$shareURL.'" data-oaid="'.$zaloAppID.'" data-layout="'.$zaloLayout
                             .'" data-color="'.$zaloButtonColor.'" data-callback="'.
                             $zaloScriptCallback.'" data-customize=false></div>';
                     echo '<script type="text/javascript">';
@@ -607,11 +607,19 @@ if ( !function_exists('woocommerce_template_social_share') ) :
                     echo '</script>';
                 }
                 else {
-                    echo '<div class="zalo-share-button" data-href="'.$currentUrl.'" data-oaid="'.$zaloAppID.'" data-layout="'.$zaloLayout.'" data-color="'.$zaloButtonColor.'" data-customize=false></div>';
+                    echo '<div class="zalo-share-button" data-href="'.$shareURL.'" data-oaid="'.$zaloAppID.'" data-layout="'.$zaloLayout.'" data-color="'.$zaloButtonColor.'" data-customize=false></div>';
                 }
             }
         endif;
 
+        // facebbok
+        $facebookOptions = !empty( get_option( 'custom_preferences_facebook_options' ) ) ? get_option( 'custom_preferences_facebook_options' ) : '';
+        if ( !empty( $facebookOptions ) && !empty( $facebookOptions['facebook_enable'] ) && $facebookOptions['facebook_enable'] === 'true' ) {
+            $fbEnable = !empty( $facebookOptions ) && !empty( $facebookOptions['facebook_enable'] );
+            $fbLayout = $facebookOptions[ 'facebook_layout' ];
+            $fbButtonSize = $facebookOptions[ 'facebook_button_size' ];
+            echo '<div class="fb-share-button" data-href="' . $shareURL . '" data-layout="' . $fbLayout . '" data-size="' . $fbButtonSize . '"><a target="_blank" class="fb-xfbml-parse-ignore">' . __( 'Share', 'online-shop' ) . '</a></div>';
+        }
         echo '</div>';
     }
 endif;
@@ -658,6 +666,11 @@ add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_add
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_installment_information', 17 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_trading_information', 5 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_contact_information', 7 );
+
+/**
+ * Blog content
+ */
+add_action( 'woocommerce_blog_header_additional', 'woocommerce_template_social_share', 5 );
 
 /**
  * Product header

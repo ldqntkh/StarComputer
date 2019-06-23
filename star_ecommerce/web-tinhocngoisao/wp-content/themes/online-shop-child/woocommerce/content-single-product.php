@@ -30,15 +30,7 @@ if ( post_password_required() ) {
 }
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class(); ?>>
-	<?php
-		$facebookOptions = get_option( 'custom_preferences_facebook_options' );
-		$fbEnable = !empty( $facebookOptions ) && !empty( $facebookOptions['facebook_enable'] );
-		$fbLayout = $facebookOptions[ 'facebook_layout' ];
-		$fbButtonSize = $facebookOptions[ 'facebook_button_size' ];
-	?>
-	<?php if ( $fbEnable ) : ?>
-		<div class="fb-share-button" data-href="http://beta.tinhocngoisao.com" data-layout="<?php echo $fbLayout; ?>" data-size="<?php echo $fbButtonSize; ?>"><a target="_blank" class="fb-xfbml-parse-ignore"><?php echo __( 'Share', 'online-shop' ); ?></a></div>
-	<?php endif; ?>
+
 	<?php
 		/**
 		 * Hook: woocommerce_before_single_product_summary.
@@ -67,7 +59,7 @@ if ( post_password_required() ) {
 		?>
 		<div class="summary entry-summary-left-column">
 			<?php
-				do_action( 'woocommerce_single_product_summary_left' );
+				do_action( 'woocommerce_single_product_summary_left', array( 'shareURL' => get_permalink( the_ID() ) ) );
 			?>
 		</div>
 

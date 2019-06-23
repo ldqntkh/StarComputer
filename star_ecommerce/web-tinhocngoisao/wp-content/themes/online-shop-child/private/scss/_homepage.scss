@@ -1309,5 +1309,11 @@ h2.woocommerce-loop-product__title {
 }
 
 .socials-share {
-    padding: 10px 0;
+    margin: 10px 0;
+    position: relative;
+    .fb_iframe_widget {
+        position: absolute;
+        top: -2px;
+        margin-left: 5px;
+    }
 }
