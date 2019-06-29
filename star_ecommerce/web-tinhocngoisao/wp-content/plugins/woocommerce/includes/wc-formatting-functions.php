@@ -1168,9 +1168,16 @@ function wc_format_stock_quantity_for_display( $stock_quantity, $product ) {
  * @return string
  */
 function wc_format_sale_price( $regular_price, $sale_price ) {
-	$price = '<ins>' . 
+	$salePriceLabel = '';
+	$regularPriceLabel = '';
+	if ( is_product() ) {
+		$salePriceLabel = '<span class="price-label">' . __( 'Khuyến mãi: ', 'online-shop' ) . '</span>';
+		$regularPriceLabel = '<strong class="price-label">' . __( 'Giá: ', 'online-shop' ) . '</strong>';
+	}
+
+	$price = '<ins>' . $salePriceLabel . 
 				( is_numeric( $sale_price ) ? wc_price( $sale_price ) : $sale_price ) . 
-				'</ins><del>' . 
+				'</ins><del>' . $regularPriceLabel . 
 				( is_numeric( $regular_price ) ? wc_price( $regular_price ) : $regular_price ) . 
 				'</del>';
 	return apply_filters( 'woocommerce_format_sale_price', $price, $regular_price, $sale_price );
