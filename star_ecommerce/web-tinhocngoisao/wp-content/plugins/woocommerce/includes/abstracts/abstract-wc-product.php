@@ -1712,7 +1712,8 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		} elseif ( $this->is_on_sale() ) {
 			$price = wc_format_sale_price( wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) ), wc_get_price_to_display( $this ) ) . $this->get_price_suffix();
 		} else {
-			$price = wc_price( wc_get_price_to_display( $this ) ) . $this->get_price_suffix();
+			$priceLabel = is_product() ? '<span class="price-label">' . __( 'Giá: ', 'online-shop' ) . '</span>' : '';
+			$price = $priceLabel . wc_price( wc_get_price_to_display( $this ) ) . $this->get_price_suffix();
 		}
 
 		return apply_filters( 'woocommerce_get_price_html', $price, $this );

@@ -161,7 +161,8 @@ class WC_Product_Variable extends WC_Product {
 			} elseif ( $this->is_on_sale() && $min_reg_price === $max_reg_price ) {
 				$price = wc_format_sale_price( wc_price( $max_reg_price ), wc_price( $min_price ) );
 			} else {
-				$price = wc_price( $min_price );
+				$priceLabel = is_product() ? '<span class="price-label">' . __( 'Giá: ', 'online-shop' ) . '</span>' : '';
+				$price = $priceLabel. wc_price( $min_price );
 			}
 
 			$price = apply_filters( 'woocommerce_variable_price_html', $price . $this->get_price_suffix(), $this );
