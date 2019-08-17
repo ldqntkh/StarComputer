@@ -12,16 +12,24 @@ class HeaderComponent extends Component {
 
     _handle_masp = (e)=> {
         this.setState({
-            ma_sp: e.target.value.trim(),
+            ma_sp: e.target.value,
             ten_sp: ''
-        })
+        });
+        this.props.setValueSearch({
+            ma_sp : e.target.value,
+            ten_sp: ''
+        });
     }
 
     _handle_tensp = (e)=> {
         this.setState({
-            ten_sp: e.target.value.trim(),
+            ten_sp: e.target.value,
             ma_sp: ''
-        })
+        });
+        this.props.setValueSearch({
+            ma_sp : '',
+            ten_sp: e.target.value
+        });
     }
 
     render() {

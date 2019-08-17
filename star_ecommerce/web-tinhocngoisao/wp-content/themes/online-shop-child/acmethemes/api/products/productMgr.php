@@ -27,7 +27,7 @@ if (!function_exists('get_products_by_categoryid')) :
          */
         $query_args = array(
             'posts_per_page' => $post_number,
-            'offset'         => $start_page * $post_number,
+            'offset'         => ($start_page - 1) * $post_number,
             'post_status'    => 'publish',
             'post_type'      => 'product',
             'no_found_rows'  => 1,
