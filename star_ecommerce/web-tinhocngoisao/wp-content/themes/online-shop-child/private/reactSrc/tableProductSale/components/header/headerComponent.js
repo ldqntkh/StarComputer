@@ -56,9 +56,9 @@ class HeaderComponent extends Component {
                     <div className="tb-col-4">
                         <h3>Bảo hành</h3>
                     </div>
-                    <div className="tb-col-5">
+                    {/* <div className="tb-col-5">
                         <h3>Tình trạng</h3>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         )

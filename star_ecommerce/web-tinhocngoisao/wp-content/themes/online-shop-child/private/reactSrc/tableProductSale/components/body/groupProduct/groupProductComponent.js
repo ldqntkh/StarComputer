@@ -87,11 +87,11 @@ class GroupProductComponent extends Component {
                             <p>
                                 Bảo hành: {product.period}(tháng)
                             </p>
-                            <p>
+                            {/* <p>
                                 {
                                     product.stock_status === "instock" ? `Còn hàng ${product.stock_quantity}` : 'Hết hàng'
                                 }
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                     <div className="tb-col-3">
@@ -104,13 +104,13 @@ class GroupProductComponent extends Component {
                     <div className="tb-col-4">
                         <h4>{product.period}(tháng)</h4>
                     </div>
-                    <div className="tb-col-5">
+                    {/* <div className="tb-col-5">
                         <span>
                             {
                                 product.stock_status === "instock" ? `Còn hàng ${product.stock_quantity}` : 'Hết hàng'
                             }
                         </span>
-                    </div>
+                    </div> */}
                 </div>
             )
         }
