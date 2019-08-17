@@ -1,6 +1,6 @@
 <?php
 /**
- * get_products_by_categoryid?advanced_option=recent&product_cat=15&product_tag=1652&post_number=10&start_number=0&orderby=date&order=DESC
+ * get_products_by_categoryid?advanced_option=recent&product_cat=15&product_tag=1652&post_number=10&start_number=0&orderby=date&order=DESC&get_slug=1
  */
 if (!function_exists('get_products_by_categoryid')) :
     function get_products_by_categoryid(WP_REST_Request $request) {
@@ -13,6 +13,7 @@ if (!function_exists('get_products_by_categoryid')) :
         $post_number = absint( $_GET[ 'post_number' ] );
         $orderby = esc_attr( $_GET[ 'orderby' ] );
         $order = esc_attr( $_GET[ 'order' ] );
+        $get_slug = $_GET[ 'get_slug' ] ? absint( $_GET[ 'get_slug' ] ) : 0;
 
         $product_visibility_term_ids = wc_get_product_visibility_term_ids();
 
@@ -26,7 +27,7 @@ if (!function_exists('get_products_by_categoryid')) :
          */
         $query_args = array(
             'posts_per_page' => $post_number,
-            'offset'         => $start_page * $post_number,
+            'offset'         => ($start_page - 1) * $post_number,
             'post_status'    => 'publish',
             'post_type'      => 'product',
             'no_found_rows'  => 1,
@@ -114,7 +115,7 @@ if (!function_exists('get_products_by_categoryid')) :
             while ( $online_shop_featured_query->have_posts() ) : $online_shop_featured_query->the_post();
                 // Do Stuff
                 global $product;
-                array_push($products, getProductInfo($product));
+                array_push($products, getProductInfo($product, $get_slug));
             endwhile;
             $result = array(
                 "status" => "OK",
@@ -166,7 +167,7 @@ if (!function_exists('get_products_by_productids')) :
 endif;
 
 if (!function_exists('getProductInfo')) :
-    function getProductInfo($product, $image_type = 'medium') {
+    function getProductInfo($product, $get_slug, $image_type = 'medium') {
         if ($product->get_type() === 'variable') {
             $regular_price = $product->get_variation_regular_price();
             $sale_price = $product->get_variation_sale_price();
@@ -194,7 +195,17 @@ if (!function_exists('getProductInfo')) :
             $period = 36;
         }
         $arrPt['period'] = $period;
-
+        if ($get_slug == 1) {
+            $terms = get_the_terms( $product->get_id(), 'product_cat' );
+            $slugs = [];
+            if (count($terms) > 0) {
+                foreach($terms as $item) {
+                    array_push($slugs, $item->slug);
+                }
+            }
+            $arrPt['slugs'] = $slugs;
+        }
+        
         return $arrPt;
     }
 endif;

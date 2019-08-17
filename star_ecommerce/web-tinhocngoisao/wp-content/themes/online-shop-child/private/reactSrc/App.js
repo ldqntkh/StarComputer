@@ -2,6 +2,7 @@ import hotDealApp from './hotDeal/App';
 import buildPCApp from './buildPC/App';
 import ListCategoryMobile from './listCatagoryMobile/App';
 import WidgetATProduct from './widgetAtProduct/App';
+import TableProductSale from './tableProductSale/App';
 
 const elementIds = [
     {
@@ -15,6 +16,10 @@ const elementIds = [
     {
         ids : ["list_category_mobile"],
         appName : ListCategoryMobile
+    },
+    {
+        ids : ["list_sale_price"],
+        appName : TableProductSale
     },
 ];
 
