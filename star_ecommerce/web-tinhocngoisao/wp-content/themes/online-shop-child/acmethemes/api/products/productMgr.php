@@ -152,6 +152,9 @@ if (!function_exists('get_products_by_productids')) :
             foreach ($productIds as $productId) {
                 if (!empty($productId)){
                     $product = wc_get_product( $productId, 'large' );
+                    if (!$product) {
+                        continue;
+                    }
                     array_push($products, getProductInfo($product, 0));
                 }
             }
