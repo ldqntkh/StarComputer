@@ -4,54 +4,8 @@ class GroupProductComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            listProduct : []
-        }
     }
 
-    _arrayContainsArray = (superset, subset)=> {
-        if (0 === subset.length) {
-          return false;
-        }
-        for (let i in subset) {
-            if (superset.includes(subset[i])) return true;
-        }
-        return false;
-      }
-
-    searchProducts = (lstProduct)=> {
-        let that = this;
-        return new Promise((resolve, reject) => {
-            let data = [...lstProduct];
-            try {
-                let {
-                    item
-                } = this.props;
-                let result = [];
-                if (item.cat_slug.length == 0) {
-                    for (let index in data) {
-                        result.push(data[index]);
-                        data.splice(index,1);
-                    }
-                } else {
-                    for (let index in data) {
-                        if (data[index].slugs && that._arrayContainsArray(item.cat_slug, data[index].slugs)) {
-                            result.push(data[index]);
-                            data.splice(index,1);
-                        }
-                    }
-                }
-                that.setState({
-                    listProduct: this.state.listProduct.concat(result)
-                });
-                
-                resolve(data);
-            } catch (err) {
-                console.log(err.message);
-                reject(err);
-            }
-        });
-    }
 
     _renderListProduct = (listProduct)=> {
         let search = this.props.search;
@@ -87,11 +41,11 @@ class GroupProductComponent extends Component {
                             <p>
                                 Bảo hành: {product.period}(tháng)
                             </p>
-                            <p>
+                            {/* <p>
                                 {
                                     product.stock_status === "instock" ? `Còn hàng ${product.stock_quantity}` : 'Hết hàng'
                                 }
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                     <div className="tb-col-3">
@@ -104,13 +58,13 @@ class GroupProductComponent extends Component {
                     <div className="tb-col-4">
                         <h4>{product.period}(tháng)</h4>
                     </div>
-                    <div className="tb-col-5">
+                    {/* <div className="tb-col-5">
                         <span>
                             {
                                 product.stock_status === "instock" ? `Còn hàng ${product.stock_quantity}` : 'Hết hàng'
                             }
                         </span>
-                    </div>
+                    </div> */}
                 </div>
             )
         }
@@ -119,11 +73,8 @@ class GroupProductComponent extends Component {
 
     render() {
         let item = this.props.item;
-        let {
-            listProduct
-        } = this.state;
         
-        let renderLstProduct = this._renderListProduct(listProduct);
+        let renderLstProduct = this._renderListProduct(item.products);
 
         if (renderLstProduct.length === 0) return null;
 

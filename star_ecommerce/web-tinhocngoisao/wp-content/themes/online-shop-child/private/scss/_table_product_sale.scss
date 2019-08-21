@@ -74,7 +74,6 @@
             }
             .tb-col-4 {
                 width: 100px;
-                border-right: none;
                 display: none;
                 @media screen and (min-width: 768px) {
                     display: block;
@@ -209,6 +208,22 @@
                 @media screen and (min-width: 768px) {
                     display: block;
                 }
+            }
+        }
+    }
+    .loading {
+        height: 200px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        i {
+            margin-left: 5px;
+            font-size: 50px !important;
+            &.fa-spinner {
+                color: red;
+                font-size: 20px;
+                animation: spin 2s linear infinite;
             }
         }
     }
