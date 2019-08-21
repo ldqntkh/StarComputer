@@ -152,7 +152,7 @@ if (!function_exists('get_products_by_productids')) :
             foreach ($productIds as $productId) {
                 if (!empty($productId)){
                     $product = wc_get_product( $productId, 'large' );
-                    array_push($products, getProductInfo($product));
+                    array_push($products, getProductInfo($product, 0));
                 }
             }
             $result = array(
