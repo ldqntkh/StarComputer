@@ -2,11 +2,20 @@
 <?php 
     $packages = WC()->shipping->get_packages();
     $currentUser = wp_get_current_user();
-    $otherAddr = get_user_meta( $currentUser->ID, 'wc_multiple_shipping_addresses', true );
+    $otherAddr = [];
+    if ($currentUser->ID !== 0) {
+        $otherAddr = get_user_meta( $currentUser->ID, 'wc_multiple_shipping_addresses', true );
+    } else if (WC()->session->get('address-checkout')) {
+        $otherAddr = WC()->session->get('address-checkout');
+    } else {
+        WC()->session->set( 'checkoutstep', 2 );
+        header('Location: '.$_SERVER['REQUEST_URI']);
+    }
+
     $addressSelected = [];
     $placeOrderText = __( 'Place order', 'woocommerce' );
     foreach ( $otherAddr as $idx => $address ) {
-        if ($address['shipping_address_is_selected'] === 'true') {
+        if ( isset($address['shipping_address_is_selected']) && $address['shipping_address_is_selected'] === 'true') {
             $addressSelected = $address;
             break;
         }
@@ -17,6 +26,11 @@
 <div class="checkout-payment">
     <div class="paymnent-details">
         <h2>3. Chọn hình thức giao hàng và thanh toán</h2>
+        <?php 
+            if ($currentUser->ID === 0) {
+                echo '<p>Bạn đã có tài khoản? <a href="">Đăng nhập</a> hoặc <a href="">Đăng ký</a></p>';
+            }
+        ?>
         <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
             <div class="delivery hidden">
                 <h3>3.1 Chọn hình thức giao hàng</h3>
@@ -45,6 +59,9 @@
                 <br/>
                 <i>Vui lòng kiểm tra lại đơn hàng trước khi đặt mua</i>
             </div>
+            <?php if ($currentUser->ID === 0) : ?>
+                <input type="hidden" name="billing_first_name" value="<?php echo $addressSelected['shipping_first_name']; ?>" />
+            <?php endif;?>
             <input type="hidden" name="billing_last_name" value="<?php echo $addressSelected['shipping_last_name']; ?>" />
             <input type="hidden" name="billing_country" value="VN" />
             <input type="hidden" name="billing_address_1" value="<?php echo $addressSelected['shipping_address_1']; ?>" />
@@ -52,7 +69,12 @@
             <input type="hidden" name="billing_city" value="<?php echo $addressSelected['shipping_city']; ?>" />
             <input type="hidden" name="billing_state" value="<?php echo $addressSelected['shipping_state']; ?>" />
             <input type="hidden" name="billing_phone" value="<?php echo $addressSelected['shipping_phone']; ?>" />
-            <input type="hidden" name="billing_email" value="<?php echo $currentUser->user_email; ?>"/>
+            <?php if ($currentUser->ID === 0) : ?>
+                <input type="hidden" name="billing_email" value="<?php echo $addressSelected['shipping_email']; ?>" />
+            <?php else :?>
+                <input type="hidden" name="billing_email" value="<?php echo $currentUser->user_email; ?>"/>
+            <?php endif; ?>
+            
             <?php wp_nonce_field( 'woocommerce-process_checkout', 'woocommerce-process-checkout-nonce' ); ?>
             
         </form>

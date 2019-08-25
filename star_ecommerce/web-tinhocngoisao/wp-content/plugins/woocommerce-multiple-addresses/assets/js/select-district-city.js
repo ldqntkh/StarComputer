@@ -4,6 +4,11 @@
             getDistrict( $(this).parents('.shipping_address'), $(this).val() );
         });
 
+        // for edit
+        if (typeof shipping_state !== "undefined" && shipping_state !== "") {
+            $('.city-field').val(shipping_state).trigger('change');
+        }
+
         $('.district-field').off('change').on('change', function() {
             getWard( $(this).parents('.shipping_address'), $(this).val() );
         });
@@ -104,6 +109,8 @@
 
                         if ( $districtValue && $districtValue !== '' ) {
                             $district.val( $districtValue );
+                        } else if (typeof shipping_city !== "undefined" && shipping_city !== "") {
+                            $district.val(shipping_city).trigger('change');
                         }
 
                         if ( $callback ) {
@@ -136,6 +143,8 @@
 
                         if ( $wardValue && $wardValue !== '' ) {
                             $ward.val( $wardValue );
+                        } else if (typeof shipping_address_2 !== "undefined" && shipping_address_2 !== "") {
+                            $ward.val(shipping_address_2);
                         }
                     }
                 }

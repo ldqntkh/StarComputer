@@ -90,6 +90,8 @@ class WC_Multiple_addresses {
 		add_action( 'load_tinh_thanhpho', array( $this, 'get_tinh_thanhpho' ), 20 );
 
 		add_action( 'wp_ajax_diagioihanhchinh', array( $this, 'load_diagioihanhchinh_func' ), 20 );
+		// if user not login
+		add_action('wp_ajax_nopriv_diagioihanhchinh', array( $this, 'load_diagioihanhchinh_func' ), 20 );
 
 		add_filter( 'woocommerce_order_formatted_billing_address', array($this, 'custom_woocommerce_order_formatted_billing_address'), 10, 2);
 		add_filter('woocommerce_order_formatted_shipping_address', array($this, 'custom_woocommerce_order_formatted_shipping_address'), 10, 2);
@@ -566,18 +568,22 @@ class WC_Multiple_addresses {
 			}
 
 			$user = wp_get_current_user();
-			
-			if ( $is_default !== false ) {
-				$default_address = $addresses[ $is_default ];
-				foreach ( $default_address as $key => $field ) :
-					if ( $key == 'shipping_address_is_default' ) {
-						continue;
-					}
-					update_user_meta( $user->ID, $key, $field );
-				endforeach;
+			if ($user->ID !== 0) {
+				if ( $is_default !== false ) {
+					$default_address = $addresses[ $is_default ];
+					foreach ( $default_address as $key => $field ) :
+						if ( $key == 'shipping_address_is_default' ) {
+							continue;
+						}
+						update_user_meta( $user->ID, $key, $field );
+					endforeach;
+				}
+	
+				update_user_meta( $user->ID, 'wc_multiple_shipping_addresses', $addresses );
+			} else {
+				WC()->session->set('address-checkout', $addresses);
 			}
-
-			update_user_meta( $user->ID, 'wc_multiple_shipping_addresses', $addresses );
+			
 
 			// if ( version_compare( WOOCOMMERCE_VERSION, '2.1', '<' ) ) {
 			// 	global $woocommerce;

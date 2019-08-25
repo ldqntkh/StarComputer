@@ -3,23 +3,21 @@
     <?php if ( $order ) : ?>
     <div class="thank-contents">
         <h2>4. Hoàn tất đặt hàng</h4>
-        <div class="thank-content">
-            <h3 class="title">
-                Cảm ơn bạn đã đặt hàng ở TinHocNgoiSao
-            </h3>
-            <p>Đơn hàng của bạn với mã số <a href="<?php echo $order->get_view_order_url(); ?>"><?php echo $order->get_id(); ?></a> đã được chúng tôi tiếp nhận.<br/>
-                Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất để xác nhận lại đơn hàng của bạn</p>
-            <p>Thời gian giao hàng dự kiến từ 3 đến 4 ngày làm việc</p>
-            <p>Chi tiết về đơn hàng chúng tôi đã gửi đến địa chỉ email : <?php echo $order->get_billing_email(); ?> <br/>
-                <i>Nếu bạn không nhận được email này vui lòng kiểm tra trong <strong>spam</strong> hoặc <strong>Junk folder</strong></i></p>
-            
-            <br/>
-            <h3>Các câu hỏi thường gặp trong quá trình mua hàng tại cửa hàng của chúng tôi</h3>
-            <p><a href="#">1. Chính sách bảo mật</a></p>
-            <p><a href="#">2. Kiểm tra đơn hàng như thế nào?</a></p>
-            <p><a href="#">3. Thời gian giao hàng</a></p>
-            <p><a href="#">4. Chính sách bảo hành / đổi trả hàng</a></p>
-        </div>
+        <?php 
+            $currentUser = wp_get_current_user();
+            if ($currentUser->ID !== 0) {
+                $order_url = '<a href="' .$order->get_view_order_url(). '">'.$order->get_id().'</a>';
+            } else {
+                $order_url = '<a href="' . get_permalink( get_page_by_path( 'order-details' ) ) . '?order_id=' . $order->get_id() . '">'.$order->get_id().'</a>';
+            }
+            $page_slug ='order-summary';
+            $page_data = get_page_by_path($page_slug);
+            $page_content = $page_data->post_content;
+
+            $page_content = str_replace('{link_order}', $order_url, $page_content);
+            $page_content = str_replace('{order_email}', $order->get_billing_email(), $page_content);
+            echo $page_content;
+        ?>
     </div>
     <div class="right-content"></div>
     <?php endif;?>
