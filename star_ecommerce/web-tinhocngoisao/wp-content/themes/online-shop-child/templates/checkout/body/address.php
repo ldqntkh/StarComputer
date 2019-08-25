@@ -16,6 +16,7 @@
             echo '<p>Chọn địa chỉ giao hàng có sẵn</p>';
         } else {
             echo '<h2>2. Nhập địa chỉ giao hàng</h2>';
+            echo '<p>Bạn đã có tài khoản? <a href="' .get_permalink( get_page_by_path( 'checkout' ) ).'?type=login'. '">Đăng nhập</a> hoặc <a href="">Đăng ký</a></p>';
         }
     ?>
     

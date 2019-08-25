@@ -1,6 +1,6 @@
 <div class="checkout-account">
     <h2>1. Đăng nhập hoặc đăng ký thành viên mới</h2>
-    <div class="social-login">
+    <!-- <div class="social-login">
         <h3>Thanh toán đơn hàng trong chỉ một bước với:</h3>
         <div class="social-buttons">
             <a class="btn btn-block btn-social btn-facebook user-name-loginfb" title="Đăng nhập bằng Facebook" href="javascript: void(0)" data-url="https://tiki.vn/customer/account/login_facebook?checkout_step=1">
@@ -18,7 +18,7 @@
                 <span class="text">Đăng nhập bằng Zalo</span>
             </a>
         </div>
-    </div>
+    </div> -->
 
     <div class="account-order">
         <div class="form-account">
@@ -153,6 +153,9 @@
             evt.currentTarget.className += ' active';
         }
         var currentTab = '<?php echo ! empty( $_POST['login'] ) ? 'checkout_login' : ! empty( $_POST['register'] ) ? 'checkout_register' : 'checkout_login'; ?>';
+        <?php if (isset($_GET['type']) && $_GET['type']==='register') : ?>
+            currentTab = 'checkout_register';
+        <?php endif; ?>
         document.getElementById(currentTab).click();
     </script>
 </div>
