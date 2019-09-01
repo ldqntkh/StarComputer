@@ -587,14 +587,15 @@ if ( !function_exists('woocommerce_template_gift_information') ) :
 endif;
 
 if ( !function_exists('woocommerce_template_social_share') ) :
-    function woocommerce_template_social_share($args) {
+    function woocommerce_template_social_share() {
+        global $product;
         echo '<div class="socials-share">';
         // zalo
         if ( !empty( get_option( 'custom_preferences_zalo_options' )['zalo_enable'] ) && get_option( 'custom_preferences_zalo_options' )['zalo_enable'] === "true" ) :
             $zaloAppID = isset(get_option( 'custom_preferences_zalo_options' )['zalo_appId']) ? get_option( 'custom_preferences_zalo_options' )['zalo_appId'] : "";
             $zaloLayout = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_layout']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_layout'] : "1";
             $zaloButtonColor = isset(get_option( 'custom_preferences_zalo_options' )['zalo_button_color']) ? get_option( 'custom_preferences_zalo_options' )['zalo_button_color'] : "blue";
-            $shareURL = !empty( $args['shareURL'] ) ? $args['shareURL'] : get_home_url();
+            $shareURL = get_permalink( $product->id );
             $zaloScriptCallback = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_callback']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_callback'] : "";
             $zaloScriptCallbackFunc = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_callback_func']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_callback_func'] : "";
             if (!empty($zaloAppID)) {
