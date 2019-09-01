@@ -59,7 +59,7 @@ if ( post_password_required() ) {
 		?>
 		<div class="summary entry-summary-left-column">
 			<?php
-				do_action( 'woocommerce_single_product_summary_left', array( 'shareURL' => get_permalink( the_ID() ) ) );
+				do_action( 'woocommerce_single_product_summary_left' );
 			?>
 		</div>
 
