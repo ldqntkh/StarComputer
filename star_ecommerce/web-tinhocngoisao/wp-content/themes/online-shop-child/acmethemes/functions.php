@@ -821,3 +821,6 @@ if ( get_option( 'custom_preferences_facebook_options' ) && get_option( 'custom_
     endif;
     add_action( 'online_shop_action_before', 'add_facebook_script_after_body', 15 );
 endif;
+
+//********SEARCH ORDER******** */
+include plugin_dir_path( __FILE__ ) . '/filter/search-order.php';
