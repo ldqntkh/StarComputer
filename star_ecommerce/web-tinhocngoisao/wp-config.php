@@ -23,10 +23,10 @@
 define('DB_NAME', 'db_tinhocngoisao');
 
 /** MySQL database username */
-define('DB_USER', 'root');
+define('DB_USER', 'admin');
 
 /** MySQL database password */
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'Admin@1234');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
@@ -87,5 +87,3 @@ if ( !defined('ABSPATH') )
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
-
-define('WP_CACHE', true);
