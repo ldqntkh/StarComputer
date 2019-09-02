@@ -535,7 +535,7 @@ class WP_List_Table {
 			$extra_checks
 			ORDER BY post_date DESC
 		", $post_type ) );
-
+		
 		/**
 		 * Filters the 'Months' drop-down results.
 		 *
@@ -555,7 +555,7 @@ class WP_List_Table {
 ?>
 		<label for="filter-by-date" class="screen-reader-text"><?php _e( 'Filter by date' ); ?></label>
 		<select name="m" id="filter-by-date">
-			<option<?php selected( $m, 0 ); ?> value="0"><?php _e( 'All dates' ); ?></option>
+			<option <?php selected( $m, 0 ); ?> value="0"><?php _e( 'All dates' ); ?></option>
 <?php
 		foreach ( $months as $arc_row ) {
 			if ( 0 == $arc_row->year )
