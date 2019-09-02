@@ -9,8 +9,9 @@ var custom_filter = require('./custom_filter');
 var showRooms = require('./showroom');
 var footer = require('./footer');
 var address = require('./address');
-
+var sliderPage = require('./sliderPage');
 $(document).ready(function() {
+    sliderPage.init();
     header_menu.init();
     cartpage.init();
     accountpage.init();
