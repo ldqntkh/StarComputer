@@ -3,6 +3,7 @@ var url_api = 'insert_multiple_products_to_cart?product_data_add_to_cart={0}';
 import {
     HOST_URL_API
 } from '../../../../variable';
+import axios from 'axios';
 export default class AddConfigBuildPcToCartComponent extends Component {
 
     constructor(props) {
@@ -45,12 +46,13 @@ export default class AddConfigBuildPcToCartComponent extends Component {
                 let link = HOST_URL_API + url_api.replace('{0}', data_insert);
 
                 try {
-                    let response = await fetch(link);
-                    let jsonResponse = await response.json();
-                    if (jsonResponse.success) {
+                    let response = await axios.get(link);
+                    let _resData = response;
+                    console.log(response);
+                    if (_resData.success) {
                         window.location.reload();
                     } else {
-                        alert(jsonResponse.errMsg);
+                        alert(_resData.errMsg);
                     }
                 } catch(err) {
                     alert(err.message);

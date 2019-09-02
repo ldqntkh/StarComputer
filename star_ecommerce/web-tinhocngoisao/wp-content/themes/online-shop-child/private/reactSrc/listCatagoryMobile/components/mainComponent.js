@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import ListCategoriesComponent from './listCategoriesComponent';
-
+import axios from 'axios';
 import {
     URL_GET_LIST_CATEGORIES
 } from '../../variable';
@@ -34,19 +34,19 @@ class MainComponent extends Component {
                 category_click : category
             });
         } else {
-            fetch(url)
-            .then(response =>  response.json())
+            axios.get(url)
             .then(resData => {
+                let _resData = resData.data;
                 if (resData.status !== "OK") {
-                    console.log(resData.errMsg)
+                    console.log(_resData.errMsg)
                 }
-                if (resData.data.length == 0) {
+                if (_resData.data.length == 0) {
                     if (category) location.href = category.url;
                 } else {
                     this.setState({
                         fetched : true,
                         loaded : true,
-                        categories : resData.data == null ? [] : resData.data,
+                        categories : _resData.data == null ? [] : _resData.data,
                         category_click : category
                     });
                     sessionStorage.setItem(CATEGORIES_DATA, JSON.stringify(this.state.categories));

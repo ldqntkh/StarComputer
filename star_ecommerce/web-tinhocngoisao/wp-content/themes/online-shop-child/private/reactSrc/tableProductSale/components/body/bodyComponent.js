@@ -37,7 +37,11 @@ class BodyComponent extends Component {
           return false;
         }
         for (let i in subset) {
-            if (superset.includes(subset[i])) return true;
+            if (!String.prototype.includes) {
+                // for IE
+                if (superset.toString().indexOf(subset[i]) >= 0) return true;
+            }
+            else if (superset.includes(subset[i])) return true;
         }
         return false;
     }

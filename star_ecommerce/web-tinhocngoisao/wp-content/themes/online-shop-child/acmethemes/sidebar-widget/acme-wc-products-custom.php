@@ -256,7 +256,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
             <!-- custom fields for display type -->
             <section>
                 <div class="tab-display <?php echo esc_attr( $idSelectDisplayType ); ?>" id="<?php echo esc_attr( $idSelectDisplayType ); ?>-1">
-                    <?php $widget_display_data_type_1 = $widget_display_data->display_type_1; ?>
+                    <?php $widget_display_data_type_1 = isset($widget_display_data->display_type_1) ? $widget_display_data->display_type_1 : []; ?>
                     <p>
                         <h4><?php esc_html_e( 'Custom to show a url with large image', 'online-shop' ); ?></h4>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_1_image_url' ) ); ?>">
@@ -264,7 +264,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_1_image_url' ) ); ?>" 
                             name="<?php echo esc_attr( $this->get_field_name( 'data_type_1_image_url' ) ); ?>" type="text" 
-                            value="<?php echo $widget_display_data_type_1->data_type_1_image_url; ?>" />
+                            value="<?php if (isset($widget_display_data_type_1->data_type_1_image_url)) echo $widget_display_data_type_1->data_type_1_image_url; ?>" />
                     </p>
                     <p>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_1_link_redirect' ) ); ?>">
@@ -272,21 +272,21 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_1_link_redirect' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_1_link_redirect' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_1->data_type_1_link_redirect; ?>" />
+                                value="<?php if (isset($widget_display_data_type_1->data_type_1_link_redirect)) echo $widget_display_data_type_1->data_type_1_link_redirect; ?>" />
                     </p>
                     <hr/>
                     <img src="<?php echo get_stylesheet_directory_uri() . '/assets/img/display_type_1.png'; ?>" style="width:100%" />
                 </div>
 
                 <div class="tab-display <?php echo esc_attr( $idSelectDisplayType ); ?>" id="<?php echo esc_attr( $idSelectDisplayType ); ?>-2" >
-                    <?php $widget_display_data_type_2 = $widget_display_data->display_type_2; ?>
+                    <?php $widget_display_data_type_2 = isset($widget_display_data->display_type_2) ? $widget_display_data->display_type_2 : []; ?>
                     <p>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_2_special_title' ) ); ?>">
                             <?php esc_html_e( 'Special title', 'online-shop' ); ?>
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_2_special_title' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_2_special_title' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_2->data_type_2_special_title; ?>" />
+                                value="<?php if (isset($widget_display_data_type_2->data_type_2_special_title)) echo $widget_display_data_type_2->data_type_2_special_title; ?>" />
                     </p>
                     <p>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_2_special_url' ) ); ?>">
@@ -294,7 +294,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_2_special_url' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_2_special_url' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_2->data_type_2_special_url; ?>" />
+                                value="<?php if (isset($widget_display_data_type_2->data_type_2_special_url)) echo $widget_display_data_type_2->data_type_2_special_url; ?>" />
                     </p>
                     <p>
                         <h4><?php esc_html_e( 'Custom to show a special product', 'online-shop' ); ?></h4>
@@ -303,7 +303,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_2_special_product_id' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_2_special_product_id' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_2->data_type_2_special_product_id; ?>" />
+                                value="<?php if (isset($widget_display_data_type_2->data_type_2_special_product_id)) echo $widget_display_data_type_2->data_type_2_special_product_id; ?>" />
                     </p>
                     
                     <hr/>
@@ -311,7 +311,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                 </div>
 
                 <div class="tab-display <?php echo esc_attr( $idSelectDisplayType ); ?>" id="<?php echo esc_attr( $idSelectDisplayType ); ?>-3">
-                    <?php $widget_display_data_type_3 = $widget_display_data->display_type_3; ?>
+                    <?php $widget_display_data_type_3 = isset($widget_display_data->display_type_3) ? $widget_display_data->display_type_3 : []; ?>
                     <p>
                         <h4><?php esc_html_e( 'Custom to show a special content image', 'online-shop' ); ?></h4>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_content_url' ) ); ?>">
@@ -319,7 +319,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_content_url' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_content_url' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_3->data_type_3_special_content_url; ?>" />
+                                value="<?php if (isset($widget_display_data_type_3->data_type_3_special_content_url)) echo $widget_display_data_type_3->data_type_3_special_content_url; ?>" />
                     </p>
 
                     <p>
@@ -328,7 +328,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_content_url_image' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_content_url_image' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_3->data_type_3_special_content_url_image; ?>" />
+                                value="<?php if (isset($widget_display_data_type_3->data_type_3_special_content_url_image)) echo $widget_display_data_type_3->data_type_3_special_content_url_image; ?>" />
                     </p>
 
                     <p>
@@ -337,7 +337,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_content_title' ) ); ?>" 
                                     name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_content_title' ) ); ?>" type="text" 
-                                    value="<?php echo $widget_display_data_type_3->data_type_3_special_content_title; ?>" />
+                                    value="<?php if (isset($widget_display_data_type_3->data_type_3_special_content_title)) echo $widget_display_data_type_3->data_type_3_special_content_title; ?>" />
                     </p>
 
                     <p>
@@ -346,7 +346,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_content_desc' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_content_desc' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_3->data_type_3_special_content_desc; ?>" />
+                                value="<?php if (isset($widget_display_data_type_3->data_type_3_special_content_desc)) echo $widget_display_data_type_3->data_type_3_special_content_desc; ?>" />
                     </p>
                     <hr/>
                     <p>
@@ -355,7 +355,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_title' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_title' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_3->data_type_3_special_title; ?>" />
+                                value="<?php if (isset($widget_display_data_type_3->data_type_3_special_title)) echo $widget_display_data_type_3->data_type_3_special_title; ?>" />
                     </p>
                     <p>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_url' ) ); ?>">
@@ -363,7 +363,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_url' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_url' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_3->data_type_3_special_url; ?>" />
+                                value="<?php if (isset($widget_display_data_type_3->data_type_3_special_url)) echo $widget_display_data_type_3->data_type_3_special_url; ?>" />
                     </p>
 
                     <hr/>
@@ -374,7 +374,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_product_id_1' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_product_id_1' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_3->data_type_3_special_product_id_1; ?>" />
+                                value="<?php if (isset($widget_display_data_type_3->data_type_3_special_product_id_1)) echo $widget_display_data_type_3->data_type_3_special_product_id_1; ?>" />
                     </p>
 
                     <p>
@@ -383,7 +383,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_product_id_2' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_product_id_2' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_3->data_type_3_special_product_id_2; ?>" />
+                                value="<?php if (isset($widget_display_data_type_3->data_type_3_special_product_id_2)) echo $widget_display_data_type_3->data_type_3_special_product_id_2; ?>" />
                     </p>
 
                     <p>
@@ -392,7 +392,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_product_id_3' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_product_id_3' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_3->data_type_3_special_product_id_3; ?>" />
+                                value="<?php if (isset($widget_display_data_type_3->data_type_3_special_product_id_3)) echo $widget_display_data_type_3->data_type_3_special_product_id_3; ?>" />
                     </p>
 
                     <p>
@@ -401,14 +401,14 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_3_special_product_id_4' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_3_special_product_id_4' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_3->data_type_3_special_product_id_4; ?>" />
+                                value="<?php if (isset($widget_display_data_type_3->data_type_3_special_product_id_4)) echo $widget_display_data_type_3->data_type_3_special_product_id_4; ?>" />
                     </p>
                     <hr/>
                     <img src="<?php echo get_stylesheet_directory_uri() . '/assets/img/display_type_3.png'; ?>" style="width:100%" />
                 </div>
 
                 <div class="tab-display <?php echo esc_attr( $idSelectDisplayType ); ?>" id="<?php echo esc_attr( $idSelectDisplayType ); ?>-4">
-                    <?php $widget_display_data_type_4 = $widget_display_data->display_type_4; ?>
+                    <?php $widget_display_data_type_4 = isset($widget_display_data->display_type_4) ? $widget_display_data->display_type_4 : []; ?>
                     <p>
                         <h4><?php esc_html_e( 'Custom to show a special content image', 'online-shop' ); ?></h4>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_content_url' ) ); ?>">
@@ -416,7 +416,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_content_url' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_content_url' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_4->data_type_4_special_content_url; ?>" />
+                                value="<?php if (isset($widget_display_data_type_4->data_type_4_special_content_url)) echo $widget_display_data_type_4->data_type_4_special_content_url; ?>" />
                     </p>
 
                     <p>
@@ -425,7 +425,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_content_url_image' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_content_url_image' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_4->data_type_4_special_content_url_image; ?>" />
+                                value="<?php if (isset($widget_display_data_type_4->data_type_4_special_content_url_image)) echo $widget_display_data_type_4->data_type_4_special_content_url_image; ?>" />
                     </p>
                     <p>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_content_title' ) ); ?>">
@@ -433,7 +433,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_content_title' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_content_title' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_4->data_type_4_special_content_title; ?>" />
+                                value="<?php if (isset($widget_display_data_type_4->data_type_4_special_content_title)) echo $widget_display_data_type_4->data_type_4_special_content_title; ?>" />
                     </p>
                     <p>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_content_desc' ) ); ?>">
@@ -441,7 +441,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_content_desc' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_content_desc' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_4->data_type_4_special_content_desc; ?>" />
+                                value="<?php if (isset($widget_display_data_type_4->data_type_4_special_content_desc)) echo $widget_display_data_type_4->data_type_4_special_content_desc; ?>" />
                     </p>
                     <hr/>
 
@@ -451,7 +451,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_title' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_title' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_4->data_type_4_special_title; ?>" />
+                                value="<?php if (isset($widget_display_data_type_4->data_type_4_special_title)) echo $widget_display_data_type_4->data_type_4_special_title; ?>" />
                     </p>
                     <p>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_url' ) ); ?>">
@@ -459,7 +459,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_url' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_url' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_4->data_type_4_special_url; ?>" />
+                                value="<?php if (isset($widget_display_data_type_4->data_type_4_special_url)) echo $widget_display_data_type_4->data_type_4_special_url; ?>" />
                     </p>
                     <hr/>
 
@@ -470,7 +470,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_1' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_product_id_1' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_4->data_type_4_special_product_id_1; ?>" />
+                                value="<?php if (isset($widget_display_data_type_4->data_type_4_special_product_id_1)) echo $widget_display_data_type_4->data_type_4_special_product_id_1; ?>" />
                     </p>
                     <p>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_2' ) ); ?>">
@@ -478,7 +478,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_2' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_product_id_2' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_4->data_type_4_special_product_id_2; ?>" />
+                                value="<?php if (isset($widget_display_data_type_4->data_type_4_special_product_id_2)) echo $widget_display_data_type_4->data_type_4_special_product_id_2; ?>" />
                     </p>
                     <p>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_3' ) ); ?>">
@@ -486,7 +486,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_3' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_product_id_3' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_4->data_type_4_special_product_id_3; ?>" />
+                                value="<?php if (isset($widget_display_data_type_4->data_type_4_special_product_id_3)) echo $widget_display_data_type_4->data_type_4_special_product_id_3; ?>" />
                     </p>
                     <p>
                         <label for="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_4' ) ); ?>">
@@ -494,7 +494,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
                         </label>
                         <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'data_type_4_special_product_id_4' ) ); ?>" 
                                 name="<?php echo esc_attr( $this->get_field_name( 'data_type_4_special_product_id_4' ) ); ?>" type="text" 
-                                value="<?php echo $widget_display_data_type_4->data_type_4_special_product_id_4; ?>" />
+                                value="<?php if (isset($widget_display_data_type_4->data_type_4_special_product_id_4)) echo $widget_display_data_type_4->data_type_4_special_product_id_4; ?>" />
                     </p>
                     <hr/>
                     <img src="<?php echo get_stylesheet_directory_uri() . '/assets/img/display_type_4.png'; ?>" style="width:100%" />

@@ -85,6 +85,15 @@ if ( ! function_exists( 'online_shop_setup' ) ) :
 endif; // online_shop_setup
 add_action( 'after_setup_theme', 'online_shop_setup' );
 
+function online_shop_scripts_head() {
+    $ua = htmlentities($_SERVER['HTTP_USER_AGENT'], ENT_QUOTES, 'UTF-8');
+    if (preg_match('~MSIE|Internet Explorer~i', $ua) || (strpos($ua, 'Trident/7.0') !== false && strpos($ua, 'rv:11.0') !== false)) {
+        echo '<script type="text/javascript" src="'. get_stylesheet_directory_uri() . '/assets/js/bluebird.min.js' .'"></script>';
+    }
+    echo '<script type="text/javascript" src="'. get_stylesheet_directory_uri() . '/assets/js/jquery.min.js' .'"></script>';
+}
+add_action( 'wp_head', 'online_shop_scripts_head' );
+
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
@@ -101,8 +110,8 @@ add_action( 'after_setup_theme', 'online_shop_content_width', 0 );
  * Enqueue scripts and styles.
  */
 function online_shop_scripts() {
-	global $online_shop_customizer_all_values;
-    echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>';
+    global $online_shop_customizer_all_values;
+    
     /*google font*/
     wp_enqueue_style( 'online-shop-googleapis', '//fonts.googleapis.com/css?family=Oswald:400,300|Open+Sans:600,400', array(), '1.0.0' );
 

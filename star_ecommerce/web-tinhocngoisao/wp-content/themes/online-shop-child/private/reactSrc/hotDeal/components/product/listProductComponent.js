@@ -4,6 +4,7 @@ import ProductItemComponent from './productItemComponent';
 import {
     URL_API_GET_LIST_PRODUCT_ON_SALE
 } from '../../../variable';
+import axios from 'axios';
 
 /**
  * tham số đầu vào 
@@ -32,13 +33,12 @@ class ListProductComponent extends Component {
          */
         let { cat_slug, total_products } = this.props;
         let url = URL_API_GET_LIST_PRODUCT_ON_SALE.replace('{cat_slug}', cat_slug).replace('{post_per_page}', total_products);
-        fetch (url)
-        .then(response =>  response.json())
+        axios.get (url)
         .then(resData => {
             this.setState({
                 load_from_api : true,
                 loaded : true,
-                products : resData
+                products : resData.data
             });
         }).catch((err) => {
             console.log(err);

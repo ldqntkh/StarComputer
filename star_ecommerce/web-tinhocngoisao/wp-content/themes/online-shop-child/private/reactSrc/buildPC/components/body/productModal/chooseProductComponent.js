@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
-
+import axios from 'axios';
 // import component
 
 
@@ -29,8 +29,8 @@ class ChooseProductComponent extends Component {
                 if (!this.props.product_data.hasOwnProperty(value_product_type)) {
                     try {
                         // check data is exists
-                        let response = await fetch( HOST_URL_API + url_api.replace('{0}', value_product_type) );
-                        let dataJson = await response.json();
+                        let response = await axios.get( HOST_URL_API + url_api.replace('{0}', value_product_type) );
+                        let dataJson = response.data;
                         if (dataJson.success) {
                             if (dataJson.data) {
                                 // filter product by require field

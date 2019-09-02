@@ -76,7 +76,7 @@ const RemveItemFromStorage = function(productID, product_type) {
 export const ListProductReducer = (list_product = {
     
 }, action)=> {
-    let result = Object.assign({}, list_product);
+    let result = {...list_product};
     let listproduct = action.data ?  result[action.data.product_type] : [];
     listproduct = typeof listproduct === 'undefined' ? [] : listproduct;
     switch (action.type) {

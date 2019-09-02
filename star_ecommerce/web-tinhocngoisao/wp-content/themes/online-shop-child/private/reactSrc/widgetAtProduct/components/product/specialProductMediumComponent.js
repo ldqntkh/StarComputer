@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import {
     URL_GET_LIST_PRODUCT_IDS
 } from '../../../variable';
+import axios from 'axios';
 import NextArrowComponent from '../../../shareComponent/arrows/nextArrowComponent';
 import PrevArrowComponent from '../../../shareComponent/arrows/prevArrowComponent';
 class SpecialProductMediumComponent extends Component {
@@ -36,16 +37,16 @@ class SpecialProductMediumComponent extends Component {
 
             productIds = productIds.join(',');
             let url = URL_GET_LIST_PRODUCT_IDS.replace('{productids}', productIds);
-            fetch (url)
-                .then(response =>  response.json())
+            axios.get (url)
                 .then(resData => {
-                    if (resData.status !== "OK") {
-                        console.log(resData.errMsg)
+                    let _resData = resData.data;
+                    if (_resData.status !== "OK") {
+                        console.log(_resData.errMsg)
                     }
                     this.setState({
                         fetched : true,
                         loaded : true,
-                        products : resData.data == null ? [] : resData.data
+                        products : _resData.data == null ? [] : _resData.data
                     });
                     
                     if (sessionStorage.getItem(id)) {
