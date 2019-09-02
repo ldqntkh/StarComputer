@@ -3,11 +3,12 @@ import Slider from "react-slick";
 import {
     URL_GET_LIST_PRODUCT_CAT
 } from '../../../variable';
-
+import axios from 'axios';
 import NextArrowComponent from '../../../shareComponent/arrows/nextArrowComponent';
 import PrevArrowComponent from '../../../shareComponent/arrows/prevArrowComponent';
 import ProductItemColumnComponent from './productItemColumnComponent';
 import ProductItemRowComponent from './productItemRowComponent';
+import Axios from 'axios';
 
 class ListProductComponent extends Component {
     constructor(props) {
@@ -38,16 +39,16 @@ class ListProductComponent extends Component {
                                           .replace('{orderby}', orderby)
                                           .replace('{order}', order)
                                           .replace('{start_page}', this.state.start_page);
-            fetch (url)
-            .then(response =>  response.json())
+            axios.get (url)
             .then(resData => {
-                if (resData.status !== "OK") {
-                    console.log(resData.errMsg)
+                let _resData = resData.data;
+                if (_resData.status !== "OK") {
+                    console.log(_resData.errMsg)
                 }
                 this.setState({
                     fetched : true,
                     loaded : true,
-                    products : resData.data == null ? [] : resData.data
+                    products : _resData.data == null ? [] : _resData.data
                 });
 
                 if (sessionStorage.getItem(id)) {

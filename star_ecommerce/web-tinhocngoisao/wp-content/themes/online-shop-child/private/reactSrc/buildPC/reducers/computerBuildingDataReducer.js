@@ -25,23 +25,23 @@ export const ComputerBuildingDataReducer = (computer_building_data = {}, action)
     let result = [];
     switch (action.type) {
         case INIT_COMPUTER_BUILDING_DATA :
-            result = Object.assign({}, action.data);
+            result = {...action.data};
             return result;
         case SET_VALUE_COMPUTER_PRODUCT_BY_TYPE:
-            result = Object.assign({}, computer_building_data);
+            result = {...computer_building_data};
             result[action.data.type]["product"] = action.data.value;
             return result;
         case CLEAR_VALUE_COMPUTER_PRODUCT_BY_TYPE:
-            result = Object.assign({}, computer_building_data);
+            result = {...computer_building_data};
             result[action.data.type]["product"] = null;
             result[action.data.type]["quantity"] = 1;
             return result;
         case SET_QUANTITY_COMPUTER_PRODUCT_BY_TYPE:
-            result = Object.assign({}, computer_building_data);
+            result = {...computer_building_data};
             result[action.data.type]["quantity"] = action.data.value;
             return result;
         case RESET_VALUE_COMPUTER_PRODUCT:
-            result = Object.assign({}, computer_building_data);
+            result = {...computer_building_data};
             for(let index in result) {
                 result[index]["product"] = null;
                 result[index]["quantity"] = 1;

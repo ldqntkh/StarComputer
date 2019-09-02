@@ -17,8 +17,7 @@ export const ProductDataReducer = (product_data = {}, action) => {
      *      .......
      * }
      */
-    var result = {};
-    Object.assign(result, product_data);
+    var result = {...product_data};
     switch (action.type) {
         case INIT_PRODUCT_DATA_BY_TYPE :
             if (!result.hasOwnProperty(action.data.key)) {

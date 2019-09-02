@@ -6,6 +6,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 
 module.exports = {
+    devtool: "source-map",
+    mode: 'production',
     entry: {
         'wp-content/themes/online-shop-child/assets/js/app' : './wp-content/themes/online-shop-child/private/javascripts/app.js',
         "custom-style" : "./wp-content/themes/online-shop-child/private/scss/style.scss",
@@ -19,7 +21,6 @@ module.exports = {
         path: path.resolve(__dirname),
         filename: '[name].js'
     },
-    mode: 'development',
     module: {
         rules: [{
                 test: /.scss$/,
@@ -47,7 +48,7 @@ module.exports = {
             }, {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: "babel-loader"
+                use: "babel-loader",
             } , 
             { 
                 test: /\.(png|jpg|gif)$/,

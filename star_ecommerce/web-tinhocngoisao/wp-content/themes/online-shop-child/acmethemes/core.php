@@ -85,6 +85,15 @@ if ( ! function_exists( 'online_shop_setup' ) ) :
 endif; // online_shop_setup
 add_action( 'after_setup_theme', 'online_shop_setup' );
 
+function online_shop_scripts_head() {
+    $ua = htmlentities($_SERVER['HTTP_USER_AGENT'], ENT_QUOTES, 'UTF-8');
+    if (preg_match('~MSIE|Internet Explorer~i', $ua) || (strpos($ua, 'Trident/7.0') !== false && strpos($ua, 'rv:11.0') !== false)) {
+        echo '<script type="text/javascript" src="'. get_stylesheet_directory_uri() . '/assets/js/bluebird.min.js' .'"></script>';
+    }
+    echo '<script type="text/javascript" src="'. get_stylesheet_directory_uri() . '/assets/js/jquery.min.js' .'"></script>';
+}
+add_action( 'wp_head', 'online_shop_scripts_head' );
+
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
@@ -101,8 +110,8 @@ add_action( 'after_setup_theme', 'online_shop_content_width', 0 );
  * Enqueue scripts and styles.
  */
 function online_shop_scripts() {
-	global $online_shop_customizer_all_values;
-    echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>';
+    global $online_shop_customizer_all_values;
+    
     /*google font*/
     wp_enqueue_style( 'online-shop-googleapis', '//fonts.googleapis.com/css?family=Oswald:400,300|Open+Sans:600,400', array(), '1.0.0' );
 
@@ -134,8 +143,7 @@ function online_shop_scripts() {
 	if( 1 == $online_shop_customizer_all_values['online-shop-enable-sticky-sidebar'] ){
 		wp_enqueue_script('theia-sticky-sidebar', get_template_directory_uri() . '/assets/library/theia-sticky-sidebar/theia-sticky-sidebar.min.js', array('jquery'), '1.7.0', 1);
 	}
-
-    wp_enqueue_script('online-shop-custom', get_stylesheet_directory_uri() . '/assets/js/custom.js', array('jquery'), '1.3.2', 1);
+    // wp_enqueue_script('online-shop-custom', get_stylesheet_directory_uri() . '/assets/js/custom.js', array('jquery'), '1.3.2', 1);
     wp_enqueue_script('online-shop-custom-app', get_stylesheet_directory_uri() . '/assets/js/app.js', array('jquery'), '1.0.0', 1);
 
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

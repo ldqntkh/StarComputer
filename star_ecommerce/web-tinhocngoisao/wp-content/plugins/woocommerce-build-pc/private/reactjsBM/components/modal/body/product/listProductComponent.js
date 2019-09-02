@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import axios from 'axios';
 // import variable
 import {
     HOST_URL_API
@@ -118,8 +118,9 @@ class ListProductComponent extends Component {
         } else {
             try {
                 // check data is exists
-                let response = await fetch( HOST_URL_API + url_api.replace('{0}', product_type_selected) );
-                let dataJson = await response.json();
+                let response = await axios.get( HOST_URL_API + url_api.replace('{0}', product_type_selected) );
+
+                let dataJson = response.data;
                 if (dataJson.success) {
                     if (dataJson.data.length > 0) {
                         if (dataJson.success) {
