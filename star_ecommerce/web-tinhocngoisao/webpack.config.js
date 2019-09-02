@@ -10,6 +10,7 @@ module.exports = {
     mode: 'production',
     entry: {
         'wp-content/themes/online-shop-child/assets/js/app' : './wp-content/themes/online-shop-child/private/javascripts/app.js',
+        'wp-content/themes/online-shop-child/assets/js/sliderPage' : './wp-content/themes/online-shop-child/private/javascripts/sliderPage.js',
         "custom-style" : "./wp-content/themes/online-shop-child/private/scss/style.scss",
         "wp-content/themes/online-shop-child/assets/js/bundle" : "./wp-content/themes/online-shop-child/private/reactSrc/App.js",
         // "wp-content/themes/online-shop-child/assets/js/build-pc" : "./wp-content/plugins/woocommerce-build-pc/private/reactjs/App.js",
