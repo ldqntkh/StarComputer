@@ -91,6 +91,7 @@ function online_shop_scripts_head() {
         echo '<script type="text/javascript" src="'. get_stylesheet_directory_uri() . '/assets/js/bluebird.min.js' .'"></script>';
     }
     echo '<script type="text/javascript" src="'. get_stylesheet_directory_uri() . '/assets/js/jquery.min.js' .'"></script>';
+    wp_enqueue_script('online-shop-custom-app', get_stylesheet_directory_uri() . '/assets/js/app.js', array('jquery'), '1.0.0', 1);
 }
 add_action( 'wp_head', 'online_shop_scripts_head' );
 
@@ -143,8 +144,6 @@ function online_shop_scripts() {
 	if( 1 == $online_shop_customizer_all_values['online-shop-enable-sticky-sidebar'] ){
 		wp_enqueue_script('theia-sticky-sidebar', get_template_directory_uri() . '/assets/library/theia-sticky-sidebar/theia-sticky-sidebar.min.js', array('jquery'), '1.7.0', 1);
 	}
-    // wp_enqueue_script('online-shop-custom', get_stylesheet_directory_uri() . '/assets/js/custom.js', array('jquery'), '1.3.2', 1);
-    wp_enqueue_script('online-shop-custom-app', get_stylesheet_directory_uri() . '/assets/js/app.js', array('jquery'), '1.0.0', 1);
 
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
