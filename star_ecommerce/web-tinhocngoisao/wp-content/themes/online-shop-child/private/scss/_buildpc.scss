@@ -444,6 +444,9 @@
                 height: 100%;
                 @media screen and (min-width: 1024px) {
                     width: calc(100% - 400px);
+                    position: absolute;
+                    top: 0;
+                    right: 0;
                 }
                 .list-product-header {
                     height: 33px;
