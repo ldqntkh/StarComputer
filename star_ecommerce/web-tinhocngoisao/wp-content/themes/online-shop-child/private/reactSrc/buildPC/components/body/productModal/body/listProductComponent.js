@@ -74,8 +74,8 @@ class ListProductComponent extends Component {
                     if(item) {
                         item = item.values;
                         for (let m in item) {
-                            if (product_search_attribute[key].includes(item[m].slug)) {
-                                if (result.includes(product_data[index])) {
+                            if (product_search_attribute[key].indexOf(item[m].slug) >= 0) {
+                                if (result.indexOf(product_data[index])) {
                                     break;
                                 } else {
                                     result.push(product_data[index]);
@@ -91,7 +91,7 @@ class ListProductComponent extends Component {
         if (result.length === 0) result = product_data;
         for(let index in result) {
             if (product_search_key !== "" && product_search_key !== null) {
-                if (result[index].name.toLowerCase().includes(product_search_key.toLowerCase())) {
+                if (result[index].name.toLowerCase().indexOf(product_search_key.toLowerCase()) >= 0) {
                     result_1.push(result[index]);
                 }
             } else {
