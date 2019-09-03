@@ -149,6 +149,12 @@ function online_shop_scripts() {
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
     }
+
+    //  render search section values
+    $config_search_keys = get_option( 'custom_preferences_search_options' )['config_search_keys'];
+    echo '<script> var $config_search_keys = ' . json_encode($config_search_keys) .';';
+    echo '</script>';
+
 }
 add_action( 'wp_enqueue_scripts', 'online_shop_scripts' );
 

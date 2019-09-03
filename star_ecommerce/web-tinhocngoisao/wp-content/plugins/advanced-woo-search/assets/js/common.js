@@ -44,6 +44,7 @@
                     $(d.resultBlock).html('').hide();
                     methods.hideLoader();
                     methods.resultsHide();
+                    methods.showHotKeys();
                     return;
                 }
 
@@ -212,10 +213,6 @@
 
                 }
 
-                if ( ( typeof response.cats !== 'undefined' ) && response.cats.length <= 0 && ( typeof response.tags !== 'undefined' ) && response.tags.length <= 0 && ( typeof response.products !== 'undefined' ) && response.products.length <= 0 ) {
-                    html += '<li class="aws_result_item aws_no_result">' + translate.noresults + '</li>';
-                }
-
 
                 html += '</ul>';
 
@@ -224,6 +221,12 @@
                 $(d.resultBlock).html( html );
 
                 methods.showResultsBlock();
+
+                if ( ( typeof response.cats !== 'undefined' ) && response.cats.length <= 0 && ( typeof response.tags !== 'undefined' ) && response.tags.length <= 0 && ( typeof response.products !== 'undefined' ) && response.products.length <= 0 ) {
+                    // render list key search
+                    methods.showHotKeys();
+                    //html += '<li class="aws_result_item aws_no_result">' + translate.noresults + '</li>';
+                }
 
             },
 
@@ -252,6 +255,25 @@
 
             onFocus: function( event ) {
                 if ( searchFor !== '' ) {
+                    methods.showResultsBlock();
+                } else {
+                    methods.showHotKeys();
+                }
+            },
+
+            showHotKeys: function() {
+                if (typeof $config_search_keys !== "undefined" &&  JSON.parse($config_search_keys)) {
+                    var html = '<ul class="search-hotkeys">';
+                    let jsonDataSearch = JSON.parse($config_search_keys);
+                    html += '<li>';
+                    for(var index in jsonDataSearch) {
+                        html += '<a href="' + jsonDataSearch[index].url + '">' + jsonDataSearch[index].key + '</a>';
+                    }
+                    html += '</li>';
+                    html += '</ul>';
+
+                    $(d.resultBlock).html( html );
+
                     methods.showResultsBlock();
                 }
             },
@@ -291,7 +313,7 @@
 
                     $( d.resultBlock ).css({
                         width : width,
-                        top : top,
+                        top : top + 3,
                         left: left
                     });
 
@@ -409,6 +431,7 @@
             methods.resultsHide();
             $(d.resultBlock).html('');
             searchFor = '';
+            methods.showHotKeys();
         });
 
 

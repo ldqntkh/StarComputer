@@ -441,3 +441,26 @@ body:not(.home) {
         }
     }
 }
+.aws-search-result {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: none;
+    border-color: red;
+}
+.search-hotkeys {
+    
+    li {
+        padding-top: 15px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        a {
+            border: 1px solid silver;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+    }
+}
