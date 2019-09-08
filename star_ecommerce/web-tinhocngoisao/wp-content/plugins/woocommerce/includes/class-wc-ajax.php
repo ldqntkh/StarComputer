@@ -280,7 +280,8 @@ class WC_AJAX {
 
 		do_action( 'woocommerce_checkout_update_order_review', $_POST['post_data'] );
 
-		$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
+		//$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
+		$chosen_shipping_methods = array();
 
 		if ( isset( $_POST['shipping_method'] ) && is_array( $_POST['shipping_method'] ) ) {
 			foreach ( $_POST['shipping_method'] as $i => $value ) {

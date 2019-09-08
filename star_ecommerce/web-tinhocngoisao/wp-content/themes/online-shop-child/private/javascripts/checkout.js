@@ -108,12 +108,21 @@ var checkoutPage = {
             }
         });
     },
+    initShippingClasses: function() {
+        $('input[name^=shipping_method]:radio').off('change').on('change', function() {
+            for(let i in shippingClasses) {
+                if (shippingClasses[i].slug === this.value) {
+                    $('#shipping_name').text(shippingClasses[i].name);
+                    //that.updateShippingMethods();
+                }
+            }
+        });
+    },
     init : function() {
-        // remove action check ajax payment
-        //$('form[name="checkout"]').unbind('submit');
         let that = this;
         that.validateAddressField();
         that.chooseDefaultShippingAddress();
+        that.initShippingClasses();
     }
 }
 
