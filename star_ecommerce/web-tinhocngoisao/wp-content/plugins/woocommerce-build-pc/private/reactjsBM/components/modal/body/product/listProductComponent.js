@@ -301,6 +301,8 @@ class ListProductComponent extends Component {
             list_product_left, 
             list_product_right
         } = this.state;
+        // for now, I will not filter product right session
+        if (position === 'right') return list_product_right;
         let list_product = position === 'left' ?  list_product_left :  list_product_right;
         list_product = typeof list_product === 'undefined' ? [] : list_product;
         let {product_search_attribute} = this.props.action_data;

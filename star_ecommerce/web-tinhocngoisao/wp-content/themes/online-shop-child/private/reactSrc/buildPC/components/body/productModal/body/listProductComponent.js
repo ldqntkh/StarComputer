@@ -75,7 +75,7 @@ class ListProductComponent extends Component {
                         item = item.values;
                         for (let m in item) {
                             if (product_search_attribute[key].indexOf(item[m].slug) >= 0) {
-                                if (result.indexOf(product_data[index])) {
+                                if (result.indexOf(product_data[index]) >= 0) {
                                     break;
                                 } else {
                                     result.push(product_data[index]);
