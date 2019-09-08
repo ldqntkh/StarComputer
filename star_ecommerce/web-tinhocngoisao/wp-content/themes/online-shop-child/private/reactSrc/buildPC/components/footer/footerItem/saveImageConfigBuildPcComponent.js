@@ -46,7 +46,7 @@ class SaveImageConfigBuildPcComponent extends Component {
 
         for( let index in dataProductType ) {
             let item = computerBuildingData[dataProductType[index].value];
-            if (item.product === null) {
+            if (!item || !item.product || item.product === null) {
                 continue;
             } else {
                 let productPrice = (item.product.sale_price !== "0" && item.product.sale_price !== "") ? parseInt(item.product.sale_price) : parseInt(item.product.regular_price);

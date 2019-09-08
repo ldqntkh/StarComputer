@@ -47,8 +47,7 @@ export default class AddConfigBuildPcToCartComponent extends Component {
 
                 try {
                     let response = await axios.get(link);
-                    let _resData = response;
-                    console.log(response);
+                    let _resData = response.data;
                     if (_resData.success) {
                         window.location.reload();
                     } else {
