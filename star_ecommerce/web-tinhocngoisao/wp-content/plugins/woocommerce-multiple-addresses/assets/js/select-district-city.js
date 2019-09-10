@@ -86,12 +86,14 @@
         }
 
         function getDistrict( $element, $cityID, $districtValue, $callback ) {
+            displayLoaderPopup( $element );
             $.ajax({
                 type : 'post',
                 dataType : 'json',
                 url : options_city_ajax.admin_ajax,
                 data : {action: 'diagioihanhchinh', matp : $cityID},
                 success: function(response) {
+                    removeLoaderPopup( $element );
                     var data = response.data;
                     var $district = $element.find('#district');
                     var $ward = $element.find('#ward');
@@ -117,18 +119,26 @@
                             $callback();
                         }
                     }
+                }, 
+                error: function(response, errorStatus, errorMsg) {
+                    removeLoaderPopup( $element );
+                    if (errorStatus) {
+                        console.log('The error status is: ' + errorStatus + ' and the error message is: ' + errorMsg);
+                    }
                 }
             });
             return false;
         }
 
         function getWard( $element, $districtID, $wardValue ) {
+            displayLoaderPopup( $element );
             $.ajax({
                 type : 'post',
                 dataType : 'json',
                 url : options_city_ajax.admin_ajax,
                 data : {action: 'diagioihanhchinh', maqh : $districtID},
                 success: function(response) {
+                    removeLoaderPopup( $element );
                     var data = response.data;
                     var $ward = $element.find('#ward');
 
@@ -147,8 +157,34 @@
                             $ward.val(shipping_address_2);
                         }
                     }
+                },
+                error: function(response, errorStatus, errorMsg) {
+                    removeLoaderPopup( $element );
+                    if (errorStatus) {
+                        console.log('The error status is: ' + errorStatus + ' and the error message is: ' + errorMsg);
+                    }
                 }
             });
+        }
+
+        function displayLoaderPopup( $form ) {
+            if ( $form.length > 0 && !$form.hasClass('.processing') ) {
+                $form.addClass( 'processing' ).block({
+                    message: null,
+                    overlayCSS: {
+                        background: '#fff',
+                        opacity: 0.6
+                    }
+                });
+            }
+            return false;
+        }
+
+        function removeLoaderPopup( $form ) {
+            if ( $form.length > 0 && $form.hasClass('processing') ) {
+                $form.removeClass( 'processing' ).unblock();
+            }
+            return false;
         }
     });
 })(jQuery);
