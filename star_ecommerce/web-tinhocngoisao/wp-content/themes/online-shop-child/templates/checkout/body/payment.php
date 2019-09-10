@@ -20,6 +20,11 @@
             break;
         }
     }
+
+    $chosen_methods = WC()->session->get( 'chosen_shipping_methods' );
+    if (count($chosen_methods) > 0) {
+        $chosen_method = reset($chosen_methods);
+    } else $chosen_method = null;
 ?>
 
 
@@ -32,21 +37,27 @@
             }
         ?>
         <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
-            <div class="delivery hidden">
+            <div class="delivery">
+                <?php 
+                    // $shipping_classes = get_terms( array('taxonomy' => 'product_shipping_class', 'hide_empty' => false ) );
+                    $arrShippings = [];
+                ?>
                 <h3>3.1 Chọn hình thức giao hàng</h3>
                 <div class="delivery-items">
-                    <div class="group-radio">
-                        <input type="radio" name="delivery" id="delivery-01" value="free-ship" checked/>
-                        <label for="delivery-01">Giao hàng tiêu chuẩn. (Miễn phí)</label>
-                    </div>
-                    <div class="group-radio">
-                        <input type="radio" name="delivery" id="delivery-02" value="fee-ship"/>
-                        <label for="delivery-02">Giao hàng nhanh trong thành phố. (50.000đ)</label>
-                    </div>
+                    <?php 
+                        $delivery_zones = WC_Shipping_Zones::get_zones();
+                        foreach ((array) $delivery_zones as $k => $the_zone ) :
+                            foreach ($the_zone['shipping_methods'] as $index => $method) : 
+                                array_push($arrShippings, array("name" => $method->title, "slug"=>$method->id . ':' . $index ));
+                                printf( '<p><input type="radio" name="shipping_method[0]" data-index="%1$d" id="shipping_method_%1$d_%2$s" value="%3$s:%1$d" class="shipping_method" %4$s/>
+								<label for="shipping_method_%1$d_%2$s">%5$s</label></p>',
+								$index, sanitize_title( $method->id ), esc_attr( $method->id ), checked( $method->id .':'.$index, $chosen_method, false ), $method->title );
+                            endforeach;?>
+                        <?php break; endforeach;?>
                 </div>
             </div>
             <div class="payment">
-                <h3>3.1 Chọn hình thức thanh toán</h3>
+                <h3>3.2 Chọn hình thức thanh toán</h3>
                 <div class="payment-items">
                     <div class="group-radio">
                         <input type="radio" name="payment_method" id="payment-01" value="cod" checked/>
@@ -134,7 +145,19 @@
                     </div>
                     <div class="line">
                         <span>Phí vận chuyển:</span>
-                        <strong>Nhân viên liên hệ</strong>
+                        <strong id="shipping_name">
+                            <?php  
+                                $flag = false;
+                                foreach($arrShippings as $k => $item) {
+                                    if  ($item['slug'] == $chosen_method) {
+                                        echo $item['name'];
+                                        $flag = true;
+                                        break;
+                                    }
+                                }
+                                if  (!$flag) echo $arrShippings[0]['name'];
+                            ?>
+                        </strong>
                     </div>
                     <div class="line total">
                         <span>Tổng cộng:</span>
@@ -145,3 +168,6 @@
         </div>
     </div>
 </div>
+<script>
+    var shippingClasses = <?php echo json_encode($arrShippings) ?>;
+</script>
