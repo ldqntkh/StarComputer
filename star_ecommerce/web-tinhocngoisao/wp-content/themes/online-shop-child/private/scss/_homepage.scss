@@ -978,7 +978,7 @@ h2.woocommerce-loop-product__title {
     .beside-slider {
         .fs-right-slider {
             margin-top: 10px;
-            visibility: unset;
+            visibility: visible;
             @media screen and (min-width: 768px) {
                 margin: 0;
             }
