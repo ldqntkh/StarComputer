@@ -33,7 +33,7 @@
         <h2>3. Chọn hình thức giao hàng và thanh toán</h2>
         <?php 
             if ($currentUser->ID === 0) {
-                echo '<p>Bạn đã có tài khoản? <a href="">Đăng nhập</a> hoặc <a href="">Đăng ký</a></p>';
+                echo '<p>Bạn đã có tài khoản? <a href="' .get_permalink( get_page_by_path( 'checkout' ) ).'?type=login'. '">Đăng nhập</a> hoặc <a href="' .get_permalink( get_page_by_path( 'checkout' ) ).'?type=register'. '">Đăng ký</a></p>';
             }
         ?>
         <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
