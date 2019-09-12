@@ -44,9 +44,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 															<p>Copyright © 2017 - 2018 Bản quyền thuộc về Tin học ngôi sao.</p>
 															<p><span>Kết nối với chúng tôi</span></p>
 															<div class="image-wrapper">
-																<a href="#"><img class="facebook-icon" src="https://www.kuleuven.be/studentenvoorzieningen/studentcareercenter/images/white-facebook-icon-png-like-us-on-facebook-to.png/image" alt="facebook icon" width="40" height="40" /></a>
-																<a href="#"><img src="http://103.9.77.27/~share/wp-content/themes/online-shop-child/assets/img/youtube-icon.png" alt="youtube-icon" width="40" height="40" /></a>
-																<a href="#"><img src="http://www.dienbienfood.com/wp-content/uploads/2017/03/icon-zalo.png" alt="zalo-icon" width="40" height="40" /></a>
+																<a href="#"><img class="facebook-icon" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/img/white-facebook-icon.png' ) ?>" alt="facebook icon" width="40" height="40" /></a>
+																<a href="#"><img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/img/youtube-icon.png' ) ?>" alt="youtube-icon" width="40" height="40" /></a>
+																<a href="#"><img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/img/zalo-icon.png' ) ?>" alt="zalo-icon" width="40" height="40" /></a>
 															</div>
 														</td>
 													</tr>
