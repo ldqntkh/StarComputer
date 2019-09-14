@@ -112,7 +112,9 @@ var checkoutPage = {
         $('input[name^=shipping_method]:radio').off('change').on('change', function() {
             for(let i in shippingClasses) {
                 if (shippingClasses[i].slug === this.value) {
-                    $('#shipping_name').text(shippingClasses[i].name);
+                    if (shippingClasses[i].slug.indexOf('local_pickup') >= 0)
+                        $('#shipping_name').text('Miễn phí');
+                    else $('#shipping_name').text(shippingClasses[i].name);
                     //that.updateShippingMethods();
                 }
             }
