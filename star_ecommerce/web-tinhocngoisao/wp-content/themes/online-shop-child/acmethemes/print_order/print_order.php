@@ -80,9 +80,14 @@ function renderTemplateOrder($order) {
                 <p>
                     <span>Địa chỉ: <strong><?php echo $bAddress ?></strong></span>
                 </p>
-                <p>
-                    <span>Địa chỉ giao hàng: <strong><?php echo $shipping_method_id == 'local_pickup' ? $order->get_shipping_method() : $bAddress; ?></strong></span>
-                </p>
+                <?php 
+                    if ($shipping_method_id != 'local_pickup') {?>
+                        <p>
+                            <span>Địa chỉ giao hàng: <strong><?php echo $bAddress; ?></strong></span>
+                        </p>
+                    <?php }
+                ?>
+                
                 <p>
                     <span>Số điện thoại: <strong><?php echo $order->get_billing_phone() ?></strong></span>
                 </p>
