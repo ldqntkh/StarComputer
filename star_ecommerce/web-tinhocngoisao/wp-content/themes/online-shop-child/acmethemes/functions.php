@@ -824,3 +824,6 @@ endif;
 
 //********SEARCH ORDER******** */
 include plugin_dir_path( __FILE__ ) . '/filter/search-order.php';
+
+//********PRINT ORDER******** */
+include plugin_dir_path( __FILE__ ) . '/print_order/print_order.php';
