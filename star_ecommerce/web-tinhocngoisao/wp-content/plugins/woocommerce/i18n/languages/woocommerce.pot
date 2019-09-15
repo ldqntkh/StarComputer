@@ -25101,12 +25101,8 @@ msgid "Hello %1$s (not %1$s? <a href=\"%2$s\">Log out</a>)"
 msgstr ""
 
 #: templates/myaccount/dashboard.php:37
-msgid ""
-"From your account dashboard you can view your <a href=\"%1$s\">recent "
-"orders</a>, manage your <a href=\"%2$s\">shipping and billing "
-"addresses</a>, and <a href=\"%3$s\">edit your password and account "
-"details</a>."
-msgstr ""
+msgid "Từ trang điều khiển bạn có thể xem <a href=\"%1$s\">lịch sử hóa đơn</a>, quản lý <a href=\"%2$s\">địa chỉ vận chuyển và thanh toán</a>, <a href=\"%3$s\">cập nhật mật khẩu và xem thông tin tài khoản</a>."
+msgstr "From your account dashboard you can view your <a href="%1$s">recent orders</a>, manage your <a href="%2$s">shipping and billing addresses</a>, and <a href="%3$s">edit your password and account details</a>."
 
 #: templates/myaccount/downloads.php:41 templates/myaccount/orders.php:101
 msgid "Go shop"
