@@ -1099,10 +1099,9 @@ if ( ! function_exists( 'woocommerce_template_loop_period' ) ) {
 	 */
 	function woocommerce_template_loop_period() {
 		$period = get_post_meta( get_the_id(), 'warranty_period', true );
-		if (empty($period)) {
-			$period = 36;
+		if (!empty($period)) {
+			echo '<span class="warranty_period">Bảo hành: <strong>'. $period .'</strong> tháng</span>';
 		}
-		echo '<span class="warranty_period">Bảo hành: <strong>'. $period .'</strong> tháng</span>';
 	}
 }
 

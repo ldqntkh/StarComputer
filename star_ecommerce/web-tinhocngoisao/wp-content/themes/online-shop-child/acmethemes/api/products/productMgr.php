@@ -194,9 +194,9 @@ if (!function_exists('getProductInfo')) :
         $arrPt['stock_status'] = $product->get_stock_status();
         // $arrPt['sale_end_time'] = $productMgr->getDiscountTimeRemaining($product->get_id());
         $period = get_post_meta( $product->get_id(), 'warranty_period', true );
-        if (empty($period)) {
-            $period = 36;
-        }
+        // if (empty($period)) {
+        //     $period = 36;
+        // }
         $arrPt['period'] = $period;
         if ($get_slug == 1) {
             $terms = get_the_terms( $product->get_id(), 'product_cat' );

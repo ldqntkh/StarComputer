@@ -1409,7 +1409,7 @@ class es_cls_registerhook {
 			<div class="form-subscription-email">
 				<div class="description">
 					<h3>
-						<?php echo __( 'Đăng ký nhận bản tin từ Tin học ngôi sao', ES_TDOMAIN ); ?>
+						<?php echo __( 'Đăng ký nhận bản tin từ Tin Học Ngôi Sao', ES_TDOMAIN ); ?>
 					</h3>
 					<p>
 						<?php echo __( 'Đừng bỏ lỡ hàng nghìn sản phẩn và những khuyến mại hấp dẫn từ chúng tôi', ES_TDOMAIN ); ?>

@@ -62,9 +62,9 @@ class CatalogManager {
                     $arrPt['stock_status'] = $product->stock_status;
                     $arrPt['sale_end_time'] = $productMgr->getDiscountTimeRemaining($product->get_id());
                     $period = get_post_meta( $product->get_id(), 'warranty_period', true );
-                    if (empty($period)) {
-                        $period = 36;
-                    }
+                    // if (empty($period)) {
+                    //     $period = 36;
+                    // }
                     $arrPt['period'] = $period;
                     array_push($arrProducts, $arrPt);
                 }

@@ -150,7 +150,7 @@
                                 $flag = false;
                                 foreach($arrShippings as $k => $item) {
                                     if  ($item['slug'] == $chosen_method) {
-                                        if (stripos($item['slug'], 'local_pickup') >= 0) echo "Miễn phí";
+                                        if (stripos($item['slug'], 'local_pickup')) echo "Miễn phí";
                                         else echo $item['name'];
                                         $flag = true;
                                         break;
