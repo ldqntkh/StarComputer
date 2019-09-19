@@ -51,7 +51,7 @@ class ProductItemRowComponent extends Component {
                                 <h2 className="woocommerce-loop-product__title">
                                     {product.name.length > 40 ? product.name.substr(0, 40) + '...' : product.name }
                                 </h2>
-                                { product.period && <span className="warranty_period">Bảo hành: <strong>{product.period}</strong> tháng</span> }
+                                { product.period != 0 && <span className="warranty_period">Bảo hành: <strong>{product.period}</strong> tháng</span> }
                                 {price}
                                 {rating}
                             </div>

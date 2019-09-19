@@ -38,9 +38,12 @@ class GroupProductComponent extends Component {
                                     product.sale_price === "0" ? product.regular_price : product.sale_price
                                 }đ
                             </p>
-                            <p>
-                                Bảo hành: {product.period}(tháng)
-                            </p>
+                            {
+                                product.period != 0 && <p>
+                                                            Bảo hành: {product.period}(tháng)
+                                                        </p>
+                            }
+                            
                             {/* <p>
                                 {
                                     product.stock_status === "instock" ? `Còn hàng ${product.stock_quantity}` : 'Hết hàng'
@@ -56,7 +59,9 @@ class GroupProductComponent extends Component {
                         </h4>
                     </div>
                     <div className="tb-col-4">
-                        <h4>{product.period}(tháng)</h4>
+                        {
+                            product.period != 0 && <h4>{product.period}(tháng)</h4>
+                        }
                     </div>
                     {/* <div className="tb-col-5">
                         <span>
