@@ -54,17 +54,22 @@ function wpa54142_feed_filter( $query ) {
 add_filter( 'pre_get_posts', 'wpa54142_feed_filter' );
 
 function wpa54142_filter_where( $where = '' ) {
-    $time_start = strtotime($_GET['start_date']);
-    $newformat_start = date('Y-m-d',$time_start);
+    if (isset($_GET['start_date']) && $_GET['start_date']) {
+        $time_start = new DateTime($_GET['start_date']);
+        $time_start->add(new DateInterval('PT00H00M00S'));
+        $newformat_start = $time_start->format('Y-m-d H:i:s');
 
-    $time_end = time();
+        $time_end = new DateTime();
 
-    if ($_GET['end_date']) {
-        $time_end = strtotime($_GET['end_date']);
+        if ($_GET['end_date']) {
+            $time_end = new DateTime($_GET['end_date']);
+        }
+
+        $time_end->add(new DateInterval('PT23H59M59S'));
+        $newformat_end = $time_end->format('Y-m-d H:i:s');
+
+        $where .= " AND post_date >= '$newformat_start' AND post_date <= '$newformat_end'";
     }
-    $newformat_end = date('Y-m-d',$time_end);
-
-    $where .= " AND post_date >= '$newformat_start' AND post_date <= '$newformat_end'";
 
     if (isset($_GET['order_status']) && $_GET['order_status'] !== '') {
         $status = $_GET['order_status'];
