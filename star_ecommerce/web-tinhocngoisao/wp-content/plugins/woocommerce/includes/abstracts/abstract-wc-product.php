@@ -1712,7 +1712,7 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		} elseif ( $this->is_on_sale() ) {
 			$price = wc_format_sale_price( wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) ), wc_get_price_to_display( $this ) ) . $this->get_price_suffix();
 		} else {
-			$priceLabel = is_product() ? '<span class="price-label">' . __( 'Giá: ', 'online-shop' ) . '</span>' : '';
+			$priceLabel ='<span class="price-label">' . __( 'Giá: ', 'online-shop' ) . '</span>';
 			$price = $priceLabel . wc_price( wc_get_price_to_display( $this ) ) . $this->get_price_suffix();
 		}
 

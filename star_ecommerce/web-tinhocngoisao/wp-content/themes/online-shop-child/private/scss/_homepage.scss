@@ -1237,9 +1237,11 @@ h2.woocommerce-loop-product__title {
                     padding: 0;
                     color: #f73838;
                     display: flex;
-                    flex-direction: column;
-                    text-align: center;
+                    text-align: left;
                     float: left;
+                    &.product-is-sale {
+                        flex-direction: column;
+                    }
                     ins {
                         display: block;
                         text-decoration: none;
@@ -1249,10 +1251,21 @@ h2.woocommerce-loop-product__title {
                         opacity: .5;
                         margin-right: 0;
                     }
+                    .price-label {
+                        margin-right: 2px;
+                        font-weight: normal;
+                    }
                 }
                 .star-rating {
                     clear: both;
                     margin-top: 7px;
+                }
+                &.product-type-variable {
+                    .price {
+                        &.product-is-sale {
+                            flex-direction: row;
+                        }
+                    }
                 }
             }
             .add_to_cart_button, .product_type_simple, .product_type_grouped {
