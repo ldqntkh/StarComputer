@@ -64,8 +64,9 @@ var productdetailpage = {
                     scrollTop: top
                 }, 1000);
             });
-
-            if ($(window).width() >= 1024) {
+            var userAgent = navigator.userAgent.toLowerCase();
+            var isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
+            if ($(window).width() >= 1024 && !isTablet) {
                 // add class when header promotion not active
                 if ( $('.top-header-promotion').find('.promotion-banner').length === 0 ) {
                     $('.fixed-product-detail').addClass('header-promo-not-active');
@@ -138,7 +139,7 @@ var productdetailpage = {
             if ($fixedProductDetail.length > 0 && !$fixedProductDetail.hasClass('hidden')) {
                 var positionTop = $('.tab-content-wrapper').position().top;
                 $('html, body').animate({
-                    scrollTop: positionTop + 330
+                    scrollTop: positionTop + $('.fixed-product-detail').height() + 50 + $('.tab-wrapper ul').height() + 10
                 }, 1000);
             }
         });
