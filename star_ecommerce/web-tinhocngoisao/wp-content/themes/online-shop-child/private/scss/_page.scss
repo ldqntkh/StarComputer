@@ -159,6 +159,7 @@ header#masthead {
             position: relative;
             .pointer {
                 float: left;
+                width: 100%;
                 h2 {
                     margin-left: 0;
                     margin-top: 0;
@@ -166,8 +167,7 @@ header#masthead {
                     font-size: 25px;
                     font-weight: 400;
                     color: $aside_header_color;
-                    
-                    // custom class icon
+                    width: 100%;
                     i {
                         margin-right: 5px;
                     }
@@ -309,6 +309,7 @@ header#masthead {
         margin-top: 20px;
         .pointer {
             margin-bottom: 10px;
+            width: 100%;
             .widget-title {
                 margin-left: 0;
                 margin-top: 0;
@@ -316,6 +317,7 @@ header#masthead {
                 font-size: 25px;
                 font-weight: 400;
                 color: #29337a;
+                width: 100%;
             }
         }
     }
