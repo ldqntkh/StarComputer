@@ -268,9 +268,6 @@ h2.woocommerce-loop-product__title {
             img {
                 width: 100% !important;
                 height: 100% !important;
-                // @media screen and (min-width : 992px) {
-                //     width: calc(100% - 10px) !important;
-                // }
             }
         }
     }
@@ -340,10 +337,13 @@ h2.woocommerce-loop-product__title {
                         padding: 0;
                         color: #f73838;
                         display: flex;
-                        flex-direction: column;
+                        flex-direction: row;
                         text-align: center;
                         float: left;
-                        
+                        .price-label {
+                            color: black;
+                            font-size: 18px;
+                        }
                         ins {
                             display: block;
                             text-decoration: none;
@@ -563,6 +563,9 @@ h2.woocommerce-loop-product__title {
                     }
                     .price {
                         font-size: 13px !important;
+                        .price-label {
+                            font-size: 13px !important;
+                        }
                     }
                 }
             }
@@ -681,6 +684,9 @@ h2.woocommerce-loop-product__title {
                     }
                     .price {
                         font-size: 13px !important;
+                        .price-label {
+                            font-size: 13px !important;
+                        }
                     }
                 }
                 .slick-slider {

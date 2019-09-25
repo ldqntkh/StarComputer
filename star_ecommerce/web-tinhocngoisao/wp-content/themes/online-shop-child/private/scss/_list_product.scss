@@ -250,15 +250,11 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    // width: calc(100% + 20px);
-    // margin-left: -10px;
-    // margin-right: -10px;
-
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     margin-top: 5px;
-    height: 23px;
+    height: 40px;
     line-height: 23px;
     padding-left: 5px;
     align-items: center;
@@ -272,10 +268,18 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
             font-weight: bold;
         }
         &.discount-price {
-            margin-left: 10px;
             i {
                 margin-right: 3px;
                 font-weight: normal;
+            }
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        height: 23px;
+        >span {
+            &.discount-price {
+                margin-left: 10px;
             }
         }
     }
