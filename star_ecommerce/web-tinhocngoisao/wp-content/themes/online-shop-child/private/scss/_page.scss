@@ -163,8 +163,8 @@ header#masthead {
                     margin-left: 0;
                     margin-top: 0;
                     padding: 0;
-                    font-size: 30px;
-                    font-weight: 300;
+                    font-size: 25px;
+                    font-weight: 400;
                     color: $aside_header_color;
                     
                     // custom class icon
@@ -296,12 +296,6 @@ header#masthead {
                         height: 140px;
                         border-radius: 50%;
                         border: 5px solid white;
-                        // @media screen and (min-width: 768px) {
-                        //     width: 50%;
-                        // }
-                        // @media screen and (min-width: 1024px) {
-                        //     width: 25%;
-                        // }
                     }
                     span {
                         font-size: 18px;
@@ -319,8 +313,8 @@ header#masthead {
                 margin-left: 0;
                 margin-top: 0;
                 padding: 0;
-                font-size: 30px;
-                font-weight: 300;
+                font-size: 25px;
+                font-weight: 400;
                 color: #29337a;
             }
         }

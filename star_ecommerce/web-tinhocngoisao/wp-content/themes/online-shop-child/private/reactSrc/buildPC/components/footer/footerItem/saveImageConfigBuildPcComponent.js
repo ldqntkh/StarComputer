@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import html2canvas from 'html2canvas';
 import Modal from 'react-modal';
+import domtoimage from 'dom-to-image';
 class SaveImageConfigBuildPcComponent extends Component {
     constructor(props) {
         super(props);
@@ -117,12 +117,23 @@ class SaveImageConfigBuildPcComponent extends Component {
         let width = parentDom.offsetWidth;
         parentDom.style.width = '1200px';
         // set state to disable button click
-        html2canvas(content, { allowTaint : true , logging : false}).then((canvas) =>
-        {
-            canvas.getContext('2d');
-            this._saveAs(canvas.toDataURL('image/jpeg', 1.0), "BuildPC_STARCOMPUTER.png");
+        // html2canvas(content, { allowTaint : true , logging : false}).then((canvas) =>
+        // {
+        //     canvas.getContext('2d');
+        //     this._saveAs(canvas.toDataURL('image/jpeg', 1.0), "BuildPC_STARCOMPUTER.png");
+        //     parentDom.style.height = 'unset';
+        //     parentDom.style.width = width + 'px';
+        // });
+
+        let that  = this;
+        domtoimage.toPng(content)
+        .then(function (dataUrl) {
+            that._saveAs(dataUrl, "BuildPC_STARCOMPUTER.png");
             parentDom.style.height = 'unset';
             parentDom.style.width = width + 'px';
+        })
+        .catch(function (error) {
+            console.error('oops, something went wrong!', error);
         });
     }
 

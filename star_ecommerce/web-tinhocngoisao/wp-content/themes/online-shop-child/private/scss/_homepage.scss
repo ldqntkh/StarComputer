@@ -347,11 +347,19 @@ h2.woocommerce-loop-product__title {
                         ins {
                             display: block;
                             text-decoration: none;
+                            .price-label {
+                                color: black;
+                                font-size: 18px;
+                            }
                         }
                         del {
                             color: #2d2d2d;
                             opacity: .5;
                             margin-right: 0;
+                            .price-label {
+                                color: black;
+                                font-size: 18px;
+                            }
                         }
                     }
                     .star-rating {
@@ -1161,9 +1169,9 @@ h2.woocommerce-loop-product__title {
     position: relative;
     .widget-title {
         color: #29337a;
-        font-size: 30px;
+        font-size: 25px;
         padding-top: 30px;
-        font-weight: 300;
+        font-weight: 400;
     }
     .pointer {
         margin-bottom: 10px;
