@@ -1077,9 +1077,10 @@ if ( ! function_exists( 'woocommerce_template_loop_product_title' ) ) {
 	 * Show the product title in the product loop. By default this is an H2.
 	 */
 	function woocommerce_template_loop_product_title() {
+		global $product;
 		$title = get_the_title();
 		$title = strlen($title) > 40 ? cut_title( get_the_title(), 40) : $title;
-		echo '<div class="product-item-details"><h2 class="woocommerce-loop-product__title">' . $title . '</h2>';
+		echo '<div class="product-item-details ' .  'product-type-' . $product->get_type() . '"><h2 class="woocommerce-loop-product__title">' . $title . '</h2>';
 	}
 }
 

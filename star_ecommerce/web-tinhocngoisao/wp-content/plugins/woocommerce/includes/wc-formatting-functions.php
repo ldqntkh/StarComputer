@@ -1170,10 +1170,8 @@ function wc_format_stock_quantity_for_display( $stock_quantity, $product ) {
 function wc_format_sale_price( $regular_price, $sale_price ) {
 	$salePriceLabel = '';
 	$regularPriceLabel = '';
-	if ( is_product() ) {
-		$salePriceLabel = '<span class="price-label">' . __( 'Khuyến mãi: ', 'online-shop' ) . '</span>';
-		$regularPriceLabel = '<strong class="price-label">' . __( 'Giá: ', 'online-shop' ) . '</strong>';
-	}
+	$salePriceLabel = '<span class="price-label">' . __( 'Khuyến mãi: ', 'online-shop' ) . '</span>';
+	$regularPriceLabel = '<strong class="price-label">' . __( 'Giá: ', 'online-shop' ) . '</strong>';
 
 	$price = '<ins>' . $salePriceLabel . 
 				( is_numeric( $sale_price ) ? wc_price( $sale_price ) : $sale_price ) . 
@@ -1193,7 +1191,8 @@ function wc_format_sale_price( $regular_price, $sale_price ) {
 function wc_format_price_range( $from, $to ) {
 	/* translators: 1: price from 2: price to */
 	$price = sprintf( _x( '%1$s &ndash; %2$s', 'Price range: from-to', 'woocommerce' ), is_numeric( $from ) ? wc_price( $from ) : $from, is_numeric( $to ) ? wc_price( $to ) : $to );
-	return apply_filters( 'woocommerce_format_price_range', $price, $from, $to );
+	$priceLabel = '<strong class="price-label">' . __( 'Giá: ', 'online-shop' ) . '</strong>';
+	return apply_filters( 'woocommerce_format_price_range', $priceLabel . $price, $from, $to );
 }
 
 /**
