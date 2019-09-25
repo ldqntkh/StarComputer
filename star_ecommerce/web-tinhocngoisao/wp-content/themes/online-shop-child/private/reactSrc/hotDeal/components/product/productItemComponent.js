@@ -15,15 +15,18 @@ export default class ProductItemComponent extends Component {
         if (product.sale_price !== '0') {
             // regular_price
             price = <span className="price">
-                        <del>
-                            <span className="woocommerce-Price-amount amount">{product.regular_price}<span className="woocommerce-Price-currencySymbol">đ</span></span>
-                        </del>
                         <ins>
+                            <span className="price-label">Khuyến mãi: </span>
                             <span className="woocommerce-Price-amount amount">{product.sale_price}<span className="woocommerce-Price-currencySymbol">đ</span></span>
                         </ins>
+                        <del>
+                            <strong class="price-label">Giá: </strong>
+                            <span className="woocommerce-Price-amount amount">{product.regular_price}<span className="woocommerce-Price-currencySymbol">đ</span></span>
+                        </del>
                     </span>
         } else {
             price = <span className="price">
+                        <span className="price-label">Giá: </span>
                         <ins>
                             <span className="woocommerce-Price-amount amount">{product.regular_price}<span className="woocommerce-Price-currencySymbol">đ</span></span>
                         </ins>

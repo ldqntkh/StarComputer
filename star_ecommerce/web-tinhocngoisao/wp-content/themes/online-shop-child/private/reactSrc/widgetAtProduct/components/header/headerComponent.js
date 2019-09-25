@@ -13,17 +13,19 @@ class HeaderComponent extends Component {
         return(
             <div className="at-cat-color-wrap-15">
                 <div className="at-title-action-wrapper clearfix">
-                    <h2 className="widgettitle">
-                        {title}
-                        { display_option !== 1 && <span className="at-action-wrapper">
-                            <a href={!link ? "#" : link} className="all-link">
-                                {title_link}
-                            </a>
-                        </span>
-                        }
-                        <span className="wg-description">{description}</span>
-                    </h2>
-                    <span className="at-action-wrapper"></span>
+                    <div className="pointer">
+                        <h2 className="widgettitle">
+                            {title}
+                            { display_option !== 1 && <span className="at-action-wrapper">
+                                <a href={!link ? "#" : link} className="all-link">
+                                    {title_link}
+                                </a>
+                            </span>
+                            }
+                            <span className="wg-description">{description}</span>
+                        </h2>
+                        <span className="at-action-wrapper"></span>
+                    </div>
                 </div>
             </div>
         );
