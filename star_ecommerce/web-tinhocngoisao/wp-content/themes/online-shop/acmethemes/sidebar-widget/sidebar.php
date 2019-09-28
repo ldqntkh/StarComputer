@@ -61,6 +61,15 @@ function online_shop_widget_init(){
         'before_title' => '<div class="at-title-action-wrapper clearfix"><h2 class="widget-title">',
         'after_title' => '</h2></div>',
     ));
+	register_sidebar(array(
+		'name' => esc_html__('Left Sidebar Area', 'online-shop'),
+		'id'   => 'online-shop-sidebar-left',
+		'description' => esc_html__('Displays items on left sidebar.', 'online-shop'),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<div class="at-title-action-wrapper clearfix"><h3 class="widget-title">',
+		'after_title' => '</h3></div>'
+	));
 
 	$description = esc_html__('Displays items on header area. Fit For Advertisement or AT Advanced WooCommerce Search Widget', 'online-shop');
 	register_sidebar(array(

@@ -52,6 +52,8 @@ require_once online_shop_file_directory('acmethemes/functions.php');
 
 require_once online_shop_file_directory('acmethemes/functions/header.php');
 
+require_once online_shop_file_directory('acmethemes/functions/sidebar-selection.php');
+
 /*woocommerce*/
 require_once online_shop_file_directory('acmethemes/woocommerce/functions-woocommerce.php');
 
@@ -111,6 +113,7 @@ require_once online_shop_file_directory('acmethemes/sidebar-widget/sidebar.php')
 * file for core functions imported from functions.php while downloading Underscores
 */
 require_once online_shop_file_directory('acmethemes/core.php');
+require_once online_shop_file_directory('acmethemes/gutenberg/gutenberg-init.php');
 
 /**
  * Implement Custom Metaboxes

@@ -19,7 +19,7 @@ if ( !function_exists('online_shop_related_post_below') ) :
 	    $online_shop_cat_post_args = array(
 		    'post__not_in' => array($post_id),
 		    'post_type' => 'post',
-		    'posts_per_page'      => 5,
+		    'posts_per_page'      => 3,
 		    'post_status'         => 'publish',
 		    'ignore_sticky_posts' => true
 	    );
@@ -64,7 +64,7 @@ if ( !function_exists('online_shop_related_post_below') ) :
 			    $online_shop_featured_index = 1;
 			    while ( $online_shop_featured_query->have_posts() ) :$online_shop_featured_query->the_post();
 				    $thumb = 'large';
-				    $online_shop_list_classes = 'single-list acme-col-4';
+				    $online_shop_list_classes = 'single-list acme-col-3';
 				    $online_shop_words = 21;
 				    ?>
                     <div class="<?php echo esc_attr( $online_shop_list_classes ); ?>">
