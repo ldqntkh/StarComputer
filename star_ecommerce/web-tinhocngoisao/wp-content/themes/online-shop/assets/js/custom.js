@@ -176,7 +176,7 @@ jQuery(document).ready(function($) {
             event.preventDefault();
             var angle_down = $(this).parent().children('i.angle-down'),
                 submenu = angle_down.siblings('ul.sub-menu');
-            submenu.toggleClass('open');
+            submenu.slideToggle('fast');
             angle_down.toggleClass('fa-angle-up');
             angle_down.toggleClass('fa-angle-down');
             return false;

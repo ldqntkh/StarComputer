@@ -154,11 +154,9 @@ endif;
 if ( !function_exists('online_shop_sidebar_layout') ) :
     function online_shop_sidebar_layout() {
         $online_shop_sidebar_layout =  array(
-	        'right-sidebar' => esc_html__( 'Right Sidebar', 'online-shop' ),
-	        'left-sidebar'  => esc_html__( 'Left Sidebar' , 'online-shop' ),
-	        'both-sidebar'  => esc_html__( 'Both Sidebar' , 'online-shop' ),
-	        'middle-col'  => esc_html__( 'Middle Column' , 'online-shop' ),
-	        'no-sidebar'    => esc_html__( 'No Sidebar', 'online-shop' )
+            'right-sidebar' => esc_html__( 'Right Sidebar', 'online-shop' ),
+            'left-sidebar'  => esc_html__( 'Left Sidebar' , 'online-shop' ),
+            'no-sidebar'    => esc_html__( 'No Sidebar', 'online-shop' )
         );
         return apply_filters( 'online_shop_sidebar_layout', $online_shop_sidebar_layout );
     }

@@ -401,6 +401,7 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 			        break;
 
 		        case 'tag' :
+		            print_r( $online_shop_wc_product_tag );
 		            if( !empty( $online_shop_wc_product_tag )){
 			            $query_args['tax_query'][] = array(
 				            'taxonomy' => 'product_tag',
