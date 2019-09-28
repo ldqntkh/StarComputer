@@ -865,18 +865,3 @@ include plugin_dir_path( __FILE__ ) . '/filter/search-order.php';
 
 //********PRINT ORDER******** */
 include plugin_dir_path( __FILE__ ) . '/print_order/print_order.php';
-
-// Overwrite render related product
-if ( ! function_exists( 'woocommerce_output_related_products' ) ) {
-    /**
-     * Output the related products.
-     */
-    function woocommerce_output_related_products() {
-        $args = array(
-            'posts_per_page' => 5,
-            'columns'        => 5,
-            'orderby'        => 'rand', // @codingStandardsIgnoreLine.
-        );
-        woocommerce_related_products( apply_filters( 'woocommerce_output_related_products_args', $args ) );
-    }
-}
