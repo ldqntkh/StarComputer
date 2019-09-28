@@ -61,7 +61,8 @@ function wc_customer_edit_account_url() {
  */
 function wc_edit_address_i18n( $id, $flip = false ) {
 	$slugs = apply_filters(
-		'woocommerce_edit_address_slugs', array(
+		'woocommerce_edit_address_slugs',
+		array(
 			'billing'  => sanitize_title( _x( 'billing', 'edit-address-slug', 'woocommerce' ) ),
 			'shipping' => sanitize_title( _x( 'shipping', 'edit-address-slug', 'woocommerce' ) ),
 		)
@@ -96,12 +97,11 @@ function wc_get_account_menu_items() {
 
 	$items = array(
 		'dashboard'       => __( 'Dashboard', 'woocommerce' ),
-		'edit-account'    => __( 'Account details', 'woocommerce' ),
-		'wishlist'    	  => __( 'Wishlist', 'woocommerce' ),
-		'edit-address'    => __( 'Addresses', 'woocommerce' ),
 		'orders'          => __( 'Orders', 'woocommerce' ),
-		'payment-methods' => __( 'Payment methods', 'woocommerce' ),
 		'downloads'       => __( 'Downloads', 'woocommerce' ),
+		'edit-address'    => __( 'Addresses', 'woocommerce' ),
+		'payment-methods' => __( 'Payment methods', 'woocommerce' ),
+		'edit-account'    => __( 'Account details', 'woocommerce' ),
 		'customer-logout' => __( 'Logout', 'woocommerce' ),
 	);
 
@@ -127,7 +127,7 @@ function wc_get_account_menu_items() {
 		}
 	}
 
-	return apply_filters( 'woocommerce_account_menu_items', $items );
+	return apply_filters( 'woocommerce_account_menu_items', $items, $endpoints );
 }
 
 /**
@@ -149,6 +149,8 @@ function wc_get_account_menu_item_classes( $endpoint ) {
 	$current = isset( $wp->query_vars[ $endpoint ] );
 	if ( 'dashboard' === $endpoint && ( isset( $wp->query_vars['page'] ) || empty( $wp->query_vars ) ) ) {
 		$current = true; // Dashboard is not an endpoint, so needs a custom check.
+	} elseif ( 'orders' === $endpoint && isset( $wp->query_vars['view-order'] ) ) {
+		$current = true; // When looking at individual order, highlight Orders list item (to signify where in the menu the user currently is).
 	}
 
 	if ( $current ) {
@@ -191,7 +193,8 @@ function wc_get_account_endpoint_url( $endpoint ) {
  */
 function wc_get_account_orders_columns() {
 	$columns = apply_filters(
-		'woocommerce_account_orders_columns', array(
+		'woocommerce_account_orders_columns',
+		array(
 			'order-number'  => __( 'Order', 'woocommerce' ),
 			'order-date'    => __( 'Date', 'woocommerce' ),
 			'order-status'  => __( 'Status', 'woocommerce' ),
@@ -212,7 +215,8 @@ function wc_get_account_orders_columns() {
  */
 function wc_get_account_downloads_columns() {
 	$columns = apply_filters(
-		'woocommerce_account_downloads_columns', array(
+		'woocommerce_account_downloads_columns',
+		array(
 			'download-product'   => __( 'Product', 'woocommerce' ),
 			'download-remaining' => __( 'Downloads remaining', 'woocommerce' ),
 			'download-expires'   => __( 'Expires', 'woocommerce' ),
@@ -236,7 +240,8 @@ function wc_get_account_downloads_columns() {
  */
 function wc_get_account_payment_methods_columns() {
 	return apply_filters(
-		'woocommerce_account_payment_methods_columns', array(
+		'woocommerce_account_payment_methods_columns',
+		array(
 			'method'  => __( 'Method', 'woocommerce' ),
 			'expires' => __( 'Expires', 'woocommerce' ),
 			'actions' => '&nbsp;',
@@ -252,7 +257,8 @@ function wc_get_account_payment_methods_columns() {
  */
 function wc_get_account_payment_methods_types() {
 	return apply_filters(
-		'woocommerce_payment_methods_types', array(
+		'woocommerce_payment_methods_types',
+		array(
 			'cc'     => __( 'Credit card', 'woocommerce' ),
 			'echeck' => __( 'eCheck', 'woocommerce' ),
 		)
