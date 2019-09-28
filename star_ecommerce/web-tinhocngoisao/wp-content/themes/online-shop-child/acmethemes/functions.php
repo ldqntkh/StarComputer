@@ -820,7 +820,26 @@ function wpa83367_price_html( $price, $product ){
     }
     
 }
-
+// render my account menu navigation
+if ( !function_exists('overwrite_woocommerce_account_menu_items') ) :
+function overwrite_woocommerce_account_menu_items( $items, $endpoints ) {
+    if ( isset( $items ) ) {
+        unset( $items );
+        $items = array(
+                    'dashboard'       => __( 'Dashboard', 'woocommerce' ),
+                    'edit-account'    => __( 'Account details', 'woocommerce' ),
+                    'wishlist'         => __( 'Wishlist', 'woocommerce' ),
+                    'edit-address'    => __( 'Addresses', 'woocommerce' ),
+                    'orders'          => __( 'Orders', 'woocommerce' ),
+                    'customer-logout' => __( 'Logout', 'woocommerce' )
+                );
+    } else {
+        $items = array();
+    }
+    return $items;
+}
+endif;
+add_filter( 'woocommerce_account_menu_items', 'overwrite_woocommerce_account_menu_items', 10, 2 );
 
 //********REGISTER API GET PRODUCT******** */
 include plugin_dir_path( __FILE__ ) . '/api/functions.php';
