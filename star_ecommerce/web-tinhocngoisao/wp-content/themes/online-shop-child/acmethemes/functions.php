@@ -873,7 +873,7 @@ if ( ! function_exists( 'woocommerce_output_related_products' ) ) {
      */
     function woocommerce_output_related_products() {
         $args = array(
-            'posts_per_page' => 20,
+            'posts_per_page' => 5,
             'columns'        => 5,
             'orderby'        => 'rand', // @codingStandardsIgnoreLine.
         );
