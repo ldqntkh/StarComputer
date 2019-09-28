@@ -802,6 +802,14 @@ function is_mobile_device() {
     return preg_match( '/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|iPad|up\.browser|up\.link|webos|wos)/i', $_SERVER['HTTP_USER_AGENT'] );
 }
 
+function fix_request_query_args_for_woocommerce( $query_args ) {
+	if ( isset( $query_args['post_status'] ) && empty( $query_args['post_status'] ) ) {
+		unset( $query_args['post_status'] );
+	}
+	return $query_args;
+}
+add_filter( 'request', 'fix_request_query_args_for_woocommerce', 1, 1 );
+
 
 //********REGISTER API GET PRODUCT******** */
 include plugin_dir_path( __FILE__ ) . '/api/functions.php';
