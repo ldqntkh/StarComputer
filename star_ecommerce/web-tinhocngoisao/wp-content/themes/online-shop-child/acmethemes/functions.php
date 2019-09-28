@@ -810,6 +810,17 @@ function fix_request_query_args_for_woocommerce( $query_args ) {
 }
 add_filter( 'request', 'fix_request_query_args_for_woocommerce', 1, 1 );
 
+add_filter( 'woocommerce_get_price_html', 'wpa83367_price_html', 100, 2 );
+function wpa83367_price_html( $price, $product ){
+    if (strpos($price, 'del')) {
+        $price = str_replace( '<del>', '<del><span class="price-label">Giá: </span>', $price );
+        return str_replace( '<ins>', '<ins><span class="price-label">Khuyến mãi: </span>', $price );
+    } else  {
+        return '<span class="price-label">Giá: </span>' . str_replace( '<ins>', '<ins><span class="price-label">Khuyến mãi: </span>', $price );
+    }
+    
+}
+
 
 //********REGISTER API GET PRODUCT******** */
 include plugin_dir_path( __FILE__ ) . '/api/functions.php';
