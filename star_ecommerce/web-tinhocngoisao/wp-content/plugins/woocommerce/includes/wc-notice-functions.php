@@ -153,6 +153,10 @@ function wc_print_notices( $return = false ) {
 	echo $notices; // WPCS: XSS ok.
 }
 
+add_action( 'woocommerce_shortcode_before_product_cat_loop', 'wc_print_notices', 10 );
+add_action( 'woocommerce_before_shop_loop', 'wc_print_notices', 10 );
+add_action( 'woocommerce_before_single_product', 'wc_print_notices', 10 );
+
 /**
  * Print a single notice immediately.
  *
