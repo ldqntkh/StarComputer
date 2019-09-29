@@ -128,7 +128,7 @@ function online_shop_scripts() {
 
     wp_enqueue_style( 'online-shop-style', get_stylesheet_uri(), array(), '1.3.2' );
     
-    wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri(). '/custom-style.css', array(), '1.1.7' );
+    wp_enqueue_style( 'custom-style', get_stylesheet_directory_uri(). '/custom-style.css', array(), '1.1.8' );
 	/*jquery start*/
     wp_enqueue_script('html5shiv', get_template_directory_uri() . '/assets/library/html5shiv/html5shiv.min.js', array('jquery'), '3.7.3', false);
     wp_script_add_data( 'html5shiv', 'conditional', 'lt IE 9' );
