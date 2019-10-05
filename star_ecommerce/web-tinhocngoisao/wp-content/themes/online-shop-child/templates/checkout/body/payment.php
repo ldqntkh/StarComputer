@@ -65,6 +65,10 @@
                     </div>
                 </div>
             </div>
+            <div class="woocommerce-additional-fields order-address">
+                <h3>3.3 Ghi chú (Tùy chọn)</h3>
+                <textarea name="order_comments" id="order_comments" placeholder=" Ghi chú cho đơn này"></textarea>
+            </div>
             <div class="btn-order">
             <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="<?php echo $placeOrderText ?>" data-value="<?php echo $placeOrderText ?>">"<?php echo $placeOrderText ?></button>
                 <br/>
