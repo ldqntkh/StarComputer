@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-06-16 00:36+0700\n"
+"PO-Revision-Date: 2019-10-06 15:53+0700\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: Poedit 2.2.3\n"
 "Last-Translator: \n"
@@ -24887,9 +24887,9 @@ msgid "Here"
 msgstr "Ngay tại đây"
 
 #. translators: 1: first result 2: last result 3: total results
-#: templates/loop/result-count.php:34
+#: templates/loop/result-count.php:35
 msgctxt "with first and last result"
-msgid "Showing the single result"
+msgid "Showing %1$d&ndash;%2$d of %3$d result"
 msgid_plural "Showing %1$d&ndash;%2$d of %3$d results"
 msgstr[0] "Hiển thị %1$d&ndash;%2$d trên tổng %3$d sản phẩm"
 
