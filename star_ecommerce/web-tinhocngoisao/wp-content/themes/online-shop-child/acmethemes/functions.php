@@ -860,6 +860,18 @@ if ( get_option( 'custom_preferences_facebook_options' ) && get_option( 'custom_
     add_action( 'online_shop_action_before', 'add_facebook_script_after_body', 15 );
 endif;
 
+if ( !function_exists('clear_session_after_add_to_cart') ) :
+    function clear_session_after_add_to_cart() {
+    ?>
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+<?php
+    }
+endif;
+add_action( 'woocommerce_after_add_to_cart_button', 'clear_session_after_add_to_cart', 15 );
 //********SEARCH ORDER******** */
 include plugin_dir_path( __FILE__ ) . '/filter/search-order.php';
 
