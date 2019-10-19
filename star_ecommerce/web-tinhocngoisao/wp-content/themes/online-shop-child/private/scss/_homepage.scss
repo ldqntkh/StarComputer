@@ -257,6 +257,22 @@ h2.woocommerce-loop-product__title {
         }
     }
 }
+.featured-entries-col {
+    &.custom-primetime-sale {
+        ul.products {
+            li.product {
+                a:nth-child(1) {
+                    .product-item-details {
+                        span.price {
+                            display: flex;
+                            flex-direction: column;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 .widget_online_shop_wc_products_custom {
     .featured-entries-col {
         position: relative;
@@ -1264,10 +1280,14 @@ h2.woocommerce-loop-product__title {
                         color: #2d2d2d;
                         opacity: .5;
                         margin-right: 0;
+                        .price-label {
+                            color: #2d2d2d;
+                        }
                     }
                     .price-label {
                         margin-right: 2px;
                         font-weight: normal;
+                        color: black;
                     }
                 }
                 .star-rating {

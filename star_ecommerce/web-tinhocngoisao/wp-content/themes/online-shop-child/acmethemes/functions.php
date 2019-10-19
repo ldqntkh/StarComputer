@@ -802,6 +802,44 @@ function is_mobile_device() {
     return preg_match( '/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|iPad|up\.browser|up\.link|webos|wos)/i', $_SERVER['HTTP_USER_AGENT'] );
 }
 
+function fix_request_query_args_for_woocommerce( $query_args ) {
+	if ( isset( $query_args['post_status'] ) && empty( $query_args['post_status'] ) ) {
+		unset( $query_args['post_status'] );
+	}
+	return $query_args;
+}
+add_filter( 'request', 'fix_request_query_args_for_woocommerce', 1, 1 );
+
+add_filter( 'woocommerce_get_price_html', 'wpa83367_price_html', 100, 2 );
+function wpa83367_price_html( $price, $product ){
+    if (strpos($price, 'del')) {
+        $price = str_replace( '<del>', '<del><span class="price-label">Giá: </span>', $price );
+        return str_replace( '<ins>', '<ins><span class="price-label">Khuyến mãi: </span>', $price );
+    } else  {
+        return '<span class="price-label">Giá: </span>' . str_replace( '<ins>', '<ins><span class="price-label">Khuyến mãi: </span>', $price );
+    }
+    
+}
+// render my account menu navigation
+if ( !function_exists('overwrite_woocommerce_account_menu_items') ) :
+function overwrite_woocommerce_account_menu_items( $items, $endpoints ) {
+    if ( isset( $items ) ) {
+        unset( $items );
+        $items = array(
+                    'dashboard'       => __( 'Dashboard', 'woocommerce' ),
+                    'edit-account'    => __( 'Account details', 'woocommerce' ),
+                    'wishlist'         => __( 'Wishlist', 'woocommerce' ),
+                    'edit-address'    => __( 'Addresses', 'woocommerce' ),
+                    'orders'          => __( 'Orders', 'woocommerce' ),
+                    'customer-logout' => __( 'Logout', 'woocommerce' )
+                );
+    } else {
+        $items = array();
+    }
+    return $items;
+}
+endif;
+add_filter( 'woocommerce_account_menu_items', 'overwrite_woocommerce_account_menu_items', 10, 2 );
 
 //********REGISTER API GET PRODUCT******** */
 include plugin_dir_path( __FILE__ ) . '/api/functions.php';
@@ -822,6 +860,18 @@ if ( get_option( 'custom_preferences_facebook_options' ) && get_option( 'custom_
     add_action( 'online_shop_action_before', 'add_facebook_script_after_body', 15 );
 endif;
 
+if ( !function_exists('clear_session_after_add_to_cart') ) :
+    function clear_session_after_add_to_cart() {
+    ?>
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+<?php
+    }
+endif;
+add_action( 'woocommerce_after_add_to_cart_button', 'clear_session_after_add_to_cart', 15 );
 //********SEARCH ORDER******** */
 include plugin_dir_path( __FILE__ ) . '/filter/search-order.php';
 

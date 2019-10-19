@@ -25,6 +25,8 @@ jQuery( function( $ ) {
 
 			if ( $( document.body ).hasClass( 'woocommerce-order-pay' ) ) {
 				this.$order_review.on( 'click', 'input[name="payment_method"]', this.payment_method_selected );
+				this.$order_review.on( 'submit', this.submitOrder );
+				this.$order_review.attr( 'novalidate', 'novalidate' );
 			}
 
 			// Prevent HTML5 validation which can conflict.
@@ -416,7 +418,7 @@ jQuery( function( $ ) {
 							if ( ID ) {
 								if ( $.inArray( $( this ).attr( 'type' ), [ 'checkbox', 'radio' ] ) !== -1 ) {
 									$( this ).prop( 'checked', paymentDetails[ ID ] ).change();
-								} else if ( 0 === $( this ).val().length ) {
+								} else if ( null !== $( this ).val() && 0 === $( this ).val().length ) {
 									$( this ).val( paymentDetails[ ID ] ).change();
 								}
 							}
@@ -424,7 +426,7 @@ jQuery( function( $ ) {
 					}
 
 					// Check for error
-					if ( 'failure' === data.result ) {
+					if ( data && 'failure' === data.result ) {
 
 						var $form = $( 'form.checkout' );
 
@@ -452,6 +454,22 @@ jQuery( function( $ ) {
 				}
 
 			});
+		},
+		blockOnSubmit: function( $form ) {
+			var form_data = $form.data();
+
+			if ( 1 !== form_data['blockUI.isBlocked'] ) {
+				$form.block({
+					message: null,
+					overlayCSS: {
+						background: '#fff',
+						opacity: 0.6
+					}
+				});
+			}
+		},
+		submitOrder: function() {
+			wc_checkout_form.blockOnSubmit( $( this ) );
 		},
 		submit: function(e) {
 			wc_checkout_form.reset_update_checkout_timer();
