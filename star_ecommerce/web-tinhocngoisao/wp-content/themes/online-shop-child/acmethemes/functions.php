@@ -877,3 +877,27 @@ include plugin_dir_path( __FILE__ ) . '/filter/search-order.php';
 
 //********PRINT ORDER******** */
 include plugin_dir_path( __FILE__ ) . '/print_order/print_order.php';
+
+// cache file
+
+if ( !function_exists('get_cache_by_key') ) {
+    function get_cache_by_key( $key ) {
+        $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/json-cache.txt';
+        $json = json_decode(file_get_contents($cache_file_path),TRUE);
+        if (isset($json)) {
+            if (isset($json[$key])) {
+                return $json[$key];
+            } else return null;
+        }
+        return null;
+    }
+}
+
+if ( !function_exists('set_cache_by_key') ) {
+    function set_cache_by_key ($key, $content) {
+        $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/json-cache.txt';
+        $json = json_decode(file_get_contents($cache_file_path),TRUE);
+        $json[$key] = $content;
+        file_put_contents($cache_file_path, json_encode($json));
+    }
+}
