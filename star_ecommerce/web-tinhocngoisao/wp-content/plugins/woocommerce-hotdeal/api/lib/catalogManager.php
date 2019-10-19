@@ -7,7 +7,7 @@ class CatalogManager {
         $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
         $current_time = $current_time->format('Y-m-d');
         
-        $cache_result = get_cache_by_key('getProductsSaleTimeByCategory');
+        $cache_result = get_cache_by_key('getProductsSaleTimeByCategory'.$cat_slug.$post_per_page);
         if ($cache_result) {
             $cache_time = $cache_result['time'];
             if ($cache_time) {
@@ -89,7 +89,7 @@ class CatalogManager {
             if (count($arrProducts) >= $post_per_page) break;
         endwhile;
         wp_reset_query();
-        set_cache_by_key('getProductsSaleTimeByCategory', array("time" => $current_time, "data" => $arrProducts));
+        set_cache_by_key('getProductsSaleTimeByCategory'.$cat_slug.$post_per_page, array("time" => $current_time, "data" => $arrProducts));
         return $arrProducts;
     }
 }
