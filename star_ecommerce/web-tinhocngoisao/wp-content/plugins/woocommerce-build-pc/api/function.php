@@ -32,6 +32,26 @@ function get_products_by_custom_type(WP_REST_Request $request) {
             "data" => null 
         );
     } else {
+        $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
+        $current_time = $current_time->format('Y-m-d');
+        $cache_result = get_cache_by_key('get_products_by_custom_type'.$custom_type);
+        if ($cache_result) {
+            $cache_time = $cache_result['time'];
+            if ($cache_time) {
+                $date_1 = strtotime('2019-10-18');
+                $date_2 = strtotime($current_time);
+                $datediff = $date_2 - $date_1;
+                $day = round($datediff / (60 * 60 * 24));
+                if ($day < 1) {
+                    return array(
+                        "success" => true,
+                        "errMsg" => "",
+                        "data" => $cache_result['data'] 
+                    );
+                }
+            }
+        }
+
         $query_args = array(
             'post_type'             => 'product',
             'post_status'           => 'publish',
@@ -96,6 +116,9 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                 array_push($arrProducts, $arrPt);
             }
         endwhile;
+
+        set_cache_by_key('get_products_by_custom_type'.$custom_type, array("time" => $current_time, "data" => $arrProducts));
+
         return array(
             "success" => true,
             "errMsg" => "",
