@@ -7,11 +7,11 @@ class CatalogManager {
         $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
         $current_time = $current_time->format('Y-m-d');
         
-        $cache_result = get_cache_by_key('getProductsSaleTimeByCategory'.$cat_slug.$post_per_page);
+        $cache_result = get_cache_by_key('getProductsSaleTimeByCategory'.$cat_slug.$post_per_page, 'hotdeal.txt');
         if ($cache_result) {
             $cache_time = $cache_result['time'];
             if ($cache_time) {
-                $date_1 = strtotime('2019-10-18');
+                $date_1 = strtotime($cache_time);
                 $date_2 = strtotime($current_time);
                 $datediff = $date_2 - $date_1;
                 $day = round($datediff / (60 * 60 * 24));
@@ -89,7 +89,7 @@ class CatalogManager {
             if (count($arrProducts) >= $post_per_page) break;
         endwhile;
         wp_reset_query();
-        set_cache_by_key('getProductsSaleTimeByCategory'.$cat_slug.$post_per_page, array("time" => $current_time, "data" => $arrProducts));
+        set_cache_by_key('getProductsSaleTimeByCategory'.$cat_slug.$post_per_page, array("time" => $current_time, "data" => $arrProducts), 'hotdeal.txt');
         return $arrProducts;
     }
 }

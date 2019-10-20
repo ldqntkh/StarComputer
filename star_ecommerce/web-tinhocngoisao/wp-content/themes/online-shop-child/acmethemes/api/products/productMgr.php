@@ -15,6 +15,28 @@ if (!function_exists('get_products_by_categoryid')) :
         $order = esc_attr( $_GET[ 'order' ] );
         $get_slug = $_GET[ 'get_slug' ] ? absint( $_GET[ 'get_slug' ] ) : 0;
 
+        $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
+        $current_time = $current_time->format('Y-m-d');
+        
+        $cache_result = get_cache_by_key('get_products_by_categoryid'.$wc_advanced_option.$online_shop_wc_product_cat.$online_shop_wc_product_tag.$post_number.$start_page.$orderby.$order.$get_slug, 'table-sale.txt');
+        if ($cache_result) {
+            $cache_time = $cache_result['time'];
+            if ($cache_time) {
+                $date_1 = strtotime($cache_time);
+                $date_2 = strtotime($current_time);
+                $datediff = $date_2 - $date_1;
+                $day = round($datediff / (60 * 60 * 24));
+                if ($day < 1) {
+                    $result = array(
+                        "status" => "OK",
+                        "errMsg" => "",
+                        "data" => $cache_result['data']
+                    );
+                    return $result;
+                }
+            }
+        }
+
         $product_visibility_term_ids = wc_get_product_visibility_term_ids();
 
         /**
@@ -123,6 +145,9 @@ if (!function_exists('get_products_by_categoryid')) :
                 "data" => $products
             );
             wp_reset_postdata();
+            set_cache_by_key('get_products_by_categoryid'.$wc_advanced_option.$online_shop_wc_product_cat.$online_shop_wc_product_tag.$post_number.$start_page.$orderby.$order.$get_slug
+                                , array("time" => $current_time, "data" => $products),
+                                'table-sale.txt');
             return $result;
         endif;
         
