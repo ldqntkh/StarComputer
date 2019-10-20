@@ -49,13 +49,38 @@ class ListProductComponent extends Component {
             <span key={0}>Trang: <strong>{page}</strong>/<strong>{page_count}</strong></span>
         );
 
-        for(let index = 1; index <= page_count; index++) {
-            if (index === page) classname = 'btn-page active';
-            else classname = 'btn-page';
+        if (page_count <= 5) {
+            for(let index = 1; index <= page_count; index++) {
+                if (index === page) classname = 'btn-page active';
+                else classname = 'btn-page';
+                result.push(
+                    <button type="button" className={classname} key={index} onClick={() => this.changePageIndex(index)} >{index}</button>
+                );
+            }
+        } else {
+            if (page == 1) {
+                result.push(
+                    <button type="button" className={'btn-prev'} key={ Date.now()/Math.floor(Math.random()*100) } ><i className="fa fa-backward"></i></button>
+                );
+            } else {
+                result.push(
+                    <button type="button" className={'btn-prev'} key={Date.now()/Math.floor(Math.random()*100)} onClick={() => this.changePageIndex(page-1)} ><i className="fa fa-backward"></i></button>
+                );
+            }
             result.push(
-                <button type="button" className={classname} key={index} onClick={() => this.changePageIndex(index)} >{index}</button>
+                <input className="input-paging" type="number" key={Date.now()/Math.floor(Math.random()*100)} disabled value={page} />
             );
+            if (page == page_count) {
+                result.push(
+                    <button type="button" className={'btn-next'} key={ Date.now()/Math.floor(Math.random()*100) } ><i className="fa fa-forward"></i></button>
+                );
+            } else {
+                result.push(
+                    <button type="button" className={'btn-next'} key={Date.now()/Math.floor(Math.random()*100)} onClick={() => this.changePageIndex(page+1)} ><i className="fa fa-forward"></i></button>
+                );
+            }
         }
+        
         return result;
     }
 

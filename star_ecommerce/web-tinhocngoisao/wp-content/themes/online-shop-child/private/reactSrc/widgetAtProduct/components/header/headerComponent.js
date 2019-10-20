@@ -16,16 +16,15 @@ class HeaderComponent extends Component {
                     <div className="pointer">
                         <h2 className="widgettitle">
                             {title}
-                            { display_option !== 1 && <span className="at-action-wrapper">
-                                <a href={!link ? "#" : link} className="all-link">
-                                    {title_link}
-                                </a>
-                            </span>
-                            }
                             <span className="wg-description">{description}</span>
                         </h2>
-                        <span className="at-action-wrapper"></span>
                     </div>
+                    { display_option !== 1 && <span className="at-action-wrapper">
+                        <a href={!link ? "#" : link} className="all-link">
+                            {title_link}
+                        </a>
+                    </span>
+                    }
                 </div>
             </div>
         );
