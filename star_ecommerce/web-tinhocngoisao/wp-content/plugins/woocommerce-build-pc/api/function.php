@@ -118,7 +118,7 @@ function get_products_by_custom_type(WP_REST_Request $request) {
         endwhile;
 
         set_cache_by_key('get_products_by_custom_type'.$custom_type, array("time" => $current_time, "data" => $arrProducts));
-
+        wp_reset_query();
         return array(
             "success" => true,
             "errMsg" => "",
