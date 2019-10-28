@@ -225,6 +225,9 @@ endif;
 add_action( 'online_shop_action_after', 'online_shop_page_end', 10 );
 
 add_action( 'wp_footer', function(){
+    if ( !empty( get_option( 'custom_preferences_options' )['render_chatbox'] ) ) :
+        echo get_option( 'custom_preferences_options' )['render_chatbox'];
+    endif;
     if ( !empty( get_option( 'custom_preferences_options' )['render_footer_script'] ) ) :
         echo get_option( 'custom_preferences_options' )['render_footer_script'];
     endif;
