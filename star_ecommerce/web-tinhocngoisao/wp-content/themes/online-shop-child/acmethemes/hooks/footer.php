@@ -226,7 +226,7 @@ add_action( 'online_shop_action_after', 'online_shop_page_end', 10 );
 
 add_action( 'wp_footer', function(){
     if ( !empty( get_option( 'custom_preferences_options' )['render_footer_script'] ) ) :
-        echo '<script>'.get_option( 'custom_preferences_options' )['render_footer_script'].'</script>';
+        echo get_option( 'custom_preferences_options' )['render_footer_script'];
     endif;
 
     // render function zalo
@@ -234,7 +234,6 @@ add_action( 'wp_footer', function(){
         if ( !empty( get_option( 'custom_preferences_zalo_options' )['zalo_script_url'] ) && get_option( 'custom_preferences_zalo_options' )['zalo_script_url'] !== "" ) :
             echo '<script src="'. get_option( 'custom_preferences_zalo_options' )['zalo_script_url'] .'"></script>';
         endif;
-        echo '<script>'.get_option( 'custom_preferences_options' )['render_footer_script'].'</script>';
     endif;
 }, 100 );
 
