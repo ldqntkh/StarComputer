@@ -345,14 +345,6 @@ jQuery( function( $ ) {
 				data.shipping_method = shipping_methods;
 			}
 
-			$( '.woocommerce-checkout-payment, .woocommerce-checkout-review-order-table' ).block({
-				message: null,
-				overlayCSS: {
-					background: '#fff',
-					opacity: 0.6
-				}
-			});
-
 			if ( !$( wc_checkout_form.$checkout_form ).hasClass('processing') ) {
 				$( wc_checkout_form.$checkout_form ).addClass( 'processing' ).block({
 					message: null,
