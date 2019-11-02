@@ -15,7 +15,8 @@
             "custom_preferences_global" => "Global",
             "custom_preferences_search" => "Search keywords",
             'custom_preferences_zalo' => "Zalo",
-            'custom_preferences_facebook' => 'Facebook'
+            'custom_preferences_facebook' => 'Facebook',
+            'custom_preferences_cache' => 'Cache'
         )
     );
 
@@ -25,6 +26,7 @@
     include CUSTOM_PREFERECE_DIR . '/search/custom-search-hot-keys.php';
     include CUSTOM_PREFERECE_DIR . '/zalo/custom-preference-zalo.php';
     include CUSTOM_PREFERECE_DIR . '/facebook/custom-preference-facebook.php';
+    include CUSTOM_PREFERECE_DIR . '/cache/custom-preference-cache.php';
 
     add_action( 'admin_menu', 'custom_preferences_menu' );
 
@@ -69,6 +71,15 @@
         do_settings_sections( 'custom_preferences_facebook' );
         echo '<input name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
         echo '</form></div>';
+
+         // init cache
+         echo '<div id="custom_preferences_cache" class="custom_preferences_tab wrap" style="display:none">';
+         //echo '<form action="options.php" method="post">';
+         settings_fields( 'custom_preferences_cache_options' );
+         do_settings_sections( 'custom_preferences_cache' );
+         //echo '<input name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
+         //echo '</form>';
+         echo '</div>';
     }
 
     

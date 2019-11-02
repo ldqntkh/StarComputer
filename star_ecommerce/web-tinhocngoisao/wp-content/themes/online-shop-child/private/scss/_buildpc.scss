@@ -469,6 +469,29 @@
                             font-weight: bold;
                         }
                     }
+
+                    .btn-prev, .btn-next {
+                        margin: 0 5px;
+                        border: none;
+                        background: red;
+                        color: white;
+                        border-radius: 50%;
+                        padding-left: 4.5px;
+                        width: 25px;
+                        height: 25px;
+                        line-height: 10px;
+                    }
+                    .btn-next {
+                        padding-left: 8px;
+                        margin-right: 20px;
+                    }
+                    .input-paging {
+                        width: 50px;
+                        margin: 0 10px;
+                        padding: 5px;
+                        border-radius: 10px;
+                        border: 1px solid silver;
+                    }
                 }
                 .list-product-data {
                     overflow: hidden;

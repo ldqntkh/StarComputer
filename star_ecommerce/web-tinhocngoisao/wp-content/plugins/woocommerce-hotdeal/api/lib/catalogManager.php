@@ -3,6 +3,24 @@
 class CatalogManager {
 
     public function getProductsSaleTimeByCategory ($cat_slug, $post_per_page, $custom_query = []) {
+
+        $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
+        $current_time = $current_time->format('Y-m-d');
+        
+        $cache_result = get_cache_by_key('getProductsSaleTimeByCategory'.$cat_slug.$post_per_page, 'hotdeal.txt');
+        if ($cache_result) {
+            $cache_time = $cache_result['time'];
+            if ($cache_time) {
+                $date_1 = strtotime($cache_time);
+                $date_2 = strtotime($current_time);
+                $datediff = $date_2 - $date_1;
+                $day = round($datediff / (60 * 60 * 24));
+                if ($day < 1) {
+                    return $cache_result['data'];
+                }
+            }
+        }
+
         $query_args = array(
             'post_type'             => 'product',
             'post_status'           => 'publish',
@@ -30,8 +48,7 @@ class CatalogManager {
         $loop = new WP_Query( $query );
         $arrProducts = array();
         $productMgr = new ProductManager();
-        // $current_hour = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
-        // $current_hour = $current_hour->format('H');
+        
         $regular_price = 0;
         $sale_price = 0;
         while ( $loop->have_posts() ) : $loop->the_post(); 
@@ -72,6 +89,7 @@ class CatalogManager {
             if (count($arrProducts) >= $post_per_page) break;
         endwhile;
         wp_reset_query();
+        set_cache_by_key('getProductsSaleTimeByCategory'.$cat_slug.$post_per_page, array("time" => $current_time, "data" => $arrProducts), 'hotdeal.txt');
         return $arrProducts;
     }
 }
