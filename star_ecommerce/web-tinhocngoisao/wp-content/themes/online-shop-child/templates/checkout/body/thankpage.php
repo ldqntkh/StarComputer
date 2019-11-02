@@ -17,8 +17,10 @@
             $page_content = str_replace('{link_order}', $order_url, $page_content);
             $page_content = str_replace('{order_email}', $order->get_billing_email(), $page_content);
             echo $page_content;
+            echo '<div class="payment-end">';
+            do_action( 'woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id() );
+            echo '</div>';
         ?>
     </div>
-    <div class="right-content"></div>
     <?php endif;?>
 </div>

@@ -58,11 +58,18 @@
             </div>
             <div class="payment">
                 <h3>3.2 Chọn hình thức thanh toán</h3>
-                <div class="payment-items">
-                    <div class="group-radio">
-                        <input type="radio" name="payment_method" id="payment-01" value="cod" checked/>
-                        <label for="payment-01">Thanh toán khi nhận hàng (COD)</label>
-                    </div>
+                <div id="payment" class="woocommerce-checkout-payment">
+                    <?php if ( WC()->cart->needs_payment() ) : ?>
+                        <ul class="wc_payment_methods payment_methods methods">
+                            <?php
+                            if ( ! empty( $available_gateways ) ) {
+                                foreach ( $available_gateways as $gateway ) {
+                                    wc_get_template( 'checkout/payment-method.php', array( 'gateway' => $gateway ) );
+                                }
+                            }
+                            ?>
+                        </ul>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="woocommerce-additional-fields order-address">
