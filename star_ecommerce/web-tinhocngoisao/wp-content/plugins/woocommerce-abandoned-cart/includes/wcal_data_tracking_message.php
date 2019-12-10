@@ -15,60 +15,57 @@ if ( ! class_exists( 'Wcal_Tracking_msg' ) ) {
      * @since    4.9
      */
     class Wcal_Tracking_msg {
-        
+
         public function __construct() {
-            // Checkout page notice for guest users
-            add_filter( 'woocommerce_checkout_fields' , array( &$this, 'wcal_add_gdpr_msg' ), 10, 1 );
             // Product page notice for logged in users
             add_action( 'woocommerce_after_add_to_cart_button', array( &$this, 'wcal_add_logged_msg' ), 10 );
-            // Shop Page notice
-            add_action( 'woocommerce_before_shop_loop', array( &$this, 'wcal_add_logged_msg' ), 10 );
-            //add_action( 'woocommerce_after_shop_loop_item', array( &$this, 'wcal_add_logged_msg' ), 10 );
+            add_action( 'wp_ajax_wcal_gdpr_refused', array( 'wcal_common', 'wcal_gdpr_refused' ) );
         }
-        
-        /**
-         * Adds a message to be displayed above Billing_email
-         * field on Checkout page for guest users.
-         * 
-         * @param array $fields - List of fields on Checkout page
-         * @return array $fields - List of fields on Checkout page
-         * 
-         * @hook woocommerce_checkout_fields
-         * @since 4.9
-         */
-        static function wcal_add_gdpr_msg( $fields ) {
-            
-            if ( ! is_user_logged_in() ) {
-                // check if any message is present in the settings
-                $guest_msg = get_option( 'wcal_guest_cart_capture_msg' );
-                
-                if ( isset( $guest_msg ) && '' != $guest_msg ) {
-                    $existing_label = $fields[ 'billing' ][ 'billing_email' ][ 'label' ];
-                    $fields[ 'billing' ][ 'billing_email' ][ 'label' ] = $existing_label . "<br><small>$guest_msg</small>";
-                }
-            }
-            return $fields;
-        }
-        
+
         /**
          * Adds a message to be displayed for logged in users
          * Called on Shop & Product page
-         * 
+         *
          * @hook woocommerce_after_add_to_cart_button
          *       woocommerce_before_shop_loop
-         * @since 4.9      
+         * @since 4.9
          */
         static function wcal_add_logged_msg() {
             if ( is_user_logged_in() ) {
-                
+
                 $registered_msg = get_option( 'wcal_logged_cart_capture_msg' );
+                $gdpr_consent = get_user_meta( get_current_user_id(), 'wcal_gdpr_tracking_choice', true );
                 
-                if ( isset( $registered_msg ) && '' != $registered_msg ) {
-                    echo "<p><small>" . __( $registered_msg, 'woocommerce-abandoned-cart' ) . "</small></p>";
+                if( $gdpr_consent === '' ) {
+                    $gdpr_consent = true;
+                }
+
+                if ( isset( $registered_msg ) && '' != $registered_msg && $gdpr_consent ) {
+                    wp_enqueue_script( 
+                        'wcal_registered_capture',
+                        plugins_url( '../assets/js/wcal_registered_user_capture.js', __FILE__ ),
+                        '',
+                        '',
+                        true
+                    );
+
+                    $vars = array(
+                        '_gdpr_after_no_thanks_msg' => htmlspecialchars( get_option( 'wcal_gdpr_opt_out_message' ), ENT_QUOTES ),
+                        'ajax_url' => admin_url( 'admin-ajax.php' ),
+                    );
+
+                    wp_localize_script( 
+                        'wcal_registered_capture', 
+                        'wcal_registered_capture_params', 
+                        $vars 
+                    );
+                    
+                    $registered_msg .= " <span id='wcal_gdpr_no_thanks'><a style='cursor: pointer' id='wcal_gdpr_no_thanks'>" . htmlspecialchars( get_option( 'wcal_gdpr_allow_opt_out' ), ENT_QUOTES ) . "</a></span>";
+                    echo "<span id='wcal_gdpr_message_block'><p><small>" . $registered_msg . "</small></p></span>";
                 }
             }
         }
-        
+
     } // end of class
     $Wcal_Tracking_msg = new Wcal_Tracking_msg();
 } // end IF
