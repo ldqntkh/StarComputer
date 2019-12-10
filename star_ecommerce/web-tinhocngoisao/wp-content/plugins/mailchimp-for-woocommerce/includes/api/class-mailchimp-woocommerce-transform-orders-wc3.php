@@ -62,6 +62,8 @@ class MailChimp_WooCommerce_Transform_Orders
 
         $order = new MailChimp_WooCommerce_Order();
 
+        $customer = $this->buildCustomerFromOrder($woo);
+
         $email = $woo->get_billing_email();
 
         // just skip these altogether because we can't submit any amazon orders anyway.
@@ -75,7 +77,11 @@ class MailChimp_WooCommerce_Transform_Orders
 
         // if we have a campaign id let's set it now.
         if (!empty($this->campaign_id)) {
-            $order->setCampaignId($this->campaign_id);
+            try {
+                $order->setCampaignId($this->campaign_id);
+            } catch (\Exception $e) {
+                mailchimp_log('transform_order_set_campaign_id.error', 'No campaign added to order, with provided ID: '. $this->campaign_id. ' :: '. $e->getMessage(). ' :: in '.$e->getFile().' :: on '.$e->getLine());
+            }
         }
 
         $order->setProcessedAt($woo->get_date_created()->setTimezone(new \DateTimeZone('UTC')));
@@ -111,10 +117,19 @@ class MailChimp_WooCommerce_Transform_Orders
         }
 
         // set the total
-        $order->setOrderTotal($woo->get_total());
+        $order->setOrderTotal($order_total = $woo->get_total());
 
-        // set the order URL
-        $order->setOrderURL($woo->get_view_order_url());
+        // set the order URL if it's valid.
+        if (($view_order_url = $woo->get_view_order_url()) && wc_is_valid_url($view_order_url)) {
+            $order->setOrderURL($woo->get_view_order_url());
+        }
+
+        // set the total if refund
+        if (($refund = $woo->get_total_refunded()) && $refund > 0){
+            // If there's a refund, apply to order total.
+            $order_spent = $order_total - $refund;
+            $order->setOrderTotal($order_spent);
+        }
 
         // if we have any tax
         $order->setTaxTotal($woo->get_total_tax());
@@ -128,7 +143,7 @@ class MailChimp_WooCommerce_Transform_Orders
         $order->setDiscountTotal($woo->get_total_discount());
 
         // set the customer
-        $order->setCustomer($this->buildCustomerFromOrder($woo));
+        $order->setCustomer($customer);
 
         // apply the addresses to the order
         $order->setShippingAddress($this->transformShippingAddress($woo));
@@ -171,10 +186,6 @@ class MailChimp_WooCommerce_Transform_Orders
             $order->addItem($item);
         }
 
-        //if (($refund = $woo->get_total_refunded()) && $refund > 0){
-            // this is where we would be altering the submission to tell us about the refund.
-        //}
-
         return $order;
     }
 
@@ -200,19 +211,43 @@ class MailChimp_WooCommerce_Transform_Orders
         $customer->setOrdersCount($stats->count);
         $customer->setTotalSpent($stats->total);
 
-        // we are saving the post meta for subscribers on each order... so if they have subscribed on checkout
-        $subscriber_meta = get_post_meta($order->get_id(), 'mailchimp_woocommerce_is_subscribed', true);
-        $subscribed_on_order = $subscriber_meta === '' ? false : (bool) $subscriber_meta;
+        // we now hold this data inside the customer object for usage in the order handler class
+        // we only update the subscriber status on a member IF they were subscribed.
+        $subscribed_on_order = $customer->wasSubscribedOnOrder($order->get_id());
+
         $customer->setOptInStatus($subscribed_on_order);
+
+        $doi = mailchimp_list_has_double_optin();
+        $status_if_new = $doi ? false : $subscribed_on_order;
+
+        $customer->setOptInStatus($status_if_new);
 
         // if they didn't subscribe on the order, we need to check to make sure they're not already a subscriber
         // if they are, we just need to make sure that we don't unsubscribe them just because they unchecked this box.
-        if (!$subscribed_on_order) {
+        if ($doi || !$subscribed_on_order) {
             try {
                 $subscriber = mailchimp_get_api()->member(mailchimp_get_list_id(), $customer->getEmailAddress());
-                $status = !in_array($subscriber['status'], array('unsubscribed', 'transactional'));
-                $customer->setOptInStatus($status);
-            } catch (\Exception $e) {}
+
+                if ($subscriber['status'] === 'transactional') {
+                    $customer->setOptInStatus(false);
+                    // when the list requires a double opt in - flag it here.
+                    if ($doi) {
+                        $customer->requireDoubleOptIn(true);
+                    }
+                    return $customer;
+                } elseif ($subscriber['status'] === 'pending') {
+                    $customer->setOptInStatus(false);
+                    return $customer;
+                }
+
+                $customer->setOptInStatus($subscriber['status'] === 'subscribed');
+            } catch (\Exception $e) {
+                // if double opt in is enabled - we need to make a request now that subscribes the customer as pending
+                // so that the double opt in will actually fire.
+                if ($doi && (!isset($subscriber) || empty($subscriber))) {
+                    $customer->requireDoubleOptIn(true);
+                }
+            }
         }
 
         return $customer;
@@ -346,7 +381,8 @@ class MailChimp_WooCommerce_Transform_Orders
 
         foreach ($orders as $order) {
             $order = new WC_Order($order);
-            if ($order->get_status() !== 'cancelled') {
+
+            if ($order->get_status() !== 'cancelled' && $order->is_paid()) {
                 $stats->total += $order->get_total();
                 $stats->count ++;
             }
@@ -402,7 +438,7 @@ class MailChimp_WooCommerce_Transform_Orders
             ),
             // Order fulfilled and complete – requires no further action
             'completed'     => (object) array(
-                'financial' => 'fulfilled',
+                'financial' => 'paid',
                 'fulfillment' => 'fulfilled'
             ),
             // Cancelled by an admin or the customer – no further action required
