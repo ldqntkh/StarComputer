@@ -16,7 +16,7 @@ class Stock_Manager {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.2.6';
+	const VERSION = '1.2.8';
 
 	/**
 	 * Plugin slug
@@ -44,12 +44,17 @@ class Stock_Manager {
 	private function __construct() {
 
 		// Load plugin text domain
-		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
 		// Activate plugin when new blog is added
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
-   add_action( 'init', array( $this, 'output_buffer' ) );
+		add_action( 'init', array( $this, 'output_buffer' ) );
+		   
+		add_action( 'init', array( $this, 'create_table' ) );
+
+		add_action( 'woocommerce_product_set_stock', array( $this, 'save_stock' ) );
+		add_action( 'woocommerce_variation_set_stock', array( $this, 'save_stock' ) );
     
 	}                   
 
@@ -223,10 +228,11 @@ class Stock_Manager {
 	 */
 	public function load_plugin_textdomain() {
 
-		$domain = $this->plugin_slug;
+		$domain = 'woocommerce-stock-manager';
 		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
-		load_textdomain( $domain, STOCKDIR . 'languages/woocommerce-stock-manager-' . $locale . '.mo' );
+		//load_textdomain( $domain, STOCKDIR . 'languages/woocommerce-stock-manager-' . $locale . '.mo' );
+		load_plugin_textdomain( $domain, FALSE, STOCKDIR . '/languages/' );
 
 	}
 
@@ -234,8 +240,62 @@ class Stock_Manager {
 	 * Headers allready sent fix
 	 *
 	 */        
-  public function output_buffer() {
+  	public function output_buffer() {
 		ob_start();
-  } 
+	}
+	  
+	/**
+     * Create table if not exists
+     *
+     * @since    2.0.0
+     */
+    public function create_table() {
+
+		global $wpdb;
+	
+		$wpdb->hide_errors();
+	
+		$collate = '';
+	
+			if ( $wpdb->has_cap( 'collation' ) ) {
+				if ( ! empty($wpdb->charset ) ) {
+					$collate .= "DEFAULT CHARACTER SET $wpdb->charset";
+				}
+				if ( ! empty($wpdb->collate ) ) {
+					$collate .= " COLLATE $wpdb->collate";
+				}
+			}
+	
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	
+		$table = "
+            CREATE TABLE {$wpdb->prefix}stock_log (
+                ID bigint(255) NOT NULL AUTO_INCREMENT,
+                date_created datetime NOT NULL,
+                product_id bigint(255) NOT NULL,
+                qty int(10) NOT NULL,
+                PRIMARY KEY  (`ID`)
+            ) $collate;
+        ";
+		dbDelta( $table );
+	
+	}
+
+	/**
+     * Save stock change
+     *
+     * @since    2.0.0
+     */
+    public function save_stock( $product ) {
+	
+		global $wpdb;
+		$data = array();
+		$data['date_created'] = date( 'Y-m-d H:i:s', time() );
+		$data['qty'] = $product->get_stock_quantity();
+		$data['product_id'] = $product->get_id();
+		
+		$wpdb->insert( $wpdb->prefix.'stock_log', $data ); 
+	
+	}
 
 }//End class

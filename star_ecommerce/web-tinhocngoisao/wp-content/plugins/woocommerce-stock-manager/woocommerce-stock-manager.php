@@ -3,13 +3,14 @@
  * Plugin Name:       WooCommerce Stock Manager
  * Plugin URI:        http:/toret.cz
  * Description:       WooCommerce Stock Manager
- * Version:           1.2.6
+ * Version:           2.0.2
  * Author:            Vladislav Musílek
  * Author URI:        http://toret.cz
  * Text Domain:       stock-manager
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
+ * WC tested up to: 3.6.5
  */
 
 // If this file is called directly, abort.
@@ -18,6 +19,10 @@ if ( ! defined( 'WPINC' ) ) {
 }
 define( 'STOCKDIR', plugin_dir_path( __FILE__ ) );
 define( 'STOCKURL', plugin_dir_url( __FILE__ ) );
+define( 'STOCKVERSION', '2.0.2' );
+
+require STOCKDIR . '/vendor/autoload.php';
+
 /*----------------------------------------------------------------------------*
  * Public-Facing Functionality
  *----------------------------------------------------------------------------*/
@@ -38,146 +43,29 @@ if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 }
 
+add_action( 'in_plugin_update_message-woocommerce-stock-manager/woocommerce-stock-manager.php', 'stockmanager_update_message_cb', 10, 2 );
+function stockmanager_update_message_cb( $plugin_data, $r ){
 
-
-
- 
- 
-
-    add_action( 'wp_ajax_save_one_product', 'stock_manager_save_one_product_stock_data' ); 
-
-    /**
-     * Save one product stock data 
-     *
-     */        
-    function stock_manager_save_one_product_stock_data(){
-	
-        if( current_user_can('manage_woocommerce') ){
-
-            $product_id   = sanitize_text_field( $_POST['product'] );
-
-            check_ajax_referer( 'wsm-ajax-nonce-'.$product_id, 'secure' );
-
-            WCM_Save::save_one( $_POST, $product_id );
-     
-        }
-
-        exit();
-
-    }  
-
-
-add_action( 'wp_ajax_wsm_save_title_product', 'stock_manager_wsm_save_title_product' ); 
-
-  /**
-   * Save product title
-   *
-   */        
-  function stock_manager_wsm_save_title_product(){
-    
-    if( current_user_can('manage_woocommerce') ){
-
-        //check_ajax_referer( 'wsm_update', 'security' );
-
-        $item   = sanitize_text_field($_POST['item']);
-        $title   = sanitize_text_field($_POST['title']);
-        
-        $args = array(
-            'ID'           => $item,
-            'post_title'   => $title,
-        );
-
-        $product_id = wp_update_post( $args );
-
-        
-     
+    if ( version_compare( STOCKVERSION, '2.0.0', '<' ) ) {
+   ?>
+        <div class="wc_plugin_upgrade_notice extensions_warning minor">
+	        <p><strong><?php _e( 'Alert!', 'woocommerce-stock-manager' ); ?></strong> <?php _e( 'Current plugin needs this versions of WordPress and WooCommerce:', 'woocommerce-stock-manager' ); ?></p>
+	        <table class="plugin-details-table" cellspacing="0">
+		        <tbody>
+                    <tr>
+				        <td>WordPress</td>
+				        <td>5.0+ version</td>
+			        </tr>        
+                    <tr>
+					    <td>WooCommerce</td>
+					    <td>3.5.+ version</td>
+				    </tr>								
+				</tbody>
+	        </table>
+        </div>
+    <?php  
     }
-    echo $product_id;
-    exit($product_id);
-}  
-
-add_action( 'wp_ajax_wsm_save_sku', 'stock_manager_wsm_save_sku' ); 
-
-  /**
-   * Save product title
-   *
-   */        
-  function stock_manager_wsm_save_sku(){
-    
-    if( current_user_can('manage_woocommerce') ){
-
-        //check_ajax_referer( 'wsm_update', 'security' );
-
-        $item   = sanitize_text_field($_POST['item']);
-        $sku   = sanitize_text_field($_POST['sku']);
-        
-        update_post_meta( $item, '_sku', $sku );
-
-        
-     
-    }
-    echo $item;
-    exit();
-}  
-  
-  
-  /**
-   * Get WooCommerce setting for number field step
-   *
-   */        
-  function wsm_get_step(){
-      $number = get_option('woocommerce_price_num_decimals');
-      if( $number == '0' ){ $step = '1'; }
-      if( $number == '1' ){ $step = '0.1'; }
-      if( $number == '2' ){ $step = '0.01'; }
-      if( $number == '3' ){ $step = '0.001'; }
-      if( $number == '4' ){ $step = '0.0001'; }
-      if( $number == '5' ){ $step = '0.00001'; }
-      if( $number == '6' ){ $step = '0.000001'; }
-  
-      return $step;
-  
-  }  
-
-    /**
-     * Save stock
-     *
-     */
-    function wsm_save_stock( $product_id, $regular_price, $sale_price = null ){
-
-        
-    
-    }
-
-
-
-    /**
-     * Save price function
-     *
-     */
-    function wsm_save_price( $product_id, $regular_price, $sale_price = null ){
-
-        $product = wc_get_product( $product_id );
-
-        if( !empty( $regular_price ) ){
-                $price        = sanitize_text_field( $regular_price );
-                //update_post_meta( $product_id, '_price', $price );
-                //update_post_meta( $product_id, '_regular_price', $price ); 
-                $product->set_price( $price );
-                $product->set_regular_price( $price );                         
-            }         
-
-            if( !empty( $sale_price ) ){
-                $sale_price   = sanitize_text_field($sale_price);
-                //update_post_meta( $product_id, '_sale_price', $sale_price ); 
-                $product->set_sale_price( $sale_price );
-            }
-
-            $product->save();
-    
-    }
-
-
+}
 
     function wsm_search_by_title_only( $search, &$wp_query ){
         global $wpdb;
@@ -309,7 +197,7 @@ add_action( 'wp_ajax_wsm_save_sku', 'stock_manager_wsm_save_sku' );
 
             $reponse = array(
                 'status'    => 'finish',
-                'text'      => __( 'All done! Close.', 'stock-manager' )
+                'text'      => __( 'All done! Close.', 'woocommerce-stock-manager' )
             );
             echo json_encode( $reponse );
             exit();
@@ -354,3 +242,30 @@ add_action( 'wp_ajax_wsm_save_sku', 'stock_manager_wsm_save_sku' );
         exit();
 
     }
+
+
+    /**
+     * Get product data
+     *
+     */        
+    add_action( 'wp_ajax_wsm_get_product_data', 'wsm_get_product_data' ); 
+    function wsm_get_product_data(){
+    
+        $product_id = sanitize_text_field( $_POST['productid'] );        
+        $product = wc_get_product( $product_id );
+        $data = array();
+        $data['productid'] = $product_id;
+
+        if( !empty( $product->get_manage_stock() ) ){ $data['manage_stock'] = $product->get_manage_stock(); }
+        if( !empty( $product->get_stock_status() ) ){ $data['stock_status'] = $product->get_stock_status(); }
+        if( !empty( $product->get_backorders() ) ){ $data['backorders'] = $product->get_backorders(); }
+        if( !empty( $product->get_stock_quantity() ) ){ $data['stock'] = $product->get_stock_quantity(); }
+                
+        echo json_encode( $data );
+        exit();
+
+    }
+
+    add_action( 'plugins_loaded', function() {
+        load_plugin_textdomain('stock-manager', false, basename( STOCKDIR ) . '/languages/');
+    } );
