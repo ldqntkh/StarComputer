@@ -34,10 +34,11 @@ jQuery(document).ready(function ($) {
 
         $.ajax({
             type: 'POST',
-            url: ajaxurl,
+            url: aws_vars.ajaxurl,
             data: {
                 action: 'aws-reindex',
-                data: data
+                data: data,
+                _ajax_nonce: aws_vars.ajax_nonce
             },
             dataType: "json",
             timeout:0,
@@ -58,8 +59,8 @@ jQuery(document).ready(function ($) {
                     // Sync finished
                     syncStatus = 'finished';
 
-                    // console.log( response.data );
-                    // console.log( "Reindex finished!" );
+                    console.log( response.data );
+                    console.log( "Reindex finished!" );
 
                     $reindexBlock.removeClass('loading');
 
@@ -67,7 +68,7 @@ jQuery(document).ready(function ($) {
 
                 } else {
 
-                    // console.log( response.data );
+                    console.log( response.data );
 
                     $reindexProgress.html( processed + '%' );
 
@@ -79,10 +80,10 @@ jQuery(document).ready(function ($) {
 
             },
             error : function( jqXHR, textStatus, errorThrown ) {
-                // console.log( "Request failed: " + textStatus );
+                console.log( "Request failed: " + textStatus );
 
                 if ( textStatus == 'timeout' || jqXHR.status == 504 ) {
-                    // console.log( 'timeout' );
+                    console.log( 'timeout' );
                     if ( syncData ) {
                         setTimeout(function() { sync( syncData ); }, 1000);
                     }
@@ -114,9 +115,10 @@ jQuery(document).ready(function ($) {
 
         $.ajax({
             type: 'POST',
-            url: ajaxurl,
+            url: aws_vars.ajaxurl,
             data: {
-                action: 'aws-clear-cache'
+                action: 'aws-clear-cache',
+                _ajax_nonce: aws_vars.ajax_nonce
             },
             dataType: "json",
             success: function (data) {
