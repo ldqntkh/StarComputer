@@ -1044,7 +1044,16 @@ class WC_Cart extends WC_Legacy_Cart {
 			}
 
 			if ( ! $product_data->is_purchasable() ) {
-				throw new Exception( __( 'Sorry, this product cannot be purchased.', 'woocommerce' ) );
+				$message = __( 'Sorry, this product cannot be purchased.', 'woocommerce' );
+				/**
+				 * Filters message about product unable to be purchased.
+				 *
+				 * @since 3.8.0
+				 * @param string     $message Message.
+				 * @param WC_Product $product_data Product data.
+				 */
+				$message = apply_filters( 'woocommerce_cart_product_cannot_be_purchased_message', $message, $product_data );
+				throw new Exception( $message );
 			}
 
 			// Stock check - only check if we're managing stock and backorders are not allowed.
@@ -1985,14 +1994,5 @@ class WC_Cart extends WC_Legacy_Cart {
 		$hash         = apply_filters_deprecated( 'woocommerce_add_to_cart_hash', array( $hash, $cart_session ), '3.6.0', 'woocommerce_cart_hash' );
 
 		return apply_filters( 'woocommerce_cart_hash', $hash, $cart_session );
-	}
-
-	public function get_product_price_value($product) {
-		if ( $this->display_prices_including_tax() ) {
-			$product_price = wc_get_price_including_tax( $product );
-		} else {
-			$product_price = wc_get_price_excluding_tax( $product );
-		}
-		return $product_price;
 	}
 }

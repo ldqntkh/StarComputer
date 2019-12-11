@@ -595,7 +595,7 @@ if ( !function_exists('woocommerce_template_social_share') ) :
             $zaloAppID = isset(get_option( 'custom_preferences_zalo_options' )['zalo_appId']) ? get_option( 'custom_preferences_zalo_options' )['zalo_appId'] : "";
             $zaloLayout = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_layout']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_layout'] : "1";
             $zaloButtonColor = isset(get_option( 'custom_preferences_zalo_options' )['zalo_button_color']) ? get_option( 'custom_preferences_zalo_options' )['zalo_button_color'] : "blue";
-            $shareURL = get_permalink( $product->id );
+            $shareURL = get_permalink( $product->get_id() );
             $zaloScriptCallback = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_callback']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_callback'] : "";
             $zaloScriptCallbackFunc = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_callback_func']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_callback_func'] : "";
             if (!empty($zaloAppID)) {
@@ -901,3 +901,14 @@ if ( !function_exists('set_cache_by_key') ) {
         file_put_contents($cache_file_path, json_encode($json));
     }
 }
+
+// define the the_title callback 
+function filter_the_title( $title, $id ) { 
+    if (strlen($title) > 35) {
+        $title = mb_substr($title, 0, 33, 'UTF-8') . '...';
+    }
+    return $title; 
+}; 
+         
+// add the filter 
+add_filter( 'the_title', 'filter_the_title', 10, 2 ); 
