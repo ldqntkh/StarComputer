@@ -20,6 +20,12 @@
     }
 }
 
+button[type=submit], input[type=submit] {
+    background-color: red!important;
+    color: white!important;
+}
+
+
 .products {
     .star-rating-empty {
         height: 15px;
