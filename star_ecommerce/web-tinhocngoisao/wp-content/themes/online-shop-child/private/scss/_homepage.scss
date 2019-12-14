@@ -37,7 +37,12 @@
 }
 
 h2.woocommerce-loop-product__title {
-    height: 56px;
+    height: auto;
+    min-height: 44px;
+    width: 100%;
+    font-size: 13px;
+    text-align: center;
+    color: black;
 }
 .online-shop-before-feature {
     min-height: 90px;

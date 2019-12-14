@@ -13,6 +13,12 @@
     }
 }
 
+.woocommerce-tabs.wc-tabs-wrapper {
+    ul.wc-tabs {
+        display: none!important;
+    }
+}
+
 .woocommerce-Reviews {
     .commentlist {
         overflow: hidden;

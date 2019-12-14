@@ -912,3 +912,47 @@ function filter_the_title( $title, $id ) {
          
 // add the filter 
 add_filter( 'the_title', 'filter_the_title', 10, 2 ); 
+
+// custom code here
+remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
+
+add_action( 'woocommerce_shop_loop_item_title', 'thns_template_loop_product_title', 10 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_period', 5 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 6 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 7 );
+
+
+if ( ! function_exists( 'thns_template_loop_product_title' ) ) {
+
+	/**
+	 * Show the product title in the product loop. By default this is an H2.
+	 */
+	function thns_template_loop_product_title() {
+        global $product;
+		echo '<div class="product-item-details ' .  'product-type-' . $product->get_type() . '"><h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>'; 
+	}
+}
+
+if ( ! function_exists( 'woocommerce_template_loop_period' ) ) {
+
+	/**
+	 * Show the product title in the product loop. By default this is an H2.
+	 */
+	function woocommerce_template_loop_period() {
+		$period = get_post_meta( get_the_id(), 'warranty_period', true );
+		if (!empty($period)) {
+			echo '<span class="warranty_period">Bảo hành: <strong>'. $period .'</strong> tháng</span>';
+		}
+	}
+}
+
+if ( !function_exists('get_sale_percent') ) {
+    function get_sale_percent($product, $context = 'view') {
+        if ( '' !== (string) $product->get_sale_price( $context ) && $product->get_regular_price( $context ) > $product->get_sale_price( $context ) ) {
+			return round(100 - (($product->get_sale_price( $context ) / $product->get_regular_price( $context ) ) * 100), 1);
+		}
+		return 0;
+    }
+}

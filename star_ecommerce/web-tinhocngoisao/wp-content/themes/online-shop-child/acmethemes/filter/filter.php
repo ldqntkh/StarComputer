@@ -5,7 +5,7 @@
      * customizer filter page shop
      */
     $category = get_queried_object();
-    $category_id = $category->term_id;
+    $category_id = isset($category->term_id) ? $category->term_id : null;
     if ( empty($category_id) ) $category_id = -1;
 
 ?>
