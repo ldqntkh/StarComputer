@@ -1,6 +1,10 @@
 <?php 
     $category = get_queried_object();
-    $cat_id = $category->term_id;
+    if ( isset( $category->term_id ) ) {
+        $cat_id = $category->term_id;
+    } else {
+        $cat_id = null;
+    }
 
     
     if (!is_numeric($cat_id)) {
