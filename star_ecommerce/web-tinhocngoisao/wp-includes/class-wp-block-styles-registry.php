@@ -12,6 +12,9 @@
  *
  * @since 5.3.0
  */
+if ( !class_exists('WP_Block_Styles_Registry') ) {
+
+
 final class WP_Block_Styles_Registry {
 	/**
 	 * Registered block styles, as `$block_name => $block_style_name => $block_style_properties` multidimensional arrays.
@@ -159,4 +162,5 @@ final class WP_Block_Styles_Registry {
 
 		return self::$instance;
 	}
+}
 }

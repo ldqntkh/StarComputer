@@ -34,6 +34,8 @@ require( ABSPATH . WPINC . '/class.wp-styles.php' );
 /** WordPress Styles Functions */
 require( ABSPATH . WPINC . '/functions.wp-styles.php' );
 
+require( ABSPATH . WPINC . '/class-wp-block-styles-registry.php' );
+
 /**
  * Registers TinyMCE scripts.
  *
