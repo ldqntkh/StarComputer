@@ -206,7 +206,7 @@ msgid "Nothing found field"
 msgstr ""
 
 #: includes/options.php:41
-msgid "Text when there is no search results."
+msgid "Text when there is no search results. HTML tags is allowed."
 msgstr ""
 
 #: includes/options.php:43
@@ -406,12 +406,6 @@ msgstr ""
 msgid "Re-index required on change."
 msgstr ""
 
-msgid "Synonyms"
-msgstr ""
-
-msgid "Comma separated list of synonym words. Each group of synonyms must be on separated text line."
-msgstr ""
-
 #: includes/options.php:42
 msgid "Use Google Analytics"
 msgstr ""
@@ -420,14 +414,8 @@ msgstr ""
 msgid "Use google analytics to track searches. You need google analytics to be installed on your site."
 msgstr ""
 
-msgid "Data will be visible inside Google Analytics 'Site Search' report. Need to activate 'Site Search' feature inside GA. %s"
-msgstr ""
-
-msgid "More info"
-msgstr ""
-
 #: includes/options.php:42
-msgid "Also will send event with category - 'AWS search', action - 'AWS Search Term' and label of value of search term."
+msgid "Will send event with category - 'AWS search', action - 'AWS Search Term' and label of value of search term."
 msgstr ""
 
 msgid "In stock"

@@ -15,9 +15,9 @@ class AWS_Widget extends WP_Widget {
      * Constructor
      */
     function __construct() {
-        $widget_ops = array( 'description' => __('Advanced WooCommerce search widget', 'advanced-woo-search' ) );
+        $widget_ops = array( 'description' => __('Advanced WooCommerce search widget', 'aws' ) );
         $control_ops = array( 'width' => 400 );
-        parent::__construct( false, __( '&raquo; AWS Widget', 'advanced-woo-search' ), $widget_ops, $control_ops );
+        parent::__construct( false, __( '&raquo; AWS Widget', 'aws' ), $widget_ops, $control_ops );
     }
 
     /*
@@ -61,13 +61,13 @@ class AWS_Widget extends WP_Widget {
     function form( $instance ) {
         global $shortname;
         $defaults = array(
-            'title' => __( 'Search...', 'advanced-woo-search' )
+            'title' => __( 'Search...', 'aws' )
         );
         $instance = wp_parse_args( (array) $instance, $defaults );
         ?>
 
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id('title') ); ?>"><?php esc_html_e( 'Title:', 'advanced-woo-search' ); ?></label>
+            <label for="<?php echo esc_attr( $this->get_field_id('title') ); ?>"><?php _e( 'Title:', 'aws' ); ?></label>
             <input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id('title') ); ?>" name="<?php echo esc_attr( $this->get_field_name('title') ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>">
         </p>
 
