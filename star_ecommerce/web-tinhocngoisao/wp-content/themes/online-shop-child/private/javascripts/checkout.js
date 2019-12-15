@@ -108,6 +108,24 @@ var checkoutPage = {
             }
         });
     },
+    initProccessingLoader: function($element) {
+        if ($element.length === 0) {
+            return false;
+        }
+        $element.block({
+            message: null,
+            overlayCSS: {
+                background: '#fff',
+                opacity: 0.6
+            }
+        });
+    },
+    deInitProccessingLoader: function($element) {
+        if ($element.length === 0) {
+            return false;
+        }
+        $element.unblock();
+    },
     initShippingClasses: function() {
         $('input[name^=shipping_method]:radio').off('change').on('change', function() {
             for(let i in shippingClasses) {
@@ -118,6 +136,10 @@ var checkoutPage = {
                     //that.updateShippingMethods();
                 }
             }
+            // Deinit proccessing loader in payment section
+            var $form = $(this).parents('form');
+            $form.find('#payment').removeClass('woocommerce-checkout-payment');
+            checkoutPage.initProccessingLoader($('body'));
         });
     },
     init : function() {
@@ -125,6 +147,14 @@ var checkoutPage = {
         that.validateAddressField();
         that.chooseDefaultShippingAddress();
         that.initShippingClasses();
+        // listen event after call ajax submit order
+        $(document.body).on('updated_checkout', function() {
+            checkoutPage.deInitProccessingLoader($('body'));
+        });
+        // listen event order is submitting
+        $('.woocommerce-checkout').on('submit', function() {
+            checkoutPage.initProccessingLoader($('body'));
+        });
     }
 }
 

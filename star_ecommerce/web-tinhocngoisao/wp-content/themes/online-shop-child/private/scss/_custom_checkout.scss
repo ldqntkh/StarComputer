@@ -260,9 +260,6 @@
                         justify-content: flex-start;
                         padding: 5px;
                         margin-bottom: 10px;
-                        label {
-
-                        }
                         input {
                             padding: 5px;
                             border-radius: 5px;
@@ -455,9 +452,6 @@
                 justify-content: flex-start;
                 padding: 5px;
                 margin-bottom: 10px;
-                label {
-
-                }
                 input, select {
                     padding: 5px;
                     border-radius: 5px;
@@ -481,7 +475,7 @@
                 }
             }
             .order-items {
-                .product-item, {
+                .product-item {
                     margin-bottom: 5px;
                     border-bottom: .1px solid silver;
                     display: flex;
@@ -498,6 +492,13 @@
                         border-top: 2px solid silver;
                     }
                 }
+            }
+        }
+    }
+    .woocommerce-checkout {
+        .blockUI {
+            &.blockOverlay {
+                display: none !important;
             }
         }
     }
