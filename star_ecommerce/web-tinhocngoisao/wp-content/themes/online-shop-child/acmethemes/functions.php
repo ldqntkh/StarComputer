@@ -589,6 +589,7 @@ endif;
 if ( !function_exists('woocommerce_template_social_share') ) :
     function woocommerce_template_social_share() {
         global $product;
+        if ( empty( $product ) ) return;
         echo '<div class="socials-share">';
         // zalo
         if ( !empty( get_option( 'custom_preferences_zalo_options' )['zalo_enable'] ) && get_option( 'custom_preferences_zalo_options' )['zalo_enable'] === "true" ) :
