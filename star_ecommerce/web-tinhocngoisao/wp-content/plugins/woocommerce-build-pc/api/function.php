@@ -78,7 +78,7 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                 }
 
                 $arrPt = array(
-                    'id' => $product->id,
+                    'id' => $product->get_id(),
                     'name' => $product->name,
                     'link' => get_permalink( $product->product_id),
                     'regular_price' => $regular_price,
@@ -86,7 +86,7 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                     'image' => wp_get_attachment_image_src( $product->image_id, 'medium', true )[0],
                     'average_rating' => $product->average_rating,
                     'review_count' => $product->review_count,
-                    'selected_product_value' => get_post_meta($product->id, '_selected_product_value', true)
+                    'selected_product_value' => get_post_meta($product->get_id(), '_selected_product_value', true)
                 );
 
                 $arrPt['attributes'] = get_product_attributes( $product );

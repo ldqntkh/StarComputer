@@ -589,13 +589,14 @@ endif;
 if ( !function_exists('woocommerce_template_social_share') ) :
     function woocommerce_template_social_share() {
         global $product;
+        if ( empty( $product ) ) return;
         echo '<div class="socials-share">';
         // zalo
         if ( !empty( get_option( 'custom_preferences_zalo_options' )['zalo_enable'] ) && get_option( 'custom_preferences_zalo_options' )['zalo_enable'] === "true" ) :
             $zaloAppID = isset(get_option( 'custom_preferences_zalo_options' )['zalo_appId']) ? get_option( 'custom_preferences_zalo_options' )['zalo_appId'] : "";
             $zaloLayout = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_layout']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_layout'] : "1";
             $zaloButtonColor = isset(get_option( 'custom_preferences_zalo_options' )['zalo_button_color']) ? get_option( 'custom_preferences_zalo_options' )['zalo_button_color'] : "blue";
-            $shareURL = get_permalink( $product->id );
+            $shareURL = get_permalink( $product->get_id() );
             $zaloScriptCallback = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_callback']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_callback'] : "";
             $zaloScriptCallbackFunc = isset(get_option( 'custom_preferences_zalo_options' )['zalo_script_callback_func']) ? get_option( 'custom_preferences_zalo_options' )['zalo_script_callback_func'] : "";
             if (!empty($zaloAppID)) {
@@ -899,5 +900,60 @@ if ( !function_exists('set_cache_by_key') ) {
         $json = json_decode(file_get_contents($cache_file_path),TRUE);
         $json[$key] = $content;
         file_put_contents($cache_file_path, json_encode($json));
+    }
+}
+
+// define the the_title callback 
+function filter_the_title( $title, $id ) { 
+    if (strlen($title) > 35) {
+        $title = mb_substr($title, 0, 33, 'UTF-8') . '...';
+    }
+    return $title; 
+}; 
+         
+// add the filter 
+add_filter( 'the_title', 'filter_the_title', 10, 2 ); 
+
+// custom code here
+remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
+
+add_action( 'woocommerce_shop_loop_item_title', 'thns_template_loop_product_title', 10 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_period', 5 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 6 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 7 );
+
+
+if ( ! function_exists( 'thns_template_loop_product_title' ) ) {
+
+	/**
+	 * Show the product title in the product loop. By default this is an H2.
+	 */
+	function thns_template_loop_product_title() {
+        global $product;
+		echo '<div class="product-item-details ' .  'product-type-' . $product->get_type() . '"><h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>'; 
+	}
+}
+
+if ( ! function_exists( 'woocommerce_template_loop_period' ) ) {
+
+	/**
+	 * Show the product title in the product loop. By default this is an H2.
+	 */
+	function woocommerce_template_loop_period() {
+		$period = get_post_meta( get_the_id(), 'warranty_period', true );
+		if (!empty($period)) {
+			echo '<span class="warranty_period">Bảo hành: <strong>'. $period .'</strong> tháng</span>';
+		}
+	}
+}
+
+if ( !function_exists('get_sale_percent') ) {
+    function get_sale_percent($product, $context = 'view') {
+        if ( '' !== (string) $product->get_sale_price( $context ) && $product->get_regular_price( $context ) > $product->get_sale_price( $context ) ) {
+			return round(100 - (($product->get_sale_price( $context ) / $product->get_regular_price( $context ) ) * 100), 1);
+		}
+		return 0;
     }
 }

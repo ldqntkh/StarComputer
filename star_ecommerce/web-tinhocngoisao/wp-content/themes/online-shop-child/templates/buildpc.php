@@ -26,7 +26,7 @@
                 $sale_price = $product->get_sale_price();
             }
             $arrPt = array(
-                'id' => $product->id,
+                'id' => $product->get_id(),
                 'name' => $product->name,
                 'link' => get_permalink( $product->product_id),
                 'regular_price' => $regular_price,

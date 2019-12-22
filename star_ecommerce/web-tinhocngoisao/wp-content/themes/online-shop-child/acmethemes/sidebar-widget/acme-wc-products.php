@@ -585,15 +585,15 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 			                }
 		                }
 		                ?>
-                        <div class="<?php echo esc_attr( $online_shop_list_classes ); ?>">
+                        <div class=" <?php echo esc_attr( $online_shop_list_classes ); ?>">
                             <ul class="post-container products">
                                 <?php
-                                /*single_product_archive_thumbnail_size*/
-                                add_filter( 'single_product_archive_thumbnail_size', array( $this, 'single_product_archive_thumbnail_size' ) );
+									/*single_product_archive_thumbnail_size*/
+									add_filter( 'single_product_archive_thumbnail_size', array( $this, 'single_product_archive_thumbnail_size' ) );
 
-                                wc_get_template_part( 'content', 'product' );
+									wc_get_template_part( 'content', 'product' );
 
-                                remove_filter( 'single_product_archive_thumbnail_size', array( $this, 'single_product_archive_thumbnail_size' ) );
+									remove_filter( 'single_product_archive_thumbnail_size', array( $this, 'single_product_archive_thumbnail_size' ) );
                                 ?>
                             </ul><!--.post-container-->
                         </div><!--dynamic css-->

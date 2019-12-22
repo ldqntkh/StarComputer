@@ -96,7 +96,7 @@
                     $quantity = $cart_item['quantity'];
                     $product_id = $cart_item['product_id'];
                     $product_permalink = $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '';
-                    $price = WC()->cart->get_product_price_value($_product);
+                    $price = WC()->cart->get_product_price($_product);
                     $regular_price = $_product->regular_price;
                     $sale_price = $_product->sale_price;
                 ?>
