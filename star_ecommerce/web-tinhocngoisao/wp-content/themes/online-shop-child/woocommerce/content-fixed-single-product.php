@@ -7,7 +7,7 @@ global $product;
     <div class="fixed-product-detail hide">
         <div class="wrapper">
     <?php
-        $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->ID ), 'single-post-thumbnail' );
+        $image = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'single-post-thumbnail' );
     ?>
         <img src="<?php echo $image[0] ?>" />
         <div class="product-detail">

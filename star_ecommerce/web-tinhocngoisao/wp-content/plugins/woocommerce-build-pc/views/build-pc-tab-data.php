@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p class="form-field">
 			<label for="buildpc-type"><?php esc_html_e( 'Product type', 'woocommerce-buildpc' ); ?></label>
 			<?php 
-				$product_type = get_post_meta($product_object->id, '_buildpc-type', true);
+				$product_type = get_post_meta($product_object->get_id(), '_buildpc-type', true);
 			?>
 			<select name="buildpc-type" id="buildpc-type" class="select short">
 				<?php foreach ( $product_types as $item ) : ?>
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<label for="buildpc-ids"><?php esc_html_e( 'Linked products', 'woocommerce-buildpc' ); ?></label>
 			<select class="wc-product-search" multiple="multiple" style="width: 50%;" id="buildpc-ids" name="buildpc-ids[]" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude="<?php echo intval( $post->ID ); ?>">
 				<?php
-				$product_ids = get_post_meta($product_object->id, '_linked_buildpc_ids', true);
+				$product_ids = get_post_meta($product_object->get_id(), '_linked_buildpc_ids', true);
 
 				foreach ( $product_ids as $product_id ) {
 					$product = wc_get_product( $product_id );
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div id="select_product"><!-- Render App Select Product --></div>
 	<?php 
 		// render element input value 
-	    $selected_product_value = get_post_meta($product_object->id, '_selected_product_value', true);
+	    $selected_product_value = get_post_meta($product_object->get_id(), '_selected_product_value', true);
 	?>
 	<input type="hidden" value="<?php echo $selected_product_value; ?>" id="selected_product_value" name="selected_product_value" />
 	<script>

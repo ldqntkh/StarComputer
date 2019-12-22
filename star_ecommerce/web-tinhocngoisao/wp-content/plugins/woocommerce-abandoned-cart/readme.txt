@@ -1,11 +1,12 @@
 ﻿
 === Abandoned Cart Lite for WooCommerce ===
 Contributors: ashokrane, pinal.shah, bhavik.kiri, chetnapatel, tychesoftwares, dhruvin
-Tags: abandon cart, cart recovery, increase woocommerce conversion rate , recover woocommerce cart, increase sales with woocommerce
+Tags: cart abandonment, abandon cart, cart recovery, increase woocommerce conversion rate, recover woocommerce cart, increase sales with woocommerce
 Author URI: https://www.tychesoftwares.com/
 Requires at least: 1.3
-Tested up to: 5.0
+Tested up to: 5.3
 Stable tag: trunk
+Requires PHP: 5.6
 License: GPLv2 or late
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.me/TycheSoftwares
@@ -39,6 +40,8 @@ Abandoned Cart Lite plugin enables to do the following things:
 8. Add custom variables like **Customer First Name, Customer Last name, Customer full name, Cart Link & Product Cart Information** in the email template.
 9. Copy HTML from anywhere & create templates using the powerful **Rich Text Editor**.
 10. **Automatically stops email notifications** when a customer makes a purchase or uses the cart recovery link.
+
+### Differences between Lite & PRO version:
 
 You can check the detailed difference between Pro and Lite version **[here](https://www.tychesoftwares.com/differences-between-pro-and-lite-versions-of-abandoned-cart-for-woocommerce-plugin/?utm_source=wprepo&utm_medium=litelink&utm_campaign=AbandonedCartLite "Lite and Pro version Difference")**
 
@@ -99,16 +102,41 @@ Abandoned Cart Plugin relies on a function called WP-Cron, and this function onl
 
 5. **[Deposits For WooCommerce](https://www.tychesoftwares.com/store/premium-plugins/deposits-for-woocommerce/?utm_source=wprepo&utm_medium=link&utm_campaign=AbandonedCartLite "Deposits For WooCommerce")**
 
+6. **[Payment Gateway Based Fees and Discounts for WooCommerce - Pro](https://www.tychesoftwares.com/store/premium-plugins/payment-gateway-based-fees-and-discounts-for-woocommerce-plugin/?utm_source=wprepo&utm_medium=link&utm_campaign=AbandonedCartLite "Payment Gateway Based Fees and Discounts for WooCommerce - Pro")**
+
+7. **[Custom Order Status for WooCommerce - Pro](https://www.tychesoftwares.com/store/premium-plugins/custom-order-status-woocommerce/?utm_source=wprepo&utm_medium=link&utm_campaign=AbandonedCartLite "Custom Order Status for WooCommerce - Pro")**
+
+8. **[Custom Order Numbers for WooCommerce - Pro](https://www.tychesoftwares.com/store/premium-plugins/custom-order-numbers-woocommerce/?utm_source=wprepo&utm_medium=link&utm_campaign=AbandonedCartLite "Custom Order Numbers for WooCommerce - Pro")**
+
+9. **[Product Input Fields for WooCommerce - Pro](https://www.tychesoftwares.com/store/premium-plugins/product-input-fields-for-woocommerce/?utm_source=wprepo&utm_medium=link&utm_campaign=AbandonedCartLite "Product Input Fields for WooCommerce - Pro")**
+
+10. **[Call for Price for WooCommerce - Pro](https://www.tychesoftwares.com/store/premium-plugins/woocommerce-call-for-price-plugin/?utm_source=wprepo&utm_medium=link&utm_campaign=AbandonedCartLite "Call for Price for WooCommerce - Pro")**
+
+11. **[Price based on User Role for WooCommerce - Pro](https://www.tychesoftwares.com/store/premium-plugins/price-user-role-woocommerce/?utm_source=wprepo&utm_medium=link&utm_campaign=AbandonedCartLite "Price based on User Role for WooCommerce - Pro")**
+
+12. **[Currency per Product for WooCommerce - Pro](https://www.tychesoftwares.com/store/premium-plugins/currency-per-product-for-woocommerce/?utm_source=wprepo&utm_medium=link&utm_campaign=AbandonedCartLite "Currency per Product for WooCommerce - Pro")**
 
 **Some of our other free plugins:**
 
 1. **[Order Delivery Date for WooCommerce](https://wordpress.org/plugins/order-delivery-date-for-woocommerce/ "Order Delivery Date for WooCommerce")**
 
-2. **[Product Delivery Date for WooCommerce](https://wordpress.org/plugins/product-delivery-date-for-woocommerce-lite/ "Product Delivery Date for WooCommerce")**
+2. **[Product Delivery Date for WooCommerce - Lite](https://wordpress.org/plugins/product-delivery-date-for-woocommerce-lite/ "Product Delivery Date for WooCommerce")**
 
-3. **[Prevent Customers To Cancel WooCommerce Orders](https://wordpress.org/plugins/woo-prevent-cancel-order/ "Prevent Customers To Cancel WooCommerce Orders")**
+3. **[WooCommerce Print Invoice & Delivery Note](https://wordpress.org/plugins/woocommerce-delivery-notes/ "WooCommerce Print Invoice & Delivery Note")**
 
-4. **[WooCommerce Print Invoice & Delivery Note](https://wordpress.org/plugins/woocommerce-delivery-notes/ "WooCommerce Print Invoice & Delivery Note")**
+4. **[Payment Gateway Based Fees and Discounts for WooCommerce](https://wordpress.org/plugins/checkout-fees-for-woocommerce/ "Payment Gateway Based Fees and Discounts for WooCommerce")**
+
+5. **[Custom Order Status for WooCommerce](https://wordpress.org/plugins/custom-order-statuses-woocommerce/ "Custom Order Status for WooCommerce")**
+
+6. **[Custom Order Numbers for WooCommerce](https://wordpress.org/plugins/custom-order-numbers-for-woocommerce/ "Custom Order Numbers for WooCommerce")**
+
+7. **[Product Input Fields for WooCommerce](https://wordpress.org/plugins/product-input-fields-for-woocommerce/ "Product Input Fields for WooCommerce")**
+
+8. **[Call for Price for WooCommerce](https://wordpress.org/plugins/woocommerce-call-for-price/ "Call for Price for WooCommerce")**
+
+9. **[Price based on User Role for WooCommerce](https://wordpress.org/plugins/price-by-user-role-for-woocommerce/ "Price based on User Role for WooCommerce")**
+
+10. **[Currency per Product for WooCommerce](https://wordpress.org/plugins/currency-per-product-for-woocommerce/ "Currency per Product for WooCommerce")**
 
 **[Documentation](https://www.tychesoftwares.com/docs/docs/abandoned-cart-for-woocommerce-lite/?utm_source=wprepo&utm_medium=link&utm_campaign=AbandonedCartLite "Documentation")**
 
@@ -146,6 +174,10 @@ Method 3:
 
 == Frequently Asked Questions ==
 
+= What is the difference between Lite and Pro version of the plugin? =
+
+To see how the PRO version can help you recover more abandoned carts compared to Lite, you can refer **[here](https://www.tychesoftwares.com/differences-between-pro-and-lite-versions-of-abandoned-cart-for-woocommerce-plugin/?utm_source=wprepo&utm_medium=faqlink&utm_campaign=AbandonedCartLite "Lite and Pro version Difference")**
+
 = How is the email address of the customers captured? =
 
 Our plugin captures visitor emails in real-time as they're typing it in to the email address field on the checkout page, so you don't need to worry about them changing their mind at the last second.
@@ -172,10 +204,6 @@ When the products in the cart is not purchased within the set 'Cart abandoned cu
 
 The admin can use the merge code `{{cart.unsubscribe}}' in the email templates. It will be replaced with a url in the abandoned cart email notification sent to the customer. When clicked, the reminder email notification for the particular email will be unsubscribed.
 
-= Difference between Lite and Pro version of the plugin =
-
-You can refer **[here](https://www.tychesoftwares.com/differences-between-pro-and-lite-versions-of-abandoned-cart-for-woocommerce-plugin/?utm_source=wprepo&utm_medium=faqlink&utm_campaign=AbandonedCartLite "Lite and Pro version Difference")**
-
 
 == Screenshots ==
 
@@ -192,6 +220,95 @@ You can refer **[here](https://www.tychesoftwares.com/differences-between-pro-an
 6. Product Report Tab.
 
 == Changelog ==
+= 5.6.2 (26.11.2019) = 
+
+* Tweak - Added nonce for guest user data capture.
+* Tweak - Visitor carts will be tracked and logged if the 'Start tracking from Cart page' setting is on.
+* Tweak - Updated FAQ to show how to avoid unwanted visitor carts.
+* Fix - Missing zipcode for guest users in the Abandoned Order details view.
+* Fix - The Recovered Order tab did not filter the data based on the selected date range.
+* Fix - User role displayed as 'Guest' for registered users in the Abandoned Order details view.
+
+= 5.6.1 (25.10.2019) =
+
+* Tweak - Only those abandoned carts with email addresses entered on the checkout page will be considered and tracked.
+
+= 5.6 (16.10.2019) =
+
+* Enhancement - Added a dashboard for the plugin to display statistics.
+* Enhancement - Made the plugin compatible with WPCS.
+* Enhancement - Made the plugin compatible with Multisite installations.
+* Enhancement - The Abandoned Order details will now be displayed in a popup view.
+* Tweak - Modified the WooCommerce tested upto tag to 3.7.1
+* Tweak - Added a loader to be displayed while the plugin sends the test email in the Add/Edit Email template page.
+* Bug - Fixed an issue where product price is logged as 0.
+* Bug - Optimized the code to ensure the plugin doesn't attempt to send reminder emails to guests whose email addressed are not tracked.
+* Bug - Fixed some errors displayed in the console by the plugin.
+
+= 5.5.1 (21.08.2019) =
+
+* Tweak - Modified the WooCommerce tested upto tag to 3.7.
+* Bug - Fixed an issue where guest email was not getting captured when GDPR message was not set.
+* Bug - Fixed an issue where the cart price was recorded as 0 with WooCommerce 3.7.0.
+
+= 5.5 (12.08.2019) =
+
+* Enhancement - Added a setting to allow the admin the ability to enable/disable the sending of reminder emails.
+* Tweak - Added a setting to allow the admin to add text for GDPR messages which will be displayed as links and allows the end user to opt out of cart tracking.
+* Bug - Fixed some warnings displayed from the plugin.
+* Bug - Carts were not accessible for guest users from links in the reminder emails.
+
+= 5.4 (10.07.2019) =
+
+* Bug - Fixed an issue where carts were being marked as abandoned even after they have been successfully recovered. 
+* Bug - Unsubscribe link in the test reminder email displayed some HTML content in Outlook. 
+* Bug - The data tracking notice in the plugin when dismissed affected other dismissible notices as well.
+* Tweak - Made the plugin compatible with AeroCheckout plugin.
+* Tweak - The settings for the Pro version will now be displayed in the Lite version of the plugin.
+
+= 5.3.4 (18.04.2019) =
+
+* This is a minor update to the plugin to remove the unwanted abandoned carts created for some customers after updating to the 5.3.2 release.
+
+= 5.3.3 (18.04.2019) =
+
+* We have reversed the changes of the previous release as it created an issue with some sites where carts that were abandoned a while back were receiving the abandoned cart email after the update.
+
+= 5.3.2 (16.04.2019) =
+
+* Tweak - Optimizing SQL queries by escaping the parameters passed.
+
+= 5.3.1 (04.04.2019) =
+
+* Bug - Fixed a bug where the login was conflicting with sites hosted on WP Engine.
+
+= 5.3.0 (26.03.2019) =
+
+* Enhancement - Corrected the way recovered orders were tracked. Replaced the hooks tracking orders.
+
+* Bug - Newly created Email Templates will be inactive by default.
+
+* Bug - When an email template is activated, the emails will not be sent to older abandoned carts.
+
+* Bug - Fixed an issue where Recovered Order note was getting added to all the Orders.
+
+* Bug - Fixed an issue where notices were getting displayed in abandoned details page if the product was deleted.
+
+* Tweak - Updated the pot file with some new strings added. Also corrected the display of a few strings.
+
+= 5.2.1 (18.02.2019) =
+
+* Bug - Fixed an issue where ajax url was missing for some sites preventing emails to be captured.
+
+= 5.2.0 (18.02.2019) =
+
+This is a security release with the following fixes:
+
+* Added sanitization checks for checkout field capture for guest users.
+
+* Fixed an issue where the emails were getting sent to customers even after purchasing the products.
+
+* Removed inline Javascript from checkout page and added to a minified file.
 
 = 5.1.3 (29.11.2018) =
 

@@ -9,7 +9,6 @@ jQuery( function( $ ) {
 	$.blockUI.defaults.overlayCSS.cursor = 'default';
 
 	var wc_checkout_form = {
-		show_payment: $( window ).width() >= 1024 ? false : true,
 		updateTimer: false,
 		dirtyInput: false,
 		selectedPaymentMethod: false,
@@ -61,8 +60,6 @@ jQuery( function( $ ) {
 			if ( wc_checkout_params.option_guest_checkout === 'yes' ) {
 				$( 'input#createaccount' ).change( this.toggle_create_account ).change();
 			}
-
-			this.handleEditAddress();
 		},
 		init_payment_methods: function() {
 			var $payment_methods = $( '.woocommerce-checkout' ).find( 'input[name="payment_method"]' );
@@ -82,10 +79,12 @@ jQuery( function( $ ) {
 				$payment_methods.eq(0).prop( 'checked', true );
 			}
 
-			if ( $payment_methods.length > 1 ) {
+			// Get name of new selected method.
+			var checkedPaymentMethod = $payment_methods.filter( ':checked' ).eq(0).prop( 'id' );
 
+			if ( $payment_methods.length > 1 ) {
 				// Hide open descriptions.
-				$( 'div.payment_box' ).filter( ':visible' ).slideUp( 0 );
+				$( 'div.payment_box:not(".' + checkedPaymentMethod + '")' ).filter( ':visible' ).slideUp( 0 );
 			}
 
 			// Trigger click event for selected method
@@ -136,7 +135,6 @@ jQuery( function( $ ) {
 			}
 		},
 		init_checkout: function() {
-			$( '#billing_country, #shipping_country, .country_to_state' ).change();
 			$( document.body ).trigger( 'update_checkout' );
 		},
 		maybe_input_changed: function( e ) {
@@ -185,10 +183,6 @@ jQuery( function( $ ) {
 		ship_to_different_address: function() {
 			$( 'div.shipping_address' ).hide();
 			if ( $( this ).is( ':checked' ) ) {
-				$( 'div.shipping_address' ).find( '.woocommerce-input-wrapper' ).parent().removeClass( 'woocommerce-invalid woocommerce-invalid-required-field' );
-				if ( $( 'div.shipping_address' ).find( '.woocommerce-error-input' ).length > 0 ) {
-					$( 'div.shipping_address' ).find( '.woocommerce-error-input' ).remove();
-				}
 				$( 'div.shipping_address' ).slideDown();
 			}
 		},
@@ -210,7 +204,6 @@ jQuery( function( $ ) {
 				validated         = true,
 				validate_required = $parent.is( '.validate-required' ),
 				validate_email    = $parent.is( '.validate-email' ),
-				varlidate_phone   = $parent.is( '.validate-phone' ),
 				event_type        = e.type;
 
 			if ( 'input' === event_type ) {
@@ -226,8 +219,6 @@ jQuery( function( $ ) {
 					} else if ( $this.val() === '' ) {
 						$parent.removeClass( 'woocommerce-validated' ).addClass( 'woocommerce-invalid woocommerce-invalid-required-field' );
 						validated = false;
-						$parent.find('.woocommerce-error-input').remove();
-						$parent.append('<span class="woocommerce-error-input">Xin vui lòng điền thông tin</span>');
 					}
 				}
 
@@ -239,29 +230,11 @@ jQuery( function( $ ) {
 						if ( ! pattern.test( $this.val()  ) ) {
 							$parent.removeClass( 'woocommerce-validated' ).addClass( 'woocommerce-invalid woocommerce-invalid-email' );
 							validated = false;
-
-							$parent.find('.woocommerce-error-input').remove();
-							$parent.append('<span class="woocommerce-error-input">Địa chỉ email không hợp lệ. Vui lòng nhập lại</span>');
-						}
-					}
-				}
-
-				if ( varlidate_phone ) {
-					if ( $this.val() ) {
-						var pattern = new RegExp(/(09|01[2|6|8|9])+([0-9]{8})\b/);
-						if ( ! pattern.test( $this.val()  ) ) {
-							$parent.removeClass( 'woocommerce-validated' ).addClass( 'woocommerce-invalid woocommerce-invalid-phone' );
-							$parent.find('.woocommerce-error-input').remove();
-							$parent.append('<span class="woocommerce-error-input">Số điện thoại không hợp lệ. Vui lòng nhập lại</span>');
-							validated = false;
 						}
 					}
 				}
 
 				if ( validated ) {
-					if ( $parent.find('.woocommerce-error-input').length > 0 ) {
-						$parent.find('.woocommerce-error-input').remove();
-					}
 					$parent.removeClass( 'woocommerce-invalid woocommerce-invalid-required-field woocommerce-invalid-email' ).addClass( 'woocommerce-validated' );
 				}
 			}
@@ -286,10 +259,10 @@ jQuery( function( $ ) {
 
 			var country			 = $( '#billing_country' ).val(),
 				state			 = $( '#billing_state' ).val(),
-				postcode		 = $( 'input#billing_postcode' ).val(),
+				postcode		 = $( ':input#billing_postcode' ).val(),
 				city			 = $( '#billing_city' ).val(),
-				address			 = $( 'input#billing_address_1' ).val(),
-				address_2		 = $( 'input#billing_address_2' ).val(),
+				address			 = $( ':input#billing_address_1' ).val(),
+				address_2		 = $( ':input#billing_address_2' ).val(),
 				s_country		 = country,
 				s_state			 = state,
 				s_postcode		 = postcode,
@@ -310,10 +283,10 @@ jQuery( function( $ ) {
 			if ( $( '#ship-to-different-address' ).find( 'input' ).is( ':checked' ) ) {
 				s_country		 = $( '#shipping_country' ).val();
 				s_state			 = $( '#shipping_state' ).val();
-				s_postcode		 = $( 'input#shipping_postcode' ).val();
+				s_postcode		 = $( ':input#shipping_postcode' ).val();
 				s_city			 = $( '#shipping_city' ).val();
-				s_address		 = $( 'input#shipping_address_1' ).val();
-				s_address_2		 = $( 'input#shipping_address_2' ).val();
+				s_address		 = $( ':input#shipping_address_1' ).val();
+				s_address_2		 = $( ':input#shipping_address_2' ).val();
 			}
 
 			var data = {
@@ -345,15 +318,13 @@ jQuery( function( $ ) {
 				data.shipping_method = shipping_methods;
 			}
 
-			if ( !$( wc_checkout_form.$checkout_form ).hasClass('processing') ) {
-				$( wc_checkout_form.$checkout_form ).addClass( 'processing' ).block({
-					message: null,
-					overlayCSS: {
-						background: '#fff',
-						opacity: 0.6
-					}
-				});
-			}
+			$( '.woocommerce-checkout-payment, .woocommerce-checkout-review-order-table' ).block({
+				message: null,
+				overlayCSS: {
+					background: '#fff',
+					opacity: 0.6
+				}
+			});
 
 			wc_checkout_form.xhr = $.ajax({
 				type:		'POST',
@@ -362,14 +333,11 @@ jQuery( function( $ ) {
 				success:	function( data ) {
 
 					// Reload the page if requested
-					if ( true === data.reload ) {
+					if ( data && true === data.reload ) {
 						window.location.reload();
 						return;
 					}
 
-					if ( $( wc_checkout_form.$checkout_form ).hasClass('processing') ) {
-						$( wc_checkout_form.$checkout_form ).removeClass( 'processing' ).unblock();
-					}
 					// Remove any notices added previously
 					$( '.woocommerce-NoticeGroup-updateOrderReview' ).remove();
 
@@ -388,7 +356,7 @@ jQuery( function( $ ) {
 							}
 						}
 					});
-
+					
 					// Always update the fragments
 					if ( data && data.fragments ) {
 						$.each( data.fragments, function ( key, value ) {
@@ -406,10 +374,11 @@ jQuery( function( $ ) {
 					if ( ! $.isEmptyObject( paymentDetails ) ) {
 						$( '.payment_box :input' ).each( function() {
 							var ID = $( this ).attr( 'id' );
-
 							if ( ID ) {
 								if ( $.inArray( $( this ).attr( 'type' ), [ 'checkbox', 'radio' ] ) !== -1 ) {
 									$( this ).prop( 'checked', paymentDetails[ ID ] ).change();
+								} else if ( $.inArray( $( this ).attr( 'type' ), [ 'select' ] ) !== -1 ) {
+									$( this ).val( paymentDetails[ ID ] ).change();
 								} else if ( null !== $( this ).val() && 0 === $( this ).val().length ) {
 									$( this ).val( paymentDetails[ ID ] ).change();
 								}
@@ -463,7 +432,7 @@ jQuery( function( $ ) {
 		submitOrder: function() {
 			wc_checkout_form.blockOnSubmit( $( this ) );
 		},
-		submit: function(e) {
+		submit: function() {
 			wc_checkout_form.reset_update_checkout_timer();
 			var $form = $( this );
 
@@ -476,17 +445,7 @@ jQuery( function( $ ) {
 
 				$form.addClass( 'processing' );
 
-				var form_data = $form.data();
-
-				if ( 1 !== form_data['blockUI.isBlocked'] ) {
-					$.blockUI({
-						message: null,
-						overlayCSS: {
-							background: '#fff',
-							opacity: 0.6
-						}
-					});
-				}
+				wc_checkout_form.blockOnSubmit( $form );
 
 				// ajaxSetup is global, but we use it to ensure JSON is valid once returned.
 				$.ajaxSetup( {
@@ -503,13 +462,13 @@ jQuery( function( $ ) {
 							var maybe_valid_json = raw_response.match( /{"result.*}/ );
 
 							if ( null === maybe_valid_json ) {
-								// console.log( 'Unable to fix malformed JSON' );
+								console.log( 'Unable to fix malformed JSON' );
 							} else if ( wc_checkout_form.is_valid_json( maybe_valid_json[0] ) ) {
-								// console.log( 'Fixed malformed JSON. Original:' );
-								// console.log( raw_response );
+								console.log( 'Fixed malformed JSON. Original:' );
+								console.log( raw_response );
 								raw_response = maybe_valid_json[0];
 							} else {
-								// console.log( 'Unable to fix malformed JSON' );
+								console.log( 'Unable to fix malformed JSON' );
 							}
 						}
 
@@ -562,26 +521,6 @@ jQuery( function( $ ) {
 			}
 
 			return false;
-		},
-		handleEditAddress: function() {
-			$(document).on('click', '#btn-edit-address', function() {
-				var $checkout_address = $('#checkout-address');
-				$checkout_address.html('').removeClass('active');
-	
-				// hide form payment
-				$('.progress-payment').hide();
-				// show form address
-				$('.address-billing-and-shipping').show(300);
-				
-				// hide progess bar
-				$('.bs-wizard-step-2').addClass('active');
-				$('.bs-wizard-step-3').addClass('disabled');
-	
-				// remove border of input field
-				$('.woocommerce-input-wrapper').parent().removeClass( 'woocommerce-validated' );
-
-				wc_checkout_form.show_payment = false;
-			});
 		},
 		submit_error: function( error_message ) {
 			$( '.woocommerce-NoticeGroup-checkout, .woocommerce-error, .woocommerce-message' ).remove();
@@ -645,6 +584,7 @@ jQuery( function( $ ) {
 						$form.before( code );
 						$form.slideUp();
 
+						$( document.body ).trigger( 'applied_coupon_in_checkout', [ data.coupon_code ] );
 						$( document.body ).trigger( 'update_checkout', { update_shipping_method: false } );
 					}
 				},
@@ -692,7 +632,7 @@ jQuery( function( $ ) {
 				error: function ( jqXHR ) {
 					if ( wc_checkout_params.debug_mode ) {
 						/* jshint devel: true */
-						// console.log( jqXHR.responseText );
+						console.log( jqXHR.responseText );
 					}
 				},
 				dataType: 'html'

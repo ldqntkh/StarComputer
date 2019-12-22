@@ -100,18 +100,18 @@
         <!-- wait on -->
         <script>
             const CUSTOM_PREFERENCE_TAB = 'CUSTOM_PREFERENCE_TAB';
-            $(document).on('change', '#custom_preference_id', function(e) {
-                $('.custom_preferences_tab').attr('style',  'display:none');
-                $('#' + e.target.value).removeAttr('style');
+            jQuery(document).on('change', '#custom_preference_id', function(e) {
+                jQuery('.custom_preferences_tab').attr('style',  'display:none');
+                jQuery('#' + e.target.value).removeAttr('style');
                 sessionStorage.setItem(CUSTOM_PREFERENCE_TAB, e.target.value);
             });
             
-            $( document ).ready(function() {
+            jQuery( document ).ready(function() {
                 var item = sessionStorage.getItem(CUSTOM_PREFERENCE_TAB);
                 if (item && item !== "") {
-                    $('#custom_preference_id').val(item);
+                    jQuery('#custom_preference_id').val(item);
                 }
-                $('#custom_preference_id').trigger('change');
+                jQuery('#custom_preference_id').trigger('change');
             });
         </script>
 <?php

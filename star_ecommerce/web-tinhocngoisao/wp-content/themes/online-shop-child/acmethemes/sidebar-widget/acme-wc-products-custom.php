@@ -502,11 +502,11 @@ if ( ! class_exists( 'Online_Shop_Wc_Products_Custom' ) ) {
             </section>
             <!-- wait on -->
             <script>
-                $(document).on('change', '#<?php echo esc_attr( $idSelectDisplayType ); ?>', function(e) {
-                    $('.<?php echo esc_attr( $idSelectDisplayType ); ?>').attr('style',  'display:none');
-                    $('.widget-content #<?php echo esc_attr( $idSelectDisplayType ); ?>-' + e.target.value).attr('style',  'display:block');
+                jQuery(document).on('change', '#<?php echo esc_attr( $idSelectDisplayType ); ?>', function(e) {
+                    jQuery('.<?php echo esc_attr( $idSelectDisplayType ); ?>').attr('style',  'display:none');
+                    jQuery('.widget-content #<?php echo esc_attr( $idSelectDisplayType ); ?>-' + e.target.value).attr('style',  'display:block');
                 });
-                $('#<?php echo esc_attr( $idSelectDisplayType ); ?>').trigger('change');
+                jQuery('#<?php echo esc_attr( $idSelectDisplayType ); ?>').trigger('change');
             </script>
             <?php
         }

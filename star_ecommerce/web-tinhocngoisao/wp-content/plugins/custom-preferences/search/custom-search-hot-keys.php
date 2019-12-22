@@ -54,7 +54,7 @@
     function renderScriptSearch($index) {?>
         <script>
             var indexRow = <?php echo $index; ?>;
-            $('#add-new-search').on('click', function() {
+            jQuery('#add-new-search').on('click', function() {
                 if (indexRow > 20) {
                     alert('Chúng tôi chỉ hỗ trợ tối đa 20 từ khóa');
                     return;
@@ -72,19 +72,19 @@
                                     </td>
                                 </tr>`;
 
-                    $('#searchkeys').append(html);
+                    jQuery('#searchkeys').append(html);
                 }
             });
 
-            $('#form-searchkey').on('submit', function(e) {
+            jQuery('#form-searchkey').on('submit', function(e) {
                 e.preventDefault();
-                var rows = $('#searchkeys').find('tr');
+                var rows = jQuery('#searchkeys').find('tr');
                 var jsonData = [];
                 if  (rows.length >  0) {
                     for(var i = 0; i < rows.length; i++) {
-                        var rowTr = $(rows[i]);
-                        var _key = $(rowTr.find('input')[0]).val();
-                        var _url = $(rowTr.find('input')[1]).val();
+                        var rowTr = jQuery(rows[i]);
+                        var _key = jQuery(rowTr.find('input')[0]).val();
+                        var _url = jQuery(rowTr.find('input')[1]).val();
                         if (!_key || _key.trim() === "" || !_url || _url.trim() === "" ) continue;
                         else {
                             jsonData.push({
@@ -94,15 +94,15 @@
                         }
                     }
                 }
-                $('#config_search_keys').val(JSON.stringify(jsonData));
+                jQuery('#config_search_keys').val(JSON.stringify(jsonData));
                 this.submit();
             });
 
             function removeRow(index) {
-                var rows = $('#searchkeys').find('tr');
+                var rows = jQuery('#searchkeys').find('tr');
                 var _rows = [...rows];
                 _rows.splice(index-1, 1);
-                $('#searchkeys').html(_rows);
+                jQuery('#searchkeys').html(_rows);
             }
         </script>
 

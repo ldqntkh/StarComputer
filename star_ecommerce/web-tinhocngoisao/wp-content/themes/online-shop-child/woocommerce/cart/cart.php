@@ -104,9 +104,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 							<div class="item-price" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
 								<?php
 									//echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
-									$price = WC()->cart->get_product_price_value($_product);
-									$regular_price = $_product->regular_price;
-									$sale_price = $_product->sale_price;
+									$price = WC()->cart->get_product_price($_product);
+									$regular_price = $_product->get_regular_price();
+									$sale_price = $_product->get_sale_price();
 									if (!empty($sale_price) && $sale_price > 0 && $sale_price < $regular_price) {
 										echo '
 										<span class="price">
