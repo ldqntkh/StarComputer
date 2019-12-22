@@ -174,6 +174,32 @@ if (!function_exists('get_products_by_productids')) :
         } else {
             $products = array();
             $productIds = explode(',', $productIds);
+
+            $key = implode("-",$productIds);
+
+            $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
+            $current_time = $current_time->format('Y-m-d');
+            
+            $cache_result = get_cache_by_key('get_products_by_productids'.$key, 'get_products_by_productids.txt');
+
+            if ($cache_result) {
+                $cache_time = $cache_result['time'];
+                if ($cache_time) {
+                    $date_1 = strtotime($cache_time);
+                    $date_2 = strtotime($current_time);
+                    $datediff = $date_2 - $date_1;
+                    $day = round($datediff / (60 * 60 * 24));
+                    if ($day < 1) {
+                        $result = array(
+                            "status" => "OK",
+                            "errMsg" => "",
+                            "data" => $cache_result['data']
+                        );
+                        return $result;
+                    }
+                }
+            }
+
             foreach ($productIds as $productId) {
                 if (!empty($productId)){
                     $product = wc_get_product( $productId, 'large' );
@@ -189,6 +215,9 @@ if (!function_exists('get_products_by_productids')) :
                 "data" => $products
             );
             wp_reset_postdata();
+            set_cache_by_key('get_products_by_productids'.$key
+                                , array("time" => $current_time, "data" => $products),
+                                'get_products_by_productids.txt');
             return $result;
         }
     }
