@@ -68,6 +68,13 @@ var showRooms = {
                     }, 1000);
                 }
             });
+        } else {
+            $('.show-map').off('click').on('click', function() {
+                var googleMapURL = $(this).data('googlemap-url');
+                if (googleMapURL && googleMapURL !== '') {
+                    window.open(googleMapURL);
+                }
+            });
         }
     }
 }
