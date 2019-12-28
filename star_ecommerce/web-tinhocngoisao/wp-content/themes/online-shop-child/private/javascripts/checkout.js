@@ -117,14 +117,22 @@ var checkoutPage = {
             overlayCSS: {
                 background: '#fff',
                 opacity: 0.6
+            },
+            onBlock: function() {
+                $('footer').hide();
             }
         });
+        
     },
     deInitProccessingLoader: function($element) {
         if ($element.length === 0) {
             return false;
         }
-        $element.unblock();
+        $element.unblock({
+            onUnblock: function() {
+                $('footer').show();
+            }
+        });
     },
     initShippingClasses: function() {
         $('input[name^=shipping_method]:radio').off('change').on('change', function() {
