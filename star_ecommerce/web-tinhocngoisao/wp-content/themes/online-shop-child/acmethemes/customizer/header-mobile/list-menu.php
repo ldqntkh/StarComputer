@@ -61,7 +61,7 @@
                 </li>
                 <li>
                     <i class="fa fa-eye"></i>
-                    <a href="<?php echo home_url( '/san-pham-da-xem/' ); ?>"><?php echo __( 'Products viewed', 'online-shop' ); ?></a>
+                    <a target="_blank" href="https://icafe.tinhocngoisao.com/"><?php echo __( 'Lắp đặt phòng net', 'starcomputer' ); ?></a>
                 </li>
                 <li>
                     <i class="fa fa-shopping-cart"></i>
