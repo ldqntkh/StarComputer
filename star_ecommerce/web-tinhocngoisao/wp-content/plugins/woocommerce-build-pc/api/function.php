@@ -172,6 +172,16 @@ function get_product_attributes( $product ) {
 function insert_multiple_products_to_cart(WP_REST_Request $request) {
     try {
         $product_data_add_to_cart = explode( ',', $_REQUEST['product_data_add_to_cart'] );
+        defined( 'WC_ABSPATH' ) || exit;
+
+        // Load cart functions which are loaded only on the front-end.
+        include_once WC_ABSPATH . 'includes/wc-cart-functions.php';
+        include_once WC_ABSPATH . 'includes/class-wc-cart.php';
+
+        if ( is_null( WC()->cart ) ) {
+            wc_load_cart();
+        }
+        
         foreach ( $product_data_add_to_cart as $product_data ) {
 
             // control product quantity
