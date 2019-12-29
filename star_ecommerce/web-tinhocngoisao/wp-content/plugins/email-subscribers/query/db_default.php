@@ -115,18 +115,18 @@ class es_cls_default {
 		$ig_es_sample_data_imported = get_option( 'ig_es_sample_data_imported', 'no' );
 		if ( 'yes' === $ig_es_sample_data_imported ) return;
 		//Adding a sample Post Notification Template
-		$es_b = "Hello {{NAME}},\r\n\r\n";
-		$es_b .= "We have published a new blog article on our website : {{POSTTITLE}}\r\n";
+		$es_b = "Xin chào {{NAME}},\r\n\r\n";
+		$es_b .= "Chúng tôi có một bài viết mới trên website của chúng tôi : {{POSTTITLE}}\r\n";
 		$es_b .= "{{POSTIMAGE}}\r\n\r\n";
-		$es_b .= "You can view it from this link : ";
+		$es_b .= "Bạn có thể xem bài viết tại đường dẫn  : ";
 		$es_b .= "{{POSTLINK}}\r\n\r\n";
-		$es_b .= "Thanks & Regards,\r\n";
-		$es_b .= "Admin\r\n\r\n";
-		$es_b .= "You received this email because in the past you have provided us your email address : {{EMAIL}} to receive notifications when new updates are posted.";
+		$es_b .= "Cảm ơn nhiều,\r\n";
+		$es_b .= "Tin Học Ngôi Sao\r\n\r\n";
+		$es_b .= "Bạn đã nhận được email này bởi vì trước đây bạn đã cung cấp cho chúng tôi địa chỉ email của bạn: {{EMAIL}} để nhận thông báo khi các cập nhật mới được đăng.";
 
 		// Create Post Notification object
 		$es_post = array(
-		  'post_title'    => 'New Post Published - {{POSTTITLE}}',
+		  'post_title'    => 'Bài viết mới - {{POSTTITLE}}',
 		  'post_content'  => $es_b,
 		  'post_status'   => 'publish',
 		  'post_type'     => 'es_template',
