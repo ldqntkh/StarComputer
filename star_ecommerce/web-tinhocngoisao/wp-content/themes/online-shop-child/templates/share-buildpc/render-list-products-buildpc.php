@@ -47,7 +47,8 @@
                                 $regularPrice = $product->get_regular_price();
                                 $salePrice = $product->get_sale_price();
                             }
-                            $price = $salePrice !== 0 && $salePrice < $regularPrice ? $salePrice : $regularPrice;
+                            $price = ($salePrice !== '' && $salePrice !== 0 && $salePrice < $regularPrice) ? $salePrice : $regularPrice;
+                            
                             $total_price += $price * $item->quantity;
                             $name = $product->get_name();
                             $link = $product->get_permalink();
@@ -63,7 +64,7 @@
                                         <p class="name"> <?php echo $name; ?> </p>
                                         <p class="price"> Giá: <?php echo wc_price($price); ?></p>
                                         <p class="productid"> Mã sản phẩm: <?php echo $item->product_id; ?> </p>
-                                        <div class="star-rating">
+                                        <div class="star-rating" style="margin: 0">
                                             <span style="width: <?php echo ($rating / 5 * 100) ?>%;">Rated <strong class="rating"><?php echo $rating; ?></strong> out of 5</span>
                                         </div>
                                     </a>
@@ -85,11 +86,11 @@
         </div>
 
         <div class="build-pc-footer">
-            <div class="btn-item">
+            <!-- <div class="btn-item">
                 <button type="button" class="btn btn-saveconfig">
                     <i class="fa fa-floppy-o"></i>Lưu cấu hình
                 </button>
-            </div>
+            </div> -->
             <div class="btn-item">
                 <button type="button" class="btn btn-saveimg">
                     <a href="<?php echo home_url( '/build-pc/' ) . '?building_data='.$_GET['building_data'] ?>">

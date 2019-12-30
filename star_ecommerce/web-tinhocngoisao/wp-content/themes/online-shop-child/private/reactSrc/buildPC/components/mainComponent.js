@@ -157,8 +157,8 @@ class MainComponent extends Component {
                                 "link" : product_types[index].link
                             };
                             break;
-                        case "soundcase":
-                            result['soundcase'] = {
+                        case "fancase":
+                            result['fancase'] = {
                                 "product" : product,
                                 "quantity" : quantity,
                                 "require" : product_types[index].require,
