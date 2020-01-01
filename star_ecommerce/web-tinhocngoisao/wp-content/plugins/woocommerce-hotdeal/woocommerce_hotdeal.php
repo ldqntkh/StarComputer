@@ -20,6 +20,16 @@ define ('BLOCK_TOTAL', 'block_total');
 define ('BLOCK_IMAGE', 'block_image');
 define ('BLOCK_TYPE', 'block_type');
 
+if ( class_exists( 'CDN_Enabler' ) ) {
+    function check_valid_cdn_hotdeal() {
+        $options = CDN_Enabler::get_options();
+        if ( !empty( $options['url'] ) ) {
+            return $options['url'];
+        }
+        return false;
+    }
+}
+
 include SALE_DATE_DIR . '/widget/homepage-widget/homepage.php';
 
 // register api

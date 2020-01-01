@@ -112,6 +112,14 @@ if ( ! class_exists( 'ShowListProductSale' ) ) {
 
             $id_name = $block_type == 'desktop' ? "dv-primetime-price-desktop" : "dv-primetime-price-mobile";
             $class_name = $block_type == 'desktop' ? "primetime-price-desktop" : "primetime-price-mobile";
+
+            if ( function_exists( 'check_valid_cdn_hotdeal' ) ) {
+                $valid_cdn =  check_valid_cdn_hotdeal();
+
+                if ( $valid_cdn ) {
+                    $block_image = str_replace( get_home_url(), $valid_cdn, $block_image );
+                }
+            }
         ?>
             <div class="<?php echo $class_name; ?>">
                 <h2 class="widget-title"><?php _e($block_title, 'home-page-widget'); ?></h2>

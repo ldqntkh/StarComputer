@@ -62,6 +62,12 @@ function get_products_by_custom_type(WP_REST_Request $request) {
         );
         $loop = new WP_Query( $query_args );
         $arrProducts = [];
+
+        $valid_cdn = false;
+        if ( function_exists( 'check_valid_cdn_buildpc' ) ) {
+            $valid_cdn = check_valid_cdn_buildpc();
+        }
+
         while ( $loop->have_posts() ) : $loop->the_post(); 
             global $product;
             if ($product->manage_stock && $product->stock_quantity != null && $product->stock_status) {
@@ -76,14 +82,17 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                 if ( !$product->is_on_sale() ) {
                     $sale_price = "0";
                 }
-
+                $image_url = wp_get_attachment_image_src( $product->image_id, 'medium', true )[0];
+                if ( $valid_cdn ) {
+                    $image_url = str_replace( get_home_url(), $valid_cdn, $image_url );
+                }
                 $arrPt = array(
                     'id' => $product->get_id(),
                     'name' => $product->name,
                     'link' => get_permalink( $product->product_id),
                     'regular_price' => $regular_price,
                     'sale_price' => $sale_price,
-                    'image' => wp_get_attachment_image_src( $product->image_id, 'medium', true )[0],
+                    'image' => $image_url,
                     'average_rating' => $product->average_rating,
                     'review_count' => $product->review_count,
                     'selected_product_value' => get_post_meta($product->get_id(), '_selected_product_value', true)
@@ -96,15 +105,20 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                     $productsChildId = $product->get_visible_children();
                     if ( count( $productsChildId ) > 0 ) {
                         $arrPt['product_childs'] = [];
+                        
                         foreach( $productsChildId as $productChildId ) {
                             $productChild = wc_get_product( $productChildId );
+                            $child_image_url = wp_get_attachment_image_src( $productChild->image_id, 'thumbnail', true )[0];
+                            if ( $valid_cdn ) {
+                                $child_image_url = str_replace( get_home_url(), $valid_cdn, $child_image_url );
+                            }
                             $arrPtChild = array(
                                 'id' => $productChild->get_id(),
                                 'name' => $productChild->name,
                                 'link' => get_permalink( $productChild->get_id()),
                                 'regular_price' => $productChild->get_regular_price(),
                                 'sale_price' => $productChild->get_sale_price(),
-                                'image' => wp_get_attachment_image_src( $productChild->image_id, 'thumbnail', true )[0],
+                                'image' => $child_image_url,
                                 'average_rating' => $productChild->average_rating,
                                 'review_count' => $productChild->review_count,
                                 'stock_quantity' =>  $productChild->stock_quantity,
