@@ -273,6 +273,7 @@ function online_shop_widget_init(){
         register_widget( 'Online_Shop_Advanced_Search_Widget' );
         register_widget( 'Online_Shop_Wc_Feature_Cats' );
         register_widget( 'Online_Shop_Wc_Cats_Tabs' );
+        require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-products-custom.php');
         register_widget( 'Online_Shop_Wc_Products_Custom' );
     endif;
 }

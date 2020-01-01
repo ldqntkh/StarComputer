@@ -30,8 +30,7 @@ add_action( 'online_shop_action_before_head', 'online_shop_set_global', 0 );
  */
 if ( ! function_exists( 'online_shop_doctype' ) ) :
     function online_shop_doctype() {
-        ?>
-        <!DOCTYPE html>
+        ?><!DOCTYPE html>
         <html <?php language_attributes(); ?> xmlns="http://www.w3.org/1999/html">
     <?php
     }
@@ -448,6 +447,10 @@ if ( ! function_exists( 'online_shop_before_content' ) ) :
         if( 'disable' != $online_shop_customizer_all_values['online-shop-breadcrumb-options'] && !is_front_page()){
             online_shop_breadcrumbs();
         }
+	    $sidebar_layout = online_shop_sidebar_selection( get_the_ID() );
+	    if( 'both-sidebar' == $sidebar_layout && ( !is_front_page() || (is_front_page() && is_home() )) ) {
+		    echo '<div id="primary-wrap" class="clearfix">';
+	    }
     }
 endif;
 add_action( 'online_shop_action_after_header', 'online_shop_before_content', 10 );

@@ -454,7 +454,13 @@ if ( ! class_exists( 'Online_Shop_Wc_Cats_Tabs' ) ) {
 					        <?php
 					        $online_shop_featured_index = 1;
 					        while ( $online_shop_featured_query->have_posts() ) :$online_shop_featured_query->the_post();
-						        $online_shop_list_classes = 'single-list';
+
+                                global $product;
+                                // Ensure visibility.
+                                if ( empty( $product ) || ! $product->is_visible() ) {
+                                    continue;
+                                }
+                                $online_shop_list_classes = 'single-list';
 						        if( 'carousel' != $display_type ){
 							        if( 1 != $online_shop_featured_index && $online_shop_featured_index % $column_number == 1 ){
 								        echo "<div class='clearfix'></div>";

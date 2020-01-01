@@ -8,11 +8,11 @@
             'parent'     => 0,
         ) );
 		if (  ! empty( $terms ) && ! is_wp_error( $terms ) ) : ?>
-			<?php $current = ( isset( $_GET['product_category'] ) ) ? absint( $_GET['product_category'] ) : '' ; ?>
+			<?php $current = ( isset( $_GET['product_category'] ) ) ? esc_attr( $_GET['product_category'] ) : '' ; ?>
             <select class="select_products" name="product_category">
                 <option value=""><?php esc_html_e( 'All Categories', 'online-shop' ); ?></option>
 				<?php foreach ( $terms as $cat ) : ?>
-                    <option value="<?php echo esc_attr( $cat->term_id ); ?>" <?php selected( $current, $cat->term_id ); ?> ><?php echo esc_attr( $cat->name ); ?></option>
+                    <option value="<?php echo esc_attr( $cat->name ); ?>" <?php selected( $current, $cat->name ); ?> ><?php echo esc_attr( $cat->name ); ?></option>
 				<?php endforeach; ?>
             </select>
 		<?php endif; ?>

@@ -28,6 +28,11 @@ function online_shop_register_required_plugins() {
 		    'slug'      => 'yith-woocommerce-wishlist',
 		    'required'  => false,
 	    ),
+        array(
+            'name'      => 'Gutentor',
+            'slug'      => 'gutentor',
+            'required'  => false,
+        )
     );
 	tgmpa( $plugins );
 }

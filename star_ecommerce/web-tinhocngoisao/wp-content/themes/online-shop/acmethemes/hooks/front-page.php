@@ -46,6 +46,10 @@ if ( ! function_exists( 'online_shop_front_page' ) ) :
 	    if( is_active_sidebar( 'online-shop-home' ) && !is_home() ){
 		    dynamic_sidebar( 'online-shop-home' );
 	    }
+	    $sidebar_layout = online_shop_sidebar_selection( get_the_ID() );
+	    if( 'both-sidebar' == $sidebar_layout && is_front_page() && !is_home() ) {
+		    echo '<div id="primary-wrap" class="clearfix">';
+	    }
 	    if ( 'posts' == get_option( 'show_on_front' ) ) {
 		    include( get_home_template() );
 	    }
