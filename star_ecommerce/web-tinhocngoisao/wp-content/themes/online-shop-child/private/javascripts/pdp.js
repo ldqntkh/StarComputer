@@ -125,10 +125,12 @@ var productdetailpage = {
         });
     },
     handleSwitchTabElement: function() {
-        $('.tab-wrapper').find('li').off('click').on('click', function() {
+        $('.tab-wrapper').find('li').off('click').on('click', function(e, params) {
             var $tabItem = $(this);
             var $fixedProductDetail = $tabItem.parents('.fixed-product-detail');
             var $tabClassName = $tabItem.attr('class').split(' ').length > 1 ? $tabItem.attr('class').split(' ')[0] : $tabItem.attr('class');
+            var disableScroll = params && params.disableScroll ? params.disableScroll : false;
+            var promotionBannerHeight = $('.top-header-promotion').length > 0 ? $('.top-header-promotion').height() : 0;
             $('.tab-wrapper').find('li').removeClass('active');
             $('.tab-content-wrapper').find('.tab-content').hide();
             $('#' + $tabItem.data('content') + '-content').show();
@@ -136,10 +138,10 @@ var productdetailpage = {
                 $('.' + $tabClassName).addClass('active');
             }
 
-            if ($fixedProductDetail.length > 0 && !$fixedProductDetail.hasClass('hidden')) {
+            if ($fixedProductDetail.length > 0 && !$fixedProductDetail.hasClass('hidden') && !disableScroll) {
                 var positionTop = $('.tab-content-wrapper').position().top;
                 $('html, body').animate({
-                    scrollTop: positionTop + $('.fixed-product-detail').height() + 50 + $('.tab-wrapper ul').height() + 10
+                    scrollTop: positionTop + $('.fixed-product-detail').height() + promotionBannerHeight + $('.tab-wrapper ul').height() + 10
                 }, 1000);
             }
         });
@@ -182,6 +184,8 @@ var productdetailpage = {
             var tabWrapperPositionTop = $tabWrapper.offset().top;
             var promotionBannerHeight = $('.top-header-promotion').length > 0 ? $('.top-header-promotion').height() : 0;
             var fixedProductDetailHeight = 98;
+            // switch to comment tab
+            $('li.product-comment-tab').trigger('click', [{disableScroll: true}]);
             $('html, body').animate({
                 scrollTop: tabWrapperPositionTop - (promotionBannerHeight + fixedProductDetailHeight)
             }, 2000);
