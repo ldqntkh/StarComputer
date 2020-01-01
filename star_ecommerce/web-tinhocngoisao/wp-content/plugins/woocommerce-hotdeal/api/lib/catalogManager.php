@@ -51,6 +51,11 @@ class CatalogManager {
         
         $regular_price = 0;
         $sale_price = 0;
+
+        $valid_cdn = false;
+        if ( function_exists( 'check_valid_cdn_hotdeal' ) ) {
+            $valid_cdn =  check_valid_cdn_hotdeal();
+        }
         while ( $loop->have_posts() ) : $loop->the_post(); 
             global $product;
             if($product->is_on_sale()) {
@@ -63,13 +68,19 @@ class CatalogManager {
                         $regular_price = $product->get_regular_price();
                         $sale_price = $product->get_sale_price();
                     }
+
+                    $image_url = wp_get_attachment_image_src( $product->image_id, 'medium', true )[0];
+                    if ( $valid_cdn ) {
+                        $image_url = str_replace( get_home_url(), $valid_cdn, $image_url );
+                    }
+                    
                     $arrPt = array(
                         'id' => $product->get_id(),
                         'name' => $product->name,
                         'link' => get_permalink( $product->product_id),
                         'regular_price' => number_format((float)$regular_price, 0, '.', ','),
                         'sale_price' => number_format((float)$sale_price, 0, '.', ','),
-                        'image' => wp_get_attachment_image_src( $product->image_id, 'medium', true )[0],
+                        'image' => $image_url,
                         'average_rating' => $product->average_rating,
                         'review_count' => $product->review_count
                     );

@@ -24,6 +24,14 @@ if (!function_exists('findListMenuItemById')):
                     else{
                         $image_url =  get_template_directory_uri() . '/assets/img/default-image.jpg';
                     }
+
+                    if ( function_exists( 'check_valid_cdn' ) ) {
+                        $valid_cdn =  check_valid_cdn();
+
+                        if ( $valid_cdn ) {
+                            $image_url = str_replace( get_home_url(), $valid_cdn, $image_url );
+                        }
+                    }
                     
                     $menu_item->thumbnail_image = $image_url; 
 
@@ -76,6 +84,14 @@ if (!function_exists('findListMenuAttributes')):
                     }
                     else{
                         $image_url =  get_template_directory_uri() . '/assets/img/default-image.jpg';
+                    }
+
+                    if ( function_exists( 'check_valid_cdn' ) ) {
+                        $valid_cdn =  check_valid_cdn();
+
+                        if ( $valid_cdn ) {
+                            $image_url = str_replace( get_home_url(), $valid_cdn, $image_url );
+                        }
                     }
                     
                     $menu_item->thumbnail_image = $image_url; 

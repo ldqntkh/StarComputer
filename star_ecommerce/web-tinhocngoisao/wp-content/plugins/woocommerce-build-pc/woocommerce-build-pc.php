@@ -14,6 +14,16 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'BUILD_PC_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BUILD_PC_URL', plugin_dir_url( __FILE__ ) );
 
+if ( class_exists( 'CDN_Enabler' ) ) {
+    function check_valid_cdn_buildpc() {
+        $options = CDN_Enabler::get_options();
+        if ( !empty( $options['url'] ) ) {
+            return $options['url'];
+        }
+        return false;
+    }
+}
+
 class Build_PC_Manager {
     function __construct() {
         $this->register_header_admin_css();

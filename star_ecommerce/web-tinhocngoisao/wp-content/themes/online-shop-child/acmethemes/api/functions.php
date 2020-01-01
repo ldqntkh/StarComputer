@@ -4,6 +4,16 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if ( class_exists( 'CDN_Enabler' ) ) {
+    function check_valid_cdn() {
+        $options = CDN_Enabler::get_options();
+        if ( !empty( $options['url'] ) ) {
+            return $options['url'];
+        }
+        return false;
+    }
+}
+
 include plugin_dir_path( __FILE__ ) . '/categories/categoryMgr.php';
 include plugin_dir_path( __FILE__ ) . '/products/productMgr.php';
 

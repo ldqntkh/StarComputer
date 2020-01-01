@@ -232,13 +232,25 @@ if (!function_exists('getProductInfo')) :
             $regular_price = $product->get_regular_price();
             $sale_price = $product->get_sale_price();
         }
+
+        $image_link = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), $image_type, true )[0];
+        if ( function_exists( 'check_valid_cdn' ) ) {
+            
+            $valid_cdn =  check_valid_cdn();
+
+            if ( $valid_cdn ) {
+                $image_link = str_replace( get_home_url(), $valid_cdn, $image_link );
+            }
+            return $image_link;die;
+        }
+        
         $arrPt = array(
             'id' => $product->get_id(),
             'name' => $product->get_name(),
             'link' => get_permalink( $product->get_id()),
             'regular_price' => number_format((float)$regular_price, 0, '.', ','),
             'sale_price' => number_format((float)$sale_price, 0, '.', ','),
-            'image' => wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), $image_type, true )[0],
+            'image' => $image_link,
             'average_rating' => $product->get_average_rating(),
             'review_count' => $product->get_review_count()
         );
