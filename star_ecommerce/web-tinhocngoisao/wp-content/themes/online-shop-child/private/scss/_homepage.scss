@@ -947,7 +947,7 @@ h2.woocommerce-loop-product__title {
     
     .slider-section {
         width: 100%;
-        height: 150px;
+        height: auto;
         @media screen and (min-width: 768px) {
             width: 75%;
             margin-bottom: 0;
@@ -1018,11 +1018,8 @@ h2.woocommerce-loop-product__title {
     
     .beside-slider {
         .fs-right-slider {
-            margin-top: 10px;
+            margin: 0;
             visibility: visible;
-            @media screen and (min-width: 768px) {
-                margin: 0;
-            }
             .at-beside-slider-unit {
                 height: 181px;
             }

@@ -175,6 +175,18 @@ var productdetailpage = {
             }
         });
     },
+    handleViewProductRating: function() {
+        $('.woocommerce-product-rating').find('a').off('click').on('click', function(e) {
+            e.preventDefault();
+            var $tabWrapper = $('.wc-tabs-wrapper');
+            var tabWrapperPositionTop = $tabWrapper.offset().top;
+            var promotionBannerHeight = $('.top-header-promotion').length > 0 ? $('.top-header-promotion').height() : 0;
+            var fixedProductDetailHeight = 98;
+            $('html, body').animate({
+                scrollTop: tabWrapperPositionTop - (promotionBannerHeight + fixedProductDetailHeight)
+            }, 2000);
+        });
+    },
     init: function() {
         let that = this;
         that.displayCountDownTime();
@@ -188,6 +200,7 @@ var productdetailpage = {
             that.displayTotalPriceGroupedProduct();
             that.handleEventOnClickQty();
         }
+        that.handleViewProductRating();
     }
 }
 
