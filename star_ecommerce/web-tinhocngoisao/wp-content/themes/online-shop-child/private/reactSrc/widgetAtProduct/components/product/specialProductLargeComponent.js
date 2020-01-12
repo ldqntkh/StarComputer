@@ -90,8 +90,8 @@ class SpecialProductLargeComponent extends Component {
                             </span>
                 } else {
                     price = <span className="price">
-                                <span className="price-label">Giá: </span>
                                 <ins>
+                                    <span className="price-label">Giá: </span>
                                     <span className="woocommerce-Price-amount amount">{product.regular_price}<span className="woocommerce-Price-currencySymbol">đ</span></span>
                                 </ins>
                             </span>

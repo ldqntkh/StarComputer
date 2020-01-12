@@ -519,7 +519,7 @@ h2.woocommerce-loop-product__title {
                     height: 135px;
                     padding: 0 5px;
                     h3 {
-                        padding: 10px 0 10px 0;
+                        padding: 0;
                         color: black;
                         margin: 0;
                     }
@@ -852,6 +852,11 @@ h2.woocommerce-loop-product__title {
                     }
                 }
             }
+        }
+
+        span.price {
+            display: flex!important;
+            flex-direction: column!important;
         }
     }
     
