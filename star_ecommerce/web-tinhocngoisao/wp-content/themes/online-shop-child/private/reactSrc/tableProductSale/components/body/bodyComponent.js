@@ -18,7 +18,7 @@ class BodyComponent extends Component {
 
         this.state = {
             fetching : false,
-            post_number: 100,
+            post_number: 50,
             start_page: 1,
             list_product_sale_price: this.list_product_sale_price,
             search: {

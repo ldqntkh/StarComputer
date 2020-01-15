@@ -10,15 +10,11 @@
     function clear_custom_cache() { 
         if (isset($_POST['clearcache'])) {
             if ( function_exists('clear_custom_cache') ) {
-                $json_cache = get_theme_file_path('/acmethemes/custom-cache/json-cache.txt') ;
-                $hotdeal = get_theme_file_path('/acmethemes/custom-cache/hotdeal.txt') ;
-                $buildpc = get_theme_file_path('/acmethemes/custom-cache/build-pc.txt') ;
-                $tablesale = get_theme_file_path('/acmethemes/custom-cache/table-sale.txt') ;
-                $json = '';
-                file_put_contents($json_cache, $json);
-                file_put_contents($hotdeal, $json);
-                file_put_contents($buildpc, $json);
-                file_put_contents($tablesale, $json);
+                $files = glob( get_stylesheet_directory() .'/acmethemes/custom-cache/*'); // get all file names
+                foreach($files as $file){ // iterate files
+                if(is_file($file))
+                    unlink($file); // delete file
+                }
                 $msg = 'Xóa thành công!';
             }
         }

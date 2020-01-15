@@ -17,8 +17,8 @@ if (!function_exists('get_products_by_categoryid')) :
 
         $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
         $current_time = $current_time->format('Y-m-d');
-        
-        $cache_result = get_cache_by_key('get_products_by_categoryid'.$wc_advanced_option.$online_shop_wc_product_cat.$online_shop_wc_product_tag.$post_number.$start_page.$orderby.$order.$get_slug, 'table-sale.txt');
+        $filenamecache = 'table-sale-'.$wc_advanced_option.$online_shop_wc_product_cat.$online_shop_wc_product_tag.$post_number.$start_page.$orderby.$order.$get_slug.'.txt';
+        $cache_result = get_cache_by_key('get_products_by_categoryid', $filenamecache);
         if ($cache_result) {
             $cache_time = $cache_result['time'];
             if ($cache_time) {
@@ -145,9 +145,9 @@ if (!function_exists('get_products_by_categoryid')) :
                 "data" => $products
             );
             wp_reset_postdata();
-            set_cache_by_key('get_products_by_categoryid'.$wc_advanced_option.$online_shop_wc_product_cat.$online_shop_wc_product_tag.$post_number.$start_page.$orderby.$order.$get_slug
+            set_cache_by_key('get_products_by_categoryid'
                                 , array("time" => $current_time, "data" => $products),
-                                'table-sale.txt');
+                                $filenamecache);
             return $result;
         endif;
         
@@ -180,7 +180,7 @@ if (!function_exists('get_products_by_productids')) :
             $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
             $current_time = $current_time->format('Y-m-d');
             
-            $cache_result = get_cache_by_key('get_products_by_productids'.$key, 'get_products_by_productids.txt');
+            $cache_result = get_cache_by_key('get_products_by_productids', 'get_products_by_productids-'.$key.'.txt');
 
             if ($cache_result) {
                 $cache_time = $cache_result['time'];
@@ -215,9 +215,9 @@ if (!function_exists('get_products_by_productids')) :
                 "data" => $products
             );
             wp_reset_postdata();
-            set_cache_by_key('get_products_by_productids'.$key
+            set_cache_by_key('get_products_by_productids'
                                 , array("time" => $current_time, "data" => $products),
-                                'get_products_by_productids.txt');
+                                'get_products_by_productids-'.$key.'.txt');
             return $result;
         }
     }
@@ -241,7 +241,6 @@ if (!function_exists('getProductInfo')) :
             if ( $valid_cdn ) {
                 $image_link = str_replace( get_home_url(), $valid_cdn, $image_link );
             }
-            return $image_link;die;
         }
         
         $arrPt = array(
