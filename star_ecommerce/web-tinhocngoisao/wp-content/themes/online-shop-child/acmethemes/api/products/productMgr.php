@@ -17,7 +17,7 @@ if (!function_exists('get_products_by_categoryid')) :
 
         $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
         $current_time = $current_time->format('Y-m-d');
-        $filenamecache = 'table-sale-'.$wc_advanced_option.$online_shop_wc_product_cat.$online_shop_wc_product_tag.$post_number.$start_page.$orderby.$order.$get_slug.'.txt';
+        $filenamecache = 'get_products_by_categoryid-'.$wc_advanced_option.$online_shop_wc_product_cat.$online_shop_wc_product_tag.$post_number.$start_page.$orderby.$order.$get_slug.'.txt';
         $cache_result = get_cache_by_key('get_products_by_categoryid', $filenamecache);
         if ($cache_result) {
             $cache_time = $cache_result['time'];
@@ -277,3 +277,52 @@ if (!function_exists('getProductInfo')) :
         return $arrPt;
     }
 endif;
+
+if ( !function_exists( 'get_products_sales' ) ) {
+    function get_products_sales( WP_REST_Request $request ) {
+        
+        $post_number = absint( $_GET[ 'post_number' ] );
+        $post_number = 50;
+        $start_page = $_GET[ 'start_page' ] ? absint( $_GET[ 'start_page' ] ) : 0;
+
+        $orderby = esc_attr( $_GET[ 'orderby' ] );
+        $order = esc_attr( $_GET[ 'order' ] );
+        $get_slug = $_GET[ 'get_slug' ] ? absint( $_GET[ 'get_slug' ] ) : 0;
+
+        $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
+        $current_time = $current_time->format('Y-m-d');
+        $filenamecache = 'get_products_sales-'.$post_number.$start_page.$orderby.$order.$get_slug.'.txt';
+        $cache_result = get_cache_by_key('get_products_sales', $filenamecache);
+        
+        if ($cache_result) {
+            $cache_time = $cache_result['time'];
+            if ($cache_time) {
+                // $date_1 = strtotime($cache_time);
+                // $date_2 = strtotime($current_time);
+                // $datediff = $date_2 - $date_1;
+                // $day = round($datediff / (60 * 60 * 24));
+                // if ($day < 1) {
+                //     $result = array(
+                //         "status" => "OK",
+                //         "errMsg" => "",
+                //         "data" => $cache_result['data']
+                //     );
+                //     return $result;
+                // }
+
+                $result = array(
+                    "status" => "OK",
+                    "errMsg" => "",
+                    "data" => $cache_result['data']
+                );
+                return $result;
+            }
+        }
+
+        return array(
+            "status" => "FAIL",
+            "errMsg" => "Products not found",
+            "data" => null
+        );
+    }
+}

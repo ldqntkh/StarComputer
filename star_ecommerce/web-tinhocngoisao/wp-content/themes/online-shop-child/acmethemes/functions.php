@@ -900,9 +900,6 @@ if ( !function_exists('get_cache_by_key') ) {
 if ( !function_exists('set_cache_by_key') ) {
     function set_cache_by_key ($key, $content, $filename = 'json-cache.txt') {
         $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/' .$filename;
-        if ( file_exists ( $cache_file_path )  ) {
-            $json = json_decode(file_get_contents($cache_file_path),TRUE);
-        }
         $json[$key] = $content;
         file_put_contents($cache_file_path, json_encode($json));
     }
@@ -962,3 +959,10 @@ if ( !function_exists('get_sale_percent') ) {
 		return 0;
     }
 }
+
+function maintenance_mode() {
+ 
+    //if ( !current_user_can( 'edit_themes' ) || !is_user_logged_in() ) {wp_die('Maintenance.');}
+
+}
+add_action('get_header', 'maintenance_mode');
