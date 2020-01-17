@@ -680,8 +680,9 @@ add_action( 'woocommerce_blog_header_additional', 'woocommerce_template_social_s
 add_action( 'wp_head', 'render_header_meta_single_product', 100);
 if (!function_exists('render_header_meta_single_product')) {
     function render_header_meta_single_product() {
-        if (is_product()) {
-            global $post;
+        global $post;
+        if ( !$post ) {
+            
             $product = wc_get_product( $post->ID );
             if ($product) {
                 echo '<meta property="og:image" content="'.wp_get_attachment_image_src( $product->get_image_id(), 'medium', true )[0].'">';
