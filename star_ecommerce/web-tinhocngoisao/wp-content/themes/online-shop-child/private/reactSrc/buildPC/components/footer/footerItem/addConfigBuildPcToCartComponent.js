@@ -46,7 +46,14 @@ export default class AddConfigBuildPcToCartComponent extends Component {
                 let link = HOST_URL_API + url_api.replace('{0}', data_insert);
 
                 try {
-                    let response = await axios.get(link);
+                    console.log( link );
+                    let response = await axios.get(link ,{
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                          }
+                    });
+                    console.log( response );
                     let _resData = response.data;
                     if (_resData.success) {
                         window.location.reload();

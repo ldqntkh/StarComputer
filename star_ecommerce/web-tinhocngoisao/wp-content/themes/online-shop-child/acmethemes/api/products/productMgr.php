@@ -282,7 +282,7 @@ if ( !function_exists( 'get_products_sales' ) ) {
     function get_products_sales( WP_REST_Request $request ) {
         
         $post_number = absint( $_GET[ 'post_number' ] );
-        $post_number = 50;
+        $post_number = 100;
         $start_page = $_GET[ 'start_page' ] ? absint( $_GET[ 'start_page' ] ) : 0;
 
         $orderby = esc_attr( $_GET[ 'orderby' ] );

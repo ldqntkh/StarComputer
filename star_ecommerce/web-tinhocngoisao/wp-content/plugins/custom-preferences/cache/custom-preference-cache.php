@@ -36,7 +36,7 @@
     function create_product_cache_file() {
         if (isset($_POST['create_product_cache_file'])) {
 
-            $post_number = 50;
+            $post_number = 100;
             $start_page = 1;
     
             $orderby = 'date';
