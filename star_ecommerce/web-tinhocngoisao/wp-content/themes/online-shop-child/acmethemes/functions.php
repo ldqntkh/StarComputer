@@ -971,6 +971,5 @@ add_action('get_header', 'maintenance_mode');
 // de-attach style file unused
 add_action( 'wp_enqueue_scripts', 'remove_fontawesome_stylesheet', 20 );
 function remove_fontawesome_stylesheet() {
-    wp_deregister_style('font-awesome');
     wp_deregister_style('yith-wcwl-font-awesome');
 }
