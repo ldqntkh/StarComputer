@@ -3,12 +3,12 @@ Theme Name: Online Shop
 Theme URI: https://www.acmethemes.com/themes/online-shop
 Author: acmethemes
 Author URI: https://www.acmethemes.com/
-Description: Online Shop is a powerful, dynamic and highly customized WordPress multipurpose e-commerce theme. Online shop comes with the broad array of features, highly customized options, and advanced custom widgets to create any kinds of online eCommerce sites.  The theme has limitless possibilities to create your online store unique and beautiful. Whether you are creating or redesigning fashion store, sports store, men - women or children store, jewelry store, kitchen or food store, toys store, digital product store, affiliate store or all in one store, the theme will fit any online store you have.  This theme is fully compatible with popular plugin Woo Commerce and added custom widgets. This theme comes with advanced header options, footer options, sidebar options, copyright options, advanced slider options, featured category post, featured post page. In addition, this theme has sticky sidebar options, single post options, WooCommerce page options, sticky menu options, special menu options, advanced logo options, advertisement options and many more. Use this theme for your e-commerce website, you will feel the best ever experience. Demo: http://demo.acmethemes.com/online-shop Support: https://www.acmethemes.com/supports/
-Version: 1.3.4
+Description: Online Shop is a powerful, dynamic and highly customized WordPress multipurpose e-commerce theme. Online shop comes with a broad array of features, highly customized options, and advanced custom widgets to create any kinds of online eCommerce sites.  The theme has limitless possibilities to create your online store unique and beautiful. Whether you are creating or redesigning fashion store, sports store, men - women or children store, jewellery store, kitchen or food store, toys store, digital product store, affiliate store or all in one store, the theme will fit any online store you have.  This theme is fully compatible with popular plugin Woo Commerce and added custom widgets. This theme comes with advanced header options, footer options, sidebar options, copyright options, advanced slider options, featured category post, featured post page. Besides, this theme has sticky sidebar options, single post options, WooCommerce page options, sticky menu options, special menu options, advanced logo options, advertisement options and many more. Use this theme for your e-commerce website, you will feel the best experience. Demo: http://demo.acmethemes.com/online-shop Support: https://www.acmethemes.com/supports/
+Version: 2.0.2
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: online-shop
-Tags: one-column, two-columns, left-sidebar, right-sidebar, flexible-header, custom-background, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, blog, e-commerce, news
+Tags: e-commerce,blog, news, one-column, two-columns, three-columns, four-columns, left-sidebar, right-sidebar, custom-background, custom-colors, custom-header, custom-logo, custom-menu, editor-style, featured-images, flexible-header, footer-widgets, full-width-template, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 */
 
 /*--------------------------------------------------------------
@@ -2006,6 +2006,32 @@ a.my-account:hover{
 .no-sidebar #primary{
 	width: 100%;
 }
+/*** BOTH-SIDEBAR ***/
+.both-sidebar #primary-wrap{
+	float: left;
+	width: 73%;
+}
+.both-sidebar #primary-wrap #secondary-left{
+	float: left;
+	width: 32%;
+}
+.both-sidebar #primary-wrap #primary{
+	float: right;
+	width: 65%;
+}
+.both-sidebar #secondary-right{
+	float: right;
+	width:25%;
+}
+/*middle column*/
+.middle-col {
+	overflow-x: hidden;
+}
+.middle-col #primary {
+	float: none;
+	margin: 0 auto;
+	width: 70%;
+}
 /*** COMMON WIDGETS ***/
 .at-action-wrapper{
 	display: inline-block;
@@ -2131,12 +2157,19 @@ a.my-account:hover{
 @media screen and (max-width:767px){
 	/*** SIDEBAR ***/
 	#primary,
+	.both-sidebar #primary,
+	.both-sidebar #primary-wrap #primary,
+	.middle-col #primary,
 	.right-sidebar #primary,
 	.left-sidebar #primary{
 		margin:0 0 20px;
 		width: 100%;
 	}
 	.secondary-sidebar,
+	.both-sidebar #primary-wrap,
+	.both-sidebar #primary-wrap #secondary-left,
+	.both-sidebar #secondary-right,
+	.middle-col .secondary-sidebar,
 	.right-sidebar .secondary-sidebar,
 	.left-sidebar .secondary-sidebar,
 	.no-sidebar .secondary-sidebar{
@@ -2144,6 +2177,15 @@ a.my-account:hover{
 		float: none;
 		margin:0 0 20px;
 		width: 100%;
+	}
+}
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 992px) {
+	.both-sidebar .single-thumb, .both-sidebar .related-post{
+		width: 100%;
+	}
+	.both-sidebar .related-post{
+		margin: 20px 0;
 	}
 }
 /* column*/
@@ -2327,6 +2369,7 @@ a.my-account:hover{
 .comments-link,
 .edit-link {
 	margin-right: 10px;
+	display: inline-block;
 }
 
 .posted-on a,
@@ -2529,6 +2572,9 @@ span.breadcrumb {
 	float: left;
 	list-style: outside none none;
 	padding: 5px 0 5px 5px;
+}
+#online-shop-breadcrumbs .breadcrumb-trail li a{
+	display: inline-block;
 }
 #online-shop-breadcrumbs a:hover{
 	text-decoration: underline;
@@ -3288,6 +3334,10 @@ ul li.product {
 		box-shadow: none;
 		visibility: visible;
 		opacity: 1;
+	}
+	.special-menu-wrapper >li > ul.special-sub-menu.open .open,
+	.special-menu-wrapper >li > ul.special-sub-menu.open{
+		display: block;
 	}
 	.special-menu-wrapper >li > ul.special-sub-menu{
 		visibility: visible;

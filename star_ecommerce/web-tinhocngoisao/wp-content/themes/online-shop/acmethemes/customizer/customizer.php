@@ -8,6 +8,11 @@
  */
 
 /*
+* file for upgrade to pro
+*/
+require_once online_shop_file_directory('acmethemes/customizer/customizer-pro/class-customize.php');
+
+/*
 * file for customizer core functions
 */
 require_once online_shop_file_directory('acmethemes/customizer/customizer-core.php');

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import GroupProductComponent from './groupProduct/groupProductComponent';
-import {URL_GET_LIST_PRODUCT_HAS_SLUG} from '../../../variable';
+import {URL_GET_LIST_PRODUCT_TABLE_SALE} from '../../../variable';
 /**
  * Render session product name
  */
@@ -18,7 +18,7 @@ class BodyComponent extends Component {
 
         this.state = {
             fetching : false,
-            post_number: 100,
+            post_number: 50,
             start_page: 1,
             list_product_sale_price: this.list_product_sale_price,
             search: {
@@ -90,7 +90,7 @@ class BodyComponent extends Component {
         let {
             post_number, start_page
         } = this.state;
-        let url = URL_GET_LIST_PRODUCT_HAS_SLUG.replace('{post_number}', post_number).replace('{start_page}', start_page);
+        let url = URL_GET_LIST_PRODUCT_TABLE_SALE.replace('{post_number}', post_number).replace('{start_page}', start_page);
         this.setState({
             fetching: true
         });

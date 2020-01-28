@@ -34,7 +34,7 @@ function get_products_by_custom_type(WP_REST_Request $request) {
     } else {
         $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
         $current_time = $current_time->format('Y-m-d');
-        $cache_result = get_cache_by_key('get_products_by_custom_type'.$custom_type, 'build-pc.txt');
+        $cache_result = get_cache_by_key('get_products_by_custom_type', 'build-pc-'. $custom_type .'.txt');
         if ($cache_result) {
             $cache_time = $cache_result['time'];
             if ($cache_time) {
@@ -132,7 +132,7 @@ function get_products_by_custom_type(WP_REST_Request $request) {
             }
         endwhile;
 
-        set_cache_by_key('get_products_by_custom_type'.$custom_type, array("time" => $current_time, "data" => $arrProducts), 'build-pc.txt');
+        set_cache_by_key('get_products_by_custom_type', array("time" => $current_time, "data" => $arrProducts), 'build-pc' .$custom_type. '.txt');
         wp_reset_query();
         return array(
             "success" => true,

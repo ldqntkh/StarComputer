@@ -28,11 +28,11 @@ msgstr "Trang chủ mới của bạn đã sẵn sàng"
 msgid "View Archive <span aria-hidden=\"true\">&rarr;</span>"
 msgstr "Xem lưu trữ <span aria-hidden=\"true\">&rarr;</span>"
 
-#: classes/class-twentytwenty-customize.php:331
+#: classes/class-twentytwenty-customize.php:352
 msgid "Overlay Background Color"
 msgstr "Màu nền lớp phủ"
 
-#: classes/class-twentytwenty-customize.php:374
+#: classes/class-twentytwenty-customize.php:395
 msgid "Overlay Opacity"
 msgstr "Độ trong suốt lớp phủ"
 
@@ -109,20 +109,20 @@ msgstr "Mặc định"
 msgid "Custom"
 msgstr "Tùy chỉnh"
 
-#: inc/template-tags.php:387
+#: inc/template-tags.php:393
 msgctxt "A string that is output before one or more categories"
 msgid "In"
 msgstr "Trong"
 
-#: classes/class-twentytwenty-customize.php:354
+#: classes/class-twentytwenty-customize.php:375
 msgid "The color used for the text in the overlay."
 msgstr "Màu của chữ trên nền phủ."
 
-#: classes/class-twentytwenty-customize.php:353
+#: classes/class-twentytwenty-customize.php:374
 msgid "Overlay Text Color"
 msgstr "Màu chữ nền phủ"
 
-#: classes/class-twentytwenty-customize.php:332
+#: classes/class-twentytwenty-customize.php:353
 msgid "The color used for the overlay. Defaults to the accent color."
 msgstr "Màu nền phủ. Mặc định sử dụng màu phụ."
 
@@ -130,7 +130,7 @@ msgstr "Màu nền phủ. Mặc định sử dụng màu phụ."
 msgid "search again"
 msgstr "tìm lại"
 
-#: searchform.php:24 template-parts/modal-search.php:20
+#: template-parts/modal-search.php:20 searchform.php:24
 msgid "Search for:"
 msgstr "Tìm kiếm cho:"
 
@@ -198,7 +198,7 @@ msgstr "Bình luận"
 msgid "Comments are closed."
 msgstr "Không cho phép bình luận."
 
-#: inc/starter-content.php:176 inc/starter-content.php:186 functions.php:491
+#: functions.php:491 inc/starter-content.php:176 inc/starter-content.php:186
 msgid "Primary"
 msgstr "Chính"
 
@@ -252,20 +252,20 @@ msgctxt "Short name of the larger font size in the block editor."
 msgid "XL"
 msgstr "XL"
 
-#: inc/template-tags.php:341
+#: inc/template-tags.php:347
 msgid "Post author"
 msgstr "Tác giả"
 
-#: inc/template-tags.php:365
+#: inc/template-tags.php:371
 msgid "Post date"
 msgstr "Ngày đăng"
 
-#: inc/template-tags.php:401
+#: inc/template-tags.php:407
 msgid "Tags"
 msgstr "Thẻ"
 
-#: template-parts/entry-header.php:36 template-parts/content-cover.php:70
-#: inc/template-tags.php:383
+#: template-parts/content-cover.php:70 template-parts/entry-header.php:36
+#: inc/template-tags.php:389
 msgid "Categories"
 msgstr "Chuyên mục"
 
@@ -313,7 +313,7 @@ msgstr "Các bình luận trước"
 msgid "Newer Comments"
 msgstr "Các bình luận mới hơn"
 
-#: classes/class-twentytwenty-walker-page.php:134 inc/template-tags.php:545
+#: classes/class-twentytwenty-walker-page.php:134 inc/template-tags.php:555
 msgid "Show sub menu"
 msgstr "Hiển thị menu con"
 
@@ -415,7 +415,7 @@ msgid "Header &amp; Footer Background Color"
 msgstr "Màu nền Đầu trang &amp; Cuối trang"
 
 #. translators: %s: Author name
-#: template-parts/entry-author-bio.php:20 inc/template-tags.php:348
+#: template-parts/entry-author-bio.php:20 inc/template-tags.php:354
 msgid "By %s"
 msgstr "Bởi %s"
 
@@ -428,15 +428,15 @@ msgctxt "placeholder"
 msgid "Search &hellip;"
 msgstr "Tìm &hellip;"
 
-#: inc/template-tags.php:439
+#: inc/template-tags.php:445
 msgid "Sticky post"
 msgstr "Bài đính lên"
 
-#: classes/class-twentytwenty-customize.php:248
+#: classes/class-twentytwenty-customize.php:269
 msgid "Full text"
 msgstr "Chữ đầy đủ"
 
-#: classes/class-twentytwenty-customize.php:284
+#: classes/class-twentytwenty-customize.php:305
 msgid "Fixed Background Image"
 msgstr "Ảnh nền cố định"
 
@@ -473,7 +473,7 @@ msgid "Theme Options"
 msgstr "Tùy chọn giao diện"
 
 #. Template Name of the theme
-#: classes/class-twentytwenty-customize.php:260
+#: classes/class-twentytwenty-customize.php:281
 msgid "Cover Template"
 msgstr "Giao diện Cover"
 
@@ -485,15 +485,15 @@ msgstr "Đã mở rộng"
 msgid "Expanded Social links"
 msgstr "Liên kết mạng xã hội đã mở rộng"
 
-#: classes/class-twentytwenty-customize.php:249
+#: classes/class-twentytwenty-customize.php:270
 msgid "Summary"
 msgstr "Tóm tắt"
 
-#: classes/class-twentytwenty-customize.php:285
+#: classes/class-twentytwenty-customize.php:306
 msgid "Creates a parallax effect when the visitor scrolls."
 msgstr "Tạo hiệu ứng chuyển động khi người dùng kéo xuống."
 
-#: classes/class-twentytwenty-customize.php:246
+#: classes/class-twentytwenty-customize.php:267
 msgid "On archive pages, posts show:"
 msgstr "Trong các trang lưu trữ, bài viết hiển thị:"
 

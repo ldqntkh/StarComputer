@@ -1,9 +1,31 @@
 == Change log ==
 
+= 2.0.2 - OCT 15 2019 =
+* Added : Upgrade to Pro
+
+= 2.0.1 - OCT 15 2019 =
+* Added : wp_body_open hook in header
+* Added : Gutentor Plugin in TGM
+* Added : wp-config.xml file for translation
+* Fixed : Skip to Content
+* Fixed : Woo Search
+
+= 2.0.0 - April 17 2019 =
+* Added : Both and Middle Column Sidebar layout
+* Added : Gutenberg Ready
+* Added : WooCommerce Sidebar Options
+* Update : RTL CSS
+* Fixed : Space before DOCTYPE
+* Fixed : Other Minor Issues
+
+= 1.3.5 =
+* Fixed : Removed unnecessary print_r() from acme-wc-products.php
+* Fixed : Auto hide special Menu on Mobile device
+
 = 1.3.4 =
-* Added :  Enable/Disable Theme Name And Powered By Text
-* Fixed : Category Term error while woocommerce is not active
-* Fixed : some other minor issues
+* Added: Enable/Disable Theme Name And Powered By Text
+* Fixed: Category Term error while woocommerce is not active
+* Fixed: some other minor issues
 
 = 1.3.3 =
 * Fixed : Term link
@@ -61,8 +83,8 @@
 * Fixed : Minor issues
 
 = 1.1.0 =
-* Fixed : Various escaping and sanitization improvement
-* Fixed : Missing license
+* Fixed: Various escaping and sanitization improvement
+* Fixed: Missing license
 
 = 1.0.0 =
 * Added : Various customizer options

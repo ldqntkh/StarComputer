@@ -52,6 +52,8 @@ require_once online_shop_file_directory('acmethemes/functions.php');
 
 require_once online_shop_file_directory('acmethemes/functions/header.php');
 
+require_once online_shop_file_directory('acmethemes/functions/sidebar-selection.php');
+
 /*woocommerce*/
 require_once online_shop_file_directory('acmethemes/woocommerce/functions-woocommerce.php');
 
@@ -101,8 +103,7 @@ if ( online_shop_is_woocommerce_active() ) :
 	require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-products.php');
 	require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-cats.php');
 	require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-cats-tabs.php');
-    require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-search.php');
-    require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-products-custom.php');
+	require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-search.php');
 endif;
 
 require_once online_shop_file_directory('acmethemes/sidebar-widget/sidebar.php');
@@ -111,6 +112,7 @@ require_once online_shop_file_directory('acmethemes/sidebar-widget/sidebar.php')
 * file for core functions imported from functions.php while downloading Underscores
 */
 require_once online_shop_file_directory('acmethemes/core.php');
+require_once online_shop_file_directory('acmethemes/gutenberg/gutenberg-init.php');
 
 /**
  * Implement Custom Metaboxes

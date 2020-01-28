@@ -680,8 +680,9 @@ add_action( 'woocommerce_blog_header_additional', 'woocommerce_template_social_s
 add_action( 'wp_head', 'render_header_meta_single_product', 100);
 if (!function_exists('render_header_meta_single_product')) {
     function render_header_meta_single_product() {
-        if (is_product()) {
-            global $post;
+        global $post;
+        if ( !$post ) {
+            
             $product = wc_get_product( $post->ID );
             if ($product) {
                 echo '<meta property="og:image" content="'.wp_get_attachment_image_src( $product->get_image_id(), 'medium', true )[0].'">';
@@ -884,12 +885,15 @@ include plugin_dir_path( __FILE__ ) . '/print_order/print_order.php';
 if ( !function_exists('get_cache_by_key') ) {
     function get_cache_by_key( $key , $filename = 'json-cache.txt') {
         $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/' .$filename;
-        $json = json_decode(file_get_contents($cache_file_path),TRUE);
-        if (isset($json)) {
-            if (isset($json[$key])) {
-                return $json[$key];
-            } else return null;
+        if ( file_exists ( $cache_file_path )  ) {
+            $json = json_decode(file_get_contents($cache_file_path),TRUE);
+            if (isset($json)) {
+                if (isset($json[$key])) {
+                    return $json[$key];
+                } else return null;
+            }
         }
+        
         return null;
     }
 }
@@ -897,7 +901,6 @@ if ( !function_exists('get_cache_by_key') ) {
 if ( !function_exists('set_cache_by_key') ) {
     function set_cache_by_key ($key, $content, $filename = 'json-cache.txt') {
         $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/' .$filename;
-        $json = json_decode(file_get_contents($cache_file_path),TRUE);
         $json[$key] = $content;
         file_put_contents($cache_file_path, json_encode($json));
     }
@@ -956,4 +959,17 @@ if ( !function_exists('get_sale_percent') ) {
 		}
 		return 0;
     }
+}
+
+function maintenance_mode() {
+ 
+    //if ( !current_user_can( 'edit_themes' ) || !is_user_logged_in() ) {wp_die('Maintenance.');}
+
+}
+add_action('get_header', 'maintenance_mode');
+
+// de-attach style file unused
+add_action( 'wp_enqueue_scripts', 'remove_fontawesome_stylesheet', 20 );
+function remove_fontawesome_stylesheet() {
+    wp_deregister_style('yith-wcwl-font-awesome');
 }

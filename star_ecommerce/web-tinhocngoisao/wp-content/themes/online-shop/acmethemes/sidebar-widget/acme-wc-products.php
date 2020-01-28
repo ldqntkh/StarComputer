@@ -401,7 +401,6 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 			        break;
 
 		        case 'tag' :
-		            print_r( $online_shop_wc_product_tag );
 		            if( !empty( $online_shop_wc_product_tag )){
 			            $query_args['tax_query'][] = array(
 				            'taxonomy' => 'product_tag',
@@ -514,6 +513,11 @@ if ( ! class_exists( 'Online_Shop_Wc_Products' ) ) {
 	                <?php
 	                $online_shop_featured_index = 1;
 	                while ( $online_shop_featured_query->have_posts() ) :$online_shop_featured_query->the_post();
+                        global $product;
+                        // Ensure visibility.
+                        if ( empty( $product ) || ! $product->is_visible() ) {
+                            continue;
+                        }
 		                $online_shop_list_classes = 'single-list';
 		                if( 'carousel' != $display_type ){
 			                if( 1 != $online_shop_featured_index && $online_shop_featured_index % $column_number == 1 ){
