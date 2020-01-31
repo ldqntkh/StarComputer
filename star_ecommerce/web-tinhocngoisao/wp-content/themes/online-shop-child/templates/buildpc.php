@@ -31,7 +31,7 @@
                 'link' => get_permalink( $product->product_id),
                 'regular_price' => $regular_price,
                 'sale_price' => $sale_price,
-                'image' => wp_get_attachment_image_src( $product->image_id, 'medium', true )[0],
+                'image' => wp_get_attachment_image_src( $product->get_image_id(), 'medium', true )[0],
                 'average_rating' => $product->average_rating,
                 'review_count' => $product->review_count
             );
