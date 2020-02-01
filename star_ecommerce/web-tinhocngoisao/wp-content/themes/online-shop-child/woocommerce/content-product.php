@@ -23,6 +23,23 @@ global $product;
 if ( empty( $product ) || ! $product->is_visible() ) {
 	return;
 }
+$arrPt = array(
+	'id' => $product->get_id(),
+	'name' => $product->name,
+	'name2'=> $product->get_name(),
+	'link' => get_permalink( $product->product_id),
+	'average_rating' => $product->average_rating,
+	'average_rating2' => $product->get_average_rating(),
+	'review_count' => $product->review_count,
+	'review_count2' => $product->get_review_count(),
+	'stock_quantity' => $product->get_stock_quantity(),
+	'stock_quantity2' => $product->stock_quantity,
+	'manage_stock'    => $product->manage_stock,
+	'manage_stock2'    => $product->get_manage_stock(),
+	'stock_status'    => $product->stock_status,
+	'stock_status2'    => $product->get_stock_status()
+);
+var_dump( $arrPt );
 ?>
 <li <?php wc_product_class(); ?>>
 	<?php

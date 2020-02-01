@@ -70,7 +70,7 @@ function get_products_by_custom_type(WP_REST_Request $request) {
 
         while ( $loop->have_posts() ) : $loop->the_post(); 
             global $product;
-            if ($product->manage_stock && $product->stock_quantity != null && $product->stock_status) {
+            if ( $product->get_manage_stock() && $product->get_stock_quantity() != null && $product->get_stock_status() ) {
                 if ($product->get_type() === 'variable') {
                     $regular_price = $product->get_variation_regular_price();
                     $sale_price = $product->get_variation_sale_price();
@@ -88,19 +88,19 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                 }
                 $arrPt = array(
                     'id' => $product->get_id(),
-                    'name' => $product->name,
-                    'link' => get_permalink( $product->product_id),
+                    'name' => $product->get_name(),
+                    'link' => get_permalink( $product->get_id() ),
                     'regular_price' => $regular_price,
                     'sale_price' => $sale_price,
                     'image' => $image_url,
-                    'average_rating' => $product->average_rating,
-                    'review_count' => $product->review_count,
+                    'average_rating' => $product->get_average_rating(),
+                    'review_count' => $product->get_review_count(),
                     'selected_product_value' => get_post_meta($product->get_id(), '_selected_product_value', true)
                 );
 
                 $arrPt['attributes'] = get_product_attributes( $product );
                 $arrPt['manage_stock'] = true;
-                $arrPt['stock_quantity'] = $product->stock_quantity;
+                $arrPt['stock_quantity'] = $product->get_stock_quantity();
                 if ($product->get_type() === 'variable') {
                     $productsChildId = $product->get_visible_children();
                     if ( count( $productsChildId ) > 0 ) {
@@ -114,14 +114,14 @@ function get_products_by_custom_type(WP_REST_Request $request) {
                             }
                             $arrPtChild = array(
                                 'id' => $productChild->get_id(),
-                                'name' => $productChild->name,
+                                'name' => $productChild->get_name(),
                                 'link' => get_permalink( $productChild->get_id()),
                                 'regular_price' => $productChild->get_regular_price(),
                                 'sale_price' => $productChild->get_sale_price(),
                                 'image' => $child_image_url,
-                                'average_rating' => $productChild->average_rating,
-                                'review_count' => $productChild->review_count,
-                                'stock_quantity' =>  $productChild->stock_quantity,
+                                'average_rating' => $productChild->get_average_rating(),
+                                'review_count' => $productChild->get_review_count(),
+                                'stock_quantity' =>  $productChild->get_stock_quantity(),
                                 'attributes' => get_product_child_attribute_name( $productChildId, array_keys( $productChild->get_attributes() )[0] )
                             );
                             array_push( $arrPt['product_childs'], $arrPtChild );
