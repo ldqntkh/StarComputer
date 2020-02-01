@@ -69,7 +69,7 @@ class CatalogManager {
                         $sale_price = $product->get_sale_price();
                     }
 
-                    $image_url = wp_get_attachment_image_src( $product->image_id, 'medium', true )[0];
+                    $image_url = wp_get_attachment_image_src( $product->get_image_id(), 'medium', true )[0];
                     if ( $valid_cdn ) {
                         $image_url = str_replace( get_home_url(), $valid_cdn, $image_url );
                     }
