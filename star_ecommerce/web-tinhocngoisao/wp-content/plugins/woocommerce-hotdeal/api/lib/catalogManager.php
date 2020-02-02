@@ -60,7 +60,7 @@ class CatalogManager {
             global $product;
             if($product->is_on_sale()) {
                 // xử lý vụ sale cho ngày hôm sau
-                if ($product->manage_stock && $product->stock_quantity != null) {
+                if ( $product->get_manage_stock() && $product->get_stock_quantity() != null ) {
                     if ($product->get_type() === 'variable') {
                         $regular_price = $product->get_variation_regular_price();
                         $sale_price = $product->get_variation_sale_price();
@@ -76,18 +76,18 @@ class CatalogManager {
                     
                     $arrPt = array(
                         'id' => $product->get_id(),
-                        'name' => $product->name,
-                        'link' => get_permalink( $product->product_id),
+                        'name' => $product->get_name(),
+                        'link' => get_permalink( $product->get_id() ),
                         'regular_price' => number_format((float)$regular_price, 0, '.', ','),
                         'sale_price' => number_format((float)$sale_price, 0, '.', ','),
                         'image' => $image_url,
-                        'average_rating' => $product->average_rating,
-                        'review_count' => $product->review_count
+                        'average_rating' => $product->get_average_rating(),
+                        'review_count' => $product->get_review_count()
                     );
                 
                     $arrPt['manage_stock'] = true;
-                    $arrPt['stock_quantity'] = $product->stock_quantity;
-                    $arrPt['stock_status'] = $product->stock_status;
+                    $arrPt['stock_quantity'] = $product->get_stock_quantity();
+                    $arrPt['stock_status'] = $product->get_stock_status();
                     $arrPt['sale_end_time'] = $productMgr->getDiscountTimeRemaining($product->get_id());
                     $period = get_post_meta( $product->get_id(), 'warranty_period', true );
                     // if (empty($period)) {
