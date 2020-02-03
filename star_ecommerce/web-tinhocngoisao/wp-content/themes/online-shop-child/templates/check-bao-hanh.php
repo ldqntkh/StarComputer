@@ -25,6 +25,7 @@ if ( !empty( $_POST['soBN'] ) || !empty( $_POST['soDT'] ) ) {
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $api_url,
+            CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -42,7 +43,7 @@ if ( !empty( $_POST['soBN'] ) || !empty( $_POST['soDT'] ) ) {
         ));
 
         $response = curl_exec($curl);
-        var_dump( curl_error($curl) );
+        // var_dump( curl_error($curl) );
         curl_close($curl);
         
         $response = json_decode( $response, true );
