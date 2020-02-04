@@ -31,7 +31,6 @@ if ( $user->exists() && !empty($_REQUEST['order_ids']) ) {
                     content = content.replace('{print_date}', custom_date);
                     $('body').html(content);
                     window.print();
-                    window.close();
                 });
 
             </script>
