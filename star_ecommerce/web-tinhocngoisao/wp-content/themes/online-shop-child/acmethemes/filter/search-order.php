@@ -19,7 +19,7 @@ function custom_filter_order($post_type) {
         ?>
     </select>
     <script>
-        var dates = $( '.range_datepicker' ).datepicker({
+        var dates = jQuery( '.range_datepicker' ).datepicker({
             changeMonth: true,
             changeYear: true,
             defaultDate: '',
@@ -36,6 +36,29 @@ function custom_filter_order($post_type) {
 
                 dates.not( this ).datepicker( 'option', option, date );
             }
+        });
+        
+        jQuery( document ).ready(function() {
+            var itemEle = jQuery('#posts-filter').find('table.wp-list-table');
+            if( itemEle && itemEle.length > 0 ) {
+                jQuery( itemEle ).prepend("<a href='#' id='print-list-orders' class='button'>In danh sách đơn hàng đã chọn</a>");
+            }
+
+            jQuery( 'body' ).on('click', '#print-list-orders', function() {
+                var print_url = '<?php echo home_url(); ?>' + '/print-list-orders?order_ids=';
+                var arrIds = [];
+                jQuery('input[name="post[]"]').each(function(){
+                    if( jQuery(this).is(":checked")) {
+                        var ids = jQuery(this).attr('id').split('-');
+                        arrIds.push( ids[ids.length-1] );
+                    } 
+                });
+                if( arrIds.length > 0 ) {
+                    print_url += arrIds.join(',');
+
+                    var newWin=window.open(print_url,'Print-Window');
+                }
+            });
         });
     </script>
 <?php
