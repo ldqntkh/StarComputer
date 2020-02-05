@@ -10,49 +10,58 @@ if ( !empty( $_POST['soBN'] ) || !empty( $_POST['soDT'] ) ) {
     
     // http://115.78.9.183:8080/TTBaoHanh.ashx?textSearch=0123456789&func=soDT
     // http://115.78.9.183:8080/TTBaoHanh.ashx?textSearch=BH160830C001&func=soBN
-    $api_url = "http://115.78.9.183:8080/TTBaoHanh.ashx?textSearch=";
+    $api_url = "http://baohanhapi.tinhocngoisao.com:8080/TTBaoHanh.ashx?textSearch=";
+    $flag = false;
     if ( !empty( $_POST['soBN'] ) ) {
         $api_url .= trim( $_POST['soBN'] ) . '&func=soBN';
-    } else {
-        if ( empty(preg_match('/(09|03|07|08|05)+([0-9]{8}$)/', trim($_POST['soDT']) )) ) {
+        $flag = true;
+    } elseif ( !empty( $_POST['soDT'] ) ) {
+        if ( !empty(preg_match('/(09|03|07|08|05)+([0-9]{8}$)/', trim($_POST['soDT']) )) ) {
             $api_url .= trim( $_POST['soDT'] ) . '&func=soDT';
+            $flag = true;
         } else {
             $msg = "Số điện thoại không hợp lệ";
         }
-    }
+    } 
+    if ( $flag ) {
     
-    try {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $api_url,
-            CURLOPT_SSL_VERIFYHOST => false,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_VERBOSE => true,
-            CURLOPT_HTTPHEADER => array(
-                "client_id: eac5d782-3a48-4a88-ae97-888sss666778888",
-                "client_secret: 182548a4d4b666683380777188",
-                "Content-Type: application/json"
-            ),
-        ));
+        try {
+            $curl = curl_init();
+            curl_setopt($curl , CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl , CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $api_url,
+                CURLOPT_PORT => 8080,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_VERBOSE => true,
+                CURLOPT_HTTPHEADER => array(
+                    "client_id: eac5d782-3a48-4a88-ae97-888sss666778888",
+                    "client_secret: 182548a4d4b666683380777188",
+                    "Content-Type: application/json"
+                ),
+            ));
 
-        $response = curl_exec($curl);
-        // var_dump( curl_error($curl) );
-        curl_close($curl);
-        
-        $response = json_decode( $response, true );
-        
-        if ( count( $response ) == 0 ) {
-            $msg = "Rất tiếc chúng tôi không tìm thấy thông tin bạn đã cung cấp!";
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
+            $response = json_decode( $response, true );
+            
+            if ( count( $response ) == 0 ) {
+                $msg = "Rất tiếc chúng tôi không tìm thấy thông tin bạn đã cung cấp!";
+            }
+        } catch ( Exception $e) {
+
         }
-    } catch ( Exception $e) {
 
+    } else {
+         $msg = "Rất tiếc bạn chưa cung cấp thông tin cho chúng tôi!";
     }
 }
 
