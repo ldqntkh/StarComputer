@@ -154,6 +154,21 @@
                             font-size: 20px;
                             margin-right: 10px;
                             color: red;
+                            width: 20px;
+                            height: 20px;
+                            vertical-align: middle;
+                            &.fa-new-sales {
+                                background-image: url('./assets/img/bang-gia-ban.png');
+                                background-size: cover;
+                            }
+                            &.fa-old-sales {
+                                background-image: url('./assets/img/bang-gia-mua.png');
+                                background-size: cover;
+                            }
+                            &.fa-warranty {
+                                background-image: url('./assets/img/check-bao-hanh.png');
+                                background-size: cover;
+                            }
                         }
                     }
                 }

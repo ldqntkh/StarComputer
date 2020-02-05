@@ -64,19 +64,19 @@
                     <a target="_blank" href="https://icafe.tinhocngoisao.com/"><?php echo __( 'Lắp đặt phòng net', 'starcomputer' ); ?></a>
                 </li>
                 <li>
-                    <i class="fa fa-shopping-cart"></i>
-                    <a href="<?php echo home_url('/cart/'); ?>"><?php echo __( 'Cart', 'online-shop' ); ?></a>
+                    <i class="fa fa-new-sales"></i>
+                    <a href="<?php echo home_url('/bang-gia-ban/'); ?>"><?php echo __( 'Bảng giá bán', 'online-shop' ); ?></a>
                 </li>
                 <li>
-                    <i class="fa fa-truck"></i>
-                    <a href="<?php echo home_url('/my-account/orders/'); ?>"><?php echo __( 'View your order', 'online-shop' ); ?></a>
+                    <i class="fa fa-old-sales"></i>
+                    <a href="<?php echo home_url('/bang-gia-mua-cu/'); ?>"><?php echo __( 'Bảng giá mua cũ', 'online-shop' ); ?></a>
+                </li>
+                <li>
+                    <i class="fa fa-warranty"></i>
+                    <a href="<?php echo home_url('/kiem-tra-bao-hanh/'); ?>"><?php echo __( 'Kiểm tra bảo hành', 'online-shop' ); ?></a>
                 </li>
             </ul>
             <ul class="menu-lv1 session-1">
-                <li>
-                    <i class="fa fa-weixin"></i>
-                    <a href="<?php echo wc_get_page_permalink( 'home' ); ?>"><?php echo __( 'Shopping advice', 'online-shop' ); ?></a>
-                </li>
                 <li>
                     <i class="fa fa-phone"></i>
                     <a href="tel:19000243"><?php echo __( 'Hot line', 'online-shop' ); ?></a>
