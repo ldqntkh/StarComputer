@@ -1,3 +1,6 @@
+*.log
+/.htaccess
+/wp-config.php
 wp-content/uploads/
 */~/web-server/public
 ~/home-widget/assets/
