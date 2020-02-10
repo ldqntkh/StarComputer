@@ -101,6 +101,7 @@ if ( !empty( $_POST['soBN'] ) || !empty( $_POST['soDT'] ) ) {
                             <th>Mã sản phẩm</th>
                             <th>Tên sản phẩm</th>
                             <th>Số Serial</th>
+                            <th>Tem BH</th>
                             <th>Trạng thái</th>
                         </tr>
                     </thead>
@@ -111,6 +112,7 @@ if ( !empty( $_POST['soBN'] ) || !empty( $_POST['soDT'] ) ) {
                                 <td><?php echo $item['productID'] ?></td>
                                 <td><?php echo $item['productName'] ?></td>
                                 <td><?php echo $item['serial'] ?></td>
+                                <td><?php echo $item['bH'] ?></td>
                                 <td><?php echo $item['trangThai'] ?></td>
                             </tr>
                         <?php endforeach; ?>
@@ -125,6 +127,7 @@ if ( !empty( $_POST['soBN'] ) || !empty( $_POST['soDT'] ) ) {
                         <p><strong>Mã sản phẩm: </strong><span><?php echo $item['productID'] ?></span></p>
                         <p><strong>Tên sản phẩm: </strong><span><?php echo $item['productName'] ?></span></p>
                         <p><strong>Số Serial: </strong><span><?php echo $item['serial'] ?></span></p>
+                        <p><strong>Tem BH: </strong><span><?php echo $item['bH'] ?></span></p>
                         <p><strong>Trạng thái: </strong><span><?php echo $item['trangThai'] ?></span></p>
                     </div>
                 <?php endforeach; ?>
