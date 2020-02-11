@@ -626,12 +626,6 @@ if ( !function_exists('woocommerce_template_social_share') ) :
     }
 endif;
 
-if ( !function_exists('woocommerce_template_add_to_wishlist') ) :
-    function woocommerce_template_add_to_wishlist() {
-        echo do_shortcode( "[yith_wcwl_add_to_wishlist]" );
-    }
-endif;
-
 if ( !function_exists('woocommerce_template_installment_information') ) :
     function woocommerce_template_installment_information() {
         if ( get_field('installment_information') ) {
@@ -664,7 +658,6 @@ add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_sin
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_gift_information', 11 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_social_share', 12 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_add_to_cart', 13 );
-add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_add_to_wishlist', 15 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_installment_information', 17 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_trading_information', 5 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_contact_information', 7 );
@@ -900,9 +893,9 @@ if ( !function_exists('get_cache_by_key') ) {
 
 if ( !function_exists('set_cache_by_key') ) {
     function set_cache_by_key ($key, $content, $filename = 'json-cache.txt') {
-        $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/' .$filename;
-        $json[$key] = $content;
-        file_put_contents($cache_file_path, json_encode($json));
+        // $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/' .$filename;
+        // $json[$key] = $content;
+        // file_put_contents($cache_file_path, json_encode($json));
     }
 }
 

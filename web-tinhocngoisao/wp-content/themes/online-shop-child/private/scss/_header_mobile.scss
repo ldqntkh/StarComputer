@@ -27,7 +27,10 @@
         color: #f73838;
     }
     .advance-product-search {
-        width: calc(100% - 180px);
+        width: 100%;
+        @media screen and (min-width: 1366px) {
+            width: calc(100% - 180px);
+        }
         .select_products {
             display: none;
         }
@@ -66,9 +69,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 120px;
+        width: 80px;
         margin-right: 5px;
-
+        @media screen and (min-width: 1366px) {
+            width: 120px;
+        }
         .yith-wcwl-wrapper {
             padding: 8px 9px;
             margin: 0 5px 0;
