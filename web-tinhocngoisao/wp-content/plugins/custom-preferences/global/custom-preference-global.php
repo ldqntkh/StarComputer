@@ -11,6 +11,7 @@
         add_settings_field( 'list_address_store', 'Danh sách địa chỉ showroom', 'list_address_store_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'list_product_type', 'Cấu hình buildPC', 'list_product_type_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'list_product_sale_price', 'Cấu hình danh sách bảng giá bán', 'list_product_sale_price_section', 'custom_preferences', 'configuration_main' );
+        add_settings_field( 'list_catalog_orderby', 'Danh sách sắp xếp trong plp', 'list_catalog_orderby', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'render_footer_script', 'Render custom script in footer', 'render_script_footer', 'custom_preferences', 'configuration_main' );
     }
 
@@ -51,4 +52,9 @@
     function list_product_sale_price_section() {
         $list_product_sale_price = get_option( 'custom_preferences_options' )['list_product_sale_price'];
         echo "<textarea name='custom_preferences_options[list_product_sale_price]' cols='60' rows='10'>{$list_product_sale_price}</textarea>";
+    }
+
+    function list_catalog_orderby() {
+        $list_catalog_orderby = get_option( 'custom_preferences_options' )['list_catalog_orderby'];
+        echo "<textarea name='custom_preferences_options[list_catalog_orderby]' cols='60' rows='10'>{$list_catalog_orderby}</textarea>";
     }
