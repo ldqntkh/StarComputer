@@ -210,6 +210,17 @@
     }
 ]
 
+############################### Cấu hình sắp xếp sản phẩm mặc định ###############################
+1. Giao diện -> Tùy Biến -> Woocommerce -> Product Catalog -> Chọn Default product sorting
+2. Default product sorting có 6 loại
+ - Sắp xếp mặc định ( theo đơn hàng với tên )
+ - Sắp xếp theo sản phẩm phổ biến
+ - Sắp xếp theo tỷ lệ bình chọn
+ - Sắp xếp sản phẩm mới
+ - Sắp xếp theo giá tăng dần
+ - Sắp xếp theo giá giảm dần
+
+
 ##################################Cấu hình .htaccess file
 ##################################
 # BEGIN WordPress
