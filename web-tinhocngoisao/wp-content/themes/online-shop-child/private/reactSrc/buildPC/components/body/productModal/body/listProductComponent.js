@@ -92,7 +92,7 @@ class ListProductComponent extends Component {
         let keys = Object.keys(product_search_attribute);
         for (let i in keys) {
             let key = keys[i];
-            if (product_search_attribute[key].length > 0) {
+            if (product_search_attribute[key] && product_search_attribute[key].length > 0) {
                 for(let index in product_data) {
                     let attributes = product_data[index].attributes;
                     let item = attributes.find(o => o.name === key);

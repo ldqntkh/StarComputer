@@ -20,7 +20,7 @@ class GroupProductComponent extends Component {
                     if (product.name.toLowerCase().indexOf(search.ten_sp.toLowerCase()) < 0) product = null;
                 }
             } 
-            if (product === null) continue;
+            if (product == null || !product.id) continue;
             result.push(
                 <div className="table-row" key={i}>
                     <div className="tb-col-1">
