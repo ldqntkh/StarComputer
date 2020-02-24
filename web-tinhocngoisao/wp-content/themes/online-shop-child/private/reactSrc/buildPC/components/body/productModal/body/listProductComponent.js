@@ -95,16 +95,18 @@ class ListProductComponent extends Component {
             if (product_search_attribute[key] && product_search_attribute[key].length > 0) {
                 for(let index in product_data) {
                     let attributes = product_data[index].attributes;
-                    let item = attributes.find(o => o.name === key);
-                    if(item) {
-                        item = item.values;
-                        for (let m in item) {
-                            if (product_search_attribute[key].indexOf(item[m].slug) >= 0) {
-                                if (result.indexOf(product_data[index]) >= 0) {
-                                    break;
-                                } else {
-                                    result.push(product_data[index]);
-                                    break;
+                    if ( attributes && attributes.length > 0 ) {
+                        let item = attributes.find(o => o.name === key);
+                        if(item) {
+                            item = item.values;
+                            for (let m in item) {
+                                if (product_search_attribute[key].indexOf(item[m].slug) >= 0) {
+                                    if (result.indexOf(product_data[index]) >= 0) {
+                                        break;
+                                    } else {
+                                        result.push(product_data[index]);
+                                        break;
+                                    }
                                 }
                             }
                         }
