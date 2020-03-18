@@ -876,7 +876,9 @@ include plugin_dir_path( __FILE__ ) . '/print_order/print_order.php';
 // cache file
 
 if ( !function_exists('get_cache_by_key') ) {
+    
     function get_cache_by_key( $key , $filename = 'json-cache.txt') {
+        // return null;
         $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/' .$filename;
         if ( file_exists ( $cache_file_path )  ) {
             $json = json_decode(file_get_contents($cache_file_path),TRUE);

@@ -379,8 +379,8 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                                                 echo $special_menus_html;
                                             } else {
                                                 $special_menus_html = '';
-                                                $special_menus = wp_get_nav_menu_items('special-menu');
-                                            
+                                                $special_menus = wp_get_nav_menu_items('special-menu-new');
+                                                
                                                 foreach($special_menus as $menu_item) {
                                                     if ($menu_item->post_status === 'publish' && $menu_item->menu_item_parent === '0') {
                                                         $slug = $menu_item->url;
@@ -413,17 +413,33 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                                                             $special_menus_html .= '<section class="sub-menu-lv1">';
                                                             foreach($special_menus as $menu_item_lv1) {
                                                                 if ($menu_item_lv1->post_status === 'publish' && $menu_item_lv1->menu_item_parent == $menu_item->ID) {
-                                                                
-                                                                    $special_menus_html .= '<section id="menu-item-' . $menu_item_lv1->ID . '" >'
-                                                                            .'<a href="' . $menu_item_lv1->url . '">' . $menu_item_lv1->title . '</a>';
-                                                                    $special_menus_html .= '<section class="sub-menu-lv2">';
-                                                                        foreach($special_menus as $menu_item_lv2) {
-                                                                            if ($menu_item_lv2->post_status === 'publish' && $menu_item_lv2->menu_item_parent == $menu_item_lv1->ID) {
-                                                                                $special_menus_html .= '<a href="' . $menu_item_lv2->url . '">' . $menu_item_lv2->title . '</a>';
-                                                                            }
+                                                                    // $special_menus_html .= '<section id="menu-item-' . $menu_item_lv1->ID . '" >'
+                                                                    //         .'<a href="' . $menu_item_lv1->url . '">' . $menu_item_lv1->title . '</a>';
+                                                                    // $special_menus_html .= '<section class="sub-menu-lv2">';
+                                                                    //     foreach($special_menus as $menu_item_lv2) {
+                                                                    //         if ($menu_item_lv2->post_status === 'publish' && $menu_item_lv2->menu_item_parent == $menu_item_lv1->ID) {
+                                                                    //             $special_menus_html .= '<a href="' . $menu_item_lv2->url . '">' . $menu_item_lv2->title . '</a>';
+                                                                    //         }
+                                                                    //     }
+                                                                    // $special_menus_html .= '</section>';
+
+                                                                    //$special_menus_html .= '<section id="menu-item-' . $menu_item_lv1->ID . '" >';
+                                                                    
+                                                                    if ( !empty( $menu_item_lv1->title ) ) {
+                                                                        $posts = get_posts(
+                                                                            array(
+                                                                                'name'      => $menu_item_lv1->title,
+                                                                                'post_status' => array('publish', 'pending', 'draft', 'auto-draft', 'future', 'private', 'inherit', 'trash')  
+                                                                            )
+                                                                        );
+                                                                        if ( $posts )
+                                                                        {
+                                                                            $special_menus_html .= get_post_field('post_content', $posts[0]->ID);
                                                                         }
-                                                                    $special_menus_html .= '</section>';
-                                                                    $special_menus_html .= '</section>';
+                                                                        break;
+                                                                    }
+
+                                                                    //$special_menus_html .= '</section>';
                                                                 }
                                                             }
                                                             $special_menus_html .= '</section>';
