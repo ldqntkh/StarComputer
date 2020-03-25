@@ -14,6 +14,7 @@ define( 'BANK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BANK_PLUGIN_NAME', 'star_brand' );
 
 include_once BANK_PLUGIN_DIR . '/includes/models/class-bank.php';
+include_once BANK_PLUGIN_DIR . '/includes/models/class-installment.php';
 include_once BANK_PLUGIN_DIR . '/includes/function.php';
 
 include_once BANK_PLUGIN_DIR . '/includes/main-page.php';
@@ -36,14 +37,17 @@ function create_installment_database_table( ) {
     $tb_sub_bank            = $table_prefix . 'sub_bank';
     $tb_monthly_installment = $table_prefix . 'monthly_installment';
     
-    if( $wpdb->get_var( "show tables like '$tb_installment'" ) != $tb_installment ||
-        $wpdb->get_var( "show tables like '$tb_sub_bank'" ) != $tb_sub_bank ||
-        $wpdb->get_var( "show tables like '$tb_monthly_installment'" ) != $tb_monthly_installment ) 
-    {
+    // if( $wpdb->get_var( "show tables like '$tb_installment'" ) != $tb_installment ||
+    //     $wpdb->get_var( "show tables like '$tb_sub_bank'" ) != $tb_sub_bank ||
+    //     $wpdb->get_var( "show tables like '$tb_monthly_installment'" ) != $tb_monthly_installment ) 
+    // {
         try {
             $sql = array();
 
-        
+            $sql[] = "DROP TABLE $tb_monthly_installment;";
+            $sql[] = "DROP TABLE $tb_sub_bank;";
+            $sql[] = "DROP TABLE $tb_bank;";
+
             $sql[] = 'CREATE TABLE '. $tb_bank  .' (
                         `ID` INT NOT NULL AUTO_INCREMENT,
                         `bank_name` VARCHAR(100) NOT NULL,
@@ -63,14 +67,14 @@ function create_installment_database_table( ) {
                         ON UPDATE CASCADE);';
 
             $sql[] = 'CREATE TABLE '.$tb_monthly_installment.' (
-                        `ID` INT NOT NULL AUTO_INCREMENT,
                         `month` INT NOT NULL,
                         `bank_id` INT NOT NULL,
                         `min_price` INT NOT NULL,
+                        `prepaid_percentage` INT NOT NULL,
                         `fee` INT NOT NULL,
                         `fee_desc` VARCHAR(45) NULL,
                         `docs_require` TEXT NULL,
-                        PRIMARY KEY (`ID`),
+                        PRIMARY KEY (month, bank_id),
                         FOREIGN KEY (`bank_id`)
                         REFERENCES '.$tb_bank .' (`ID`)
                         ON DELETE CASCADE
@@ -83,5 +87,5 @@ function create_installment_database_table( ) {
         } catch ( Exception $e ) {
             var_dump( $e->getMessage() );
         }
-    }
+    // }
 }

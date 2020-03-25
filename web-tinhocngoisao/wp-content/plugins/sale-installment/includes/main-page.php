@@ -31,6 +31,8 @@ function setting_star_banks() {
                     } else {
                         include_once BANK_PLUGIN_DIR . '/includes/views/admin/insert-sub-bank.php';
                     }
+                } elseif ( $_GET['type'] == 'insert-installment' ) {
+                    include_once BANK_PLUGIN_DIR . '/includes/views/admin/installment/insert-installment.php';
                 }
             }
         }

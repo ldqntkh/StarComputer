@@ -8,6 +8,7 @@ const bank = {
         bank.updatebank();
         bank.removebank();
         bank.updateSubBank();
+        bank.addNewInstallment();
     },
 
     addNewbank: function() {
@@ -264,6 +265,93 @@ const bank = {
                     bank.xhr = null;
                 }
             });
+        });
+    },
+
+    addNewInstallment: function() {
+        $('#installment-data').on('submit', function(e) {
+            e.preventDefault();
+
+            if ( bank.xhr !== null ) return;
+            let bank_id = $('#bank-id').val().trim();
+
+            let month = $('#installment-month').val().trim();
+            let min_price = $('#installment-minprice').val().trim();
+            let prepaid_percentage = $('#installment-prepaid').val().trim();
+            let fee = $('#installment-fee').val().trim();
+            let docs_require = $('#installment-docs').val().trim();
+
+            if ( !month ) {
+                alert('Vui lòng nhập số tháng trả góp!');
+                return false;
+            }
+
+            if ( !min_price ) {
+                alert('Vui lòng nhập số tiền tối thiểu cho phép trả góp!');
+                return false;
+            } else if ( parseFloat(min_price) % 1000 !== 0 ) {
+                alert('Số tiền phải là bội của 1000.');
+                return false;
+            }
+
+            if ( !prepaid_percentage || parseFloat(prepaid_percentage) < 0 || parseFloat(prepaid_percentage) > 80 ) {
+                alert('Vui lòng nhập số tiền trả trước tối thiểu.');
+                return false;
+            } 
+
+            if ( !fee || parseFloat(fee) < 0 || parseFloat(fee) > 100 ) {
+                alert('Vui lòng nhập mức phí trả góp!');
+                return false;
+            }
+
+            if ( !docs_require ) {
+                alert('Vui lòng nhập giấy tờ yêu cầu!');
+                return false;
+            }
+
+            bank.xhr = $.ajax({
+                url: bank_ajax_url,
+                data: {
+                    action: 'installment_addnew',
+                    bank_id,
+                    month,
+                    min_price,
+                    prepaid_percentage,
+                    fee,
+                    docs_require
+                },
+                type: 'POST',
+                beforeSend: function () {
+                    $('#installment-data .spinner').removeClass('hide');
+                },
+                success: function (response) {
+                    if (response.success) {
+                        if ( response.data.status ) {
+                            $('#installment-month').val('');
+                            $('#installment-minprice').val('');
+                            $('#installment-fee').val('');
+                            $('#installment-docs').val('');
+                            alert('Thêm mới tháng trả góp thành công!');
+
+                            //bank.getListInstallment();
+                        } else {
+                            alert( response.data.error );
+                        }
+                    }
+            
+                    $('#installment-data .spinner').addClass('hide');
+                    bank.xhr = null;
+                },
+                error: function (response, errorStatus, errorMsg) {
+                    if (errorStatus) {
+                        console.log('The error status is: ' + errorStatus + ' and the error message is: ' + errorMsg);
+                    }
+            
+                    $('#installment-data .spinner').addClass('hide');
+                    bank.xhr = null;
+                }
+            });
+
         });
     }
 }

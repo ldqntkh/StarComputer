@@ -20,6 +20,8 @@ class StartBankFunction {
         add_action( 'wp_ajax_list_banks', array('StartBankFunction', 'getListBank') );
 
         add_action( 'wp_ajax_bank_insert_sub', array('StartBankFunction', 'updateSubBank') );
+
+        add_action( 'wp_ajax_installment_addnew', array('StartBankFunction', 'installment_addnew') );
     }
 
     public static function bank_addnew() {
@@ -202,6 +204,39 @@ class StartBankFunction {
         } else {
             wp_send_json_error();
         }
+        die;
+    }
+
+    public function installment_addnew() {
+        $bank_id            = $_REQUEST['bank_id'];
+        $month              = $_REQUEST['month'];
+        $min_price          = $_REQUEST['min_price'];
+        $prepaid_percentage = empty( $_REQUEST['prepaid_percentage'] ) ? 0 : $_REQUEST['prepaid_percentage'];
+        $fee                = empty( $_REQUEST['fee'] ) ? 0 : $_REQUEST['fee'];
+        $docs_require       = $_REQUEST['docs_require'];
+
+        if ( empty( $bank_id ) || empty( $month ) || empty( $min_price ) || empty( $docs_require ) ) {
+            wp_send_json_error( array(
+                'error' => __('Params not found!', BANK_PLUGIN_NAME )
+            ) );
+            die;
+        }
+
+        $installment_data = [
+            "month"         => $month,
+            "bank_id"       => $bank_id,
+            "min_price"     => $min_price,
+            "prepaid_percentage" => $prepaid_percentage,
+            "fee"           => $fee,
+            "docs_require"  => $docs_require
+        ];
+
+        $installment = new Installment( json_encode( $installment_data ) );
+        $result = $installment->addNew();
+        wp_send_json_success( array(
+            'status' => $result,
+            'error' => !$result ? __('Không thể thêm mới yêu cầu này!', BANK_PLUGIN_NAME) : ''
+        ) );
         die;
     }
 }

@@ -33,10 +33,10 @@ class Bank {
     private function init_data( $init_data_json ) {
         if ( $init_data_json != null ) {
             $this->ID               = empty( $init_data_json['ID'] ) ? null : $init_data_json['ID'];
-            $this->bank_name        = empty( $init_data_json['bank_name'] ) ? null : $init_data_json['bank_name'];
-            $this->bank_type        = empty( $init_data_json['bank_type'] ) ? null : $init_data_json['bank_type'];
-            $this->bank_img         = empty( $init_data_json['bank_img'] ) ? null : $init_data_json['bank_img'];
-            $this->display_index    = empty( $init_data_json['display_index'] ) ? null : $init_data_json['display_index'];
+            $this->bank_name        = empty( $init_data_json['bank_name'] ) ? "" : $init_data_json['bank_name'];
+            $this->bank_type        = empty( $init_data_json['bank_type'] ) ? 0 : $init_data_json['bank_type'];
+            $this->bank_img         = empty( $init_data_json['bank_img'] ) ? "" : $init_data_json['bank_img'];
+            $this->display_index    = empty( $init_data_json['display_index'] ) ? 0 : $init_data_json['display_index'];
         }
     }
 
@@ -72,6 +72,7 @@ class Bank {
                                                         'bank_img' => $this->bank_img,
                                                         'display_index' => $this->display_index ));
         $sql = $wpdb->last_query;
+        
         if( $result ) {
             return $wpdb->insert_id;
         } else return $result;
