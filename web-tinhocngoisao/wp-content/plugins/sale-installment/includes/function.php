@@ -4,114 +4,112 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class StartBrandFunction {
+class StartBankFunction {
     public function __construct() {
         
     }
 
     public static function init_shortcode() {
-        add_shortcode( 'display_brands', array('StartBrandFunction', 'displayBrands') );
+        add_shortcode( 'display_brands', array('StartBankFunction', 'displayBrands') );
     }
 
     public static function init_api() {
-        add_action( 'wp_ajax_brand_addnew', array('StartBrandFunction', 'addNewBrand') );
-        add_action( 'wp_ajax_brand_remove', array('StartBrandFunction', 'removeBrand') );
-        add_action( 'wp_ajax_brand_update', array('StartBrandFunction', 'updateBrand') );
-        add_action( 'wp_ajax_list_brands', array('StartBrandFunction', 'getListBrand') );
+        add_action( 'wp_ajax_bank_addnew', array('StartBankFunction', 'bank_addnew') );
+        add_action( 'wp_ajax_bank_remove', array('StartBankFunction', 'removeBank') );
+        add_action( 'wp_ajax_bank_update', array('StartBankFunction', 'updateBank') );
+        add_action( 'wp_ajax_list_banks', array('StartBankFunction', 'getListBank') );
+
+        add_action( 'wp_ajax_bank_insert_sub', array('StartBankFunction', 'updateSubBank') );
     }
 
-    public static function addNewBrand() {
-        $brand_name     = $_REQUEST['brand_name'];
-        $brand_status   = empty($_REQUEST['brand_status']) ? 0 : $_REQUEST['brand_status'];
-        $brand_img      = $_REQUEST['brand_img'];
-        $brand_url      = $_REQUEST['brand_url'];
-        $brand_index    = empty($_REQUEST['brand_index']) ? 0 : $_REQUEST['brand_index'];
+    public static function bank_addnew() {
+        $bank_name      = $_REQUEST['bank_name'];
+        $bank_type      = !isset($_REQUEST['bank_type']) ? 0 : $_REQUEST['bank_type'];
+        $bank_img       = $_REQUEST['bank_img'];
+        $bank_index     = empty($_REQUEST['bank_index']) ? 0 : $_REQUEST['bank_index'];
 
-        if ( empty( $brand_name ) || empty( $brand_img ) || empty( $brand_url ) ) {
+        if ( empty( $bank_name ) || empty( $bank_img ) || empty( $bank_index ) ) {
             wp_send_json_error( array(
-                'error' => __('Params not found!', BRAND_PLUGIN_NAME )
+                'error' => __('Params not found!', BANK_PLUGIN_NAME )
             ) );
             die;
         }
 
-        $brand_data = [
-            "brand_name"    => $brand_name,
-            "brand_status"  => $brand_status,
-            "brand_img"     => $brand_img,
-            "brand_url"     => $brand_url,
-            "brand_index"   => $brand_index,
+        $bank_data = [
+            "bank_name"     => $bank_name,
+            "bank_type"     => $bank_type,
+            "bank_img"      => $bank_img,
+            "display_index"    => $bank_index,
         ];
 
-        $brand = new StarBrand( json_encode( $brand_data ) );
+        $bank = new Bank( json_encode( $bank_data ) );
 
-        $result = $brand->addNew();
+        $result = $bank->addNew();
         wp_send_json_success( array(
             'status' => $result,
-            'error' => !$result ? __('Không thể thêm mới thương hiệu', BRAND_PLUGIN_NAME) : ''
+            'error' => !$result ? __('Không thể thêm mới ngân hàng', BANK_PLUGIN_NAME) : ''
         ) );
         die;
     }
 
-    public static function updateBrand() {
-        $brand_id       = $_REQUEST['brand_id'];
-        $brand_name     = $_REQUEST['brand_name'];
-        $brand_status   = empty($_REQUEST['brand_status']) ? 0 : $_REQUEST['brand_status'];
-        $brand_img      = $_REQUEST['brand_img'];
-        $brand_url      = $_REQUEST['brand_url'];
-        $brand_index    = empty($_REQUEST['brand_index']) ? 0 : $_REQUEST['brand_index'];
+    public static function updateBank() {
+        $bank_id       = $_REQUEST['bank_id'];
+        $bank_name     = $_REQUEST['bank_name'];
+        $bank_type      = !isset($_REQUEST['bank_type']) ? 0 : $_REQUEST['bank_type'];
+        $bank_img       = $_REQUEST['bank_img'];
+        $bank_index     = empty($_REQUEST['bank_index']) ? 0 : $_REQUEST['bank_index'];
 
-        if ( empty( $brand_name ) || empty( $brand_img ) || empty( $brand_url ) ) {
+        if ( empty( $bank_name ) || empty( $bank_img ) || empty( $bank_index ) ) {
             wp_send_json_error( array(
-                'error' => __('Params not found!', BRAND_PLUGIN_NAME )
+                'error' => __('Params not found!', BANK_PLUGIN_NAME )
             ) );
             die;
         }
 
-        $brand_data = [
-            "id"      => $brand_id,
-            "brand_name"    => $brand_name,
-            "brand_status"  => $brand_status,
-            "brand_img"     => $brand_img,
-            "brand_url"     => $brand_url,
-            "brand_index"   => $brand_index,
+        $bank_data = [
+            "ID"            => $bank_id,
+            "bank_name"     => $bank_name,
+            "bank_type"     => $bank_type,
+            "bank_img"      => $bank_img,
+            "display_index"    => $bank_index,
         ];
 
-        $brand = new StarBrand( json_encode( $brand_data ) );
+        $bank = new Bank( json_encode( $bank_data ) );
 
-        $result = $brand->updateBrand();
+        $result = $bank->updateBank();
 
         wp_send_json_success( array(
             'status' => $result,
-            'error' => !$result ? __('Không thể cập nhật thương hiệu này', BRAND_PLUGIN_NAME) : ''
+            'error' => !$result ? __('Không thể cập nhật thương hiệu này', BANK_PLUGIN_NAME) : ''
         ) );
         die;
     }
 
-    public static function removeBrand() {
-        $brand_id     = $_POST['brand_id'];
+    public static function removeBank() {
+        $bank_id     = $_POST['bank_id'];
 
-        if ( empty( $brand_id ) ) {
+        if ( empty( $bank_id ) ) {
             wp_send_json_error( array(
-                'error' => __('Params not found!', BRAND_PLUGIN_NAME )
+                'error' => __('Params not found!', BANK_PLUGIN_NAME )
             ) );
             die;
         }
 
-        $brand = new StarBrand( );
+        $objBank = new Bank();
 
-        $result = $brand->removeBrand( $brand_id  );
+        $result = $objBank->removeBank( $bank_id  );
         wp_send_json_success( array(
             'status' => $result,
-            'error' => !$result ? __('Không thể xóa thương hiệu này', BRAND_PLUGIN_NAME) : ''
+            'error' => !$result ? __('Không thể xóa thương hiệu này', BANK_PLUGIN_NAME) : ''
         ) );
         die;
     }
 
-    public static function getListBrand() {
-        $objBrand = new StarBrand();
-        $brands = $objBrand->getListBrandsHtml();
+    public static function getListBank() {
+        $objBank = new Bank();
+        $banks = $objBank->getListBanksHtml();
         wp_send_json_success( array(
-            "data" => $brands
+            "data" => $banks
         ) );
         die;
     }
@@ -183,7 +181,30 @@ class StartBrandFunction {
         return $list_brands;
 
     }
+
+    public static function updateSubBank() {
+        $bank_id        = $_REQUEST['bank_id'];
+        $visa           = !empty( $_REQUEST['visa'] ) ? 'visa' : '';
+        $mastercard     = !empty( $_REQUEST['mastercard'] ) ? 'mastercard' : '';
+        $jcb            = !empty( $_REQUEST['jcb'] ) ? 'jcb' : '';
+
+        $sub_banks = [
+            "visa"  => $visa,
+            "mastercard"  => $mastercard,
+            "jcb"  => $jcb
+        ];
+
+        $objBank = new Bank();
+        $status = $objBank->insertSubBanks( $bank_id, $sub_banks );
+
+        if ( $status ) {
+            wp_send_json_success();
+        } else {
+            wp_send_json_error();
+        }
+        die;
+    }
 }
 
-StartBrandFunction::init_api();
-StartBrandFunction::init_shortcode();
+StartBankFunction::init_api();
+StartBankFunction::init_shortcode();

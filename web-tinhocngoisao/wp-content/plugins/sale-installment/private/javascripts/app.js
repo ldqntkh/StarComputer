@@ -1,231 +1,218 @@
 const $ = jQuery;
 
 
-const brand = {
+const bank = {
     xhr: null,
     init: function() {
-        brand.addNewBrand();
-        brand.updateBrand();
-        brand.removeBrand();
+        bank.addNewbank();
+        bank.updatebank();
+        bank.removebank();
+        bank.updateSubBank();
     },
 
-    addNewBrand: function() {
-        $('#brand-data').on('submit', function(e) {
+    addNewbank: function() {
+        $('#bank-data').on('submit', function(e) {
             e.preventDefault();
 
-            if ( brand.xhr !== null ) return;
+            if ( bank.xhr !== null ) return;
 
-            let brand_name = $('#brand-name').val().trim();
-            let brand_status = $('#brand-status').val().trim();
-            let brand_img = $('#brand_thumbnail_id').val().trim();
-            let brand_url = $('#brand-url').val().trim();
-            let brand_index = $('#brand-index').val().trim();
+            let bank_name = $('#bank-name').val().trim();
+            let bank_type = $('#bank-type').val().trim();
+            let bank_img = $('#bank_thumbnail_id').val().trim();
+            let bank_index = $('#bank-index').val().trim();
 
-            if ( !brand_name ) {
-                alert('Vui lòng nhập tên thương hiệu!');
+            if ( !bank_name ) {
+                alert('Vui lòng nhập tên ngân hàng!');
                 return false;
             }
 
-            if ( !brand_status ) {
-                alert('Vui lòng chọn trạng thái thương hiệu!');
+            if ( !bank_type ) {
+                alert('Vui lòng chọn trạng thái ngân hàng!');
                 return false;
             }
 
-            if ( !brand_img ) {
-                alert('Vui lòng chọn hình ảnh thương hiệu!');
+            if ( !bank_img ) {
+                alert('Vui lòng chọn hình ảnh ngân hàng!');
                 return false;
             }
 
-            if ( !brand_url ) {
-                alert('Vui lòng nhập liên kết cho thương hiệu!');
+            if ( !bank_index ) {
+                alert('Vui lòng nhập độ ưu tiên ngân hàng!');
                 return false;
             }
 
-            if ( !brand_index ) {
-                alert('Vui lòng nhập độ ưu tiên thương hiệu!');
-                return false;
-            }
-
-            brand.xhr = $.ajax({
-                url: brand_ajax_url,
+            bank.xhr = $.ajax({
+                url: bank_ajax_url,
                 data: {
-                    action: 'brand_addnew',
-                    brand_name,
-                    brand_status,
-                    brand_img,
-                    brand_url,
-                    brand_index
+                    action: 'bank_addnew',
+                    bank_name,
+                    bank_type,
+                    bank_img,
+                    bank_index
                 },
                 type: 'POST',
                 beforeSend: function () {
-                    $('#brand-data .spinner').removeClass('hide');
+                    $('#bank-data .spinner').removeClass('hide');
                 },
                 success: function (response) {
                     if (response.success) {
                         if ( response.data.status ) {
-                            $('#brand-name').val('');
-                            $('#brand-status').val('');
-                            $('#brand_thumbnail_id').val('');
-                            $('#brand-url').val('');
-                            $('#brand-index').val('');
-                            $( '#brand_thumbnail' ).find( 'img' ).attr( 'src', thumb_image );
-                            alert('Thêm mới thương hiệu thành công!');
+                            $('#bank-name').val('');
+                            $('#bank-type').val('');
+                            $('#bank_thumbnail_id').val('');
+                            $('#bank-index').val('');
+                            $( '#bank_thumbnail' ).find( 'img' ).attr( 'src', thumb_image );
+                            alert('Thêm mới ngân hàng thành công!');
 
-                            brand.getListBrand();
+                            bank.getListbank();
                         } else {
                             alert( response.data.error );
                         }
                     }
             
-                    $('#brand-data .spinner').addClass('hide');
-                    brand.xhr = null;
+                    $('#bank-data .spinner').addClass('hide');
+                    bank.xhr = null;
                 },
                 error: function (response, errorStatus, errorMsg) {
                     if (errorStatus) {
                         console.log('The error status is: ' + errorStatus + ' and the error message is: ' + errorMsg);
                     }
             
-                    $('#brand-data .spinner').addClass('hide');
-                    brand.xhr = null;
+                    $('#bank-data .spinner').addClass('hide');
+                    bank.xhr = null;
                 }
             });
 
         });
     },
 
-    updateBrand: function() {
-        $('#brand-data-update').on('submit', function(e) {
+    updatebank: function() {
+        $('#bank-data-update').on('submit', function(e) {
             e.preventDefault();
 
-            if ( brand.xhr !== null ) return;
-            let brand_id = $('#brand-id').val().trim();
-            let brand_name = $('#brand-name').val().trim();
-            let brand_status = $('#brand-status').val().trim();
-            let brand_img = $('#brand_thumbnail_id').val().trim();
-            let brand_url = $('#brand-url').val().trim();
-            let brand_index = $('#brand-index').val().trim();
+            if ( bank.xhr !== null ) return;
 
-            if ( !brand_name ) {
-                alert('Vui lòng nhập tên thương hiệu!');
+            let bank_id = $('#bank-id').val().trim();
+            let bank_name = $('#bank-name').val().trim();
+            let bank_type = $('#bank-type').val().trim();
+            let bank_img = $('#bank_thumbnail_id').val().trim();
+            let bank_index = $('#bank-index').val().trim();
+
+            if ( !bank_name ) {
+                alert('Vui lòng nhập tên ngân hàng!');
                 return false;
             }
 
-            if ( !brand_status ) {
-                alert('Vui lòng chọn trạng thái thương hiệu!');
+            if ( !bank_type ) {
+                alert('Vui lòng chọn trạng thái ngân hàng!');
                 return false;
             }
 
-            if ( !brand_img ) {
-                alert('Vui lòng chọn hình ảnh thương hiệu!');
+            if ( !bank_img ) {
+                alert('Vui lòng chọn hình ảnh ngân hàng!');
                 return false;
             }
 
-            if ( !brand_url ) {
-                alert('Vui lòng nhập liên kết cho thương hiệu!');
+            if ( !bank_index ) {
+                alert('Vui lòng nhập độ ưu tiên ngân hàng!');
                 return false;
             }
 
-            if ( !brand_index ) {
-                alert('Vui lòng nhập độ ưu tiên thương hiệu!');
-                return false;
-            }
-
-            brand.xhr = $.ajax({
-                url: brand_ajax_url,
+            bank.xhr = $.ajax({
+                url: bank_ajax_url,
                 data: {
-                    action: 'brand_update',
-                    brand_id,
-                    brand_name,
-                    brand_status,
-                    brand_img,
-                    brand_url,
-                    brand_index
+                    action: 'bank_update',
+                    bank_id,
+                    bank_name,
+                    bank_type,
+                    bank_img,
+                    bank_index
                 },
                 type: 'POST',
                 beforeSend: function () {
-                    $('#brand-data-update .spinner').removeClass('hide');
+                    $('#bank-data-update .spinner').removeClass('hide');
                 },
                 success: function (response) {
                     if (response.success) {
                         if ( response.data.status ) {
-                            alert('Cập nhật thương hiệu thành công!');
-                            window.location.href = brand_page;
+                            alert('Cập nhật ngân hàng thành công!');
+                            window.location.href = bank_page;
                         } else {
                             alert( response.data.error );
                         }
                     }
             
-                    $('#brand-data-update .spinner').addClass('hide');
-                    brand.xhr = null;
+                    $('#bank-data-update .spinner').addClass('hide');
+                    bank.xhr = null;
                 },
                 error: function (response, errorStatus, errorMsg) {
                     if (errorStatus) {
                         console.log('The error status is: ' + errorStatus + ' and the error message is: ' + errorMsg);
                     }
             
-                    $('#brand-data-update .spinner').addClass('hide');
-                    brand.xhr = null;
+                    $('#bank-data-update .spinner').addClass('hide');
+                    bank.xhr = null;
                 }
             });
 
         });
     },
 
-    removeBrand: function() {
-        $('body').on('click', '.remove-brand', function(e) {
-            if ( brand.xhr !== null ) return;
+    removebank: function() {
+        $('body').on('click', '.remove-bank', function(e) {
+            if ( bank.xhr !== null ) return;
             let that = this;
             let title = $(that).attr('data-title');
-            var r = confirm("Xóa thương hiệu " + title + "?");
+            var r = confirm("Xóa ngân hàng " + title + "?");
             if (r == true) {
                 let that = this;
                 let id = $(that).attr('data-id');
     
                 if ( !id ) return false;
     
-                brand.xhr = $.ajax({
-                    url: brand_ajax_url,
+                bank.xhr = $.ajax({
+                    url: bank_ajax_url,
                     data: {
-                        action: 'brand_remove',
-                        brand_id: id
+                        action: 'bank_remove',
+                        bank_id: id
                     },
                     type: 'POST',
                     beforeSend: function () {
-                        // $('#brand-data .spinner').removeClass('hide');
+                        // $('#bank-data .spinner').removeClass('hide');
                     },
                     success: function (response) {
                         if (response.success) {
                             if ( response.data.status ) {
                                 //
                                 $(that).closest('tr').remove();
-                                alert('Đã xóa thương hiệu ' + title);
+                                alert('Đã xóa ngân hàng ' + title);
                             } else {
                                 alert( response.data.error );
                             }
                         }
-                        brand.xhr = null;
+                        bank.xhr = null;
                     },
                     error: function (response, errorStatus, errorMsg) {
                         if (errorStatus) {
                             console.log('The error status is: ' + errorStatus + ' and the error message is: ' + errorMsg);
                         }
-                        brand.xhr = null;
+                        bank.xhr = null;
                     }
                 });
             } 
         });
     },
 
-    getListBrand: function() {
+    getListbank: function() {
         $.ajax({
-            url: brand_ajax_url,
+            url: bank_ajax_url,
             data: {
-                action: 'list_brands'
+                action: 'list_banks'
             },
             type: 'GET',
             success: function (response) {
                 if (response.success) {
-                    $('#list-brands #the-list').html( response.data.data );
+                    $('#list-banks #the-list').html( response.data.data );
                 }
             },
             error: function (response, errorStatus, errorMsg) {
@@ -234,9 +221,53 @@ const brand = {
                 }
             }
         });
+    },
+
+    updateSubBank: function() {
+        $('#sub-bank-data').on('submit', function(e) {
+            e.preventDefault();
+            if ( bank.xhr !== null ) return;
+
+            let visa = $("#bank-visa").is(":checked") ? 1 : 0,
+                mastercard = $("#bank-mastercard").is(":checked") ? 1 : 0,
+                jcb = $("#bank-jcb").is(":checked") ? 1 : 0;
+            let bank_id = $('#bank-id').val().trim();
+            bank.xhr = $.ajax({
+                url: bank_ajax_url,
+                data: {
+                    action: 'bank_insert_sub',
+                    bank_id,
+                    visa,
+                    mastercard,
+                    jcb
+                },
+                type: 'POST',
+                beforeSend: function () {
+                    $('#sub-bank-data .spinner').removeClass('hide');
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert('Cập nhật thẻ ngân hàng thành công!');
+                    } else {
+                        alert('Không thể cập nhật thẻ ngân hàng!');
+                    }
+            
+                    $('#sub-bank-data .spinner').addClass('hide');
+                    bank.xhr = null;
+                },
+                error: function (response, errorStatus, errorMsg) {
+                    if (errorStatus) {
+                        console.log('The error status is: ' + errorStatus + ' and the error message is: ' + errorMsg);
+                    }
+            
+                    $('#sub-bank-data .spinner').addClass('hide');
+                    bank.xhr = null;
+                }
+            });
+        });
     }
 }
 
 jQuery(document).ready(function() {
-    brand.init();
+    bank.init();
 });

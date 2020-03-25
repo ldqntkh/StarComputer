@@ -10,13 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-define( 'BRAND_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'BRAND_PLUGIN_NAME', 'star_brand' );
+define( 'BANK_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'BANK_PLUGIN_NAME', 'star_brand' );
 
-include_once BRAND_PLUGIN_DIR . '/includes/models/class-brands.php';
-include_once BRAND_PLUGIN_DIR . '/includes/function.php';
+include_once BANK_PLUGIN_DIR . '/includes/models/class-bank.php';
+include_once BANK_PLUGIN_DIR . '/includes/function.php';
 
-include_once BRAND_PLUGIN_DIR . '/includes/main-page.php';
+include_once BANK_PLUGIN_DIR . '/includes/main-page.php';
 
 add_action('admin_enqueue_scripts', 'star_brands_scripts');
 function star_brands_scripts(){
@@ -27,27 +27,54 @@ function star_brands_scripts(){
 
 
 // create table
-register_activation_hook( __FILE__, 'create_brand_database_table' );
-function create_brand_database_table( ) {
+register_activation_hook( __FILE__, 'create_installment_database_table' );
+function create_installment_database_table( ) {
 
     global $table_prefix, $wpdb, $wnm_db_version;
 
-    $tb_installment    = $table_prefix . 'installment';
+    $tb_bank                = $table_prefix . 'bank';
+    $tb_sub_bank            = $table_prefix . 'sub_bank';
+    $tb_monthly_installment = $table_prefix . 'monthly_installment';
     
-    if( $wpdb->get_var( "show tables like '$tb_installment'" ) != $tb_installment ) 
+    if( $wpdb->get_var( "show tables like '$tb_installment'" ) != $tb_installment ||
+        $wpdb->get_var( "show tables like '$tb_sub_bank'" ) != $tb_sub_bank ||
+        $wpdb->get_var( "show tables like '$tb_monthly_installment'" ) != $tb_monthly_installment ) 
     {
         try {
             $sql = array();
 
         
-            $sql[] = 'CREATE TABLE ' .$tb_installment. ' (
-                                `id` int(11) NOT NULL AUTO_INCREMENT,
-                                `brand_name` varchar(100) NOT NULL,
-                                `brand_status` int(1) DEFAULT 0,
-                                `brand_img` int(10),
-                                `brand_index` int(10) DEFAULT 0,
-                                PRIMARY KEY (`id`)
-                            );';
+            $sql[] = 'CREATE TABLE '. $tb_bank  .' (
+                        `ID` INT NOT NULL AUTO_INCREMENT,
+                        `bank_name` VARCHAR(100) NOT NULL,
+                        `bank_type` VARCHAR(45) NOT NULL,
+                        `bank_img` VARCHAR(45) NOT NULL,
+                        `display_index` INT NULL DEFAULT 0,
+                        PRIMARY KEY (`ID`));';
+
+            $sql[] = 'CREATE TABLE '.$tb_sub_bank.' (
+                        `sub_bank_name` VARCHAR(100) NOT NULL,
+                        `bank_id` INT NOT NULL,
+                        `display_index` INT NULL DEFAULT 0,
+                        PRIMARY KEY (sub_bank_name, bank_id),
+                        FOREIGN KEY (`bank_id`)
+                        REFERENCES '.$tb_bank .' (`ID`)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE);';
+
+            $sql[] = 'CREATE TABLE '.$tb_monthly_installment.' (
+                        `ID` INT NOT NULL AUTO_INCREMENT,
+                        `month` INT NOT NULL,
+                        `bank_id` INT NOT NULL,
+                        `min_price` INT NOT NULL,
+                        `fee` INT NOT NULL,
+                        `fee_desc` VARCHAR(45) NULL,
+                        `docs_require` TEXT NULL,
+                        PRIMARY KEY (`ID`),
+                        FOREIGN KEY (`bank_id`)
+                        REFERENCES '.$tb_bank .' (`ID`)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE);';
     
             require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
             
@@ -56,6 +83,5 @@ function create_brand_database_table( ) {
         } catch ( Exception $e ) {
             var_dump( $e->getMessage() );
         }
-
     }
 }
