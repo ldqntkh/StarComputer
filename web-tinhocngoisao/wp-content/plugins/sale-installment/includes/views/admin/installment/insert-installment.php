@@ -38,24 +38,33 @@ $bank = $bank[0];
 
             <input name="bank-id" id="bank-id" type="hidden" value="<?php echo $bank->ID ?>">
 
-			<div class="form-field form-required term-name-wrap">
+			<div class="form-field form-required term-name-wrap" style="margin-top: 20px">
 				<button class="button" type="submit">
 					<?php _e('Lưu', BANK_PLUGIN_NAME) ?>
 					<span class="spinner is-active hide"></span>
 				</button>
+				<a class="button" href="<?php echo admin_url( 'admin.php?page=star_banks' ); ?>"><?php _e('Quay lại trang danh sách', BANK_PLUGIN_NAME) ?></a>
 			</div>
 		</form>
 	</div>
-	<div class="right-container" id="list-banks">
+	<div class="right-container" id="list-installment">
 		<table class="wp-list-table widefat fixed striped tags ui-sortable">
 			<thead>
 				<tr>
 					<th scope="col" class="manage-column column-thumb"><strong><?php _e('Số tháng', BANK_PLUGIN_NAME) ?></strong></th>
 					<th scope="col" class="manage-column column-thumb"><strong><?php _e('Số tiền tối thiểu', BANK_PLUGIN_NAME) ?></strong></th>
+					<th scope="col" class="manage-column column-thumb"><strong><?php _e('% trả trước', BANK_PLUGIN_NAME) ?></strong></th>
 					<th scope="col" class="manage-column column-thumb"><strong><?php _e('% phí', BANK_PLUGIN_NAME) ?></strong></th>
 					<th scope="col" class="manage-column column-thumb"><strong><?php _e('Giấy tờ yêu cầu', BANK_PLUGIN_NAME) ?></strong></th>
+					<th></th>
 				</tr>
 			</thead>
+			<tbody id="the-list">
+				<?php 
+					$installment = new Installment();
+					echo $installment->getListInstallmentHtml( $bank->ID ); 
+				?>
+			</tbody>
 		</table>
 	</div>
 

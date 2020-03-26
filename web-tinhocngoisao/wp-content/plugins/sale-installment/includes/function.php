@@ -10,7 +10,7 @@ class StartBankFunction {
     }
 
     public static function init_shortcode() {
-        add_shortcode( 'display_brands', array('StartBankFunction', 'displayBrands') );
+        add_shortcode( 'display_installment', array('StartBankFunction', 'displayInstallment') );
     }
 
     public static function init_api() {
@@ -22,6 +22,8 @@ class StartBankFunction {
         add_action( 'wp_ajax_bank_insert_sub', array('StartBankFunction', 'updateSubBank') );
 
         add_action( 'wp_ajax_installment_addnew', array('StartBankFunction', 'installment_addnew') );
+        add_action( 'wp_ajax_installment_getlist', array('StartBankFunction', 'installment_getlist') );
+        add_action( 'wp_ajax_installment_delete', array('StartBankFunction', 'installment_delete') );
     }
 
     public static function bank_addnew() {
@@ -239,6 +241,42 @@ class StartBankFunction {
         ) );
         die;
     }
+
+    public function installment_getlist() {
+        $bank_id            = $_REQUEST['bank_id'];
+        $installment = new Installment();
+        $html = $installment->getListInstallmentHtml($bank_id);
+        wp_send_json_success( array(
+            'status' => true,
+            'error' => '',
+            'data'  => $html
+        ) );
+        die;
+    }
+
+    public function installment_delete() {
+        $bank_id            = $_REQUEST['bank_id'];
+        $month              = $_REQUEST['month'];
+
+        $installment = new Installment();
+        $result = $installment->removeInstallment( $bank_id, $month );
+        wp_send_json_success( array(
+            'status' => $result,
+            'error' => !$result ? __('Không thể thêm mới yêu cầu này!', BANK_PLUGIN_NAME) : ''
+        ) );
+        die;
+    }
+
+    public function displayInstallment() { 
+        // lấy bank
+        $bank = new Bank();
+        $bank_data = $bank->getBankData();
+    ?>
+        <div id="installment"></div>
+        <script>
+            const bank_data = <?php echo json_encode( $bank_data ) ?>;
+        </script>
+    <?php }
 }
 
 StartBankFunction::init_api();

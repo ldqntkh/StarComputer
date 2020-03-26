@@ -34,7 +34,6 @@ class Installment {
 
     private function init_data( $init_data_json ) {
         if ( $init_data_json != null ) {
-            $this->ID                       = empty( $init_data_json['ID'] ) ? null : $init_data_json['ID'];
             $this->month                    = empty( $init_data_json['month'] ) ? 3 : $init_data_json['month'];
             $this->bank_id                  = empty( $init_data_json['bank_id'] ) ? null : $init_data_json['bank_id'];
             $this->min_price                = empty( $init_data_json['min_price'] ) ? null : $init_data_json['min_price'];
@@ -42,6 +41,17 @@ class Installment {
             $this->fee                      = empty( $init_data_json['fee'] ) ? 0 : $init_data_json['fee'];
             $this->docs_require             = empty( $init_data_json['docs_require'] ) ? null : $init_data_json['docs_require'];
         }
+    }
+
+    public function getFormatData( $objClass ) {
+        return [
+            "month" => $objClass->month,
+            "bank_id" => $objClass->bank_id,
+            "min_price" => $objClass->min_price,
+            "prepaid_percentage" => $objClass->prepaid_percentage,
+            "fee" => $objClass->fee,
+            "docs_require" => $objClass->docs_require,
+        ];
     }
 
 
@@ -57,6 +67,56 @@ class Installment {
                                                         'docs_require' => $this->docs_require ));
         $sql = $wpdb->last_query;
         
+        return $result;
+    }
+
+    public function getListInstallment( $bank_id ) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . $this->table_name;
+        $sql = "select * from $table_name WHERE bank_id = $bank_id";
+        $sql .= " ORDER BY month ";
+        $result = $wpdb->get_results( $sql );
+            
+        return $result;
+    }
+
+    public function getListInstallmentHtml( $bank_id ) {
+        $installments = $this->getListInstallment( $bank_id );
+        ob_start();
+        foreach( $installments as $installment ) : ?>
+            <tr>
+                <td scope="col" class="manage-column column-thumb">
+                    <?php echo $installment->month ?>
+                </td>
+                <td scope="col" class="manage-column column-thumb">
+                    <?php echo $installment->min_price ?>
+                </td>
+                <td scope="col" class="manage-column column-thumb">
+                    <?php echo $installment->prepaid_percentage ?>
+                </td>
+                <td scope="col" class="manage-column column-thumb">
+                    <?php echo $installment->fee ?>
+                </td>
+                <td scope="col" class="manage-column column-thumb">
+                    <?php echo $installment->docs_require ?>
+                </td>
+                <td scope="col" class="manage-column column-thumb">
+                    <a href="#" class="delete-installment" data-id="<?php echo $installment->month ?>">
+                    Xóa<span class="spinner is-active hide"></span></a>
+                </td>
+            </tr>
+        <?php endforeach; 
+
+        $content = ob_get_contents();
+        ob_clean();
+        ob_end_flush();
+        return $content;
+    }
+
+    public function removeInstallment( $bank_id, $month ) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . $this->table_name;
+        $result = $wpdb->delete( $table_name , array( 'bank_id' => $bank_id, 'month' => $month ) );
         return $result;
     }
 }

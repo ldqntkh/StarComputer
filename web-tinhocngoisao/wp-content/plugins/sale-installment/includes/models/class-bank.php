@@ -40,6 +40,30 @@ class Bank {
         }
     }
 
+    public function getFormatData( $objClass ) {
+        $image = wp_get_attachment_image_src( $objClass->bank_img, 'full' );
+        if ( !$image ) {
+            $image = esc_js( wc_placeholder_img_src() );
+        } else {
+            $image = $image[0];
+        }
+        return [
+            "ID"    => $objClass->ID,
+            "bank_name" => $objClass->bank_name,
+            "bank_type" => $objClass->bank_type,
+            "bank_img"  => $image,
+            "display_index" => $display_index
+        ];
+    }
+
+    public function getFormatDataSubBank( $objClass ) {
+        return [
+            "sub_bank_name"    => $objClass->sub_bank_name,
+            "bank_id" => $objClass->bank_id,
+            "display_index" => $display_index
+        ];
+    }
+
     public function getBankById( $id ) {
         global $wpdb;
         $table_name = $wpdb->prefix . $this->table_name;
@@ -178,5 +202,61 @@ class Bank {
         $result = $wpdb->get_results( $sql );
             
         return $result;
+    }
+
+    public function getBankData() {
+        global $wpdb;
+        $table_name = $wpdb->prefix . $this->table_name;
+        $sql = "select * from $table_name ";
+
+        $sql .= " ORDER BY bank_type DESC ";
+
+        $banks = $wpdb->get_results( $sql );
+
+        $taichinh = [];
+        $tindung = [];
+        $installment = new Installment();
+
+        foreach( $banks as $bank ) {
+            $installments = [];
+            $installments = $installment->getListInstallment( $bank->ID );
+            
+            $installments_data = [];
+
+            foreach( $installments as $ins ) {
+                $rs = $installment->getFormatData( $ins );
+                $installments_data[] = $rs;
+            }
+            
+            
+            if ( $bank->bank_type == 1 ) {
+                $item = array(
+                    "bank"  => $this->getFormatData( $bank ),
+                    "installments"   => $installments_data
+                );
+                $taichinh[] = $item;
+                
+            } else {
+                $sub_banks = $this->getSubBanks( $bank->ID );
+                $sub_banks_data = [];
+
+                foreach( $sub_banks as $sub ) {
+                    $rs = $this->getFormatDataSubBank( $sub );
+                    $sub_banks_data[] = $rs;
+                }
+
+                $item = [
+                    "bank"  => $this->getFormatData( $bank ),
+                    "sub_bank"  => $sub_banks_data,
+                    "installments"   => $installments_data
+                ];
+                $tindung[] = $item;
+            }
+        }
+        
+        return [
+            'taichinh'  => $taichinh,
+            'tindunng'  => $tindung
+        ];
     }
 }

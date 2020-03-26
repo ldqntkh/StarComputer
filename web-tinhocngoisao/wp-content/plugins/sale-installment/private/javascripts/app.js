@@ -9,6 +9,7 @@ const bank = {
         bank.removebank();
         bank.updateSubBank();
         bank.addNewInstallment();
+        bank.deleteInstallment();
     },
 
     addNewbank: function() {
@@ -329,8 +330,10 @@ const bank = {
                         if ( response.data.status ) {
                             $('#installment-month').val('');
                             $('#installment-minprice').val('');
+                            $('#installment-prepaid').val('');
                             $('#installment-fee').val('');
                             $('#installment-docs').val('');
+                            bank.getListInstallment();
                             alert('Thêm mới tháng trả góp thành công!');
 
                             //bank.getListInstallment();
@@ -353,7 +356,73 @@ const bank = {
             });
 
         });
-    }
+    },
+
+    deleteInstallment: function() {
+        $('body').on('click', '.delete-installment', function(e) {
+            e.preventDefault();
+
+            if ( bank.xhr !== null ) return;
+            let bank_id = $('#bank-id').val().trim();
+            let month = $(this).attr('data-id');
+            let that = $(this);
+            bank.xhr = $.ajax({
+                url: bank_ajax_url,
+                data: {
+                    action: 'installment_delete',
+                    bank_id,
+                    month
+                },
+                type: 'POST',
+                beforeSend: function () {
+                    $(that.find('.spinner')).removeClass('hide');
+                },
+                success: function (response) {
+                    if (response.success) {
+                        if ( response.data.status ) {
+                            alert('Đã xóa dữ liệu!');
+                            $(that.closest('tr')).remove();
+                        } else {
+                            alert( response.data.error );
+                        }
+                    }
+            
+                    $(that.find('.spinner')).addClass('hide');
+                    bank.xhr = null;
+                },
+                error: function (response, errorStatus, errorMsg) {
+                    if (errorStatus) {
+                        console.log('The error status is: ' + errorStatus + ' and the error message is: ' + errorMsg);
+                    }
+            
+                    $(that.find('.spinner')).addClass('hide');
+                    bank.xhr = null;
+                }
+            });
+        })
+    },
+
+    getListInstallment: function() {
+        let bank_id = $('#bank-id').val().trim();
+        $.ajax({
+            url: bank_ajax_url,
+            data: {
+                action: 'installment_getlist',
+                bank_id
+            },
+            type: 'GET',
+            success: function (response) {
+                if (response.success) {
+                    $('#list-installment #the-list').html( response.data.data );
+                }
+            },
+            error: function (response, errorStatus, errorMsg) {
+                if (errorStatus) {
+                    console.log('The error status is: ' + errorStatus + ' and the error message is: ' + errorMsg);
+                }
+            }
+        });
+    },
 }
 
 jQuery(document).ready(function() {
