@@ -3,6 +3,7 @@ import buildPCApp from './buildPC/App';
 import ListCategoryMobile from './listCatagoryMobile/App';
 import WidgetATProduct from './widgetAtProduct/App';
 import TableProductSale from './tableProductSale/App';
+import InstallmentApp from './installment/App';
 
 const elementIds = [
     {
@@ -20,6 +21,10 @@ const elementIds = [
     {
         ids : ["list_sale_price"],
         appName : TableProductSale
+    },
+    {
+        ids : ["installment"],
+        appName : InstallmentApp
     },
 ];
 

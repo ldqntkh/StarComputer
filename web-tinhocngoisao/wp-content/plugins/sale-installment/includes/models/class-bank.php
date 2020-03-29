@@ -256,7 +256,7 @@ class Bank {
         
         return [
             'taichinh'  => $taichinh,
-            'tindunng'  => $tindung
+            'tindung'  => $tindung
         ];
     }
 }
