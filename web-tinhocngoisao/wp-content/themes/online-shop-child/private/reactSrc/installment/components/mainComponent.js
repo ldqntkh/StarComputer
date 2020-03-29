@@ -11,6 +11,7 @@ export default class MainComponent extends Component {
             bank_tindung: [],
             month_tindung: [],
             price: 0,
+            price_display: 0,
             month: 0,
             percent: 0,
             tindung_selected : null
@@ -98,8 +99,10 @@ export default class MainComponent extends Component {
     }
 
     _handleChangePrice = (e)=> {
+        let  val = e.target.value.split(",").join("");
         this.setState({
-            price: parseInt(e.target.value)
+            price: parseInt(val),
+            price_display: this.numberWithCommas(parseInt(val))
         })
     }
 
@@ -455,13 +458,14 @@ export default class MainComponent extends Component {
     }
 
     numberWithCommas = ( x ) => {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
     }
 
     render() {
         let {
             congty,
             price,
+            price_display,
             month,
             month_taichinh,
             month_tindung
@@ -474,7 +478,7 @@ export default class MainComponent extends Component {
                 </div>
                 <div className="input-price">
                     <label htmlFor="input-price">Nhập số tiền mua hàng(đ)</label>
-                    <input name="input-price" id="input-price"  value={!price ? 0 : price} type="numer" onChange={this._handleChangePrice}/>
+                    <input name="input-price" id="input-price"  value={!price ? 0 : price_display} type="numer" onChange={this._handleChangePrice}/>
                 </div>
                 <div className="content">
                     <div className="tabs">
