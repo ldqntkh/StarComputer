@@ -8,9 +8,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-12-28 15:16+0700\n"
+"PO-Revision-Date: 2020-03-31 10:51+0700\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.3\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Language: vi\n"
@@ -19570,19 +19570,19 @@ msgstr ""
 
 #: includes/class-wc-form-handler.php:767
 msgid "Your order was cancelled."
-msgstr ""
+msgstr "Đơn hàng của bạn đã được hủy."
 
 #: includes/class-wc-form-handler.php:772
 msgid "Your order can no longer be cancelled. Please contact us if you need assistance."
-msgstr ""
+msgstr "Đơn hàng của bạn không thể hủy. Vui lòng liên hệ với chúng tôi nếu bạn cần hỗ trợ."
 
 #: includes/class-wc-form-handler.php:883
 msgid "Please choose the quantity of items you wish to add to your cart&hellip;"
-msgstr ""
+msgstr "Vui lòng chọn số lượng mặt hàng bạn muốn thêm vào giỏ hàng của bạn & hellip;"
 
 #: includes/class-wc-form-handler.php:891
 msgid "Please choose a product to add to your cart&hellip;"
-msgstr ""
+msgstr "Vui lòng chọn một sản phẩm để thêm vào giỏ hàng của bạn & hellip;"
 
 #: includes/class-wc-form-handler.php:955
 msgid "Please choose product options&hellip;"
@@ -19605,7 +19605,7 @@ msgstr ""
 
 #: includes/class-wc-form-handler.php:1033
 msgid "Username is required."
-msgstr ""
+msgstr "Yêu cầu tên đăng nhập"
 
 #: includes/class-wc-form-handler.php:1116
 msgid "Please enter your password."
@@ -24006,7 +24006,7 @@ msgstr ""
 #: templates/emails/customer-reset-password.php:27
 #: templates/emails/plain/customer-reset-password.php:25
 msgid "Someone requested that the password be reset for the following account:"
-msgstr ""
+msgstr "Ai đó đã yêu cầu mật khẩu mới cho tài khoản sau:"
 
 #: templates/emails/customer-reset-password.php:28
 #: templates/emails/plain/customer-reset-password.php:27
@@ -24050,11 +24050,11 @@ msgstr "Thông tin khách hàng"
 
 #: templates/emails/plain/admin-new-order.php:25
 msgid "You have received an order from %s."
-msgstr ""
+msgstr "Bạn vừa nhận được đơn hàng từ %s."
 
 #: templates/emails/plain/customer-new-account.php:28
 msgid "Your password is %s."
-msgstr ""
+msgstr "Mật khẩu của bạn là %s."
 
 #. translators: %s: Site title
 #: templates/emails/customer-refunded-order.php:35
@@ -24065,7 +24065,7 @@ msgstr "Đơn hàng của bạn vào ngày %s đã được hoàn tiền. Đây 
 #. translators: %s: Order ID.
 #: templates/emails/plain/email-order-details.php:25
 msgid "Order number: %s"
-msgstr ""
+msgstr "Đơn hàng: %s"
 
 #. translators: %s: Order link.
 #: templates/emails/plain/email-order-details.php:51
@@ -24079,7 +24079,7 @@ msgstr "Tên đăng nhập hoặc email"
 
 #: templates/global/form-login.php:51 templates/myaccount/form-login.php:57
 msgid "Remember me"
-msgstr ""
+msgstr "Ghi nhớ mật khẩu"
 
 #: templates/global/form-login.php:55 templates/myaccount/form-login.php:61
 msgid "Lost your password?"
@@ -24088,7 +24088,7 @@ msgstr "Bạn đã quên mật khẩu?"
 #. translators: %s: Quantity.
 #: templates/global/quantity-input.php:28
 msgid "%s quantity"
-msgstr ""
+msgstr "%s số lượng"
 
 #: templates/loop/no-products-found.php:24
 msgid "No products were found matching your selection."
@@ -24106,7 +24106,7 @@ msgstr[0] "Hiển thị tất cả %d sản phẩm"
 
 #: templates/loop/sale-flash.php:28 templates/single-product/sale-flash.php:28
 msgid "Sale!"
-msgstr ""
+msgstr "Giảm giá!"
 
 #. translators: 1: user display name 2: logout url
 #: templates/myaccount/dashboard.php:29
@@ -24204,7 +24204,7 @@ msgstr[0] ""
 
 #: templates/myaccount/my-orders.php:30
 msgid "Recent orders"
-msgstr "Đơn hang gần đây"
+msgstr "Đơn đặt hàng gần đây"
 
 #. translators: 1: formatted order total 2: total order items
 #: templates/myaccount/my-orders.php:67 templates/myaccount/orders.php:63
@@ -24327,7 +24327,7 @@ msgstr ""
 #: templates/single-product/rating.php:37
 msgid "%s customer review"
 msgid_plural "%s customer reviews"
-msgstr[0] "%s khách hang nhận xét"
+msgstr[0] "%s đánh giá của khách hàng"
 
 #: templates/single-product/related.php:27
 msgid "Related products"
@@ -24335,11 +24335,11 @@ msgstr "Những sản phẩm liên quan"
 
 #: templates/single-product/review-meta.php:27
 msgid "Your review is awaiting approval"
-msgstr ""
+msgstr "Nhận xét của bạn đang chờ được kiểm duyệt"
 
 #: templates/single-product/review-meta.php:37
 msgid "verified owner"
-msgstr ""
+msgstr "xác minh chủ tài khoản"
 
 #: templates/single-product/up-sells.php:27
 msgid "You may also like&hellip;"
@@ -24349,7 +24349,7 @@ msgstr "Bạn có thể thích&hellip;"
 #: templates/single-product-reviews.php:34
 msgid "%1$s review for %2$s"
 msgid_plural "%1$s reviews for %2$s"
-msgstr[0] ""
+msgstr[0] "%1$s đánh giá cho %2$s"
 
 #: templates/single-product-reviews.php:58
 msgid "There are no reviews yet."
@@ -24361,11 +24361,11 @@ msgstr "Thêm nhận xét"
 
 #: templates/single-product-reviews.php:71
 msgid "Be the first to review &ldquo;%s&rdquo;"
-msgstr ""
+msgstr "Hãy là người đầu tiên nhận xét &ldquo;%s&rdquo;"
 
 #: templates/single-product-reviews.php:72
 msgid "Leave a Reply to %s"
-msgstr ""
+msgstr "Trả lời bình luận %s"
 
 #: templates/single-product-reviews.php:82
 msgid "Submit"
@@ -24377,39 +24377,39 @@ msgstr "Bạn phải <a href=\"%s\">đăng nhập</a>để đăng nhận xét."
 
 #: templates/single-product-reviews.php:92
 msgid "Your rating"
-msgstr ""
+msgstr "Đánh giá của bạn"
 
 #: templates/single-product-reviews.php:93
 msgid "Rate&hellip;"
-msgstr ""
+msgstr "Xếp hạng&hellip;"
 
 #: templates/single-product-reviews.php:94
 msgid "Perfect"
-msgstr ""
+msgstr "Rất tốt"
 
 #: templates/single-product-reviews.php:95
 msgid "Good"
-msgstr ""
+msgstr "Tốt"
 
 #: templates/single-product-reviews.php:96
 msgid "Average"
-msgstr ""
+msgstr "Trung bình"
 
 #: templates/single-product-reviews.php:97
 msgid "Not that bad"
-msgstr ""
+msgstr "Không tệ"
 
 #: templates/single-product-reviews.php:98
 msgid "Very poor"
-msgstr ""
+msgstr "Rất tệ"
 
 #: templates/single-product-reviews.php:102
 msgid "Your review"
-msgstr ""
+msgstr "Nhận xét của bạn"
 
 #: templates/single-product-reviews.php:111
 msgid "Only logged in customers who have purchased this product may leave a review."
-msgstr ""
+msgstr "Chỉ những khách hàng đã đăng nhập và mua sản phẩm này mới có thể đưa ra đánh giá."
 
 #. Plugin URI of the plugin/theme
 msgid "https://woocommerce.com/"
