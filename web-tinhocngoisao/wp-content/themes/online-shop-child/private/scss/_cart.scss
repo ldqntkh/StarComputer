@@ -162,3 +162,13 @@ form.woocommerce-cart-form {
         }
     }
 }
+
+.single-cart-page {
+    article {
+        .woocommerce {
+            .woocommerce-error {
+                display: none;
+            }
+        }
+    }
+}
