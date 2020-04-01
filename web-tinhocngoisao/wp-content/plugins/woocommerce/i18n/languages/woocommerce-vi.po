@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-03-31 10:51+0700\n"
+"PO-Revision-Date: 2020-04-01 22:13+0700\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: Poedit 2.3\n"
 "Last-Translator: \n"
@@ -19605,7 +19605,7 @@ msgstr ""
 
 #: includes/class-wc-form-handler.php:1033
 msgid "Username is required."
-msgstr "Yêu cầu tên đăng nhập"
+msgstr "Yêu cầu tên đăng nhập."
 
 #: includes/class-wc-form-handler.php:1116
 msgid "Please enter your password."
@@ -24984,3 +24984,193 @@ msgstr "[Đơn hàng #%s]"
 #: includes/emails/class-wc-email-customer-invoice.php:58
 msgid "Your latest {site_title} invoice"
 msgstr "Hóa đơn mới nhất trong {site_title}"
+
+#: template state
+msgid "Order.billing.state.01"
+msgstr "Hà Nội"
+
+msgid "Order.billing.state.02"
+msgstr "Hà Giang"
+
+msgid "Order.billing.state.04"
+msgstr "Cao Bằng"
+
+msgid "Order.billing.state.06"
+msgstr "Bắc Kạn"
+
+msgid "Order.billing.state.08"
+msgstr "Tuyên Quang"
+
+msgid "Order.billing.state.10"
+msgstr "Lào Cai"
+
+msgid "Order.billing.state.11"
+msgstr "Điện Biên"
+
+msgid "Order.billing.state.12"
+msgstr "Lai Châu"
+
+msgid "Order.billing.state.14"
+msgstr "Sơn La"
+
+msgid "Order.billing.state.15"
+msgstr "Yên Bái"
+
+msgid "Order.billing.state.17"
+msgstr "Hoà Bình"
+
+msgid "Order.billing.state.19"
+msgstr "Thái Nguyên"
+
+msgid "Order.billing.state.20"
+msgstr "Lạng Sơn"
+
+msgid "Order.billing.state.22"
+msgstr "Quảng Ninh"
+
+msgid "Order.billing.state.24"
+msgstr "Bắc Giang"
+
+msgid "Order.billing.state.25"
+msgstr "Phú Thọ"
+
+msgid "Order.billing.state.26"
+msgstr "Vĩnh Phúc"
+
+msgid "Order.billing.state.27"
+msgstr "Bắc Ninh"
+
+msgid "Order.billing.state.30"
+msgstr "Hải Dương"
+
+msgid "Order.billing.state.31"
+msgstr "Hải Phòng"
+
+msgid "Order.billing.state.33"
+msgstr "Hưng Yên"
+
+msgid "Order.billing.state.34"
+msgstr "Thái Bình"
+
+msgid "Order.billing.state.35"
+msgstr "Hà Nam"
+
+msgid "Order.billing.state.36"
+msgstr "Nam Định"
+
+msgid "Order.billing.state.37"
+msgstr "Ninh Bình"
+
+msgid "Order.billing.state.38"
+msgstr "Thanh Hóa"
+
+msgid "Order.billing.state.40"
+msgstr "Nghệ An"
+
+msgid "Order.billing.state.42"
+msgstr "Hà Tĩnh"
+
+msgid "Order.billing.state.44"
+msgstr "Quảng Bình"
+
+msgid "Order.billing.state.45"
+msgstr "Quảng Trị"
+
+msgid "Order.billing.state.46"
+msgstr "Thừa Thiên Huế"
+
+msgid "Order.billing.state.48"
+msgstr "Đà Nẵng"
+
+msgid "Order.billing.state.49"
+msgstr "Quảng Nam"
+
+msgid "Order.billing.state.51"
+msgstr "Quảng Ngãi"
+
+msgid "Order.billing.state.52"
+msgstr "Bình Định"
+
+msgid "Order.billing.state.54"
+msgstr "Phú Yên"
+
+msgid "Order.billing.state.56"
+msgstr "Khánh Hòa"
+
+msgid "Order.billing.state.58"
+msgstr "Ninh Thuận"
+
+msgid "Order.billing.state.60"
+msgstr "Bình Thuận"
+
+msgid "Order.billing.state.62"
+msgstr "Kon Tum"
+
+msgid "Order.billing.state.64"
+msgstr "Gia Lai"
+
+msgid "Order.billing.state.66"
+msgstr "Đắk Lắk"
+
+msgid "Order.billing.state.67"
+msgstr "Đắk Nông"
+
+msgid "Order.billing.state.68"
+msgstr "Lâm Đồng"
+
+msgid "Order.billing.state.70"
+msgstr "Bình Phước"
+
+msgid "Order.billing.state.72"
+msgstr "Tây Ninh"
+
+msgid "Order.billing.state.74"
+msgstr "Bình Dương"
+
+msgid "Order.billing.state.75"
+msgstr "Đồng Nai"
+
+msgid "Order.billing.state.77"
+msgstr "Bà Rịa - Vũng Tàu"
+
+msgid "Order.billing.state.79"
+msgstr "Hồ Chí Minh"
+
+msgid "Order.billing.state.80"
+msgstr "Long An"
+
+msgid "Order.billing.state.82"
+msgstr "Tiền Giang"
+
+msgid "Order.billing.state.83"
+msgstr "Bến Tre"
+
+msgid "Order.billing.state.84"
+msgstr "Trà Vinh"
+
+msgid "Order.billing.state.86"
+msgstr "Vĩnh Long"
+
+msgid "Order.billing.state.87"
+msgstr "Đồng Tháp"
+
+msgid "Order.billing.state.89"
+msgstr "An Giang"
+
+msgid "Order.billing.state.91"
+msgstr "Kiên Giang"
+
+msgid "Order.billing.state.92"
+msgstr "Cần Thơ"
+
+msgid "Order.billing.state.93"
+msgstr "Hậu Giang"
+
+msgid "Order.billing.state.94"
+msgstr "Sóc Trăng"
+
+msgid "Order.billing.state.95"
+msgstr "Bạc Liêu"
+
+msgid "Order.billing.state.96"
+msgstr "Cà Mau"
