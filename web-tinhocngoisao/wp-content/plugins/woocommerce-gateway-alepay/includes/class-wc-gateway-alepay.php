@@ -504,6 +504,6 @@ class WC_Gateway_Alepay extends WC_Payment_Gateway {
         if (empty($stateCode)) {
             return '';
         }
-        return _e( 'Order.billing.state.' . $stateCode, 'woocommerce' );
+        return __( 'Order.billing.state.' . $stateCode, 'woocommerce' );
     }
 }
