@@ -448,18 +448,22 @@ class WC_Gateway_Alepay extends WC_Payment_Gateway {
             // update order status
             $order = wc_get_order($order_id);
             if ($order->status !== 'completed') {
-                if ($order->update_status('completed', __('Update completed after processing on Alepay. ', self::$domain))) {
-                    // Reduce stock levels
-                    $order->reduce_order_stock();
+                // Reduce stock levels
+                $order->reduce_order_stock();
+                // Remove cart
+                WC()->cart->empty_cart();
+                // if ($order->update_status('completed', __('Update completed after processing on Alepay. ', self::$domain))) {
+                //     // Reduce stock levels
+                //     $order->reduce_order_stock();
 
-                    // Remove cart
-                    WC()->cart->empty_cart();
+                //     // Remove cart
+                //     WC()->cart->empty_cart();
                     
-                    // Ghi log
-                    $log_content .= PHP_EOL.'- Da cap nhat trang thai hoa don sang [completed] ';
-                } else {
-                    $log_content .= PHP_EOL.'- Co loi khi cap nhat trang thai hoa don sang [completed] ';
-                }
+                //     // Ghi log
+                //     $log_content .= PHP_EOL.'- Da cap nhat trang thai hoa don sang [completed] ';
+                // } else {
+                //     $log_content .= PHP_EOL.'- Co loi khi cap nhat trang thai hoa don sang [completed] ';
+                // }
             }
             
             // update token
