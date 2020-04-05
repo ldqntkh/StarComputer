@@ -474,7 +474,9 @@ export default class MainComponent extends Component {
             <div className="main-installment">
                 <div className="header">
                     <h3>Công thức tính phí trả góp</h3>
-                    <i><strong>Lưu ý:</strong> công thức chỉ mang tính tham khảo. Hãy <a href="tel:0901379983">gọi cho chúng tôi</a> để được tư vấn chi tiết.</i>
+                    <p>
+                        { typeof installment_hotline !== 'undefined' && installment_hotline }
+                    </p>
                 </div>
                 <div className="input-price">
                     <label htmlFor="input-price">Nhập số tiền mua hàng(đ)</label>
@@ -528,7 +530,12 @@ export default class MainComponent extends Component {
                     {
                         congty == 'tindung' && this._renderTinDung()
                     }
+
+
                 </div>
+                <p>
+                    { typeof installment_message !== 'undefined' && installment_message }
+                </p>
             </div>
         )
     }

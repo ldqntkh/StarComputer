@@ -271,10 +271,16 @@ class StartBankFunction {
         // lấy bank
         $bank = new Bank();
         $bank_data = $bank->getBankData();
+
+        // lấy thông số cấu hình
+        $installment_hotline = isset( installmentOptions['installment_hotline'] ) ? trim( installmentOptions['installment_hotline'] ) : '';
+        $installment_message = isset( installmentOptions['installment_message'] ) ? trim( installmentOptions['installment_message'] ) : '';
     ?>
         <div id="installment"></div>
         <script>
             const bank_data = <?php echo json_encode( $bank_data ) ?>;
+            const installment_hotline = "<?php echo $installment_hotline ?>";
+            const installment_message = "<?php echo $installment_message ?>";
         </script>
     <?php }
 }

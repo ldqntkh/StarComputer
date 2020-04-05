@@ -16,7 +16,8 @@
             "custom_preferences_search" => "Search keywords",
             'custom_preferences_zalo' => "Zalo",
             'custom_preferences_facebook' => 'Facebook',
-            'custom_preferences_cache' => 'Cache'
+            'custom_preferences_cache' => 'Cache',
+            'custom_preferences_installment' => 'Trả góp'
         )
     );
 
@@ -27,6 +28,7 @@
     include CUSTOM_PREFERECE_DIR . '/zalo/custom-preference-zalo.php';
     include CUSTOM_PREFERECE_DIR . '/facebook/custom-preference-facebook.php';
     include CUSTOM_PREFERECE_DIR . '/cache/custom-preference-cache.php';
+    include CUSTOM_PREFERECE_DIR . '/installment/custom-preference-installment.php';
 
     add_action( 'admin_menu', 'custom_preferences_menu' );
 
@@ -45,7 +47,7 @@
         echo '<form action="options.php" method="post">';
         settings_fields( 'custom_preferences_options' );
         do_settings_sections( 'custom_preferences' );
-        echo '<input name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
+        echo '<input class="button" name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
         echo '</form></div>';
 
         // render search preferece
@@ -53,7 +55,7 @@
         echo '<form action="options.php" method="post" id="form-searchkey">';
         settings_fields( 'custom_preferences_search_options' );
         do_settings_sections( 'custom_preferences_search' );
-        echo '<input name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
+        echo '<input class="button" name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
         echo '</form></div>';
 
         // init zalo
@@ -61,7 +63,7 @@
         echo '<form action="options.php" method="post">';
         settings_fields( 'custom_preferences_zalo_options' );
         do_settings_sections( 'custom_preferences_zalo' );
-        echo '<input name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
+        echo '<input class="button" name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
         echo '</form></div>';
 
         // init facebook
@@ -69,7 +71,7 @@
         echo '<form action="options.php" method="post">';
         settings_fields( 'custom_preferences_facebook_options' );
         do_settings_sections( 'custom_preferences_facebook' );
-        echo '<input name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
+        echo '<input class="button" name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
         echo '</form></div>';
 
          // init cache
@@ -80,6 +82,14 @@
          //echo '<input name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
          //echo '</form>';
          echo '</div>';
+
+         // init installment
+        echo '<div id="custom_preferences_installment" class="custom_preferences_tab wrap" style="display:none">';
+        echo '<form action="options.php" method="post">';
+        settings_fields( 'custom_preferences_installment_options' );
+        do_settings_sections( 'custom_preferences_installment' );
+        echo '<input class="button" name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
+        echo '</form></div>';
     }
 
     
