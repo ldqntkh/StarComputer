@@ -278,9 +278,9 @@ class StartBankFunction {
     ?>
         <div id="installment"></div>
         <script>
+            const installment_hotline = `<?php echo $installment_hotline ?>`;
+            const installment_message = `<?php echo $installment_message ?>`;
             const bank_data = <?php echo json_encode( $bank_data ) ?>;
-            const installment_hotline = "<?php echo $installment_hotline ?>";
-            const installment_message = "<?php echo $installment_message ?>";
         </script>
     <?php }
 }
