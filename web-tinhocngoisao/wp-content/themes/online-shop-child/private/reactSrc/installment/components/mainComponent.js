@@ -474,9 +474,12 @@ export default class MainComponent extends Component {
             <div className="main-installment">
                 <div className="header">
                     <h3>Công thức tính phí trả góp</h3>
-                    <p>
-                        { typeof installment_hotline !== 'undefined' && installment_hotline }
-                    </p>
+                    
+                    { 
+                        typeof installment_hotline !== 'undefined' && 
+                        <div dangerouslySetInnerHTML={{ __html: installment_hotline }} />
+                    }
+                   
                 </div>
                 <div className="input-price">
                     <label htmlFor="input-price">Nhập số tiền mua hàng(đ)</label>
@@ -533,9 +536,12 @@ export default class MainComponent extends Component {
 
 
                 </div>
-                <p>
-                    { typeof installment_message !== 'undefined' && installment_message }
-                </p>
+                
+                { 
+                    typeof installment_message !== 'undefined' && 
+                    <div dangerouslySetInnerHTML={{ __html: installment_message }} />
+                }
+                
             </div>
         )
     }
