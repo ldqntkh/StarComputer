@@ -21,7 +21,6 @@ class AttributeItemComponent extends Component {
 
     render() {
         let {attribute_value} = this.props;
-        if ( attribute_value.length == 0 ) return null;
         return(
             <div className={ `attribute-item ${this.state.show_filter ? 'show' : ''}` }>
                 <div className="header-attr-name" onClick={this.toogleFilter}>

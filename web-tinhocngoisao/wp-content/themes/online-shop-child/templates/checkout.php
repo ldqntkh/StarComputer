@@ -3,9 +3,7 @@
 /*
     Template Name: Custom checkout page
 */
-    if ( PHP_SESSION_NONE === session_status() ) {
-        session_start();
-    }
+
     $step = 2; // login form
     $otherAddr = get_user_meta( wp_get_current_user()->ID, 'wc_multiple_shipping_addresses', true );
     $addressSelected = [];
@@ -30,8 +28,6 @@
         WC()->session->__unset( 'checkoutstep' );
         $step = 4;
     }
-
-    
     include_once( 'checkout/checkout-head.php' );
     include_once( 'checkout/checkout-body.php' );
     get_footer();
