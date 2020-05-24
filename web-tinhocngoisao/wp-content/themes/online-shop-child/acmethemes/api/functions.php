@@ -16,6 +16,7 @@ if ( class_exists( 'CDN_Enabler' ) ) {
 
 include plugin_dir_path( __FILE__ ) . '/categories/categoryMgr.php';
 include plugin_dir_path( __FILE__ ) . '/products/productMgr.php';
+include plugin_dir_path( __FILE__ ) . '/warranty/warranty.php';
 
 define( 'ROOT_ROUTE', 'rest_api/v1' );
 // register api route
@@ -35,5 +36,10 @@ add_action( 'rest_api_init', function () {
     register_rest_route( 'rest_api/v1', '/get_products_sales', array(
         'methods' => 'GET',
         'callback' => 'get_products_sales',
+    ) );
+
+    register_rest_route( 'rest_api/v1', '/check-bao-hanh', array(
+        'methods' => 'GET',
+        'callback' => 'check_bao_hanh',
     ) );
 } );
