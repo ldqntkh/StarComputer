@@ -191,6 +191,25 @@ var productdetailpage = {
             }, 2000);
         });
     },
+    handleCommentTab: function() {
+        var currentURL = location.href;
+        var $tabDescription = $('#tab-description');
+        if (currentURL.indexOf('#comment') !== -1 && !$tabDescription.is(':visible')) {
+            var $tabWrapper = $('.tab-wrapper');
+            var $tabWrapperLI = $tabWrapper.find('li');
+            var $tabContentWrapper = $tabDescription.find('.tab-content-wrapper');
+            var $tabContent = $tabContentWrapper.find('.tab-content');
+            // add class active to display tab
+            $tabWrapperLI.removeClass('active');
+            $tabWrapper.find($tabWrapperLI.length - 1).addClass('active');
+            // add class active to display content
+            $tabContent.removeClass('active');
+            $tabContent.eq($tabContent.length - 1).addClass('active');
+            // add class active to display tab in fixed section
+            $tabDescription.show();
+        }
+        return false;
+    },
     init: function() {
         let that = this;
         that.displayCountDownTime();
@@ -205,6 +224,7 @@ var productdetailpage = {
             that.handleEventOnClickQty();
         }
         that.handleViewProductRating();
+        that.handleCommentTab();
     }
 }
 
