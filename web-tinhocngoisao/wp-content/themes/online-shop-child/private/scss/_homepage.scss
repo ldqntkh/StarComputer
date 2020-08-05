@@ -20,6 +20,22 @@
     }
 }
 
+.coin-chart {
+    height: 300px;
+    iframe {
+        height: 100%;
+    }
+    @media screen and (min-width: 768px){
+        height: 400px;
+    }
+    @media screen and (min-width: 992px){
+        height: 500px;
+    }
+    @media screen and (min-width: 1200px){
+        height: 600px;
+    }
+}
+
 button[type=submit], input[type=submit] {
     background-color: red!important;
     color: white!important;

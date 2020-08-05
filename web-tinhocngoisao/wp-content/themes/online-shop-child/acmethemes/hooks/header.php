@@ -300,8 +300,13 @@ if ( ! function_exists( 'online_shop_header' ) ) :
                     else{
 	                    echo "<div class='center-wrapper-mx-width'>";
                     }
-	                $online_shop_enable_cart_icon = $online_shop_customizer_all_values['online-shop-enable-cart-icon'];
-	                $online_shop_enable_wishlist_icon = $online_shop_customizer_all_values['online-shop-enable-wishlist-icon'];
+                    $online_shop_enable_cart_icon = $online_shop_customizer_all_values['online-shop-enable-cart-icon'];
+                    $enable_sell = get_option( 'custom_preferences_options' )['enable_sell'];
+                    if ( $enable_sell !== "1" ) :
+                        $online_shop_enable_cart_icon = false;
+                    endif;
+
+                    echo '<script> const enable_sell = "'.($enable_sell === "1") .'"</script>';
 
 	                if ( online_shop_is_woocommerce_active() && ( $online_shop_enable_cart_icon || $online_shop_enable_wishlist_icon )) : ?>
                         <div class="cart-section">

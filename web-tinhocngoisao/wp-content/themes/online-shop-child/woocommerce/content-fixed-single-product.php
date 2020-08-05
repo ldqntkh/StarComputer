@@ -29,9 +29,15 @@ global $product;
                 </ul>
             </div>
         </div>
-        <div class="add-to-cart-form">
-            <?php  woocommerce_template_single_add_to_cart(); ?>
-        </div>
+        <?php 
+            if ( get_option( 'custom_preferences_options' )['enable_sell'] === "1" ) : ?>
+                <div class="add-to-cart-form">
+                    <?php  woocommerce_template_single_add_to_cart(); ?>
+                </div>
+        <?php
+            endif;
+        ?>
+        
         </div>
     </div>
 <?php endif; ?>

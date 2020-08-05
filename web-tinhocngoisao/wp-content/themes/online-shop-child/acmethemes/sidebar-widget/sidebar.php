@@ -268,6 +268,8 @@ function online_shop_widget_init(){
     register_widget( 'Online_Shop_Advanced_Image_Logo' );
     register_widget( 'Online_Shop_Featured_Page' );
     register_widget( 'Online_Shop_Social' );
+    require_once online_shop_file_directory('acmethemes/sidebar-widget/acme-wc-coin-chart.php');
+    register_widget( 'Online_Shop_Wc_Coin_Chart' );
     if ( online_shop_is_woocommerce_active() ) :
         register_widget( 'Online_Shop_Wc_Products' );
         register_widget( 'Online_Shop_Advanced_Search_Widget' );

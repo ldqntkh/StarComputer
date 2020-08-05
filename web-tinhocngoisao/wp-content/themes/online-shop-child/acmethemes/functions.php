@@ -657,7 +657,10 @@ add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_sin
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_excerpt', 9 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_gift_information', 11 );
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_social_share', 12 );
-add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_add_to_cart', 13 );
+if ( get_option( 'custom_preferences_options' )['enable_sell'] === "1" ) :
+    add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_single_add_to_cart', 13 );
+endif;
+
 add_action( 'woocommerce_single_product_summary_left', 'woocommerce_template_installment_information', 17 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_trading_information', 5 );
 add_action( 'woocommerce_single_product_summary_right', 'woocommerce_template_contact_information', 7 );

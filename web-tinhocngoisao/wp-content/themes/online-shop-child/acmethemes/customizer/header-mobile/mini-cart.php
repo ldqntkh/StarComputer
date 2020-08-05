@@ -1,4 +1,6 @@
-<div class="cart-section">
+<?php
+if ( get_option( 'custom_preferences_options' )['enable_sell'] === "1" ) : ?>
+    <div class="cart-section">
     <?php
     if( $online_shop_enable_cart_icon ){
         ?>
@@ -17,3 +19,4 @@
     }
     ?>
 </div> <!-- .cart-section -->
+<?php endif;

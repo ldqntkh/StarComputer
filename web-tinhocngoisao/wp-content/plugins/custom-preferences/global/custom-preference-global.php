@@ -5,6 +5,7 @@
         // config global
         register_setting( 'custom_preferences_options', 'custom_preferences_options' );
         add_settings_section( 'configuration_main', 'Configuration Settings', 'configuration_section_title', 'custom_preferences' );
+        add_settings_field( 'enable_sell', 'Kích hoạt chế độ bán hàng', 'enable_sell_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'fb_appId', 'Facebook App ID', 'fb_app_id_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'render_chatbox', 'Render Chat Box By Script', 'render_chatbox_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'google_map_key', 'Google map key', 'google_map_key_section', 'custom_preferences', 'configuration_main' );
@@ -12,6 +13,11 @@
         add_settings_field( 'list_product_type', 'Cấu hình buildPC', 'list_product_type_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'list_product_sale_price', 'Cấu hình danh sách bảng giá bán', 'list_product_sale_price_section', 'custom_preferences', 'configuration_main' );
         add_settings_field( 'render_footer_script', 'Render custom script in footer', 'render_script_footer', 'custom_preferences', 'configuration_main' );
+    }
+
+    function enable_sell_section() {
+        $enable_sell = get_option( 'custom_preferences_options' )['enable_sell'];
+        echo "<input type='checkbox' id='enable_sell' name='custom_preferences_options[enable_sell]' value='1' " . ($enable_sell === "1" ? 'checked' : '') . "/>";
     }
 
     function fb_app_id_section() {
