@@ -50,6 +50,7 @@ if ( ! function_exists( 'online_shop_setup' ) ) :
         register_nav_menus( array(
             'primary' => esc_html__( 'Primary Menu', 'online-shop' ),
             'top-menu' => esc_html__( 'Top Menu ( Support First Level Only )', 'online-shop' ),
+            'mobile-menu' => esc_html__( 'Mobile Menu', 'online-shop' ),
             'special-menu' => esc_html__( 'Special Menu ( Display Beside Primary Menu)', 'online-shop' ),
         ) );
 
