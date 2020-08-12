@@ -206,7 +206,7 @@ msgid "Nothing found field"
 msgstr ""
 
 #: includes/options.php:41
-msgid "Text when there is no search results. HTML tags is allowed."
+msgid "Text when there is no search results."
 msgstr ""
 
 #: includes/options.php:43
@@ -241,6 +241,12 @@ msgstr ""
 msgid "Show link to search results page at the bottom of search results block."
 msgstr ""
 
+msgid "Mobile full screen"
+msgstr ""
+
+msgid "Full screen search on focus. Will not works if search form is inside block with position: fixed."
+msgstr ""
+
 msgid "Search Results"
 msgstr ""
 
@@ -263,6 +269,12 @@ msgid "Choose search form layout"
 msgstr ""
 
 msgid "Filter button will be visible only if you have more than one active filter for current search form instance."
+msgstr ""
+
+msgid "Highlight words"
+msgstr ""
+
+msgid "Highlight search words inside products content."
 msgstr ""
 
 #: includes/options.php:49
@@ -296,7 +308,7 @@ msgid "Content"
 msgstr ""
 
 #: includes/options.php:80
-msgid "Excerpt"
+msgid "Short description"
 msgstr ""
 
 #: includes/options.php:85
@@ -327,22 +339,6 @@ msgstr ""
 
 #: includes/options.php:106
 msgid "What to show in product description?"
-msgstr ""
-
-#: includes/options.php:117
-msgid "Show categories archive"
-msgstr ""
-
-#: includes/options.php:118
-msgid "Include categories archives pages to search result."
-msgstr ""
-
-#: includes/options.php:129
-msgid "Show tags archive"
-msgstr ""
-
-#: includes/options.php:130
-msgid "Include tags archives pages to search results."
 msgstr ""
 
 #: includes/options.php:141
@@ -385,10 +381,6 @@ msgstr ""
 msgid "Search in"
 msgstr ""
 
-#: includes/options.php:176
-msgid "Search source: Drag&drop sources to activate or deactivate them."
-msgstr ""
-
 #: includes/options.php:30
 msgid "Show out-of-stock"
 msgstr ""
@@ -406,6 +398,12 @@ msgstr ""
 msgid "Re-index required on change."
 msgstr ""
 
+msgid "Synonyms"
+msgstr ""
+
+msgid "Comma separated list of synonym words. Each group of synonyms must be on separated text line."
+msgstr ""
+
 #: includes/options.php:42
 msgid "Use Google Analytics"
 msgstr ""
@@ -414,8 +412,14 @@ msgstr ""
 msgid "Use google analytics to track searches. You need google analytics to be installed on your site."
 msgstr ""
 
+msgid "Data will be visible inside Google Analytics 'Site Search' report. Need to activate 'Site Search' feature inside GA. %s"
+msgstr ""
+
+msgid "More info"
+msgstr ""
+
 #: includes/options.php:42
-msgid "Will send event with category - 'AWS search', action - 'AWS Search Term' and label of value of search term."
+msgid "Also will send event with category - 'AWS search', action - 'AWS Search Term' and label of value of search term."
 msgstr ""
 
 msgid "In stock"
@@ -434,4 +438,43 @@ msgstr ""
 
 #. Author of the plugin
 msgid "ILLID"
+msgstr ""
+
+msgid "Placeholder"
+msgstr ""
+
+msgid "Add placeholder text or leave empty to use default."
+msgstr ""
+
+msgid "Disable this source"
+msgstr ""
+
+msgid "Enable this source"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "Click on status icon to enable or disable search source."
+msgstr ""
+
+msgid "Search Source"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "Tag"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Archive pages"
+msgstr ""
+
+msgid "Search for taxonomies and displayed their archive pages in search results."
 msgstr ""
