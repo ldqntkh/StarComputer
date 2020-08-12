@@ -299,6 +299,9 @@
         }
 
         .checkout-address {
+            .form-shipping-address {
+                opacity: 0;
+            }
             .list-address {
                 display: flex;
                 flex-direction: column;
@@ -364,6 +367,32 @@
                     @media screen and (min-width: 480px) {
                         width: 400px;
                     }
+
+                    #addresses {
+                        .form-row {
+                            margin: 0;
+                            padding: 0;
+                            display: flex;
+                            flex-direction: column;
+                            margin-bottom: 10px;
+                            input {
+                                padding: 10px 5px;
+                                width: 100%;
+                                border-radius: 3px;
+                                border: 1px solid silver;
+                                font-size: 14px;
+                            }
+                        }
+                        .group-address {
+                            span.select2 {
+                                width: 100%!important;
+                                .select2-selection__rendered {
+                                    color: black;
+                                }
+                            }
+                        }
+                    }
+
                     .group-button {
                         display: flex;
                         justify-content: space-between;
@@ -390,16 +419,27 @@
         .checkout-payment {
             display: flex;
             flex-wrap: wrap;
-            flex-direction: column-reverse;
+            flex-direction: column;
             @media screen and (min-width: 1024px) {
                 flex-direction: row;
-                flex-wrap: nowrap;
             }
-            .paymnent-details {
+            >h2 {
+                width: 100%;
+            }
+            .payment-details {
                 flex: 3;
                 
                 @media screen and (min-width: 1024px) {
                     padding-right: 20px;
+                }
+                #payment {
+                    background-color: transparent;
+                    #place_order {
+                        border-radius: 5px;
+                        padding: 10px 25px;
+                        font-size: 18px;
+                        border: transparent;
+                    }
                 }
             }
             .order-details {

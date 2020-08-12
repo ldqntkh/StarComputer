@@ -12,18 +12,18 @@
                 if ($currentUser->ID !== 0) {
                     $otherAddr = get_user_meta( $currentUser->ID, 'multiple_shipping_addresses', true );
                 }
-
+                
                 if ($key && $otherAddr[$key]) {
                     WC()->session->set('address_key_selected', $key);
                     WC()->session->set('checkoutstep', 3);
+
+                    unset( $_POST['shipping_account_address_action'] );
+                    $page_url = get_permalink( wc_get_page_id( 'checkout' ) );
+                    wp_redirect( $page_url );
+                    die;
                 }
             }
-
-            unset( $_POST['shipping_account_address_action'] );
-
-            $page_url = get_permalink( wc_get_page_id( 'checkout' ) );
-            wp_redirect( $page_url );
-            exit;
+            WC()->session->set('checkoutstep', 3);
         }
     }
 

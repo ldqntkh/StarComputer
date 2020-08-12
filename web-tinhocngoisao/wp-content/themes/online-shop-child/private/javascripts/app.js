@@ -4,13 +4,14 @@ var cartpage = require('./cart');
 var accountpage = require('./account');
 var mobile_menu = require('./menu_mobile');
 var productdetailpage = require('./pdp');
-var checkoutpage = require('./checkout');
+// var checkoutpage = require('./checkout');
 var custom_filter = require('./custom_filter');
 var showRooms = require('./showroom');
 var footer = require('./footer');
-var address = require('./address');
+// var address = require('./address');
 
 import checkoutAddress from './checkout/address';
+import paymentCheckout from './checkout/payment';
 
 $(document).ready(function() {
     header_menu.init();
@@ -23,6 +24,6 @@ $(document).ready(function() {
     showRooms.init();
     footer.init();
     // address.init();
-
+    paymentCheckout.init();
     checkoutAddress.init();
 })

@@ -3,7 +3,7 @@
     
     $otherAddr = null;
     if ($user->ID !== 0) {
-        $otherAddr = get_user_meta( $user->ID, 'gearvn_multiple_shipping_addresses', true );
+        $otherAddr = get_user_meta( $user->ID, 'multiple_shipping_addresses', true );
     }
     
 ?>

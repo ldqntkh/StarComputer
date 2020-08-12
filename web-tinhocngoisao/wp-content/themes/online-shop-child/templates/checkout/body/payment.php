@@ -1,28 +1,47 @@
 
 <?php 
+
     $currentUser = wp_get_current_user();
     $otherAddr = [];
-    
     if ($currentUser->ID !== 0) {
-        $otherAddr = get_user_meta( $currentUser->ID, 'gearvn_multiple_shipping_addresses', true );
-    } else {
-        WC()->session->set( 'checkoutstep', 2 );
-        header('Location: '.$_SERVER['REQUEST_URI']);
-        die;
-    }
-
+        $otherAddr = get_user_meta( $currentUser->ID, 'multiple_shipping_addresses', true );
+    } 
+    // else {
+    //     WC()->session->set( 'checkoutstep', 2 );
+    //     header('Location: '.$_SERVER['REQUEST_URI']);
+    //     die;
+    // }
+    
     $addressSelected = null;
     $placeOrderText = __( 'Place order', 'woocommerce' );
 
     $address_key_selected = WC()->session->get('address_key_selected');
     $addressSelected = $otherAddr[$address_key_selected];
-
+    
     if (!$addressSelected) {
-        WC()->session->set( 'checkoutstep', 2 );
-        header('Location: '.$_SERVER['REQUEST_URI']);
-        die;
-    }
-
+        if ( $currentUser->ID !== 0 ) {
+            WC()->session->set( 'checkoutstep', 2 );
+            header('Location: '.$_SERVER['REQUEST_URI']);
+            die;
+        } else {
+            if ( !empty( $_POST['billing_phone'] ) && !empty( $_POST['billing_email'] ) && !empty( $_POST['billing_state'] ) ) {
+                $addressSelected  = array(
+                    "billing_last_name" => $_POST['billing_last_name'],
+                    "billing_phone" => $_POST['billing_phone'],
+                    "billing_email" => $_POST['billing_email'],
+                    "billing_state" => $_POST['billing_state'],
+                    "billing_city" => $_POST['billing_city'],
+                    "billing_address_1" => $_POST['billing_address_1'],
+                    "billing_address_2" => $_POST['billing_address_2']
+                );
+            } else {
+                WC()->session->set( 'checkoutstep', 2 );
+                header('Location: '.$_SERVER['REQUEST_URI']);
+                die;
+            }
+        }
+    } 
+    
     $chosen_methods = WC()->session->get( 'chosen_shipping_methods' );
     if ($chosen_methods && count($chosen_methods) > 0) {
         $chosen_method = reset($chosen_methods);
@@ -31,7 +50,7 @@
     WC()->session->set('billing_state', $addressSelected['billing_state']);
     WC()->session->set('billing_address_2', $addressSelected['billing_address_2']);
     
-    do_action( 'gearvn_checkout_update_order_review', $addressSelected );
+    do_action( 'checkout_update_order_review', $addressSelected );
     WC()->cart->calculate_shipping();
     WC()->cart->calculate_totals();
 ?>
@@ -89,7 +108,17 @@
                 <div class="info">
                     <p><strong><?php echo __('Họ tên:' , 'gearvn') ?></strong> <span><?php echo esc_html($addressSelected['billing_last_name']); ?></span></p>
                     <p><strong><?php echo __('Số điện thoại:' , 'gearvn') ?></strong> <span><?php echo esc_html($addressSelected['billing_phone']); ?></span></p>
-                    <p><strong><?php echo __('Địa chỉ:' , 'gearvn') ?></strong> <span><?php echo isset($addressSelected['full_address']) ? esc_html($addressSelected['full_address']) : ''; ?></span></p>
+                    <p><strong><?php echo __('Địa chỉ:' , 'gearvn') ?></strong> 
+                        <span>
+                            <?php 
+                                if( isset($addressSelected['full_address']) ) {
+                                    echo esc_html($addressSelected['full_address']);
+                                } else {
+                                    echo esc_html($addressSelected['billing_address_1']);
+                                }
+                            ?>
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>

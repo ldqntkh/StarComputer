@@ -1,5 +1,5 @@
 <?php
-  function gearvn_validate_address_checkout() {
+  function validate_address_checkout() {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         return null;
     }

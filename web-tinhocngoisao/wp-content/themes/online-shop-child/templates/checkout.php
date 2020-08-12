@@ -12,10 +12,9 @@
     }
 
     if ( isset( $_POST['shipping_account_address_action'] ) ) {
-        // die;
         save_shipping_addresses();
     }
-
+    
     $checkout_step = WC()->session->get('checkoutstep');
     if (empty( $checkout_step )) $checkout_step = 2;
     
@@ -32,10 +31,17 @@
     }
     else if ( WC()->session->__isset( 'checkoutstep' ) && ! isset( $wp->query_vars['order-received'] ) ) {
         $checkout_step = WC()->session->get('checkoutstep');
+        if ( isset( $_GET['step'] ) && $_GET['step'] === 'shipping' ) {
+            $checkout_step = 2;
+            $page_url = get_permalink( wc_get_page_id( 'checkout' ) );
+            wp_redirect( $page_url );
+            exit;
+        }
     } else if ( isset( $wp->query_vars['order-received'] ) ) {
         WC()->session->__unset( 'checkoutstep' );
         $checkout_step = 4;
     }
+    
     include_once( 'checkout/checkout-head.php' );
     include_once( 'checkout/checkout-body.php' );
     get_footer();

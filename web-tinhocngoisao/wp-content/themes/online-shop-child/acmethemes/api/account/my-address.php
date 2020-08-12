@@ -3,10 +3,8 @@
 require get_stylesheet_directory().'/acmethemes/helper/validate-address.php';
 
 add_action( 'wp_ajax_addaddress', 'add_adress_func', 20 );
-add_action( 'wp_ajax_nopriv_addaddress', 'add_adress_func_nopriv', 20 );
-function add_adress_func_nopriv (){
-  wp_send_json(array('messages' => '', 'key' => 0), 200);
-}
+add_action( 'wp_ajax_nopriv_addaddress', 'add_adress_func', 20 );
+
 function add_adress_func() {
   if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     wp_send_json(null, 204);
@@ -62,7 +60,11 @@ function add_adress_func() {
       $otherAddr[$new_key]['billing_address_2'] = $billing_address_2;
       $otherAddr[$new_key]['full_address'] = $_POST['full_address'];
 
-      update_user_meta( $customer_id, 'multiple_shipping_addresses', $otherAddr );
+      if ( $customer_id !== 0 ) {
+        update_user_meta( $customer_id, 'multiple_shipping_addresses', $otherAddr );
+      } else {
+        //
+      }
       
       wp_send_json(array('messages' => 'Lưu thành công', 'key' => $new_key), 200);
 

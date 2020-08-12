@@ -65,7 +65,7 @@ var checkoutAddress = {
                     data: { action: "load_diagioihanhchinh", matp: matp },
                     context: this,
                     beforeSend: function () {
-                        jQuery('body').addClass('gearvn_loading');
+                        jQuery('body').addClass('ajax_loading');
                     },
                     success: function (response) {
                         loading_billing = false;
@@ -82,7 +82,7 @@ var checkoutAddress = {
                                 window.updateUserCity();
                             }
                         }
-                        jQuery('body').removeClass('gearvn_loading');
+                        jQuery('body').removeClass('ajax_loading');
                     }
                 });
             }
@@ -100,7 +100,7 @@ var checkoutAddress = {
                         data: { action: "load_diagioihanhchinh", maqh: maqh },
                         context: this,
                         beforeSend: function () {
-                            jQuery('body').addClass('gearvn_loading');
+                            jQuery('body').addClass('ajax_loading');
                         },
                         success: function (response) {
                             $("#my-address-details #billing_address_2").html('').select2($defaultSetting);
@@ -116,7 +116,7 @@ var checkoutAddress = {
                                     window.updateUserAddress2();
                                 }
                             }
-                            jQuery('body').removeClass('gearvn_loading');
+                            jQuery('body').removeClass('ajax_loading');
                         }
                     });
                 }
@@ -195,7 +195,7 @@ var checkoutAddress = {
             //     $(this).clone().appendTo('.shipping_address_hidden_field_' + index);
             // });
             jQuery('input[name=shipping_address_key_selected]').val(key);
-            jQuery('body').addClass('gearvn_loading');
+            jQuery('body').addClass('ajax_loading');
             $('.form-shipping-address').submit();
         });
     },
@@ -290,7 +290,7 @@ var checkoutAddress = {
         jQuery(document).on('click', '#deleteAddress .modal-footer .btn-delete-address', function () {
             jQuery('#deleteAddress').modal('hide');
 
-            jQuery('body').addClass('gearvn_loading');
+            jQuery('body').addClass('ajax_loading');
         });
     },
     handleFillDataUpdate: function (data) {
@@ -340,7 +340,7 @@ var checkoutAddress = {
             return module.exports.showError(validation.errors, '.custom-checkout .address-form');
         }
 
-        jQuery('body').addClass('gearvn_loading');
+        jQuery('body').addClass('ajax_loading');
 
         validation.data.add_new_saved_address_field = jQuery('#add_new_saved_address_field').val();
 
@@ -350,7 +350,7 @@ var checkoutAddress = {
         validation.data.full_address = module.exports.joinFullAddress();
 
         jQuery.ajax({
-            url: gearvn_home_ajax + '?action=addaddress',
+            url: home_ajax + '?action=addaddress',
             method: 'POST',
             data: validation.data,
             success: function (res) {
@@ -361,7 +361,7 @@ var checkoutAddress = {
             error: function (err) {
                 module.exports.showError(err.responseJSON, '.custom-checkout .address-form');
 
-                jQuery('body').removeClass('gearvn_loading');
+                jQuery('body').removeClass('ajax_loading');
             }
         });
     },
@@ -373,6 +373,7 @@ var checkoutAddress = {
         template += `<input type="hidden" name="shipping_address_is_selected" value="true"/>`;
 
         jQuery('.form-shipping-address').append(template);
+        jQuery('.form-shipping-address').append(jQuery('#addresses'));
 
         jQuery('.form-shipping-address').submit();
     },
@@ -385,7 +386,7 @@ var checkoutAddress = {
             return module.exports.showError(validation.errors, '.custom-checkout .address-form');
         }
 
-        jQuery('body').addClass('gearvn_loading');
+        jQuery('body').addClass('ajax_loading');
 
         validation.data.add_new_saved_address_field = jQuery('#add_new_saved_address_field').val();
         validation.data.key_edit_address = jQuery('.custom-checkout .address-form .save-new-address').attr('data-key');
@@ -393,7 +394,7 @@ var checkoutAddress = {
         validation.data.full_address = module.exports.joinFullAddress();
 
         jQuery.ajax({
-            url: gearvn_home_ajax + '?action=update_address',
+            url: home_ajax + '?action=update_address',
             method: 'POST',
             data: validation.data,
             success: function (res) {
@@ -403,7 +404,7 @@ var checkoutAddress = {
                 if (err && err.needReloadPage) {
                     location.reload();
                 } else {
-                    jQuery('body').removeClass('gearvn_loading');
+                    jQuery('body').removeClass('ajax_loading');
 
                     module.exports.showError(err.responseJSON, '.custom-checkout .address-form');
                 }

@@ -6,7 +6,7 @@ var checkout = {
         this.listenCartUpdate();
 
         $('body').on('change', 'input[name=iCheck]', function () {
-            $('input[id="payment_method_gearvn_zalo_payment"]').prop('checked', true).trigger('change');
+            $('input[id="payment_method_zalo_payment"]').prop('checked', true).trigger('change');
         });
 
         $('body').on('click', '#apply_coupon_ajax', function () {
@@ -26,7 +26,7 @@ var checkout = {
     listenCartUpdate: function () {
         jQuery(document).on('updated_wc_div', function () {
             if (!jQuery('.woocommerce-cart .woocommerce-cart-form .woocommerce-cart-form__cart-item').length) {
-                jQuery('body').addClass('gearvn_loading');
+                jQuery('body').addClass('ajax_loading');
 
                 location.reload();
             }
