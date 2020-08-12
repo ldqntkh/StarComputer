@@ -1,0 +1,21 @@
+#linked_product_data .show_if_grouped .list-product-wrapper {
+    display: inline-flex;
+    font-size: 12px;
+}
+#linked_product_data .show_if_grouped .list-product-wrapper__label {
+    margin: 0;
+    padding: 0 21px 0 11px;
+}
+#linked_product_data .show_if_grouped .list-product-wrapper table {
+    width: 80%;
+}
+#linked_product_data .show_if_grouped .list-product-wrapper .product td, .label td {
+    text-align: center;
+}
+#linked_product_data .show_if_grouped .list-product-wrapper .product td:first-child, .label td:first-child {
+    text-align: left;
+}
+#linked_product_data .show_if_grouped .list-product-wrapper .remove {
+    cursor: pointer;
+    color: #f73838;
+}

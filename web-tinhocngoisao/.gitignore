@@ -4,7 +4,7 @@
 wp-content/uploads/
 */~/web-server/public
 ~/home-widget/assets/
-wp-content/*/*/assets
+wp-content/themes/*/assets
 
 wp-config.php
 wp-content/advanced-cache.php
