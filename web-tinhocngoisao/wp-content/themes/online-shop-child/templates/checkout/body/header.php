@@ -10,7 +10,7 @@
         <div class="checkout-step">
             <div class="progress-checkout">
                 <div class="row bs-wizard">
-                    <div class="bs-wizard-step bs-wizard-step-1 <?php if ($step == 1) echo 'active'; ?>">
+                    <div class="bs-wizard-step bs-wizard-step-1 <?php if ($checkout_step == 1) echo 'active'; ?>">
                         <div class="text-center bs-wizard-stepnum">
                             <span>Đặt hàng</span>
                         </div>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
 
-                    <div class="bs-wizard-step bs-wizard-step-2 <?php if ($step == 2) echo 'active'; else if ($step < 2) echo 'disabled'; ?>">
+                    <div class="bs-wizard-step bs-wizard-step-2 <?php if ($checkout_step == 2) echo 'active'; else if ($checkout_step < 2) echo 'disabled'; ?>">
                         <div class="text-center bs-wizard-stepnum">
                             <span class="hidden-xs">Địa Chỉ Giao Hàng</span>
                         </div>
@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <div class="bs-wizard-step bs-wizard-step-3 <?php if ($step == 3) echo 'active'; else if ($step < 3) echo 'disabled'; ?>">
+                    <div class="bs-wizard-step bs-wizard-step-3 <?php if ($checkout_step == 3) echo 'active'; else if ($checkout_step < 3) echo 'disabled'; ?>">
                         <div class="text-center bs-wizard-stepnum">
                             <span class="hidden-xs">Thanh Toán &amp; Đặt Mua</span>
                         </div>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
 
-                    <div class="bs-wizard-step bs-wizard-step-4 <?php if ($step == 4) echo 'active'; else if ($step < 4) echo 'disabled'; ?>">
+                    <div class="bs-wizard-step bs-wizard-step-4 <?php if ($checkout_step == 4) echo 'active'; else if ($checkout_step < 4) echo 'disabled'; ?>">
                         <div class="text-center bs-wizard-stepnum">
                             <span class="hidden-xs">Hoàn tất đặt hàng</span>
                         </div>
