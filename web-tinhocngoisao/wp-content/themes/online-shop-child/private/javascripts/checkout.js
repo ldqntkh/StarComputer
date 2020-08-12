@@ -22,45 +22,45 @@ var checkoutPage = {
             }
         });
 
-        $('.save-new-address').off('click').on('click', function(e) {
-            e.preventDefault();
-            var $addressForm = $(this).parents('form');
-            var $inputForm = $addressForm.parent().find('.input-form');
-            $inputForm.find('input, select, textarea').each(function() {
-                var $item = $(this);
-                $item.siblings('.error-value').remove();
-                if ( $item.hasClass('required-field') && $item.val() === ''  ) {
-                    $item.addClass('error-form');
-                    $item.parent().append('<span class="error-value">Đây là ô bắt buộc cần nhập</span>');
-                } else {
-                    $item.removeClass('error-form');
-                }
+        // $('.save-new-address').off('click').on('click', function(e) {
+        //     e.preventDefault();
+        //     var $addressForm = $(this).parents('form');
+        //     var $inputForm = $addressForm.parent().find('.input-form');
+        //     $inputForm.find('input, select, textarea').each(function() {
+        //         var $item = $(this);
+        //         $item.siblings('.error-value').remove();
+        //         if ( $item.hasClass('required-field') && $item.val() === ''  ) {
+        //             $item.addClass('error-form');
+        //             $item.parent().append('<span class="error-value">Đây là ô bắt buộc cần nhập</span>');
+        //         } else {
+        //             $item.removeClass('error-form');
+        //         }
 
-                if ( $item.prop('id') === 'phone' && $item.val() !== '' ) {
-                    var mobileRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-                    if ( !mobileRegex.test($(this).val()) ) {
-                        $item.addClass('error-form');
-                        $item.parent().append('<span class="error-value">Số điện thoại của bạn không hợp lệ</span>')
-                    } else {
-                        $item.removeClass('error-form');
-                    }
-                }
-            });
+        //         if ( $item.prop('id') === 'phone' && $item.val() !== '' ) {
+        //             var mobileRegex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        //             if ( !mobileRegex.test($(this).val()) ) {
+        //                 $item.addClass('error-form');
+        //                 $item.parent().append('<span class="error-value">Số điện thoại của bạn không hợp lệ</span>')
+        //             } else {
+        //                 $item.removeClass('error-form');
+        //             }
+        //         }
+        //     });
 
-            $('.update-address-form').find('.address-hidden-field').each(function() {
-                if ( $(this).parent().hasClass('selected') ) {
-                    checkoutPage.bindValueToSelectedHiddenField( $(this).parent() );
-                }
-            });
+        //     $('.update-address-form').find('.address-hidden-field').each(function() {
+        //         if ( $(this).parent().hasClass('selected') ) {
+        //             checkoutPage.bindValueToSelectedHiddenField( $(this).parent() );
+        //         }
+        //     });
 
-            if ( $('.error-form').length === 0 ) {
-                var input_action = $(this).parent().find('input[name="shipping_account_address_action"]');
-                if (input_action && input_action.val()==='update') {
-                    $addressForm.find('.shipping_address').remove();
-                }
-                $addressForm.submit();
-            }
-        });
+        //     if ( $('.error-form').length === 0 ) {
+        //         var input_action = $(this).parent().find('input[name="shipping_account_address_action"]');
+        //         if (input_action && input_action.val()==='update') {
+        //             $addressForm.find('.shipping_address').remove();
+        //         }
+        //         $addressForm.submit();
+        //     }
+        // });
     },
     bindValueToSelectedHiddenField: function($element) {
         var $fullNameHiddenField = $element.find('input[name="shipping_last_name[]"]'),

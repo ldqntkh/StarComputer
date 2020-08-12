@@ -6,18 +6,15 @@
     <div class="content-wrapper clearfix">
         <div id="content-checkout" class="wrapper">
         <?php
-            switch($step) {
-                case 1: // login
-                    include_once( 'body/login.php' );
+            switch( $checkout_step ) {
+                case 2:
+                    include_once( 'addresses.php' );
                     break;
-                case 2: // address
-                    include_once( 'body/address.php' );
+                case 3:
+                    include_once( 'payment.php' );
                     break;
-                case 3: // payment
-                    include_once( 'body/payment.php' );
-                    break;
-                case 4: // thank page
-                    include_once( 'body/thankpage.php' );
+                case 4:
+                    include_once( 'thankpage.php' );
                     break;
             }
         ?>

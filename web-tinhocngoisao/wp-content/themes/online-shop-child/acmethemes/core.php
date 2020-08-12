@@ -137,6 +137,9 @@ function online_shop_scripts() {
     wp_enqueue_script('respond', get_template_directory_uri() . '/assets/library/respond/respond.min.js', array('jquery'), '1.4.2', false);
     wp_script_add_data( 'respond', 'conditional', 'lt IE 9' );
 
+    if (is_account_page() || is_checkout() || is_home() || is_front_page()) {
+        wp_enqueue_script('validateJS', get_stylesheet_directory_uri() . '/assets/javascripts/validate.min.js', array('jquery'), '1.0.1');
+    }
 	/*slick slider*/
 	wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/library/slick/slick.css', array(), '1.8.1' );
 	wp_enqueue_script('slick', get_template_directory_uri() . '/assets/library/slick/slick.min.js', array('jquery'), '1.8.1', 1);
@@ -158,6 +161,13 @@ function online_shop_scripts() {
 
 }
 add_action( 'wp_enqueue_scripts', 'online_shop_scripts' );
+
+add_action( 'wp_enqueue_scripts', 'gearvn_home_script_ajax' );
+function gearvn_home_script_ajax() { ?>
+    <script>
+        const gearvn_home_ajax = '<?php echo admin_url( 'admin-ajax.php') ?>';
+    </script>
+<?php }
 
 /**
  * Enqueue admin scripts and styles.

@@ -9,15 +9,20 @@ var custom_filter = require('./custom_filter');
 var showRooms = require('./showroom');
 var footer = require('./footer');
 var address = require('./address');
+
+import checkoutAddress from './checkout/address';
+
 $(document).ready(function() {
     header_menu.init();
     cartpage.init();
     accountpage.init();
     mobile_menu.init();
     productdetailpage.init();
-    checkoutpage.init();
+    //checkoutpage.init();
     custom_filter.init();
     showRooms.init();
     footer.init();
-    address.init();
+    //address.init();
+
+    checkoutAddress.init();
 })
