@@ -1122,7 +1122,7 @@ class WC_REST_Products_Controller extends WC_REST_Products_V2_Controller {
 				),
 				'images'                => array(
 					'description' => __( 'List of images.', 'woocommerce' ),
-					'type'        => 'object',
+					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
@@ -1288,7 +1288,7 @@ class WC_REST_Products_Controller extends WC_REST_Products_V2_Controller {
 							),
 							'value' => array(
 								'description' => __( 'Meta value.', 'woocommerce' ),
-								'type'        => 'mixed',
+								'type'        => array( 'string', 'null' ),
 								'context'     => array( 'view', 'edit' ),
 							),
 						),

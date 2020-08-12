@@ -16,7 +16,8 @@
     $placeOrderText = __( 'Place order', 'woocommerce' );
 
     $address_key_selected = WC()->session->get('address_key_selected');
-    $addressSelected = $otherAddr[$address_key_selected];
+    if ( $address_key_selected )
+        $addressSelected = $otherAddr[$address_key_selected];
     
     if (!$addressSelected) {
         if ( $currentUser->ID !== 0 ) {
