@@ -2,14 +2,15 @@ import { SET_SCREEN_OPTIONS } from './actionTypes';
 
 const getInitialState = () => ({
   settings: {
+    sku: true,
     thumbnail: false,
     price: true,
     salePrice: true,
     weight: false,
-    manageStock: false,
-    stockStatus: false,
+    manageStock: true,
+    stockStatus: true,
     backorders: false,
-    stock: false,
+    stock: true,
     taxStatus: false,
     taxClass: false,
     shippingClass: false,
