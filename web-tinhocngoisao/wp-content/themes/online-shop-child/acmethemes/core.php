@@ -151,9 +151,14 @@ function online_shop_scripts() {
         wp_enqueue_script( 'comment-reply' );
     }
 
+    if (is_account_page() || is_checkout() || is_home() || is_front_page()) {
+        wp_enqueue_script('validateJS', get_stylesheet_directory_uri() . '/assets/javascripts/validate.min.js', array('jquery'), '1.0.1');
+    }
+
     //  render search section values
     $config_search_keys = get_option( 'custom_preferences_search_options' )['config_search_keys'];
     echo '<script> var $config_search_keys = ' . json_encode($config_search_keys) .';';
+    echo 'var home_ajax = "' . admin_url( 'admin-ajax.php') .'";';
     echo '</script>';
 
 }

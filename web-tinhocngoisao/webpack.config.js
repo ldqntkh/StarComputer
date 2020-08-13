@@ -61,7 +61,7 @@ module.exports = {
     plugins: [
         new CopyPlugin([
             // online theme
-            // { from: './wp-content/themes/online-shop-child/private/assets', to: './wp-content/themes/online-shop-child/assets' },
+            { from: './wp-content/themes/online-shop-child/private/assets', to: './wp-content/themes/online-shop-child/assets' },
         ]),
         new FixStyleOnlyEntriesPlugin(),
         new MiniCssExtractPlugin({
