@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
   products: getProducts(state),
   missingImages: getMissingImages(state, {
     ids: getProducts(state).items.map((product) => (
-      product.images.length > 0 ? product.images[0].id : false
+      product.images.length > 0 ? product.images[0].id : ((product.hasOwnProperty('image')) ? product.image : false)
     )).filter(Boolean),
   }),
   settings: getScreenOptions(state).settings,
@@ -50,7 +50,7 @@ const Products = (props) => {
   }, [fetchImages, settings.thumbnail, missingImages]);
 
   if (products.error) {
-    return <div>{__('Loading failed', 'stock-manager')}</div>;
+    return <div>{__('Loading failed', 'woocommerce-stock-manager')}</div>;
   }
 
   const handleOnLoad = () => {
@@ -90,14 +90,16 @@ const Products = (props) => {
             >
               {/* eslint-disable-next-line */}
               <a onClick={handleOrder('id', (filter.orderBy === 'id' && filter.order === 'desc') ? 'asc' : 'desc')}>
-                <span>{__('ID', 'stock-manager')}</span>
+                <span>{__('ID', 'woocommerce-stock-manager')}</span>
                 <span className="sorting-indicator" />
               </a>
             </th>
-            <th className="manage-column">{__('Product type', 'stock-manager')}</th>
-            <th className="manage-column">{__('SKU', 'stock-manager')}</th>
+            <th className="manage-column">{__('Product type', 'woocommerce-stock-manager')}</th>
+            {settings.sku && (
+              <th className="manage-column">{__('SKU', 'woocommerce-stock-manager')}</th>
+            )}
             {settings.thumbnail && (
-              <th>&nbsp;</th>
+              <th className="manage-column">{__('Thumbnail', 'woocommerce-stock-manager')}</th>
             )}
             {settings.productName && (
               <th
@@ -110,40 +112,40 @@ const Products = (props) => {
               >
                 {/* eslint-disable-next-line */}
                 <a onClick={handleOrder('title', (filter.orderBy === 'title' && filter.order === 'desc') ? 'asc' : 'desc')}>
-                  <span>{__('Product name', 'stock-manager')}</span>
+                  <span>{__('Product name', 'woocommerce-stock-manager')}</span>
                   <span className="sorting-indicator" />
                 </a>
               </th>
             )}
             {settings.taxStatus && (
-              <th className="manage-column">{__('Tax status', 'stock-manager')}</th>
+              <th className="manage-column">{__('Tax status', 'woocommerce-stock-manager')}</th>
             )}
             {settings.taxClass && (
-              <th className="manage-column">{__('Tax class', 'stock-manager')}</th>
+              <th className="manage-column">{__('Tax class', 'woocommerce-stock-manager')}</th>
             )}
             {settings.shippingClass && (
-              <th className="manage-column">{__('Shipping class', 'stock-manager')}</th>
+              <th className="manage-column">{__('Shipping class', 'woocommerce-stock-manager')}</th>
             )}
             {settings.price && (
-              <th className="manage-column">{__('Price', 'stock-manager')}</th>
+              <th className="manage-column">{__('Price', 'woocommerce-stock-manager')}</th>
             )}
             {settings.salePrice && (
-              <th className="manage-column">{__('Sale price', 'stock-manager')}</th>
+              <th className="manage-column">{__('Sale price', 'woocommerce-stock-manager')}</th>
             )}
             {settings.weight && (
-              <th className="manage-column">{__('Weight', 'stock-manager')}</th>
+              <th className="manage-column">{__('Weight', 'woocommerce-stock-manager')}</th>
             )}
             {settings.manageStock && (
-              <th className="manage-column">{__('Manage stock', 'stock-manager')}</th>
+              <th className="manage-column">{__('Manage stock', 'woocommerce-stock-manager')}</th>
             )}
             {settings.stockStatus && (
-              <th className="manage-column">{__('Stock status', 'stock-manager')}</th>
+              <th className="manage-column">{__('Stock status', 'woocommerce-stock-manager')}</th>
             )}
             {settings.backorders && (
-              <th className="manage-column">{__('Backorders', 'stock-manager')}</th>
+              <th className="manage-column">{__('Backorders', 'woocommerce-stock-manager')}</th>
             )}
             {settings.stock && (
-              <th className="manage-column">{__('Stock', 'stock-manager')}</th>
+              <th className="manage-column">{__('Stock', 'woocommerce-stock-manager')}</th>
             )}
           </tr>
         </thead>
@@ -155,7 +157,7 @@ const Products = (props) => {
       </table>
       {products.isFetching && (
         <p>
-          <strong>{__('Loading more results...', 'stock-manager')}</strong>
+          <strong>{__('Loading more results...', 'woocommerce-stock-manager')}</strong>
         </p>
       )}
       <InfiniteScroll

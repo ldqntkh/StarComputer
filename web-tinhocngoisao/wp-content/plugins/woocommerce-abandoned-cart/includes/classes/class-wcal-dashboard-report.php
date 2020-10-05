@@ -355,8 +355,8 @@ if ( ! class_exists( 'Wcal_Dashoard_Report' ) ) {
 
 				case 'last_quarter':
 					if ( $current_month >= 1 && $current_month <= 3 ) {
-						self::$start_timestamp = strtotime( '01-October-' . $current_year - 1 . '00:01:01' );
-						self::$end_timestamp   = strtotime( '31-December-' . $current_year - 1 . '23:59:59' );
+						self::$start_timestamp = strtotime( '01-October-' . ( $current_year - 1 ) . '00:01:01' );
+						self::$end_timestamp   = strtotime( '31-December-' . ( $current_year - 1 ) . '23:59:59' );
 					} elseif ( $current_month >= 4 && $current_month <= 6 ) {
 						self::$start_timestamp = strtotime( "01-January-$current_year" . '00:01:01' );
 						self::$end_timestamp   = strtotime( "31-March-$current_year" . '23:59:59' );
@@ -512,9 +512,11 @@ if ( ! class_exists( 'Wcal_Dashoard_Report' ) ) {
 
 						if ( isset( $cart_info ) && false !== $cart_info && count( get_object_vars( $cart_info ) ) > 0 ) {
 							$abandoned_count++;
-							foreach ( $cart_info->cart as $cart ) {
-								if ( isset( $cart->line_total ) ) {
-									$abandoned_amount += $cart->line_total;
+							if( isset( $cart_info->cart ) && count( get_object_vars( $cart_info->cart ) ) > 0 ) {
+								foreach ( $cart_info->cart as $cart ) {
+									if ( isset( $cart->line_total ) ) {
+										$abandoned_amount += $cart->line_total;
+									}
 								}
 							}
 						}

@@ -17,6 +17,7 @@ if ( class_exists( 'CDN_Enabler' ) ) {
 include plugin_dir_path( __FILE__ ) . '/categories/categoryMgr.php';
 include plugin_dir_path( __FILE__ ) . '/products/productMgr.php';
 include plugin_dir_path( __FILE__ ) . '/warranty/warranty.php';
+include plugin_dir_path( __FILE__ ) . '/account/my-address.php';
 
 define( 'ROOT_ROUTE', 'rest_api/v1' );
 // register api route

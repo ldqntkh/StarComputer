@@ -439,6 +439,12 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
             // Diacritical marks
             $string = strtr( $string, AWS_Helpers::get_diacritic_chars() );
 
+            if ( function_exists( 'mb_strtolower' ) ) {
+                $string = mb_strtolower( $string );
+            } else {
+                $string = strtolower( $string );
+            }
+
             /**
              * Filters normalized string
              *
@@ -481,11 +487,136 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
         }
 
         /*
+         * Singularize terms
+         * @param string $search_term Search term
+         * @return string Singularized search term
+         */
+        static public function singularize( $search_term ) {
+
+            $search_term_len = strlen( $search_term );
+            $search_term_norm = AWS_Plurals::singularize( $search_term );
+
+            if ( $search_term_norm && $search_term_len > 3 && strlen( $search_term_norm ) > 2 ) {
+                $search_term = $search_term_norm;
+            }
+
+            return $search_term;
+
+        }
+
+        /*
+         * Add synonyms
+         */
+        static public function get_synonyms( $str_array, $singular = false ) {
+
+            $synonyms = AWS()->get_settings( 'synonyms' );
+            $synonyms_array = array();
+            $new_str_array = array();
+
+            if ( $synonyms ) {
+                $synonyms_array = preg_split( '/\r\n|\r|\n|&#13;&#10;/', $synonyms );
+            }
+
+            if ( $str_array && is_array( $str_array ) && ! empty( $str_array ) && $synonyms_array && ! empty( $synonyms_array ) ) {
+
+                $synonyms_array = array_map( 'trim', $synonyms_array );
+
+                /**
+                 * Filters synonyms array before adding them to the index table where need
+                 * @since 1.79
+                 * @param array $synonyms_array Array of synonyms groups
+                 */
+                $synonyms_array = apply_filters( 'aws_synonyms_option_array', $synonyms_array );
+
+                foreach ( $synonyms_array as $synonyms_string ) {
+
+                    if ( $synonyms_string ) {
+
+                        $synonym_array = explode( ',', $synonyms_string );
+
+                        if ( $synonym_array && ! empty( $synonym_array ) ) {
+
+                            $synonym_array = array_map( array( 'AWS_Helpers', 'normalize_string' ), $synonym_array );
+                            if ( $singular ) {
+                                $synonym_array = array_map( array( 'AWS_Helpers', 'singularize' ), $synonym_array );
+                            }
+
+                            foreach ( $synonym_array as $synonym_item ) {
+
+                                if ( $synonym_item && isset( $str_array[$synonym_item] ) ) {
+                                    $new_str_array = array_merge( $new_str_array, $synonym_array );
+                                    break;
+                                }
+
+                                if ( $synonym_item && preg_match( '/\s/',$synonym_item )  ) {
+                                    $synonym_words = explode( ' ', $synonym_item );
+                                    if ( $synonym_words && ! empty( $synonym_words ) ) {
+
+                                        $str_array_keys = array_keys( $str_array );
+                                        $synonym_prev_word_pos = 0;
+                                        $use_this = true;
+
+                                        foreach ( $synonym_words as $synonym_word ) {
+                                            if ( $synonym_word && isset( $str_array[$synonym_word] ) ) {
+                                                $synonym_current_word_pos = array_search( $synonym_word, $str_array_keys );
+                                                $synonym_prev_word_pos = $synonym_prev_word_pos ? $synonym_prev_word_pos : $synonym_current_word_pos;
+
+                                                if ( ( $synonym_prev_word_pos !== $synonym_current_word_pos ) && ++$synonym_prev_word_pos !== $synonym_current_word_pos ) {
+                                                    $use_this = false;
+                                                    break;
+                                                }
+
+                                            } else {
+                                                $use_this = false;
+                                                break;
+                                            }
+                                        }
+
+                                        if ( $use_this ) {
+                                            $new_str_array = array_merge( $new_str_array, $synonym_array );
+                                            break;
+                                        }
+
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+
+            if ( $new_str_array ) {
+                $new_str_array = array_unique( $new_str_array );
+                foreach ( $new_str_array as $new_str_array_item ) {
+                    if ( ! isset( $str_array[$new_str_array_item] ) ) {
+                        $str_array[$new_str_array_item] = 1;
+                    }
+                }
+            }
+
+            return $str_array;
+
+        }
+
+        /*
          * Strip shortcodes
          */
         static public function strip_shortcodes( $str ) {
+
+            /**
+             * Filter content string before striping shortcodes
+             * @since 2.01
+             * @param string $str
+             */
+            $str = apply_filters( 'aws_before_strip_shortcodes', $str );
+
             $str = preg_replace( '#\[[^\]]+\]#', '', $str );
             return $str;
+
         }
 
         /*
@@ -581,6 +712,190 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
             }
 
             return $current_lang;
+
+        }
+
+        /*
+         * Get search form action link
+         *
+         * @return string Search URL
+         */
+        static public function get_search_url() {
+
+            $search_url = home_url( '/' );
+
+            if ( function_exists( 'pll_home_url' ) ) {
+
+                $search_url = pll_home_url();
+
+                if ( get_option( 'show_on_front' ) === 'page' ) {
+
+                    $current_language = pll_current_language();
+                    $default_language = pll_default_language();
+
+                    if ( $current_language != $default_language ) {
+                        if ( strpos( $search_url, '/' . $current_language ) !== false ) {
+                            $language_subdir = $current_language.'/';
+                            $search_url = home_url( '/' . $language_subdir );
+                        }
+                    }
+
+                }
+
+            }
+
+            return $search_url;
+
+        }
+
+        /*
+         * Get string with current product terms names
+         *
+         * @return string List of terms names
+         */
+        static public function get_terms_array( $id, $taxonomy ) {
+
+            $terms = wp_get_object_terms( $id, $taxonomy );
+
+            if ( is_wp_error( $terms ) ) {
+                return '';
+            }
+
+            if ( empty( $terms ) ) {
+                return '';
+            }
+
+            $tax_array_temp = array();
+            $source_name = AWS_Helpers::get_source_name( $taxonomy );
+
+            foreach ( $terms as $term ) {
+                $source = $source_name . '%' . $term->term_id . '%';
+                $tax_array_temp[$source] = $term->name;
+            }
+
+            return $tax_array_temp;
+
+        }
+
+        /**
+         * Get product quantity
+         * @param  object $product Product
+         * @return integer
+         */
+        static public function get_quantity( $product ) {
+
+            $stock_levels = array();
+
+            if ( $product->is_type( 'variable' ) ) {
+                foreach ( $product->get_children() as $variation ) {
+                    $var = wc_get_product( $variation );
+                    $stock_levels[] = $var->get_stock_quantity();
+                }
+            } else {
+                $stock_levels[] = $product->get_stock_quantity();
+            }
+
+            return max( $stock_levels );
+
+        }
+
+        /**
+         * Get array of allowed tags for wp_kses function
+         * @param array $allowed_tags Tags that is allowed to display
+         * @return array $tags
+         */
+        static public function get_kses( $allowed_tags = array() ) {
+
+            $tags = array(
+                'a' => array(
+                    'href' => array(),
+                    'title' => array()
+                ),
+                'br' => array(),
+                'em' => array(),
+                'strong' => array(),
+                'b' => array(),
+                'code' => array(),
+                'blockquote' => array(
+                    'cite' => array(),
+                ),
+                'p' => array(),
+                'i' => array(),
+                'h1' => array(),
+                'h2' => array(),
+                'h3' => array(),
+                'h4' => array(),
+                'h5' => array(),
+                'h6' => array(),
+                'img' => array(
+                    'alt' => array(),
+                    'src' => array()
+                )
+            );
+
+            if ( is_array( $allowed_tags ) && ! empty( $allowed_tags ) ) {
+                foreach ( $tags as $tag => $tag_arr ) {
+                    if ( array_search( $tag, $allowed_tags ) === false ) {
+                        unset( $tags[$tag] );
+                    }
+                }
+
+            }
+
+            return $tags;
+
+        }
+
+        /**
+         * Filter search page results by taxonomies
+         * @param array $product_terms Available product terms
+         * @param array $filter_terms Filter terms
+         * @param string $operator Operator
+         * @return bool $skip
+         */
+        static public function page_filter_tax( $product_terms, $filter_terms, $operator = 'OR' ) {
+
+            $skip = true;
+
+            if ( $filter_terms && is_array( $filter_terms ) && ! empty( $filter_terms ) ) {
+
+                if ( $operator === 'AND' ) {
+
+                    $has_all = true;
+
+                    foreach( $filter_terms as $term ) {
+                        if ( array_search( $term, $product_terms ) === false ) {
+                            $has_all = false;
+                            break;
+                        }
+                    }
+
+                    if ( $has_all ) {
+                        $skip = false;
+                    }
+
+                }
+
+                if ( $operator === 'IN' || $operator === 'OR' ) {
+
+                    $has_all = false;
+
+                    foreach( $filter_terms as $term ) {
+                        if ( array_search( $term, $product_terms ) !== false ) {
+                            $has_all = true;
+                            break;
+                        }
+                    }
+
+                    if ( $has_all ) {
+                        $skip = false;
+                    }
+
+                }
+
+            }
+
+            return $skip;
 
         }
 
