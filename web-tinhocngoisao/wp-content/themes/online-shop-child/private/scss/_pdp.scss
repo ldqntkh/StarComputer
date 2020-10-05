@@ -783,7 +783,8 @@
         li {
             width: 49.8%;
             background: white;
-            border: 1px solid #f3f3f3;
+            border: 1px solid transparent;
+            border-top-color: #f3f3f3;
             margin: 0 0 10px;
             overflow: hidden;
             @media screen and (min-width: 768px) {

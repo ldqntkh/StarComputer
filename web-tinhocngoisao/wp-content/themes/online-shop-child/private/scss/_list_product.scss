@@ -1,6 +1,13 @@
 .featured-entries-col .post-container {
     padding: 1px !important;
-    border: 1px solid #f3f3f3;
+    border: 2px solid transparent;
+    overflow: hidden;
+    &:hover {
+        border-color: #f3f3f3;
+        a {
+            transform: scale(1.05);
+        }
+    }
     a {
         div.image {
             width: 100%;
@@ -40,35 +47,32 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 340px;
+    // height: 340px;
     padding-left: 0;
     padding-right: 0;
     overflow: hidden;
+
     @media screen and (min-width: 768px) {
-        height: 380px;
+        // height: 380px;
         align-items: center;
     }
     @media screen and (min-width: 992px) {
-        height: 400px;
+        // height: 400px;
         padding: 10px;
     }
     @media screen and (min-width: 1366px) {
-        height: 450px;
+        // height: 450px;
     }
     @media screen and (min-width: 1400px) {
-        height: 400px;
+        // height: 400px;
     }
     &:hover {
-        a.yith-wcqv-button {
-            display: block;
-            position: absolute;
-            border: 1px solid #f3f3f3;
-            border-radius: 3px;
-            -webkit-transition: all 0.5s ease-in-out;
-            transition: all 0.5s ease-in-out;
-            box-shadow:20px 20px 50px 15px rgba(128, 128, 128, 0.322);
+        border-color: #f3f3f3;
+        a {
+            transform: scale(1.05);
         }
     }
+    
     a:nth-child(1) {
         display: flex;
         flex-direction: column;
@@ -223,7 +227,8 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
         li {
             background-color: white;
             width: 49.8%;
-            border: 1px solid #f3f3f3;
+            border: 1px solid transparent;
+            border-top-color: #f3f3f3;
             margin: 0;
             overflow: hidden;
             @media screen and (min-width: 768px) {
@@ -232,6 +237,12 @@ ul.custom-pdp-page.products[class*=columns-] li.product {
             @media screen and (min-width: 1400px) {
                 width: 24.9%;
                 margin: 0px;
+            }
+            &:hover {
+                border-color: #f3f3f3;
+                a {
+                    transform: scale(1.05);
+                }
             }
         }
     }

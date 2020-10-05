@@ -4,8 +4,23 @@
         #primary {
             width: 100%;
             @media screen and (min-width: 1024px) {
-                margin-top: 60px;
+                margin-top: 50px;
                 width: calc(100% - 310px);
+            }
+            #main {
+                background-color: white;
+                .woocommerce-result-count {
+                    margin: 0;
+                    padding: 10px 5px;
+                }
+                .woocommerce-ordering {
+                    margin: 0;
+                    padding: 10px 5px;
+                    .orderby {
+                        border: 1px solid silver;
+                        border-radius: 5px;
+                    }
+                }
             }
         }
         #secondary-left {

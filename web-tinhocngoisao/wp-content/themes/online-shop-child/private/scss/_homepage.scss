@@ -705,6 +705,7 @@ h2.woocommerce-loop-product__title {
                 width: 100%;
                 margin: 0;
                 margin-bottom: 10px;
+
                 a {
                     h3 {
                         font-size: 14px;
@@ -719,8 +720,16 @@ h2.woocommerce-loop-product__title {
                 .slick-slider {
                     width: 100%;
                     margin-left: 0;
+                    
                     .slick-slide {
-                        border-bottom: 2px solid #c0c0c01a;
+                        border-bottom: 2px solid transparent;
+                        overflow: hidden;
+                        &:hover {
+                            border-color: #c0c0c01a;
+                            a {
+                                transform: scale(1.05);
+                            }
+                        }
                         a {
                             background-color: #fff;
                         }
@@ -1204,28 +1213,34 @@ h2.woocommerce-loop-product__title {
         flex-wrap: wrap;
         li {
             background: #fff;
-            border: 1px solid #f3f3f3;
+            border: 1px solid transparent;
             padding: 10px;
-            height: 340px;
+            // height: 340px;
             position: relative;
             overflow: hidden;
             width: 49.8%;
             @media screen and (min-width: 768px) {
-                height: 380px;
+                // height: 380px;
                 align-items: center;
                 width: 33.2%;
             }
             @media screen and (min-width: 992px) {
-                height: 400px;
+                // height: 400px;
                 padding: 10px;
                 width: 24.9%;
             }
             @media screen and (min-width: 1366px) {
-                height: 450px;
+                // height: 450px;
             }
             @media screen and (min-width: 1400px) {
-                height: 400px;
+                // height: 400px;
                 width: 19.9%;
+            }
+            &:hover {
+                border-color: #f3f3f3;
+                a {
+                    transform: scale(1.05);
+                }
             }
             .woocommerce-loop-product__link {
                 display: flex;

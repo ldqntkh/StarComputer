@@ -3,7 +3,14 @@
 .content-wrapper {
     margin-top: 60px;
     @media screen and (min-width: 1300px){
-        margin-top: 10px;
+        margin-top: 0px;
+    }
+}
+.home {
+    .content-wrapper {
+        @media screen and (min-width: 1300px){
+            margin-top: 10px;
+        }
     }
 }
 .header-freezing {
