@@ -42,4 +42,9 @@ add_action( 'rest_api_init', function () {
         'methods' => 'GET',
         'callback' => 'check_bao_hanh',
     ) );
+
+    register_rest_route( 'rest_api/v1', '/product/update/(?P<id>\d+)', array(
+        'methods' => 'POST',
+        'callback' => 'update_product_info',
+    ) );
 } );
