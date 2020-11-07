@@ -339,7 +339,12 @@ if ( !function_exists( 'update_product_info' ) ) {
         $qty_key = '_stock';
         $price_key = '_price';
         $regular_price_key = '_regular_price';
-    
+
+        $response = array(
+            'status' => true,
+            'message'=> 'Update success'
+        );
+
         if ( empty( $existed_product ) ) {
             return wp_send_json(
                 array(
@@ -352,11 +357,9 @@ if ( !function_exists( 'update_product_info' ) ) {
         if ( !empty( $qty ) ) {
             $updated_qty = update_post_meta( $alias, $qty_key, $qty );
             if (!$updated_qty ) {
-                return wp_send_json(
-                    array(
-                        'status' => false,
-                        'message' => 'Can not update qty in web api'
-                    )
+                $response = array(
+                    'status' => false,
+                    'message'=> 'Can not update qty in web api'
                 );
             }
         }
@@ -365,19 +368,12 @@ if ( !function_exists( 'update_product_info' ) ) {
         //     $updated_price = update_post_meta( $alias, $price_key, $price );
         //     $updated_regular_price = update_post_meta( $alias, $regular_price_key, $price );
         //     if ( !$updated_price || !$updated_regular_price ) {
-        //         return wp_send_json(
-        //             array(
-        //                 'status' => false,
-        //                 'message' => 'Can not update price in web api'
-        //             )
+        //         $response = array(
+        //             'status' => false,
+        //             'message'=> 'Can not update price in web api'
         //         );
         //     }
         // }
-        return wp_send_json(
-                array(
-                    'message' => 'Update success',
-                    'status' => true
-                )
-            );
+        return wp_send_json($response);
     }
 }
