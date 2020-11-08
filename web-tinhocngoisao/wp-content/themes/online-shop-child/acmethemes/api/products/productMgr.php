@@ -335,7 +335,7 @@ if ( !function_exists( 'update_product_info' ) ) {
         $qty = $parameters['qty'];
         $price = $parameters['price'];
         $existed_product = get_post_meta( $alias );
-    
+        
         $qty_key = '_stock';
         $price_key = '_price';
         $regular_price_key = '_regular_price';
@@ -354,12 +354,17 @@ if ( !function_exists( 'update_product_info' ) ) {
             );
         }
 
-        if ( !empty( $qty ) ) {
+        if ( isset($qty) && $qty >= 0 ) {
             $updated_qty = update_post_meta( $alias, $qty_key, $qty );
             if (!$updated_qty ) {
                 $response = array(
                     'status' => false,
-                    'message'=> 'Can not update qty in web api'
+                    'message'=> 'Can not update qty in web api: '. $qty 
+                );
+            } else {
+                $response = array(
+                    'status' => true,
+                    'message'=> 'Update qty success'
                 );
             }
         }
