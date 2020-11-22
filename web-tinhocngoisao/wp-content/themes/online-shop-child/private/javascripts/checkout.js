@@ -159,6 +159,10 @@ var checkoutPage = {
         $(document.body).on('updated_checkout', function() {
             checkoutPage.deInitProccessingLoader($('body'));
         });
+        // listen event after submit order error
+        $(document.body).on('checkout_error', function() {
+            checkoutPage.deInitProccessingLoader($('body'));
+        });
         // listen event order is submitting
         $('.woocommerce-checkout').on('submit', function() {
             checkoutPage.initProccessingLoader($('body'));
