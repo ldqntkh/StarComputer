@@ -32,25 +32,32 @@ function get_products_by_custom_type(WP_REST_Request $request) {
             "data" => null 
         );
     } else {
+        $transient_key = 'get_products_by_custom_type'. 'build-pc-'. $custom_type;
         $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
         $current_time = $current_time->format('Y-m-d');
-        $cache_result = get_cache_by_key('get_products_by_custom_type', 'build-pc-'. $custom_type .'.txt');
+        // $cache_result = get_cache_by_key('get_products_by_custom_type', 'build-pc-'. $custom_type .'.txt');
+        $cache_result = get_transient ( $transient_key );
         if ($cache_result) {
-            $cache_time = $cache_result['time'];
-            if ($cache_time) {
-                $date_1 = strtotime($cache_time);
-                $date_2 = strtotime($current_time);
-                $datediff = $date_2 - $date_1;
-                $day = round($datediff / (60 * 60 * 24));
-                if ($day < 1) {
+            // $cache_time = $cache_result['time'];
+            // if ($cache_time) {
+            //     $date_1 = strtotime($cache_time);
+            //     $date_2 = strtotime($current_time);
+            //     $datediff = $date_2 - $date_1;
+            //     $day = round($datediff / (60 * 60 * 24));
+            //     if ($day < 1) {
                     
-                    return array(
-                        "success" => true,
-                        "errMsg" => "",
-                        "data" => $cache_result['data'] 
-                    );
-                }
-            }
+            //         return array(
+            //             "success" => true,
+            //             "errMsg" => "",
+            //             "data" => $cache_result['data'] 
+            //         );
+            //     }
+            // }
+            return array(
+                "success" => true,
+                "errMsg" => "",
+                "data" => $cache_result['data'] 
+            );
         }
 
         $query_args = array(
@@ -132,8 +139,12 @@ function get_products_by_custom_type(WP_REST_Request $request) {
             }
         endwhile;
 
-        set_cache_by_key('get_products_by_custom_type', array("time" => $current_time, "data" => $arrProducts), 'build-pc' .$custom_type. '.txt');
+        // set_cache_by_key('get_products_by_custom_type', array("time" => $current_time, "data" => $arrProducts), 'build-pc' .$custom_type. '.txt');
         wp_reset_query();
+        $output = array(
+            'data' => $arrProducts 
+        );
+        set_transient( $transient_key, $output, 60*60 );
         return array(
             "success" => true,
             "errMsg" => "",
