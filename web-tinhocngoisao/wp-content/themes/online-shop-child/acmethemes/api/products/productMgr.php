@@ -357,28 +357,33 @@ if ( !function_exists( 'update_product_info' ) ) {
         if ( isset($qty) && $qty >= 0 ) {
             $updated_qty = update_post_meta( $alias, $qty_key, $qty );
             if (!$updated_qty ) {
-                $response = array(
+                $response[] = array(
                     'status' => false,
                     'message'=> 'Can not update qty in web api: '. $qty 
                 );
             } else {
-                $response = array(
+                $response[] = array(
                     'status' => true,
                     'message'=> 'Update qty success'
                 );
             }
         }
         
-        // if ( !empty( $price ) ) {
-        //     $updated_price = update_post_meta( $alias, $price_key, $price );
-        //     $updated_regular_price = update_post_meta( $alias, $regular_price_key, $price );
-        //     if ( !$updated_price || !$updated_regular_price ) {
-        //         $response = array(
-        //             'status' => false,
-        //             'message'=> 'Can not update price in web api'
-        //         );
-        //     }
-        // }
+        if ( !empty( $price ) ) {
+            $updated_price = update_post_meta( $alias, $price_key, $price );
+            // $updated_regular_price = update_post_meta( $alias, $regular_price_key, $price );
+            if ( !$updated_price ) {
+                $response[] = array(
+                    'status' => false,
+                    'message'=> 'Can not update price in web api'
+                );
+             }else {
+                $response[] = array(
+                    'status' => true,
+                    'message'=> 'Update price success'
+                );
+            }
+        }
         return wp_send_json($response);
     }
 }
