@@ -339,6 +339,7 @@ if ( !function_exists( 'update_product_info' ) ) {
         $qty_key = '_stock';
         $price_key = '_price';
         $regular_price_key = '_regular_price';
+        $sale_price_key = '_sale_price';
 
         $response = array(
             'status' => true,
@@ -370,12 +371,27 @@ if ( !function_exists( 'update_product_info' ) ) {
         }
         
         if ( !empty( $price ) ) {
-            $updated_price = update_post_meta( $alias, $price_key, $price );
-            // $updated_regular_price = update_post_meta( $alias, $regular_price_key, $price );
+            // get giá sale và giá gốc
+            $sale_price = get_post_meta( $alias, $sale_price_key, true );
+            if ( $sale_price && $sale_price > 0 ) {
+                if( $price <= $sale_price ) {
+                    $updated_sale_price = update_post_meta( $alias, $sale_price_key, $price );
+                    // $updated_regular_price = update_post_meta( $alias, $regular_price_key, $price );
+                    $updated_price = update_post_meta( $alias, $price_key, $price );
+                } else {
+                    $updated_price = update_post_meta( $alias, $regular_price_key, $price );
+                    $updated_price = update_post_meta( $alias, $price_key, $sale_price );
+                }
+            } else {
+                $updated_regular_price = update_post_meta( $alias, $regular_price_key, $price );
+                $updated_price = update_post_meta( $alias, $price_key, $price );
+            }
+            // hiện tại chỉ update giá bán gốc
+            // $updated_price = update_post_meta( $alias, $regular_price_key, $price );
             if ( !$updated_price ) {
                 $response[] = array(
                     'status' => false,
-                    'message'=> 'Can not update price in web api'
+                    'message'=> 'Can not update price in web api: ' . $price
                 );
              }else {
                 $response[] = array(
