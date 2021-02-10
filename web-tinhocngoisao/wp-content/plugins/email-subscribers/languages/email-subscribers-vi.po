@@ -1,0 +1,36 @@
+# Translation of WordPress - 4.9.x - Development in Vietnamese
+# This file is distributed under the same license as the WordPress - 4.9.x - Development package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-12-29 10:22+0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.3\n"
+"Language: vi_VN\n"
+"Project-Id-Version: WordPress - 4.9.x - Development\n"
+"POT-Creation-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+
+#: ../classes/es-register.php:1152
+msgid "Subscribe"
+msgstr "Đăng ký"
+
+#: ../job/es-optin.php:62
+msgid "This email address has already been confirmed."
+msgstr "Địa chỉ email đã được xác nhận."
+
+#: ../job/es-optin.php:59 ../job/es-optin.php:69 ../job/es-unsubscribe.php:55 ..
+#: /job/es-unsubscribe.php:62
+msgid ""
+"Oops.. We are getting some technical error. Please try again or contact admin."
+msgstr ""
+"Chúng tôi đang gặp sự cố kỹ thuật. Xin vui lòng thử lại hoặc liên hệ với "
+"admin."
+
+#: ../classes/es-register.php:290
+msgctxt "widget-page-enhanced-select"
+msgid "Email Address already exists!"
+msgstr "Địa chỉ email đã được đăng ký!"
