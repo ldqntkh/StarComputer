@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Image from './Image';
 import Control from './Control';
-import { getAdminUrl } from '../store/app';
+import { getAdminUrl, getLowStockThreshold } from '../store/app';
 import { getShippingClasses } from '../store/shippingClasses';
 import { getStockStatusOptions } from '../store/stockStatusOptions';
 import { getProductTypes } from '../store/productTypes';
@@ -24,6 +24,7 @@ const mapStateToProps = (state, ownProps) => ({
   taxStatuses: getTaxStatuses(state),
   backordersOptions: getBackordersOptions(state),
   adminUrl: getAdminUrl(state),
+  lowStockThreshold: getLowStockThreshold(state),
   productChange: getProductChange(state, { productId: ownProps.product.id }),
   productVariations: getProductVariations(state, { productId: ownProps.product.id }),
 });
@@ -50,6 +51,7 @@ const Product = (props) => {
     fetchProductVariations,
     productVariations,
     isVariation,
+    lowStockThreshold,
   } = props;
 
   const [showVariations, setShowVariations] = useState(false);
@@ -97,7 +99,7 @@ const Product = (props) => {
   };
 
   const stockCssLow = getChangedValue('manage_stock') && (
-    parseInt(getChangedValue('stock_quantity'), 10) > 5 ? 'ok' : 'low'
+    parseInt(getChangedValue('stock_quantity'), 10) > lowStockThreshold ? 'ok' : 'low'
   );
 
   const stockCssZero = getChangedValue('manage_stock') && (
@@ -105,6 +107,8 @@ const Product = (props) => {
   );
 
   const isVariable = product.type && product.type.startsWith('variable');
+
+  product.sale_price = (product.sale_price == '' && product.price == '0') ? '0' : product.sale_price;
 
   return (
     <>
@@ -132,23 +136,25 @@ const Product = (props) => {
               {productTypes[product.type]} ({product.variations.length})
             </button>
           ) : isVariation ? (
-            __('Variation', 'stock-manager')
+            __('Variation', 'woocommerce-stock-manager')
           ) : (
             productTypes[product.type]
           )}
         </td>
-        <td className={classnames(getChangedStyle('sku'), styles.inputCell, 'stock-manager-field-sku')}>
-          <Control
-            type="text"
-            value={getChangedValue('sku')}
-            onChange={handleChange('sku', product.sku)}
-            size={10}
-          />
-        </td>
+        {settings.sku && (
+          <td className={classnames(getChangedStyle('sku'), styles.inputCell, 'stock-manager-field-sku')}>
+            <Control
+              type="text"
+              value={getChangedValue('sku')}
+              onChange={handleChange('sku', product.sku)}
+              size={10}
+            />
+          </td>
+        )}
         {settings.thumbnail && (
           <td className="stock-manager-field-thumbnail">
-            {product.images && product.images.length > 0 && (
-              <Image id={product.images[0].id} className={styles.thumbnail} />
+            {((product.images && product.images.length > 0) || (product.hasOwnProperty('image'))) && (
+              <Image id={(typeof product.image === 'object' && product.image !== null) ? product.image.id : ((product.images && product.images.length > 0) ? product.images[0].id : 0)} className={styles.thumbnail} />
             )}
           </td>
         )}
@@ -238,7 +244,7 @@ const Product = (props) => {
         )}
         {settings.manageStock && (
           <td className={classnames(getChangedStyle('manage_stock'), 'stock-manager-field-manage-stock', `stock-manager-field-manage-stock--${getChangedValue('manage_stock').toString()}`)}>
-            {product.type !== 'grouped' && (
+            {product.type !== 'grouped' && product.type !== 'external' && (
               <Control
                 type="checkbox"
                 value={getChangedValue('manage_stock')}
@@ -249,7 +255,7 @@ const Product = (props) => {
         )}
         {settings.stockStatus && (
           <td className={classnames(getChangedStyle('stock_status'), 'stock-manager-field-stock-status', `stock-manager-field-stock-status--${getChangedValue('stock_status')}`)}>
-            {product.type !== 'grouped' && !isVariable && (
+            {product.type !== 'grouped' && product.type !== 'external' && !isVariable && (
               getChangedValue('manage_stock') ? (
                 stockStatusOptions[getChangedValue('stock_status')]
               ) : (
@@ -265,7 +271,7 @@ const Product = (props) => {
         )}
         {settings.backorders && (
           <td className={classnames(getChangedStyle('backorders'), 'stock-manager-field-backorders', `stock-manager-field-backorders--${getChangedValue('backorders')}`)}>
-            {product.type !== 'grouped' && !isVariable && (
+            {product.type !== 'grouped' && product.type !== 'external' && !isVariable && (
               <Control
                 type="select"
                 value={getChangedValue('backorders')}
@@ -284,7 +290,7 @@ const Product = (props) => {
               [`stock-manager-field-stock-quantity--${stockCssZero}`]: stockCssZero,
             })}
           >
-            {getChangedValue('manage_stock') && product.type !== 'grouped' && !isVariable && (
+            {getChangedValue('manage_stock') && product.type !== 'grouped' && product.type !== 'external' && !isVariable && (
               <Control
                 type="number"
                 value={getChangedValue('stock_quantity') ? parseInt(getChangedValue('stock_quantity'), 10) : ''}
@@ -326,6 +332,7 @@ Product.propTypes = {
   fetchProductVariations: PropTypes.func.isRequired,
   productVariations: PropTypes.object,
   isVariation: PropTypes.bool,
+  lowStockThreshold: PropTypes.number,
 };
 
 Product.defaultProps = {

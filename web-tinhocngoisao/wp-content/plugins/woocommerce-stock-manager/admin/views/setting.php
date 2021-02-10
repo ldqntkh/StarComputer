@@ -2,7 +2,7 @@
 
 if( isset( $_POST['save'] ) ){
 	if( isset( $_POST['old_styles'] ) ){
-    	update_option( 'woocommerce_stock_old_styles', sanitize_text_field( $_POST['old_styles'] ) );
+    	update_option( 'woocommerce_stock_old_styles', sanitize_text_field( $_POST['old_styles'] ), 'no' );
 	}else{
 		delete_option( 'woocommerce_stock_old_styles' );
 	}
@@ -26,13 +26,15 @@ if( empty( $old_styles ) ){ $old_styles = 'no'; }
     			<form method="post" action="" style="position:relative;">
       				<table class="table-bordered">
       					<tr>
-      						<th><?php _e('Active ol styles','woocommerce-stock-manager'); ?></th>
+      						<th><?php _e('Active old styles','woocommerce-stock-manager'); ?></th>
       						<td><input type="checkbox" name="old_styles" value="ok" <?php if( $old_styles == 'ok' ){ echo 'checked="checked"'; } ?> /></td>
       					</tr>
       				</table>
+              <br>
       				<input type="submit" name="save" class="btn btn-danger" />
       			</form>
   			</div>
  		</div>
 	</div>
 </div>
+<?php

@@ -1,11 +1,12 @@
 <?php
 /**
- * @package   WooCommerce Stock Manager
- * @author    Vladislav Musílek
- * @license   GPL-2.0+
- * @link      http:/toret.cz
- * @copyright 2015 Toret.cz
+ * @author    StoreApps
+ * @package   woocommerce-stock-manager/public
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class Stock_Manager {
 
@@ -16,7 +17,7 @@ class Stock_Manager {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.2.8';
+	const VERSION = '2.5.4';
 
 	/**
 	 * Plugin slug
@@ -42,9 +43,6 @@ class Stock_Manager {
 	 * @since     1.0.0
 	 */
 	private function __construct() {
-
-		// Load plugin text domain
-		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
 		// Activate plugin when new blog is added
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
@@ -222,21 +220,6 @@ class Stock_Manager {
 	}
 
 	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.0.0
-	 */
-	public function load_plugin_textdomain() {
-
-		$domain = 'woocommerce-stock-manager';
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-
-		//load_textdomain( $domain, STOCKDIR . 'languages/woocommerce-stock-manager-' . $locale . '.mo' );
-		load_plugin_textdomain( $domain, FALSE, STOCKDIR . '/languages/' );
-
-	}
-
-	/**
 	 * Headers allready sent fix
 	 *
 	 */        
@@ -292,6 +275,7 @@ class Stock_Manager {
 		$data = array();
 		$data['date_created'] = date( 'Y-m-d H:i:s', time() );
 		$data['qty'] = $product->get_stock_quantity();
+		$data['qty'] = ( empty( $data['qty'] ) ) ? 0 : intval( $data['qty'] );
 		$data['product_id'] = $product->get_id();
 		
 		$wpdb->insert( $wpdb->prefix.'stock_log', $data ); 
