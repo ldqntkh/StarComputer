@@ -1,10 +1,10 @@
 ﻿
 === Abandoned Cart Lite for WooCommerce ===
 Contributors: ashokrane, pinal.shah, bhavik.kiri, chetnapatel, tychesoftwares, dhruvin
-Tags: cart abandonment, abandon cart, cart recovery, increase woocommerce conversion rate, recover woocommerce cart, increase sales with woocommerce
+Tags: cart abandonment, abandon cart, cart recovery, recover woocommerce cart, increase woocommerce conversion rate, increase sales with woocommerce
 Author URI: https://www.tychesoftwares.com/
 Requires at least: 1.3
-Tested up to: 5.3
+Tested up to: 5.6
 Stable tag: trunk
 Requires PHP: 5.6
 License: GPLv2 or late
@@ -52,6 +52,8 @@ You can check the detailed difference between Pro and Lite version **[here](http
 > -[bertkat](https://wordpress.org/support/topic/easy-money/)
 
 **Pro Version:**
+
+[youtube https://www.youtube.com/watch?v=BemNllbQW1c]
 
 **[Abandoned Cart Pro for WooCommerce](http://www.tychesoftwares.com/store/premium-plugins/woocommerce-abandoned-cart-pro/?utm_source=wprepo&utm_medium=link&utm_campaign=AbandonedCartLite "Abandoned Cart Pro for WooCommerce")** enables to do the following additional things:
 
@@ -220,6 +222,58 @@ The admin can use the merge code `{{cart.unsubscribe}}' in the email templates. 
 6. Product Report Tab.
 
 == Changelog ==
+
+= 5.8.5 (27.01.2021) =
+* Tweak - Added a hook to modify the email to which recovery emails are sent. Comma separated email addresses can be added.
+
+= 5.8.4 (07.01.2021) =
+* Fix - Default template is not being created for a fresh installation.
+* Fix - Stats on the plugin dashboard do not match the Abandoned Orders tab.
+
+= 5.8.3 (06.11.2020) =
+* Fix - Added more changes related to sanitization of data & SQL queries to make the plugin WPCS compliant.
+* Tweak - The plugin will no longer support running a cron job manually via cPanel. This has been done to ensure the security standards for WordPress are met.
+* The plugin uses the Action Scheduler library from WooCommerce to send automated reminder emails since version 5.7.
+
+= 5.8.2 (30.10.2020) =
+* Fix - Improved the code run in the action scheduler to include performance fixes.
+* Fix - Multiple instances of the woocommerce_ac_send_email action were observed in the Tools->Pending Actions.
+* Fix - Included sanitization of data & SQL queries for security purposes.
+* Fix - Optimized the plugin to use latest versions of JS and other libraries already present in WordPress.
+
+= 5.8.1 (26.08.2020) =
+* Fix - When the plugin contained thousands of records, the Abandoned Orders page failed to load.
+* Fix - The send email action schedule raised some warnings.
+* Fix - Error displayed in Settings->Facebook Messenger.
+
+= 5.8.0 (19.06.2020) = 
+* Fix - Some error warnings logged in debug.log
+* Tweak - Added the ability to delete all carts based on user type. This can be found in WooCommerce->Abandoned Carts->Abandoned Orders->Bulk Actions.
+* Fix - Added textdomain to ensure plugin strings are translated correctly.
+* Fix - Scheduled action continues to recur after the plugin has been deactivated.
+* Fix - WooCommerce Preview email doesn't reflect changes done in templates.
+* Tweak - Added a filter to allow the site admin the ability to restrict the logging of registered user carts.
+* Tweak - Removed some update code which deleted cart records with certain email addresses and were logged after particular time.
+* Tweak - Introduced compatibility with Improved Variable Product Attributes for WooCommerce.
+* Fix - Updated FAQ to reflect correct plugin behaviour with Pending and Failed order statuses.
+* Tweak - Introduced some filters for {{products.cart}} merge tag. These filters allow the site admin to edit/hide columns such as Quantity, Price, Subtotal, Cart totals & Product Name.
+
+= 5.7.2 (10.02.2020) =
+* Update compatibility with WooCommerce 4.0.0.
+* Tweak - Add a filter to modify the product name for variable products in reminder emails.
+
+= 5.7.1 (10.02.2020) =
+
+* Tweak - Bots and Crawlers used to log lot of Abandoned Carts. We have now prevented logging such carts and now only genuine carts will be tracked.
+
+= 5.7 (29.01.2020) =
+
+* Enhancement - Updated the plugin to use the Action Scheduler Library instead of WP Cron to send reminders.
+* Tweak - Updated the plugin to ensure the merge tags in the reminders are case-insensitive.
+* Fix - Some warnings displayed in debug.log.
+* Fix - Abandoned cart is not marked as recovered when the user registers for a new account at Checkout.
+* Fix - Fixed some warnings displayed with PHP 7.4.
+
 = 5.6.2 (26.11.2019) = 
 
 * Tweak - Added nonce for guest user data capture.

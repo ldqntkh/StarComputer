@@ -324,7 +324,7 @@ if ( ! class_exists( 'Wcal_Dashoard_Report' ) ) {
 
 			$duration_select = isset( $_GET['duration_select'] ) ? sanitize_text_field( wp_unslash( $_GET['duration_select'] ) ) : 'this_month'; //phpcs:ignore
 
-			$current_time  = current_time( 'timestamp' );
+			$current_time  = current_time( 'timestamp' ); // phpcs:ignore
 			$current_month = date( 'n' ); //phpcs:ignore
 			$current_year  = date( 'Y' ); //phpcs:ignore
 
@@ -355,8 +355,8 @@ if ( ! class_exists( 'Wcal_Dashoard_Report' ) ) {
 
 				case 'last_quarter':
 					if ( $current_month >= 1 && $current_month <= 3 ) {
-						self::$start_timestamp = strtotime( '01-October-' . $current_year - 1 . '00:01:01' );
-						self::$end_timestamp   = strtotime( '31-December-' . $current_year - 1 . '23:59:59' );
+						self::$start_timestamp = strtotime( '01-October-' . ( $current_year - 1 ) . '00:01:01' );
+						self::$end_timestamp   = strtotime( '31-December-' . ( $current_year - 1 ) . '23:59:59' );
 					} elseif ( $current_month >= 4 && $current_month <= 6 ) {
 						self::$start_timestamp = strtotime( "01-January-$current_year" . '00:01:01' );
 						self::$end_timestamp   = strtotime( "31-March-$current_year" . '23:59:59' );
@@ -410,7 +410,7 @@ if ( ! class_exists( 'Wcal_Dashoard_Report' ) ) {
 			$start_time = self::$start_timestamp;
 			$end_time   = self::$end_timestamp;
 
-			$count_abandoned = $wpdb->get_var( $wpdb->prepare( 'SELECT count(id) FROM `' . $wpdb->prefix . 'ac_abandoned_cart_history_lite` WHERE abandoned_cart_time >= %s AND abandoned_cart_time <= %s', $start_time, $end_time ) ); //phpcs:ignore
+			$count_abandoned = $wpdb->get_var( $wpdb->prepare( 'SELECT count(id) FROM `' . $wpdb->prefix . 'ac_abandoned_cart_history_lite` WHERE abandoned_cart_time >= %s AND abandoned_cart_time <= %s AND cart_ignored <> %s', $start_time, $end_time, '1' ) ); //phpcs:ignore
 			return $count_abandoned;
 		}
 
@@ -495,7 +495,7 @@ if ( ! class_exists( 'Wcal_Dashoard_Report' ) ) {
 			$blank_cart_info       = '{"cart":[]}';
 			$blank_cart_info_guest = '[]';
 
-			$get_carts = $wpdb->get_results( $wpdb->prepare( "SELECT abandoned_cart_info, recovered_cart FROM `$wpdb->prefix" . "ac_abandoned_cart_history_lite` WHERE abandoned_cart_info NOT LIKE %s AND abandoned_cart_info NOT LIKE %s AND abandoned_cart_time >= %s AND abandoned_cart_time <= %s", $blank_cart_info, $blank_cart_info_guest, $start_time, $end_time ) ); //phpcs:ignore
+			$get_carts = $wpdb->get_results( $wpdb->prepare( "SELECT abandoned_cart_info, recovered_cart FROM `$wpdb->prefix" . "ac_abandoned_cart_history_lite` WHERE abandoned_cart_info NOT LIKE %s AND abandoned_cart_info NOT LIKE %s AND abandoned_cart_time >= %s AND abandoned_cart_time <= %s AND cart_ignored <> %s", $blank_cart_info, $blank_cart_info_guest, $start_time, $end_time, '1' ) ); //phpcs:ignore
 
 			$abandoned_amount = 0;
 			$abandoned_count  = 0;
@@ -503,7 +503,7 @@ if ( ! class_exists( 'Wcal_Dashoard_Report' ) ) {
 
 				foreach ( $get_carts as $cart_value ) {
 
-					if( $cart_value->recovered_cart > 0 ) {
+					if ( $cart_value->recovered_cart > 0 ) {
 						$abandoned_amount += get_post_meta( $cart_value->recovered_cart, '_order_total', true );
 						$abandoned_count++;
 					} else {
@@ -512,9 +512,11 @@ if ( ! class_exists( 'Wcal_Dashoard_Report' ) ) {
 
 						if ( isset( $cart_info ) && false !== $cart_info && count( get_object_vars( $cart_info ) ) > 0 ) {
 							$abandoned_count++;
-							foreach ( $cart_info->cart as $cart ) {
-								if ( isset( $cart->line_total ) ) {
-									$abandoned_amount += $cart->line_total;
+							if ( isset( $cart_info->cart ) && count( get_object_vars( $cart_info->cart ) ) > 0 ) {
+								foreach ( $cart_info->cart as $cart ) {
+									if ( isset( $cart->line_total ) ) {
+										$abandoned_amount += $cart->line_total;
+									}
 								}
 							}
 						}

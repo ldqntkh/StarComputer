@@ -21,6 +21,17 @@ if ( ! class_exists( 'Wcal_Update' ) ) {
 	class Wcal_Update {
 
 		/**
+		 * Add a scheduled event for updating the DB for each version update.
+		 *
+		 * @since 5.8.2
+		 */
+		public static function wcal_schedule_update_action() {
+			// IMP: The default value for get option should be updated in each release to match the current version to ensure update code is not run for first time installs.
+			if ( get_option( 'wcal_previous_version', '5.8.5' ) !== WCAL_PLUGIN_VERSION && function_exists( 'as_enqueue_async_action' ) && false === as_next_scheduled_action( 'wcal_update_db' ) ) {
+				as_enqueue_async_action( 'wcal_update_db' );
+			}
+		}
+		/**
 		 * It will be executed when the plugin is upgraded.
 		 *
 		 * @hook admin_init
@@ -31,7 +42,7 @@ if ( ! class_exists( 'Wcal_Update' ) ) {
 
 			$wcal_previous_version = get_option( 'wcal_previous_version' );
 
-			if( wcal_common::wcal_get_version() !== $wcal_previous_version ) {
+			if ( wcal_common::wcal_get_version() !== $wcal_previous_version ) {
 				// check whether its a multi site install or a single site install.
 				if ( is_multisite() ) {
 
@@ -54,7 +65,7 @@ if ( ! class_exists( 'Wcal_Update' ) ) {
 					self::wcal_process_db_update();
 				}
 			}
-			
+
 		}
 
 		/**
@@ -79,7 +90,7 @@ if ( ! class_exists( 'Wcal_Update' ) ) {
 				$wcal_previous_version = get_option( 'wcal_previous_version' );
 
 				if ( wcal_common::wcal_get_version() !== $wcal_previous_version ) {
-					update_option( 'wcal_previous_version', '5.6.2' );
+					update_option( 'wcal_previous_version', '5.8.5' );
 				}
 			} else { // multi site - child sites.
 				$wcal_guest_user_id_altered = get_blog_option( $blog_id, 'wcal_guest_user_id_altered' );
@@ -92,7 +103,7 @@ if ( ! class_exists( 'Wcal_Update' ) ) {
 				$wcal_previous_version = get_blog_option( $blog_id, 'wcal_previous_version' );
 
 				if ( wcal_common::wcal_get_version() !== $wcal_previous_version ) {
-					update_blog_option( $blog_id, 'wcal_previous_version', '5.6.2' );
+					update_blog_option( $blog_id, 'wcal_previous_version', '5.8.5' );
 				}
 			}
 
@@ -102,7 +113,7 @@ if ( ! class_exists( 'Wcal_Update' ) ) {
 			 */
 			if ( $wpdb->get_var( "SHOW TABLES LIKE '{$db_prefix}ac_guest_abandoned_cart_history_lite';" ) && 'yes' !== $wcal_guest_user_id_altered ) { //phpcs:ignore
 				$last_id = $wpdb->get_var( "SELECT max(id) FROM `{$db_prefix}ac_guest_abandoned_cart_history_lite`;" ); //phpcs:ignore
-				if ( null != $last_id && $last_id <= 63000000 ) {
+				if ( null !== $last_id && $last_id <= 63000000 ) {
 					$wpdb->query( "ALTER TABLE {$db_prefix}ac_guest_abandoned_cart_history_lite AUTO_INCREMENT = 63000000;" ); //phpcs:ignore
 
 					if ( 0 === $blog_id ) {
@@ -116,27 +127,6 @@ if ( ! class_exists( 'Wcal_Update' ) ) {
 			self::wcal_alter_tables( $db_prefix, $blog_id );
 			self::wcal_individual_settings( $blog_id );
 			self::wcal_cleanup( $db_prefix, $blog_id );
-
-			if ( 0 === $blog_id ) {
-
-				if ( 'yes' !== get_option( 'ac_lite_remove_abandoned_data' ) ) {
-					$wpdb->query( 'DELETE FROM `' . $db_prefix . 'ac_abandoned_cart_history_lite` WHERE abandoned_cart_time > 1555372800' ); //phpcs:ignore
-					update_option( 'ac_lite_remove_abandoned_data', 'yes' );
-				}
-
-				if ( ! get_option( 'wcal_enable_cart_emails' ) ) {
-					add_option( 'wcal_enable_cart_emails', 'on' );
-				}
-			} else {
-				if ( 'yes' !== get_blog_option( $blog_id, 'ac_lite_remove_abandoned_data' ) ) {
-					$wpdb->query( 'DELETE FROM `' . $db_prefix . 'ac_abandoned_cart_history_lite` WHERE abandoned_cart_time > 1555372800' ); //phpcs:ignore
-					update_blog_option( $blog_id, 'ac_lite_remove_abandoned_data', 'yes' );
-				}
-
-				if ( ! get_blog_option( $blog_id, 'wcal_enable_cart_emails' ) ) {
-					add_blog_option( $blog_id, 'wcal_enable_cart_emails', 'on' );
-				}
-			}
 
 		}
 
@@ -253,8 +243,45 @@ if ( ! class_exists( 'Wcal_Update' ) ) {
 					update_blog_option( $blog_id, 'ac_lite_alter_table_queries', 'yes' );
 				}
 			}
+
+			// 5.8.2 - Rename manual_email to email_reminder_status.
+			if ( 'yes' !== get_option( 'wcal_add_email_status_col', '' ) ) {
+				add_option( 'wcal_add_email_status_col', 'yes' );
+				self::wcal_update_email_status( $db_prefix );
+			}
+
 		}
 
+		/**
+		 * Add a new column email_reminder_status in the cart history lite table.
+		 *
+		 * @param string $db_prefix - DB prefix.
+		 * @since 5.8.2
+		 */
+		public static function wcal_update_email_status( $db_prefix ) {
+
+			global $wpdb;
+
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '{$db_prefix}ac_abandoned_cart_history_lite';" ) ) { //phpcs:ignore
+				if ( ! $wpdb->get_var( "SHOW COLUMNS FROM `{$db_prefix}ac_abandoned_cart_history_lite` LIKE 'email_reminder_status';" ) ) { //phpcs:ignore
+					$wpdb->query( "ALTER TABLE {$db_prefix}ac_abandoned_cart_history_lite ADD `email_reminder_status` VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL AFTER `session_id`;" ); //phpcs:ignore
+				}
+			}
+
+			// Mark the old carts for whom email sequences have completed as 'complete'.
+			$get_last_template        = wcal_common::wcal_get_last_email_template();
+			$template_freq            = is_array( $get_last_template ) ? intval( array_pop( $get_last_template ) ) : 0;
+			$cron_duration            = 15 * 60;
+			$leave_carts_abandoned_in = current_time( 'timestamp' ) - ( $template_freq + $cron_duration ); // phpcs:ignore
+
+			$wpdb->query( // phpcs:ignore
+				$wpdb->prepare(
+					'UPDATE ' . $db_prefix . "ac_abandoned_cart_history_lite SET email_reminder_status = 'complete' WHERE abandoned_cart_time < %s AND email_reminder_status = ''", // phpcs:ignore
+					$leave_carts_abandoned_in
+				)
+			);
+
+		}
 		/**
 		 * Move settings from serialized to individual.
 		 *
@@ -317,54 +344,13 @@ if ( ! class_exists( 'Wcal_Update' ) ) {
 					$wpdb->delete( $db_prefix . 'ac_abandoned_cart_history_lite', array( 'abandoned_cart_info' => '{"cart":[]}' ) ); //phpcs:ignore
 					update_option( 'ac_lite_delete_redundant_queries', 'yes' );
 				}
-
-				$ac_lite_cleanup = get_option( 'ac_lite_user_cleanup' );
 			} else {
 
 				if ( 'yes' !== get_blog_option( $blog_id, 'ac_lite_delete_redundant_queries', '' ) ) {
 					$wpdb->delete( $db_prefix . 'ac_abandoned_cart_history_lite', array( 'abandoned_cart_info' => '{"cart":[]}' ) ); //phpcs:ignore
 					update_blog_option( $blog_id, 'ac_lite_delete_redundant_queries', 'yes' );
 				}
-				$ac_lite_cleanup = get_blog_option( $blog_id, 'ac_lite_user_cleanup' );
 			}
-
-			if ( 'yes' !== $ac_lite_cleanup ) {
-				$wpdb->query(
-					"UPDATE `" . $db_prefix . "ac_guest_abandoned_cart_history_lite` SET
-                    billing_first_name = IF (billing_first_name LIKE '%<%', '', billing_first_name),
-                    billing_last_name = IF (billing_last_name LIKE '%<%', '', billing_last_name),
-                    billing_company_name = IF (billing_company_name LIKE '%<%', '', billing_company_name),
-                    billing_address_1 = IF (billing_address_1 LIKE '%<%', '', billing_address_1),
-                    billing_address_2 = IF (billing_address_2 LIKE '%<%', '', billing_address_2),
-                    billing_city = IF (billing_city LIKE '%<%', '', billing_city),
-                    billing_county = IF (billing_county LIKE '%<%', '', billing_county),
-                    billing_zipcode = IF (billing_zipcode LIKE '%<%', '', billing_zipcode),
-                    email_id = IF (email_id LIKE '%<%', '', email_id),
-                    phone = IF (phone LIKE '%<%', '', phone),
-                    ship_to_billing = IF (ship_to_billing LIKE '%<%', '', ship_to_billing),
-                    order_notes = IF (order_notes LIKE '%<%', '', order_notes),
-                    shipping_first_name = IF (shipping_first_name LIKE '%<%', '', shipping_first_name),
-                    shipping_last_name = IF (shipping_last_name LIKE '%<%', '', shipping_last_name),
-                    shipping_company_name = IF (shipping_company_name LIKE '%<%', '', shipping_company_name),
-                    shipping_address_1 = IF (shipping_address_1 LIKE '%<%', '', shipping_address_1),
-                    shipping_address_2 = IF (shipping_address_2 LIKE '%<%', '', shipping_address_2),
-                    shipping_city = IF (shipping_city LIKE '%<%', '', shipping_city),
-					shipping_county = IF (shipping_county LIKE '%<%', '', shipping_county)"
-				);
-
-				$email  = 'woouser401a@mailinator.com';
-				$exists = email_exists( $email );
-				if ( $exists ) {
-					wp_delete_user( esc_html( $exists ) );
-				}
-
-				if ( 0 === $blog_id ) {
-					update_option( 'ac_lite_user_cleanup', 'yes' );
-				} else {
-					update_blog_option( $blog_id, 'ac_lite_user_cleanup', 'yes' );
-				}
-			}
-
 		}
 	}
 }
