@@ -12,10 +12,10 @@ use Premmerce\UrlManager\Admin\Settings;
     <tr>
         <th>
             <label class="flex-label">
-                <input type="radio" name="<?=Settings::OPTIONS?>[product]"
-                       value="" <?php checked('', $product); ?>>
+                <input type="radio" name="<?php echo Settings::OPTIONS; ?>[product]"
+                       value="" <?php checked( '', $product ); ?>>
                 <span>
-				<?php _e('Use WooCommerce settings', 'premmerce-url-manager') ?>
+				<?php esc_html_e( 'Use WooCommerce settings', 'premmerce-url-manager' ); ?>
                 </span>
 
             </label>
@@ -24,37 +24,37 @@ use Premmerce\UrlManager\Admin\Settings;
     <tr>
         <th>
             <label class="flex-label">
-                <input type="radio" name="<?=Settings::OPTIONS?>[product]"
-                       value="slug" <?php checked('slug', $product); ?>>
-				<?php _e('Product slug', 'premmerce-url-manager') ?>
+                <input type="radio" name="<?php echo Settings::OPTIONS; ?>[product]"
+                       value="slug" <?php checked( 'slug', $product ); ?>>
+				<?php esc_html_e( 'Product slug', 'premmerce-url-manager' ); ?>
             </label>
         </th>
         <td>
-            <code><?=home_url('/sample-product')?></code>
+            <code><?php echo home_url( '/sample-product' ); ?></code>
         </td>
     </tr>
     <tr>
         <th>
             <label class="flex-label">
-                <input type="radio" name="<?=Settings::OPTIONS?>[product]"
-                       value="category_slug" <?php checked('category_slug', $product); ?>>
-				<?php _e('Product slug with primary category', 'premmerce-url-manager') ?>
+                <input type="radio" name="<?php echo Settings::OPTIONS; ?>[product]"
+                       value="category_slug" <?php checked( 'category_slug', $product ); ?>>
+				<?php esc_html_e( 'Product slug with primary category', 'premmerce-url-manager' ); ?>
             </label>
         </th>
         <td>
-            <code><?=home_url('/category/sample-product')?></code>
+            <code><?php echo home_url( '/category/sample-product' ); ?></code>
         </td>
     </tr>
     <tr>
         <th>
             <label class="flex-label">
-                <input type="radio" name="<?=Settings::OPTIONS?>[product]"
-                       value="hierarchical" <?php checked('hierarchical', $product); ?>>
-				<?php _e('Full product path', 'premmerce-url-manager') ?>
+                <input type="radio" name="<?php echo Settings::OPTIONS; ?>[product]"
+                       value="hierarchical" <?php checked( 'hierarchical', $product ); ?>>
+				<?php esc_html_e( 'Full product path', 'premmerce-url-manager' ); ?>
             </label>
         </th>
         <td>
-            <code><?=home_url('parent-category/category/sample-product')?></code>
+            <code><?php echo home_url( 'parent-category/category/sample-product' ); ?></code>
         </td>
     </tr>
     </tbody>

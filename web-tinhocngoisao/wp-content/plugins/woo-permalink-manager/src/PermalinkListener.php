@@ -3,6 +3,7 @@
 namespace Premmerce\UrlManager;
 
 use  Premmerce\UrlManager\Admin\Settings ;
+use  WP_Post ;
 /**
  * Class PermalinkListener
  *
@@ -19,13 +20,18 @@ class PermalinkListener
     private  $options = array() ;
     private  $taxonomyOptions = array() ;
     private  $productBase ;
+    private  $polyLang = null ;
     public function __construct()
     {
         $options = get_option( Settings::OPTIONS );
-        $this->options = array(
-            'use_primary_category' => !empty($options['use_primary_category']),
-            'product'              => ( isset( $options['product'] ) ? $options['product'] : '' ),
-        );
+        $this->options = [
+            'use_primary_category'     => !empty($options['use_primary_category']),
+            'product'                  => ( isset( $options['product'] ) ? $options['product'] : '' ),
+            'suffix'                   => ( !empty($options['suffix']) ? $options['suffix'] : false ),
+            'enable_suffix_categories' => isset( $options['enable_suffix_categories'] ),
+            'enable_suffix_products'   => isset( $options['enable_suffix_products'] ),
+            'sku'                      => ( isset( $options['sku'] ) ? $options['sku'] : '' ),
+        ];
         $this->taxonomyOptions['product_cat'] = ( isset( $options['category'] ) ? $options['category'] : '' );
         #/premmerce_clear
     }
@@ -37,17 +43,20 @@ class PermalinkListener
     {
         add_filter(
             'post_type_link',
-            array( $this, 'replaceProductLink' ),
+            [ $this, 'replaceProductLink' ],
             1,
             2
         );
         add_filter(
             'term_link',
-            array( $this, 'replaceTermLink' ),
+            [ $this, 'replaceTermLink' ],
             0,
             3
         );
-        add_filter( 'rewrite_rules_array', array( $this, 'addRewriteRules' ), 99 );
+        add_filter( 'rewrite_rules_array', [ $this, 'addRewriteRules' ], 99 );
+        add_action( 'pll_init', function ( $polylang ) {
+            $this->polyLang = $polylang;
+        } );
     }
     
     /**
@@ -64,8 +73,11 @@ class PermalinkListener
         if ( empty($this->taxonomyOptions[$taxonomy]) ) {
             return $link;
         }
+        $suffix = ( $this->options['enable_suffix_categories'] ? $this->options['suffix'] : false );
+        $suffix = ( $suffix ? $suffix : false );
         $isHierarchical = $this->isHierarchical( $this->taxonomyOptions[$taxonomy] );
-        return home_url( user_trailingslashit( $this->buildTermPath( $term, $isHierarchical ) ) );
+        $path = $this->buildTermPath( $term, $isHierarchical, $suffix );
+        return ( $suffix ? home_url( $path ) : home_url( user_trailingslashit( $path ) ) );
     }
     
     /**
@@ -73,7 +85,7 @@ class PermalinkListener
      *
      *
      * @param string $permalink
-     * @param object $post
+     * @param WP_Post $post
      *
      * @return string
      */
@@ -113,7 +125,7 @@ class PermalinkListener
         wp_cache_flush();
         global  $wp_rewrite ;
         $feed = '(' . trim( implode( '|', $wp_rewrite->feeds ) ) . ')';
-        $customRules = array();
+        $customRules = [];
         /**
          * Remove WPML filters while getting terms, to get all languages
          */
@@ -128,18 +140,31 @@ class PermalinkListener
         foreach ( $this->taxonomyOptions as $taxonomy => $option ) {
             
             if ( !empty($option) ) {
-                $terms = get_categories( array(
+                $terms = get_categories( [
                     'taxonomy'   => $taxonomy,
                     'hide_empty' => false,
-                ) );
+                ] );
                 $hierarchical = $this->isHierarchical( $option );
+                $suffix = false;
                 foreach ( $terms as $term ) {
-                    $slug = $this->buildTermPath( $term, $hierarchical );
+                    $slug = $this->buildTermPath( $term, $hierarchical, $suffix );
                     $customRules["{$slug}/?\$"] = 'index.php?' . $taxonomy . '=' . $term->slug;
                     $customRules["{$slug}/embed/?\$"] = 'index.php?' . $taxonomy . '=' . $term->slug . '&embed=true';
                     $customRules["{$slug}/{$wp_rewrite->feed_base}/{$feed}/?\$"] = 'index.php?' . $taxonomy . '=' . $term->slug . '&feed=$matches[1]';
                     $customRules["{$slug}/{$feed}/?\$"] = 'index.php?' . $taxonomy . '=' . $term->slug . '&feed=$matches[1]';
                     $customRules["{$slug}/{$wp_rewrite->pagination_base}/?([0-9]{1,})/?\$"] = 'index.php?' . $taxonomy . '=' . $term->slug . '&paged=$matches[1]';
+                    // Polylang compatibility
+                    $polylangURLslug = $this->getPolylangLangSlug();
+                    
+                    if ( $polylangURLslug ) {
+                        $slug = $polylangURLslug . $slug;
+                        $customRules["{$slug}/?\$"] = 'index.php?' . $taxonomy . '=' . $term->slug;
+                        $customRules["{$slug}/embed/?\$"] = 'index.php?' . $taxonomy . '=' . $term->slug . '&embed=true';
+                        $customRules["{$slug}/{$wp_rewrite->feed_base}/{$feed}/?\$"] = 'index.php?' . $taxonomy . '=' . $term->slug . '&feed=$matches[1]';
+                        $customRules["{$slug}/{$feed}/?\$"] = 'index.php?' . $taxonomy . '=' . $term->slug . '&feed=$matches[1]';
+                        $customRules["{$slug}/{$wp_rewrite->pagination_base}/?([0-9]{1,})/?\$"] = 'index.php?' . $taxonomy . '=' . $term->slug . '&paged=$matches[1]';
+                    }
+                
                 }
             }
         
@@ -178,6 +203,25 @@ class PermalinkListener
         return $customRules + $rules;
     }
     
+    private function getPolylangLangSlug()
+    {
+        
+        if ( !empty($this->polyLang) ) {
+            global  $wp_rewrite ;
+            $languages = $this->polyLang->model->get_languages_list( array(
+                'fields' => 'slug',
+            ) );
+            if ( $this->polyLang->options['hide_default'] ) {
+                $languages = array_diff( $languages, array( $this->polyLang->options['default_lang'] ) );
+            }
+            if ( !empty($languages) ) {
+                return $wp_rewrite->root . (( $this->polyLang->options['rewrite'] ? '' : 'language/' )) . '(' . implode( '|', $languages ) . ')/';
+            }
+        }
+        
+        return false;
+    }
+    
     private function getProductBase()
     {
         
@@ -204,7 +248,7 @@ class PermalinkListener
         return $permalink;
     }
     
-    private function buildTermPath( $term, $hierarchical )
+    private function buildTermPath( $term, $hierarchical, $suffix = false )
     {
         //urldecode used here to fix copied url via ctrl+c
         $slug = urldecode( $term->slug );
@@ -217,7 +261,7 @@ class PermalinkListener
             }
         }
         
-        return $slug;
+        return ( $suffix ? $slug . $suffix : $slug );
     }
     
     private function getProductCategory( $product )
@@ -232,6 +276,7 @@ class PermalinkListener
         if ( $term instanceof \WP_Term ) {
             return $term;
         }
+        return null;
     }
     
     private function getSeoPrimaryTerm( $product )
@@ -239,10 +284,10 @@ class PermalinkListener
         
         if ( $this->checkSeoPlugin() ) {
             $primaryTerm = yoast_get_primary_term_id( self::WOO_CAT, $product->ID );
-            $term = get_term( $primaryTerm );
-            return $term;
+            return get_term( $primaryTerm );
         }
-    
+        
+        return null;
     }
     
     private function getWcPrimaryTerm( $product )
@@ -253,7 +298,7 @@ class PermalinkListener
         }
         
         if ( function_exists( 'wp_list_sort' ) ) {
-            $terms = wp_list_sort( $terms, 'term_id', 'ASC' );
+            $terms = wp_list_sort( $terms, 'term_id', 'DESC' );
         } else {
             usort( $terms, '_usort_terms_by_ID' );
         }
@@ -283,8 +328,60 @@ class PermalinkListener
         if ( !function_exists( 'is_plugin_active' ) ) {
             include_once ABSPATH . 'wp-admin/includes/plugin.php';
         }
-        $active = function_exists( 'is_plugin_active' ) && defined( 'WPSEO_BASENAME' ) && is_plugin_active( WPSEO_BASENAME ) && function_exists( 'yoast_get_primary_term_id' );
-        return $active;
+        return function_exists( 'is_plugin_active' ) && defined( 'WPSEO_BASENAME' ) && is_plugin_active( WPSEO_BASENAME ) && function_exists( 'yoast_get_primary_term_id' );
+    }
+    
+    /**
+     * Check that WPML plugin is enabled and available to use
+     *
+     * @return bool
+     */
+    protected function checkWpmlPlugin()
+    {
+        return class_exists( 'SitePress' );
+    }
+    
+    /**
+     * Replace current post slug with woocommerce SKU
+     *
+     * @param string $permalink
+     * @param integer $postID
+     *
+     * @return string
+     */
+    protected function replaceSlugWithSku( $permalink, $postID )
+    {
+        $skuString = get_post_meta( $postID, '_sku', true );
+        if ( $skuString != '' ) {
+            if ( $this->options['sku'] == 'sku' ) {
+                return str_replace( basename( $permalink ), $skuString, $permalink );
+            }
+        }
+        return $permalink;
+    }
+    
+    /**
+     * Add parameters to permalink
+     *
+     * @param string $permalink
+     *
+     * @return string
+     */
+    protected function addParamsToPermalink( $permalink )
+    {
+        $parsedUrl = parse_url( $permalink, PHP_URL_QUERY );
+        parse_str( $parsedUrl, $output );
+        if ( isset( $output['lang'] ) ) {
+            return $permalink;
+        }
+        global  $sitepress ;
+        $isGetParamUrlFormat = apply_filters( 'wpml_setting', 0, 'language_negotiation_type' ) == '3';
+        if ( $sitepress->get_default_language() != ICL_LANGUAGE_CODE && $isGetParamUrlFormat ) {
+            return add_query_arg( array(
+                'lang' => ICL_LANGUAGE_CODE,
+            ), $permalink );
+        }
+        return $permalink;
     }
 
 }

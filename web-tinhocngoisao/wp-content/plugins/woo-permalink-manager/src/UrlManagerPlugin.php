@@ -5,6 +5,7 @@ use Premmerce\SDK\V2\Notifications\AdminNotifier;
 use Premmerce\UrlManager\Admin\Admin;
 use Premmerce\UrlManager\Admin\Settings;
 use Premmerce\UrlManager\Frontend\Frontend;
+use Premmerce\UrlManager\Addons\AddonManager;
 
 /**
  * Class UrlManagerPlugin
@@ -13,9 +14,10 @@ use Premmerce\UrlManager\Frontend\Frontend;
  */
 class UrlManagerPlugin
 {
+
     const DOMAIN = 'premmerce-url-manager';
 
-    const VERSION = '2.1.1';
+    const VERSION = '2.2.0';
 
     /**
      * @var FileManager
@@ -37,10 +39,8 @@ class UrlManagerPlugin
         $this->fileManager = new FileManager($mainFile);
         $this->notifier    = new AdminNotifier();
 
-
-        add_action('init', array($this, 'loadTextDomain'));
-
-        add_action('admin_init', array($this, 'checkRequirePlugins'));
+        add_action('init', [$this, 'loadTextDomain']);
+        add_action('admin_init', [$this, 'checkRequirePlugins']);
     }
 
     /**
@@ -56,10 +56,11 @@ class UrlManagerPlugin
         }
 
         if ($valid) {
-            if (! is_admin()) {
+            if ( ! is_admin()) {
                 new Frontend();
             }
             (new PermalinkListener())->registerFilters();
+            (new AddonManager())->initAddons();
         }
     }
 
@@ -96,7 +97,7 @@ class UrlManagerPlugin
     {
         global $wpdb;
 
-        $wpdb->delete($wpdb->usermeta, array('meta_key' => Admin::META_IGNORE_BANNER));
+        $wpdb->delete($wpdb->usermeta, ['meta_key' => Admin::META_IGNORE_BANNER]);
     }
 
     /**
@@ -123,6 +124,7 @@ class UrlManagerPlugin
                 $this->notifier->push($error, AdminNotifier::ERROR, false);
             }
         }
+
     }
 
     /**
@@ -132,16 +134,17 @@ class UrlManagerPlugin
      */
     private function validateRequiredPlugins()
     {
-        $plugins = array();
 
-        if (! function_exists('is_plugin_active')) {
+        $plugins = [];
+
+        if ( ! function_exists('is_plugin_active')) {
             include_once(ABSPATH . 'wp-admin/includes/plugin.php');
         }
 
         /**
          * Check if WooCommerce is active
          **/
-        if (! (is_plugin_active('woocommerce/woocommerce.php') || is_plugin_active_for_network('woocommerce/woocommerce.php'))) {
+        if ( ! (is_plugin_active('woocommerce/woocommerce.php') || is_plugin_active_for_network('woocommerce/woocommerce.php'))) {
             $plugins[] = '<a target="_blank" href="https://wordpress.org/plugins/woocommerce/">WooCommerce</a>';
         }
 
