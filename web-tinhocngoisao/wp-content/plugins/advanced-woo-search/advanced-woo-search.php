@@ -3,12 +3,12 @@
 /*
 Plugin Name: Advanced Woo Search
 Description: Advance ajax WooCommerce product search.
-Version: 1.63
+Version: 2.20
 Author: ILLID
 Author URI: https://advanced-woo-search.com/
-Text Domain: aws
+Text Domain: advanced-woo-search
 WC requires at least: 3.0.0
-WC tested up to: 3.5.0
+WC tested up to: 4.9.0
 */
 
 
@@ -16,16 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'AWS_VERSION', '1.63' );
-
-
-define( 'AWS_DIR', dirname( __FILE__ ) );
-define( 'AWS_URL', plugins_url( '', __FILE__ ) );
-
-
-define( 'AWS_INDEX_TABLE_NAME', 'aws_index' );
-define( 'AWS_CACHE_TABLE_NAME', 'aws_cache' );
-
+if ( ! defined( 'AWS_FILE' ) ) {
+    define( 'AWS_FILE', __FILE__ );
+}
 
 if ( ! class_exists( 'AWS_Main' ) ) :
 
@@ -71,6 +64,8 @@ final class AWS_Main {
 	 */
 	public function __construct() {
 
+        $this->define_constants();
+
         $this->data['settings'] = get_option( 'aws_settings' );
 
 		add_filter( 'widget_text', 'do_shortcode' );
@@ -81,11 +76,11 @@ final class AWS_Main {
 
 		add_filter( 'plugin_action_links', array( $this, 'add_action_link' ), 10, 2 );
 
-		load_plugin_textdomain( 'aws', false, dirname( plugin_basename( __FILE__ ) ). '/languages/' );
+		load_plugin_textdomain( 'advanced-woo-search', false, dirname( plugin_basename( __FILE__ ) ). '/languages/' );
 
         $this->includes();
                 
-        add_action( 'init', array( $this, 'init' ), 0 );
+        add_action( 'init', array( $this, 'init' ), 1 );
 
         add_filter( 'wcml_multi_currency_ajax_actions', array( $this, 'add_wpml_ajax_actions' ) );
 
@@ -97,20 +92,46 @@ final class AWS_Main {
     }
 
     /**
+     * Define constants
+     */
+    private function define_constants() {
+
+        $this->define( 'AWS_VERSION', '2.20' );
+
+        $this->define( 'AWS_DIR', plugin_dir_path( AWS_FILE ) );
+        $this->define( 'AWS_URL', plugin_dir_url( AWS_FILE ) );
+
+        $this->define( 'AWS_INDEX_TABLE_NAME', 'aws_index' );
+        $this->define( 'AWS_CACHE_TABLE_NAME', 'aws_cache' );
+
+    }
+
+    /**
      * Include required core files used in admin and on the frontend.
      */
     public function includes() {
+
         include_once( 'includes/class-aws-helpers.php' );
         include_once( 'includes/class-aws-versions.php' );
-        include_once( 'includes/class-aws-admin.php' );
         include_once( 'includes/class-aws-cache.php' );
+        include_once( 'includes/class-aws-plurals.php' );
         include_once( 'includes/class-aws-table.php' );
         include_once( 'includes/class-aws-markup.php' );
         include_once( 'includes/class-aws-search.php' );
+        include_once( 'includes/class-aws-tax-search.php' );
         include_once( 'includes/class-aws-search-page.php' );
         include_once( 'includes/class-aws-order.php' );
         include_once( 'includes/class-aws-integrations.php' );
         include_once( 'includes/widget.php' );
+
+        // Admin
+        include_once( 'includes/admin/class-aws-admin.php' );
+        include_once( 'includes/admin/class-aws-admin-ajax.php' );
+        include_once( 'includes/admin/class-aws-admin-fields.php' );
+        include_once( 'includes/admin/class-aws-admin-options.php' );
+        include_once( 'includes/admin/class-aws-admin-meta-boxes.php' );
+        include_once( 'includes/admin/class-aws-admin-page-premium.php' );
+
     }
 
 	/*
@@ -140,6 +161,7 @@ final class AWS_Main {
      */
     public function init() {
         $this->cache = AWS_Cache::factory();
+        AWS_Integrations::instance();
     }
 
 	/*
@@ -147,12 +169,15 @@ final class AWS_Main {
 	 */
 	public function load_scripts() {
 		wp_enqueue_style( 'aws-style', AWS_URL . '/assets/css/common.css', array(), AWS_VERSION );
+        if ( is_rtl() ) {
+            wp_enqueue_style( 'aws-style-rtl', AWS_URL . '/assets/css/common-rtl.css', array(), AWS_VERSION );
+        }
         wp_enqueue_script('aws-script', AWS_URL . '/assets/js/common.js', array('jquery'), AWS_VERSION, true);
         wp_localize_script('aws-script', 'aws_vars', array(
-            'sale'      => __('Sale!', 'aws'),
-            'sku'       => __('SKU', 'aws'),
-            'showmore'  => $this->get_settings('show_more_text') ? AWS_Helpers::translate( 'show_more_text', stripslashes( $this->get_settings('show_more_text') ) ) : __('View all results', 'aws'),
-            'noresults' => $this->get_settings('not_found_text') ? AWS_Helpers::translate( 'not_found_text', stripslashes( $this->get_settings('not_found_text') ) ) : __('Nothing found', 'aws')
+            'sale'       => __('Sale!', 'advanced-woo-search'),
+            'sku'        => __('SKU', 'advanced-woo-search') . ': ',
+            'showmore'   => $this->get_settings('show_more_text') ? AWS_Helpers::translate( 'show_more_text', stripslashes( $this->get_settings('show_more_text') ) ) : __('View all results', 'advanced-woo-search'),
+            'noresults'  => $this->get_settings('not_found_text') ? AWS_Helpers::translate( 'not_found_text', stripslashes( $this->get_settings('not_found_text') ) ) : __('Nothing found', 'advanced-woo-search'),
         ));
 	}
 
@@ -163,10 +188,10 @@ final class AWS_Main {
 		$plugin_base = plugin_basename( __FILE__ );
 
 		if ( $file == $plugin_base ) {
-			$setting_link = '<a href="' . admin_url('admin.php?page=aws-options') . '">'.__( 'Settings', 'aws' ).'</a>';
+			$setting_link = '<a href="' . admin_url('admin.php?page=aws-options') . '">'.esc_html__( 'Settings', 'advanced-woo-search' ).'</a>';
 			array_unshift( $links, $setting_link );
 
-            $premium_link = '<a href="https://advanced-woo-search.com/?utm_source=plugin&utm_medium=settings-link&utm_campaign=aws-pro-plugin" target="_blank">'.__( 'Get Premium', 'aws' ).'</a>';
+            $premium_link = '<a href="' . admin_url( 'admin.php?page=aws-options&tab=premium' ) . '">'.esc_html__( 'Premium Version', 'advanced-woo-search' ).'</a>';
             array_unshift( $links, $premium_link );
 		}
 
@@ -180,6 +205,15 @@ final class AWS_Main {
         $plugin_options = $this->data['settings'];
 		$return_value = isset( $plugin_options[ $name ] ) ? $plugin_options[ $name ] : '';
         return $return_value;
+    }
+
+    /*
+     * Define constant if not already set
+     */
+    private function define( $name, $value ) {
+        if ( ! defined( $name ) ) {
+            define( $name, $value );
+        }
     }
 
     /*
@@ -245,10 +279,29 @@ function aws_is_plugin_active_for_network( $plugin ) {
 function aws_install_woocommerce_admin_notice() {
 	?>
 	<div class="error">
-		<p><?php _e( 'Advanced Woo Search plugin is enabled but not effective. It requires WooCommerce in order to work.', 'aws' ); ?></p>
+		<p><?php esc_html_e( 'Advanced Woo Search plugin is enabled but not effective. It requires WooCommerce in order to work.', 'advanced-woo-search' ); ?></p>
 	</div>
 	<?php
 }
+
+
+/*
+ * Activation hook
+ */
+register_activation_hook( __FILE__, 'aws_on_activation' );
+function aws_on_activation() {
+    $hide_notice = get_option( 'aws_hide_welcome_notice' );
+    if ( ! $hide_notice ) {
+        $free_plugin_version = get_option( 'aws_plugin_ver' );
+        $pro_plugin_version = get_option( 'aws_pro_plugin_ver' );
+        $hide = 'false';
+        if ( $free_plugin_version || $pro_plugin_version ) {
+            $hide = 'true';
+        }
+        update_option( 'aws_hide_welcome_notice', $hide, false );
+    }
+}
+
 
 /*
  * Init AWS plugin
