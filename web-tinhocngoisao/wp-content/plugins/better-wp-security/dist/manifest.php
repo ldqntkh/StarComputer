@@ -7,11 +7,11 @@
       0 => 'core/admin-notices.css',
       1 => 'core/admin-notices.js',
     ),
-    'hash' => '9d0cac63105d6f0bcc30d06f969d8be7',
+    'hash' => '874902b54682d9c5e9a456c8d57b5564',
     'contentHash' => 
     array (
-      'css/mini-extract' => 'd5d74d576a086d437a59',
-      'javascript' => '78a2c380e8a93d8e10f7',
+      'css/mini-extract' => 'd035a754e0e995d7f2a8',
+      'javascript' => '2cf1a195a17e8ff8a47d',
     ),
     'vendors' => 
     array (
@@ -36,14 +36,15 @@
     array (
       0 => 'core/admin-notices-api.js',
     ),
-    'hash' => '4830a04fca439f907049c335efb143f9',
+    'hash' => 'd7095373cba6e51875e5ca6af8f4327a',
     'contentHash' => 
     array (
       'css/mini-extract' => '31d6cfe0d16ae931b73c',
-      'javascript' => 'f64242c0f2acc73e4f26',
+      'javascript' => '347f2aa808de04b456c5',
     ),
     'vendors' => 
     array (
+      0 => 'vendors/core/admin-notices-api~api~settings',
     ),
     'dependencies' => 
     array (
@@ -61,11 +62,11 @@
       0 => 'core/admin-notices-dashboard-admin-bar.css',
       1 => 'core/admin-notices-dashboard-admin-bar.js',
     ),
-    'hash' => 'a95fc2fb1e30fed9c7938f08c12b6d7b',
+    'hash' => '7ad1e530a1dced5b2d17c039059fbec2',
     'contentHash' => 
     array (
-      'css/mini-extract' => '732388055deb8942488c',
-      'javascript' => 'b6d1b12859cd32d64740',
+      'css/mini-extract' => '14d26d2c760fcc5ad39d',
+      'javascript' => '8ab1e1779ca446184154',
     ),
     'vendors' => 
     array (
@@ -92,11 +93,114 @@
       0 => 'core/packages/components/site-scan-results/style.css',
       1 => 'core/packages/components/site-scan-results/style.js',
     ),
-    'hash' => '17241399d68eeb900f5f2c289b1748f7',
+    'hash' => '6fd2b6c542cc7ccefb83f37689260547',
     'contentHash' => 
     array (
       'css/mini-extract' => '4938d7aee319aaa3968c',
-      'javascript' => '0ac75a114cf101452605',
+      'javascript' => '1e66b8293f8162780f86',
+    ),
+    'vendors' => 
+    array (
+    ),
+    'dependencies' => 
+    array (
+    ),
+  ),
+  'packages/preload' => 
+  array (
+    'runtime' => true,
+    'files' => 
+    array (
+      0 => 'packages/preload.js',
+    ),
+    'hash' => '890a1835e53709a15860043092142b92',
+    'contentHash' => 
+    array (
+      'css/mini-extract' => '31d6cfe0d16ae931b73c',
+      'javascript' => '72e8ae7434d0e8d64cc5',
+    ),
+    'vendors' => 
+    array (
+    ),
+    'dependencies' => 
+    array (
+    ),
+  ),
+  'user-groups/api' => 
+  array (
+    'runtime' => true,
+    'files' => 
+    array (
+      0 => 'user-groups/api.js',
+    ),
+    'hash' => '2e4966910e20a866183e58353d04e5b4',
+    'contentHash' => 
+    array (
+      'css/mini-extract' => '31d6cfe0d16ae931b73c',
+      'javascript' => '2981162f2bdd211218d7',
+    ),
+    'vendors' => 
+    array (
+      0 => 'vendors/core/admin-notices-api~api~settings',
+    ),
+    'dependencies' => 
+    array (
+      0 => 'lodash',
+      1 => 'wp-api-fetch',
+      2 => 'wp-data',
+      3 => 'wp-i18n',
+      4 => 'wp-url',
+    ),
+  ),
+  'user-groups/settings' => 
+  array (
+    'runtime' => true,
+    'files' => 
+    array (
+      0 => 'user-groups/settings.css',
+      1 => 'user-groups/settings.js',
+    ),
+    'hash' => 'decbf0dd99a8ea2ca1f2b66d3c5e6770',
+    'contentHash' => 
+    array (
+      'css/mini-extract' => 'b40b58f3d12028ecdcbd',
+      'javascript' => '24506cc6c5871b56d31c',
+    ),
+    'vendors' => 
+    array (
+      0 => 'vendors/core/admin-notices-api~api~settings',
+    ),
+    'dependencies' => 
+    array (
+      0 => '@ithemes/security.user-groups.api',
+      1 => 'lodash',
+      2 => 'react',
+      3 => 'react-dom',
+      4 => 'wp-api-fetch',
+      5 => 'wp-components',
+      6 => 'wp-compose',
+      7 => 'wp-data',
+      8 => 'wp-dom-ready',
+      9 => 'wp-element',
+      10 => 'wp-html-entities',
+      11 => 'wp-i18n',
+      12 => 'wp-is-shallow-equal',
+      13 => 'wp-notices',
+      14 => 'wp-url',
+    ),
+  ),
+  'vendors/core/admin-notices-api~api~settings' => 
+  array (
+    'runtime' => false,
+    'files' => 
+    array (
+      0 => 'vendors/core/admin-notices-api~api~settings.js',
+    ),
+    'hash' => 'a26ce0df93f76f528549435ae6335f44',
+    'contentHash' => 
+    array (
+      'css/mini-extract' => '31d6cfe0d16ae931b73c',
+      'javascript' => 'c5d904b2839be81df49e',
     ),
     'vendors' => 
     array (
