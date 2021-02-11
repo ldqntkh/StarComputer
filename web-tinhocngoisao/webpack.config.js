@@ -10,16 +10,22 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     devtool: "source-map",
     entry: {
-        'wp-content/themes/online-shop-child/assets/js/app' : './wp-content/themes/online-shop-child/private/javascripts/app.js',
-        'wp-content/themes/online-shop-child/assets/js/sliderPage' : './wp-content/themes/online-shop-child/private/javascripts/sliderPage.js',
-        "wp-content/themes/online-shop-child/custom-style" : "./wp-content/themes/online-shop-child/private/scss/style.scss",
-        "wp-content/themes/online-shop-child/assets/js/bundle" : "./wp-content/themes/online-shop-child/private/reactSrc/App.js",
+        // 'wp-content/themes/online-shop-child/assets/js/app' : './wp-content/themes/online-shop-child/private/javascripts/app.js',
+        // 'wp-content/themes/online-shop-child/assets/js/sliderPage' : './wp-content/themes/online-shop-child/private/javascripts/sliderPage.js',
+        // "wp-content/themes/online-shop-child/custom-style" : "./wp-content/themes/online-shop-child/private/scss/style.scss",
+        // "wp-content/themes/online-shop-child/assets/js/bundle" : "./wp-content/themes/online-shop-child/private/reactSrc/App.js",
         // "wp-content/themes/online-shop-child/assets/js/build-pc" : "./wp-content/plugins/woocommerce-build-pc/private/reactjs/App.js",
         // "wp-content/themes/online-shop-child/assets/js/primetime" : "./wp-content/plugins/woocommerce-hotdeal/assets/reactjs/App.js",
         "wp-content/plugins/woocommerce-build-pc/assets/js/build-pc-bm" : "./wp-content/plugins/woocommerce-build-pc/private/reactjsBM/App.js",
 
         'wp-content/plugins/sale-installment/assets/css/star-brands': './wp-content/plugins/sale-installment/private/scss/style.scss',
         'wp-content/plugins/sale-installment/assets/js/star-app': './wp-content/plugins/sale-installment/private/javascripts/app.js',
+
+        // sale accessories
+        'wp-content/plugins/thns-sale-accessories/assets/js/sale-accessories': './wp-content/plugins/thns-sale-accessories/private/javascripts/app.js',
+        'wp-content/plugins/thns-sale-accessories/assets/js/sale-accessories-storefront': './wp-content/plugins/thns-sale-accessories/private/javascripts/storefront/app.js',
+        'wp-content/plugins/thns-sale-accessories/assets/css/sale-accessories': './wp-content/plugins/thns-sale-accessories/private/scss/style.scss',
+        'wp-content/plugins/thns-sale-accessories/assets/css/sale-accessories-storefront': './wp-content/plugins/thns-sale-accessories/private/scss/style-storefront.scss',
     },
     output: {
         path: path.resolve(__dirname),
