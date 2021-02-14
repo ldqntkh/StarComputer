@@ -21,6 +21,8 @@ module.exports = {
         'wp-content/plugins/sale-installment/assets/css/star-brands': './wp-content/plugins/sale-installment/private/scss/style.scss',
         'wp-content/plugins/sale-installment/assets/js/star-app': './wp-content/plugins/sale-installment/private/javascripts/app.js',
 
+        "wp-content/themes/martfury-child/assets/css/custom-style" : "./wp-content/themes/martfury-child/private/scss/style.scss",
+        "wp-content/themes/martfury-child/assets/js/bundle" : "./wp-content/themes/martfury-child/private/reactSrc/App.js",
         // sale accessories
         'wp-content/plugins/thns-sale-accessories/assets/js/sale-accessories': './wp-content/plugins/thns-sale-accessories/private/javascripts/app.js',
         'wp-content/plugins/thns-sale-accessories/assets/js/sale-accessories-storefront': './wp-content/plugins/thns-sale-accessories/private/javascripts/storefront/app.js',

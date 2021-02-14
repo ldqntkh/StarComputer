@@ -1,0 +1,17 @@
+h2.product-title a, .woocommerce ul.products li.product h2 a {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* #primary iframe {
+	max-width: 100%;
+} */
+@media (min-width: 1200px) {
+    .col-mf-5 {
+        width: 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}
