@@ -23,6 +23,7 @@ module.exports = {
 
         "wp-content/themes/martfury-child/assets/css/custom-style" : "./wp-content/themes/martfury-child/private/scss/style.scss",
         "wp-content/themes/martfury-child/assets/js/bundle" : "./wp-content/themes/martfury-child/private/reactSrc/App.js",
+        'wp-content/themes/martfury-child/assets/js/app': './wp-content/themes/martfury-child/private/javascripts/app.js',
         // sale accessories
         'wp-content/plugins/thns-sale-accessories/assets/js/sale-accessories': './wp-content/plugins/thns-sale-accessories/private/javascripts/app.js',
         'wp-content/plugins/thns-sale-accessories/assets/js/sale-accessories-storefront': './wp-content/plugins/thns-sale-accessories/private/javascripts/storefront/app.js',

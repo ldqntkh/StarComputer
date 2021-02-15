@@ -1,11 +1,15 @@
-h2.product-title a, 
-.product-inners h2 a,
-.woocommerce ul.products li.product h2 a {
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2;
+@mixin truncate-text($line : 1) {
+    display: -webkit-box!important;
+    -webkit-line-clamp: $line;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+h2.product-title a, 
+.product-inners h2 a,
+.woocommerce ul.products li.product h2 a {
+   @include truncate-text(1);
 }
 /* #primary iframe {
 	max-width: 100%;

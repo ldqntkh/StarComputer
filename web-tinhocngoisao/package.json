@@ -31,6 +31,7 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "transform-runtime": "0.0.0",
+    "validate.js": "^0.13.1",
     "webpack": "^4.12.0",
     "webpack-dev-server": "^3.1.4",
     "webpack-fix-style-only-entries": "0.0.4"
