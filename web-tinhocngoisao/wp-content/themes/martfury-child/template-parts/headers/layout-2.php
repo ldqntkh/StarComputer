@@ -69,24 +69,25 @@ function custom_martfury_extra_department( $dep_close = false, $id = '' ) {
                         
                         foreach($special_menus as $menu_item) {
                             if ($menu_item->post_status === 'publish' && $menu_item->menu_item_parent === '0') {
-                                $slug = $menu_item->url;
-                                if (strlen($slug) && $slug[strlen($slug) - 1] === '/') $slug = substr($slug, 0, strlen($slug) - 1);
-                                $slug = explode('/', $slug);
-                                $slug = $slug[count($slug)- 1];
-                                $cat = get_term_by( 'slug', $slug, 'product_cat' );
+                                // $slug = $menu_item->url;
+                                // if (strlen($slug) && $slug[strlen($slug) - 1] === '/') $slug = substr($slug, 0, strlen($slug) - 1);
+                                // $slug = explode('/', $slug);
+                                // $slug = $slug[count($slug)- 1];
+                                // $cat = get_term_by( 'slug', $slug, 'product_cat' );
                                 $icon_url = '';
                                 $background_url = '';
-                                if ($cat) {
-                                    $icon_url = get_field('menu_icon', $cat);
-                                    $background_url = get_field('background_menu', $cat);
 
-                                    if (strlen($icon_url) > 0) {
-                                        $icon_url = '<span style="background: url('. $icon_url .'); background-size: cover;"></span>';
-                                    }
+                                $icon_url = get_field( 'menu_icon_image', $menu_item->ID );
+                                    
+                                // $icon_url = get_field('menu_icon', $cat);
+                                $background_url = get_field('background_menu', $menu_item->ID );
 
-                                    if (strlen($background_url) > 0) {
-                                        $background_url = 'style="background: url('. $background_url .') no-repeat; background-size: 300px 300px; background-position: bottom right; background-color: white;"';
-                                    }
+                                if (strlen($icon_url) > 0) {
+                                    $icon_url = '<span style="background: url('. $icon_url .'); background-size: cover;"></span>';
+                                }
+
+                                if (strlen($background_url) > 0) {
+                                    $background_url = 'style="background: url('. $background_url .') no-repeat; background-size: 300px 300px; background-position: bottom right; background-color: white;"';
                                 }
                                 
                                 $special_menus_html .= '<li id="menu-item-' . $menu_item->ID . '" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-' . $menu_item->ID . '">'
@@ -99,17 +100,6 @@ function custom_martfury_extra_department( $dep_close = false, $id = '' ) {
                                     $special_menus_html .= '<section class="sub-menu-lv1">';
                                     foreach($special_menus as $menu_item_lv1) {
                                         if ($menu_item_lv1->post_status === 'publish' && $menu_item_lv1->menu_item_parent == $menu_item->ID) {
-                                            // $special_menus_html .= '<section id="menu-item-' . $menu_item_lv1->ID . '" >'
-                                            //         .'<a href="' . $menu_item_lv1->url . '">' . $menu_item_lv1->title . '</a>';
-                                            // $special_menus_html .= '<section class="sub-menu-lv2">';
-                                            //     foreach($special_menus as $menu_item_lv2) {
-                                            //         if ($menu_item_lv2->post_status === 'publish' && $menu_item_lv2->menu_item_parent == $menu_item_lv1->ID) {
-                                            //             $special_menus_html .= '<a href="' . $menu_item_lv2->url . '">' . $menu_item_lv2->title . '</a>';
-                                            //         }
-                                            //     }
-                                            // $special_menus_html .= '</section>';
-
-                                            //$special_menus_html .= '<section id="menu-item-' . $menu_item_lv1->ID . '" >';
                                             
                                             if ( !empty( $menu_item_lv1->title ) ) {
                                                 $posts = get_posts(
