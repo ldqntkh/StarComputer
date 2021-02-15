@@ -36,4 +36,7 @@ wp-content/themes/online-shop-child/custom-style.css
 
 wp-content/themes/online-shop-child/custom-style.css.map
 
+yarn.lock
+launch.json
+
 .DS_Store

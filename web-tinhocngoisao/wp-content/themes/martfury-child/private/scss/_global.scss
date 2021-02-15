@@ -1,5 +1,7 @@
-h2.product-title a, .woocommerce ul.products li.product h2 a {
-    display: -webkit-box;
+h2.product-title a, 
+.product-inners h2 a,
+.woocommerce ul.products li.product h2 a {
+    display: -webkit-box !important;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
