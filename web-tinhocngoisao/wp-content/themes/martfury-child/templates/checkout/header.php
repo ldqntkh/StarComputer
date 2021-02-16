@@ -32,7 +32,7 @@
 
                     <div class="bs-wizard-step bs-wizard-step-2 <?php if ($checkout_step == 2) echo 'active'; else if ($checkout_step < 2) echo 'disabled'; ?>">
                         <div class="text-center bs-wizard-stepnum">
-                            <span class="hidden-xs">Địa Chỉ Giao Hàng</span>
+                            <span class="">Địa Chỉ Giao Hàng</span>
                         </div>
                         <div class="progress">
                             <div class="progress-bar-left"></div>
@@ -43,7 +43,7 @@
 
                     <div class="bs-wizard-step bs-wizard-step-3 <?php if ($checkout_step == 3) echo 'active'; else if ($checkout_step < 3) echo 'disabled'; ?>">
                         <div class="text-center bs-wizard-stepnum">
-                            <span class="hidden-xs">Thanh Toán &amp; Đặt Mua</span>
+                            <span class="">Thanh Toán &amp; Đặt Mua</span>
                         </div>
                         <div class="progress">
                             <div class="progress-bar-left"></div>
@@ -54,7 +54,7 @@
 
                     <div class="bs-wizard-step bs-wizard-step-4 <?php if ($checkout_step == 4) echo 'active'; else if ($checkout_step < 4) echo 'disabled'; ?>">
                         <div class="text-center bs-wizard-stepnum">
-                            <span class="hidden-xs">Hoàn tất đặt hàng</span>
+                            <span class="">Hoàn tất đặt hàng</span>
                         </div>
                         <div class="progress">
                             <div class="progress-bar-left"></div>

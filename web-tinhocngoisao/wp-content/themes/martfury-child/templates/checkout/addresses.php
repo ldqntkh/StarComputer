@@ -39,7 +39,7 @@
                         </div>
                         <!-- <input type="hidden" id="<?php echo $idx?>" value="<?php echo esc_html(json_encode($address)); ?>" /> -->
                         <div class="info">
-                            <p><?php echo esc_html($address['billing_last_name']); ?></p>
+                            <p><?php echo esc_html($address['billing_first_name']) . ' ' . esc_html($address['billing_last_name']);; ?></p>
                             <p><strong><?php echo __('Địa chỉ:' , 'thns') ?></strong> <span><?php echo isset($address['full_address']) ? esc_html($address['full_address']) : ''; ?></span></p>
                             <p><strong><?php echo __('Số điện thoại:' , 'thns') ?></strong> <span><?php echo esc_html($address['billing_phone']); ?></span></p>
                         </div>
@@ -69,7 +69,7 @@
 
         <div class="address-form new-address <?php  
             if ($user->ID !== 0 && !empty( $otherAddr )) {
-                echo 'd-none';
+                echo 'hidden';
             }?>">
             <form method="post" onsubmit="return false;">
                 <?php if ($user->ID !== 0): ?>
@@ -117,10 +117,10 @@
                             <?php echo $address_field['billing_address_2']; ?>
                             <?php echo $address_field['billing_address_1']; ?>
                         </div>
-                        <div class="input-form d-none <?php if ($user->ID === 0) echo 'hidden';?>">
+                        <div class="input-form hidden <?php if ($user->ID === 0) echo 'hidden';?>">
                             <div class="thns-input-checkbox">
                                 <input type="checkbox" name="address_is_default" class="choose_default_address"id="default_address" />
-                                <label for="default_address" class="d-none"><?php echo __('Sử dụng làm địa chỉ mặc định', 'thns'); ?></label>
+                                <label for="default_address" class="hidden"><?php echo __('Sử dụng làm địa chỉ mặc định', 'thns'); ?></label>
                             </div>
                             <input type="hidden" name="shipping_address_is_default[]" value="" />
                             <input type="hidden" name="shipping_address_is_selected[]" value="true" />
@@ -133,7 +133,7 @@
                 </div>
                 <div class="group-button">
                     <input type="hidden" name="shipping_account_address_action" value="save" />
-                    <button data-text-add="<?php echo __('Giao đến địa chỉ này', 'thns'); ?>" data-text-edit="<?php echo __('Cập nhật', 'thns'); ?>" class="save-new-address" type="button">
+                    <button data-text-add="<?php echo __('Giao đến địa chỉ này', 'thns'); ?>" data-text-edit="<?php echo __('Cập nhật', 'thns'); ?>" class="save-new-address button" type="button">
                         <?php echo __('Giao đến địa chỉ này', 'thns'); ?>
                     </button>
                     <?php if ($user->ID !== 0 && !empty( $otherAddr )):?>

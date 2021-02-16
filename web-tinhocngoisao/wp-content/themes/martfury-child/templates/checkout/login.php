@@ -22,7 +22,7 @@
             <div id="login" class="tabcontent">
                 <form method="post">
                     <div class="input-form">
-                        <label for="username"><?php esc_html_e( 'Số điện thoại hoặc email', 'thns' ); ?>&nbsp;<span class="required">*</span></label>
+                        <label for="username"><?php esc_html_e( 'Tên tài khoản hoặc email', 'thns' ); ?>&nbsp;<span class="required">*</span></label>
                         <input type="text" value="<?php echo !empty($_POST['username']) ? $_POST['username'] : '' ?>" name="username" autocomplete="username" id="username" required>
                     </div>
                     <div class="input-form">
@@ -34,7 +34,7 @@
                         <?php wp_nonce_field( 'woocommerce-login', 'woocommerce-login-nonce' ); ?>
                         <input type="hidden" name="redirect" value="<?php echo esc_url( wc_get_page_permalink( 'checkout' ) ) ?>" />
                         <input type="hidden" name="currentTab" value="login"/>
-                        <button type="submit" class="btn-login" name="login" value="<?php esc_attr_e( 'Login', 'woocommerce' ); ?>"><?php esc_html_e( 'Login', 'woocommerce' ); ?></button>
+                        <button type="submit" class="btn-login button" name="login" value="<?php esc_attr_e( 'Login', 'woocommerce' ); ?>"><?php esc_html_e( 'Login', 'woocommerce' ); ?></button>
                     </div>
                 </form>
             </div>

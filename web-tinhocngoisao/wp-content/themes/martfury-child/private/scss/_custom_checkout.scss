@@ -389,9 +389,12 @@
                     border-top: 0;
 
                     .payment_methods {
-                        border: 0;
+                        box-shadow: 0px 1px 15px 0px #e4e4e499;
+                        padding: 10px 20px;
                         border: 1px solid #ddd;
+                        width: 100%;
                         border-radius: 4px;
+                        background-color: white;
 
                         li {
                             border-bottom: 0;
@@ -462,7 +465,7 @@
 
                         #place_order {
                             max-width: 250px;
-                            padding: 15px 20px;
+                            // padding: 15px 20px;
                         }
                     }
                 }
@@ -618,7 +621,8 @@
 
             .address-item  {
                 width: 100%;
-
+                box-shadow: 0px 1px 15px 0px #e4e4e499;
+                border: 1px solid #ddd;
                 @media (min-width: 992px) {
                     width: calc(50% - 7px);
                 }
@@ -682,7 +686,12 @@
                     }
                 }
             }
-
+            .form-row {
+                flex-direction: column;
+                input {
+                    width: 100%;
+                }
+            }
             .group-address {
                 display: flex;
                 justify-content: space-between;

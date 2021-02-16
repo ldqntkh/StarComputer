@@ -224,9 +224,11 @@ var checkoutAddress = {
 
             if (btnActionSave.attr('data-key')) {
                 jQuery('.address-form.new-address').show();
-            } else {
-                jQuery('.address-form.new-address').toggle();
-            }
+                jQuery('.address-form.new-address').removeClass('hidden');
+            } 
+            // else {
+            //     jQuery('.address-form.new-address').toggle();
+            // }
 
             module.exports.resetForm();
 
@@ -296,6 +298,7 @@ var checkoutAddress = {
     },
     handleFillDataUpdate: function (data) {
         let mapKey = {
+            billing_first_name: 'billing_first_name',
             billing_last_name: 'billing_last_name',
             billing_phone: 'billing_phone',
             billing_state: 'billing_state',
@@ -433,7 +436,7 @@ var checkoutAddress = {
         return jQuery('html,body').animate({ scrollTop: jQuery(selectorScrollTo).offset().top }, 500, 'swing');
     },
     resetForm: function () {
-        let mapKey = ['billing_last_name', 'billing_phone', 'billing_state', 'billing_city', 'billing_address_1', 'billing_address_2'],
+        let mapKey = ['billing_first_name', 'billing_last_name', 'billing_phone', 'billing_state', 'billing_city', 'billing_address_1', 'billing_address_2'],
             selector = '';
 
         mapKey.forEach(function (item, index) {

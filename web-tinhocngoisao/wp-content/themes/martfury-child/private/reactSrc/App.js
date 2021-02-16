@@ -1,4 +1,4 @@
-import hotDealApp from './hotDeal/App';
+// import hotDealApp from './hotDeal/App';
 import buildPCApp from './buildPC/App';
 import ListCategoryMobile from './listCatagoryMobile/App';
 import WidgetATProduct from './widgetAtProduct/App';
@@ -10,10 +10,10 @@ const elementIds = [
         ids : ["build-pc-function"],
         appName : buildPCApp
     },
-    {
-        ids : ["dv-primetime-price-mobile", "dv-primetime-price-desktop"],
-        appName : hotDealApp
-    },
+    // {
+    //     ids : ["dv-primetime-price-mobile", "dv-primetime-price-desktop"],
+    //     appName : hotDealApp
+    // },
     {
         ids : ["list_category_mobile"],
         appName : ListCategoryMobile
