@@ -17,6 +17,7 @@
             'custom_preferences_zalo' => "Zalo",
             'custom_preferences_facebook' => 'Facebook',
             'custom_preferences_cache' => 'Cache',
+            'custom_preferences_webhook' => 'Webhook',
             'custom_preferences_installment' => 'Trả góp'
         )
     );
@@ -29,6 +30,8 @@
     include CUSTOM_PREFERECE_DIR . '/facebook/custom-preference-facebook.php';
     include CUSTOM_PREFERECE_DIR . '/cache/custom-preference-cache.php';
     include CUSTOM_PREFERECE_DIR . '/installment/custom-preference-installment.php';
+    include CUSTOM_PREFERECE_DIR . '/webhook/webhook.php';
+    include CUSTOM_PREFERECE_DIR . '/register-hook/order-hooks.php';
 
     add_action( 'admin_menu', 'custom_preferences_menu' );
 
@@ -88,6 +91,14 @@
         echo '<form action="options.php" method="post">';
         settings_fields( 'custom_preferences_installment_options' );
         do_settings_sections( 'custom_preferences_installment' );
+        echo '<input class="button" name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
+        echo '</form></div>';
+
+        // webhook
+        echo '<div id="custom_preferences_webhook" class="custom_preferences_tab wrap" style="display:none">';
+        echo '<form action="options.php" method="post">';
+        settings_fields( 'custom_preferences_webhook_options' );
+        do_settings_sections( 'custom_preferences_webhook' );
         echo '<input class="button" name="Submit" type="submit" value="' . __( 'Save Changes' ) . '" />';
         echo '</form></div>';
     }

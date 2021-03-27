@@ -230,6 +230,12 @@
         }
     }
 }
+
+.ReactModalPortal {
+    .ReactModal__Overlay {
+        z-index: 9999999!important;
+    }
+}
  
 .page-template-templatesbuildpc-php {
     .ReactModal__Content {
@@ -241,7 +247,7 @@
         top: 50px!important;
         left: 10px!important;
         right: 10px!important;
-        bottom: 40px!important;
+        bottom: 60px!important;
         position: relative;
         @media screen and (min-width: 1366px) {
             width: 1200px;

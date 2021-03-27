@@ -10,8 +10,9 @@ define( 'THEME_PATH_URI',  get_stylesheet_directory_uri());
 // 	}
 // }
 
-include_once (THEME_PATH . '/inc/api/account/my-address.php');
+include_once (THEME_PATH . '/inc/api/functions.php');
 include_once (THEME_PATH . '/inc/register-style.php');
 include_once (THEME_PATH . '/inc/custom-mobile-menu.php');
+include_once (THEME_PATH . '/inc/post-component/post-shortcode.php');
 
 
