@@ -16,3 +16,5 @@ include_once (THEME_PATH . '/inc/custom-mobile-menu.php');
 include_once (THEME_PATH . '/inc/post-component/post-shortcode.php');
 
 
+include_once (THEME_PATH . '/inc/filter/search-order.php');
+include_once (THEME_PATH . '/inc/print_order/print_order.php');

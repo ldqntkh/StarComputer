@@ -28,7 +28,7 @@ if ( $user->exists() && !empty($_REQUEST['order_ids']) ) {
                     var custom_date = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
                     var content = $('body').html();
-                    content = content.replace('{print_date}', custom_date);
+                    content = content.replaceAll('{print_date}', custom_date);
                     $('body').html(content);
                     window.print();
                 });
