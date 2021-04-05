@@ -1,0 +1,40 @@
+body.mobile-version {
+    input[type=text] {
+        font-size: 14px!important;
+    }
+    .guaven_woos_mobilesearch {
+        z-index: 9999991;
+        width: 100%;
+        margin: 0;
+        bottom: 65px;
+        height: calc(100% - 130px);
+        max-height: calc(100% - 130px);
+        p {
+            display: none;
+        }
+        form {
+            height: 72px;
+            background-color: var(--mf-background-primary-color);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+            .gws_clearable {
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    .guaven_woos_suggestion {
+        z-index: 9999991;
+        top: 72px!important;
+        bottom: 65px!important;
+        max-height: calc(100% - 65px)!important;
+        ul {
+            li {
+                min-height: 65px;    
+            }
+        }
+    }
+}

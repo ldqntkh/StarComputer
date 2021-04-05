@@ -4,6 +4,14 @@ const thns_home_ajax= '/wp-admin/admin-ajax.php';
 var homePost = {
     init: function () {
         this.itemPostClick();
+        this.initCatClick();
+    },
+
+    initCatClick: function() {
+        $('#navigation-mobile_cat').on('click', function(e) {
+            $('.guaven_woos_mobilesearch').removeAttr( 'style' );
+            $('.guaven_woos_suggestion').removeAttr( 'style' );
+        });
     },
 
     itemPostClick: function() {

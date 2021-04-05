@@ -266,19 +266,25 @@ class WC_Gateway_Alepay extends WC_Payment_Gateway {
         <div id="custom_input">
           <?php if ($this->payment_normal) { ?>
           <p class="form-row form-row-wide">
-            <label style="font-weight: normal;"><input type="radio" value="1" name="payment_alepay" <?php echo $checked_normal; ?> /> <?php echo $this->payment_normal_desc; ?></label>
+            <input type="radio" value="1" name="payment_alepay" id="payment_alepay1" <?php echo $checked_normal; ?> />
+            <label for="payment_alepay1" style="font-weight: normal;"><?php echo $this->payment_normal_desc; ?></label>
+             
           </p>
           <?php } if ($this->payment_installment) { ?>
           <p class="form-row form-row-wide">
-            <label style="font-weight: normal;"><input type="radio" value="2" name="payment_alepay" <?php echo $checked_installment; ?> /> <?php echo $this->payment_installment_desc; ?></label>
+            <input type="radio" value="2" name="payment_alepay" id="payment_alepay2" <?php echo $checked_installment; ?> /> 
+            <label for="payment_alepay2" style="font-weight: normal;"><?php echo $this->payment_installment_desc; ?></label>
+            
           </p>
 		  <?php } if ($this->payment_normal_domestic) { ?>
           <p class="form-row form-row-wide">
-            <label style="font-weight: normal;"><input type="radio" value="4" name="payment_alepay" <?php echo $checked_domestic; ?> /> <?php echo $this->payment_normal_domestic_desc; ?></label>
+            <input type="radio" value="4" name="payment_alepay" id="payment_alepay3" <?php echo $checked_domestic; ?> />
+            <label for="payment_alepay3" style="font-weight: normal;"><?php echo $this->payment_normal_domestic_desc; ?></label>
           </p>
           <?php } if ($this->payment_token && $user_id) { ?>
           <p class="form-row form-row-wide">
-            <label style="font-weight: normal;"><input type="radio" value="3" name="payment_alepay" <?php echo $checked_token; ?> /> <?php echo $this->payment_token_desc; ?></label>
+            <input type="radio" value="3" name="payment_alepay" id="payment_alepay4" <?php echo $checked_token; ?> /> 
+            <label for="payment_alepay4" style="font-weight: normal;"><?php echo $this->payment_token_desc; ?></label>
           </p>
           <?php } ?>
         </div>
