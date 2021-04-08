@@ -76,3 +76,16 @@ button.button {
     margin-bottom: 10px;
     white-space: nowrap;
 }
+
+body.mobile-version {
+    #primary {
+        width: 100%!important;
+        flex: 0 0 100%!important;
+        max-width: 100%!important;
+    }
+    &.mf-catalog-page.mf-filter-active .catalog-sidebar, &.mobile-version.mf-catalog-page.mf-filter-active .vendor_sidebar {
+        width: 100%!important;
+        flex: 0 0 100%!important;
+        max-width: 100%!important;
+    }
+}

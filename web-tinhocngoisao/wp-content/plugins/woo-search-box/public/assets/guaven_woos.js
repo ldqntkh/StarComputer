@@ -949,7 +949,7 @@ function guaven_woos_runner() {
   //guaven_woos_cache_keywords_str = JSON.stringify(guaven_woos_cache_keywords);
 
   jQuery(document).on('focus', guaven_woos_object_name, function() {
-    if (guaven_woos.mobilesearch == 1 && jQuery('.guaven_woos_mobilesearch').width() < '768') {
+    if (guaven_woos.mobilesearch == 1 ) {
       jQuery('.guaven_woos_mobilesearch').show();
       jQuery("body").addClass("guaven_woos_mobile_div_state");
       jQuery('.guaven_woos_suggestion').css({
