@@ -6,6 +6,22 @@ Martfury is a WooCommerce Marketplace WordPress Theme. The theme is WooCommerce 
 
 Change log:
 
+Version 2.6.0
+
+- Fix: Navigation bar doesn't show on mobile version.
+- Fix: Some minor bugs.
+
+Version 2.5.9
+
+- New: Add a current year shortcode. [current_year]
+- New: Add a Hide Mobile Navigation Menu option for all pages.
+- New: Add a Products on sale widget
+- New: Add a param(?on_sale=1) to show all products sale on the catalog page.
+- Update: Revolution Slider 6.4.2
+- Update: WPBakery Page Builder 6.6.0
+- Fix: Breadcrumb error.
+- Fix: Some minor bugs.
+
 Version 2.5.8
 
 - New: Add new option to disable the product featured description in the Appearance > Customize > Product Page > Product Layout > Product Featured Desc

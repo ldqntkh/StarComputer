@@ -150,7 +150,7 @@
         }
 
         NProgress.start();
-        $( document ).ready(function() {
+        $(document).ready(function () {
             $('#martfury-preloader').addClass('fade-in');
             NProgress.done();
         });
@@ -414,7 +414,7 @@
             return;
         }
 
-        $( document ).ready(function() {
+        $(document).ready(function () {
             setTimeout(function () {
                 $modal.addClass('open');
             }, seconds * 1000);
@@ -1608,7 +1608,11 @@
                 martfury.recentlyViewedCarousel($recently);
                 martfury.lazyLoad();
             } else {
-                footerRecentlyViewedAJAX($recently);
+                martfury.$window.on('scroll', function () {
+                    if (martfury.$body.find('#footer-recently-viewed').is(':in-viewport')) {
+                        footerRecentlyViewedAJAX($recently);
+                    }
+                }).trigger('scroll');
             }
         }
 
@@ -1657,6 +1661,12 @@
                 return;
             }
 
+            if ($recently.data('requestRunning')) {
+                return;
+            }
+
+            $recently.data('requestRunning', true);
+
             var data = {
                     nonce: martfuryData.nonce
                 },
@@ -1673,6 +1683,7 @@
                     martfury.lazyLoad();
                     martfury.recentlyViewedCarousel($recently);
                     $recently.addClass('loaded');
+                    $recently.data('requestRunning', false);
                 }
             );
         }
@@ -1689,10 +1700,21 @@
             martfury.recentlyViewedCarousel($recently);
             martfury.lazyLoad();
         } else {
-            headerRecentlyViewedAJAX($recently);
+            martfury.$header.find('.recently-title').on('mouseenter', function () {
+                headerRecentlyViewedAJAX($recently);
+            });
         }
 
         function headerRecentlyViewedAJAX($recently) {
+            if ($recently.data('requestRunning')) {
+                return;
+            }
+
+            if( $recently.hasClass('loaded')) {
+                return;
+            }
+
+            $recently.data('requestRunning', true);
             var data = {
                     nonce: martfuryData.nonce
                 },
@@ -1708,6 +1730,8 @@
                     }
                     martfury.lazyLoad();
                     martfury.recentlyViewedCarousel($recently);
+                    $recently.data('requestRunning', false);
+                    $recently.addClass('loaded');
                 }
             );
         }
@@ -2459,8 +2483,10 @@
                         $variation = $('.variations_form'),
                         $buttons = $product.find('form.cart .actions-button'),
                         $buy_now = $buttons.find('.buy_now_button');
+
                     $gallery.removeAttr('style');
                     $gallery.find('img.lazy').lazyload().trigger('appear');
+
                     $gallery.imagesLoaded(function () {
                         $gallery.find('.woocommerce-product-gallery__wrapper').not('.slick-initialized').slick({
                             slidesToShow: 1,
@@ -2707,7 +2733,7 @@
             return;
         }
 
-        if( ! single ) {
+        if (!single) {
             if (multiple) {
                 $message += ' ' + martfuryData.added_to_cart_notice.added_to_cart_texts;
             } else {
@@ -2955,7 +2981,7 @@
         $(document.body).on('added_to_cart', function (event, fragments, cart_hash, $thisbutton) {
             var product_title = $thisbutton.attr('data-title');
 
-            martfury.addedToCartNotice( product_title, false, 'success', false);
+            martfury.addedToCartNotice(product_title, false, 'success', false);
 
         });
     };
@@ -3245,16 +3271,18 @@
             return;
         }
         var $selector = martfury.$header.find('.mf-history-back');
-
         $selector.on('click', function (e) {
-            e.preventDefault();
+            if (document.referrer != '') {
+                e.preventDefault();
 
-            window.history.go(-1);
-            $(window).on('popstate', function (e) {
-                window.location.reload(true);
-            });
+                window.history.go(-1);
+                $(window).on('popstate', function (e) {
+                    window.location.reload(true);
+                });
+            }
+
         });
-    }
+    };
 
     martfury.wcfm = function () {
 

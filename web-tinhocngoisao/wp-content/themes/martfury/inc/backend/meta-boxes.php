@@ -391,6 +391,23 @@ function martfury_register_meta_boxes( $meta_boxes ) {
 		),
 	);
 
+	// Option to show/hide menu on mobile.
+	$meta_boxes[] = array(
+		'id'       => 'menu-mobile',
+		'title'    => esc_html__( 'Mobile Settings', 'martfury' ),
+		'pages'    => array( 'page' ),
+		'context'  => 'normal',
+		'priority' => 'high',
+		'fields'   => array(
+			array(
+				'name' => esc_html__( 'Hide Navigation Menu', 'martfury' ),
+				'id'   => 'hide_mobile_navigation_menu',
+				'type' => 'checkbox',
+				'std'  => false,
+			),
+		),
+	);
+
 	return $meta_boxes;
 }
 

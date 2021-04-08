@@ -4,7 +4,7 @@ Theme URI: http://demo2.drfuri.com/martfury
 Author: DrFuri
 Author URI: http://demo2.drfuri.com
 Description: WooCommerce Marketplace WordPress Theme
-Version: 2.5.8
+Version: 2.6.0
 Requires at least: 5.0
 Tested up to: 5.4.2
 Requires PHP: 7.0.0
@@ -1347,6 +1347,15 @@ p {
 .mf-quick-view-modal div.product .woocommerce-product-gallery.images {
   padding-left: 0;
   padding-bottom: 0;
+}
+.mf-quick-view-modal div.product .woocommerce-product-gallery.images .woocommerce-product-gallery__image:nth-child(n+2) {
+  width: 100%;
+}
+.mf-quick-view-modal div.product .woocommerce-product-gallery__wrapper {
+  flex-direction: column;
+}
+.mf-quick-view-modal div.product .woocommerce-product-gallery__wrapper:not( .slick-initialized ) .woocommerce-product-gallery__image:not(:first-child) {
+  display: none;
 }
 .mf-quick-view-modal div.product .product_title a {
   color: #000;
@@ -3787,16 +3796,22 @@ body.display-mobile-menu {
   margin: 0;
   padding: 0;
 }
-.page-header .breadcrumbs .sep,
 .page-header .breadcrumbs a {
-  color: #000;
+  color: #09c;
+}
+.page-header .breadcrumbs a:hover {
+  color: var(--mf-primary-color);
 }
 .page-header .breadcrumbs .sep {
   margin: 0 5px;
+  color: #000;
 }
 .page-header .breadcrumbs li {
   display: inline-block;
   margin-bottom: 0;
+}
+.page-header .breadcrumbs li:last-child a {
+  color: #000;
 }
 .page-header-sliders {
   padding-top: 0;
@@ -4037,15 +4052,8 @@ body.display-mobile-menu {
   background-color: #f1f1f1;
 }
 .page-header-catalog .page-breadcrumbs .breadcrumbs {
-  color: #000;
   padding-top: 20px;
   padding-bottom: 20px;
-}
-.page-header-catalog .page-breadcrumbs a {
-  color: #0099cc;
-}
-.page-header-catalog .page-breadcrumbs a:hover {
-  color: var(--mf-primary-color);
 }
 .mf-catalog-layout-3 .page-header-catalog,
 .mf-catalog-layout-10 .page-header-catalog {
@@ -4082,15 +4090,8 @@ body.display-mobile-menu {
   background-color: #f1f1f1;
 }
 .page-header-page .page-breadcrumbs .breadcrumbs {
-  color: #000;
   padding-top: 20px;
   padding-bottom: 20px;
-}
-.page-header-page .page-breadcrumbs a {
-  color: #0099cc;
-}
-.page-header-page .page-breadcrumbs a:hover {
-  color: var(--mf-primary-color);
 }
 .woocommerce-account .page-header-page .entry-title {
   background-color: #f1f1f1;
@@ -4106,15 +4107,8 @@ body.display-mobile-menu {
   background-color: #f1f1f1;
 }
 .page-header-default .page-breadcrumbs .breadcrumbs {
-  color: #000;
   padding-top: 20px;
   padding-bottom: 20px;
-}
-.page-header-default .page-breadcrumbs a {
-  color: #0099cc;
-}
-.page-header-default .page-breadcrumbs a:hover {
-  color: var(--mf-primary-color);
 }
 /*--------------------------------------------------------------
 5.0 - Navigations
@@ -17689,18 +17683,13 @@ textarea:focus {
   overflow: hidden;
   height: 400px;
 }
-.mf-slides-wrapper .mf-loading {
-  display: none;
+.mf-slides .slick-slide:first-child {
+  width: 100%;
 }
-.mf-slides-wrapper.loading .mf-loading {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.mf-slides .elementor-repeater-item-clone {
+  height: 400px;
 }
-.mf-slides-wrapper.loading .arrows-wrapper,
-.mf-slides-wrapper.loading .mf-slides {
+.mf-slides-wrapper.loading .arrows-wrapper {
   opacity: 0;
   transition: 0.5s;
 }
@@ -18479,15 +18468,60 @@ body .elementor-widget:not(:last-child) {
   .elementor .elementor-section.elementor-section-boxed > .elementor-container {
     max-width: 730px;
   }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-default {
+    max-width: 750px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-extended {
+    max-width: 760px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-narrow {
+    max-width: 740px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-wider {
+    max-width: 760px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-wide {
+    max-width: 760px;
+  }
 }
 @media (min-width: 992px) {
   .elementor .elementor-section.elementor-section-boxed > .elementor-container {
     max-width: 970px;
   }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-default {
+    max-width: 990px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-extended {
+    max-width: 990px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-narrow {
+    max-width: 980px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-wider {
+    max-width: 990px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-wide {
+    max-width: 990px;
+  }
 }
 @media (min-width: 1200px) {
   .elementor .elementor-section.elementor-section-boxed > .elementor-container {
     max-width: 1170px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-default {
+    max-width: 1190px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-extended {
+    max-width: 1200px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-narrow {
+    max-width: 1180px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-wider {
+    max-width: 1200px;
+  }
+  .elementor-no-row .elementor-section.elementor-section-boxed > .elementor-column-gap-wide {
+    max-width: 1200px;
   }
 }
 @media (min-width: 1230px) {
@@ -24400,6 +24434,7 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
     width: auto;
     clear: none;
     padding-top: 0;
+    margin-top: 0 !important;
   }
   .mf-quick-view-modal .modal-content .entry-meta li.meta-review {
     display: none;
@@ -24584,7 +24619,6 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
   .woocommerce div.product.mf-has-buy-now .cart .actions-button .buy_now_button {
     margin-left: 0;
     width: 100%;
-    margin-top: 20px;
   }
   .primary-mobile-nav {
     width: 280px;

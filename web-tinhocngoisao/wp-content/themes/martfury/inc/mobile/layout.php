@@ -88,6 +88,37 @@ class Martfury_Mobile {
 
 	}
 
+	function is_mobile_menu_enable() {
+		if ( ! intval( martfury_get_option( 'navigation_mobile' ) ) ) {
+			return false;
+		}
+
+		if ( empty( martfury_get_option( 'navigation_els_mobile' ) ) ) {
+			return false;
+		}
+
+		if ( is_page() && intval( get_post_meta( get_the_ID(), 'hide_mobile_navigation_menu', true ) ) ) {
+			return false;
+		}
+
+		if ( is_page_template( 'template-coming-soon-page.php' ) ) {
+			return false;
+		}
+
+		if ( function_exists( 'wcmp_vendor_dashboard_page_id' ) ) {
+
+			if ( is_page( wcmp_vendor_dashboard_page_id() ) ) {
+				return false;
+			}
+		}
+
+		if ( martfury_cartflows_template() ) {
+			return false;
+		}
+
+		return true;
+	}
+
 
 	/**
 	 * Display homepage mobile
@@ -133,7 +164,8 @@ class Martfury_Mobile {
 			$classes[] = 'cart-panel-mobile';
 		}
 
-		if ( intval( martfury_get_option( 'navigation_mobile' ) ) && ! empty( martfury_get_option( 'navigation_els_mobile' ) ) ) {
+
+		if ( $this->is_mobile_menu_enable() ) {
 			$classes[] = 'mobile-nav-enable';
 		}
 
@@ -184,23 +216,7 @@ class Martfury_Mobile {
 	 *  return string
 	 */
 	function navigation_mobile() {
-
-		if ( is_page_template( 'template-coming-soon-page.php' ) ) {
-			return;
-		}
-
-		if ( ! intval( martfury_get_option( 'navigation_mobile' ) ) ) {
-			return;
-		}
-
-		if ( function_exists( 'wcmp_vendor_dashboard_page_id' ) ) {
-
-			if ( is_page( wcmp_vendor_dashboard_page_id() ) ) {
-				return;
-			}
-		}
-
-		if ( martfury_cartflows_template() ) {
+		if ( ! $this->is_mobile_menu_enable() ) {
 			return;
 		}
 

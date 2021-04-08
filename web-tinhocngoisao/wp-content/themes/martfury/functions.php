@@ -79,9 +79,6 @@ function martfury_setup() {
 	global $martfury_mobile;
 	$martfury_mobile = new Martfury_Mobile;
 
-	global $martfury_wcfm;
-	$martfury_wcfm = new Martfury_WCFM;
-
 }
 
 add_action( 'after_setup_theme', 'martfury_setup', 100 );
@@ -167,11 +164,6 @@ require get_template_directory() . '/inc/frontend/woocommerce.php';
 
 // Vendor
 require get_template_directory() . '/inc/vendors/vendors.php';
-
-// WC Frontend Manager
-require get_template_directory() . '/inc/frontend/wcfm.php';
-
-require get_template_directory() . '/inc/frontend/dokan.php';
 
 // Mobile
 require get_template_directory() . '/inc/libs/mobile_detect.php';

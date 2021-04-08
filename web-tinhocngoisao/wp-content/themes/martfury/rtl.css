@@ -1733,6 +1733,16 @@ blockquote cite:before {
   left: 10px;
   right: auto;
 }
+.woocommerce .mf-single-product.mf-product-layout-4 .wc-tabs-wrapper ul.tabs {
+  text-align: right;
+}
+.woocommerce .mf-single-product.mf-product-layout-4 .wc-tabs-wrapper ul.tabs li:first-child {
+  padding-left: 15px;
+}
+.woocommerce-widget-layered-nav .woocommerce-widget-layered-nav-list .woocommerce-widget-layered-nav-list__item a:after {
+  right: 0;
+  left: 0;
+}
 @media (max-width: 1600px) and (min-width: 1300px) {
   .single-product-layout-6.woocommerce div.product.mf-has-buy-now .cart .actions-button .yith-wcwl-add-to-wishlist .yith-wcwl-add-button > a:before,
   .single-product-layout-6.woocommerce div.product.mf-has-buy-now .cart .actions-button .yith-wcwl-add-to-wishlist .yith-wcwl-wishlistaddedbrowse > a:before,

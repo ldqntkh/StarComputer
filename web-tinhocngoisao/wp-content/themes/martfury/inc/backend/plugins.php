@@ -40,7 +40,7 @@ function martfury_register_required_plugins() {
 			'required'           => true,
 			'force_activation'   => false,
 			'force_deactivation' => false,
-			'version'            => '2.3.3',
+			'version'            => '2.3.5',
 		),
 		array(
 			'name'               => esc_html__( 'Variation Swatches for WooCommerce Pro', 'martfury' ),

@@ -61,6 +61,9 @@ class Martfury_WooCommerce {
 
 		add_filter( 'template_include', array( $this, 'archive_template_loader' ), 20 );
 
+		// Get products on sale.
+		add_action( 'pre_get_posts', array( $this, 'products_on_sale' ) );
+
 		// Track Product View
 		add_action( 'template_redirect', array( $this, 'martfury_track_product_view' ) );
 
@@ -2298,7 +2301,7 @@ class Martfury_WooCommerce {
 	function product_variations_loop() {
 
 		if ( ! $this->is_product_variations_loop() ) {
-		    return false;
+			return false;
 		}
 
 		global $product;
@@ -3491,6 +3494,10 @@ class Martfury_WooCommerce {
 			);
 		}
 
+		$args               = apply_filters( 'martfury_get_search_products_query', $args );
+		$args_sku           = apply_filters( 'martfury_get_search_products_sku_query', $args_sku );
+		$args_variation_sku = apply_filters( 'martfury_get_search_products_variation_sku_query', $args_variation_sku );
+
 		$products_sku           = get_posts( $args_sku );
 		$products_s             = get_posts( $args );
 		$products_variation_sku = get_posts( $args_variation_sku );
@@ -3547,6 +3554,8 @@ class Martfury_WooCommerce {
 			's'                => trim( $_POST['term'] ),
 			'suppress_filters' => 0,
 		);
+
+		$args = apply_filters( 'martfury_get_search_posts_query', $args );
 
 		$posts    = get_posts( $args );
 		$post_ids = array();
@@ -3780,10 +3789,11 @@ class Martfury_WooCommerce {
 
 	function get_product_single_excerpt() {
 
-	    if( ! intval(martfury_get_option('product_features_desc')) ) {
-		    woocommerce_template_single_excerpt();
-	        return ;
-        }
+		if ( ! intval( martfury_get_option( 'product_features_desc' ) ) ) {
+			woocommerce_template_single_excerpt();
+
+			return;
+		}
 
 		$featured_text = get_post_meta( get_the_ID(), 'product_features_desc', true );
 		if ( ! empty( $featured_text ) ) {
@@ -4298,8 +4308,17 @@ class Martfury_WooCommerce {
 				break;
 		}
 	}
-}
 
+	public function products_on_sale( $query ) {
+		if ( is_admin() || ! isset( $_GET['on_sale'] ) || empty( $_GET['on_sale'] ) || ! $query->is_main_query() ) {
+			return;
+		}
+
+		if ( $_GET['on_sale'] ) {
+			$query->set( 'post__in', array_merge( array( 0 ), wc_get_product_ids_on_sale() ) );
+		}
+	}
+}
 
 add_filter( 'loop_shop_columns', 'martfury_loop_shop_columns' );
 function martfury_loop_shop_columns( $columns ) {
@@ -4307,7 +4326,6 @@ function martfury_loop_shop_columns( $columns ) {
 	if ( empty( $catalog_layout ) ) {
 		return $columns;
 	}
-
 
 	$columns = intval( martfury_get_option( 'products_columns_' . $catalog_layout ) );
 

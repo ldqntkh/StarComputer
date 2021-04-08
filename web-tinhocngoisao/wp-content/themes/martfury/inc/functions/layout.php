@@ -203,6 +203,7 @@ endif;
  */
 if ( ! function_exists( 'martfury_is_mobile' ) ) :
 	function martfury_is_mobile() {
+		return wp_is_mobile();
 
 		if ( ! class_exists( 'Mobile_Detect' ) ) {
 			return false;

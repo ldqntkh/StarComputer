@@ -43,14 +43,9 @@ if ( ! function_exists( 'martfury_breadcrumbs' ) ) :
 		$items = array();
 
 		// HTML template for each item
-		$item_tpl      = $args['before_item'] . '
+		$item_tpl = $args['before_item'] . '
 		 <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-			<a href="%s" itemprop="item"><span itemprop="name">%s</span></a>
-		</li>
-	' . $args['after_item'];
-		$item_text_tpl = $args['before_item'] . '
-		 <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-			<span itemprop="item"><span itemprop="name">%s</span></span>
+			<a href="%s" itemprop="item"><span itemprop="name">%s</span><meta itemprop="position" content="%s"></a>
 		</li>
 	' . $args['after_item'];
 
@@ -60,8 +55,11 @@ if ( ! function_exists( 'martfury_breadcrumbs' ) ) :
 		} else {
 			$items[] = sprintf(
 				'%s<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-				<a class="%s" href="%s" itemprop="item"><span itemprop="name">%s </span></a>
-			</li>%s',
+				<a class="%s" href="%s" itemprop="item">
+					<span itemprop="name">%s </span>
+					<meta itemprop="position" content="1">
+				</a>
+				</li>%s',
 				$args['before_item'],
 				$args['home_class'],
 				apply_filters( 'martfury_breadcrumbs_home_url', get_home_url() ),
@@ -70,6 +68,8 @@ if ( ! function_exists( 'martfury_breadcrumbs' ) ) :
 			);
 
 		}
+
+		$item_position = 2;
 
 		// Front page
 		if ( is_front_page() ) {
@@ -82,13 +82,17 @@ if ( ! function_exists( 'martfury_breadcrumbs' ) ) :
 				$store_info = $store_user->get_shop_info();
 				$shop_name  = $store_info['store_name'];
 			}
-			$items[] = sprintf( $item_text_tpl, $shop_name );
+
+			$store_url = function_exists( 'wcfmmp_get_store_url' ) ? wcfmmp_get_store_url( get_query_var( 'author' ) ) : get_home_url();
+			$items[]   = sprintf( $item_tpl, esc_url( $store_url ), $shop_name, esc_attr( $item_position ) );
 
 		} // Blog
 		elseif ( is_home() && ! is_front_page() ) {
 			$items[] = sprintf(
-				$item_text_tpl,
-				get_the_title( get_option( 'page_for_posts' ) )
+				$item_tpl,
+				esc_url( get_the_permalink( get_option( 'page_for_posts' ) ) ),
+				get_the_title( get_option( 'page_for_posts' ) ),
+				esc_attr( $item_position )
 			);
 		} // Single
 		elseif ( is_single() ) {
@@ -96,20 +100,17 @@ if ( ! function_exists( 'martfury_breadcrumbs' ) ) :
 
 			$taxonomy = $args['taxonomy'];
 
-			if ( is_singular( 'portfolio_project' ) ) {
-				$taxonomy = 'portfolio_category';
-			}
-
 			if ( is_singular( 'product' ) ) {
 				$taxonomy = 'product_cat';
 				if ( apply_filters( 'martfury_breadcrumb_get_shop_page', true ) && $page_id = get_option( 'woocommerce_shop_page_id' ) ) {
-					$items[] = sprintf( $item_tpl, esc_url( get_permalink( $page_id ) ), get_the_title( $page_id ) );
+					$items[] = sprintf( $item_tpl, esc_url( get_permalink( $page_id ) ), get_the_title( $page_id ), esc_attr( $item_position ) );
+					$item_position ++;
 				}
 			}
 
 			$primary_term_id = false;
 			if ( apply_filters( 'martfury_yoast_get_primary_term_id', function_exists( 'yoast_get_primary_term_id' ) ) ) {
-				$primary_term_id = yoast_get_primary_term_id( 'product_cat');
+				$primary_term_id = yoast_get_primary_term_id( 'product_cat' );
 
 			}
 
@@ -146,46 +147,50 @@ if ( ! function_exists( 'martfury_breadcrumbs' ) ) :
 
 				foreach ( $cat_ancestors as $term_id ) {
 					$parent_term = get_term_by( 'id', $term_id, 'product_cat' );
-					if( is_wp_error( $parent_term ) || ! $parent_term ) {
+					if ( is_wp_error( $parent_term ) || ! $parent_term ) {
 						continue;
 					}
-					$items[]     = sprintf( $item_tpl, get_term_link( $parent_term, $taxonomy ), $parent_term->name );
+					$items[] = sprintf( $item_tpl, get_term_link( $parent_term, $taxonomy ), $parent_term->name, esc_attr( $item_position ) );
+					$item_position ++;
 				}
 			}
 
 
 			if ( $args['display_last_item'] ) {
-				$items[] = sprintf( $item_text_tpl, get_the_title() );
+				$items[] = sprintf( $item_tpl, esc_url( get_the_permalink() ), get_the_title(), esc_attr( $item_position ) );
 			}
 
 		} // Page
 		elseif ( is_page() ) {
 			if ( ( function_exists( 'is_cart' ) && is_cart() ) || ( function_exists( 'is_checkout' ) && is_checkout() ) ) {
 				if ( apply_filters( 'martfury_breadcrumb_get_shop_page', true ) && $page_id = get_option( 'woocommerce_shop_page_id' ) ) {
-					$items[] = sprintf( $item_tpl, esc_url( get_permalink( $page_id ) ), get_the_title( $page_id ) );
+					$items[] = sprintf( $item_tpl, esc_url( get_permalink( $page_id ) ), get_the_title( $page_id ), esc_attr( $item_position ) );
+					$item_position ++;
 				}
 
 			} else {
 				$pages = martfury_get_post_parents( get_queried_object_id() );
 				foreach ( $pages as $page ) {
-					$items[] = sprintf( $item_tpl, esc_url( get_permalink( $page ) ), get_the_title( $page ) );
+					$items[] = sprintf( $item_tpl, esc_url( get_permalink( $page ) ), get_the_title( $page ), esc_attr( $item_position ) );
+					$item_position ++;
 				}
 			}
 
 
 			if ( $args['display_last_item'] ) {
-				$items[] = sprintf( $item_text_tpl, get_the_title() );
+				$items[] = sprintf( $item_tpl, esc_url( get_the_permalink() ), get_the_title(), esc_attr( $item_position ) );
 			}
 		} elseif ( function_exists( 'is_shop' ) && is_shop() ) {
 
 			if ( martfury_is_wc_vendor_page() && class_exists( 'WCV_Vendors' ) ) {
 				$vendor_shop = urldecode( get_query_var( 'vendor_shop' ) );
 				$vendor_id   = WCV_Vendors::get_vendor_id( $vendor_shop );
-				$items[]     = sprintf( $item_text_tpl, WCV_Vendors::get_vendor_shop_name( $vendor_id ) );
+				$items[]     = sprintf( $item_tpl, esc_url( WCV_Vendors::get_vendor_shop_page( $vendor_id ) ), WCV_Vendors::get_vendor_shop_name( $vendor_id ), esc_attr( $item_position ) );
 			} else {
 				$title = get_the_title( get_option( 'woocommerce_shop_page_id' ) );
+				$link  = get_permalink( get_option( 'woocommerce_shop_page_id' ) );
 				if ( $args['display_last_item'] ) {
-					$items[] = sprintf( $item_text_tpl, $title );
+					$items[] = sprintf( $item_tpl, esc_url( $link ), $title, esc_attr( $item_position ) );
 				}
 			}
 
@@ -194,7 +199,8 @@ if ( ! function_exists( 'martfury_breadcrumbs' ) ) :
 
 			if ( function_exists( 'is_product_category' ) && is_product_category() ) {
 				if ( apply_filters( 'martfury_breadcrumb_get_shop_page', true ) && $page_id = get_option( 'woocommerce_shop_page_id' ) ) {
-					$items[] = sprintf( $item_tpl, esc_url( get_permalink( $page_id ) ), get_the_title( $page_id ) );
+					$items[] = sprintf( $item_tpl, esc_url( get_permalink( $page_id ) ), get_the_title( $page_id ), esc_attr( $item_position ) );
+					$item_position ++;
 				}
 			}
 
@@ -207,12 +213,13 @@ if ( ! function_exists( 'martfury_breadcrumbs' ) ) :
 					if ( is_wp_error( $term ) || ! $term ) {
 						continue;
 					}
-					$items[] = sprintf( $item_tpl, get_term_link( $term, $current_term->taxonomy ), $term->name );
+					$items[] = sprintf( $item_tpl, get_term_link( $term, $current_term->taxonomy ), $term->name, esc_attr( $item_position ) );
+					$item_position ++;
 				}
 			}
 
 			if ( $args['display_last_item'] ) {
-				$items[] = sprintf( $item_text_tpl, $current_term->name );
+				$items[] = sprintf( $item_tpl, get_term_link( $current_term, $current_term->taxonomy ), $current_term->name, esc_attr( $item_position ) );
 			}
 		} elseif ( function_exists( 'dokan_is_store_page' ) && dokan_is_store_page() ) {
 			$author    = get_user_by( 'id', get_query_var( 'author' ) );
@@ -221,48 +228,57 @@ if ( ! function_exists( 'martfury_breadcrumbs' ) ) :
 			if ( $shop_info && isset( $shop_info['store_name'] ) && $shop_info['store_name'] ) {
 				$shop_name = $shop_info['store_name'];
 			}
-			$items[] = sprintf( $item_text_tpl, $shop_name );
+			$shop_url = function_exists( 'dokan_get_store_url' ) ? dokan_get_store_url( get_query_var( 'author' ) ) : home_url();
+			$items[]  = sprintf( $item_tpl, esc_url( $shop_url ), $shop_name, esc_attr( $item_position ) );
 
-		} elseif ( is_post_type_archive( 'portfolio_project' ) ) {
-			$items[] = sprintf( $item_text_tpl, $args['labels']['portfolio'] );
 		} // Search
 		elseif ( is_search() ) {
-			$items[] = sprintf( $item_text_tpl, $args['labels']['search'] . ' &quot;' . get_search_query() . '&quot;' );
+			$items[] = sprintf( $item_tpl, esc_url( get_the_permalink() ), $args['labels']['search'] . ' &quot;' . get_search_query() . '&quot;', esc_attr( $item_position ) );
 		} // 404
 		elseif ( is_404() ) {
-			$items[] = sprintf( $item_text_tpl, $args['labels']['not_found'] );
+			$items[] = sprintf( $item_tpl, esc_url( get_the_permalink() ), $args['labels']['not_found'], esc_attr( $item_position ) );
 		} // Author archive
 		elseif ( is_author() ) {
 			// Queue the first post, that way we know what author we're dealing with (if that is the case).
 			the_post();
 			$items[] = sprintf(
-				$item_text_tpl,
-				$args['labels']['author'] . ' <span class="vcard"><a class="url fn n" href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>'
+				$item_tpl,
+				esc_url( get_the_permalink() ),
+				$args['labels']['author'] . ' <span class="vcard"><a class="url fn n" href="' . get_author_posts_url( get_the_author_meta( 'ID' ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>',
+				esc_attr( $item_position )
 			);
 			rewind_posts();
 		} // Day archive
 		elseif ( is_day() ) {
 			$items[] = sprintf(
-				$item_text_tpl,
-				sprintf( esc_html__( '%s %s', 'martfury' ), $args['labels']['day'], get_the_date() )
+				$item_tpl,
+				esc_url( get_the_permalink() ),
+				sprintf( esc_html__( '%s %s', 'martfury' ), $args['labels']['day'], get_the_date() ),
+				esc_attr( $item_position )
 			);
 		} // Month archive
 		elseif ( is_month() ) {
 			$items[] = sprintf(
-				$item_text_tpl,
-				sprintf( esc_html__( '%s %s', 'martfury' ), $args['labels']['month'], get_the_date( 'F Y' ) )
+				$item_tpl,
+				esc_url( get_the_permalink() ),
+				sprintf( esc_html__( '%s %s', 'martfury' ), $args['labels']['month'], get_the_date( 'F Y' ) ),
+				esc_attr( $item_position )
 			);
 		} // Year archive
 		elseif ( is_year() ) {
 			$items[] = sprintf(
-				$item_text_tpl,
-				sprintf( esc_html__( '%s %s', 'martfury' ), $args['labels']['year'], get_the_date( 'Y' ) )
+				$item_tpl,
+				esc_url( get_the_permalink() ),
+				sprintf( esc_html__( '%s %s', 'martfury' ), $args['labels']['year'], get_the_date( 'Y' ) ),
+				esc_attr( $item_position )
 			);
 		} // Archive
 		else {
 			$items[] = sprintf(
-				$item_text_tpl,
-				$args['labels']['archive']
+				$item_tpl,
+				esc_url( get_the_permalink() ),
+				$args['labels']['archive'],
+				esc_attr( $item_position )
 			);
 
 		}

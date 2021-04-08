@@ -46,6 +46,11 @@ foreach ( $catalog_orderby_options as $id => $name ) {
     if( is_wp_error( $id ) ) {
         continue;
     }
+
+    if( ! is_string( $id ) ) {
+        continue;
+    }
+
 	$url       = $form_action . '?orderby=' . esc_attr( $id ) . $params;
 	$css_class = '';
 	if ( $orderby == $id ) {

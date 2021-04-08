@@ -73,9 +73,6 @@ function martfury_enqueue_scripts() {
 	}
 	global $post;
 	if ( ( ! empty( $post->post_content ) && strstr( $post->post_content, '[martfury_product_deals_carousel' ) ) ) {
-		if ( current_theme_supports( 'wc-product-gallery-zoom' ) ) {
-			wp_enqueue_script( 'zoom' );
-		}
 		if ( current_theme_supports( 'wc-product-gallery-slider' ) ) {
 			wp_enqueue_script( 'flexslider' );
 		}

@@ -59,7 +59,7 @@ jQuery(document).ready(function ($) {
     // Show/hide settings for template settings
     $('#page_template').on('change', function () {
         pageHeaderSettings($(this));
-    }).trigger('change');
+    });
 
     $(document.body).on('change', '.editor-page-attributes__template .components-select-control__input', function () {
         pageHeaderSettings($(this));

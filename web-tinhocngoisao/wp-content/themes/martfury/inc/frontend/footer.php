@@ -291,8 +291,7 @@ if ( ! function_exists( 'martfury_quick_view_modal' ) ) :
                 <a href="#" class="close-modal">
                     <i class="icon-cross"></i>
                 </a>
-                <div class="product-modal-content">
-                </div>
+                <div class="product-modal-content loading"></div>
             </div>
             <div class="mf-loading"></div>
         </div>

@@ -96,6 +96,18 @@
             &.images {
                 padding-left: 0;
                 padding-bottom: 0;
+
+                .woocommerce-product-gallery__image:nth-child(n+2) {
+                    width: 100%;
+                }
+            }
+        }
+
+        .woocommerce-product-gallery__wrapper {
+            flex-direction: column;
+
+            &:not( .slick-initialized ) .woocommerce-product-gallery__image:not(:first-child) {
+                display: none;
             }
         }
 
