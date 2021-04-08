@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: GlotPress/2.4.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: vi_VN\n"
 "Project-Id-Version: Themes - Twenty Twenty\n"
 
@@ -16,10 +16,11 @@ msgid "Our default theme for 2020 is designed to take full advantage of the flex
 msgstr "Giao diện mặc định 2020 được thiết kế để tận dụng tối đa sự linh hoạt của trình soạn thảo khối. Các tổ chức và doanh nghiệp có khả năng tạo các trang đích với bố cục vô tận bằng cách sử dụng các nhóm và cột. Cột nội dung cân giữa và kiểu chữ tinh chỉnh cũng làm cho nó hoàn hảo dành cho các blog truyền thống. Phong cách biên tập hoàn chỉnh cung cấp cho bạn một công cụ tốt để xây dựng ý tưởng về nội dung của bạn sẽ trông như thế nào, ngay cả trước khi bạn xuất bản. Bạn có thể tạo bản sắc riêng cho trang web của bạn bằng cách thay đổi màu nền và màu nhấn trong Tùy chỉnh. Màu sắc của tất cả các yếu tố trên trang web của bạn được tự động tính toán dựa trên màu sắc bạn chọn, đảm bảo độ tương phản màu cao, dễ tiếp cận cho khách truy cập của bạn."
 
 #. Theme Name of the theme
+#: inc/block-patterns.php:20
 msgid "Twenty Twenty"
 msgstr "2020"
 
-#: inc/starter-content.php:38
+#: inc/starter-content.php:39
 msgctxt "Theme starter content"
 msgid "The New UMoMA Opens its Doors"
 msgstr "Trang chủ mới của bạn đã sẵn sàng"
@@ -36,64 +37,62 @@ msgstr "Màu nền lớp phủ"
 msgid "Overlay Opacity"
 msgstr "Độ trong suốt lớp phủ"
 
-#: inc/starter-content.php:47
+#: inc/starter-content.php:48
 msgid "The New UMoMA Opens its Doors"
 msgstr "Trang chủ mới của bạn đã sẵn sàng"
 
-#: inc/starter-content.php:72 inc/starter-content.php:87
-#: inc/starter-content.php:104 inc/starter-content.php:119
+#: inc/block-patterns.php:78 inc/block-patterns.php:160
+#: inc/block-patterns.php:174 inc/starter-content.php:73
+#: inc/starter-content.php:88 inc/starter-content.php:105
+#: inc/starter-content.php:120
 msgid "Read More"
 msgstr "Đọc tiếp"
 
-#: inc/starter-content.php:66
+#: inc/block-patterns.php:154 inc/starter-content.php:67
 msgid "Works and Days"
 msgstr "Vội vàng"
 
-#: inc/starter-content.php:69 inc/starter-content.php:101
+#: inc/starter-content.php:70 inc/starter-content.php:102
 msgid "August 1 -- December 1"
 msgstr "Tôi muốn tắt nắng đi; Cho màu đừng nhạt mất;"
 
-#: inc/starter-content.php:98
+#: inc/block-patterns.php:168 inc/starter-content.php:99
 msgid "The Life I Deserve"
 msgstr "Đây mùa thu tới"
 
-#: inc/starter-content.php:55
+#: inc/starter-content.php:56
 msgid "The premier destination for modern art in Northern Sweden. Open from 10 AM to 6 PM every day during the summer months."
 msgstr "Hãy cùng thử tìm hiểu cách bày trí mới trong trình soạn thảo. Các ví dụ dưới đây là tên một vài bài thơ của Xuân Diệu."
 
-#: inc/starter-content.php:81
+#: inc/starter-content.php:82
 msgid "Theatre of Operations"
 msgstr "Dại khờ"
 
-#: inc/starter-content.php:113
+#: inc/starter-content.php:114
 msgid "From Signac to Matisse"
 msgstr "Vì sao"
 
-#: inc/starter-content.php:84 inc/starter-content.php:116
+#: inc/starter-content.php:85 inc/starter-content.php:117
 msgid "October 1 -- December 1"
 msgstr "Người ta khổ vì thương không phải cách; Yêu sai duyên, và mến chẳng nhằm người."
 
-#: inc/starter-content.php:129
-msgid "”Cyborgs, as the philosopher Donna Haraway established, are not reverent. They do not remember the cosmos.”"
-msgstr "”Kẻ chiến thắng không bao giờ bỏ cuộc; kẻ bỏ cuộc không bao giờ chiến thắng”"
-
-#: inc/starter-content.php:133
+#: inc/starter-content.php:134
 msgid "With seven floors of striking architecture, UMoMA shows exhibitions of international contemporary art, sometimes along with art historical retrospectives. Existential, political and philosophical issues are intrinsic to our programme. As visitor you are invited to guided tours artist talks, lectures, film screenings and other events with free admission"
 msgstr "Tuổi trẻ chính là thời điểm thích hợp nhất để biến ước mơ thành hiện thực. Chúng ta có sức khỏe, trí lực, và quan trọng nhất là đủ đam mê để theo đuổi ước mơ của mình. Một trong những lỗi lầm lớn nhất của con người là họ cứ ép mình phải hứng thú với thứ gì đó. Bạn không chọn đam mê của mình; chính đam mê lựa chọn bạn."
 
-#: inc/starter-content.php:136
+#: inc/starter-content.php:137
 msgid "The exhibitions are produced by UMoMA in collaboration with artists and museums around the world and they often attract international attention. UMoMA has received a Special Commendation from the European Museum of the Year, and was among the top candidates for the Swedish Museum of the Year Award as well as for the Council of Europe Museum Prize."
 msgstr "Khi các thế hệ khởi nghiệp đầu tiên tại Việt Nam như VietnamWorks, VNG, Tiki và ngày càng có nhiều công ty khởi nghiệp ra đời, họ liên tục đổi mới và mang lại sự thịnh vượng cho những người sáng lập, những thành viên cùng đồng hành, nhà đầu tư, họ tạo ra nhiều giá trị cho khách hàng thì chúng ta sẽ còn thấy nhiều câu chuyện thành công được viết tiếp ở Việt Nam!"
 
-#: inc/starter-content.php:144
+#: inc/starter-content.php:145
 msgid "Become a Member and Get Exclusive Offers!"
 msgstr "Hãy bắt đầu từ ngay hôm nay!"
 
-#: inc/starter-content.php:147
+#: inc/block-patterns.php:45 inc/starter-content.php:148
 msgid "Members get access to exclusive exhibits and sales. Our memberships cost $99.99 and are billed annually."
 msgstr "Trở thành thành viên của chúng tôi và nhận những thông tin hữu ích về khởi nghiệp."
 
-#: inc/starter-content.php:150
+#: inc/starter-content.php:151
 msgid "Join the Club"
 msgstr "Đăng ký"
 
@@ -101,15 +100,7 @@ msgstr "Đăng ký"
 msgid "Primary Color"
 msgstr "Màu chính"
 
-#: classes/class-twentytwenty-customize.php:125
-msgid "Default"
-msgstr "Mặc định"
-
-#: classes/class-twentytwenty-customize.php:126
-msgid "Custom"
-msgstr "Tùy chỉnh"
-
-#: inc/template-tags.php:393
+#: inc/template-tags.php:396
 msgctxt "A string that is output before one or more categories"
 msgid "In"
 msgstr "Trong"
@@ -126,7 +117,7 @@ msgstr "Màu chữ nền phủ"
 msgid "The color used for the overlay. Defaults to the accent color."
 msgstr "Màu nền phủ. Mặc định sử dụng màu phụ."
 
-#: index.php:99
+#: index.php:101
 msgid "search again"
 msgstr "tìm lại"
 
@@ -134,7 +125,7 @@ msgstr "tìm lại"
 msgid "Search for:"
 msgstr "Tìm kiếm cho:"
 
-#. translators: %s: Number of search results
+#. translators: %s: Number of search results.
 #: index.php:39
 msgid "We found %s result for your search."
 msgid_plural "We found %s results for your search."
@@ -144,32 +135,33 @@ msgstr[0] "Chúng tôi đã tìm thấy %s kết quả tìm kiếm."
 msgid "404 not found"
 msgstr "404 không có"
 
-#. translators: Copyright date format, see https://secure.php.net/date
+#. translators: Copyright date format, see
+#. https://www.php.net/manual/datetime.format.php
 #: footer.php:25
 msgctxt "copyright date format"
 msgid "Y"
 msgstr "Y"
 
-#. translators: %s: HTML character for up arrow
+#. translators: %s: HTML character for up arrow.
 #: footer.php:49
 msgid "Up %s"
 msgstr "Lên  trên %s"
 
-#. translators: %s: HTML character for up arrow
+#. translators: %s: HTML character for up arrow.
 #: footer.php:43
 msgid "To the top %s"
 msgstr "Lên trên cùng %s"
 
-#. Translators: 1 = comment date, 2 = comment time
-#: classes/class-twentytwenty-walker-comment.php:69
+#. translators: 1: Comment date, 2: Comment time.
+#: classes/class-twentytwenty-walker-comment.php:68
 msgid "%1$s at %2$s"
 msgstr "%1$s vào lúc %2$s"
 
-#: classes/class-twentytwenty-walker-comment.php:77
+#: classes/class-twentytwenty-walker-comment.php:82
 msgid "Edit"
 msgstr "Sửa"
 
-#: classes/class-twentytwenty-walker-comment.php:92
+#: classes/class-twentytwenty-walker-comment.php:98
 msgid "Your comment is awaiting moderation."
 msgstr "Bình luận của bạn cần chờ duyệt."
 
@@ -177,13 +169,13 @@ msgstr "Bình luận của bạn cần chờ duyệt."
 msgid "Leave a comment"
 msgstr "Gửi bình luận"
 
-#. translators: %s: post title
+#. translators: %s: Post title.
 #: comments.php:37
 msgctxt "comments title"
 msgid "One reply on &ldquo;%s&rdquo;"
 msgstr "Một bình luận trong &ldquo;%s&rdquo;"
 
-#. translators: 1: number of comments, 2: post title
+#. translators: 1: Number of comments, 2: Post title.
 #: comments.php:41
 msgctxt "comments title"
 msgid "%1$s reply on &ldquo;%2$s&rdquo;"
@@ -198,20 +190,20 @@ msgstr "Bình luận"
 msgid "Comments are closed."
 msgstr "Không cho phép bình luận."
 
-#: functions.php:491 inc/starter-content.php:176 inc/starter-content.php:186
+#: inc/starter-content.php:177 inc/starter-content.php:187
 msgid "Primary"
 msgstr "Chính"
 
-#: inc/starter-content.php:196
+#: inc/starter-content.php:197
 msgid "Social Links Menu"
 msgstr "Menu mạng xã hội"
 
 #. translators: %s: Post title. Only visible to screen readers.
-#: inc/template-tags.php:206
+#: inc/template-tags.php:207
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr "Sửa <span class=\"screen-reader-text\">%s</span>"
 
-#: functions.php:258
+#: functions.php:265
 msgid "Footer Menu"
 msgstr "Menu cuối trang"
 
@@ -227,10 +219,6 @@ msgstr "Cuối trang"
 msgid "Page"
 msgstr "Trang"
 
-#: functions.php:496
-msgid "Secondary"
-msgstr "Phụ"
-
 #: template-parts/modal-search.php:26
 msgid "Close search"
 msgstr "Tắt tìm kiếm"
@@ -239,33 +227,29 @@ msgstr "Tắt tìm kiếm"
 msgid "Menu"
 msgstr "Menu"
 
-#: header.php:53 header.php:157
-msgid "Search"
-msgstr "Tìm kiếm"
-
 #: template-parts/content.php:36
 msgid "Continue reading"
 msgstr "Chi tiết"
 
-#: functions.php:548
+#: functions.php:550
 msgctxt "Short name of the larger font size in the block editor."
 msgid "XL"
 msgstr "XL"
 
-#: inc/template-tags.php:347
+#: inc/template-tags.php:350
 msgid "Post author"
 msgstr "Tác giả"
 
-#: inc/template-tags.php:371
+#: inc/template-tags.php:374
 msgid "Post date"
 msgstr "Ngày đăng"
 
-#: inc/template-tags.php:407
+#: inc/template-tags.php:410
 msgid "Tags"
 msgstr "Thẻ"
 
 #: template-parts/content-cover.php:70 template-parts/entry-header.php:36
-#: inc/template-tags.php:389
+#: inc/template-tags.php:392
 msgid "Categories"
 msgstr "Chuyên mục"
 
@@ -273,31 +257,27 @@ msgstr "Chuyên mục"
 msgid "We could not find any results for your search. You can give it another try through the search form below."
 msgstr "Chúng tôi không tìm thấy bất kỳ kết quả nào. Bạn có thể tìm kiếm lại với form tìm kiếm bên dưới."
 
-#: header.php:88
-msgid "Horizontal"
-msgstr "Ngang"
-
-#: functions.php:375
+#: functions.php:381
 msgid "Footer #2"
 msgstr "Footer #2"
 
-#: functions.php:365
+#: functions.php:371
 msgid "Widgets in this area will be displayed in the first column in the footer."
 msgstr "Widget tại vị trí này sẽ hiển thị ở cột đầu tiên ở footer."
 
-#: functions.php:363
+#: functions.php:369
 msgid "Footer #1"
 msgstr "Footer #1"
 
-#: functions.php:338
+#: functions.php:344
 msgid "Skip to the content"
 msgstr "Chuyển đến nội dung"
 
-#: functions.php:259
+#: functions.php:266
 msgid "Social Menu"
 msgstr "Social Menu"
 
-#: functions.php:257
+#: functions.php:264
 msgid "Mobile Menu"
 msgstr "Menu di động"
 
@@ -313,16 +293,16 @@ msgstr "Các bình luận trước"
 msgid "Newer Comments"
 msgstr "Các bình luận mới hơn"
 
-#: classes/class-twentytwenty-walker-page.php:134 inc/template-tags.php:555
+#: classes/class-twentytwenty-walker-page.php:107 inc/template-tags.php:558
 msgid "Show sub menu"
 msgstr "Hiển thị menu con"
 
-#. translators: %d: ID of a post
-#: classes/class-twentytwenty-walker-page.php:82
+#. translators: %d: ID of a post.
+#: classes/class-twentytwenty-walker-page.php:70
 msgid "#%d (no title)"
 msgstr "#%d (không đề)"
 
-#: classes/class-twentytwenty-walker-comment.php:127
+#: classes/class-twentytwenty-walker-comment.php:133
 msgid "By Post Author"
 msgstr "Bởi tác giả"
 
@@ -355,56 +335,52 @@ msgctxt "submit button"
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: functions.php:547
+#: functions.php:549
 msgctxt "Name of the larger font size in the block editor"
 msgid "Larger"
 msgstr "Lớn hơn"
 
-#: functions.php:542
+#: functions.php:544
 msgctxt "Short name of the large font size in the block editor."
 msgid "L"
 msgstr "L"
 
-#: functions.php:541
+#: functions.php:543
 msgctxt "Name of the large font size in the block editor"
 msgid "Large"
 msgstr "Lớn"
 
-#: functions.php:536
+#: functions.php:538
 msgctxt "Short name of the regular font size in the block editor."
 msgid "M"
 msgstr "M"
 
-#: functions.php:535
+#: functions.php:537
 msgctxt "Name of the regular font size in the block editor"
 msgid "Regular"
 msgstr "Bình thường"
 
-#: functions.php:530
+#: functions.php:532
 msgctxt "Short name of the small font size in the block editor."
 msgid "S"
 msgstr "S"
 
-#: functions.php:529
+#: functions.php:531
 msgctxt "Name of the small font size in the block editor"
 msgid "Small"
 msgstr "Nhỏ"
 
-#: functions.php:514
+#: functions.php:516
 msgid "Background Color"
 msgstr "Màu nền"
 
-#: functions.php:501
+#: functions.php:503
 msgid "Subtle Background"
 msgstr "Nền tùy chọn"
 
-#: functions.php:377
+#: functions.php:383
 msgid "Widgets in this area will be displayed in the second column in the footer."
 msgstr "Widget ở vị trí này sẽ hiển thị ở cột thứ hai ở footer."
-
-#: template-parts/modal-menu.php:73
-msgid "Mobile"
-msgstr "Di động"
 
 #: template-parts/navigation.php:25
 msgid "Post"
@@ -414,8 +390,8 @@ msgstr "Bài viết"
 msgid "Header &amp; Footer Background Color"
 msgstr "Màu nền Đầu trang &amp; Cuối trang"
 
-#. translators: %s: Author name
-#: template-parts/entry-author-bio.php:20 inc/template-tags.php:354
+#. translators: %s: Author name.
+#: template-parts/entry-author-bio.php:20 inc/template-tags.php:357
 msgid "By %s"
 msgstr "Bởi %s"
 
@@ -428,7 +404,7 @@ msgctxt "placeholder"
 msgid "Search &hellip;"
 msgstr "Tìm &hellip;"
 
-#: inc/template-tags.php:445
+#: inc/template-tags.php:448
 msgid "Sticky post"
 msgstr "Bài đính lên"
 
@@ -452,11 +428,11 @@ msgstr "Giao diện tràn màn hình"
 msgid "Social links"
 msgstr "Mạng xã hội"
 
-#: functions.php:486
+#: functions.php:488
 msgid "Accent Color"
 msgstr "Màu phụ"
 
-#: functions.php:256
+#: functions.php:263
 msgid "Desktop Expanded Menu"
 msgstr "Menu mở rộng trên màn hình máy tính"
 
@@ -476,10 +452,6 @@ msgstr "Tùy chọn giao diện"
 #: classes/class-twentytwenty-customize.php:281
 msgid "Cover Template"
 msgstr "Giao diện Cover"
-
-#: template-parts/modal-menu.php:48
-msgid "Expanded"
-msgstr "Đã mở rộng"
 
 #: template-parts/modal-menu.php:117
 msgid "Expanded Social links"
