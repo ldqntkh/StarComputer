@@ -29,12 +29,25 @@ body.mobile-version {
     .guaven_woos_suggestion {
         z-index: 9999991;
         top: 72px!important;
-        bottom: 65px!important;
+        bottom: 67px!important;
         max-height: calc(100% - 65px)!important;
+        width: 100%!important;
+        left: 0!important;
         ul {
             li {
                 min-height: 65px;    
             }
+        }
+    }
+}
+
+.guaven_woos_suggestion_list {
+    small {
+        color: red;
+        display: flex!important;
+        flex-direction: column;
+        ins {
+            text-decoration: none;
         }
     }
 }
