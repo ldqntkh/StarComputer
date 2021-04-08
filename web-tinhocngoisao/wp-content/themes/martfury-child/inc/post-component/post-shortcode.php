@@ -2,9 +2,11 @@
 if( !function_exists('thns_homepage_post') ) {
 
     function thns_homepage_post($args) {
+        if( empty( $args['category_id'] ) ) return;
         $posts = wp_get_recent_posts([
             "numberposts" => 8,
-            "post_status" => "publish"
+            "post_status" => "publish",
+            "category"  => $args['category_id']
         ]);
 
         if( $posts && count($posts) > 0 ) :
