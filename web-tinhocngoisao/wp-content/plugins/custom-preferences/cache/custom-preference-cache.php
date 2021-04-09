@@ -12,7 +12,7 @@
     function clear_custom_cache() { 
         if (isset($_POST['clearcache'])) {
             if ( function_exists('clear_custom_cache') ) {
-                $files = glob( get_stylesheet_directory() .'/acmethemes/custom-cache/*'); // get all file names
+                $files = glob( get_stylesheet_directory() .'/custom-cache/*'); // get all file names
                 foreach($files as $file){ // iterate files
                 if(is_file($file))
                     unlink($file); // delete file
@@ -140,7 +140,7 @@
 
     function create_file_sale_cache($key, $content, $filename = 'json-cache.txt') {
         $path = get_stylesheet_directory() ? get_stylesheet_directory() : get_stylesheet_directory();
-        $cache_file_path = $path . '/acmethemes/custom-cache/' .$filename;
+        $cache_file_path = $path . '/custom-cache/' .$filename;
         $json[$key] = $content;
         file_put_contents($cache_file_path, json_encode( $json ));
     }

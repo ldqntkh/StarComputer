@@ -10,6 +10,34 @@ define( 'THEME_PATH_URI',  get_stylesheet_directory_uri());
 // 	}
 // }
 
+// cache file
+
+if ( !function_exists('get_cache_by_key') ) {
+    
+    function get_cache_by_key( $key , $filename = 'json-cache.txt') {
+        // return null;
+        $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/' .$filename;
+        if ( file_exists ( $cache_file_path )  ) {
+            $json = json_decode(file_get_contents($cache_file_path),TRUE);
+            if (isset($json)) {
+                if (isset($json[$key])) {
+                    return $json[$key];
+                } else return null;
+            }
+        }
+        
+        return null;
+    }
+}
+
+if ( !function_exists('set_cache_by_key') ) {
+    function set_cache_by_key ($key, $content, $filename = 'json-cache.txt') {
+        // $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/' .$filename;
+        // $json[$key] = $content;
+        // file_put_contents($cache_file_path, json_encode($json));
+    }
+}
+
 include_once (THEME_PATH . '/inc/api/functions.php');
 include_once (THEME_PATH . '/inc/register-style.php');
 include_once (THEME_PATH . '/inc/custom-mobile-menu.php');

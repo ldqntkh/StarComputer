@@ -23,9 +23,17 @@ if (function_exists('do_action')) {
 
 $no_cache_because = array();
 
-// Don't cache robots.txt or htacesss or sitemap. Remember to properly escape any output to prevent injection.
-if (strpos($_SERVER['REQUEST_URI'], 'robots.txt') !== false || strpos($_SERVER['REQUEST_URI'], '.htaccess') !== false || strpos($_SERVER['REQUEST_URI'], 'sitemap.xml') !== false) {
-	$no_cache_because[] = 'The file path is unsuitable for caching ('.$_SERVER['REQUEST_URI'].')';
+// check if we want to cache current page.
+if (function_exists('add_filter') && function_exists('apply_filters')) {
+	add_filter('wpo_restricted_cache_page_type', 'wpo_restricted_cache_page_type');
+	$restricted_cache_page_type = apply_filters('wpo_restricted_cache_page_type', false);
+} else {
+	// On old WP versions, you can't filter the result
+	$restricted_cache_page_type = wpo_restricted_cache_page_type(false);
+}
+
+if ($restricted_cache_page_type) {
+	$no_cache_because[] = $restricted_cache_page_type;
 }
 
 // Don't cache non-GET requests.
@@ -38,7 +46,7 @@ $file_extension = preg_replace('#^(.*?)\?.*$#', '$1', $file_extension);
 $file_extension = trim(preg_replace('#^.*\.(.*)$#', '$1', $file_extension));
 
 // Don't cache disallowed extensions. Prevents wp-cron.php, xmlrpc.php, etc.
-if (!preg_match('#index\.php$#i', $_SERVER['REQUEST_URI']) && in_array($file_extension, array( 'php', 'xml', 'xsl' ))) {
+if (!preg_match('#index\.php$#i', $_SERVER['REQUEST_URI']) && !preg_match('#sitemap([a-zA-Z0-9_-]+)?\.xml$#i', $_SERVER['REQUEST_URI']) && in_array($file_extension, array('php', 'xml', 'xsl'))) {
 	$no_cache_because[] = 'The request extension is not suitable for caching';
 }
 
@@ -57,13 +65,8 @@ if (!empty($_COOKIE)) {
 		}
 	}
 
-	if (!empty($_COOKIE['wpo_commented_posts'])) {
-		foreach ($_COOKIE['wpo_commented_posts'] as $path) {
-			if (rtrim($path, '/') === rtrim($_SERVER['REQUEST_URI'], '/')) {
-				$no_cache_because[] = 'The user has commented on a post (comment cookie set)';
-				break;
-			}
-		}
+	if (!empty($_COOKIE['wpo_commented_post'])) {
+		$no_cache_because[] = 'The user has commented on a post (comment cookie set)';
 	}
 
 	// get cookie exceptions from options.
@@ -101,16 +104,23 @@ if (!empty($_GET)) {
 	$get_variables = wpo_cache_maybe_ignore_query_variables(array_keys($_GET));
 
 	// if GET variables include one or more undefined variable names then we don't cache.
-	$diff = array_diff($get_variables, $get_variable_names);
-	if (!empty($diff)) {
+	$get_variables_diff = array_diff($get_variables, $get_variable_names);
+	if (!empty($get_variables_diff)) {
 		$no_cache_because[] = "In the settings, caching is disabled for matches for one of the current request's GET parameters";
 	}
 }
 
 if (!empty($no_cache_because)) {
+	$no_cache_because_message = implode(', ', $no_cache_because);
+
+	// Add http header
+	if (!defined('DOING_CRON') || !DOING_CRON) {
+		wpo_cache_add_nocache_http_header($no_cache_because_message);
+	}
+
 	// Only output if the user has turned on debugging output
 	if (((defined('WP_DEBUG') && WP_DEBUG) || isset($_GET['wpo_cache_debug'])) && (!defined('DOING_CRON') || !DOING_CRON)) {
-		wpo_cache_add_footer_output("Page not served from cache because: ".implode(', ', array_filter($no_cache_because, 'htmlspecialchars')));
+		wpo_cache_add_footer_output("Page not served from cache because: ".htmlspecialchars($no_cache_because_message));
 	}
 	return;
 }

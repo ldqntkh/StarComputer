@@ -4,7 +4,7 @@ Contributors: ashokrane, pinal.shah, bhavik.kiri, chetnapatel, tychesoftwares, d
 Tags: cart abandonment, abandon cart, cart recovery, recover woocommerce cart, increase woocommerce conversion rate, increase sales with woocommerce
 Author URI: https://www.tychesoftwares.com/
 Requires at least: 1.3
-Tested up to: 5.6
+Tested up to: 5.7
 Stable tag: trunk
 Requires PHP: 5.6
 License: GPLv2 or late
@@ -222,6 +222,17 @@ The admin can use the merge code `{{cart.unsubscribe}}' in the email templates. 
 6. Product Report Tab.
 
 == Changelog ==
+= 5.8.8 (06.04.2021) = 
+* Enhancement - Introduced Abandoned & Recovered Cart data graph in the plugin dashboard.
+* Tweak - Updated the Pro settings to reflect the new settings included in the Pro Version.
+* Fix - The link to FB Settings documentation was not working.
+* Fix - The merge tags {{cart.abandoned_date}}, {{cart.link}}, {{cart.unsubscribe}} were not being replaced with test data when previewing a reminder email template.
+
+= 5.8.7 (26.03.2021) =
+* Fix - Variation Image is not displayed in reminder emails.
+
+= 5.8.6 (12.02.2021) =
+* Fix - WP Nonce verification being done incorrectly. Fixed the same.
 
 = 5.8.5 (27.01.2021) =
 * Tweak - Added a hook to modify the email to which recovery emails are sent. Comma separated email addresses can be added.
