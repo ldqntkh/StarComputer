@@ -79,12 +79,28 @@
 add_action( 'admin_enqueue_scripts', 'load_wp_media_files' );
 add_action( 'admin_enqueue_scripts', 'register_customer_header_script' );
 
-    function load_wp_media_files() {
-        // WordPress library
-        wp_enqueue_media();
-    }
+function load_wp_media_files() {
+    // WordPress library
+    wp_enqueue_media();
+}
 
-    function register_customer_header_script() {
-        wp_register_script( 'custom_header_script', plugins_url('custom-header/assets/js/admin-custom-header.js'), '', '', true );
-        wp_enqueue_script( 'custom_header_script' );
-    }
+function register_customer_header_script() {
+    wp_register_script( 'custom_header_script', plugins_url('custom-header/assets/js/admin-custom-header.js'), '', '', true );
+    wp_enqueue_script( 'custom_header_script' );
+}
+
+add_action( 'wp_body_open', function() {
+    $headerPromotions = get_option( 'custom_header_options' );
+    if ( !empty( $headerPromotions ) && count($headerPromotions) > 0 ) : ?>
+        <div class="top-header-promotion featured-slider hide-mobile" data-autoplay="1" data-autoplayspeed="5000">
+            <?php
+                foreach ( $headerPromotions as  $headerPromotion ) :
+                    $backgroundColor = $headerPromotion['background_color'];
+            ?>
+                <a href="<?php echo $headerPromotion['url']; ?>">
+                    <div class="promotion-banner" style="background-image:url('<?php echo $headerPromotion['image'] ?>'),linear-gradient(to right, <?php echo $backgroundColor; ?> 40%, <?php echo $backgroundColor; ?> 50%, <?php echo $backgroundColor; ?> 60%)"></div>
+                </a>
+                <?php endforeach; ?>
+        </div>
+    <?php endif;
+}, 10 );
