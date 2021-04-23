@@ -137,4 +137,73 @@
         </script>
 <?php
     }
-?>
+
+    // register api route
+    add_action( 'rest_api_init', function () {
+        register_rest_route( 'rest_api/v1', '/create_product_cache_data', array(
+            'methods' => 'GET',
+            'callback' => 'create_product_cache_data',
+        ) );
+    } );
+
+    function create_product_cache_data( WP_REST_Request $request ) {
+        $post_number = 100;
+        $start_page = $_GET[ 'start_page' ] ? absint( $_GET[ 'start_page' ] ) : 1;
+        $order = 'DESC';
+        $get_slug = 1;
+        $perpage = ($start_page - 1) * $post_number;
+
+        $query_args = array(
+            'posts_per_page' => $post_number,
+            'offset'         => $perpage,
+            'post_status'    => 'publish',
+            'post_type'      => 'product',
+            'no_found_rows'  => 1,
+            'order'          => $order
+        );
+        $arrResult = [];
+        $online_shop_featured_query = new WP_Query( $query_args );
+        if ($online_shop_featured_query->have_posts()) :
+            $products = array();
+            while ( $online_shop_featured_query->have_posts() ) : $online_shop_featured_query->the_post();
+                // Do Stuff
+                global $product;
+                if ($product->get_type() === 'variable') {
+                    $regular_price = $product->get_variation_regular_price();
+                    $sale_price = $product->get_variation_sale_price();
+                } else {
+                    $regular_price = $product->get_regular_price();
+                    $sale_price = $product->get_sale_price();
+                }
+                $arrPt = array(
+                    'id' => $product->get_id(),
+                    'name' => $product->get_name(),
+                    'link' => get_permalink( $product->get_id()),
+                    'regular_price' => number_format((float)$regular_price, 0, '.', ','),
+                    'sale_price' => number_format((float)$sale_price, 0, '.', ','),
+                );
+                
+                $period = get_post_meta( $product->get_id(), 'warranty_period', true );
+                // if (empty($period)) {
+                //     $period = 36;
+                // }
+                $arrPt['period'] = $period;
+                if ($get_slug == 1) {
+                    $terms = get_the_terms( $product->get_id(), 'product_cat' );
+                    $slugs = [];
+                    if (count($terms) > 0) {
+                        foreach($terms as $item) {
+                            array_push($slugs, $item->slug);
+                        }
+                    }
+                    $arrPt['slugs'] = $slugs;
+                }
+
+                array_push($arrResult, $arrPt);
+            endwhile;
+        endif;
+        wp_reset_postdata();
+        wp_send_json_success([
+            "data_product"=> $arrResult
+        ]);
+    }

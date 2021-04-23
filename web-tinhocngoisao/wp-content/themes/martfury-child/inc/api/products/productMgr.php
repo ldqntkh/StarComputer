@@ -280,51 +280,85 @@ if (!function_exists('getProductInfo')) :
 endif;
 
 if ( !function_exists( 'get_products_sales' ) ) {
+    // function get_products_sales( WP_REST_Request $request ) {
+        
+    //     $post_number = absint( $_GET[ 'post_number' ] );
+    //     $post_number = 100;
+    //     $start_page = $_GET[ 'start_page' ] ? absint( $_GET[ 'start_page' ] ) : 0;
+
+    //     $orderby = esc_attr( $_GET[ 'orderby' ] );
+    //     $order = esc_attr( $_GET[ 'order' ] );
+    //     $get_slug = $_GET[ 'get_slug' ] ? absint( $_GET[ 'get_slug' ] ) : 0;
+
+    //     $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
+    //     $current_time = $current_time->format('Y-m-d');
+    //     $filenamecache = 'get_products_sales-'.$post_number.$start_page.$orderby.$order.$get_slug.'.txt';
+    //     $cache_result = get_cache_by_key('get_products_sales', $filenamecache);
+        
+    //     if ($cache_result) {
+    //         $cache_time = $cache_result['time'];
+    //         if ($cache_time) {
+    //             // $date_1 = strtotime($cache_time);
+    //             // $date_2 = strtotime($current_time);
+    //             // $datediff = $date_2 - $date_1;
+    //             // $day = round($datediff / (60 * 60 * 24));
+    //             // if ($day < 1) {
+    //             //     $result = array(
+    //             //         "status" => "OK",
+    //             //         "errMsg" => "",
+    //             //         "data" => $cache_result['data']
+    //             //     );
+    //             //     return $result;
+    //             // }
+
+    //             $result = array(
+    //                 "status" => "OK",
+    //                 "errMsg" => "",
+    //                 "data" => $cache_result['data']
+    //             );
+    //             return $result;
+    //         }
+    //     }
+
+    //     return array(
+    //         "status" => "FAIL",
+    //         "errMsg" => "Products not found",
+    //         "data" => null
+    //     );
+    // }
+
     function get_products_sales( WP_REST_Request $request ) {
-        
-        $post_number = absint( $_GET[ 'post_number' ] );
-        $post_number = 100;
-        $start_page = $_GET[ 'start_page' ] ? absint( $_GET[ 'start_page' ] ) : 0;
+        $start_page = $_GET[ 'start_page' ] ? absint( $_GET[ 'start_page' ] ) : 1;
 
-        $orderby = esc_attr( $_GET[ 'orderby' ] );
-        $order = esc_attr( $_GET[ 'order' ] );
-        $get_slug = $_GET[ 'get_slug' ] ? absint( $_GET[ 'get_slug' ] ) : 0;
+        try {
+            $curl = curl_init();
 
-        $current_time = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
-        $current_time = $current_time->format('Y-m-d');
-        $filenamecache = 'get_products_sales-'.$post_number.$start_page.$orderby.$order.$get_slug.'.txt';
-        $cache_result = get_cache_by_key('get_products_sales', $filenamecache);
-        
-        if ($cache_result) {
-            $cache_time = $cache_result['time'];
-            if ($cache_time) {
-                // $date_1 = strtotime($cache_time);
-                // $date_2 = strtotime($current_time);
-                // $datediff = $date_2 - $date_1;
-                // $day = round($datediff / (60 * 60 * 24));
-                // if ($day < 1) {
-                //     $result = array(
-                //         "status" => "OK",
-                //         "errMsg" => "",
-                //         "data" => $cache_result['data']
-                //     );
-                //     return $result;
-                // }
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'http://provider.tinhocngoisao.com:8080/public/v1/products/get-product-cache?start_page='.$start_page,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
 
-                $result = array(
-                    "status" => "OK",
-                    "errMsg" => "",
-                    "data" => $cache_result['data']
-                );
-                return $result;
-            }
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+            return array(
+                "status" => "OK",
+                "errMsg" => "",
+                "data" => $response
+            );
+        } catch ( Exception $e ) {
+            return array(
+                "status" => "FAIL",
+                "errMsg" => "Products not found",
+                "data" => null
+            );
         }
-
-        return array(
-            "status" => "FAIL",
-            "errMsg" => "Products not found",
-            "data" => null
-        );
     }
 }
 

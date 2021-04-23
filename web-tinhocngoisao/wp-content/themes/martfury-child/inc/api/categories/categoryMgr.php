@@ -4,7 +4,7 @@ include plugin_dir_path( __FILE__ ) . '/lib/categoryHelper.php';
 
 if (!function_exists('getListCategorySpecial')) :
     function getListCategorySpecial(WP_REST_Request $request) {
-        if ( has_nav_menu( 'special-menu' ) ) {
+        try {
             $special_menus_content = get_cache_by_key('special_menus_content');
             
             if (!$special_menus_content) {
@@ -19,12 +19,17 @@ if (!function_exists('getListCategorySpecial')) :
                 "errMsg" => "",
                 "data" => $special_menus_content
             );
+        } catch( Exception $e ) {
+            return array(
+                "status" => "FAIL",
+                "errMsg" => "Cannot find mennu",
+                "data" => wp_get_nav_menu_items('special-menu')
+            ); 
         }
-        return array(
-            "status" => "FAIL",
-            "errMsg" => "Cannot find mennu",
-            "data" => null
-        ); 
+        // if ( has_nav_menu( 'special-menu' ) ) {
+            
+        // }
+        
     }
 endif;
 

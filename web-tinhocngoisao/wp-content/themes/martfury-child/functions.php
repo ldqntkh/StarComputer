@@ -16,15 +16,15 @@ if ( !function_exists('get_cache_by_key') ) {
     
     function get_cache_by_key( $key , $filename = 'json-cache.txt') {
         // return null;
-        $cache_file_path = plugin_dir_path( __FILE__ ) . '/custom-cache/' .$filename;
-        if ( file_exists ( $cache_file_path )  ) {
-            $json = json_decode(file_get_contents($cache_file_path),TRUE);
+        $cache_file_path = get_transient( $filename );
+        // if ( file_exists ( $cache_file_path )  ) {
+            $json = json_decode($cache_file_path,TRUE);
             if (isset($json)) {
                 if (isset($json[$key])) {
                     return $json[$key];
                 } else return null;
             }
-        }
+        // }
         
         return null;
     }
@@ -37,6 +37,33 @@ if ( !function_exists('set_cache_by_key') ) {
         // file_put_contents($cache_file_path, json_encode($json));
     }
 }
+
+add_action( 'after_setup_theme', function() {
+    register_nav_menus( array(
+        'special-menu' => esc_html__( 'Special Menu ( Display Beside Primary Menu)', 'online-shop' ),
+    ) );
+} );
+
+
+add_action( 'wp_footer', function(){
+    if ( !empty( get_option( 'custom_preferences_options' )['render_chatbox'] ) ) :
+        echo get_option( 'custom_preferences_options' )['render_chatbox'];
+    endif;
+    if ( !empty( get_option( 'custom_preferences_options' )['render_footer_script'] ) ) :
+        echo get_option( 'custom_preferences_options' )['render_footer_script'];
+    endif;
+
+    // render function zalo
+    if ( !empty( get_option( 'custom_preferences_zalo_options' )['zalo_enable'] ) && get_option( 'custom_preferences_zalo_options' )['zalo_enable'] === "true" ) :
+        if ( !empty( get_option( 'custom_preferences_zalo_options' )['zalo_script_url'] ) && get_option( 'custom_preferences_zalo_options' )['zalo_script_url'] !== "" ) :
+            echo '<script src="'. get_option( 'custom_preferences_zalo_options' )['zalo_script_url'] .'"></script>';
+        endif;
+    endif;
+}, 100 );
+
+add_action( 'wp_footer', function() {
+    wp_enqueue_script('buildpc_script', get_stylesheet_directory_uri() . '/assets/js/bundle.js', array('jquery'), '2.0.3');
+});
 
 include_once (THEME_PATH . '/inc/api/functions.php');
 include_once (THEME_PATH . '/inc/register-style.php');

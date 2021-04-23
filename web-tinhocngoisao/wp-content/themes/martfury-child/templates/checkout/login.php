@@ -39,7 +39,7 @@
                 </form>
             </div>
 
-            <div id="register" class="tabcontent">
+            <div id="register" class="tabcontent" style="display: none">
                 <form method="post" class="woocommerce-form woocommerce-form-register register" <?php do_action( 'woocommerce_register_form_tag' ); ?> >
 
                     <?php if (false): //( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) : ?>

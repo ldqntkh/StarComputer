@@ -9,14 +9,38 @@
         add_settings_field( 'create_product_cache_file', 'Tạo file cache bảng giá bán', 'create_product_cache_file', 'custom_preferences_cache', 'custom_preferences_cache' );
     }
 
+    function get_transient_keys_with_prefix( $prefix ) {
+        global $wpdb;
+    
+        $prefix = $wpdb->esc_like( '_transient_' . $prefix );
+        $sql    = "SELECT `option_name` FROM $wpdb->options WHERE `option_name` LIKE '%s'";
+        $keys   = $wpdb->get_results( $wpdb->prepare( $sql, $prefix . '%' ), ARRAY_A );
+    
+        if ( is_wp_error( $keys ) ) {
+            return [];
+        }
+    
+        return array_map( function( $key ) {
+            // Remove '_transient_' from the option name.
+            return ltrim( $key['option_name'], '_transient_' );
+        }, $keys );
+    }
+
+    function delete_transients_with_prefix( $prefix ) {
+        foreach ( get_transient_keys_with_prefix( $prefix ) as $key ) {
+            delete_transient( $key );
+        }
+    }
+
     function clear_custom_cache() { 
         if (isset($_POST['clearcache'])) {
             if ( function_exists('clear_custom_cache') ) {
-                $files = glob( get_stylesheet_directory() .'/custom-cache/*'); // get all file names
-                foreach($files as $file){ // iterate files
-                if(is_file($file))
-                    unlink($file); // delete file
-                }
+                // $files = glob( get_stylesheet_directory() .'/custom-cache/*'); // get all file names
+                // foreach($files as $file){ // iterate files
+                // if(is_file($file))
+                //     unlink($file); // delete file
+                // }
+                delete_transients_with_prefix( 'get_products_sales-' );
                 $msg = 'Xóa thành công!';
             }
         }
@@ -139,8 +163,9 @@
     }
 
     function create_file_sale_cache($key, $content, $filename = 'json-cache.txt') {
-        $path = get_stylesheet_directory() ? get_stylesheet_directory() : get_stylesheet_directory();
-        $cache_file_path = $path . '/custom-cache/' .$filename;
+        // $path = get_stylesheet_directory() ? get_stylesheet_directory() : get_stylesheet_directory();
+        // $cache_file_path = $path . '/custom-cache/' .$filename;
         $json[$key] = $content;
-        file_put_contents($cache_file_path, json_encode( $json ));
+        // file_put_contents($cache_file_path, json_encode( $json ));
+        set_transient( $filename, json_encode( $json ) );
     }

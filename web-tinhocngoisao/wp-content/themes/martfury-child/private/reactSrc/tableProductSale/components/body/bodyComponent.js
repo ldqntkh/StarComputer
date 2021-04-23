@@ -98,6 +98,7 @@ class BodyComponent extends Component {
             let resultData = res.data;
             if (resultData.status === 'OK') {
                 let dataProduct = resultData.data;
+                dataProduct = JSON.parse(dataProduct).data
                 // for(let i in this.list_product_sale_price) {
                 //     dataProduct = await this[`list_product_${i}`].current.searchProducts(dataProduct);
                 // }
