@@ -91,10 +91,16 @@ function register_customer_header_script() {
 
 add_action( 'wp_body_open', function() {
     $headerPromotions = get_option( 'custom_header_options' );
-    if ( !empty( $headerPromotions ) && count($headerPromotions) > 0 ) : ?>
+    $_headerPromotions = [];
+    foreach( $headerPromotions as $h ) {
+        if( $h['image'] != '' ) {
+            array_push( $_headerPromotions, $h );
+        }
+    }
+    if ( !empty( $_headerPromotions ) && count($_headerPromotions) > 0 ) : ?>
         <div class="top-header-promotion featured-slider hide-mobile" data-autoplay="1" data-autoplayspeed="5000">
             <?php
-                foreach ( $headerPromotions as  $headerPromotion ) :
+                foreach ( $_headerPromotions as  $headerPromotion ) :
                     $backgroundColor = $headerPromotion['background_color'];
             ?>
                 <a href="<?php echo $headerPromotion['url']; ?>">

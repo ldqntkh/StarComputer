@@ -5,6 +5,57 @@ if ( !empty( get_option( 'custom_preferences_webhook_options' )['enable_webhook_
     if ( !empty( get_option( 'custom_preferences_webhook_options' )['order_created_delivery_url'] ) && get_option( 'custom_preferences_webhook_options' )['order_created_delivery_url'] !== "" ) {
         
         if( !function_exists('ct_hook_order_created') ) {
+            function hook_search_in_array($array, $key, $value)
+            {
+                $results = array();
+
+                if (is_array($array)) {
+                    if (isset($array[$key]) && $array[$key] == $value) {
+                        $results[] = $array;
+                    }elseif(isset($array[$key]) && is_serialized($array[$key]) && in_array($value,maybe_unserialize($array[$key]))){
+                        $results[] = $array;
+                    }
+                    foreach ($array as $subarray) {
+                        $results = array_merge($results, hook_search_in_array($subarray, $key, $value));
+                    }
+                }
+
+                return $results;
+            }
+
+            function formatAddress( $state_code, $city_code, $address_2 ) {
+                include CUSTOM_PREFERECE_DIR . '/register-hook/tinh_thanhpho.php';
+                include CUSTOM_PREFERECE_DIR . '/register-hook/quan_huyen.php';
+                include CUSTOM_PREFERECE_DIR . '/register-hook/xa_phuong_thitran.php';
+                
+                $tinh_thanh =  $tinh_thanhpho[$state_code];
+                $quan = hook_search_in_array($quan_huyen,'matp',$state_code);
+                usort($quan, 'devvn_natorder' );
+                $ten_quan_huyen = '';
+                if($quan) {
+                    foreach( $quan as $q ) {
+                        if( $q['maqh'] == $city_code ) {
+                            $ten_quan_huyen = $q['name'];
+                            break;
+                        }
+                    }
+                }
+
+                
+                $xa = hook_search_in_array($xa_phuong_thitran,'maqh',$city_code);
+                usort($xa, 'devvn_natorder' );
+                $ten_xa = '';
+                if($xa) {
+                    foreach( $xa as $x ) {
+                        if( $x['xaid'] == $address_2 ) {
+                            $ten_xa = $x['name'];
+                            break;
+                        }
+                    }
+                }
+                return $ten_xa . ', ' . $ten_quan_huyen . ', ' . $tinh_thanh;
+            }
+
             function ct_hook_order_created($order) {
                 $log = new WC_Logger();
                 $url_hook = get_option( 'custom_preferences_webhook_options' )['order_created_delivery_url'];
@@ -72,7 +123,8 @@ if ( !empty( get_option( 'custom_preferences_webhook_options' )['enable_webhook_
                                 "postcode" => "",
                                 "country" => "VN",
                                 "email" => $order->get_billing_email(),
-                                "phone" => $order->get_billing_phone()
+                                "phone" => $order->get_billing_phone(),
+                                "full_address" => $order->get_billing_address_1() . ', ' . formatAddress( $order->get_billing_state(), $order->get_billing_city(), $order->get_billing_address_2() )
                             ),
                         'shipping' => 
                             array (
