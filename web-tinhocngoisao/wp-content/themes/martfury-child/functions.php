@@ -1,7 +1,7 @@
 <?php
 define ( 'THEME_PATH', get_stylesheet_directory() );
 define( 'THEME_PATH_URI',  get_stylesheet_directory_uri());
-
+define ( 'THEME_VERSION', '1.0.0.0' );
 // add_action( 'wp_enqueue_scripts', 'martfury_child_enqueue_scripts', 20 );
 // function martfury_child_enqueue_scripts() {
 // 	wp_enqueue_style( 'martfury-child-style', get_stylesheet_uri() );
@@ -62,7 +62,7 @@ add_action( 'wp_footer', function(){
 }, 100 );
 
 add_action( 'wp_footer', function() {
-    wp_enqueue_script('buildpc_script', get_stylesheet_directory_uri() . '/assets/js/bundle.js', array('jquery'), '2.0.3');
+    wp_enqueue_script('buildpc_script', get_stylesheet_directory_uri() . '/assets/js/bundle.js', array('jquery'), THEME_VERSION);
 });
 
 include_once (THEME_PATH . '/inc/api/functions.php');

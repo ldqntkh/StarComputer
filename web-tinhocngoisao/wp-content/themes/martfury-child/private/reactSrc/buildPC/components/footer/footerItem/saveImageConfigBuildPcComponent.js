@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
-import domtoimage from 'dom-to-image';
+import * as htmlToImage from 'html-to-image';
 class SaveImageConfigBuildPcComponent extends Component {
     constructor(props) {
         super(props);
@@ -35,8 +35,8 @@ class SaveImageConfigBuildPcComponent extends Component {
     saveImages = () => {
 
         // render image to popup
-        let customLogoLink = document.getElementsByClassName('custom-logo-link')[0];
-        let customLogoSrc = typeof(customLogoLink) !== 'undefined' ? customLogoLink.getElementsByTagName('img')[0].src : '';
+        let customLogoLink = document.getElementsByClassName('site-logo')[0];
+        let customLogoSrc = typeof(customLogoLink) !== 'undefined' ? customLogoLink.src : '';
         let computerBuildingData = JSON.parse(localStorage.getItem('computer_building_data'));
         let dataProductType = this.props.data_product_type;
         let imageResult = null;
@@ -53,7 +53,7 @@ class SaveImageConfigBuildPcComponent extends Component {
                 let itemHtml = <div className="row-item" key={index}>
                     <img src={item.product.image} alt = "" />
                     <div className="row-content">
-                        <h1>{item.product.name}</h1>
+                        <h3>{item.product.name}</h3>
                         <span className="pd-id">
                             Mã sản phẩm: <strong>{item.product.id}</strong>
                         </span>
@@ -74,7 +74,7 @@ class SaveImageConfigBuildPcComponent extends Component {
             <React.Fragment>
                 <div className="image-header">
                     <img src={customLogoSrc} alt="" />
-                    <h1>Xây dựng cấu hình máy tính</h1>
+                    <h1>Xây dựng cấu hình máy tính TinHocNgoiSao</h1>
                 </div>
                 <div className="image-body">
                     {list_product_items}
@@ -85,8 +85,8 @@ class SaveImageConfigBuildPcComponent extends Component {
                             Chi phí dự tính: <strong>{this.formatPrice(totalPrice) + 'đ'}</strong>
                         </h1>
                     </div>
-                    <div className="info" dangerouslySetInnerHTML={{__html: document.getElementsByClassName('header-left')[0].innerHTML}}>
-                    </div>
+                    {/* <div className="info" dangerouslySetInnerHTML={{__html: document.getElementsByClassName('header-left')[0].innerHTML}}>
+                    </div> */}
                 </div>
             </React.Fragment>
         this.setState({
@@ -126,15 +126,25 @@ class SaveImageConfigBuildPcComponent extends Component {
         // });
 
         let that  = this;
-        domtoimage.toPng(content)
+        htmlToImage.toPng(content)
         .then(function (dataUrl) {
             that._saveAs(dataUrl, "BuildPC_STARCOMPUTER.png");
-            parentDom.style.height = 'unset';
-            parentDom.style.width = width + 'px';
-        })
-        .catch(function (error) {
-            console.error('oops, something went wrong!', error);
+        }).catch(function (error) {
+            console.log(error);
+            that.setState({
+                saving : false
+            });
         });
+
+        // domtoimage.toPng(content)
+        // .then(function (dataUrl) {
+        //     that._saveAs(dataUrl, "BuildPC_STARCOMPUTER.png");
+        //     parentDom.style.height = 'unset';
+        //     parentDom.style.width = width + 'px';
+        // })
+        // .catch(function (error) {
+        //     console.log(error);
+        // });
     }
 
     _saveAs = (uri, filename) => {

@@ -211,14 +211,14 @@ var checkoutAddress = {
     },
     bindEventAddress: function () {
         if (!jQuery('.page-template-checkout .checkout-address .list-address').length) {
-            jQuery(document).on('click', '.custom-checkout .address-form .save-new-address', function () {
+            jQuery(document).on('click', '.address-form .save-new-address', function () {
                 checkoutAddress.addAddress();
             });
         }
 
         jQuery(document).on('click', '.page-template-checkout .add-new-address', function (e) {
-            var titleElement = jQuery('.custom-checkout .address-form .title-block'),
-                btnActionSave = jQuery('.custom-checkout .address-form .save-new-address');
+            var titleElement = jQuery('.address-form .title-block'),
+                btnActionSave = jQuery('.address-form .save-new-address');
 
             e.preventDefault();
 
@@ -243,10 +243,10 @@ var checkoutAddress = {
             jQuery('html,body').animate({ scrollTop: jQuery('.address-form.new-address').offset().top }, 500, 'swing');
         });
 
-        jQuery(document).on('click', '.page-template-checkout .custom-checkout .list-address .update-address', function (e) {
+        jQuery(document).on('click', '.list-address .update-address', function (e) {
             var data = jQuery(this).attr('data-value') || '',
-                titleElement = jQuery('.custom-checkout .address-form .title-block'),
-                btnUpdateElement = jQuery('.custom-checkout .address-form .save-new-address');
+                titleElement = jQuery('.address-form .title-block'),
+                btnUpdateElement = jQuery('.address-form .save-new-address');
 
             if (!data) {
                 return location.reload();
@@ -254,7 +254,7 @@ var checkoutAddress = {
 
             btnUpdateElement.attr('data-key', jQuery(this).attr('data-key'));
 
-            jQuery('.custom-checkout .woocommerce-error').remove();
+            jQuery('.woocommerce-error').remove();
 
             titleElement.text(titleElement.attr('data-text-edit'));
 
@@ -273,18 +273,18 @@ var checkoutAddress = {
             }, 0);
         });
 
-        jQuery(document).on('click', '.custom-checkout .checkout-address .group-button .cancel', function (e) {
+        jQuery(document).on('click', '.checkout-address .group-button .cancel', function (e) {
             e.preventDefault();
 
             module.exports.resetForm();
-            jQuery('.custom-checkout .address-form .save-new-address').attr('data-key', '');
+            jQuery('.address-form .save-new-address').attr('data-key', '');
 
             jQuery('.address-form.new-address').toggle();
 
             jQuery('html,body').animate({ scrollTop: jQuery('#content').offset().top }, 500, 'swing');
         });
 
-        jQuery(document).on('click', '.custom-checkout .checkout-address .group-button .remove-address', function () {
+        jQuery(document).on('click', '.checkout-address .group-button .remove-address', function () {
             jQuery('#deleteAddress .modal-footer .btn-delete-address').attr('href', jQuery('#deleteAddress .modal-footer .btn-delete-address').attr('data-href') + '?delete-address=' + jQuery(this).attr('data-key'));
 
             jQuery('#deleteAddress').modal('show');
@@ -308,14 +308,15 @@ var checkoutAddress = {
         },
             selector = '';
 
-        jQuery('.custom-checkout .address-form.new-address').show();
-        jQuery('html,body').animate({ scrollTop: jQuery('.custom-checkout .address-form.new-address').offset().top }, 500, 'swing');
+        jQuery('.address-form.new-address').show();
+        jQuery('.address-form.new-address').removeClass('hidden');
+        jQuery('html,body').animate({ scrollTop: jQuery('.address-form.new-address').offset().top }, 500, 'swing');
 
         for (let key in mapKey) {
             if (key === 'billing_city' || key === 'billing_state' || key === 'billing_address_2') {
-                selector = `.custom-checkout .address-form .shipping_address select[name=${key}]`;
+                selector = `.address-form .shipping_address select[name=${key}]`;
             } else {
-                selector = `.custom-checkout .address-form .shipping_address input[name=${key}]`;
+                selector = `.address-form .shipping_address input[name=${key}]`;
             }
 
             if (key == 'billing_city') {
@@ -338,10 +339,10 @@ var checkoutAddress = {
     addAddress: function () {
         var validation = validateAddress.validate('.custom-checkout');
 
-        jQuery('.custom-checkout .woocommerce-error').remove();
+        jQuery('.woocommerce-error').remove();
 
         if (validation && validation.errors) {
-            return module.exports.showError(validation.errors, '.custom-checkout .address-form');
+            return module.exports.showError(validation.errors, '.address-form');
         }
 
         jQuery('body').addClass('gearvn_loading');
@@ -363,7 +364,7 @@ var checkoutAddress = {
                 checkoutAddress.fillNewAddress(validation.data);
             },
             error: function (err) {
-                module.exports.showError(err.responseJSON, '.custom-checkout .address-form');
+                module.exports.showError(err.responseJSON, '.address-form');
 
                 jQuery('body').removeClass('gearvn_loading');
             }
@@ -383,16 +384,16 @@ var checkoutAddress = {
     updateAddress: function () {
         var validation = validateAddress.validate('.custom-checkout');
 
-        jQuery('.custom-checkout .woocommerce-error').remove();
+        jQuery('.woocommerce-error').remove();
 
         if (validation && validation.errors) {
-            return module.exports.showError(validation.errors, '.custom-checkout .address-form');
+            return module.exports.showError(validation.errors, '.address-form');
         }
 
         jQuery('body').addClass('gearvn_loading');
 
         validation.data.add_new_saved_address_field = jQuery('#add_new_saved_address_field').val();
-        validation.data.key_edit_address = jQuery('.custom-checkout .address-form .save-new-address').attr('data-key');
+        validation.data.key_edit_address = jQuery('.address-form .save-new-address').attr('data-key');
 
         validation.data.full_address = module.exports.joinFullAddress();
 
@@ -409,7 +410,7 @@ var checkoutAddress = {
                 } else {
                     jQuery('body').removeClass('gearvn_loading');
 
-                    module.exports.showError(err.responseJSON, '.custom-checkout .address-form');
+                    module.exports.showError(err.responseJSON, '.address-form');
                 }
             }
         });
@@ -431,7 +432,7 @@ var checkoutAddress = {
 
         template += '</ul>';
 
-        jQuery(template).insertBefore('.custom-checkout .address-form form > h2');
+        jQuery(template).insertBefore('.address-form form > h2');
 
         return jQuery('html,body').animate({ scrollTop: jQuery(selectorScrollTo).offset().top }, 500, 'swing');
     },
@@ -444,9 +445,9 @@ var checkoutAddress = {
                 return null;
             }
             if (item === 'billing_city' || item === 'billing_address_2') {
-                selector = `.custom-checkout .address-form .shipping_address select[name=${item}]`;
+                selector = `.address-form .shipping_address select[name=${item}]`;
             } else {
-                selector = `.custom-checkout .address-form .shipping_address input[name=${item}]`;
+                selector = `.address-form .shipping_address input[name=${item}]`;
             }
 
             jQuery(selector).val('').trigger('change');

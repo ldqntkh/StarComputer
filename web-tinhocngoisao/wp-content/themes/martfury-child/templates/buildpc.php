@@ -80,6 +80,7 @@
             var facebookAppId = <?php echo get_option( 'custom_preferences_options' )['fb_appId']; ?>;
         <?php endif; ?>
     </script>
+    <div class="header-left"></div>
     <div id="build-pc-function"></div>
 <?php
     get_footer();

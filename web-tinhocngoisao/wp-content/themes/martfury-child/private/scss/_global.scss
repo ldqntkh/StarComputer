@@ -92,6 +92,7 @@ body.mobile-version {
 
 .top-header-promotion {
     display: none;
+    height: 50px;
     @media screen and (min-width: 1200px) {
         display: block;
         position: fixed;
@@ -103,6 +104,35 @@ body.mobile-version {
             background-size: auto 50px;
             background-repeat: no-repeat;
             height: 50px;
+        }
+    }
+}
+
+.footer-column-store {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    @media screen and (min-width: 1024px){
+        flex-direction: row;
+    }
+    .store-detail, .warranty-detail{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        @media screen and (min-width: 768px) {
+            width: calc(50% - 20px);
+            margin-right: 20px;
+        }
+    }
+    .warranty-detail {
+        margin-top: 20px;
+        @media screen and (min-width: 768px){
+            margin-top: 0;
         }
     }
 }

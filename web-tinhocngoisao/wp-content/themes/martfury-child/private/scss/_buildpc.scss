@@ -638,6 +638,7 @@
 .content-image {
     height: calc(100% - 50px);
     overflow: auto;
+    
     #custom-save-image-buildpc {
         display: flex;
         flex-direction: column;
@@ -655,17 +656,27 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            width: 100%;
+            max-width: 1024px;
             img {
                 width: 60%;
             }
             h1 {
                 font-weight: 300;
+                text-align: center;
+                width: 100%;
             }
         }
         .image-body {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+            width: 100%;
+            max-width: 1024px;
+            h3 {
+                font-size: 1.5em;
+                width: 100%;
+            }
             .row-item {
                 display: flex;
                 justify-content: flex-start;
@@ -684,6 +695,7 @@
                     justify-content: flex-start;
                     align-items: flex-start;
                     padding-left: 15px;
+                    width: calc(100% - 170px);
                     .pd-id, .pd-price {
                         strong {
                             color: red;
@@ -698,6 +710,14 @@
             max-width: 1024px;
             margin: 0 auto;
             padding: 20px 2.5px;
+            h1 {
+                font-size: 2em;
+                width: 100%;
+            }
+            h3 {
+                font-size: 1.5em;
+                width: 100%;
+            }
             .bill {
                 text-align: center;
                 h1 {
