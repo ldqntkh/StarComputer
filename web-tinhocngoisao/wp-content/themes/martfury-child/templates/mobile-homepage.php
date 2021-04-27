@@ -7,10 +7,13 @@
  * @package Martfury
  */
 
-if( !wp_is_mobile() ) {
-    wp_redirect(home_url(), 301);
-    die;
+if( !is_user_logged_in() || !current_user_can('edit_posts') ) {
+	if( !wp_is_mobile() ) {
+		wp_redirect(home_url(), 301);
+		die;
+	}
 }
+
 
 get_header(); ?>
 
