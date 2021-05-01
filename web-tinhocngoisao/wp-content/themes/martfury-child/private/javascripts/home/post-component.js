@@ -5,6 +5,7 @@ var homePost = {
     init: function () {
         this.itemPostClick();
         this.initCatClick();
+        this.initHomepageSearchClick();
 
         $('.featured-slider').each(function() {
             var at_featured_img_slider = $(this);
@@ -33,6 +34,17 @@ var homePost = {
                     }
                 ]
             });
+        });
+    },
+
+    initHomepageSearchClick: function() {
+        $('body.mobile-version').on('click', '', function() {
+            if( !$('#mf-els-modal-mobile').hasClass('open') ) {
+                $('.navigation-mobile_search').trigger('click');
+                // $('#mf-els-modal-mobile').addClass('open');
+                $('#mf-els-modal-mobile input.search-field').focus();
+                $('body').scrollTop();
+            }
         });
     },
 

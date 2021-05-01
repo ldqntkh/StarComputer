@@ -73,3 +73,21 @@ include_once (THEME_PATH . '/inc/post-component/post-shortcode.php');
 
 include_once (THEME_PATH . '/inc/filter/search-order.php');
 include_once (THEME_PATH . '/inc/print_order/print_order.php');
+
+//webhook
+include_once (THEME_PATH . '/inc/webhooks/new-order.php');
+
+add_filter( 'woocommerce_short_description', 'woocommerce_template_loop_period', 10, 1 );
+if ( ! function_exists( 'woocommerce_template_loop_period' ) ) {
+
+	/**
+	 * Show the product title in the product loop. By default this is an H2.
+	 */
+	function woocommerce_template_loop_period($post_post_excerpt) {
+		$period = get_post_meta( get_the_id(), 'warranty_period', true );
+		if (!empty($period)) {
+			$post_post_excerpt .= '<hr /><p class="warranty_period">Bảo hành: <strong>'. $period .'</strong> tháng</p>';
+		}
+        return $post_post_excerpt;
+	}
+}

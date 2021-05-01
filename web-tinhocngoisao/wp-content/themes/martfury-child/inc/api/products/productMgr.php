@@ -368,12 +368,15 @@ if ( !function_exists( 'update_product_info' ) ) {
         $parameters = $request->get_json_params();
         $qty = $parameters['qty'];
         $price = $parameters['price'];
+        $sku = $parameters['sku'];
         $existed_product = get_post_meta( $alias );
+        
         
         $qty_key = '_stock';
         $price_key = '_price';
         $regular_price_key = '_regular_price';
         $sale_price_key = '_sale_price';
+        $sku_key = '_sku';
 
         $response = array(
             'status' => true,
@@ -434,6 +437,22 @@ if ( !function_exists( 'update_product_info' ) ) {
                 );
             }
         }
+
+        if ( isset($sku) && $sku >= 0 ) {
+            $updated_sku = update_post_meta( $alias, $sku_key, $sku );
+            if (!$updated_sku ) {
+                $response[] = array(
+                    'status' => false,
+                    'message'=> 'Can not update sku in web api: '. $sku 
+                );
+            } else {
+                $response[] = array(
+                    'status' => true,
+                    'message'=> 'Update sku success'
+                );
+            }
+        }
+
         return wp_send_json($response);
     }
 }
