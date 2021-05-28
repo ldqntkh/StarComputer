@@ -1,7 +1,7 @@
 <?php
 define ( 'THEME_PATH', get_stylesheet_directory() );
 define( 'THEME_PATH_URI',  get_stylesheet_directory_uri());
-define ( 'THEME_VERSION', '1.0.0.0' );
+define ( 'THEME_VERSION', '1.0.0.2' );
 // add_action( 'wp_enqueue_scripts', 'martfury_child_enqueue_scripts', 20 );
 // function martfury_child_enqueue_scripts() {
 // 	wp_enqueue_style( 'martfury-child-style', get_stylesheet_uri() );
@@ -77,7 +77,7 @@ include_once (THEME_PATH . '/inc/print_order/print_order.php');
 //webhook
 include_once (THEME_PATH . '/inc/webhooks/new-order.php');
 
-add_filter( 'woocommerce_short_description', 'woocommerce_template_loop_period', 10, 1 );
+add_action( 'woocommerce_product_meta_start', 'woocommerce_template_loop_period', 10 );
 if ( ! function_exists( 'woocommerce_template_loop_period' ) ) {
 
 	/**
@@ -86,8 +86,10 @@ if ( ! function_exists( 'woocommerce_template_loop_period' ) ) {
 	function woocommerce_template_loop_period($post_post_excerpt) {
 		$period = get_post_meta( get_the_id(), 'warranty_period', true );
 		if (!empty($period)) {
-			$post_post_excerpt .= '<hr /><p class="warranty_period">Bảo hành: <strong>'. $period .'</strong> tháng</p>';
+			echo '<p class="warranty_period">Bảo hành: <strong>'. $period .'</strong> tháng</p><hr />';
 		}
-        return $post_post_excerpt;
 	}
 }
+add_filter( 'woocommerce_get_return_url', function($return_url) {
+    return $return_url .= '?order_page=thank_you';
+}, 10, 1 );

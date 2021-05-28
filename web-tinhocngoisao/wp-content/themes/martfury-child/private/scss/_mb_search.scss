@@ -29,7 +29,7 @@ body.mobile-version {
 
     .guaven_woos_suggestion {
         z-index: 9999991;
-        // top: 72px!important;
+        top: 67px!important;
         bottom: 67px!important;
         max-height: calc(100% - 65px)!important;
         width: 100%!important;
@@ -49,6 +49,48 @@ body.mobile-version {
         flex-direction: column;
         ins {
             text-decoration: none;
+        }
+    }
+}
+
+body.mobile-version {
+    .site-footer {
+        .footer-widgets {
+            .widget-title {
+                margin-bottom: 10px;
+                position: relative;
+                
+                &::after {
+                    content: "\e93a";
+                    display: inline-block;
+                    font: normal normal normal 14px/1 linearicons;
+                    font-size: 16px;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    right: 0;
+                }
+            }
+            .custom-html-widget {
+                display: none;
+            }
+            .widget_custom_html {
+                border-bottom: 1px solid #e1e1e1;
+                &:last-child {
+                    border-bottom: none;
+                }
+                &.active {
+                    .widget-title {
+                        &::after {
+                            content: "\e939";
+                        }
+                    }
+                    .custom-html-widget {
+                        display: initial;
+                    }
+                }
+            }
+            
         }
     }
 }
