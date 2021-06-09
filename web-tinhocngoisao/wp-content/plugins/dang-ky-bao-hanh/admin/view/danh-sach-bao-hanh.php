@@ -15,20 +15,20 @@ if ( ! defined( 'ABSPATH' ) ) {
   $ofset = $page_i > 1 ? ($page_i - 1) * 30 : 0;
 
   $sql = "SELECT * FROM $table_dang_ky_bao_hanh
-            WHERE fullname LIKE '%$search%' OR phone_number LIKE '%$search%' OR email LIKE '%$search%'";
+            WHERE (fullname LIKE '%$search%' OR phone_number LIKE '%$search%' OR email LIKE '%$search%') ";
   $sql_count = "SELECT count(*) as `total` FROM $table_dang_ky_bao_hanh
-            WHERE fullname LIKE '%$search%' OR phone_number LIKE '%$search%' OR email LIKE '%$search%'";
+            WHERE (fullname LIKE '%$search%' OR phone_number LIKE '%$search%' OR email LIKE '%$search%') ";
   if( $status == '1' ) {
-    $sql .= " AND `status` = '1'";
-    $sql_count .= " AND `status` = '1'";
+    $sql .= " AND `status` = 1";
+    $sql_count .= " AND `status` = 1";
   } elseif( $status == '0' ) {
-    $sql .= " AND `status` = '0'";
-    $sql_count .= " AND `status` = '0'";
+    $sql .= " AND `status` = 0";
+    $sql_count .= " AND `status` = 0";
   } elseif( $status == '2' ) {
-    $sql .= " AND `status` = '2'";
-    $sql_count .= " AND `status` = '2'";
+    $sql .= " AND `status` = 2";
+    $sql_count .= " AND `status` = 2";
   } 
-
+  
   // check count
   $total = 0;
   $result_count = $wpdb->get_results($sql_count);
@@ -36,8 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     $total = $result_count[0]->total;
   }
 
-
-  $sql .= "ORDER BY created_at DESC LIMIT $ofset, 30";
+  $sql .= " ORDER BY created_at DESC LIMIT $ofset, 30";
   
   $result = $wpdb->get_results($sql);
 ?>

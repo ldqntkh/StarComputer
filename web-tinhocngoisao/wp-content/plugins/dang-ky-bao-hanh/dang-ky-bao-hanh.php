@@ -37,7 +37,8 @@ function create_service_database_table() {
     
     add_option("wnm_db_version", $wnm_db_version);
 }
-
+$administrator     = get_role('administrator');
+$administrator->add_cap( "quan_ly_bao_hanh" );
 
 // init admin page
 require_once (DKBH_PLUGIN_DIR . '/admin/init-menu.php');

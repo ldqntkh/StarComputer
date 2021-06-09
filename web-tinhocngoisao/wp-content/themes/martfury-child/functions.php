@@ -1,7 +1,7 @@
 <?php
 define ( 'THEME_PATH', get_stylesheet_directory() );
 define( 'THEME_PATH_URI',  get_stylesheet_directory_uri());
-define ( 'THEME_VERSION', '1.0.0.2' );
+define ( 'THEME_VERSION', '1.0.0.5' );
 // add_action( 'wp_enqueue_scripts', 'martfury_child_enqueue_scripts', 20 );
 // function martfury_child_enqueue_scripts() {
 // 	wp_enqueue_style( 'martfury-child-style', get_stylesheet_uri() );
