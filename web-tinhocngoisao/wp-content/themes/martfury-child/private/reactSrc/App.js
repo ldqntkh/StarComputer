@@ -4,6 +4,7 @@ import ListCategoryMobile from './listCatagoryMobile/App';
 import WidgetATProduct from './widgetAtProduct/App';
 import TableProductSale from './tableProductSale/App';
 import InstallmentApp from './installment/App';
+import YeuCauBaoHanhComponent from './yeu-cau-bao-hanh/App';
 
 const elementIds = [
     {
@@ -26,6 +27,10 @@ const elementIds = [
         ids : ["installment"],
         appName : InstallmentApp
     },
+    {
+        ids : ["yeu-cau-bao-hanh"],
+        appName : YeuCauBaoHanhComponent
+    }
 ];
 
 for (let index in elementIds) {
