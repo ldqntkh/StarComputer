@@ -369,6 +369,8 @@ if ( !function_exists( 'update_product_info' ) ) {
         $qty = $parameters['qty'];
         $price = $parameters['price'];
         $sku = $parameters['sku'];
+        $is_active = $parameters['is_active'];
+        $name = $parameters['name'];
         $existed_product = get_post_meta( $alias );
         
         
@@ -377,6 +379,7 @@ if ( !function_exists( 'update_product_info' ) ) {
         $regular_price_key = '_regular_price';
         $sale_price_key = '_sale_price';
         $sku_key = '_sku';
+        $status_key = '_status';
 
         $response = array(
             'status' => true,
@@ -451,6 +454,194 @@ if ( !function_exists( 'update_product_info' ) ) {
                     'message'=> 'Update sku success'
                 );
             }
+        }
+
+        $product = wc_get_product( $alias );
+        if ( isset($is_active) && is_bool($is_active) ) {
+            if( $product->get_status() == 'draft' || $product->get_status() == 'publish' ) {
+                $status = 'publish';
+            
+                if($is_active == false) $status = 'draft';
+                
+                $product->set_status($status); 
+                
+                $response[] = array(
+                    'status' => true,
+                    'message'=> 'Update status success'
+                );
+            } else {
+                $response[] = array(
+                    'status' => false,
+                    'message'=> 'Update status false'
+                );
+            }
+            
+        }
+
+        // if ( isset($name) ) {
+        //     $product->set_name($name);
+            
+        //     $response[] = array(
+        //         'status' => true,
+        //         'message'=> 'Update title success'
+        //     );
+            
+        // }
+        $product->save();
+
+        return wp_send_json($response);
+    }
+}
+
+
+
+if ( !function_exists( 'insert_product_info' ) ) {
+    function insert_product_info( WP_REST_Request $request ) {
+        // $alias = $request->get_param( 'id' );
+        $parameters = $request->get_json_params();
+        $qty = $parameters['qty'];
+        $price = $parameters['price'];
+        $sku = $parameters['sku'];
+        $is_active = $parameters['is_active'];
+        $name = $parameters['name'];
+        
+        $qty_key = '_stock';
+        $price_key = '_price';
+        $regular_price_key = '_regular_price';
+        $sale_price_key = '_sale_price';
+        $sku_key = '_sku';
+
+        // check sku
+        global $wpdb;
+
+        $product_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_sku' AND meta_value='%s' LIMIT 1", $sku ) );
+
+        if ( $product_id ) {
+            return wp_send_json(array(
+                'status' => false,
+                'message'=> 'Product already exists'
+            ));
+        }
+
+        $status = 'pending';
+        // if($is_active) $status = 'public';
+        // insert post
+
+        // $insert = $wpdb->insert($wpdb->prefix.'posts', array(
+        //     'post_author' => '1',
+        //     'post_date' => date(),
+        //     'post_title' => $name,
+        //     'post_status' => 'private',
+        //     'post_type' => "product",
+        //     'comment_status' => "open"
+        // ));
+        $term = get_category_by_slug('uncategorized');
+        // wp_set_object_terms( $alias, $term->term_id, 'product_cat' );
+
+        $id = wp_insert_post( [
+            'post_title'            => $name,
+            'post_status'           => $status,
+            'post_type'             => 'product',
+            'tax_input'     => array(
+                'custom_tax_category' => array( $term->term_id )
+            )
+        ] );
+        
+        // wp_set_post_categories( $id );
+
+        if ( $insert->last_error ) {
+            return wp_send_json(array(
+                'status' => false,
+                'message'=> 'Can not update status in web api: '. json_encode([
+                    'post_title'            => $name,
+                    'post_status'           => $status,
+                    'post_type'             => 'product'
+                ])
+            ));
+        } else {
+            // $id = $insert = $wpdb->insert_id;
+            $response = array(
+                'status' => true,
+                'message'=> 'Update success'
+            );
+            $alias = $id;
+            wp_set_object_terms( $alias, 'simple', 'product_type');
+            
+            $product = wc_get_product( $alias );
+            // $product->set_sku( $sku );
+            $product->set_manage_stock( true );
+            // $product->set_stock_quantity($qty);
+            // $product->set_price( $price )
+            // $product->set_catalog_visibility(true);
+            update_post_meta( $alias, '_visibility', 'private' );
+            // update_post_meta( $alias, '_stock_status', 'instock');
+            // update_post_meta( $post_id, '_manage_stock', "no" );
+            // update meta
+            if ( isset($qty) && $qty >= 0 ) {
+                $updated_qty = update_post_meta( $alias, $qty_key, $qty );
+                if (!$updated_qty ) {
+                    $response[] = array(
+                        'status' => false,
+                        'message'=> 'Can not update qty in web api: '. $qty 
+                    );
+                } else {
+                    $response[] = array(
+                        'status' => true,
+                        'message'=> 'Update qty success'
+                    );
+                }
+            }
+            
+            if ( !empty( $price ) ) {
+                // get giá sale và giá gốc
+                $sale_price = get_post_meta( $alias, $sale_price_key, true );
+                if ( $sale_price && $sale_price > 0 ) {
+                    if( $price <= $sale_price ) {
+                        $updated_sale_price = update_post_meta( $alias, $sale_price_key, $price );
+                        // $updated_regular_price = update_post_meta( $alias, $regular_price_key, $price );
+                        $updated_price = update_post_meta( $alias, $price_key, $price );
+                    } else {
+                        $updated_price = update_post_meta( $alias, $regular_price_key, $price );
+                        $updated_price = update_post_meta( $alias, $price_key, $sale_price );
+                    }
+                } else {
+                    $updated_regular_price = update_post_meta( $alias, $regular_price_key, $price );
+                    $updated_price = update_post_meta( $alias, $price_key, $price );
+                }
+                // hiện tại chỉ update giá bán gốc
+                // $updated_price = update_post_meta( $alias, $regular_price_key, $price );
+                if ( !$updated_price ) {
+                    $response[] = array(
+                        'status' => false,
+                        'message'=> 'Can not update price in web api: ' . $price
+                    );
+                 }else {
+                    $response[] = array(
+                        'status' => true,
+                        'message'=> 'Update price success'
+                    );
+                }
+            }
+    
+            if ( isset($sku) && $sku >= 0 ) {
+                $updated_sku = update_post_meta( $alias, $sku_key, $sku );
+                if (!$updated_sku ) {
+                    $response[] = array(
+                        'status' => false,
+                        'message'=> 'Can not update sku in web api: '. $sku 
+                    );
+                } else {
+                    $response[] = array(
+                        'status' => true,
+                        'message'=> 'Update sku success'
+                    );
+                }
+            }
+            // $product->save();
+            return wp_send_json(array(
+                'status' => true,
+                'product_id'=> $alias
+            ));
         }
 
         return wp_send_json($response);

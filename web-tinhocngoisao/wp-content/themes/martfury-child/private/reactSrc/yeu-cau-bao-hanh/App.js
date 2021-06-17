@@ -18,7 +18,9 @@ class YeuCauBaoHanhComponent extends React.Component {
             file: null,
             errorMsg: '',
             fetching: false,
-            success: ""
+            success: "",
+            thanhpho: "Tp Hồ Chí Minh",
+            quan: "Quận 1"
         }
     }
 
@@ -106,7 +108,7 @@ class YeuCauBaoHanhComponent extends React.Component {
             formData.append('phone', data.phone);
             formData.append('email', data.email);
             formData.append('description', data.noidung);
-            formData.append('address', data.address);
+            formData.append('address', `${data.address}, ${data.thanhpho}, ${data.quan}`);
             formData.append('company', data.company);
             formData.append('product_type', data.product_type);
             // formData.append('has_thebaohanh', data.has_thebaohanh);
@@ -150,6 +152,7 @@ class YeuCauBaoHanhComponent extends React.Component {
     render() {
         let data = this.state;
         let spSp = ["PC để bàn", "Laptop", "LCD", "Màn hình", "Camera", "Máy in"];
+        let quans = ["Quận 1", "Quận 2", "Quận 3", "Quận 4", "Quận 5", "Quận 6", "Quận 7", "Quận 8", "Quận 9", "Quận 10", "Quận 11", "Quận 12", "Quận Thủ Đức", "Quận Bình Thạnh" , "Quận Gò Vấp", "Quận Phú Nhuận", "Quận Tân Phú", "Quận Bình Tân", "Quận Tân Bình"];
         return (
             <div className="form-container">
                 <div className="header">
@@ -170,6 +173,22 @@ class YeuCauBaoHanhComponent extends React.Component {
                         <input name="phone" value={data.phone} onChange={this._handleChangeInput}/>
                     </div>
                     <div className="form-group">
+                        <label htmlFor="thanhpho">Thành phố<span style={{color: 'red'}}>*</span></label>
+                        <select name="thanhpho" onChange={(event)=> null}>
+                            <option value={"Tp Hồ Chí Minh"} key={"Tp Hồ Chí Minh"}>{"Tp Hồ Chí Minh"}</option>
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="quan">Chọn Quận/huyện<span style={{color: 'red'}}>*</span></label>
+                        <select name="quan" onChange={(event)=> this.setState({ quan: event.target.value })}>
+                        {
+                            quans.map((item, index) => {
+                                return( <option value={item} key={item}>{item}</option> )
+                            })
+                        }
+                        </select>
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="address">Địa chỉ<span style={{color: 'red'}}>*</span></label>
                         <input name="address" value={data.address} onChange={this._handleChangeInput}/>
                     </div>
@@ -188,7 +207,7 @@ class YeuCauBaoHanhComponent extends React.Component {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="file">Ảnh chụp sản phẩm lỗi / Phiếu bảo hành / Phiếu xuất kho</label>
+                        <label htmlFor="file">Ảnh chụp sản phẩm lỗi (chấp nhận file word hoặc excel)</label>
                         <input type="file" 
                             onChange={this._handleChangeFile}
                             accept="image/jpeg,image/png,application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" 

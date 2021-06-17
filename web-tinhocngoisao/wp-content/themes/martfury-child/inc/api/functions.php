@@ -48,4 +48,9 @@ add_action( 'rest_api_init', function () {
         'methods' => 'POST',
         'callback' => 'update_product_info',
     ) );
+
+    register_rest_route( 'rest_api/v1', '/product/insert', array(
+        'methods' => 'POST',
+        'callback' => 'insert_product_info',
+    ) );
 } );
