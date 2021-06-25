@@ -94,7 +94,7 @@ function custom_martfury_extra_department( $dep_close = false, $id = '' ) {
                                         // .'<i class="fa fa-angle-right angle-down"></i>'.
                                         .'<a href="' . $menu_item->url . '">'
                                             . $icon_url
-                                            . $menu_item->title 
+                                            . '<span class="title-url">'.$menu_item->title.'</span>'
                                         . '</a>';
                                 $special_menus_html .= '<div class="sub-menus" ' .$background_url.  '>';
                                     $special_menus_html .= '<section class="sub-menu-lv1">';

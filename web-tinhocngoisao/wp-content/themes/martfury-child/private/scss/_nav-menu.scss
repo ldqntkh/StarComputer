@@ -1,4 +1,9 @@
 #menu-special-menu {
+    margin: 0;
+    padding: 5px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+
     @media screen and (min-width: 768px) {
         // height: 543px;
     }
@@ -17,6 +22,15 @@
             // margin-top: 10px;
             // margin-left: -10px;
             margin-right: 5px;
+            &.title-url {
+                width: calc(100% - 30px);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+            }
         }
     }
     .menu-item {

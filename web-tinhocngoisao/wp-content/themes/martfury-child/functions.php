@@ -1,7 +1,7 @@
 <?php
 define ( 'THEME_PATH', get_stylesheet_directory() );
 define( 'THEME_PATH_URI',  get_stylesheet_directory_uri());
-define ( 'THEME_VERSION', '1.0.0.5' );
+define ( 'THEME_VERSION', '1.0.0.6' );
 // add_action( 'wp_enqueue_scripts', 'martfury_child_enqueue_scripts', 20 );
 // function martfury_child_enqueue_scripts() {
 // 	wp_enqueue_style( 'martfury-child-style', get_stylesheet_uri() );
@@ -74,22 +74,7 @@ include_once (THEME_PATH . '/inc/post-component/post-shortcode.php');
 include_once (THEME_PATH . '/inc/filter/search-order.php');
 include_once (THEME_PATH . '/inc/print_order/print_order.php');
 
+include_once (THEME_PATH . '/inc/functions/hooks.php');
+
 //webhook
 include_once (THEME_PATH . '/inc/webhooks/new-order.php');
-
-add_action( 'woocommerce_product_meta_start', 'woocommerce_template_loop_period', 10 );
-if ( ! function_exists( 'woocommerce_template_loop_period' ) ) {
-
-	/**
-	 * Show the product title in the product loop. By default this is an H2.
-	 */
-	function woocommerce_template_loop_period($post_post_excerpt) {
-		$period = get_post_meta( get_the_id(), 'warranty_period', true );
-		if (!empty($period)) {
-			echo '<p class="warranty_period">Bảo hành: <strong>'. $period .'</strong> tháng</p><hr />';
-		}
-	}
-}
-add_filter( 'woocommerce_get_return_url', function($return_url) {
-    return $return_url .= '?order_page=thank_you';
-}, 10, 1 );
