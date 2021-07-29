@@ -212,6 +212,37 @@ body.mobile-version {
             color: black;
         }
     }
+    .fsale-stock {
+        display: block;
+        .total-100 {
+            position: relative;
+            width: 95%;
+            height: 23px;
+            border-radius: 4px;
+            background: #c0c0c05c;
+            float: left;
+            padding: 0px 3px;
+            text-align: center;
+            .sale {
+                z-index: 10;
+                position: absolute;
+                width: 100%;
+                float: left;
+                left: 0;
+            }
+            .percent {
+                position: absolute;
+                left: 0;
+                top: 0;
+                background-color: #ffc800;
+                height: 100%;
+                border-radius: 4px;
+            }
+        }
+    }
+}
+.fsale-stock {
+    display: none;
 }
 @keyframes rotateCountdown {
     0% {

@@ -78,3 +78,30 @@ include_once (THEME_PATH . '/inc/functions/hooks.php');
 
 //webhook
 include_once (THEME_PATH . '/inc/webhooks/new-order.php');
+
+add_action( 'martfury_woo_after_shop_loop_item_title', 'woocommerce_template_loop_saletotal', 30 );
+function woocommerce_template_loop_saletotal() { 
+    global $product, $post;    
+    $units_sold = $product->get_total_sales();
+    $stock = $product->get_total_stock();
+    if( !$units_sold ) $units_sold = 0;
+    $total_stock = $units_sold + $stock;
+    $percent = round($units_sold/$total_stock * 100);
+?>
+    <div class="fsale-stock">
+        <span class="total-100">
+            <span class="sale"><?php echo $units_sold; ?>/<?php echo $total_stock; ?> Đã bán</span>
+            <span class="percent" style="width: <?php echo $percent ?>%"></span>
+        </span>
+    </div>
+<?php }
+
+add_filter( 'woocommerce_product_query_meta_query', 'show_only_products_with_specific_metakey', 10, 2 );
+function show_only_products_with_specific_metakey( $meta_query, $query ) {
+    $meta_query[] = array(
+        'key'     => '_stock_status',
+        'value'   => 'instock',
+        'compare' => '=',
+    );
+    return $meta_query;
+}
