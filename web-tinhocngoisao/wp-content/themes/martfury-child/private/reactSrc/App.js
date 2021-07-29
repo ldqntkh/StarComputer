@@ -1,7 +1,7 @@
 // import hotDealApp from './hotDeal/App';
 import buildPCApp from './buildPC/App';
 import ListCategoryMobile from './listCatagoryMobile/App';
-import WidgetATProduct from './widgetAtProduct/App';
+// import WidgetATProduct from './widgetAtProduct/App';
 import TableProductSale from './tableProductSale/App';
 import InstallmentApp from './installment/App';
 import YeuCauBaoHanhComponent from './yeu-cau-bao-hanh/App';
@@ -43,12 +43,12 @@ for (let index in elementIds) {
     }
 }
 
-function checkWidgetATProduct() {
-    let elementClasses = document.getElementsByClassName('widget_online_shop_wc_products_custom');
-    for (let index in elementClasses) {
-        if (elementClasses[index].id) {
-            WidgetATProduct(elementClasses[index].id);
-        }
-    }
-}
-checkWidgetATProduct();
+// function checkWidgetATProduct() {
+//     let elementClasses = document.getElementsByClassName('widget_online_shop_wc_products_custom');
+//     for (let index in elementClasses) {
+//         if (elementClasses[index].id) {
+//             WidgetATProduct(elementClasses[index].id);
+//         }
+//     }
+// }
+// checkWidgetATProduct();

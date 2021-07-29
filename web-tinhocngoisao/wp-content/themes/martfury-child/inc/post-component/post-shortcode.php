@@ -67,6 +67,7 @@ if( !function_exists('thns_get_post_content') ) {
                 "success"   => false,
                 "errMsg"    => "Cannot find post"
             ]);
+            die;
         } else {
             $post = get_post($postId);
             if( $post ) {
@@ -83,11 +84,13 @@ if( !function_exists('thns_get_post_content') ) {
                     ],
                     "errMsg"    => ""
                 ]);
+                die;
             } else {
                 wp_send_json_error([
                     "success"   => false,
                     "errMsg"    => "Cannot find post"
                 ]);
+                die;
             }
         }
     }

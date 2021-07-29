@@ -393,6 +393,7 @@ if ( !function_exists( 'update_product_info' ) ) {
                     'message' => 'Can not find any product with alias: ' . $alias
                 )
             );
+            die;
         }
 
         if ( isset($qty) && $qty >= 0 ) {
@@ -490,6 +491,7 @@ if ( !function_exists( 'update_product_info' ) ) {
         $product->save();
 
         return wp_send_json($response);
+        die;
     }
 }
 
@@ -521,6 +523,7 @@ if ( !function_exists( 'insert_product_info' ) ) {
                 'status' => false,
                 'message'=> 'Product already exists'
             ));
+            die;
         }
 
         $status = 'pending';
@@ -558,6 +561,7 @@ if ( !function_exists( 'insert_product_info' ) ) {
                     'post_type'             => 'product'
                 ])
             ));
+            die;
         } else {
             // $id = $insert = $wpdb->insert_id;
             $response = array(
@@ -642,8 +646,103 @@ if ( !function_exists( 'insert_product_info' ) ) {
                 'status' => true,
                 'product_id'=> $alias
             ));
+            die;
         }
 
         return wp_send_json($response);
+        die;
     }
+}
+
+if( !function_exists( 'delete_product_from_hts' ) ) {
+    function delete_product_from_hts($request) {
+        $alias = $request->get_param( 'id' );
+        return wp_send_json_success(wh_deleteProduct( $alias, true ));
+        die;
+        // return wp_send_json_success(wp_delete_post( $alias ));
+    }
+}
+
+function wh_deleteProduct($id, $force = FALSE)
+{
+    $product = wc_get_product($id);
+
+    if(empty($product)) return true;
+
+
+    // check info hts
+
+    $curl = curl_init();
+    $sku = $product->get_sku();
+    $sku = 'V.1080.8G.GL.EXOC.2F';
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'http://ngoisaolon.htsoft.vn:9044/ActionService.svc/GetProductInfoByItemID',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+            "SKU": "'. $sku .'"
+        }',
+        CURLOPT_HTTPHEADER => array(
+            'clienttag: FFA7BB0E-82F9-4168-B46D-1AD3B526E00D',
+            'content-type: application/json'
+        ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+    if( !$response ) return false;
+    $response = json_decode( $response );
+    
+    if( $response->data->Origin != 'Xóa bán' ) {
+        return false;
+    }
+
+    // If we're forcing, then delete permanently.
+    if ($force)
+    {
+        if ($product->is_type('variable'))
+        {
+            foreach ($product->get_children() as $child_id)
+            {
+                $child = wc_get_product($child_id);
+                $child->delete(true);
+            }
+        }
+        elseif ($product->is_type('grouped'))
+        {
+            foreach ($product->get_children() as $child_id)
+            {
+                $child = wc_get_product($child_id);
+                $child->set_parent_id(0);
+                $child->save();
+            }
+        }
+
+        $product->delete(true);
+        $result = $product->get_id() > 0 ? false : true;
+    }
+    else
+    {
+        $product->delete();
+        $result = 'trash' === $product->get_status();
+    }
+
+    if (!$result)
+    {
+        // return new WP_Error(999, sprintf(__('This %s cannot be deleted', 'woocommerce'), 'product'));
+        return false;
+    }
+
+    // Delete parent product transients.
+    if ($parent_id = wp_get_post_parent_id($id))
+    {
+        wc_delete_product_transients($parent_id);
+    }
+    return true;
 }

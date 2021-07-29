@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 
 
 // import container
-import MainComponent from './components/mainComponent';
+// import MainComponent from './components/mainComponent';
 
 const init = ()=> {
     try {
-        ReactDOM.render(
-            // <Provider store={BuildPcStore}>
-                <MainComponent />,
-            // </Provider>, 
+        const MainComponent = React.lazy(()=> import('./components/mainComponent'));
+            ReactDOM.render(
+                <Suspense fallback={<div>....</div>}>
+                    <MainComponent />
+                </Suspense>,
             document.getElementById('list_sale_price'));
     } catch (err) {
         //

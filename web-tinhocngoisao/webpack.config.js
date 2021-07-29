@@ -32,7 +32,9 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname),
-        filename: '[name].js'
+        publicPath: "/",
+        filename: '[name].js',
+        chunkFilename: "./wp-content/themes/martfury-child/assets/js/[name].chunk.js"
     },
     mode: devMode ? 'development' : 'production',
     module: {
@@ -75,8 +77,8 @@ module.exports = {
         new FixStyleOnlyEntriesPlugin(),
         new MiniCssExtractPlugin({
             // online theme
-            // filename: devMode ? './wp-content/themes/online-shop-child/assets/styles/[name].css' : './wp-content/themes/online-shop-child/[name].[hash].css',
-            // chunkFilename: devMode ? './wp-content/themes/online-shop-child/assets/styles/[id].css' : './wp-content/themes/online-shop-child/[id].[hash].css'
+            // filename: devMode ? './wp-content/themes/martfury-child/assets/styles/[name].css' : './wp-content/themes/martfury-child/[name].[hash].css',
+            // chunkFilename: devMode ? './wp-content/themes/martfury-child/assets/styles/[id].css' : './wp-content/themes/martfury-child/[id].[hash].css'
 
             // electro theme
             filename: devMode ? '[name].css' : '[name].[hash].css',
@@ -84,4 +86,13 @@ module.exports = {
         })
     ],
     devtool: devMode ? 'inline-source-map' : false,
+    optimization: {
+        namedModules: true,
+        namedChunks: true
+    },
+    performance: {
+        hints: false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000
+    }
 }
