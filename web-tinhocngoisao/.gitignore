@@ -5,6 +5,9 @@ wp-content/uploads/
 */~/web-server/public
 ~/home-widget/assets/
 wp-content/themes/*/assets
+wp-content/plugins/sale-installment/assets
+wp-content/plugins/thns-sale-accessories/assets
+wp-content/plugins/woocommerce-build-pc/assets
 
 wp-config.php
 wp-content/advanced-cache.php
