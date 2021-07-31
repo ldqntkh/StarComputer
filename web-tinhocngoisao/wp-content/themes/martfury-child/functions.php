@@ -1,7 +1,7 @@
 <?php
 define ( 'THEME_PATH', get_stylesheet_directory() );
 define( 'THEME_PATH_URI',  get_stylesheet_directory_uri());
-define ( 'THEME_VERSION', '1.0.1.4' );
+define ( 'THEME_VERSION', '1.0.1.6' );
 // add_action( 'wp_enqueue_scripts', 'martfury_child_enqueue_scripts', 20 );
 // function martfury_child_enqueue_scripts() {
 // 	wp_enqueue_style( 'martfury-child-style', get_stylesheet_uri() );
@@ -105,3 +105,6 @@ function show_only_products_with_specific_metakey( $meta_query, $query ) {
     );
     return $meta_query;
 }
+
+add_filter( 'gutenberg_use_widgets_block_editor', '__return_false' );
+add_filter( 'use_widgets_block_editor', '__return_false' );

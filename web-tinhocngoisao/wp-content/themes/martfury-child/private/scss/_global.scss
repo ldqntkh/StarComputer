@@ -258,3 +258,65 @@ body.mobile-version {
         // display: none;
     }
 }
+
+
+.compare_loading {
+    position: relative;
+    opacity: 0.5;
+    pointer-events: none;
+    // overflow: hidden;
+    height: 100%;
+
+    &:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.1);
+        display: inherit !important;
+    }
+
+    &:after {
+        -webkit-animation: spin_pro 500ms infinite linear;
+        animation: spin_pro 500ms infinite linear;
+        border: 3px solid red;
+        border-radius: 32px;
+        border-right-color: transparent !important;
+        border-top-color: transparent !important;
+        content: "";
+        display: block;
+        height: 30px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: fixed;
+        width: 30px;
+        z-index: 999999;
+    }
+}
+
+@-webkit-keyframes spin_pro {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes spin_pro {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
