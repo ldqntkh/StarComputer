@@ -8,6 +8,7 @@ wp-content/themes/*/assets
 wp-content/plugins/sale-installment/assets
 wp-content/plugins/thns-sale-accessories/assets
 wp-content/plugins/woocommerce-build-pc/assets
+wp-content/plugins/compare-products/assets
 
 wp-config.php
 wp-content/advanced-cache.php

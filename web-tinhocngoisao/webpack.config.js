@@ -29,6 +29,9 @@ module.exports = {
         'wp-content/plugins/thns-sale-accessories/assets/js/sale-accessories-storefront': './wp-content/plugins/thns-sale-accessories/private/javascripts/storefront/app.js',
         'wp-content/plugins/thns-sale-accessories/assets/css/sale-accessories': './wp-content/plugins/thns-sale-accessories/private/scss/style.scss',
         'wp-content/plugins/thns-sale-accessories/assets/css/sale-accessories-storefront': './wp-content/plugins/thns-sale-accessories/private/scss/style-storefront.scss',
+        // compare
+        'wp-content/plugins/compare-products/assets/js/product_compare': './wp-content/plugins/compare-products/private/js/app.js',
+        'wp-content/plugins/compare-products/assets/css/product_compare': './wp-content/plugins/compare-products/private/scss/style.scss',
     },
     output: {
         path: path.resolve(__dirname),
@@ -71,8 +74,9 @@ module.exports = {
     },
     plugins: [
         new CopyPlugin([
-            // online theme
             { from: './wp-content/themes/martfury-child/private/assets', to: './wp-content/themes/martfury-child/assets' },
+            // compare
+            { from: './wp-content/plugins/compare-products/private/assets', to: './wp-content/plugins/compare-products/assets' },
         ]),
         new FixStyleOnlyEntriesPlugin(),
         new MiniCssExtractPlugin({
