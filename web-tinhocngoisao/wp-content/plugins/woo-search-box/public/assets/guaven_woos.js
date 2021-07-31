@@ -668,7 +668,7 @@ function guaven_woos_finish_rendering(){
 
   guaven_show_all = '';
   if (guaven_woos.show_all_text != '') {
-    guaven_show_all = '<li class="guaven_woos_showallli"><a onclick="gws_current_input_object.closest(\'form\').submit()" href="javascript://">' +
+    guaven_show_all = '<li class="guaven_woos_showallli"><a href="/?post_type=product&s=' + jQuery('input.search-field').val().trim() + '">' +
       guaven_woos.show_all_text + '</a></li>';
   }
 
@@ -949,7 +949,7 @@ function guaven_woos_runner() {
   //guaven_woos_cache_keywords_str = JSON.stringify(guaven_woos_cache_keywords);
 
   jQuery(document).on('focus', guaven_woos_object_name, function() {
-    if (guaven_woos.mobilesearch == 1 ) {
+    if (guaven_woos.mobilesearch == 1 && jQuery('.guaven_woos_mobilesearch').width() < '768') {
       jQuery('.guaven_woos_mobilesearch').show();
       jQuery("body").addClass("guaven_woos_mobile_div_state");
       jQuery('.guaven_woos_suggestion').css({
@@ -1069,8 +1069,56 @@ function guaven_woos_runner() {
           maxsimilarword = '';
           guaven_woos_result_loop(1);
         }
-      is_runSearch=0;
-      guaven_woos_finish_rendering();
+        
+        if( rescount == 0 ) {
+          let titles = guaven_woos_tempval;
+          let keysearch = titles.trim().split(' ');
+
+          for( let i = 0; i < keysearch.length; i++ ) {
+            if( i+1 >= keysearch.length ) {
+              // return
+            } else {
+              guaven_woos_tempval = keysearch[i] + ' ' + keysearch[i+1];
+              maxpercent = 0;
+              finalpercent = 0;
+              maxsimilarword = '';
+              guaven_woos_result_loop(0);
+              if (rescount <= guaven_woos.maxtypocount && rescount <= guaven_woos.maxcount) {
+                maxpercent = 0;
+                finalpercent = 0;
+                maxsimilarword = '';
+                guaven_woos_result_loop(1);
+              }
+              if (rescount > guaven_woos.maxtypocount || rescount > guaven_woos.maxcount) {
+                guaven_woos_tempval = titles;
+                break;
+              }
+            }
+          }
+
+          if( rescount == 0 ) {
+            for( key in keysearch ) {
+              guaven_woos_tempval = keysearch[key];
+              maxpercent = 0;
+              finalpercent = 0;
+              maxsimilarword = '';
+              guaven_woos_result_loop(0);
+              if (rescount <= guaven_woos.maxtypocount && rescount <= guaven_woos.maxcount) {
+                maxpercent = 0;
+                finalpercent = 0;
+                maxsimilarword = '';
+                guaven_woos_result_loop(1);
+              }
+              if (rescount > guaven_woos.maxtypocount || rescount > guaven_woos.maxcount) {
+                guaven_woos_tempval = titles;
+                break;
+              }
+            }
+          }
+        }
+
+        is_runSearch=0;
+        guaven_woos_finish_rendering();
       } else if (guaven_woos.showinit.length > 2) {
         jQuery('.guaven_woos_suggestion').html("<ul  class=\"guaven_woos_init_text\"><li>" + guaven_woos.showinit + "</li></ul>");
       } else if (guaven_woos.showinit.length == 0) {
