@@ -8,6 +8,8 @@ var homePost = {
         this.initHomepageSearchClick();
         this.initFooterTitleClick();
 
+        this.initComunicate();
+
         $('.featured-slider').each(function() {
             var at_featured_img_slider = $(this);
             var autoplay = parseInt(at_featured_img_slider.data('autoplay'));
@@ -34,6 +36,27 @@ var homePost = {
                         }
                     }
                 ]
+            });
+        });
+    },
+
+    initComunicate : function() {
+        $(document).on('click', 'body.mobile-version .communicate .icon-communicate', function() {
+            $('body.mobile-version .communicate .show-on-mobile').css({
+                display: 'block'
+            });
+        });
+        $(document).on('click', 'body.mobile-version .communicate .icon-cross2', function() {
+            $('body.mobile-version .communicate .show-on-mobile').css({
+                display: 'none'
+            });
+        });
+        $(document).on('click', 'body.mobile-version .communicate li.vchat', function() {
+            $('body.mobile-version .communicate .show-on-mobile').css({
+                display: 'none'
+            });
+            $('body.mobile-version #embed_fullchat').removeClass('bc_hide').css({
+                display: 'block'
             });
         });
     },

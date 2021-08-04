@@ -88,7 +88,195 @@ body.mobile-version {
         flex: 0 0 100%!important;
         max-width: 100%!important;
     }
+
+    // embed chat
+    div[id^='embed_'] {
+        display: none;
+    }
+    .zalo-chat-widget {
+        display: none;
+    }
+
+    .communicate {
+        .show-on-mobile {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999999;
+            ul {
+                margin: 10px;
+                padding: 10px;
+                background-color: white;
+                border-radius: 4px;
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                li {
+                    margin: 0;
+                    padding: 10px 0;
+                    position: relative;
+                    border-bottom: 1px solid rgba(192, 192, 192, 0.602);
+                    &::before {
+                        content: '';
+                        width: 40px;
+                        height: 40px;
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                    }
+                    &.vchat {
+                        &::before {
+                            background-image: url('/wp-content/themes/martfury-child/assets/img/icon-vchat.png');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+                    }
+                    &.fb {
+                        border: none;
+                        &::before {
+                            background-image: url('/wp-content/themes/martfury-child/assets/img/icon-facebook.png');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+                    }
+                    &.zalo {
+                        &::before {
+                            background-image: url('/wp-content/themes/martfury-child/assets/img/icon-zalo.png');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+                    }
+                    &.hotline {
+                        &::before {
+                            background-image: url('/wp-content/themes/martfury-child/assets/img/icon-hotline.png');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+                    }
+                    &.email {
+                        &::before {
+                            background-image: url('/wp-content/themes/martfury-child/assets/img/icon-email.png');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+                    }
+                    &.showroom {
+                        &::before {
+                            background-image: url('/wp-content/themes/martfury-child/assets/img/icon-location.png');
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+                    }
+                    a {
+                        margin-left: 50px;
+                        color: black;
+                        font-weight: bold;
+                    }
+                }
+                i {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                }
+            }
+            
+        }
+        i.icon-communicate {
+            position: fixed;
+            bottom: 70px;
+            left: 10px;
+            width: 50px;
+            height: 50px;
+            // background: red;
+            z-index: 999998;
+            -webkit-animation: change_icon 5s infinite ;
+            animation: change_icon 5s infinite ;
+        }
+    }
+    
 }
+
+@-webkit-keyframes change_icon {
+    0% {
+        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-facebook.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    25% {
+        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-hotline.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    50% {
+        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-location.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    75% {
+        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-vchat.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    100% {
+        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-zalo.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
+
+@keyframes change_icon {
+    0% {
+        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-facebook.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    25% {
+        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-hotline.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    50% {
+        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-location.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    75% {
+        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-vchat.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    100% {
+        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-zalo.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
+
+.show-on-mobile {
+    display: none;
+}
+
 
 .top-header-promotion {
     display: none;
