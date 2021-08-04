@@ -34,9 +34,16 @@ if ( isset( $wp->query_vars['product_compares'] ) ) {
         exit;
     }
     $product_type_id = ProductTypeApi::getGroupProductMappingByProductId($product_1->get_id());
+    global $custom_seo_title;
+    $custom_seo_title = $custom_title;
+    
+    add_filter('wpseo_opengraph_title', 'change_compare_title', 1, 1);
+    add_filter('wpseo_title', 'change_compare_title', 1, 1);
+    function change_compare_title($title) {
+        return $GLOBALS['custom_seo_title'];
+    }
     get_header();
 ?>
-
     <div class="product-compare">
 
         <input class="d-none list-id-compare" type="hidden" value="<?php echo $product_1->get_id() . ',' . $product_2->get_id(); ?>"/>

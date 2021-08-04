@@ -530,6 +530,9 @@
     margin-bottom: 15px;
     margin-top: 60px;
     position: relative;
+    >.col-12 {
+        padding: 0;
+    }
     .row {
         margin: 0;
     }
@@ -547,6 +550,7 @@
             min-height: 48px;
             font-weight: bold;
             color: black;
+            @include truncate-text(3);
         }
         .price-prod {
             color: red;
@@ -571,6 +575,7 @@
     }
     .cp-pd-items {
         margin: 10px 0;
+        padding: 0;
         .product-show {
             flex-wrap: nowrap;
             overflow-x: auto;

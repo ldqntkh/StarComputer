@@ -200,6 +200,11 @@ body.mobile-version {
             height: 50px;
             // background: red;
             z-index: 999998;
+            border-radius: 20px;
+            border: 2px solid red;
+            background-color: white;
+            background: url('/wp-content/themes/martfury-child/assets/img/icon-facebook.png') center;
+            background-size: 40px;
             -webkit-animation: change_icon 5s infinite ;
             animation: change_icon 5s infinite ;
         }
@@ -209,67 +214,47 @@ body.mobile-version {
 
 @-webkit-keyframes change_icon {
     0% {
-        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-facebook.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url('/wp-content/themes/martfury-child/assets/img/icon-facebook.png') center;
+        background-size: 40px;
     }
     25% {
-        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-hotline.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url('/wp-content/themes/martfury-child/assets/img/icon-hotline.png') center;
+        background-size: 40px;
     }
     50% {
-        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-location.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url('/wp-content/themes/martfury-child/assets/img/icon-location.png') center;
+        background-size: 40px;
     }
     75% {
-        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-vchat.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url('/wp-content/themes/martfury-child/assets/img/icon-vchat.png') center;
+        background-size: 40px;
     }
     100% {
-        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-zalo.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url('/wp-content/themes/martfury-child/assets/img/icon-zalo.png') center;
+        background-size: 40px;
     }
 }
 
 @keyframes change_icon {
     0% {
-        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-facebook.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url('/wp-content/themes/martfury-child/assets/img/icon-facebook.png') center;
+        background-size: 40px;
     }
     25% {
-        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-hotline.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url('/wp-content/themes/martfury-child/assets/img/icon-hotline.png') center;
+        background-size: 40px;
     }
     50% {
-        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-location.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url('/wp-content/themes/martfury-child/assets/img/icon-location.png') center;
+        background-size: 40px;
     }
     75% {
-        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-vchat.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url('/wp-content/themes/martfury-child/assets/img/icon-vchat.png') center;
+        background-size: 40px;
     }
     100% {
-        background-image: url('/wp-content/themes/martfury-child/assets/img/icon-zalo.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url('/wp-content/themes/martfury-child/assets/img/icon-zalo.png') center;
+        background-size: 40px;
     }
 }
 
