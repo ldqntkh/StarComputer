@@ -56,11 +56,12 @@ class GroupAttributesApi {
         $index = 0;
         $numItems = count($attributes);
         foreach($attributes as $attribute) {
-
-            if ($flag && $attribute->group_id != $group_id || ++$index === $numItems) {
+            $index++;
+            if ($flag && $attribute->group_id != $group_id || $index -1 === $numItems) {
                 $flag = false;
                 $html .= '<input type="hidden" name="group_id['.$group_id.']" value="'.$attribute_keys.'"/>';
                 $html .= '</div>';
+                $group_id = '';
             }
 
             if ( !$flag && $attribute->group_id != $group_id ) {
@@ -131,8 +132,11 @@ class GroupAttributesApi {
         foreach($attributes as $attribute) {
             $index++;
             if ($flag && $attribute->group_id != $group_id || $index -1 === $numItems) {
-                $flag = false;
                 array_push($result, $item);
+                $group_id = '';
+                $flag = false;
+                $item = null;
+                $index = 0;
             }
 
             if ( !$flag && $attribute->group_id != $group_id ) {
