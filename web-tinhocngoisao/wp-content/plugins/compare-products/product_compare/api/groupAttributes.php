@@ -129,8 +129,8 @@ class GroupAttributesApi {
         $index = 0;
         $numItems = count($attributes);
         foreach($attributes as $attribute) {
-            
-            if ($flag && $attribute->group_id != $group_id || ++$index === $numItems) {
+            $index++;
+            if ($flag && $attribute->group_id != $group_id || $index -1 === $numItems) {
                 $flag = false;
                 array_push($result, $item);
             }
