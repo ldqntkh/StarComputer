@@ -1,7 +1,7 @@
 <?php
 define ( 'THEME_PATH', get_stylesheet_directory() );
 define( 'THEME_PATH_URI',  get_stylesheet_directory_uri());
-define ( 'THEME_VERSION', '1.0.2.1' );
+define ( 'THEME_VERSION', '1.0.2.2' );
 // add_action( 'wp_enqueue_scripts', 'martfury_child_enqueue_scripts', 20 );
 // function martfury_child_enqueue_scripts() {
 // 	wp_enqueue_style( 'martfury-child-style', get_stylesheet_uri() );
@@ -128,3 +128,60 @@ add_action( 'wp_head', function() { ?>
     /></noscript>
     <!-- End Facebook Pixel Code -->
 <?php }, 10000 );
+
+// add comment tags
+add_filter( 'woocommerce_product_review_comment_form_args', 'change_comment_form_defaults');
+function change_comment_form_defaults( $default ) {
+    $commenter = wp_get_current_commenter();
+    global $product;
+    // var_dump(get_tags());die;
+    $out = '<fieldset class="comment-form-tags">      
+            <legend>Tags: </legend>';
+
+    $cat = get_the_terms( $product->ID, 'product_cat' );
+    foreach ($cat as $categoria) {
+        $cat = get_term_by( 'slug', $categoria->slug, 'product_cat' );
+        $comment_tags = get_field('comment_tags', $categoria);
+        if( $comment_tags ) {
+            $comment_tags = explode(';', $comment_tags);
+            foreach( $comment_tags as $cmt ) {
+                $out .= '<div class="form-check">
+                        <label class="form-check-label" for="tag_'.$cmt.'">
+                        <input type="checkbox" id="tag_'.$cmt.'" name="comment_tags[]" value="'. $cmt .'">
+                        '.$cmt.'
+                        </label>
+                    </div>';
+            }
+            break;
+        }
+       
+    }
+    
+    $out .= '</fieldset> </p>';
+    $default[ 'comment_field' ] .= $out;
+    return $default;
+}
+add_action('comment_post', 'add_tags_to_comment', 10, 2);
+function add_tags_to_comment( $comment_ID, $comment_approved ) {
+    for( $i = 0; $i < count( $_POST["comment_tags"] ); $i++ ) {
+        add_comment_meta( $comment_ID, "comment_tag", $_POST["comment_tags"][$i] );
+    }
+}
+
+add_filter( 'comments_template_query_args', function( $comment_args )
+{
+    if(isset( $_GET['tag_id'])) {
+        $tag_id = base64_decode($_GET['tag_id']);
+        // Our modifications
+        $comment_args['meta_query'] = [
+            [
+                'key' => 'comment_tag',
+                'value' => [$tag_id],
+                'compare' => 'IN'
+            ]
+        ];  
+    }
+          
+
+    return $comment_args;
+} );

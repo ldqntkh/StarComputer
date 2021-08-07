@@ -362,6 +362,26 @@ if ( !function_exists( 'get_products_sales' ) ) {
     }
 }
 
+
+function wc_get_product_id_by_variation_sku($sku) {
+    $args = array(
+        'post_type'  => 'product_variation',
+        'meta_query' => array(
+            array(
+                'key'   => '_sku',
+                'value' => $sku,
+            )
+        )
+    );
+    // Get the posts for the sku
+    $posts = get_posts( $args);
+    if ($posts) {
+        return $posts[0]->post_parent;
+    } else {
+        return false;
+    }
+}
+
 if ( !function_exists( 'update_product_info' ) ) {
     function update_product_info( WP_REST_Request $request ) {
         $alias = $request->get_param( 'id' );
@@ -395,6 +415,87 @@ if ( !function_exists( 'update_product_info' ) ) {
             );
             die;
         }
+
+        $product = wc_get_product( $alias );
+
+        // check variant here
+        if( $product->is_type('variable') ) {
+            foreach( $product->get_available_variations() as $variation_values ){
+                $variation_sku = $variation_values['sku']; // variation id
+                
+                if( $variation_sku != $sku ) {
+                    return wp_send_json(array(
+                        'status' => false,
+                        'message' => 'Can not find variant product with alias: ' . $alias . ' and SKU: ' . $sku
+                    ));
+                    die;
+                }
+                $variation_id = $variation_values['variation_id']; // variation id
+
+                if ( isset($qty) && $qty >= 0 ) {
+                    $updated_qty = update_post_meta( $variation_id, $qty_key, $qty );
+                    wc_update_product_stock( $variation_id,  $qty , 'set' );
+                    // if( $qty > 0 ) {
+                    //     update_post_meta( $variation_id, $status_key, 'instock' );
+                    // }
+                    if (!$updated_qty ) {
+                        $response[] = array(
+                            'status' => false,
+                            'message'=> 'Can not update qty in web api: '. $qty 
+                        );
+                    } else {
+                        $response[] = array(
+                            'status' => true,
+                            'message'=> 'Update qty success'
+                        );
+                    }
+                }
+                
+                if ( !empty( $price ) ) {
+                    // get giá sale và giá gốc
+                    $sale_price = $variation_values['display_price'];
+
+                    if ( $sale_price && $sale_price > 0 ) {
+                        if( $price <= $sale_price ) {
+                            $updated_sale_price = update_post_meta( $variation_id, $sale_price_key, $price );
+                            
+                            $updated_price = update_post_meta( $variation_id, $price_key, $price );
+                        } else {
+                            delete_post_meta( $variation_id, $sale_price_key );
+                            $updated_price = update_post_meta( $variation_id, $regular_price_key, $price );
+                            $updated_price = update_post_meta( $variation_id, $price_key, $price );
+                        }
+                    } else {
+                        $updated_regular_price = update_post_meta( $variation_id, $regular_price_key, $price );
+                        $updated_price = update_post_meta( $variation_id, $price_key, $price );
+                    }
+                    // hiện tại chỉ update giá bán gốc
+                    // $updated_price = update_post_meta( $alias, $regular_price_key, $price );
+                    if ( !$updated_price ) {
+                        $response[] = array(
+                            'status' => false,
+                            'message'=> 'Can not update price in web api: ' . $price
+                        );
+                     }else {
+                        $response[] = array(
+                            'status' => true,
+                            'message'=> 'Update price success'
+                        );
+                    }
+                }
+                // wc_delete_product_transients( $variation_id ); // Clear/refresh the variation cache
+                // wc_delete_product_transients( $alias );
+                return wp_send_json($response);
+                die;
+
+                // Updating active price and regular price
+                // update_post_meta( $variation_id, '_regular_price', $regular_price );
+                // update_post_meta( $variation_id, '_price', $regular_price );
+                // 
+            }
+            
+        }
+
 
         if ( isset($qty) && $qty >= 0 ) {
             $updated_qty = update_post_meta( $alias, $qty_key, $qty );
@@ -457,7 +558,7 @@ if ( !function_exists( 'update_product_info' ) ) {
             }
         }
 
-        $product = wc_get_product( $alias );
+        
         if ( isset($is_active) && is_bool($is_active) ) {
             if( $product->get_status() == 'draft' || $product->get_status() == 'publish' ) {
                 $status = 'publish';
@@ -488,8 +589,8 @@ if ( !function_exists( 'update_product_info' ) ) {
         //     );
             
         // }
-        $product->save();
-
+        // $product->save();
+        // wc_delete_product_transients( $alias );
         return wp_send_json($response);
         die;
     }

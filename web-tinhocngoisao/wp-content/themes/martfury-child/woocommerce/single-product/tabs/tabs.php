@@ -64,7 +64,9 @@ if ( ! empty( $tabs ) ) :
 	<?php } else {
 		?>
         <div class="mf-woo-tabs wc-tabs-wrapper <?php echo esc_attr( $tab_class ) ?>">
-			<?php foreach ( $tabs as $key => $tab ) : ?>
+			<?php 
+                $showflag = false;
+                foreach ( $tabs as $key => $tab ) : ?>
                 <div class="mf-Tabs-panel mf-Tabs-panel--<?php echo esc_attr( $key ); ?> panel entry-content"
                      id="tab-<?php echo esc_attr( $key ); ?>" role="tabpanel"
                      aria-labelledby="tab-title-<?php echo esc_attr( $key ); ?>">
@@ -75,11 +77,14 @@ if ( ! empty( $tabs ) ) :
 						echo '</div>';
 					} 
                         if( $key == 'description' ) {
+                            $showflag = true;
                             do_action( 'render_compare_product_items' );
                         }
                     ?>
                 </div>
-			<?php endforeach; ?>
+			<?php endforeach; 
+                do_action( 'render_compare_product_items' );
+            ?>
         </div>
 		<?php
 	}

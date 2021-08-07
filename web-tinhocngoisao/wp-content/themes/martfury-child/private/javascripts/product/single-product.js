@@ -6,6 +6,15 @@ var singleProduct = {
     xhr: null,
     init: function () {
         singleProduct.compareProduct();
+
+        if( window.location.href.indexOf('#cmt-lst-tags') ) {
+            $('.tab-reviews').trigger('click');
+            // document.getElementById("cmt-lst-tags").scrollIntoView();
+            // $('#cmt-lst-tags').scrollIntoView();
+            // $('body').animate({
+            //     scrollTop: $("#cmt-lst-tags").offset().top
+            // }, 2000);
+        }
     },
 
     compareProduct: function () {
