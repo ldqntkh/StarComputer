@@ -154,6 +154,7 @@ var product_compare_carausel = {
                         html += `<li>
                                     <img src="${data[i].image}" alt="" />
                                     <h3>${data[i].name}</h3>
+                                    <p class="price">${data[i].price}</p>
                                     <span data-slug="${data[i].slug}" data-product-id="${data[i].id}">Chọn sản phẩm</span>
                                 </li>`;
                     }

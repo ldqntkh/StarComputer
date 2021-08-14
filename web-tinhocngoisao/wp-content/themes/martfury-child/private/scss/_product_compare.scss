@@ -728,7 +728,14 @@
                     overflow: hidden;
                     height: 30px;
                 }
-                span {
+                p.price {
+                    margin: 0;
+                    bdi {
+                        font-weight: bold;
+                        color: red;
+                    }
+                }
+                >span {
                     cursor: pointer;
                     color: #0275d8;
                 }

@@ -37,6 +37,11 @@ if ( get_option( 'woocommerce_enable_review_rating' ) === 'no' || $average_ratin
 }
 
 ?>
+
+<script>
+	const product_id = '<?php echo $product->get_id() ?>';
+</script>
+
 <div id="reviews" class="woocommerce-Reviews">
 	<div class="mf-product-rating row">
 		<?php if ( $show_rating ) : ?>

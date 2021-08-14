@@ -6,6 +6,40 @@ global $product_type_id;
 include_once WP_PLUGIN_DIR. '/compare-products/product_compare/api/productType.php';
 $productIds = ProductTypeApi::getListProductsMappingByProductIdAndProductType($product->get_id(), $product_type_id);
 
+if( !function_exists('displayProductCompareElectroChild') ) {
+    function displayProductCompareElectroChild($_product) { 
+        global $product;
+        ?>
+        <div class="col-6 col-lg-3 col-xl-3 product-item-compare <?php if( $_product->get_id() == $product->get_id()) echo 'current-product' ?> products ">
+            <a href="<?php echo get_permalink( $_product->get_id()) ?>" <?php if ($_product->get_id() != $product->get_id()) echo ' target="_blank" ' ?>>
+                <div class="right-prod">
+                    <div class="img-prod">
+                        <img src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $_product->get_id() ), 'medium', true )[0] ?>">
+                    </div>
+                    <?php 
+                        if( $_product->get_id() == $product->get_id()) {
+                            echo '<div class="title-prod-current"><i>'. __('Bạn đang xem:', 'compare-product') .'</i></div>';
+                        } else {
+                            echo '<div class="title-prod-current"><i>'. __('', 'compare-product') .'</i></div>';
+                        }
+                    ?>
+                    <div class="title-prod"><?php echo $_product->get_name() ?></div>
+                    <div class="price-prod"><?php  echo wc_price($_product->get_price()) ?></div>
+                    <?php 
+                        if( $_product->get_id() != $product->get_id()) {
+                            $url = home_url('sssp/');
+                            $url .= $product->get_slug();
+                            $url .= '-vs-' . $_product->get_slug();
+    
+                            echo '<div class="title-prod-compare"><a href="'.$url.'" target="_blank">'.__('So sánh chi tiết', 'compare-product').'</a></div>';
+                        }
+                    ?>
+                </div>
+            </a>
+        </div>
+    <?php }
+}
+
 if ($productIds && count($productIds) > 0) { ?>
 
     <div class="compare-products" id="compare-products">
@@ -49,34 +83,3 @@ if ($productIds && count($productIds) > 0) { ?>
     </script>
 <?php }
 
-function displayProductCompareElectroChild($_product) { 
-    global $product;
-    ?>
-    <div class="col-6 col-lg-3 col-xl-3 product-item-compare <?php if( $_product->get_id() == $product->get_id()) echo 'current-product' ?> products ">
-        <a href="<?php echo get_permalink( $_product->get_id()) ?>" <?php if ($_product->get_id() != $product->get_id()) echo ' target="_blank" ' ?>>
-            <div class="right-prod">
-                <div class="img-prod">
-                    <img src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $_product->get_id() ), 'medium', true )[0] ?>">
-                </div>
-                <?php 
-                    if( $_product->get_id() == $product->get_id()) {
-                        echo '<div class="title-prod-current"><i>'. __('Bạn đang xem:', 'compare-product') .'</i></div>';
-                    } else {
-                        echo '<div class="title-prod-current"><i>'. __('', 'compare-product') .'</i></div>';
-                    }
-                ?>
-                <div class="title-prod"><?php echo $_product->get_name() ?></div>
-                <div class="price-prod"><?php  echo wc_price($_product->get_price()) ?></div>
-                <?php 
-                    if( $_product->get_id() != $product->get_id()) {
-                        $url = home_url('sssp/');
-                        $url .= $product->get_slug();
-                        $url .= '-vs-' . $_product->get_slug();
-
-                        echo '<div class="title-prod-compare"><a href="'.$url.'" target="_blank">'.__('So sánh chi tiết', 'compare-product').'</a></div>';
-                    }
-                ?>
-            </div>
-        </a>
-    </div>
-<?php }

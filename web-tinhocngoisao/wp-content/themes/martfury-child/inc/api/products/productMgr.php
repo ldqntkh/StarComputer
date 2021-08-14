@@ -419,7 +419,7 @@ if ( !function_exists( 'update_product_info' ) ) {
         $product = wc_get_product( $alias );
 
         // check variant here
-        if( $product->is_type('variable') ) {
+        if( !empty($product) && $product->is_type('variable') ) {
             foreach( $product->get_available_variations() as $variation_values ){
                 $variation_sku = $variation_values['sku']; // variation id
                 
@@ -559,7 +559,7 @@ if ( !function_exists( 'update_product_info' ) ) {
         }
 
         
-        if ( isset($is_active) && is_bool($is_active) ) {
+        if ( !empty($product) && isset($is_active) && is_bool($is_active) ) {
             if( $product->get_status() == 'draft' || $product->get_status() == 'publish' ) {
                 $status = 'publish';
             
@@ -805,7 +805,7 @@ function wh_deleteProduct($id, $force = FALSE)
     }
 
     // If we're forcing, then delete permanently.
-    if ($force)
+    if ($force && !empty($product))
     {
         if ($product->is_type('variable'))
         {

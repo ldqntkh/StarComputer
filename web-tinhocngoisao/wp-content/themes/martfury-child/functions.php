@@ -1,7 +1,7 @@
 <?php
 define ( 'THEME_PATH', get_stylesheet_directory() );
 define( 'THEME_PATH_URI',  get_stylesheet_directory_uri());
-define ( 'THEME_VERSION', '1.0.2.2' );
+define ( 'THEME_VERSION', '1.0.2.4' );
 // add_action( 'wp_enqueue_scripts', 'martfury_child_enqueue_scripts', 20 );
 // function martfury_child_enqueue_scripts() {
 // 	wp_enqueue_style( 'martfury-child-style', get_stylesheet_uri() );
@@ -129,12 +129,16 @@ add_action( 'wp_head', function() { ?>
     <!-- End Facebook Pixel Code -->
 <?php }, 10000 );
 
+
+
+
 // add comment tags
 add_filter( 'woocommerce_product_review_comment_form_args', 'change_comment_form_defaults');
 function change_comment_form_defaults( $default ) {
     $commenter = wp_get_current_commenter();
     global $product;
-    // var_dump(get_tags());die;
+    
+    $flag_tag = false;
     $out = '<fieldset class="comment-form-tags">      
             <legend>Tags: </legend>';
 
@@ -152,19 +156,53 @@ function change_comment_form_defaults( $default ) {
                         </label>
                     </div>';
             }
+            $flag_tag = true;
             break;
         }
        
     }
     
-    $out .= '</fieldset> </p>';
-    $default[ 'comment_field' ] .= $out;
+    $out .= '</fieldset>';
+    if( $flag_tag ) {
+        $default[ 'comment_field' ] .= $out;
+    }
+    
+
+    // init comment video/image
+    $out_media = '<div id="media-fields">
+                    <input type="hidden" id="media_video_url" name="media_video_url" >
+                    <input type="hidden" id="media_image_urls" name="media_image_urls" >
+                </div>';
+                
+    $default[ 'comment_field' ] .= $out_media;
+    
     return $default;
 }
 add_action('comment_post', 'add_tags_to_comment', 10, 2);
 function add_tags_to_comment( $comment_ID, $comment_approved ) {
+    
     for( $i = 0; $i < count( $_POST["comment_tags"] ); $i++ ) {
         add_comment_meta( $comment_ID, "comment_tag", $_POST["comment_tags"][$i] );
+    }
+
+    if( isset( $_POST["media_video_url"] ) ) {
+        add_comment_meta( $comment_ID, "media_video_url", $_POST["media_video_url"] );
+    } 
+    
+    if( isset( $_POST["media_image_urls"] ) ) {
+        $images = $_POST["media_image_urls"];
+        $string = str_replace( '\\', '', str_replace(']', '', str_replace('[', '',$images)) );
+
+        $images = $array = explode(',', $string);
+        
+        $_images = [];
+        for( $i = 0; $i < count($images); $i++ ) {
+            if( !empty($images[$i]) && $images[$i] != null && $images[$i] != 'null' ) {
+                
+                array_push( $_images, str_replace( '"', '', $images[$i] ) );
+            }
+        }
+        add_comment_meta( $comment_ID, "media_image_urls", json_encode($_images) );
     }
 }
 
@@ -185,3 +223,68 @@ add_filter( 'comments_template_query_args', function( $comment_args )
 
     return $comment_args;
 } );
+
+// show comment 
+add_action( 'woocommerce_review_meta', 'show_comment_meta_media', 10, 1 );
+if( !function_exists( 'show_comment_meta_media' ) ) {
+    function show_comment_meta_media( $comment ) {
+        if( wp_get_comment_status( $comment->comment_ID ) == 'approved' ) {
+            $comment_video = get_comment_meta( $comment->comment_ID, 'media_video_url', true );
+            $comment_images = get_comment_meta( $comment->comment_ID, 'media_image_urls', true );
+            ?>
+                <div class="cmt-media">
+                    <?php if( isset( $comment_video ) && !empty( $comment_video ) ) : ?>
+                        <div class="video"><video src="<?= $comment_video ?>"></video></div>
+                    <?php endif; ?>
+
+                    <?php if( isset( $comment_images ) ) : 
+                        $comment_images = json_decode( $comment_images );
+                        foreach( $comment_images as $image ) : 
+                            if( isset( $image ) && !empty( $image ) ) :
+                        ?>
+                            <img src="<?= $image ?>"/>
+                        <?php endif; 
+                        endforeach;
+                    endif; ?>
+
+                </div>
+            <?php
+        }
+        
+    }
+}
+
+add_filter( 'comment_text', 'show_media_and_tag_comment', 10, 3 );
+if( !function_exists( 'show_media_and_tag_comment' ) ) {
+    function show_media_and_tag_comment( $comment_text, $comment, $args ) {
+        
+        // $comment_text .= $comment->comment_ID;
+        if( is_admin() ) {
+            $comment_tags = get_comment_meta( $comment->comment_ID, 'comment_tag', true );
+            $comment_video = get_comment_meta( $comment->comment_ID, 'media_video_url', true );
+            $comment_images = get_comment_meta( $comment->comment_ID, 'media_image_urls', true );
+    
+            if( isset( $comment_tags ) && !empty($comment_tags) ) {
+                $comment_text .= '<br/><p><strong>Tags:</strong>' . $comment_tags . '</p>';
+            }
+    
+            if( isset( $comment_video ) && !empty($comment_video) ) {
+                $comment_text .= '<br/><p><strong>Video: </strong><a href="'.$comment_video.'" target="_blank">'.$comment_video.'</a></p>';
+            }
+    
+            if( isset( $comment_images ) && !empty($comment_images) ) {
+                $comment_text .= '<br/><p><strong>Hình ảnh: </strong>';
+                $comment_images = json_decode( $comment_images );
+                foreach( $comment_images as $image ) : 
+                    if( isset( $image ) && !empty( $image ) ) : 
+                        $comment_text .= '<br/><a href="'.$image.'" target="_blank">'.$image.'</a>';
+                    endif;
+                endforeach;
+                $comment_text .= '</p>';
+            }
+        }
+        
+
+        return $comment_text;
+    }
+}

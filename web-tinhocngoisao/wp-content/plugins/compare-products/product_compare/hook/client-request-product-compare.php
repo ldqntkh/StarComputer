@@ -25,6 +25,7 @@ function load_product_compare_exclude_ids() {
                 if ($product_) {
                     $prdc = array(
                         "name" => $product_->get_name(),
+                        "price" => $product_->get_price_html(),
                         "id" => $item,
                         "image" => wp_get_attachment_image_src( get_post_thumbnail_id( $product_->get_id() ), 'full', true )[0],
                         "slug" => $product_->get_slug()
