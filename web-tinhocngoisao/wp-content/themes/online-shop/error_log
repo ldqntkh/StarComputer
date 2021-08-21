@@ -1,8 +1,0 @@
-[02-Jan-2020 03:16:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/tinho998/public_html/wp-content/themes/online-shop/index.php:16
-Stack trace:
-#0 {main}
-  thrown in /home/tinho998/public_html/wp-content/themes/online-shop/index.php on line 16
-[02-Jan-2020 10:07:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/tinho998/public_html/wp-content/themes/online-shop/index.php:16
-Stack trace:
-#0 {main}
-  thrown in /home/tinho998/public_html/wp-content/themes/online-shop/index.php on line 16
