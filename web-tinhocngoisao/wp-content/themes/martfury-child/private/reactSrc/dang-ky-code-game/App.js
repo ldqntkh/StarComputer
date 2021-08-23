@@ -9,7 +9,7 @@ const init = ()=> {
                 <Suspense fallback={<div>....</div>}>
                     <MainComponent />
                 </Suspense>, 
-            document.getElementById('yeu-cau-bao-hanh'));
+            document.getElementById('dang-ky-code-game'));
     } catch (err) {
         //
     }

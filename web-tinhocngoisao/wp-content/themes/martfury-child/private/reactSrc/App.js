@@ -4,7 +4,7 @@ import ListCategoryMobile from './listCatagoryMobile/App';
 // import WidgetATProduct from './widgetAtProduct/App';
 import TableProductSale from './tableProductSale/App';
 import InstallmentApp from './installment/App';
-import YeuCauBaoHanhComponent from './yeu-cau-bao-hanh/App';
+import DangKyCodeGameComponent from './dang-ky-code-game/App';
 
 const elementIds = [
     {
@@ -28,8 +28,8 @@ const elementIds = [
         appName : InstallmentApp
     },
     {
-        ids : ["yeu-cau-bao-hanh"],
-        appName : YeuCauBaoHanhComponent
+        ids : ["dang-ky-code-game"],
+        appName : DangKyCodeGameComponent
     }
 ];
 

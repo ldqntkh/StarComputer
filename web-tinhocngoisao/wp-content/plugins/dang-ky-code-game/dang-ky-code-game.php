@@ -1,31 +1,31 @@
 <?php
 /**
- * Plugin Name: Đăng ký bảo hành
- * Description: Đăng ký bảo hành
+ * Plugin Name: Đăng ký code game
+ * Description: Đăng ký code game
  * Author: Quang Le
  * Version: 1.0
  */
 
-define( 'DKBH_PLUGIN', __FILE__ );
-define( 'DKBH_PLUGIN_DIR', untrailingslashit( dirname( DKBH_PLUGIN ) ) );
-define( 'DKBH_PLUGIN_FULL_PATH', __FILE__ );
+define( 'DKCODEGAME_PLUGIN', __FILE__ );
+define( 'DKCODEGAME_PLUGIN_DIR', untrailingslashit( dirname( DKCODEGAME_PLUGIN ) ) );
+define( 'DKCODEGAME_PLUGIN_FULL_PATH', __FILE__ );
 
 
-register_activation_hook( DKBH_PLUGIN_FULL_PATH, 'create_service_database_table' );
+register_activation_hook( DKCODEGAME_PLUGIN_FULL_PATH, 'create_service_database_table' );
 function create_service_database_table() {
     global $table_prefix, $wpdb, $wnm_db_version;
-    $table_dang_ky_bao_hanh = $table_prefix . 'dang_ky_bao_hanh';
+    $table_dang_ky_code_game = $table_prefix . 'dang_ky_code_game';
     $charset_collate = $wpdb->get_charset_collate();
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    $sql = "CREATE TABLE IF NOT EXISTS `$table_dang_ky_bao_hanh` (
+    $sql = "CREATE TABLE IF NOT EXISTS `$table_dang_ky_code_game` (
                 `id` INT NOT NULL AUTO_INCREMENT,
                 `phone_number` VARCHAR(11) NOT NULL,
                 `email` VARCHAR(100) NOT NULL,
                 `fullname` NVARCHAR(200) NOT NULL,
                 `address` NVARCHAR(200) NOT NULL,
                 `company_name` NVARCHAR(200) NOT NULL,
-                `has_thebaohanh` INT(1) NOT NULL,
-                `nganh_hang` NVARCHAR(200) NOT NULL,
+                -- `has_thebaohanh` INT(1) NOT NULL,
+                -- `nganh_hang` NVARCHAR(200) NOT NULL,
                 `description` TEXT NOT NULL,
                 `file_data` TEXT NOT NULL,
                 `status` INT(1) NOT NULL DEFAULT 0,
@@ -37,14 +37,14 @@ function create_service_database_table() {
     
     add_option("wnm_db_version", $wnm_db_version);
 }
-$administrator     = get_role('administrator');
-$administrator->add_cap( "quan_ly_bao_hanh" );
+// $administrator     = get_role('administrator');
+// $administrator->add_cap( "quan_ly_bao_hanh" );
 
 // init admin page
-require_once (DKBH_PLUGIN_DIR . '/admin/init-menu.php');
+require_once (DKCODEGAME_PLUGIN_DIR . '/admin/init-menu.php');
 
 // init hook
-require_once (DKBH_PLUGIN_DIR . '/hooks/init.php');
+require_once (DKCODEGAME_PLUGIN_DIR . '/hooks/init.php');
 
 // init hook
 // require_once (DKBH_PLUGIN_DIR . '/hooks/api-hooks.php');

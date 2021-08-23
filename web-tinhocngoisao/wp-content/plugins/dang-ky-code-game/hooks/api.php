@@ -1,16 +1,16 @@
 <?php
-add_action( 'wp_ajax_insertycbh', 'insertycbh');
-add_action( 'wp_ajax_nopriv_insertycbh', 'insertycbh');
+add_action( 'wp_ajax_dangkycodegame', 'dangkycodegame');
+add_action( 'wp_ajax_nopriv_dangkycodegame', 'dangkycodegame');
 
 
-function insertycbh ($request) {
+function dangkycodegame ($request) {
     $fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : '';
     $phone_number = isset($_POST['phone']) ? trim($_POST['phone']) : '';
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
     $description = isset($_POST['description']) ? trim($_POST['description']) : '';
     $address = isset($_POST['address']) ? trim($_POST['address']) : '';
     $company_name = isset($_POST['company']) ? trim($_POST['company']) : '';
-    $has_thebaohanh = isset($_POST['has_thebaohanh']) ? trim($_POST['has_thebaohanh']) : 0;
+    // $has_thebaohanh = isset($_POST['has_thebaohanh']) ? trim($_POST['has_thebaohanh']) : 0;
     $nganh_hang = isset($_POST['product_type']) ? trim($_POST['product_type']) : '';
 
     if( $fullname == '' || $phone_number == '' || $email == '' || $description == '' || $address == '' || $nganh_hang == '' ) {
@@ -24,8 +24,8 @@ function insertycbh ($request) {
     // insert vào db
     // check đã có request hay chưa
     global $table_prefix, $wpdb, $wnm_db_version;
-    $table_dang_ky_bao_hanh = $table_prefix . 'dang_ky_bao_hanh';
-    $check = $wpdb->get_results(" SELECT * FROM $table_dang_ky_bao_hanh WHERE
+    $table_dang_ky_code_game = $table_prefix . 'dang_ky_code_game';
+    $check = $wpdb->get_results(" SELECT * FROM $table_dang_ky_code_game WHERE
                                     (`phone_number` = '$phone_number' OR `email` = '$email') 
                                     AND DATE(NOW()) = DATE(`created_at`) 
                                     AND `status` = '0' ");
@@ -33,7 +33,7 @@ function insertycbh ($request) {
         wp_send_json_error([
             "success" => false,
             "data"  => null,
-            "message"   => __("Bạn đã gửi nhiều hơn 3 yêu cầu trong hôm nay. Vui lòng đợi kết quả từ chúng tôi.", "ycbh")
+            "message"   => __("Bạn đã gửi nhiều hơn 1 yêu cầu trong hôm nay. Vui lòng đợi kết quả từ chúng tôi.", "ycbh")
         ]);
     }
 
@@ -42,9 +42,9 @@ function insertycbh ($request) {
     require_once(ABSPATH.'wp-admin/includes/file.php');
     // upload file
     function wpse_183245_upload_dir( $dirs ) {
-        $dirs['subdir'] = '/ycbh';
-        $dirs['path'] = $dirs['basedir'] . '/ycbh';
-        $dirs['url'] = $dirs['baseurl'] . '/ycbh';
+        $dirs['subdir'] = '/dkcodegame';
+        $dirs['path'] = $dirs['basedir'] . '/dkcodegame';
+        $dirs['url'] = $dirs['baseurl'] . '/dkcodegame';
     
         return $dirs;
     }
@@ -66,14 +66,14 @@ function insertycbh ($request) {
     remove_filter( 'upload_dir', 'wpse_183245_upload_dir' );
     
     // insert vào db
-    $insert = $wpdb->insert( $table_dang_ky_bao_hanh, [
+    $insert = $wpdb->insert( $table_dang_ky_code_game, [
         "phone_number" => $phone_number,
         "email" => $email,
         "fullname"  => $fullname,
         "address"  => $address,
         "company_name"  => $company_name,
-        "has_thebaohanh"  => $has_thebaohanh,
-        "nganh_hang" => $nganh_hang,
+        // "has_thebaohanh"  => $has_thebaohanh,
+        // "nganh_hang" => $nganh_hang,
         "description"   => $description,
         "file_data" => json_encode($rsFiles),
         "status" => 0
@@ -85,11 +85,11 @@ function insertycbh ($request) {
             $message = '<p><strong>' . __("Có khách hàng mới yêu cầu bảo hành", "ycbh") . '</strong></p>
             <p>Họ tên khách hàng: <strong>' . $fullname . '</strong></p>
             <p>Chi tiết tại: <strong><a href="' . admin_url('admin.php?page=danh-sach-bao-gia-san-pham&type=edit&cpp_id='. $wpdb->insert_id) . '">Đây</a></strong></p>';
-            $ycbh_emails = get_option('ycbh_emails') ? get_option('ycbh_emails') : "";
+            $dkcodegame_emails = get_option('dkcodegame_emails') ? get_option('dkcodegame_emails') : "";
             $headers = array('Content-Type: text/html; charset=UTF-8');
-            if( $ycbh_emails ) {
+            if( $dkcodegame_emails ) {
                 
-                $_emails = explode(',', $ycbh_emails);
+                $_emails = explode(',', $dkcodegame_emails);
                 for( $i = 0; $i < count($_emails ); $i++) {
                     $isMailSent = wp_mail( $_emails[$i], __('Thông tin yêu cầu bảo hành', 'ycbh'), $message, $headers );
                 }

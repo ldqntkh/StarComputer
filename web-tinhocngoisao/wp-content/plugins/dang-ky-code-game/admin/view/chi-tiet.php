@@ -3,41 +3,41 @@ if ( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
-  $ycbh_id = isset( $_GET['ycbh_id'] ) ? intval( $_GET['ycbh_id'] ) : -1;
+  $dkcodegame_id = isset( $_GET['dkcodegame_id'] ) ? intval( $_GET['dkcodegame_id'] ) : -1;
   
-  if( $ycbh_id == -1 ) {
-      wp_redirect('/wp-admin/admin.php?page=danh-sach-yeu-cau-bao-hanh');
+  if( $dkcodegame_id == -1 ) {
+      wp_redirect('/wp-admin/admin.php?page=danh-sach-dang-ky-code-game');
   }
 
   global $wpdb, $table_prefix;
-  $table_dang_ky_bao_hanh = $table_prefix . 'dang_ky_bao_hanh';
+  $table_dang_ky_code_game = $table_prefix . 'dang_ky_code_game';
   
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $status = '0';
-    if( isset( $_POST['ycbh_status'] ) ) {
-      if( $_POST['ycbh_status'] == '1' ) {
+    if( isset( $_POST['dkcodegame_status'] ) ) {
+      if( $_POST['dkcodegame_status'] == '1' ) {
         $status = '1';
       } else {
         $status = '2';
       }
     }
     // update vào db
-    $wpdb->update($table_dang_ky_bao_hanh, array( 'status' => $status ), array( "id" => $ycbh_id ));
+    $wpdb->update($table_dang_ky_code_game, array( 'status' => $status ), array( "id" => $dkcodegame_id ));
   }
 
-  $sql = "SELECT * FROM $table_dang_ky_bao_hanh
-            WHERE id = '$ycbh_id'";
+  $sql = "SELECT * FROM $table_dang_ky_code_game
+            WHERE id = '$dkcodegame_id'";
   
   $result = $wpdb->get_results($sql);
 
   if( !$result || count( $result ) == 0 ) {
-    wp_redirect('/wp-admin/admin.php?page=danh-sach-yeu-cau-bao-hanh');
+    wp_redirect('/wp-admin/admin.php?page=danh-sach-dang-ky-code-game');
   }
   $result = $result[0];
   
 ?>
-<h2><a href="<?php echo admin_url('admin.php?page=danh-sach-yeu-cau-bao-hanh') ?>"><?php _e( 'Danh sách yêu cầu bảo hành', "ycbh" ) ?></a></h2>
-<h3><?php _e('Chi tiết yêu cầu bảo hành sản phẩm', "ycbh") ?></h3>
+<h2><a href="<?php echo admin_url('admin.php?page=danh-sach-dang-ky-code-game') ?>"><?php _e( 'Danh sách đăng ký code game', "ycbh" ) ?></a></h2>
+<h3><?php _e('Chi tiết đăng ký code game', "ycbh") ?></h3>
 <div class="lst-product-container">
     <div class="container" id="list-barcode">
         <p><?php _e("Họ tên khách hàng:", "ycbh") ?> <strong><?php echo $result->fullname ?></strong></p>
@@ -45,7 +45,6 @@ if ( ! defined( 'ABSPATH' ) ) {
         <p><?php _e("Email:", "ycbh") ?> <strong><?php echo $result->email ?></strong></p>
         <p><?php _e("Địa chỉ:", "ycbh") ?> <strong><?php echo $result->address ?></strong></p>
         <p><?php _e("Công ty:", "ycbh") ?> <strong><?php echo $result->company_name ?></strong></p>
-        <p><?php _e("Loại sản phẩm:", "ycbh") ?> <strong><?php echo $result->nganh_hang ?></strong></p>
         <p><?php _e("Thông tin mô tả:", "ycbh") ?> 
           <strong>
             <?php 
@@ -61,14 +60,14 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php if( $result->status != "2" ) : ?>
               <p> 
                 <?php _e("Hoàn tất?", "ycbh") ?>
-                <input type="checkbox" value="finish" name="ycbh_status"  <?php if( $result->status == "1" ) echo 'checked' ?> />
+                <input type="checkbox" value="finish" name="dkcodegame_status"  <?php if( $result->status == "1" ) echo 'checked' ?> />
               </p>
             <?php endif; ?>
            
             <?php if( $result->status != "1" ) : ?>
               <p> 
                 <?php _e("Hủy bỏ?", "ycbh") ?>
-                <input type="checkbox" value="cancel" name="ycbh_status"  <?php if( $result->status == "2" ) echo 'checked' ?> />
+                <input type="checkbox" value="cancel" name="dkcodegame_status"  <?php if( $result->status == "2" ) echo 'checked' ?> />
               </p>
             <?php endif; ?>
             <p>

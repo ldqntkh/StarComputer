@@ -5,15 +5,15 @@
     
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if( isset( $_POST['emails'] ) ) {
-            if ( get_option('ycbh_emails') ) {
-                update_option( 'ycbh_emails', $_POST['emails'] );
+            if ( get_option('dkcodegame_emails') ) {
+                update_option( 'dkcodegame_emails', $_POST['emails'] );
             } else {
-                add_option( 'ycbh_emails', $_POST['emails'] );
+                add_option( 'dkcodegame_emails', $_POST['emails'] );
             }
         }
     }
 
-    $ycbh_emails = get_option('ycbh_emails') ? get_option('ycbh_emails') : "";
+    $dkcodegame_emails = get_option('dkcodegame_emails') ? get_option('dkcodegame_emails') : "";
 ?>
     <h3><?php _e('Cấu hình thông báo', "ycbh") ?></h3>
     <div class="lst-product-container">
@@ -24,7 +24,7 @@
                     <br/>
                     <i><?php _e("Các email ngăn cách bằng dấu phẩy", "ycbh") ?></i>
                     <br/>
-                    <input style="width: 500px" type="text" name="emails" value="<?php echo $ycbh_emails ?>"/>
+                    <input style="width: 500px" type="text" name="emails" value="<?php echo $dkcodegame_emails ?>"/>
                 </div>
                 <p>
                     <button class="button"><?php _e("Cập nhật", "ycbh") ?></button>

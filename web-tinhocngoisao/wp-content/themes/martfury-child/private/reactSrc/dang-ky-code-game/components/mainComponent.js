@@ -3,7 +3,7 @@ import React from 'react';
 const api_url = '/wp-admin/admin-ajax.php';
 import Axios from 'axios';
 
-class YeuCauBaoHanhComponent extends React.Component {
+class DangKyCodeGameComponent extends React.Component {
 
     constructor(props) {
         super(props);
@@ -103,12 +103,12 @@ class YeuCauBaoHanhComponent extends React.Component {
                 fetching: true
             });
             const formData = new FormData();
-            formData.append('action', 'insertycbh');
+            formData.append('action', 'dangkycodegame');
             formData.append('fullname', data.fullname);
             formData.append('phone', data.phone);
             formData.append('email', data.email);
             formData.append('description', data.noidung);
-            formData.append('address', `${data.address}, ${data.thanhpho}, ${data.quan}`);
+            formData.append('address', `${data.address}`);
             formData.append('company', data.company);
             formData.append('product_type', data.product_type);
             // formData.append('has_thebaohanh', data.has_thebaohanh);
@@ -156,8 +156,8 @@ class YeuCauBaoHanhComponent extends React.Component {
         return (
             <div className="form-container">
                 <div className="header">
-                    <h3>YÊU CẦU DỊCH VỤ KỸ THUẬT, BẢO HÀNH</h3>
-                    <p>Nếu quý khách có yêu cầu bảo hành tận nơi hoặc bất cứ dịch vụ kỹ thuật nào, quý khách vui lòng gửi yêu cầu tới chúng tôi.<br/>Sau khi nhận được yêu cầu, nhân viên sẽ liên hệ ngay với khách hàng để phục vụ.</p>
+                    <h3>THAM GIA CHƯƠNG TRÌNH ĐỔI CODE GAME</h3>
+                    <p>Sau khi nhận được yêu cầu và xem xét hoá đơn mua hàng, nếu hợp lệ theo điều khoản của chương trình chúng tôi sẽ gửi Code vào email bạn đăng ký bên dưới.</p>
                 </div>
                 <div className="form-content">
                     <div className="form-group">
@@ -172,7 +172,7 @@ class YeuCauBaoHanhComponent extends React.Component {
                         <label htmlFor="phone">Số điện thoại<span style={{color: 'red'}}>*</span></label>
                         <input name="phone" value={data.phone} onChange={this._handleChangeInput}/>
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label htmlFor="thanhpho">Thành phố<span style={{color: 'red'}}>*</span></label>
                         <select name="thanhpho" onChange={(event)=> null}>
                             <option value={"Tp Hồ Chí Minh"} key={"Tp Hồ Chí Minh"}>{"Tp Hồ Chí Minh"}</option>
@@ -187,7 +187,7 @@ class YeuCauBaoHanhComponent extends React.Component {
                             })
                         }
                         </select>
-                    </div>
+                    </div> */}
                     <div className="form-group">
                         <label htmlFor="address">Địa chỉ<span style={{color: 'red'}}>*</span></label>
                         <input name="address" value={data.address} onChange={this._handleChangeInput}/>
@@ -196,7 +196,7 @@ class YeuCauBaoHanhComponent extends React.Component {
                         <label htmlFor="company">Công ty</label>
                         <input name="company" value={data.company} onChange={this._handleChangeInput}/>
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label htmlFor="product_type">Chọn loại sản phẩm cần hỗ trợ</label>
                         <select name="product_type" onChange={(event)=> this.setState({ product_type: event.target.value })}>
                         {
@@ -205,9 +205,9 @@ class YeuCauBaoHanhComponent extends React.Component {
                             })
                         }
                         </select>
-                    </div>
+                    </div> */}
                     <div className="form-group">
-                        <label htmlFor="file">Ảnh chụp sản phẩm lỗi (chấp nhận file word hoặc excel)</label>
+                        <label htmlFor="file">Ảnh chụp hóa đơn mua hàng (chấp nhận file word hoặc excel)</label>
                         <input type="file" 
                             onChange={this._handleChangeFile}
                             accept="image/jpeg,image/png,application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
@@ -240,4 +240,4 @@ class YeuCauBaoHanhComponent extends React.Component {
     }
 }
 
-export default YeuCauBaoHanhComponent;
+export default DangKyCodeGameComponent;

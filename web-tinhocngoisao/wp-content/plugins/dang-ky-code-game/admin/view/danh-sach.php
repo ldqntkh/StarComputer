@@ -10,13 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 //   $to_date = isset( $_GET['to_date'] ) ? $_GET['to_date'] : '';
 
   global $wpdb, $table_prefix;
-  $table_dang_ky_bao_hanh = $table_prefix . 'dang_ky_bao_hanh';
+  $table_dang_ky_code_game = $table_prefix . 'dang_ky_code_game';
 
   $ofset = $page_i > 1 ? ($page_i - 1) * 30 : 0;
 
-  $sql = "SELECT * FROM $table_dang_ky_bao_hanh
+  $sql = "SELECT * FROM $table_dang_ky_code_game
             WHERE (fullname LIKE '%$search%' OR phone_number LIKE '%$search%' OR email LIKE '%$search%') ";
-  $sql_count = "SELECT count(*) as `total` FROM $table_dang_ky_bao_hanh
+  $sql_count = "SELECT count(*) as `total` FROM $table_dang_ky_code_game
             WHERE (fullname LIKE '%$search%' OR phone_number LIKE '%$search%' OR email LIKE '%$search%') ";
   if( $status == '1' ) {
     $sql .= " AND `status` = 1";
@@ -43,14 +43,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <h1><?php _e('Quản lý yêu cầu bảo hành', "ycbh") ?></h1>
 <div class="lst-product-container">
   <div class="container">
-      <p><?php _e( 'Danh sách các yêu cầu bảo hành.', "ycbh" ) ?></p>
+      <p><?php _e( 'Danh sách đăng ký code game.', "ycbh" ) ?></p>
   </div>
   <div class="container" id="list-barcode">
         <p>
-            <a class="promotion-search <?php $status == 'all' ? "active" : '' ?>" href="<?php echo admin_url('admin.php?page=danh-sach-yeu-cau-bao-hanh&status=all') ?>" data-search="<?php echo 'all' ?>"><?php _e("Tất cả", "ycbh") ?></a> |
-            <a class="promotion-search <?php $status == '1' ? "active" : '' ?>" href="<?php echo admin_url('admin.php?page=danh-sach-yeu-cau-bao-hanh&status=1') ?>" data-search="<?php echo '1' ?>"><?php _e("Hoàn tất", "ycbh") ?></a> |
-            <a class="promotion-search <?php $status == '0' ? "active" : '' ?>" href="<?php echo admin_url('admin.php?page=danh-sach-yeu-cau-bao-hanh&status=0') ?>" data-search="<?php echo '0' ?>"><?php _e("Đang xử lý", "ycbh") ?></a> |
-            <a class="promotion-search <?php $status == '2' ? "active" : '' ?>" href="<?php echo admin_url('admin.php?page=danh-sach-yeu-cau-bao-hanh&status=2') ?>" data-search="<?php echo '0' ?>"><?php _e("Hủy bỏ", "ycbh") ?></a> 
+            <a class="promotion-search <?php $status == 'all' ? "active" : '' ?>" href="<?php echo admin_url('admin.php?page=danh-sach-dang-ky-code-game&status=all') ?>" data-search="<?php echo 'all' ?>"><?php _e("Tất cả", "ycbh") ?></a> |
+            <a class="promotion-search <?php $status == '1' ? "active" : '' ?>" href="<?php echo admin_url('admin.php?page=danh-sach-dang-ky-code-game&status=1') ?>" data-search="<?php echo '1' ?>"><?php _e("Hoàn tất", "ycbh") ?></a> |
+            <a class="promotion-search <?php $status == '0' ? "active" : '' ?>" href="<?php echo admin_url('admin.php?page=danh-sach-dang-ky-code-game&status=0') ?>" data-search="<?php echo '0' ?>"><?php _e("Đang xử lý", "ycbh") ?></a> |
+            <a class="promotion-search <?php $status == '2' ? "active" : '' ?>" href="<?php echo admin_url('admin.php?page=danh-sach-dang-ky-code-game&status=2') ?>" data-search="<?php echo '0' ?>"><?php _e("Hủy bỏ", "ycbh") ?></a> 
         </p>
         <p>
           <strong>Trang: </strong>
@@ -59,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
               $total_page = $total / 30;
               if( $total % 30 > 0 ) $total_page ++;
               for( $p = 1; $p <= $total_page; $p++ ) { ?> 
-                <a class="promotion-page <?php $page_i == $p ? "active" : '' ?>" href="<?php echo admin_url('admin.php?page=danh-sach-yeu-cau-bao-hanh&status='.$status.'&page_i='.$p) ?>" ><?php echo $p; ?></a>
+                <a class="promotion-page <?php $page_i == $p ? "active" : '' ?>" href="<?php echo admin_url('admin.php?page=danh-sach-dang-ky-code-game&status='.$status.'&page_i='.$p) ?>" ><?php echo $p; ?></a>
               <?php }
             }
           ?>
@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     ?>
                       <tr>
                         <td scope="col" class="manage-column column-thumb">
-                          <a href="<?php echo admin_url('admin.php?page=danh-sach-yeu-cau-bao-hanh&type=view&ycbh_id='.$result[$i]->id ) ?>">
+                          <a href="<?php echo admin_url('admin.php?page=danh-sach-dang-ky-code-game&type=view&dkcodegame_id='.$result[$i]->id ) ?>">
                             <?php echo $result[$i]->id ?></td>
                           </a>
                         <td scope="col" class="manage-column column-thumb"><?php echo $result[$i]->fullname ?></td>
