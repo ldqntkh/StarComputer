@@ -5,6 +5,7 @@ import ListCategoryMobile from './listCatagoryMobile/App';
 import TableProductSale from './tableProductSale/App';
 import InstallmentApp from './installment/App';
 import DangKyCodeGameComponent from './dang-ky-code-game/App';
+import DangKyBaoHanhComponent from './dang-ky-bao-hanh/App';
 
 const elementIds = [
     {
@@ -30,6 +31,10 @@ const elementIds = [
     {
         ids : ["dang-ky-code-game"],
         appName : DangKyCodeGameComponent
+    },
+    {
+        ids : ["dang-ky-bao-hanh"],
+        appName : DangKyBaoHanhComponent
     }
 ];
 

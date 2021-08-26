@@ -207,10 +207,10 @@ class DangKyCodeGameComponent extends React.Component {
                         </select>
                     </div> */}
                     <div className="form-group">
-                        <label htmlFor="file">Ảnh chụp hóa đơn mua hàng (chấp nhận file word hoặc excel)</label>
+                        <label htmlFor="file">Ảnh chụp hóa đơn mua hàng</label>
                         <input type="file" 
                             onChange={this._handleChangeFile}
-                            accept="image/jpeg,image/png,application/pdf, .doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
+                            accept="image/jpeg,image/png" 
                             name="file" />
                     </div>
 

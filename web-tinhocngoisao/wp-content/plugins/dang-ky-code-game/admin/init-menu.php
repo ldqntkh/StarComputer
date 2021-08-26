@@ -1,8 +1,8 @@
 <?php
-add_action( 'admin_menu', 'cpp_service_menu', 100 );
-function cpp_service_menu() {
+add_action( 'admin_menu', 'dkcodegame_service_menu', 100 );
+function dkcodegame_service_menu() {
     add_menu_page( 'Danh sách ĐK code game' ,'Danh sách ĐK code game', 'quan_ly_code_game', 'danh-sach-dang-ky-code-game', 'danh_sach_dang_ky_code_game');
-    add_submenu_page( 'danh-sach-dang-ky-code-game' ,'Cấu hình thông báo', 'Cấu hình thông báo', 'quan_ly_code_game', 'cau-hinh-thong-bao', 'cau_hinh_thong_bao');
+    add_submenu_page( 'danh-sach-dang-ky-code-game' ,'Cấu hình thông báo', 'Cấu hình thông báo', 'quan_ly_code_game', 'cau-hinh-thong-bao', 'cau_hinh_thong_bao_codegame');
 }
 
 function danh_sach_dang_ky_code_game() {
@@ -13,6 +13,6 @@ function danh_sach_dang_ky_code_game() {
     }
 }
 
-function cau_hinh_thong_bao() {
+function cau_hinh_thong_bao_codegame() {
     include_once DKCODEGAME_PLUGIN_DIR . '/admin/view/cau-hinh-thong-bao.php';
 }

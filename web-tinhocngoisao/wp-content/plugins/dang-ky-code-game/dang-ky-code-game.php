@@ -11,8 +11,8 @@ define( 'DKCODEGAME_PLUGIN_DIR', untrailingslashit( dirname( DKCODEGAME_PLUGIN )
 define( 'DKCODEGAME_PLUGIN_FULL_PATH', __FILE__ );
 
 
-register_activation_hook( DKCODEGAME_PLUGIN_FULL_PATH, 'create_service_database_table' );
-function create_service_database_table() {
+register_activation_hook( DKCODEGAME_PLUGIN_FULL_PATH, 'create_service_codegame_database_table' );
+function create_service_codegame_database_table() {
     global $table_prefix, $wpdb, $wnm_db_version;
     $table_dang_ky_code_game = $table_prefix . 'dang_ky_code_game';
     $charset_collate = $wpdb->get_charset_collate();

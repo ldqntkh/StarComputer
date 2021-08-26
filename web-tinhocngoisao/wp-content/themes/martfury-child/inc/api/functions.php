@@ -58,4 +58,19 @@ add_action( 'rest_api_init', function () {
         'methods' => 'POST',
         'callback' => 'insert_product_info',
     ) );
+
+    register_rest_route( 'rest_api/v1', '/get-error-hts', array(
+        'methods' => 'GET',
+        'callback' => 'get_list_error_code_hts',
+    ) );
+
+    register_rest_route( 'rest_api/v1', '/get-info-by-imei-hts', array(
+        'methods' => 'POST',
+        'callback' => 'get_info_by_imei_hts',
+    ) );
+
+    register_rest_route( 'rest_api/v1', '/add-bao-hanh-hts', array(
+        'methods' => 'POST',
+        'callback' => 'submit_bao_hanh_hts',
+    ) );
 } );
